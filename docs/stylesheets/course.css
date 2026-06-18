@@ -1,0 +1,53 @@
+:root {
+  --phys39-red: #8b1e3f;
+  --phys39-ink: #20242a;
+  --phys39-blue: #176b87;
+  --phys39-paper: #ffffff;
+  --phys39-line: #d8dde3;
+}
+
+body {
+  color: var(--phys39-ink);
+  background: var(--phys39-paper);
+}
+
+.navbar-default {
+  background: var(--phys39-ink);
+  border: 0;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover {
+  color: #ffffff;
+  background: var(--phys39-red);
+}
+
+h1,
+h2 {
+  color: var(--phys39-red);
+}
+
+h3,
+a {
+  color: var(--phys39-blue);
+}
+
+table {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code {
+  color: #5c1730;
+  background: #f3f4f6;
+}
+

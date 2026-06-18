@@ -1,0 +1,36 @@
+site_name: Phys 39 | Instrumentation and Thermal Physics
+site_description: Student course site for Brandeis Physics 39, Fall 2026
+site_author: Seth Fraden
+docs_dir: course
+site_dir: docs
+use_directory_urls: true
+
+theme:
+  name: mkdocs
+  locale: en
+  navigation_depth: 3
+  highlightjs: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Course Schedule: schedule.md
+  - Labs:
+      - Lab 1: labs/lab-01.md
+      - Labs 2-4: labs/upcoming.md
+  - Arduino:
+      - Arduino Overview: arduino/index.md
+      - Uno Pinout: arduino/pinout.md
+  - Safety: safety.md
+  - Course Repository: repository.md
+  - Legacy Resources: legacy.md
+
+extra_css:
+  - stylesheets/course.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true

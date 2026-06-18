@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 1 - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../schedule/" class="nav-link">Course Schedule</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="../upcoming/" class="dropdown-item">Labs 2-4</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../schedule/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../upcoming/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#lab-1-assignment-first-contact-with-the-instrument" class="nav-link">Lab 1 Assignment: First Contact With The Instrument</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#introductory-material" class="nav-link">Introductory Material</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#vocabulary" class="nav-link">Vocabulary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#safety-boundary-for-lab-1" class="nav-link">Safety Boundary For Lab 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pre-class-assignment" class="nav-link">Pre-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#before-class" class="nav-link">Before Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#bring-to-class" class="nav-link">Bring To Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#in-class-assignment" class="nav-link">In-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#what-you-will-do" class="nav-link">What You Will Do</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#programming-task" class="nav-link">Programming Task</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-1-assignment-first-contact-with-the-instrument">Lab 1 Assignment: First Contact With The Instrument<a class="headerlink" href="#lab-1-assignment-first-contact-with-the-instrument" title="Permanent link">&para;</a></h1>
+<h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
+<h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
+<p>In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software.</p>
+<p>Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.</p>
+<h3 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Arduino Uno</strong>: the microcontroller board that reads voltages and sends control signals.</li>
+<li><strong>Serial Monitor</strong>: the Arduino IDE window that shows text sent from the Arduino to the laptop.</li>
+<li><strong>Digital output</strong>: a pin that the Arduino can set near 0 V or 5 V.</li>
+<li><strong>Oscilloscope</strong>: an instrument that displays voltage versus time.</li>
+<li><strong>Thermistor</strong>: a resistor whose resistance changes with temperature.</li>
+<li><strong>TEC/Peltier element</strong>: a bidirectional thermal actuator. It can heat one side and cool the other depending on current direction.</li>
+<li><strong>H-bridge</strong>: a power driver that lets a low-power Arduino command current direction through a load.</li>
+<li><strong>PWM</strong>: pulse-width modulation, a way to control average power using fast on/off switching.</li>
+</ul>
+<h3 id="safety-boundary-for-lab-1">Safety Boundary For Lab 1<a class="headerlink" href="#safety-boundary-for-lab-1" title="Permanent link">&para;</a></h3>
+<p>In Lab 1, the Arduino is powered by USB. The TEC power supply stays off.</p>
+<p>You may inspect the TEC, H-bridge, heat exchanger, thermistor, and safety cutoff, but you will not power the TEC during the first lab. This is deliberate. The course begins by verifying the measurement and communication chain before applying actuator power.</p>
+<h2 id="pre-class-assignment">Pre-Class Assignment<a class="headerlink" href="#pre-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
+<p>Complete these steps before the first meeting.</p>
+<ol>
+<li>Install the Arduino IDE on the laptop you plan to use in lab, if possible.</li>
+<li>Bring a USB cable or adapter that can connect your laptop to an Arduino Uno.</li>
+<li>Read this assignment and write down any question that feels basic or confusing.</li>
+<li>Skim the vocabulary list below.</li>
+</ol>
+<p>If you cannot install software before class, come anyway. We will handle setup in lab.</p>
+<h3 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h3>
+<p>Write short answers before class. These are not meant to be polished.</p>
+<ol>
+<li>What is the difference between a sensor and an actuator?</li>
+<li>Why should the TEC power supply remain off while we are only testing Arduino upload and serial communication?</li>
+<li>What do you expect an Arduino digital output to look like on an oscilloscope?</li>
+<li>If software says "toggle every 500 ms," what period and frequency would you expect to measure?</li>
+</ol>
+<h3 id="bring-to-class">Bring To Class<a class="headerlink" href="#bring-to-class" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Laptop, if you have one.</li>
+<li>Arduino-compatible USB cable or adapter, if you have one.</li>
+<li>Lab notebook or note-taking device.</li>
+<li>Questions.</li>
+</ul>
+<h2 id="in-class-assignment">In-Class Assignment<a class="headerlink" href="#in-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h3>
+<p>You will:</p>
+<ul>
+<li>Identify the instrument's sensor, actuator, controller, power stage, thermal load, and safety cutoff.</li>
+<li>Write and upload a small Arduino sketch.</li>
+<li>Open Serial Monitor and read heartbeat messages from the Arduino.</li>
+<li>Probe an Arduino digital output with an oscilloscope.</li>
+<li>Measure voltage levels and timing.</li>
+<li>Compare the measured signal to the code that generated it.</li>
+</ul>
+<h3 id="programming-task">Programming Task<a class="headerlink" href="#programming-task" title="Permanent link">&para;</a></h3>
+<p>In class, you will write an Arduino sketch that:</p>
+<ul>
+<li>sets one digital output pin as an output,</li>
+<li>turns that pin HIGH and LOW repeatedly,</li>
+<li>also drives the built-in LED,</li>
+<li>prints a heartbeat message to Serial Monitor at <code>9600</code> baud,</li>
+<li>lets you predict the period and frequency of the signal before measuring it.</li>
+</ul>
+<p>You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab.</p>
+<h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
+<p>Submit a short lab note containing:</p>
+<ul>
+<li>A labeled photo or sketch of the apparatus.</li>
+<li>The Arduino board and serial port you used.</li>
+<li>The Arduino sketch you wrote.</li>
+<li>Three lines copied from Serial Monitor.</li>
+<li>An oscilloscope screenshot or hand sketch of the waveform.</li>
+<li>A small table with <code>V_low</code>, <code>V_high</code>, period, and frequency.</li>
+<li>A paragraph answering: What did the oscilloscope show that the Serial Monitor did not?</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

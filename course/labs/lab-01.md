@@ -16,7 +16,7 @@ Before class, your job is to arrive ready to connect to an Arduino, upload a sim
 - **Oscilloscope**: an instrument that displays voltage versus time.
 - **Thermistor**: a resistor whose resistance changes with temperature.
 - **TEC/Peltier element**: a bidirectional thermal actuator. It can heat one side and cool the other depending on current direction.
-- **H-bridge**: a power driver that lets a low-power Arduino command current direction through a load.
+- **H-bridge**: an electronic circuit that lets the low-power Arduino control the amount and direction of current from a high-power supply through a load.
 - **PWM**: pulse-width modulation, a way to control average power using fast on/off switching.
 
 ### Safety Boundary For Lab 1
@@ -50,7 +50,6 @@ Write short answers before class. These are not meant to be polished.
 ### Bring To Class
 
 - Laptop, if you have one.
-- Arduino-compatible USB cable or adapter, if you have one.
 - Lab notebook or note-taking device.
 - Questions.
 
@@ -61,7 +60,7 @@ Write short answers before class. These are not meant to be polished.
 You will:
 
 - Identify the instrument's sensor, actuator, controller, power stage, thermal load, and safety cutoff.
-- Write and upload a small Arduino sketch.
+- Upload Arduino sketches from the Arduino IDE.
 - Open Serial Monitor and read heartbeat messages from the Arduino.
 - Probe an Arduino digital output with an oscilloscope.
 - Measure voltage levels and timing.
@@ -69,7 +68,16 @@ You will:
 
 ### Programming Task
 
-In class, you will write an Arduino sketch that:
+In class, 
+
+- Launch Arduino IDE
+- From the examples section, run Blink.ino
+
+<img src="figures/ArduinoExample.png" alt="Arduino examples" width="400">
+
+- Change the duty cycle from the default 1:1 to 10:1 and to 1:10. Did it work?
+- Now run another example, AnalogReadSerial.ino
+- Wire up the trim-pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim plot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim-pot? What range of numbers does the Arduino analog read report back to you as you vary voltage? 
 
 - sets one digital output pin as an output,
 - turns that pin HIGH and LOW repeatedly,

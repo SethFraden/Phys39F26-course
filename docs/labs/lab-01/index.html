@@ -189,7 +189,7 @@
 <li><strong>Oscilloscope</strong>: an instrument that displays voltage versus time.</li>
 <li><strong>Thermistor</strong>: a resistor whose resistance changes with temperature.</li>
 <li><strong>TEC/Peltier element</strong>: a bidirectional thermal actuator. It can heat one side and cool the other depending on current direction.</li>
-<li><strong>H-bridge</strong>: a power driver that lets a low-power Arduino command current direction through a load.</li>
+<li><strong>H-bridge</strong>: an electronic circuit that lets the low-power Arduino control the amount and direction of current from a high-power supply through a load.</li>
 <li><strong>PWM</strong>: pulse-width modulation, a way to control average power using fast on/off switching.</li>
 </ul>
 <h3 id="safety-boundary-for-lab-1">Safety Boundary For Lab 1<a class="headerlink" href="#safety-boundary-for-lab-1" title="Permanent link">&para;</a></h3>
@@ -216,7 +216,6 @@
 <h3 id="bring-to-class">Bring To Class<a class="headerlink" href="#bring-to-class" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Laptop, if you have one.</li>
-<li>Arduino-compatible USB cable or adapter, if you have one.</li>
 <li>Lab notebook or note-taking device.</li>
 <li>Questions.</li>
 </ul>
@@ -225,16 +224,28 @@
 <p>You will:</p>
 <ul>
 <li>Identify the instrument's sensor, actuator, controller, power stage, thermal load, and safety cutoff.</li>
-<li>Write and upload a small Arduino sketch.</li>
+<li>Upload Arduino sketches from the Arduino IDE.</li>
 <li>Open Serial Monitor and read heartbeat messages from the Arduino.</li>
 <li>Probe an Arduino digital output with an oscilloscope.</li>
 <li>Measure voltage levels and timing.</li>
 <li>Compare the measured signal to the code that generated it.</li>
 </ul>
 <h3 id="programming-task">Programming Task<a class="headerlink" href="#programming-task" title="Permanent link">&para;</a></h3>
-<p>In class, you will write an Arduino sketch that:</p>
+<p>In class, </p>
 <ul>
-<li>sets one digital output pin as an output,</li>
+<li>Launch Arduino IDE</li>
+<li>From the examples section, run Blink.ino</li>
+</ul>
+<p><img src="figures/ArduinoExample.png" alt="Arduino examples" width="400"></p>
+<ul>
+<li>Change the duty cycle from the default 1:1 to 10:1 and to 1:10. Did it work?</li>
+<li>Now run another example, AnalogReadSerial.ino</li>
+<li>
+<p>Wire up the trim-pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim plot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim-pot? What range of numbers does the Arduino analog read report back to you as you vary voltage? </p>
+</li>
+<li>
+<p>sets one digital output pin as an output,</p>
+</li>
 <li>turns that pin HIGH and LOW repeatedly,</li>
 <li>also drives the built-in LED,</li>
 <li>prints a heartbeat message to Serial Monitor at <code>9600</code> baud,</li>

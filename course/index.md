@@ -11,6 +11,7 @@ feedback control, and heat-transport experiments.
 
 - [Prepare your computer and course tools](getting-started.md)
 - [Read the Lab 1 assignment](labs/lab-01/index.md)
+- [Review the temperature-control hardware](hardware.md)
 - [Review the Arduino Uno and its pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)
 

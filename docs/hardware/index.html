@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Getting Started - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Hardware - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -39,13 +39,13 @@
                                 <a href=".." class="nav-link">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Getting Started</a>
+                                <a href="../getting-started/" class="nav-link">Getting Started</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../schedule/" class="nav-link">Course Schedule</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../hardware/" class="nav-link">Hardware</a>
+                                <a href="./" class="nav-link active" aria-current="page">Hardware</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
@@ -91,12 +91,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../schedule/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../schedule/" class="nav-link">
+                                <a rel="next" href="../labs/lab-01/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -118,17 +118,37 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#getting-started" class="nav-link">Getting Started</a>
+            <li class="nav-item" data-bs-level="1"><a href="#hardware-for-temperature-control" class="nav-link">Hardware For Temperature Control</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#student-accounts" class="nav-link">Student Accounts</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#before-lab-1" class="nav-link">Before Lab 1</a>
+            <li class="nav-item" data-bs-level="2"><a href="#signal-and-power-path" class="nav-link">Signal And Power Path</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#reading-markdown" class="nav-link">Reading Markdown</a>
+            <li class="nav-item" data-bs-level="2"><a href="#main-components" class="nav-link">Main Components</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#arduino-uno" class="nav-link">Arduino Uno</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#thermistor" class="nav-link">Thermistor</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#h-bridge" class="nav-link">H-Bridge</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#thermoelectric-cooler" class="nav-link">Thermoelectric Cooler</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#oscilloscope" class="nav-link">Oscilloscope</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#class-apparatus" class="nav-link">Class Apparatus</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -139,27 +159,51 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
-<h2 id="student-accounts">Student Accounts<a class="headerlink" href="#student-accounts" title="Permanent link">&para;</a></h2>
-<p>You will use:</p>
+<h1 id="hardware-for-temperature-control">Hardware For Temperature Control<a class="headerlink" href="#hardware-for-temperature-control" title="Permanent link">&para;</a></h1>
+<p>The temperature-control instrument connects a low-power measurement and
+control system to a higher-power thermal actuator.</p>
+<p><img alt="Phys 39 temperature-control system" src="../assets/tec_system_layout.jpg" /></p>
+<h2 id="signal-and-power-path">Signal And Power Path<a class="headerlink" href="#signal-and-power-path" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">thermistor → Arduino analog input → Arduino code → PWM outputs
+    → H-bridge → TEC → heating or cooling
+</code></pre>
+<p>The laptop communicates with the Arduino through USB serial. It can display
+measurements, save data, and eventually send control settings.</p>
+<h2 id="main-components">Main Components<a class="headerlink" href="#main-components" title="Permanent link">&para;</a></h2>
+<h3 id="arduino-uno">Arduino Uno<a class="headerlink" href="#arduino-uno" title="Permanent link">&para;</a></h3>
+<p>The Arduino reads sensor voltages and produces logic-level control signals. Its
+pins cannot directly power the TEC.</p>
 <ul>
-<li>your Brandeis account for official course communication and grades,</li>
-<li>a GitHub account for course repositories,</li>
-<li>VS Code for editing Markdown and Python,</li>
-<li>Arduino IDE for uploading sketches,</li>
-<li>Python for serial communication, plotting, and modeling.</li>
+<li><a href="../arduino/">Arduino overview and examples</a></li>
+<li><a href="../arduino/pinout/">Arduino Uno pinout</a></li>
 </ul>
-<h2 id="before-lab-1">Before Lab 1<a class="headerlink" href="#before-lab-1" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Install the <a href="https://www.arduino.cc/en/software">Arduino IDE</a>.</li>
-<li>Install <a href="https://code.visualstudio.com/">VS Code</a>.</li>
-<li>Confirm that you can sign in to GitHub.</li>
-<li>Bring a USB cable or adapter that connects your computer to an Arduino Uno.</li>
-<li>Read the <a href="../labs/lab-01/">Lab 1 assignment</a>.</li>
-</ol>
-<h2 id="reading-markdown">Reading Markdown<a class="headerlink" href="#reading-markdown" title="Permanent link">&para;</a></h2>
-<p>GitHub renders <code>.md</code> files automatically. In VS Code, open a Markdown file and
-select <strong>Open Preview to the Side</strong>, or press <strong>Command-K</strong>, then <strong>V</strong> on a Mac.</p></div>
+<h3 id="thermistor">Thermistor<a class="headerlink" href="#thermistor" title="Permanent link">&para;</a></h3>
+<p>The class sensor is a <strong>100 kOhm NTC thermistor</strong>. It is used in a voltage
+divider with a 100 kOhm precision fixed resistor. Arduino measures the divider
+voltage and software converts voltage to resistance and temperature.</p>
+<p><a href="https://en.wikipedia.org/wiki/Thermistor">Thermistor background and beta equation</a></p>
+<h3 id="h-bridge">H-Bridge<a class="headerlink" href="#h-bridge" title="Permanent link">&para;</a></h3>
+<p>An H-bridge is an electronic circuit that lets the low-power Arduino control
+the amount and direction of current from a high-power supply through the TEC.</p>
+<p>The class board uses two Arduino PWM signals for opposite current directions.
+The H-bridge enable inputs are held high.</p>
+<h3 id="thermoelectric-cooler">Thermoelectric Cooler<a class="headerlink" href="#thermoelectric-cooler" title="Permanent link">&para;</a></h3>
+<p>The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
+reverses which face heats and which face cools. The hot side must be coupled to
+an appropriate heat exchanger.</p>
+<p><a href="https://en.wikipedia.org/wiki/Thermoelectric_effect">Thermoelectric-effect background</a></p>
+<h3 id="oscilloscope">Oscilloscope<a class="headerlink" href="#oscilloscope" title="Permanent link">&para;</a></h3>
+<p>The oscilloscope provides physical ground truth for voltage and timing. Before
+applying TEC power, use it to verify Arduino output levels, PWM duty cycle, and
+which H-bridge input is active.</p>
+<h2 id="class-apparatus">Class Apparatus<a class="headerlink" href="#class-apparatus" title="Permanent link">&para;</a></h2>
+<p><img alt="Labeled Phys 39 apparatus, view A" src="../assets/tec_apparatus_a.jpg" /></p>
+<p><img alt="Labeled Phys 39 apparatus, view B" src="../assets/tec_apparatus_b.jpg" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The Arduino and USB cable do not supply TEC power. Do not energize the
+H-bridge or TEC until the assignment and instructor explicitly call for it.</p>
+</div></div>
             </div>
         </div>
 

@@ -44,6 +44,9 @@
                             <li class="nav-item">
                                 <a href="../../schedule/" class="nav-link">Course Schedule</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
                                 <ul class="dropdown-menu">
@@ -88,7 +91,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../schedule/" class="nav-link">
+                                <a rel="prev" href="../../hardware/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -231,6 +234,16 @@
 <li>Compare the measured signal to the code that generated it.</li>
 </ul>
 <h3 id="programming-task">Programming Task<a class="headerlink" href="#programming-task" title="Permanent link">&para;</a></h3>
+<p>Read the<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>. Introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">arduino tutorial</a>. </p>
+<ol>
+  <li>Write a sketch to measure the temperature. First, read the voltage across the thermistor.  Compare the results with and without averaging the voltage over 100 measurements. Can you see the effect of averaging? Can you determine the digitization error? ChatGPT does an amazing job at writing this type of code. Use it.&nbsp;&nbsp;</li>
+  <li>Next convert the averaged voltage to temperature using the <a href="https://en.wikipedia.org/wiki/Thermistor">thermistor</a><a> equation</a>.</li>
+  <li>Set up a  potentiometer that adjusts voltage between 0-5V.  Measure the output on an oscilloscope. Hook up the voltage to an LED and dim and brighten the light.</li>
+  <li>Set up a  potentiometer that adjusts voltage between 0-5V. Convert the analog voltage to a digital signal. Use the digital signal to set the PWM levels so that 5V corresponds to 100% duty cycle and 0V to 0% duty cycle. Measure the PWM output on an oscilloscope. Use the PWM to control the intensity of the LED.</li>
+  <li>Configure two of the PWM Arduino outputs to control the H-bridge. Use the computer to set the PWM. Measure the PWM output on an oscilloscope.&nbsp;</li>
+  <li>Control the temperature of the TEC by wiring up the H-bridge. Use the arduino Serial Plot to monitor the temperature.</li>
+</ol>
+
 <p>In class, </p>
 <ul>
 <li>Launch Arduino IDE</li>

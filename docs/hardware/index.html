@@ -120,13 +120,17 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#hardware-for-temperature-control" class="nav-link">Hardware For Temperature Control</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#interactive-instrument-map" class="nav-link">Interactive Instrument Map</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#signal-and-power-path" class="nav-link">Signal And Power Path</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#main-components" class="nav-link">Main Components</a>
+            <li class="nav-item" data-bs-level="2"><a href="#component-reference" class="nav-link">Component Reference</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#arduino-uno" class="nav-link">Arduino Uno</a>
+            <li class="nav-item" data-bs-level="3"><a href="#thermal-safety-switch" class="nav-link">Thermal Safety Switch</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -134,21 +138,33 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#h-bridge" class="nav-link">H-Bridge</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-bs-level="3"><a href="#thermoelectric-cooler" class="nav-link">Thermoelectric Cooler</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#oscilloscope" class="nav-link">Oscilloscope</a>
+            <li class="nav-item" data-bs-level="3"><a href="#heat-exchanger" class="nav-link">Heat Exchanger</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#arduino-uno" class="nav-link">Arduino Uno</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#h-bridge" class="nav-link">H-Bridge</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#laptop-software" class="nav-link">Laptop Software</a>
               <ul class="nav flex-column">
               </ul>
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#class-apparatus" class="nav-link">Class Apparatus</a>
+            <li class="nav-item" data-bs-level="2"><a href="#class-apparatus-photographs" class="nav-link">Class Apparatus Photographs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#additional-reference" class="nav-link">Additional Reference</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -160,45 +176,161 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="hardware-for-temperature-control">Hardware For Temperature Control<a class="headerlink" href="#hardware-for-temperature-control" title="Permanent link">&para;</a></h1>
-<p>The temperature-control instrument connects a low-power measurement and
-control system to a higher-power thermal actuator.</p>
-<p><img alt="Phys 39 temperature-control system" src="../assets/tec_system_layout.jpg" /></p>
+<p>The temperature-control instrument connects low-power measurement and control
+electronics to a higher-power thermal actuator.</p>
+<h2 id="interactive-instrument-map">Interactive Instrument Map<a class="headerlink" href="#interactive-instrument-map" title="Permanent link">&para;</a></h2>
+<p>Select a labeled component in the diagram to jump to its description and
+reference material below.</p>
+<div class="apparatus-scroll">
+  <div class="apparatus-map">
+    <img src="../assets/tec_system_layout.jpg" alt="Block diagram of the Phys 39 temperature-control instrument">
+    <a class="apparatus-hotspot hotspot-switch" href="#thermal-safety-switch">Thermal switch</a>
+    <a class="apparatus-hotspot hotspot-thermistor" href="#thermistor">Thermistor</a>
+    <a class="apparatus-hotspot hotspot-tec" href="#thermoelectric-cooler">TEC</a>
+    <a class="apparatus-hotspot hotspot-exchanger" href="#heat-exchanger">Heat exchanger</a>
+    <a class="apparatus-hotspot hotspot-arduino" href="#arduino-uno">Arduino</a>
+    <a class="apparatus-hotspot hotspot-hbridge" href="#h-bridge">H-bridge</a>
+    <a class="apparatus-hotspot hotspot-laptop" href="#laptop-software">Laptop</a>
+  </div>
+</div>
+
 <h2 id="signal-and-power-path">Signal And Power Path<a class="headerlink" href="#signal-and-power-path" title="Permanent link">&para;</a></h2>
 <pre><code class="language-text">thermistor → Arduino analog input → Arduino code → PWM outputs
     → H-bridge → TEC → heating or cooling
 </code></pre>
-<p>The laptop communicates with the Arduino through USB serial. It can display
-measurements, save data, and eventually send control settings.</p>
-<h2 id="main-components">Main Components<a class="headerlink" href="#main-components" title="Permanent link">&para;</a></h2>
+<p>The laptop communicates with the Arduino through USB serial. It displays
+measurements, saves data, and eventually sends control settings. The bench
+power supply provides the TEC current; the Arduino supplies only logic-level
+control signals.</p>
+<h2 id="component-reference">Component Reference<a class="headerlink" href="#component-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function in the instrument</th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thermal safety switch</td>
+<td>Opens the power circuit near 70 °C if software control fails.</td>
+<td><a href="../references/thermal-switch-cantherm.pdf">Cantherm R23 data sheet</a></td>
+</tr>
+<tr>
+<td>100 kOhm NTC thermistor</td>
+<td>Senses TEC/block temperature through a voltage divider connected to an Arduino analog input.</td>
+<td><a href="https://www.digikey.com/en/products?keywords=B57861S0104F040V24">Exact class part search</a> · <a href="https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation">Thermistor beta equation</a></td>
+</tr>
+<tr>
+<td>100 kOhm precision resistor</td>
+<td>Forms the thermistor voltage divider and sets the useful measurement range near room temperature.</td>
+<td>Use the approved course part</td>
+</tr>
+<tr>
+<td>TEC/Peltier element</td>
+<td>Moves heat when current flows; reversing current reverses heat/cool direction.</td>
+<td><a href="../references/laird-tec-cp14-127-045.pdf">Laird CP14-127-045 data sheet</a></td>
+</tr>
+<tr>
+<td>Heat exchanger</td>
+<td>Removes waste heat from the TEC hot side and rejects it to the room.</td>
+<td><a href="../references/koolance-exos-lt-v2.pdf">Koolance EXOS LT V2 manual</a></td>
+</tr>
+<tr>
+<td>Arduino Uno</td>
+<td>Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals.</td>
+<td><a href="../arduino/">Uno overview</a> · <a href="../arduino/pinout/">Uno pinout</a> · <a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Uno Rev3</a></td>
+</tr>
+<tr>
+<td>BTS7960 H-bridge</td>
+<td>Uses Arduino PWM inputs to drive TEC current in either direction from the external supply.</td>
+<td><a href="../references/bts7960-h-bridge.pdf">BTS7960 driver reference</a></td>
+</tr>
+<tr>
+<td>Bench power supply</td>
+<td>Supplies current-limited actuator power to the H-bridge and TEC.</td>
+<td>Use the assigned laboratory supply</td>
+</tr>
+<tr>
+<td>Oscilloscope</td>
+<td>Verifies voltage levels, timing, PWM duty cycle, direction signals, and grounding.</td>
+<td>Use the assigned laboratory oscilloscope</td>
+</tr>
+<tr>
+<td>Laptop and Python software</td>
+<td>Displays strip charts, logs data, sends commands, and later compares measurements with models.</td>
+<td><a href="../repository/">Course repository</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="thermal-safety-switch">Thermal Safety Switch<a class="headerlink" href="#thermal-safety-switch" title="Permanent link">&para;</a></h3>
+<p>The hardware thermal switch is independent of the Arduino program. It cuts
+power near 70 °C and remains an important protection even after software
+temperature limits are added.</p>
+<p><a href="../references/thermal-switch-cantherm.pdf">Open the thermal-switch data sheet</a></p>
+<h3 id="thermistor">Thermistor<a class="headerlink" href="#thermistor" title="Permanent link">&para;</a></h3>
+<p>The class sensor is the <strong>100 kOhm TDK/EPCOS B57861S0104F040V24 NTC
+thermistor</strong>. Use it with a 100 kOhm precision fixed resistor unless the
+voltage-divider design and firmware calibration are deliberately changed.</p>
+<p>Arduino measures the divider voltage. Software converts voltage to thermistor
+resistance and then converts resistance to temperature with the beta equation.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Thermistor">Thermistor background</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation">Beta-parameter equation</a></li>
+<li><a href="https://www.digikey.com/en/products?keywords=B57861S0104F040V24">TDK/EPCOS B57861S0104F040V24 supplier search</a></li>
+</ul>
+<h3 id="thermoelectric-cooler">Thermoelectric Cooler<a class="headerlink" href="#thermoelectric-cooler" title="Permanent link">&para;</a></h3>
+<p>The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
+reverses which face heats and which face cools. The hot face must remain
+thermally coupled to the heat exchanger.</p>
+<p><img alt="Thermoelectric cooler heat-flow diagram" src="../assets/tec_cartoon.gif" /></p>
+<ul>
+<li><a href="../references/laird-tec-cp14-127-045.pdf">Laird TEC performance data</a></li>
+<li><a href="../references/introduction-to-thermoelectrics.pdf">Introduction to practical thermoelectrics</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Thermoelectric_effect">Thermoelectric-effect background</a></li>
+</ul>
+<p>The legacy model writes the heat carried by the TEC as a combination of the
+Peltier term, Joule heating, and ordinary thermal conduction:</p>
+<p><img alt="TEC heat-flow equation" src="../assets/tec_heat_equation.gif" /></p>
+<p><a href="../references/melcor-thermal-solutions.pdf">Melcor thermal-solutions reference</a></p>
+<h3 id="heat-exchanger">Heat Exchanger<a class="headerlink" href="#heat-exchanger" title="Permanent link">&para;</a></h3>
+<p>The water-cooled heat exchanger carries waste heat away from the TEC. The TEC
+cannot cool effectively if its hot side is allowed to overheat.</p>
+<p><img alt="Phys 39 heat exchanger" src="../assets/heat_exchanger.jpg" /></p>
+<p><a href="../references/koolance-exos-lt-v2.pdf">Koolance EXOS LT V2 manual</a></p>
 <h3 id="arduino-uno">Arduino Uno<a class="headerlink" href="#arduino-uno" title="Permanent link">&para;</a></h3>
 <p>The Arduino reads sensor voltages and produces logic-level control signals. Its
 pins cannot directly power the TEC.</p>
 <ul>
-<li><a href="../arduino/">Arduino overview and examples</a></li>
+<li><a href="../arduino/">Arduino overview and built-in examples</a></li>
 <li><a href="../arduino/pinout/">Arduino Uno pinout</a></li>
+<li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
 </ul>
-<h3 id="thermistor">Thermistor<a class="headerlink" href="#thermistor" title="Permanent link">&para;</a></h3>
-<p>The class sensor is a <strong>100 kOhm NTC thermistor</strong>. It is used in a voltage
-divider with a 100 kOhm precision fixed resistor. Arduino measures the divider
-voltage and software converts voltage to resistance and temperature.</p>
-<p><a href="https://en.wikipedia.org/wiki/Thermistor">Thermistor background and beta equation</a></p>
 <h3 id="h-bridge">H-Bridge<a class="headerlink" href="#h-bridge" title="Permanent link">&para;</a></h3>
-<p>An H-bridge is an electronic circuit that lets the low-power Arduino control
-the amount and direction of current from a high-power supply through the TEC.</p>
-<p>The class board uses two Arduino PWM signals for opposite current directions.
-The H-bridge enable inputs are held high.</p>
-<h3 id="thermoelectric-cooler">Thermoelectric Cooler<a class="headerlink" href="#thermoelectric-cooler" title="Permanent link">&para;</a></h3>
-<p>The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
-reverses which face heats and which face cools. The hot side must be coupled to
-an appropriate heat exchanger.</p>
-<p><a href="https://en.wikipedia.org/wiki/Thermoelectric_effect">Thermoelectric-effect background</a></p>
-<h3 id="oscilloscope">Oscilloscope<a class="headerlink" href="#oscilloscope" title="Permanent link">&para;</a></h3>
-<p>The oscilloscope provides physical ground truth for voltage and timing. Before
-applying TEC power, use it to verify Arduino output levels, PWM duty cycle, and
-which H-bridge input is active.</p>
-<h2 id="class-apparatus">Class Apparatus<a class="headerlink" href="#class-apparatus" title="Permanent link">&para;</a></h2>
+<p>The BTS7960-style H-bridge lets the low-power Arduino control the amount and
+direction of current from the external supply through the TEC.</p>
+<p>On the class board:</p>
+<ul>
+<li>Arduino pins <code>9</code> and <code>10</code> go to the two H-bridge PWM inputs.</li>
+<li>The two H-bridge enable inputs are held high.</li>
+<li>Only one PWM direction input should be active at a time.</li>
+<li>Arduino ground and H-bridge logic ground must share a reference.</li>
+</ul>
+<p><a href="../references/bts7960-h-bridge.pdf">Open the H-bridge reference</a></p>
+<h3 id="laptop-software">Laptop Software<a class="headerlink" href="#laptop-software" title="Permanent link">&para;</a></h3>
+<p>The current course uses Python rather than MATLAB for new development. The
+laptop reads Arduino serial output, displays live plots, logs data, and later
+sends control commands.</p>
+<p><a href="../repository/">Read about the course repository workflow</a></p>
+<h2 id="class-apparatus-photographs">Class Apparatus Photographs<a class="headerlink" href="#class-apparatus-photographs" title="Permanent link">&para;</a></h2>
 <p><img alt="Labeled Phys 39 apparatus, view A" src="../assets/tec_apparatus_a.jpg" /></p>
 <p><img alt="Labeled Phys 39 apparatus, view B" src="../assets/tec_apparatus_b.jpg" /></p>
+<h2 id="additional-reference">Additional Reference<a class="headerlink" href="#additional-reference" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../references/phys39-hardware-parts-list-2023.pdf">2023 Phys 39 hardware and parts list</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">Pulse-width modulation background</a></li>
+</ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The Arduino and USB cable do not supply TEC power. Do not energize the

@@ -51,3 +51,84 @@ code {
   background: #f3f4f6;
 }
 
+.apparatus-scroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--phys39-line);
+  background: #ffffff;
+}
+
+.apparatus-map {
+  position: relative;
+  min-width: 760px;
+}
+
+.apparatus-map > img {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.apparatus-hotspot {
+  position: absolute;
+  display: block;
+  padding: 0.22rem 0.38rem;
+  border: 2px solid var(--phys39-red);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--phys39-red);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.apparatus-hotspot:hover,
+.apparatus-hotspot:focus {
+  color: #ffffff;
+  background: var(--phys39-red);
+  outline: 3px solid rgba(23, 107, 135, 0.35);
+}
+
+.hotspot-switch {
+  top: 14%;
+  left: 13%;
+  width: 20%;
+}
+
+.hotspot-thermistor {
+  top: 29%;
+  left: 35%;
+  width: 14%;
+}
+
+.hotspot-tec {
+  top: 46%;
+  left: 18%;
+  width: 9%;
+}
+
+.hotspot-exchanger {
+  top: 62%;
+  left: 17%;
+  width: 18%;
+}
+
+.hotspot-arduino {
+  top: 37%;
+  left: 61%;
+  width: 12%;
+}
+
+.hotspot-hbridge {
+  top: 82%;
+  left: 61%;
+  width: 14%;
+}
+
+.hotspot-laptop {
+  top: 18%;
+  left: 86%;
+  width: 10%;
+}

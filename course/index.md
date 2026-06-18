@@ -10,7 +10,7 @@ feedback control, and heat-transport experiments.
 ## Start Here
 
 - [Prepare your computer and course tools](getting-started.md)
-- [Read the Lab 1 assignment](labs/lab-01.md)
+- [Read the Lab 1 assignment](labs/lab-01/index.md)
 - [Review the Arduino Uno and its pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)
 
@@ -26,4 +26,3 @@ feedback control, and heat-transport experiments.
 !!! note "Website status"
     This is the new Phys39F26 student website. The historical Phys 39 website
     is preserved separately as a legacy resource and will not be edited.
-

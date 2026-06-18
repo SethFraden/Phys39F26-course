@@ -5,7 +5,7 @@
 Edit the Markdown source in `course/`. For example:
 
 ```text
-course/labs/lab-01.md
+course/labs/lab-01/index.md
 ```
 
 ## Preview

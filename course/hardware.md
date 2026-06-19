@@ -67,6 +67,7 @@ resistance and then converts resistance to temperature with the beta equation.
 
 - [Thermistor background](https://en.wikipedia.org/wiki/Thermistor)
 - [Beta-parameter equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation)
+- [EPCOS B57861S0202F040 data sheet](references/epcos-b57861s0202f040-f2026.pdf)
 - [TDK/EPCOS B57861S0104F040V24 supplier search](https://www.digikey.com/en/products?keywords=B57861S0104F040V24)
 
 ### Thermoelectric Cooler

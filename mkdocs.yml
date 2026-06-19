@@ -20,7 +20,7 @@ nav:
       - Lab 1: labs/lab-01/index.md
       - Labs 2-4: labs/upcoming.md
   - Arduino:
-      - Arduino Overview: arduino/index.md
+      - Arduino Tutorial: arduino/index.md
       - Uno Pinout: arduino/pinout.md
   - Safety: safety.md
   - Course Repository: repository.md

@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Arduino Overview - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Arduino Tutorial - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Arduino Overview</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Arduino Tutorial</a>
 </li>
                                     
 <li>
@@ -118,13 +118,41 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#arduino-overview" class="nav-link">Arduino Overview</a>
+            <li class="nav-item" data-bs-level="1"><a href="#arduino-tutorial" class="nav-link">Arduino Tutorial</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#what-it-does-in-this-course" class="nav-link">What It Does In This Course</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-the-arduino-does-in-this-course" class="nav-link">What The Arduino Does In This Course</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#permanent-arduino-examples" class="nav-link">Permanent Arduino Examples</a>
+            <li class="nav-item" data-bs-level="2"><a href="#tutorial-exercises" class="nav-link">Tutorial Exercises</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#1-blink" class="nav-link">1. Blink</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#2-analogreadserial" class="nav-link">2. AnalogReadSerial</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#3-average-the-voltage" class="nav-link">3. Average The Voltage</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#4-button" class="nav-link">4. Button</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#5-onebutton-library" class="nav-link">5. OneButton Library</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#6-pwm-and-h-bridge" class="nav-link">6. PWM And H-Bridge</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#helpful-reference" class="nav-link">Helpful Reference</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -135,11 +163,19 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="arduino-overview">Arduino Overview<a class="headerlink" href="#arduino-overview" title="Permanent link">&para;</a></h1>
+<h1 id="arduino-tutorial">Arduino Tutorial<a class="headerlink" href="#arduino-tutorial" title="Permanent link">&para;</a></h1>
+<p>Learn how to use an Arduino for input and output. The point of this tutorial is
+not to write a large program all at once. The point is to make one small piece
+of hardware work, measure what it does, and then add one more piece.</p>
+<p>The Arduino IDE includes permanent example sketches that are worth learning
+because students can find them again after the course. Open them from:</p>
+<pre><code class="language-text">File -&gt; Examples
+</code></pre>
+<p><img alt="Arduino IDE examples menu" src="../assets/arduino_example_menu.png" /></p>
+<h2 id="what-the-arduino-does-in-this-course">What The Arduino Does In This Course<a class="headerlink" href="#what-the-arduino-does-in-this-course" title="Permanent link">&para;</a></h2>
 <p>The Arduino Uno is the small computer at the center of the first part of the
 course. It reads voltages from sensors, communicates with the laptop over USB,
 and produces digital or PWM control signals.</p>
-<h2 id="what-it-does-in-this-course">What It Does In This Course<a class="headerlink" href="#what-it-does-in-this-course" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Reads thermistor voltage-divider signals with analog inputs.</li>
 <li>Sends measurements to a laptop through USB serial communication.</li>
@@ -147,21 +183,59 @@ and produces digital or PWM control signals.</p>
 <li>Produces PWM signals for actuator control.</li>
 <li>Implements safety logic and, later, feedback control.</li>
 </ul>
-<h2 id="permanent-arduino-examples">Permanent Arduino Examples<a class="headerlink" href="#permanent-arduino-examples" title="Permanent link">&para;</a></h2>
-<p>The Arduino IDE includes carefully written example sketches. Open them using:</p>
-<pre><code class="language-text">File → Examples → 01.Basics
-</code></pre>
-<p>Useful early examples include:</p>
+<h2 id="tutorial-exercises">Tutorial Exercises<a class="headerlink" href="#tutorial-exercises" title="Permanent link">&para;</a></h2>
+<h3 id="1-blink">1. Blink<a class="headerlink" href="#1-blink" title="Permanent link">&para;</a></h3>
+<p>Do the official Arduino
+<a href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink">Blink tutorial</a>
+using both the built-in LED and an external LED.</p>
+<p>Change the on time and off time. Describe the duty cycle in words and calculate
+it from the sketch.</p>
+<h3 id="2-analogreadserial">2. AnalogReadSerial<a class="headerlink" href="#2-analogreadserial" title="Permanent link">&para;</a></h3>
+<p>Do the official Arduino
+<a href="https://www.arduino.cc/en/Tutorial/AnalogReadSerial">AnalogReadSerial tutorial</a>.
+Look at the voltage using the Serial Monitor and Serial Plotter under the
+Arduino IDE <strong>Tools</strong> menu.</p>
+<p>Vary the voltage using a potentiometer. Record the smallest change in voltage
+that the Arduino reports. What is the digitization error?</p>
+<p><img alt="Arduino serial monitor and plotter tools" src="../assets/arduino_tools_serial_monitor_plotter.png" /></p>
+<h3 id="3-average-the-voltage">3. Average The Voltage<a class="headerlink" href="#3-average-the-voltage" title="Permanent link">&para;</a></h3>
+<p>Modify the analog-reading code so that it averages 100 consecutive measurements
+before printing a value.</p>
+<p>Observe the result on the Serial Plotter. What changes as you vary the number
+of samples included in the average?</p>
+<p><img alt="Arduino analog-reading sketch screenshot" src="../assets/arduino_analog_average_sketch.png" /></p>
+<h3 id="4-button">4. Button<a class="headerlink" href="#4-button" title="Permanent link">&para;</a></h3>
+<p>Do the official Arduino
+<a href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Button">Button tutorial</a>
+using a push button.</p>
+<p>Use the button to control an LED. Be sure you can explain whether the button
+input is high or low when the button is pressed.</p>
+<h3 id="5-onebutton-library">5. OneButton Library<a class="headerlink" href="#5-onebutton-library" title="Permanent link">&para;</a></h3>
+<p>Install the
+<a href="https://github.com/mathertel/OneButton">OneButton library</a>. Arduino's guide to
+library installation is here:
+<a href="https://support.arduino.cc/hc/en-us/articles/5145457742236-Add-libraries-to-Arduino-IDE">Add libraries to Arduino IDE</a>.</p>
+<p>Run the <code>SimpleOneButtonSingleClick</code> example sketch. Use a single click to
+toggle an LED on and off.</p>
+<h3 id="6-pwm-and-h-bridge">6. PWM And H-Bridge<a class="headerlink" href="#6-pwm-and-h-bridge" title="Permanent link">&para;</a></h3>
+<p>Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
+Arduino PWM output. Run the motor at different PWM settings.</p>
+<p>Reverse direction using your push button. Disable the motor before reversing
+direction.</p>
+<p>Measure the PWM signal with the oscilloscope. Record the PWM frequency, high
+voltage, low voltage, and duty cycle.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Arduino pins provide logic signals, not motor or TEC power. The motor or TEC
+must be driven through the H-bridge and an appropriate external power
+supply.</p>
+</div>
+<h2 id="helpful-reference">Helpful Reference<a class="headerlink" href="#helpful-reference" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>Blink</code></li>
-<li><code>DigitalReadSerial</code></li>
-<li><code>AnalogReadSerial</code></li>
-<li><code>ReadAnalogVoltage</code></li>
-<li><code>Fade</code></li>
-</ul>
-<p>These examples are valuable because they remain available in the Arduino IDE
-after the course ends.</p>
-<p>Continue to the <a href="pinout/">Arduino Uno pinout</a>.</p></div>
+<li><a href="pinout/">Arduino Uno pinout</a></li>
+<li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">Pulse-width modulation background</a></li>
+</ul></div>
             </div>
         </div>
 

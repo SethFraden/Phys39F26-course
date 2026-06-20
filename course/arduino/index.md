@@ -11,7 +11,7 @@ because students can find them again after the course. Open them from:
 File -> Examples
 ```
 
-![Arduino IDE examples menu](../assets/arduino_example_menu.png)
+Another great resource are the [worked examples](https://docs.arduino.cc/built-in-examples/) from Arduino. This lab is based on some of them.
 
 ## What The Arduino Does In This Course
 
@@ -31,26 +31,23 @@ and produces digital or PWM control signals.
 
 Do the official Arduino
 [Blink tutorial](https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink)
-using both the built-in LED and an external LED.
+using both the built-in LED and an external LED. The external LED needs to be current limited so place a resistor between 200 $ \Omega $ and  2000 $\Omega$ in series with the LED.  Follow the schematic in the link.
 
-Change the on time and off time. Describe the duty cycle in words and calculate
-it from the sketch.
+Change the duty cycle from 1:1 to 10:1 and 1:10. Play with the on- and -off times.
 
 ### 2. AnalogReadSerial
 
 Do the official Arduino
-[AnalogReadSerial tutorial](https://www.arduino.cc/en/Tutorial/AnalogReadSerial).
-Look at the voltage using the Serial Monitor and Serial Plotter under the
-Arduino IDE **Tools** menu.
+[AnalogReadSerial tutorial](https://www.arduino.cc/en/Tutorial/AnalogReadSerial). Vary the voltage using a potentiometer. Look at the readings on the Serial Monitor and Serial Plotter under the
+Arduino IDE **Tools** menu. The Analog to Digital (A/D) converter is 10 bit. What range of numbers do you observe? Convert the signal to voltage. What range of voltage do you observe?
 
-Vary the voltage using a potentiometer. Record the smallest change in voltage
+Record the smallest change in voltage
 that the Arduino reports. What is the digitization error?
 
-![Arduino serial monitor and plotter tools](../assets/arduino_tools_serial_monitor_plotter.png)
 
 ### 3. Average The Voltage
 
-Modify the analog-reading code so that it averages 100 consecutive measurements
+Modify the analog-reading code so that it averages 1000 consecutive measurements
 before printing a value.
 
 Observe the result on the Serial Plotter. What changes as you vary the number
@@ -58,26 +55,27 @@ of samples included in the average?
 
 ![Arduino analog-reading sketch screenshot](../assets/arduino_analog_average_sketch.png)
 
-### 4. Button
+### 4. LED Brightness From Averaged Analog Input
 
-Do the official Arduino
-[Button tutorial](https://www.arduino.cc/en/Tutorial/BuiltInExamples/Button)
-using a push button.
+Modify your `AveAnalogReadSerial` sketch to make a new `LEDbrightness` sketch.
+Keep the potentiometer connected to an analog input, keep the averaging, and
+use the averaged analog voltage to set the brightness of an LED with PWM.
 
-Use the button to control an LED. Be sure you can explain whether the button
-input is high or low when the button is pressed.
+The signal chain is:
 
-### 5. OneButton Library
+```text
+pot voltage  -> analogRead ave number -> average voltage -> map to PWM -> analogWrite -> oscilloscope -> LED brightness
+```
 
-Install the
-[OneButton library](https://github.com/mathertel/OneButton). Arduino's guide to
-library installation is here:
-[Add libraries to Arduino IDE](https://support.arduino.cc/hc/en-us/articles/5145457742236-Add-libraries-to-Arduino-IDE).
+Start by printing the averaged voltage and the PWM value to Serial
+Monitor so you can see what the code is doing. Then measure the PWM output pin
+with the oscilloscope while you turn the potentiometer. Finally, connect the PWM
+pin to an LED with an appropriate series resistor and confirm that the LED
+brightness follows the potentiometer.
 
-Run the `SimpleOneButtonSingleClick` example sketch. Use a single click to
-toggle an LED on and off.
+### 5. Next Lab: PWM And H-Bridge
 
-### 6. PWM And H-Bridge
+This is not part of the first lab unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.
 
 Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
 Arduino PWM output. Run the motor at different PWM settings.
@@ -86,7 +84,8 @@ Reverse direction using your push button. Disable the motor before reversing
 direction.
 
 Measure the PWM signal with the oscilloscope. Record the PWM frequency, high
-voltage, low voltage, and duty cycle.
+voltage, low voltage, and duty cycle. This step prepares you for later TEC
+heat/cool control, but the TEC power supply remains off until the actuator lab.
 
 !!! warning
     Arduino pins provide logic signals, not motor or TEC power. The motor or TEC

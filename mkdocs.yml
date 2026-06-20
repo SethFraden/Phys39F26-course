@@ -29,7 +29,14 @@ nav:
 extra_css:
   - stylesheets/course.css
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+      smart_dollar: false
   - admonition
   - attr_list
   - tables

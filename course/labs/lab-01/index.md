@@ -4,7 +4,7 @@
 
 ### Purpose
 
-In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software.
+In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
 
 Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.
 
@@ -63,22 +63,31 @@ You will:
 - Upload Arduino sketches from the Arduino IDE.
 - Open Serial Monitor and read heartbeat messages from the Arduino.
 - Probe an Arduino digital output with an oscilloscope.
-- Measure voltage levels and timing.
-- Compare the measured signal to the code that generated it.
+- Measure voltage levels, timing, and PWM duty cycle.
+- Read a potentiometer voltage with `analogRead`.
+- Average analog readings and use the averaged value to control LED brightness.
+- Compare the measured signals to the code that generated them.
 
-### Programming Task
+### Programming Task 
 
-<p>Read the<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>. Introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">arduino tutorial</a>. </p>
+- Read the introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. 
+
+- Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  
+
+- The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino tutorial</a>. </p> It consists of the following steps:
 <ol>
-  <li>Write a sketch to measure the temperature. First, read the voltage across the thermistor.  Compare the results with and without averaging the voltage over 100 measurements. Can you see the effect of averaging? Can you determine the digitization error? ChatGPT does an amazing job at writing this type of code. Use it.&nbsp;&nbsp;</li>
-  <li>Next convert the averaged voltage to temperature using the <a href="https://en.wikipedia.org/wiki/Thermistor">thermistor</a><a> equation</a>.</li>
-  <li>Set up a  potentiometer that adjusts voltage between 0-5V.  Measure the output on an oscilloscope. Hook up the voltage to an LED and dim and brighten the light.</li>
-  <li>Set up a  potentiometer that adjusts voltage between 0-5V. Convert the analog voltage to a digital signal. Use the digital signal to set the PWM levels so that 5V corresponds to 100% duty cycle and 0V to 0% duty cycle. Measure the PWM output on an oscilloscope. Use the PWM to control the intensity of the LED.</li>
-  <li>Configure two of the PWM Arduino outputs to control the H-bridge. Use the computer to set the PWM. Measure the PWM output on an oscilloscope.&nbsp;</li>
-  <li>Control the temperature of the TEC by wiring up the H-bridge. Use the arduino Serial Plot to monitor the temperature.</li>
+  <li>Run the official Blink sketch using the built-in LED and then an external LED with a current-limiting resistor.</li>
+  <li>Modify Blink so the duty cycle is 1:1, 10:1, and 1:10. Measure the digital output with the oscilloscope.</li>
+  <li>Run the official AnalogReadSerial sketch with a potentiometer wired as a 0-5 V voltage divider. View the result in Serial Monitor and Serial Plotter.</li>
+  <li>Modify the analog-reading sketch so it averages 1000 readings before printing. Compare the averaged readings with the unaveraged readings.</li>
+  <li>Modify the averaged analog-reading sketch into an LED-brightness sketch: potentiometer voltage to averaged analog number to PWM output to LED brightness. Measure the PWM output with the oscilloscope.</li>
 </ol>
 
-In class, 
+The H-bridge and TEC remain inspection-only today. We will use the H-bridge in
+a later actuator lab after everyone has measured PWM directly and can explain
+what `analogWrite` is doing.
+
+ <!-- In class,
 
 - Launch Arduino IDE
 - From the examples section, run Blink.ino
@@ -87,15 +96,13 @@ In class,
 
 - Change the duty cycle from the default 1:1 to 10:1 and to 1:10. Did it work?
 - Now run another example, AnalogReadSerial.ino
-- Wire up the trim-pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim plot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim-pot? What range of numbers does the Arduino analog read report back to you as you vary voltage? 
+- Wire up the trim pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim pot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim pot? What range of numbers does the Arduino analog read report back to you as you vary voltage?
+- Add averaging to the analog-reading sketch.
+- Use the averaged analog reading to set PWM on an LED.
+- Measure the PWM output with the oscilloscope and compare the waveform to the LED brightness.
 
-- sets one digital output pin as an output,
-- turns that pin HIGH and LOW repeatedly,
-- also drives the built-in LED,
-- prints a heartbeat message to Serial Monitor at `9600` baud,
-- lets you predict the period and frequency of the signal before measuring it.
+You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab. -->
 
-You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab.
 
 ## Post-Class Assignment
 
@@ -107,6 +114,7 @@ Submit a short lab note containing:
 - The Arduino board and serial port you used.
 - The Arduino sketch you wrote.
 - Three lines copied from Serial Monitor.
-- An oscilloscope screenshot or hand sketch of the waveform.
-- A small table with `V_low`, `V_high`, period, and frequency.
-- A paragraph answering: What did the oscilloscope show that the Serial Monitor did not?
+- An oscilloscope screenshot or hand sketch of the Blink waveform.
+- An oscilloscope screenshot or hand sketch of the PWM waveform.
+- A small table with `V_low`, `V_high`, period, frequency, and duty cycle.
+- A paragraph answering: What did the oscilloscope show that the Serial Monitor and Serial Plotter did not?

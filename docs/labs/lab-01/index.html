@@ -182,7 +182,7 @@
 <h1 id="lab-1-assignment-first-contact-with-the-instrument">Lab 1 Assignment: First Contact With The Instrument<a class="headerlink" href="#lab-1-assignment-first-contact-with-the-instrument" title="Permanent link">&para;</a></h1>
 <h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
-<p>In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software.</p>
+<p>In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.</p>
 <p>Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.</p>
 <h3 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h3>
 <ul>
@@ -230,41 +230,50 @@
 <li>Upload Arduino sketches from the Arduino IDE.</li>
 <li>Open Serial Monitor and read heartbeat messages from the Arduino.</li>
 <li>Probe an Arduino digital output with an oscilloscope.</li>
-<li>Measure voltage levels and timing.</li>
-<li>Compare the measured signal to the code that generated it.</li>
+<li>Measure voltage levels, timing, and PWM duty cycle.</li>
+<li>Read a potentiometer voltage with <code>analogRead</code>.</li>
+<li>Average analog readings and use the averaged value to control LED brightness.</li>
+<li>Compare the measured signals to the code that generated them.</li>
 </ul>
 <h3 id="programming-task">Programming Task<a class="headerlink" href="#programming-task" title="Permanent link">&para;</a></h3>
-<p>Read the<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>. Introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">arduino tutorial</a>. </p>
+<ul>
+<li>
+<p>Read the introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. </p>
+</li>
+<li>
+<p>Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  </p>
+</li>
+<li>
+<p>The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino tutorial</a>. </p> It consists of the following steps:</p>
+</li>
+</ul>
 <ol>
-  <li>Write a sketch to measure the temperature. First, read the voltage across the thermistor.  Compare the results with and without averaging the voltage over 100 measurements. Can you see the effect of averaging? Can you determine the digitization error? ChatGPT does an amazing job at writing this type of code. Use it.&nbsp;&nbsp;</li>
-  <li>Next convert the averaged voltage to temperature using the <a href="https://en.wikipedia.org/wiki/Thermistor">thermistor</a><a> equation</a>.</li>
-  <li>Set up a  potentiometer that adjusts voltage between 0-5V.  Measure the output on an oscilloscope. Hook up the voltage to an LED and dim and brighten the light.</li>
-  <li>Set up a  potentiometer that adjusts voltage between 0-5V. Convert the analog voltage to a digital signal. Use the digital signal to set the PWM levels so that 5V corresponds to 100% duty cycle and 0V to 0% duty cycle. Measure the PWM output on an oscilloscope. Use the PWM to control the intensity of the LED.</li>
-  <li>Configure two of the PWM Arduino outputs to control the H-bridge. Use the computer to set the PWM. Measure the PWM output on an oscilloscope.&nbsp;</li>
-  <li>Control the temperature of the TEC by wiring up the H-bridge. Use the arduino Serial Plot to monitor the temperature.</li>
+  <li>Run the official Blink sketch using the built-in LED and then an external LED with a current-limiting resistor.</li>
+  <li>Modify Blink so the duty cycle is 1:1, 10:1, and 1:10. Measure the digital output with the oscilloscope.</li>
+  <li>Run the official AnalogReadSerial sketch with a potentiometer wired as a 0-5 V voltage divider. View the result in Serial Monitor and Serial Plotter.</li>
+  <li>Modify the analog-reading sketch so it averages 1000 readings before printing. Compare the averaged readings with the unaveraged readings.</li>
+  <li>Modify the averaged analog-reading sketch into an LED-brightness sketch: potentiometer voltage to averaged analog number to PWM output to LED brightness. Measure the PWM output with the oscilloscope.</li>
 </ol>
 
-<p>In class, </p>
-<ul>
-<li>Launch Arduino IDE</li>
-<li>From the examples section, run Blink.ino</li>
-</ul>
-<p><img src="figures/ArduinoExample.png" alt="Arduino examples" width="400"></p>
-<ul>
-<li>Change the duty cycle from the default 1:1 to 10:1 and to 1:10. Did it work?</li>
-<li>Now run another example, AnalogReadSerial.ino</li>
-<li>
-<p>Wire up the trim-pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim plot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim-pot? What range of numbers does the Arduino analog read report back to you as you vary voltage? </p>
-</li>
-<li>
-<p>sets one digital output pin as an output,</p>
-</li>
-<li>turns that pin HIGH and LOW repeatedly,</li>
-<li>also drives the built-in LED,</li>
-<li>prints a heartbeat message to Serial Monitor at <code>9600</code> baud,</li>
-<li>lets you predict the period and frequency of the signal before measuring it.</li>
-</ul>
-<p>You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab.</p>
+<p>The H-bridge and TEC remain inspection-only today. We will use the H-bridge in
+a later actuator lab after everyone has measured PWM directly and can explain
+what <code>analogWrite</code> is doing.</p>
+<!-- In class,
+
+- Launch Arduino IDE
+- From the examples section, run Blink.ino
+
+<img src="figures/ArduinoExample.png" alt="Arduino examples" width="400">
+
+- Change the duty cycle from the default 1:1 to 10:1 and to 1:10. Did it work?
+- Now run another example, AnalogReadSerial.ino
+- Wire up the trim pot as instructed. View the results on the Serial Monitor and Serial Plotter. Slow down the time intervals between measurements to something sensible. Rotate the trim pot and see if the graphical plot makes sense. What range of voltage do you input into the analog pin from the trim pot? What range of numbers does the Arduino analog read report back to you as you vary voltage?
+- Add averaging to the analog-reading sketch.
+- Use the averaged analog reading to set PWM on an LED.
+- Measure the PWM output with the oscilloscope and compare the waveform to the LED brightness.
+
+You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab. -->
+
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
 <p>Submit a short lab note containing:</p>
@@ -273,9 +282,10 @@
 <li>The Arduino board and serial port you used.</li>
 <li>The Arduino sketch you wrote.</li>
 <li>Three lines copied from Serial Monitor.</li>
-<li>An oscilloscope screenshot or hand sketch of the waveform.</li>
-<li>A small table with <code>V_low</code>, <code>V_high</code>, period, and frequency.</li>
-<li>A paragraph answering: What did the oscilloscope show that the Serial Monitor did not?</li>
+<li>An oscilloscope screenshot or hand sketch of the Blink waveform.</li>
+<li>An oscilloscope screenshot or hand sketch of the PWM waveform.</li>
+<li>A small table with <code>V_low</code>, <code>V_high</code>, period, frequency, and duty cycle.</li>
+<li>A paragraph answering: What did the oscilloscope show that the Serial Monitor and Serial Plotter did not?</li>
 </ul></div>
             </div>
         </div>
@@ -290,6 +300,8 @@
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

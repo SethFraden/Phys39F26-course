@@ -70,11 +70,11 @@ You will:
 
 ### Programming Task 
 
-- Read the introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. 
+- (5 mins) Read the introduction to <a href="https://docs.arduino.cc/learn/starting-guide/whats-arduino?queryID=b6c1b642087e54fac19b7471a69050cb&_gl=1*iny9um*_ga*MTQ1Nzk0MDE2MS4xNjg0ODU0NzQ5*_ga_NEXN8H46L5*MTY4NTIxODMyOC40LjAuMTY4NTIxODMyOC4wLjAuMA..">arduino</a>. 
 
-- Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  
+- (5 mins) Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  
 
-- The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino assignment</a>. </p> It consists of the following steps:
+- (90 mins) The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino assignment</a>. </p> It consists of the following steps:
 <ol>
   <li>Run the official Blink sketch using the built-in LED and then an external LED with a current-limiting resistor.</li>
   <li>Modify Blink so the duty cycle is 1:1, 10:1, and 1:10. Measure the digital output with the oscilloscope.</li>

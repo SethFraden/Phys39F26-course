@@ -1,4 +1,4 @@
-# Arduino Tutorial
+# Lab 1 Assignment: First Contact
 
 Learn how to use an Arduino for input and output. The point of this tutorial is
 not to write a large program all at once. The point is to make one small piece

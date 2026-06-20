@@ -10,7 +10,6 @@ feedback control, and heat-transport experiments.
 ## Start Here
 
 - [Prepare your computer and course tools](getting-started.md)
-- [Read the Lab 1 assignment](labs/lab-01/index.md)
 - [Review the temperature-control hardware](hardware.md)
 - [Review the Arduino Uno and its pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)
@@ -18,11 +17,15 @@ feedback control, and heat-transport experiments.
 ## Course Path
 
 1. Observe digital and analog signals with Arduino and an oscilloscope.
-2. Measure temperature with a thermistor.
-3. Send data to a Python strip chart and GUI.
-4. Drive a TEC in heating and cooling directions using PWM.
-5. Implement proportional and PI feedback control.
-6. Model heat transport and measure thermal properties of a metal rod.
+2. Measure temperature with a thermistor. Drive a TEC in heating and cooling directions using PWM.
+3. Send Arduino data to a computer. Display data in real time on a Python strip chart and develop a Python GUI.
+4. Implement proportional and PI feedback control.
+5. Model heat transport.
+6. Implement the Angstrom method to measure thermal properties of a metal rod.
+
+## Labs And Course Calendar
+
+- [Open the labs and course calendar](labs/index.md)
 
 !!! note "Website status"
     This is the new Phys39F26 student website. The historical Phys 39 website

@@ -1,7 +1,6 @@
 # Course Schedule
 
-The detailed Fall 2026 schedule is under development. Meeting dates,
-assignments, and due dates will be posted here after they are approved.
+The course calendar now lives with the lab sequence so that each meeting can
+link directly to the relevant lab module.
 
-The course meets Mondays and Wednesdays from **9:05 AM to 11:55 AM**.
-
+[Open the labs and course calendar](labs/index.md)

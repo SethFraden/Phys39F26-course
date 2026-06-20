@@ -74,7 +74,7 @@ You will:
 
 - Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  
 
-- The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino tutorial</a>. </p> It consists of the following steps:
+- The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino assignment</a>. </p> It consists of the following steps:
 <ol>
   <li>Run the official Blink sketch using the built-in LED and then an external LED with a current-limiting resistor.</li>
   <li>Modify Blink so the duty cycle is 1:1, 10:1, and 1:10. Measure the digital output with the oscilloscope.</li>

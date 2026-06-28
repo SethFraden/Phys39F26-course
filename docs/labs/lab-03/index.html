@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../schedule/" class="nav-link">Course Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../lab-01/" class="dropdown-item">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="../lab-02/" class="dropdown-item">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="../upcoming/" class="dropdown-item">Upcoming Lab Modules</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" class="nav-link">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#theme" class="nav-link">Theme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#safety-boundary" class="nav-link">Safety Boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#before-class" class="nav-link">Before Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-you-will-do" class="nav-link">What You Will Do</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-1-pre-power-checklist" class="nav-link">Part 1: Pre-Power Checklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-manual-tec-sketch" class="nav-link">Part 2: Manual TEC Sketch</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-oscilloscope-verification" class="nav-link">Part 3: Oscilloscope Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-4-low-power-heating-and-cooling" class="nav-link">Part 4: Low-Power Heating And Cooling</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-python-display-only-strip-chart" class="nav-link">Part 5: Python Display-Only Strip Chart</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-add-python-manual-controls" class="nav-link">Part 6: Add Python Manual Controls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-7-arduino-serial-command-control-sketch" class="nav-link">Part 7: Arduino Serial-Command Control Sketch</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-3-assignment-manual-tec-heatcool-and-first-python-gui">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI<a class="headerlink" href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" title="Permanent link">&para;</a></h1>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Lab 3 connects measurement to actuation. In Lab 2 you measured temperature and
+verified H-bridge signals. In Lab 3 you use the H-bridge to drive the TEC at low
+power, record heating and cooling traces, and begin treating the Python GUI as
+an editable part of the instrument.</p>
+<p>This is still not feedback control. You are learning how to drive the actuator,
+how to recognize safe behavior, and how the software interface should represent
+the state of the hardware.</p>
+<h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
+<p><strong>Manual TEC Heat/Cool And First Python GUI</strong></p>
+<p>Manual TEC direction and PWM, temperature traces, and a first small GUI
+modification.</p>
+<h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
+<p>Before TEC power is connected:</p>
+<ol>
+<li>PWM starts at zero.</li>
+<li>H-bridge inputs have been verified on the oscilloscope.</li>
+<li>Arduino ground, H-bridge ground, and oscilloscope ground are understood.</li>
+<li>The power supply current limit is set by the instructor.</li>
+<li>The thermal safety cutoff is identified.</li>
+</ol>
+<p>Stop immediately if the temperature moves in the wrong direction, the TEC or
+driver heats unexpectedly, the power supply current is too high, or the serial
+trace disappears.</p>
+<h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Review your Lab 2 thermistor conversion notes.</li>
+<li>Review which Arduino pins drive the H-bridge on the class board.</li>
+<li>Open the Python GUI or strip-chart code in VS Code and identify:</li>
+<li>imports,</li>
+<li>the serial parser,</li>
+<li>the plot update function,</li>
+<li>the place where labels or displayed values are set.</li>
+<li>Write down one small GUI change you would like to make.</li>
+</ol>
+<h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Why should the H-bridge be checked with the oscilloscope before the TEC power
+   supply is turned on?</li>
+<li>What does PWM control in this experiment?</li>
+<li>Why is heat/cool direction a physical question, not only a software label?</li>
+<li>What part of the GUI code do you expect to modify first?</li>
+</ol>
+<h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Rebuild or inspect the thermistor measurement circuit.</li>
+<li>Verify the H-bridge input signals again with TEC power off.</li>
+<li>Run the manual trim-pot or manual PWM TEC sketch.</li>
+<li>Record low-power heating and cooling traces.</li>
+<li>Run the Python strip chart while the TEC is manually driven.</li>
+<li>Add Python GUI controls for PWM and heat/cool direction.</li>
+<li>Write an Arduino sketch that receives PWM and heat/cool commands from Python.</li>
+</ul>
+<h2 id="part-1-pre-power-checklist">Part 1: Pre-Power Checklist<a class="headerlink" href="#part-1-pre-power-checklist" title="Permanent link">&para;</a></h2>
+<p>Before turning on TEC power, fill in this checklist in your lab notes.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value Or Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arduino board and port</td>
+<td></td>
+</tr>
+<tr>
+<td>Thermistor pin</td>
+<td></td>
+</tr>
+<tr>
+<td>H-bridge heat pin</td>
+<td></td>
+</tr>
+<tr>
+<td>H-bridge cool pin</td>
+<td></td>
+</tr>
+<tr>
+<td>PWM starts at zero?</td>
+<td></td>
+</tr>
+<tr>
+<td>Power supply voltage</td>
+<td></td>
+</tr>
+<tr>
+<td>Power supply current limit</td>
+<td></td>
+</tr>
+<tr>
+<td>Thermal cutoff identified?</td>
+<td></td>
+</tr>
+<tr>
+<td>Instructor check complete?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-2-manual-tec-sketch">Part 2: Manual TEC Sketch<a class="headerlink" href="#part-2-manual-tec-sketch" title="Permanent link">&para;</a></h2>
+<p>Use or inspect the instructor reference sketch:</p>
+<pre><code class="language-text">arduino/tec_manual_trim_pot/tec_manual_trim_pot.ino
+</code></pre>
+<p>The essential behavior is:</p>
+<pre><code class="language-text">trim pot -&gt; averaged analog input -&gt; PWM command -&gt; H-bridge -&gt; TEC
+thermistor -&gt; Arduino -&gt; serial line -&gt; laptop plot
+</code></pre>
+<p>If you write your own version, keep it simple. Do not add feedback control yet.</p>
+<p>This sketch is intentionally not polished. Before improving its structure, make
+sure you can explain the measurement path, the PWM command path, and the
+heat/cool direction path.</p>
+<h2 id="part-3-oscilloscope-verification">Part 3: Oscilloscope Verification<a class="headerlink" href="#part-3-oscilloscope-verification" title="Permanent link">&para;</a></h2>
+<p>With TEC power off, check the H-bridge input signals.</p>
+<p>Record a table:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Pin 9 Observation</th>
+<th>Pin 10 Observation</th>
+<th>Expected TEC Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PWM = 0</td>
+<td></td>
+<td></td>
+<td>off</td>
+</tr>
+<tr>
+<td>heat, low PWM</td>
+<td></td>
+<td></td>
+<td>heat</td>
+</tr>
+<tr>
+<td>cool, low PWM</td>
+<td></td>
+<td></td>
+<td>cool</td>
+</tr>
+</tbody>
+</table>
+<p>Only one H-bridge side should be active at a time. The PWM duty cycle should
+match the command from the trim pot or manual setting.</p>
+<h2 id="part-4-low-power-heating-and-cooling">Part 4: Low-Power Heating And Cooling<a class="headerlink" href="#part-4-low-power-heating-and-cooling" title="Permanent link">&para;</a></h2>
+<p>After instructor approval, connect TEC power.</p>
+<ol>
+<li>Start with PWM at zero.</li>
+<li>Increase PWM slowly to a low value.</li>
+<li>Watch the temperature trace.</li>
+<li>Record which command heats the thermistor and which command cools it.</li>
+<li>Return PWM to zero between trials.</li>
+</ol>
+<p>Take at least one short heating trace and one short cooling trace. Do not chase
+a target temperature; this is open-loop manual actuation.</p>
+<h2 id="part-5-python-display-only-strip-chart">Part 5: Python Display-Only Strip Chart<a class="headerlink" href="#part-5-python-display-only-strip-chart" title="Permanent link">&para;</a></h2>
+<p>Write a Python program that reads the Arduino serial output and displays two
+live strip charts:</p>
+<ol>
+<li>temperature in Celsius versus time,</li>
+<li>PWM value versus time.</li>
+</ol>
+<p>This first Python version is display-only. It must not send commands to the
+Arduino.</p>
+<p>The Arduino serial lines look like this:</p>
+<pre><code class="language-text">Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
+</code></pre>
+<p>Your strip chart should let you set, near the top of the Python file:</p>
+<ul>
+<li>the serial port and baud rate,</li>
+<li>the visible strip-chart window duration,</li>
+<li>the plot update interval,</li>
+<li>the temperature-axis limits,</li>
+<li>the PWM-axis limits.</li>
+</ul>
+<p>You may work with an AI agent to produce the first version. A good prompt is:</p>
+<pre><code class="language-text">I am writing a Python display-only strip chart for a physics instrumentation lab.
+
+Write a simple Python program using PySide6 and pyqtgraph that reads Arduino
+serial data and displays two live strip charts:
+1. temperature in Celsius versus time
+2. PWM value versus time
+
+The program must not send commands to the Arduino.
+
+Serial lines from the Arduino look like this:
+Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
+
+Requirements:
+- Use pyserial to read from a serial port.
+- Let me set the serial port and baud rate near the top of the file.
+- Plot only the most recent N seconds of data, where N is a variable called
+  window_seconds.
+- Let me set the plot update interval in milliseconds.
+- Let me set y-axis limits for temperature and PWM near the top of the file.
+- Parse temperature_C, time_s, PWM, and Heat/Cool from each serial line.
+- Ignore startup/status lines that do not match the data format.
+- Use Celsius only.
+- Keep the code simple enough for an advanced physics student who is new to
+  Python to understand.
+- Include comments explaining imports, serial reading, parsing, data storage,
+  and plot updating.
+</code></pre>
+<p>After the code runs, identify the parts of the program that read serial data,
+parse one line, store recent data, and update the plots.</p>
+<h2 id="part-6-add-python-manual-controls">Part 6: Add Python Manual Controls<a class="headerlink" href="#part-6-add-python-manual-controls" title="Permanent link">&para;</a></h2>
+<p>Modify the display-only Python strip chart so it has manual controls:</p>
+<ol>
+<li>a heat/cool switch,</li>
+<li>a PWM slider from <code>0</code> to <code>255</code>,</li>
+<li>a PWM text box.</li>
+</ol>
+<p>The slider and text box should stay synchronized. If you move the slider, the
+text box should show the new PWM value. If you type a number in the text box,
+the slider should move to that value. Clamp invalid PWM values to the range
+<code>0</code> to <code>255</code>.</p>
+<p>When the controls change, the Python program should send one serial command to
+the Arduino:</p>
+<pre><code class="language-text">SET PWM 120 DIR HEAT
+SET PWM 45 DIR COOL
+</code></pre>
+<p>Keep the two strip charts from Part 5. The PWM plot should show heating in red
+and cooling in blue.</p>
+<p>Use this prompt to ask your AI agent for help:</p>
+<pre><code class="language-text">Modify my existing PySide6 + pyqtgraph display-only strip chart.
+
+Add manual controls:
+1. a heat/cool switch,
+2. a PWM slider from 0 to 255,
+3. a PWM text box.
+
+The PWM slider and PWM text box must stay synchronized:
+- moving the slider updates the text box,
+- typing a number in the text box updates the slider,
+- invalid values are clamped to 0 through 255.
+
+When the PWM or heat/cool setting changes, send a text command to the Arduino
+serial port in this format:
+SET PWM 120 DIR HEAT
+SET PWM 45 DIR COOL
+
+Keep the existing temperature and PWM strip charts. Plot PWM heating samples in
+red and PWM cooling samples in blue. Do not implement feedback control. Use
+Celsius only.
+
+Include comments explaining how the GUI widgets, serial command sending, and
+plot updates work.
+</code></pre>
+<p>At this stage, the old trim-pot Arduino sketch will not obey these commands.
+That is expected. The goal of this part is to build the Python interface and
+define the serial command format.</p>
+<h2 id="part-7-arduino-serial-command-control-sketch">Part 7: Arduino Serial-Command Control Sketch<a class="headerlink" href="#part-7-arduino-serial-command-control-sketch" title="Permanent link">&para;</a></h2>
+<p>Write a new Arduino sketch descended from the manual trim-pot sketch. It should
+keep the thermistor measurement and H-bridge output behavior, but replace the
+trim pot and physical direction wire with commands from the Python GUI.</p>
+<p>The new Arduino sketch should:</p>
+<ul>
+<li>read the thermistor divider on <code>A0</code>,</li>
+<li>output PWM on pin <code>9</code> for heat and pin <code>10</code> for cool,</li>
+<li>start with PWM <code>0</code>,</li>
+<li>receive commands such as <code>SET PWM 120 DIR HEAT</code>,</li>
+<li>clamp PWM to the range <code>0</code> to <code>255</code>,</li>
+<li>keep printing the same measurement line used by the Python strip chart:</li>
+</ul>
+<pre><code class="language-text">Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
+</code></pre>
+<p>Use this prompt to ask your AI agent for help:</p>
+<pre><code class="language-text">I have an Arduino sketch for a physics instrumentation lab. The old version
+measures temperature from a thermistor on A0, reads a trim pot on A1 to choose
+PWM, reads pin 11 to choose heat or cool, and drives an H-bridge with PWM on
+pins 9 and 10.
+
+Write a new Arduino sketch with clear comments explaining its lineage from the
+trim-pot version.
+
+Requirements:
+- Keep thermistor temperature measurement on A0.
+- Keep H-bridge outputs on pins 9 and 10.
+- Remove the trim-pot input on A1.
+- Remove the physical direction input on pin 11.
+- Start safely with PWM = 0.
+- Receive serial commands from Python in this format:
+  SET PWM 120 DIR HEAT
+  SET PWM 45 DIR COOL
+- Clamp PWM values to 0 through 255.
+- In HEAT mode, write PWM to pin 9 and 0 to pin 10.
+- In COOL mode, write 0 to pin 9 and PWM to pin 10.
+- Keep printing measurement lines in exactly this format:
+  Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
+- Use Heat/Cool = 1 for heat and Heat/Cool = 0 for cool.
+- Do not add feedback control.
+- Include comments explaining the serial command parser and safety startup.
+</code></pre>
+<p>With TEC power off, verify on the oscilloscope that Python commands change the
+Arduino outputs as expected. Only after that check may you repeat a low-power
+manual heat/cool test.</p>
+<h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
+<p>Submit a short lab note containing:</p>
+<ul>
+<li>Completed pre-power checklist.</li>
+<li>Wiring or signal-path sketch.</li>
+<li>Oscilloscope table for H-bridge inputs.</li>
+<li>One heating trace and one cooling trace.</li>
+<li>The Arduino sketch used or modified.</li>
+<li>Python strip-chart screenshot.</li>
+<li>The Python strip-chart code.</li>
+<li>The AI prompt you used, if you used one.</li>
+<li>A short description of where the Python code reads serial data, parses one
+  line, updates the plots, and sends commands.</li>
+<li>The Arduino serial-command sketch from Part 7.</li>
+<li>An oscilloscope check showing that Python commands change pins <code>9</code> and <code>10</code>
+  correctly with TEC power off.</li>
+<li>A paragraph answering: What is the difference between measuring temperature,
+  manually actuating the TEC, and feedback-controlling temperature?</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

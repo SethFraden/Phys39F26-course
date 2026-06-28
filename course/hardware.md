@@ -35,10 +35,12 @@ control signals.
 
 ## Component Reference
 
+Thermistor data sheet: [TDK/EPCOS B57861S0104F040V24 100 kOhm NTC thermistor PDF](references/epcos-b57861s0202f040-f2026.pdf)
+
 | Component | Function in the instrument | Reference |
 | --- | --- | --- |
 | Thermal safety switch | Opens the power circuit near 70 °C if software control fails. | [Cantherm R23 data sheet](references/thermal-switch-cantherm.pdf) |
-| 100 kOhm NTC thermistor | Senses TEC/block temperature through a voltage divider connected to an Arduino analog input. | [Exact class part search](https://www.digikey.com/en/products?keywords=B57861S0104F040V24) · [Thermistor beta equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation) |
+| 100 kOhm NTC thermistor | Senses TEC/block temperature through a voltage divider connected to an Arduino analog input. | [TDK/EPCOS B57861S0104F040V24 data sheet](references/epcos-b57861s0202f040-f2026.pdf) · [Exact class part search](https://www.digikey.com/en/products?keywords=B57861S0104F040V24) · [Thermistor beta equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation) |
 | 100 kOhm precision resistor | Forms the thermistor voltage divider and sets the useful measurement range near room temperature. | Use the approved course part |
 | TEC/Peltier element | Moves heat when current flows; reversing current reverses heat/cool direction. | [Laird CP14-127-045 data sheet](references/laird-tec-cp14-127-045.pdf) |
 | Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [Koolance EXOS LT V2 manual](references/koolance-exos-lt-v2.pdf) |
@@ -67,7 +69,7 @@ resistance and then converts resistance to temperature with the beta equation.
 
 - [Thermistor background](https://en.wikipedia.org/wiki/Thermistor)
 - [Beta-parameter equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation)
-- [EPCOS B57861S0202F040 data sheet](references/epcos-b57861s0202f040-f2026.pdf)
+- [TDK/EPCOS B57861S0104F040V24 100 kOhm data sheet](references/epcos-b57861s0202f040-f2026.pdf)
 - [TDK/EPCOS B57861S0104F040V24 supplier search](https://www.digikey.com/en/products?keywords=B57861S0104F040V24)
 
 ### Thermoelectric Cooler

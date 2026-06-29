@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Arduino Tutorial - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Git, GitHub, VS Code, And AI - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                                 <a href="../getting-started/" class="nav-link">Getting Started</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../git-vscode-ai-workflow/" class="nav-link">Git, GitHub, VS Code, And AI</a>
+                                <a href="./" class="nav-link active" aria-current="page">Git, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../labs/" class="nav-link">Labs And Calendar</a>
@@ -75,15 +75,15 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Arduino Tutorial</a>
+    <a href="../arduino/" class="dropdown-item">Arduino Tutorial</a>
 </li>
                                     
 <li>
-    <a href="pinout/" class="dropdown-item">Uno Pinout</a>
+    <a href="../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
 </li>
                                 </ul>
                             </li>
@@ -105,12 +105,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../labs/upcoming/" class="nav-link">
+                                <a rel="prev" href="../getting-started/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="pinout/" class="nav-link">
+                                <a rel="next" href="../labs/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -132,37 +132,41 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-1-assignment-first-contact" class="nav-link">Lab 1 Assignment: First Contact</a>
+            <li class="nav-item" data-bs-level="1"><a href="#git-github-vs-code-and-ai-workflow" class="nav-link">Git, GitHub, VS Code, And AI Workflow</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#what-the-arduino-does-in-this-course" class="nav-link">What The Arduino Does In This Course</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#tutorial-exercises" class="nav-link">Tutorial Exercises</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#1-blink" class="nav-link">1. Blink</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-each-tool-is-for" class="nav-link">What Each Tool Is For</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#2-analogreadserial" class="nav-link">2. AnalogReadSerial</a>
+            <li class="nav-item" data-bs-level="2"><a href="#recommended-project-structure" class="nav-link">Recommended Project Structure</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#3-average-the-voltage" class="nav-link">3. Average The Voltage</a>
+            <li class="nav-item" data-bs-level="2"><a href="#vs-code-basics" class="nav-link">VS Code Basics</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#4-led-brightness-from-averaged-analog-input" class="nav-link">4. LED Brightness From Averaged Analog Input</a>
+            <li class="nav-item" data-bs-level="2"><a href="#the-four-command-git-checkpoint" class="nav-link">The Four-Command Git Checkpoint</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#5-next-lab-pwm-and-h-bridge" class="nav-link">5. Next Lab: PWM And H-Bridge</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-not-to-commit" class="nav-link">What Not To Commit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-your-readme-should-explain" class="nav-link">What Your README Should Explain</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#helpful-reference" class="nav-link">Helpful Reference</a>
+            <li class="nav-item" data-bs-level="2"><a href="#ai-use-note" class="nav-link">AI Use Note</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#practice-exercise" class="nav-link">Practice Exercise</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#troubleshooting" class="nav-link">Troubleshooting</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -173,77 +177,200 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-1-assignment-first-contact">Lab 1 Assignment: First Contact<a class="headerlink" href="#lab-1-assignment-first-contact" title="Permanent link">&para;</a></h1>
-<p>Learn how to use an Arduino for input and output. The point of this tutorial is
-not to write a large program all at once. The point is to make one small piece
-of hardware work, measure what it does, and then add one more piece.</p>
-<p>The Arduino IDE includes permanent example sketches that are worth learning
-because students can find them again after the course. Open them from:</p>
-<pre><code class="language-text">File -&gt; Examples
+<h1 id="git-github-vs-code-and-ai-workflow">Git, GitHub, VS Code, And AI Workflow<a class="headerlink" href="#git-github-vs-code-and-ai-workflow" title="Permanent link">&para;</a></h1>
+<p>This course uses Git, GitHub, VS Code, Markdown, Arduino sketches, Python code,
+and AI coding agents as part of the laboratory workflow. The goal is not to
+become a software engineer. The goal is to avoid losing work, keep your
+instrument code organized, and make a clear record of what you built and tested.</p>
+<h2 id="what-each-tool-is-for">What Each Tool Is For<a class="headerlink" href="#what-each-tool-is-for" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What You Use It For In This Course</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Git</td>
+<td>Make checkpoints of your code and notes on your computer.</td>
+</tr>
+<tr>
+<td>GitHub</td>
+<td>Store a copy of your project online and submit a link to your work.</td>
+</tr>
+<tr>
+<td>VS Code</td>
+<td>Edit Arduino sketches, Python programs, and Markdown notes in one workspace.</td>
+</tr>
+<tr>
+<td>Markdown</td>
+<td>Write readable documentation in <code>README.md</code> files.</td>
+</tr>
+<tr>
+<td>AI agent</td>
+<td>Help draft or revise code, then explain, test, and improve it yourself.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recommended-project-structure">Recommended Project Structure<a class="headerlink" href="#recommended-project-structure" title="Permanent link">&para;</a></h2>
+<p>By the end of Lab 3, organize your work into one clear project folder:</p>
+<pre><code class="language-text">phys39-tec-control/
+  README.md
+  arduino/
+    thermistor_serial/
+    tec_manual_control/
+    tec_python_serial_control/
+  python/
+    display_strip_chart/
+    manual_control_gui/
+  docs/
+    wiring_notes/
+    screenshots/
+  data/
+    example_runs/
 </code></pre>
-<p>Another great resource are the <a href="https://docs.arduino.cc/built-in-examples/">worked examples</a> from Arduino. This lab is based on some of them.</p>
-<h2 id="what-the-arduino-does-in-this-course">What The Arduino Does In This Course<a class="headerlink" href="#what-the-arduino-does-in-this-course" title="Permanent link">&para;</a></h2>
-<p>The Arduino Uno is the small computer at the center of the first part of the
-course. It reads voltages from sensors, communicates with the laptop over USB,
-and produces digital or PWM control signals.</p>
+<p>You may use a different structure if it is clear. The important point is that a
+reader should be able to find your Arduino code, Python code, notes, images, and
+data without guessing.</p>
+<h2 id="vs-code-basics">VS Code Basics<a class="headerlink" href="#vs-code-basics" title="Permanent link">&para;</a></h2>
+<p>Open your project folder, not just a single file:</p>
+<ol>
+<li>Open VS Code.</li>
+<li>Choose <strong>File &gt; Open Folder...</strong>.</li>
+<li>Select your project folder, such as <code>phys39-tec-control</code>.</li>
+<li>Use the Explorer panel on the left to inspect folders and files.</li>
+<li>Use <strong>Terminal &gt; New Terminal</strong> to open a terminal inside VS Code.</li>
+</ol>
+<p>Use VS Code to:</p>
 <ul>
-<li>Reads thermistor voltage-divider signals with analog inputs.</li>
-<li>Sends measurements to a laptop through USB serial communication.</li>
-<li>Produces digital timing signals for oscilloscope measurements.</li>
-<li>Produces PWM signals for actuator control.</li>
-<li>Implements safety logic and, later, feedback control.</li>
+<li>edit <code>.ino</code> Arduino sketches,</li>
+<li>edit <code>.py</code> Python programs,</li>
+<li>edit and preview <code>README.md</code>,</li>
+<li>inspect your folder structure,</li>
+<li>run Python commands in the integrated terminal,</li>
+<li>work with an AI coding assistant while keeping your files visible.</li>
 </ul>
-<h2 id="tutorial-exercises">Tutorial Exercises<a class="headerlink" href="#tutorial-exercises" title="Permanent link">&para;</a></h2>
-<h3 id="1-blink">1. Blink<a class="headerlink" href="#1-blink" title="Permanent link">&para;</a></h3>
-<p>Do the official Arduino
-<a href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink">Blink tutorial</a>
-using both the built-in LED and an external LED. The external LED needs to be current limited so place a resistor between 200 <span class="arithmatex">\( \Omega \)</span> and  2000 <span class="arithmatex">\(\Omega\)</span> in series with the LED.  Follow the schematic in the link.</p>
-<p>Change the duty cycle from 1:1 to 10:1 and 1:10. Play with the on- and -off times.</p>
-<h3 id="2-analogreadserial">2. AnalogReadSerial<a class="headerlink" href="#2-analogreadserial" title="Permanent link">&para;</a></h3>
-<p>Do the official Arduino
-<a href="https://www.arduino.cc/en/Tutorial/AnalogReadSerial">AnalogReadSerial tutorial</a>. Vary the voltage using a potentiometer. Look at the readings on the Serial Monitor and Serial Plotter under the
-Arduino IDE <strong>Tools</strong> menu. The Analog to Digital (A/D) converter is 10 bit. What range of numbers do you observe? Convert the signal to voltage. What range of voltage do you observe?</p>
-<p>Record the smallest change in voltage
-that the Arduino reports. What is the digitization error?</p>
-<h3 id="3-average-the-voltage">3. Average The Voltage<a class="headerlink" href="#3-average-the-voltage" title="Permanent link">&para;</a></h3>
-<p>Modify the analog-reading code so that it averages 1000 consecutive measurements
-before printing a value.</p>
-<p>Observe the result on the Serial Plotter. What changes as you vary the number
-of samples included in the average?</p>
-<p><img alt="Arduino analog-reading sketch screenshot" src="../assets/arduino_analog_average_sketch.png" /></p>
-<h3 id="4-led-brightness-from-averaged-analog-input">4. LED Brightness From Averaged Analog Input<a class="headerlink" href="#4-led-brightness-from-averaged-analog-input" title="Permanent link">&para;</a></h3>
-<p>Modify your <code>AveAnalogReadSerial</code> sketch to make a new <code>LEDbrightness</code> sketch.
-Keep the potentiometer connected to an analog input, keep the averaging, and
-use the averaged analog voltage to set the brightness of an LED with PWM.</p>
-<p>The signal chain is:</p>
-<pre><code class="language-text">pot voltage  -&gt; analogRead ave number -&gt; average voltage -&gt; map to PWM -&gt; analogWrite -&gt; oscilloscope -&gt; LED brightness
+<p>To preview Markdown, open the <code>.md</code> file and choose <strong>Open Preview to the Side</strong>,
+or press <strong>Command-K</strong>, then <strong>V</strong> on a Mac.</p>
+<h2 id="the-four-command-git-checkpoint">The Four-Command Git Checkpoint<a class="headerlink" href="#the-four-command-git-checkpoint" title="Permanent link">&para;</a></h2>
+<p>Use this workflow whenever you reach a meaningful checkpoint.</p>
+<pre><code class="language-bash">git status
+git add README.md arduino python docs
+git commit -m &quot;Describe what changed&quot;
+git push
 </code></pre>
-<p>Start by printing the averaged voltage and the PWM value to Serial
-Monitor so you can see what the code is doing. Then measure the PWM output pin
-with the oscilloscope while you turn the potentiometer. Finally, connect the PWM
-pin to an LED with an appropriate series resistor and confirm that the LED
-brightness follows the potentiometer.</p>
-<h3 id="5-next-lab-pwm-and-h-bridge">5. Next Lab: PWM And H-Bridge<a class="headerlink" href="#5-next-lab-pwm-and-h-bridge" title="Permanent link">&para;</a></h3>
-<p>This is not part of the first lab unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.</p>
-<p>Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
-Arduino PWM output. Run the motor at different PWM settings.</p>
-<p>Reverse direction using your push button. Disable the motor before reversing
-direction.</p>
-<p>Measure the PWM signal with the oscilloscope. Record the PWM frequency, high
-voltage, low voltage, and duty cycle. This step prepares you for later TEC
-heat/cool control, but the TEC power supply remains off until the actuator lab.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Arduino pins provide logic signals, not motor or TEC power. The motor or TEC
-must be driven through the H-bridge and an appropriate external power
-supply.</p>
-</div>
-<h2 id="helpful-reference">Helpful Reference<a class="headerlink" href="#helpful-reference" title="Permanent link">&para;</a></h2>
+<p>What the commands mean:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git status</code></td>
+<td>Show what changed. Run this before every commit.</td>
+</tr>
+<tr>
+<td><code>git add</code></td>
+<td>Choose which files go into the next checkpoint.</td>
+</tr>
+<tr>
+<td><code>git commit -m "..."</code></td>
+<td>Make the checkpoint on your computer.</td>
+</tr>
+<tr>
+<td><code>git push</code></td>
+<td>Upload the checkpoint to GitHub.</td>
+</tr>
+</tbody>
+</table>
+<p>Use commit messages that say what changed, for example:</p>
+<pre><code class="language-bash">git commit -m &quot;Add thermistor serial sketch&quot;
+git commit -m &quot;Add Python display strip chart&quot;
+git commit -m &quot;Document H-bridge wiring&quot;
+git commit -m &quot;Organize Lab 3 TEC control project&quot;
+</code></pre>
+<h2 id="what-not-to-commit">What Not To Commit<a class="headerlink" href="#what-not-to-commit" title="Permanent link">&para;</a></h2>
+<p>Do not blindly commit everything. Look at <code>git status</code> first.</p>
+<p>Usually commit:</p>
 <ul>
-<li><a href="pinout/">Arduino Uno pinout</a></li>
-<li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">Pulse-width modulation background</a></li>
-</ul></div>
+<li>Arduino sketches you wrote or modified,</li>
+<li>Python scripts and GUIs,</li>
+<li><code>README.md</code>,</li>
+<li>wiring notes,</li>
+<li>small example data files,</li>
+<li>screenshots or diagrams needed to explain your project.</li>
+</ul>
+<p>Usually do not commit:</p>
+<ul>
+<li>temporary files,</li>
+<li>duplicate AI drafts you are not using,</li>
+<li>very large raw data files unless instructed,</li>
+<li>accidental downloads,</li>
+<li>files whose purpose you cannot explain.</li>
+</ul>
+<h2 id="what-your-readme-should-explain">What Your README Should Explain<a class="headerlink" href="#what-your-readme-should-explain" title="Permanent link">&para;</a></h2>
+<p>Your <code>README.md</code> is the front door to your project. It should explain:</p>
+<ul>
+<li>what the project does,</li>
+<li>what hardware is connected to which Arduino pins,</li>
+<li>which Arduino sketch goes with which Python program,</li>
+<li>how to upload the Arduino sketch,</li>
+<li>how to run the Python program,</li>
+<li>one example serial line and what each field means,</li>
+<li>what Git commits you made to organize and preserve your work,</li>
+<li>what you tested on real hardware,</li>
+<li>what you still do not fully understand.</li>
+</ul>
+<h2 id="ai-use-note">AI Use Note<a class="headerlink" href="#ai-use-note" title="Permanent link">&para;</a></h2>
+<p>AI can help you write code, but you are responsible for the instrument. Include
+a short AI use note in your <code>README.md</code>:</p>
+<ul>
+<li>Which parts of the code did AI help generate?</li>
+<li>Which parts did you modify yourself?</li>
+<li>Which parts did you test on real hardware?</li>
+<li>Which parts can you explain without looking at the AI transcript?</li>
+</ul>
+<p>Good AI use sounds like:</p>
+<pre><code class="language-text">AI helped me draft the serial parser and the first pyqtgraph strip chart. I
+modified the axis limits, added the PWM display, and tested the program with the
+Arduino on /dev/cu.usbmodem.... I can explain how one serial line is parsed and
+how the plot buffers are updated.
+</code></pre>
+<h2 id="practice-exercise">Practice Exercise<a class="headerlink" href="#practice-exercise" title="Permanent link">&para;</a></h2>
+<p>Before using Git on your real lab code, practice with a tiny project:</p>
+<pre><code class="language-text">phys39-git-practice/
+  README.md
+  arduino/
+  python/
+  docs/
+</code></pre>
+<p>Then:</p>
+<ol>
+<li>Write two sentences in <code>README.md</code>.</li>
+<li>Run <code>git status</code>.</li>
+<li>Commit the README.</li>
+<li>Add one small Arduino sketch.</li>
+<li>Run <code>git status</code> again.</li>
+<li>Commit the sketch.</li>
+<li>Push to GitHub.</li>
+<li>Open GitHub in a browser and confirm that the files are there.</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>If <code>git status</code> shows many unexpected files, stop and ask before committing.</p>
+<p>If <code>git push</code> asks for GitHub login, follow the GitHub authentication prompt or
+ask for help.</p>
+<p>If VS Code asks whether to save a file you did not mean to edit, choose
+<strong>Cancel</strong> first and inspect the tab. A dot on the tab means there are unsaved
+changes.</p>
+<p>If a Python program says the Arduino port does not exist, check the port name:</p>
+<pre><code class="language-bash">ls /dev/cu.usb*
+</code></pre>
+<p>If the port is busy, close Arduino Serial Monitor, Arduino Serial Plotter,
+MATLAB, or another Python GUI that may already be using the port.</p></div>
             </div>
         </div>
 

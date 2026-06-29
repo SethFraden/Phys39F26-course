@@ -19,7 +19,7 @@ of the semester.
 | --- | --- | --- |
 | Module 1 | Arduino, signals, oscilloscope, analog input, averaging, and PWM | [Lab 1: First Contact](lab-01/index.md) |
 | Module 2 | Thermistor temperature measurement, Arduino Serial Plotter output, and H-bridge signal checks | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |
-| Module 3 | Actuators: H-bridge logic, manual TEC heat/cool control, and first GUI edits | [Upcoming Labs](upcoming.md) |
+| Module 3 | Actuators: H-bridge logic, manual TEC heat/cool control, first GUI edits, and a GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |
 | Module 4 | Feedback control: manual, proportional, and PI temperature control | [Upcoming Labs](upcoming.md) |
 | Module 5 | Modeling the TEC process and comparing model output with data | [Upcoming Labs](upcoming.md) |
 | Module 6 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
@@ -31,7 +31,7 @@ of the semester.
 | --- | --- | --- | --- | --- | --- |
 | 1 | 2026-08-26 | Wed | First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM | [Lab 1: First Contact](lab-01/index.md) |  |
 | 2 | 2026-08-31 | Mon | First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification | [Lab 2: First Real Instrument Pieces](lab-02/index.md) | Lab 1 note |
-| 3 | 2026-09-02 | Wed | Manual TEC heat/cool and first Python GUI modification | [Upcoming Labs](upcoming.md) |  |
+| 3 | 2026-09-02 | Wed | Manual TEC heat/cool, first Python GUI modification, and GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
 | 4 | 2026-09-09 | Wed | Stepper motor direction and speed | [Upcoming Labs](upcoming.md) |  |
 | 5 | 2026-09-14 | Mon | Manual TEC heat/cool direction, part 1 | [Upcoming Labs](upcoming.md) |  |
 | 6 | 2026-09-16 | Wed | Manual TEC heat/cool direction, part 2 | [Upcoming Labs](upcoming.md) |  |

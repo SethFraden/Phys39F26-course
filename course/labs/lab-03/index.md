@@ -60,6 +60,7 @@ trace disappears.
 - Run the Python strip chart while the TEC is manually driven.
 - Add Python GUI controls for PWM and heat/cool direction.
 - Write an Arduino sketch that receives PWM and heat/cool commands from Python.
+- Clean up your Arduino, Python, and notes into a readable project checkpoint.
 
 ## Part 1: Pre-Power Checklist
 
@@ -294,6 +295,76 @@ With TEC power off, verify on the oscilloscope that Python commands change the
 Arduino outputs as expected. Only after that check may you repeat a low-power
 manual heat/cool test.
 
+## Part 8: Project Cleanup And GitHub Checkpoint
+
+By the end of Lab 3, you may have several Arduino sketches, Python files,
+AI-generated drafts, notes, screenshots, and data files. Before moving on, take
+time to organize the work so that another person, including your future self,
+can understand what you built.
+
+Use the course [Git, GitHub, VS Code, and AI workflow](../../git-vscode-ai-workflow.md)
+page as your reference for the minimal Git commands and documentation habits
+expected in this course.
+
+Create one clean project folder for the code and documentation you want to keep.
+A reasonable structure is:
+
+```text
+phys39-tec-control/
+  README.md
+  arduino/
+    thermistor_serial/
+    tec_manual_control/
+    tec_python_control/
+  python/
+    display_strip_chart/
+    manual_control_gui/
+  docs/
+    wiring_notes/
+    screenshots/
+  data/
+    example_runs/
+```
+
+You may use a different structure if it is clear and consistent.
+
+Write or revise `README.md` so it explains:
+
+- what your project does,
+- what hardware is connected to which Arduino pins,
+- which Arduino sketch goes with which Python program,
+- how to upload the Arduino sketch,
+- how to run the Python program,
+- one example serial line and what each field means,
+- what Git commits you made to organize and preserve your work,
+- what you tested yourself,
+- what you still do not fully understand.
+
+Use Git and GitHub to make a checkpoint:
+
+```bash
+git status
+git add README.md arduino python docs
+git commit -m "Organize Lab 3 TEC control project"
+git push
+```
+
+Do not blindly commit everything in the folder. Look at `git status` first.
+Temporary files, duplicate AI drafts, and large accidental data files should not
+be included unless there is a reason to keep them.
+
+In VS Code, use the file explorer to inspect your folder structure, edit your
+Arduino sketches, edit your Python code, and preview your `README.md`. Use this
+checkpoint to remove duplicate code and give files names that describe what they
+actually do.
+
+Also include a short AI use note in your `README.md`:
+
+- Which parts of the code did AI help generate?
+- Which parts did you modify yourself?
+- Which parts did you test on real hardware?
+- Which parts can you explain without looking at the AI transcript?
+
 ## What To Submit
 
 Submit a short lab note containing:
@@ -311,5 +382,7 @@ Submit a short lab note containing:
 - The Arduino serial-command sketch from Part 7.
 - An oscilloscope check showing that Python commands change pins `9` and `10`
   correctly with TEC power off.
+- A link to your organized GitHub project repository.
+- Your `README.md` from Part 8.
 - A paragraph answering: What is the difference between measuring temperature,
   manually actuating the TEC, and feedback-controlling temperature?

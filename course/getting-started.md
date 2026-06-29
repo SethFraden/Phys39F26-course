@@ -16,9 +16,16 @@ You will use:
 2. Install [VS Code](https://code.visualstudio.com/).
 3. Confirm that you can sign in to GitHub.
 4. Bring a USB cable or adapter that connects your computer to an Arduino Uno.
-5. Read the [Lab 1 assignment](labs/lab-01/index.md).
+5. Read the [Git, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
+6. Read the [Lab 1 assignment](labs/lab-01/index.md).
 
 ## Reading Markdown
 
 GitHub renders `.md` files automatically. In VS Code, open a Markdown file and
 select **Open Preview to the Side**, or press **Command-K**, then **V** on a Mac.
+
+## Course Workflow
+
+Use the [Git, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md) page
+when you need to organize code, make a Git checkpoint, write a `README.md`, or
+document how you used an AI coding assistant.

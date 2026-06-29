@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Lab 3 - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -42,6 +42,9 @@
                                 <a href="../../getting-started/" class="nav-link">Getting Started</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">Git, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../" class="nav-link">Labs And Calendar</a>
                             </li>
                             <li class="nav-item">
@@ -51,7 +54,7 @@
                                 <a href="../../hardware/" class="nav-link">Hardware</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -60,6 +63,10 @@
                                     
 <li>
     <a href="../lab-02/" class="dropdown-item">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Lab 3</a>
 </li>
                                     
 <li>
@@ -97,6 +104,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab-02/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../upcoming/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -169,6 +186,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-8-project-cleanup-and-github-checkpoint" class="nav-link">Part 8: Project Cleanup And GitHub Checkpoint</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
               <ul class="nav flex-column">
               </ul>
@@ -233,6 +254,7 @@ trace disappears.</p>
 <li>Run the Python strip chart while the TEC is manually driven.</li>
 <li>Add Python GUI controls for PWM and heat/cool direction.</li>
 <li>Write an Arduino sketch that receives PWM and heat/cool commands from Python.</li>
+<li>Clean up your Arduino, Python, and notes into a readable project checkpoint.</li>
 </ul>
 <h2 id="part-1-pre-power-checklist">Part 1: Pre-Power Checklist<a class="headerlink" href="#part-1-pre-power-checklist" title="Permanent link">&para;</a></h2>
 <p>Before turning on TEC power, fill in this checklist in your lab notes.</p>
@@ -481,6 +503,64 @@ Requirements:
 <p>With TEC power off, verify on the oscilloscope that Python commands change the
 Arduino outputs as expected. Only after that check may you repeat a low-power
 manual heat/cool test.</p>
+<h2 id="part-8-project-cleanup-and-github-checkpoint">Part 8: Project Cleanup And GitHub Checkpoint<a class="headerlink" href="#part-8-project-cleanup-and-github-checkpoint" title="Permanent link">&para;</a></h2>
+<p>By the end of Lab 3, you may have several Arduino sketches, Python files,
+AI-generated drafts, notes, screenshots, and data files. Before moving on, take
+time to organize the work so that another person, including your future self,
+can understand what you built.</p>
+<p>Use the course <a href="../../git-vscode-ai-workflow/">Git, GitHub, VS Code, and AI workflow</a>
+page as your reference for the minimal Git commands and documentation habits
+expected in this course.</p>
+<p>Create one clean project folder for the code and documentation you want to keep.
+A reasonable structure is:</p>
+<pre><code class="language-text">phys39-tec-control/
+  README.md
+  arduino/
+    thermistor_serial/
+    tec_manual_control/
+    tec_python_control/
+  python/
+    display_strip_chart/
+    manual_control_gui/
+  docs/
+    wiring_notes/
+    screenshots/
+  data/
+    example_runs/
+</code></pre>
+<p>You may use a different structure if it is clear and consistent.</p>
+<p>Write or revise <code>README.md</code> so it explains:</p>
+<ul>
+<li>what your project does,</li>
+<li>what hardware is connected to which Arduino pins,</li>
+<li>which Arduino sketch goes with which Python program,</li>
+<li>how to upload the Arduino sketch,</li>
+<li>how to run the Python program,</li>
+<li>one example serial line and what each field means,</li>
+<li>what Git commits you made to organize and preserve your work,</li>
+<li>what you tested yourself,</li>
+<li>what you still do not fully understand.</li>
+</ul>
+<p>Use Git and GitHub to make a checkpoint:</p>
+<pre><code class="language-bash">git status
+git add README.md arduino python docs
+git commit -m &quot;Organize Lab 3 TEC control project&quot;
+git push
+</code></pre>
+<p>Do not blindly commit everything in the folder. Look at <code>git status</code> first.
+Temporary files, duplicate AI drafts, and large accidental data files should not
+be included unless there is a reason to keep them.</p>
+<p>In VS Code, use the file explorer to inspect your folder structure, edit your
+Arduino sketches, edit your Python code, and preview your <code>README.md</code>. Use this
+checkpoint to remove duplicate code and give files names that describe what they
+actually do.</p>
+<p>Also include a short AI use note in your <code>README.md</code>:</p>
+<ul>
+<li>Which parts of the code did AI help generate?</li>
+<li>Which parts did you modify yourself?</li>
+<li>Which parts did you test on real hardware?</li>
+<li>Which parts can you explain without looking at the AI transcript?</li>
+</ul>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
 <p>Submit a short lab note containing:</p>
 <ul>
@@ -497,6 +577,8 @@ manual heat/cool test.</p>
 <li>The Arduino serial-command sketch from Part 7.</li>
 <li>An oscilloscope check showing that Python commands change pins <code>9</code> and <code>10</code>
   correctly with TEC power off.</li>
+<li>A link to your organized GitHub project repository.</li>
+<li>Your <code>README.md</code> from Part 8.</li>
 <li>A paragraph answering: What is the difference between measuring temperature,
   manually actuating the TEC, and feedback-controlling temperature?</li>
 </ul></div>

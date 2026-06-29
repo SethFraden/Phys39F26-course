@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 4 - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Lab 5 - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -70,11 +70,11 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Lab 4</a>
+    <a href="../lab-04/" class="dropdown-item">Lab 4</a>
 </li>
                                     
 <li>
-    <a href="../lab-05/" class="dropdown-item">Lab 5</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Lab 5</a>
 </li>
                                     
 <li>
@@ -117,12 +117,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../lab-03/" class="nav-link">
+                                <a rel="prev" href="../lab-04/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../lab-05/" class="nav-link">
+                                <a rel="next" href="../lab-06/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -144,7 +144,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-4-assignment-open-loop-tec-calibration-and-software-safety" class="nav-link">Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety</a>
+            <li class="nav-item" data-bs-level="1"><a href="#lab-5-assignment-p-only-temperature-control" class="nav-link">Lab 5 Assignment: P-Only Temperature Control</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -154,7 +154,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reading" class="nav-link">Reading</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#safety-boundary" class="nav-link">Safety Boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#vocabulary" class="nav-link">Vocabulary</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -170,31 +178,31 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-1-prepare-the-instrument" class="nav-link">Part 1: Prepare The Instrument</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-1-draw-the-feedback-loop" class="nav-link">Part 1: Draw The Feedback Loop</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-choose-pwm-values" class="nav-link">Part 2: Choose PWM Values</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-implement-p-only-control" class="nav-link">Part 2: Implement P-Only Control</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-measure-steady-state-temperature" class="nav-link">Part 3: Measure Steady-State Temperature</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-sign-test-at-low-gain" class="nav-link">Part 3: Sign Test At Low Gain</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-4-plot-temperature-versus-pwm" class="nav-link">Part 4: Plot Temperature Versus PWM</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-4-measure-droop-versus-gain" class="nav-link">Part 4: Measure Droop Versus Gain</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-5-explain-heatingcooling-asymmetry" class="nav-link">Part 5: Explain Heating/Cooling Asymmetry</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-predict-droop-from-lab-4" class="nav-link">Part 5: Predict Droop From Lab 4</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-6-add-a-software-temperature-limit" class="nav-link">Part 6: Add A Software Temperature Limit</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-find-the-onset-of-oscillation" class="nav-link">Part 6: Find The Onset Of Oscillation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-7-ai-prompt-for-the-safety-edit" class="nav-link">Part 7: AI Prompt For The Safety Edit</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-7-explain-what-the-simple-model-misses" class="nav-link">Part 7: Explain What The Simple Model Misses</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -213,133 +221,152 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-4-assignment-open-loop-tec-calibration-and-software-safety">Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety<a class="headerlink" href="#lab-4-assignment-open-loop-tec-calibration-and-software-safety" title="Permanent link">&para;</a></h1>
+<h1 id="lab-5-assignment-p-only-temperature-control">Lab 5 Assignment: P-Only Temperature Control<a class="headerlink" href="#lab-5-assignment-p-only-temperature-control" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 4 turns the manually controlled TEC from Lab 3 into a measured process. You
-will hold the TEC at several PWM settings, wait for the temperature to settle,
-and measure the steady-state relationship between PWM command and temperature.</p>
-<p>You will also add the first software safety interlock: the Arduino must disable
-the PWM command if the measured temperature exceeds a chosen limit. The hardware
-thermal switch remains the final protection, but your code should not rely on
-the hardware cutoff as the normal way to stop an unsafe run.</p>
-<p>This is still open-loop control. You are not asking the Arduino or Python to
-hit a target temperature automatically. You are measuring how the physical
-system responds to commands.</p>
+<p>Lab 5 closes the feedback loop for the first time. In Lab 4 you measured how
+the TEC responds when you choose a PWM command directly. In Lab 5 you ask the
+computer to choose the PWM command from the temperature error.</p>
+<p>The first controller is proportional-only:</p>
+<pre><code class="language-text">PWM command = Kp * temperature error
+</code></pre>
+<p>This is not yet PI or PID control. The goal is to understand what proportional
+feedback does well, what it cannot do, and why too much gain can make a real
+thermal system oscillate.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
-<p><strong>Open-Loop TEC Calibration And Software Safety</strong></p>
-<p>Steady-state temperature versus PWM, heating/cooling asymmetry, and a
-temperature-limit interlock in Arduino code.</p>
-<h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
-<p>Before collecting data:</p>
+<p><strong>P-Only Feedback: Droop, Gain, And Instability</strong></p>
+<p>Use proportional feedback to regulate TEC temperature. Measure droop versus
+gain and the onset of oscillation.</p>
+<h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
+<p>Read these short selections before class. The goal is conceptual understanding,
+not mastery of all the mathematics.</p>
 <ol>
-<li>The Lab 3 pre-power checklist is complete.</li>
-<li>The H-bridge outputs have been checked with TEC power off.</li>
-<li>PWM starts at zero.</li>
-<li>The power supply current limit is set by the instructor.</li>
-<li>The Python display is showing plausible temperature values.</li>
-<li>The hardware thermal switch has been identified.</li>
+<li>John Bechhoefer, <em>Feedback for Physicists</em>, pp. 788-790 and 804-805.</li>
+<li>Focus on feedback, error, proportional/integral/derivative action, and
+     why derivative control is sensitive to noise.</li>
+<li>Skim equations involving Laplace-transform notation. We will translate
+     the main ideas into time-domain Arduino/Python models.</li>
+<li>The PDF will be provided through Brandeis course materials. Public DOI
+     link: <a href="https://doi.org/10.1103/RevModPhys.77.783">Feedback for Physicists</a></li>
+<li><a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia: PID controller</a></li>
+<li>Skim for vocabulary and the block diagram.</li>
+<li><a href="https://www.ni.com/en/shop/labview/pid-theory-explained.html">NI: PID theory explained</a></li>
+<li>Focus on the practical meaning of proportional gain and the onset of
+     oscillation.</li>
 </ol>
-<p>During this lab, keep the measured temperature between <strong>10 °C and 45 °C</strong>. Stop
-the run if the temperature moves unexpectedly, the display freezes, the power
-supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</p>
+<h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
+<p>Before using feedback control:</p>
+<ol>
+<li>The Lab 4 software temperature limit is present.</li>
+<li>PWM starts at zero.</li>
+<li>The Python GUI shows plausible temperature.</li>
+<li>Heat and cool directions have the correct sign.</li>
+<li>The power supply current limit is set by the instructor.</li>
+<li>The setpoint is between <strong>20 °C and 35 °C</strong> unless the instructor approves a
+   different range.</li>
+</ol>
+<p>Stop immediately if the temperature moves in the wrong direction, the GUI
+freezes, the PWM saturates unexpectedly, or sustained oscillations grow in
+amplitude.</p>
+<h2 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Setpoint</strong>, <code>Tset</code>: the desired temperature.</li>
+<li><strong>Measured temperature</strong>, <code>T</code>: the thermistor temperature.</li>
+<li><strong>Error</strong>, <code>e = Tset - T</code>: how far the measured temperature is from the
+  setpoint.</li>
+<li><strong>Control output</strong>, <code>u</code>: the signed PWM command sent to the TEC.</li>
+<li><strong>Proportional gain</strong>, <code>Kp</code>: the number that converts error into command.</li>
+<li><strong>Droop</strong>: steady-state error that remains with proportional-only control.</li>
+<li><strong>Saturation</strong>: the controller asks for a PWM command outside the allowed
+  range.</li>
+<li><strong>Instability</strong>: the feedback loop oscillates or diverges instead of settling.</li>
+</ul>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your Lab 3 Arduino sketch and Python GUI.</li>
-<li>Confirm that you can set PWM and heat/cool direction manually.</li>
-<li>Review how your Python program records or displays temperature versus time.</li>
-<li>Read the <a href="../../hardware/#thermal-safety-switch">hardware page section on the thermal safety switch</a>.</li>
-<li>Read the <a href="../../hardware/#thermoelectric-cooler">hardware page section on the TEC</a>.</li>
+<li>Review your Lab 4 open-loop graph of steady-state temperature versus PWM.</li>
+<li>Identify the approximate open-loop slope, <code>S = dT/dPWM</code>, near room
+   temperature.</li>
+<li>Confirm that your Arduino safety shutdown still works.</li>
+<li>Write down the sign convention you will use:</li>
 </ol>
+<pre><code class="language-text">positive command = heat
+negative command = cool
+</code></pre>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
-<li>What does it mean for the TEC/block temperature to reach steady state?</li>
-<li>Why should you wait before recording a steady-state temperature?</li>
-<li>Why might heating and cooling have different slopes in a plot of temperature
-   versus PWM?</li>
-<li>Why is a software temperature limit useful even when a hardware thermal
-   switch is present?</li>
+<li>If <code>Tset = 30 °C</code> and <code>T = 25 °C</code>, should the TEC heat or cool?</li>
+<li>If <code>u</code> is measured in PWM counts and <code>e</code> is measured in °C, what are the
+   units of <code>Kp</code>?</li>
+<li>Why does proportional control require a nonzero error to produce a nonzero
+   output?</li>
+<li>What experimental symptom would tell you that <code>Kp</code> is too large?</li>
 </ol>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.</li>
-<li>Measure steady-state temperature for several heating PWM values.</li>
-<li>Measure steady-state temperature for several cooling PWM values.</li>
-<li>Plot steady-state temperature versus PWM.</li>
-<li>Estimate <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling.</li>
-<li>Explain the asymmetry between heating and cooling.</li>
-<li>Add Arduino code that disables PWM if temperature exceeds 60 °C.</li>
-<li>Verify the safety logic without intentionally overheating the apparatus.</li>
+<li>Implement P-only control in Python or Arduino.</li>
+<li>Verify the sign of the feedback loop at very low gain.</li>
+<li>Measure steady-state droop for several values of <code>Kp</code>.</li>
+<li>Increase <code>Kp</code> until oscillations begin.</li>
+<li>Measure oscillation amplitude, period, and frequency as functions of gain.</li>
+<li>Compare your droop data with the simple algebraic model.</li>
 </ul>
-<h2 id="part-1-prepare-the-instrument">Part 1: Prepare The Instrument<a class="headerlink" href="#part-1-prepare-the-instrument" title="Permanent link">&para;</a></h2>
-<p>Start from your working Lab 3 setup.</p>
+<h2 id="part-1-draw-the-feedback-loop">Part 1: Draw The Feedback Loop<a class="headerlink" href="#part-1-draw-the-feedback-loop" title="Permanent link">&para;</a></h2>
+<p>Draw a block diagram with these pieces:</p>
+<pre><code class="language-text">Tset -&gt; error e -&gt; proportional controller -&gt; signed PWM u -&gt; TEC/block -&gt; T
+                         ^                                  |
+                         |                                  |
+                         +----------- thermistor -----------+
+</code></pre>
+<p>Label:</p>
+<ul>
+<li><code>Tset</code>,</li>
+<li><code>T</code>,</li>
+<li><code>e = Tset - T</code>,</li>
+<li><code>u</code>,</li>
+<li><code>Kp</code>,</li>
+<li>the physical TEC/block/thermistor system.</li>
+</ul>
+<h2 id="part-2-implement-p-only-control">Part 2: Implement P-Only Control<a class="headerlink" href="#part-2-implement-p-only-control" title="Permanent link">&para;</a></h2>
+<p>Add a P-only mode to your Python GUI or Arduino sketch.</p>
+<p>The controller should:</p>
 <ol>
-<li>Upload the Arduino sketch that receives PWM and heat/cool commands from
-   Python.</li>
-<li>Start the Python GUI.</li>
-<li>Confirm that PWM begins at <code>0</code>.</li>
-<li>Confirm that the measured temperature is plausible.</li>
-<li>With TEC power off, verify on the oscilloscope that the Python command
-   changes pins <code>9</code> and <code>10</code> as expected.</li>
-<li>After instructor approval, connect TEC power.</li>
+<li>read the measured temperature,</li>
+<li>calculate <code>error = Tset - T</code>,</li>
+<li>calculate <code>u = Kp * error</code>,</li>
+<li>convert the sign of <code>u</code> into heat/cool direction,</li>
+<li>convert the magnitude of <code>u</code> into PWM,</li>
+<li>clamp PWM to the allowed range,</li>
+<li>send or apply the command,</li>
+<li>keep plotting temperature, PWM, direction, setpoint, and error.</li>
 </ol>
-<p>Record the Arduino sketch filename, Python filename, serial port, power-supply
-voltage, and power-supply current limit in your lab notes.</p>
-<h2 id="part-2-choose-pwm-values">Part 2: Choose PWM Values<a class="headerlink" href="#part-2-choose-pwm-values" title="Permanent link">&para;</a></h2>
-<p>Choose  five PWM values for heating and  five PWM
-values for cooling. Include PWM <code>0</code>.</p>
-<p>The exact values will depend on the apparatus, but the goal is to span a useful
-range while keeping the temperature between <strong>10 °C and 45 °C</strong>.</p>
-<p>Start by establishing the PWM value to reach the two temperature limits. If PWM(10C) is the PWM value to reach 10C in steady state, then the five values are PWM(10C), 0.75 PWM(10C), 0.5 PWM(10C), 0.25 PWM(10C), 0.</p>
-<h2 id="part-3-measure-steady-state-temperature">Part 3: Measure Steady-State Temperature<a class="headerlink" href="#part-3-measure-steady-state-temperature" title="Permanent link">&para;</a></h2>
-<p>For each PWM value:</p>
+<p>Start with a very small gain. Do not tune aggressively at first.</p>
+<h2 id="part-3-sign-test-at-low-gain">Part 3: Sign Test At Low Gain<a class="headerlink" href="#part-3-sign-test-at-low-gain" title="Permanent link">&para;</a></h2>
+<p>Before trying to regulate temperature:</p>
 <ol>
-<li>Set heat/cool direction.</li>
-<li>Set PWM.</li>
-<li>Watch the temperature trace.</li>
-<li>Wait until the temperature changes slowly enough to call it steady for this
-   lab.</li>
-<li>Record the steady-state temperature.</li>
-<li>Return PWM to zero before switching direction or choosing a much larger PWM.</li>
+<li>Choose a setpoint slightly above room temperature.</li>
+<li>Use a very small <code>Kp</code>.</li>
+<li>Confirm that positive error produces heating.</li>
+<li>Choose a setpoint slightly below room temperature.</li>
+<li>Confirm that negative error produces cooling.</li>
 </ol>
+<p>If the sign is wrong, stop and fix the sign convention before continuing.</p>
+<h2 id="part-4-measure-droop-versus-gain">Part 4: Measure Droop Versus Gain<a class="headerlink" href="#part-4-measure-droop-versus-gain" title="Permanent link">&para;</a></h2>
+<p>Choose one setpoint, for example <strong>30 °C</strong>, and measure the steady-state error
+for several values of <code>Kp</code>.</p>
 <p>Use a table like this:</p>
 <table>
 <thead>
 <tr>
-<th>Direction</th>
-<th style="text-align: right;">PWM</th>
-<th style="text-align: right;">Start Temperature (°C)</th>
-<th style="text-align: right;">Steady Temperature (°C)</th>
-<th style="text-align: right;">Time Waited (s)</th>
+<th style="text-align: right;"><code>Kp</code></th>
+<th style="text-align: right;">Setpoint (°C)</th>
+<th style="text-align: right;">Final Temperature (°C)</th>
+<th style="text-align: right;">Droop <code>Tset - T</code> (°C)</th>
+<th style="text-align: right;">Final PWM</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Heat</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-</tr>
-<tr>
-<td>Heat</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-</tr>
-<tr>
-<td>Cool</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-</tr>
-<tr>
-<td>Cool</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
@@ -348,93 +375,96 @@ range while keeping the temperature between <strong>10 °C and 45 °C</strong>.<
 </tr>
 </tbody>
 </table>
-<p>Also save at least one temperature-versus-time trace for heating and one for
-cooling.</p>
-<h2 id="part-4-plot-temperature-versus-pwm">Part 4: Plot Temperature Versus PWM<a class="headerlink" href="#part-4-plot-temperature-versus-pwm" title="Permanent link">&para;</a></h2>
-<p>Make a graph of steady-state temperature <span class="arithmatex">\(T\)</span> versus PWM.</p>
-<p>You may use Python, a spreadsheet, or another tool. The graph should show:</p>
-<ul>
-<li>heating data,</li>
-<li>cooling data,</li>
-<li>labeled axes,</li>
-<li>units for temperature,</li>
-<li>a caption or short note explaining how steady state was chosen.</li>
-</ul>
-<p>Estimate <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling. A simple estimate is:</p>
-<pre><code class="language-text">dT/dPWM = change in steady-state temperature / change in PWM
+<p>For each gain:</p>
+<ol>
+<li>Start from PWM <code>0</code>.</li>
+<li>Turn on P-only control.</li>
+<li>Wait for the temperature to settle or clearly fail to settle.</li>
+<li>Record final temperature, error, and PWM.</li>
+<li>Save a strip chart trace.</li>
+</ol>
+<p>Plot droop versus <code>Kp</code>.</p>
+<h2 id="part-5-predict-droop-from-lab-4">Part 5: Predict Droop From Lab 4<a class="headerlink" href="#part-5-predict-droop-from-lab-4" title="Permanent link">&para;</a></h2>
+<p>Use the Lab 4 open-loop slope:</p>
+<pre><code class="language-text">T = Tamb + S u
 </code></pre>
-<p>If the graph is not very linear, say so. The slope is still useful as a local
-or approximate measure of open-loop response.</p>
-<h2 id="part-5-explain-heatingcooling-asymmetry">Part 5: Explain Heating/Cooling Asymmetry<a class="headerlink" href="#part-5-explain-heatingcooling-asymmetry" title="Permanent link">&para;</a></h2>
-<p>Compare the magnitude of <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling.</p>
-<p>Write a short explanation of why the slopes may differ. Your explanation should
-refer to the physical apparatus, not only to the code. Useful ideas include:</p>
-<ul>
-<li>the TEC moves heat in one direction while also producing Joule heat,</li>
-<li>the heat exchanger rejects heat to the room but is not an infinite heat sink,</li>
-<li>the thermistor measures one location, not the entire thermal system,</li>
-<li>thermal contact, heat capacity, and room-temperature boundary conditions
-  matter.</li>
-</ul>
-<h2 id="part-6-add-a-software-temperature-limit">Part 6: Add A Software Temperature Limit<a class="headerlink" href="#part-6-add-a-software-temperature-limit" title="Permanent link">&para;</a></h2>
-<p>Modify the Arduino sketch so that it disables TEC PWM if the measured
-temperature exceeds <strong>60 °C</strong>.</p>
-<p>The hardware thermal switch opens near 70 °C. That hardware switch protects the
-apparatus even if software fails, but your Arduino code should act first.</p>
-<p>Your code should:</p>
-<ul>
-<li>define a named constant for the software limit,</li>
-<li>check the measured temperature every loop,</li>
-<li>set both H-bridge PWM outputs to zero when the limit is exceeded,</li>
-<li>keep printing serial data so the Python GUI shows what happened,</li>
-<li>make it obvious in the serial output that the safety limit is active.</li>
-</ul>
-<p>Do not test this by intentionally heating the apparatus to 60 °C. Instead, ask
-the instructor how to verify the logic safely. For example, you may temporarily
-lower the software limit to a temperature just above room temperature, confirm
-that PWM shuts off, and then restore the 60 °C limit.</p>
-<h2 id="part-7-ai-prompt-for-the-safety-edit">Part 7: AI Prompt For The Safety Edit<a class="headerlink" href="#part-7-ai-prompt-for-the-safety-edit" title="Permanent link">&para;</a></h2>
-<p>You may ask an AI coding assistant for help, but test and understand the result.
-A useful prompt is:</p>
-<pre><code class="language-text">I have an Arduino sketch for a TEC temperature-control lab. The sketch measures
-temperature from a thermistor, receives PWM and heat/cool commands from a Python
-GUI, and drives an H-bridge with PWM on pins 9 and 10.
-
-Modify the sketch to add a software temperature safety limit.
-
-Requirements:
-- Define a named constant called temperatureLimitC with value 60.0.
-- If measured temperature is greater than temperatureLimitC, set commanded PWM
-  to 0 and write 0 to both H-bridge PWM outputs.
-- Keep printing serial output so the Python GUI continues to update.
-- Add a field to the serial output that says whether safety shutdown is active.
-- Do not remove the existing temperature measurement or serial command parser.
-- Keep the code simple and explain the new safety logic in comments.
+<p>and the P-only controller:</p>
+<pre><code class="language-text">u = Kp * (Tset - T)
 </code></pre>
-<p>After using AI, identify exactly which lines were changed and explain how the
-safety limit works.</p>
+<p>Combine them to predict the steady-state error:</p>
+<pre><code class="language-text">droop = Tset - T = (Tset - Tamb) / (1 + S*Kp)
+</code></pre>
+<p>Calculate the predicted droop for each <code>Kp</code> you tested. Overlay predicted and
+measured droop on the same graph.</p>
+<p>This model will not be perfect. Its job is to explain the main trend.</p>
+<h2 id="part-6-find-the-onset-of-oscillation">Part 6: Find The Onset Of Oscillation<a class="headerlink" href="#part-6-find-the-onset-of-oscillation" title="Permanent link">&para;</a></h2>
+<p>Increase <code>Kp</code> carefully until the temperature no longer settles smoothly.</p>
+<p>For each gain near the onset of oscillation, record:</p>
+<ul>
+<li><code>Kp</code>,</li>
+<li>setpoint,</li>
+<li>approximate mean temperature,</li>
+<li>oscillation amplitude,</li>
+<li>oscillation period,</li>
+<li>oscillation frequency,</li>
+<li>whether the PWM saturates.</li>
+</ul>
+<p>Use a table like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><code>Kp</code></th>
+<th>Stable?</th>
+<th style="text-align: right;">Amplitude (°C)</th>
+<th style="text-align: right;">Period (s)</th>
+<th style="text-align: right;">Frequency (Hz)</th>
+<th>Saturation?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Do not let oscillations grow without supervision. Return to manual/PWM zero if
+the run becomes unsafe.</p>
+<h2 id="part-7-explain-what-the-simple-model-misses">Part 7: Explain What The Simple Model Misses<a class="headerlink" href="#part-7-explain-what-the-simple-model-misses" title="Permanent link">&para;</a></h2>
+<p>The algebraic droop model predicts steady-state error. It does not explain
+oscillations.</p>
+<p>Write a paragraph explaining which physical effects might cause instability:</p>
+<ul>
+<li>thermal delay between TEC, block, and thermistor,</li>
+<li>finite response time of the heat exchanger,</li>
+<li>sampling interval in the controller,</li>
+<li>sensor noise,</li>
+<li>PWM saturation,</li>
+<li>using one thermistor to represent a multi-part thermal system.</li>
+</ul>
 <h2 id="part-8-github-checkpoint">Part 8: GitHub Checkpoint<a class="headerlink" href="#part-8-github-checkpoint" title="Permanent link">&para;</a></h2>
-<p>Commit your work when the lab is complete.</p>
+<p>Commit your working P-only controller and notes.</p>
 <pre><code class="language-bash">git status
 git add README.md arduino python docs data
-git commit -m &quot;Measure open-loop TEC response and add safety limit&quot;
+git commit -m &quot;Measure P-only temperature control&quot;
 git push
 </code></pre>
-<p>Do not commit duplicate drafts or large accidental data files. Your repository
-should make it clear which Arduino sketch and Python program were used for this
-lab.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short lab note containing:</p>
+<p>Submit:</p>
 <ul>
-<li>the PWM values used for heating and cooling,</li>
-<li>the steady-state data table,</li>
-<li>one heating trace and one cooling trace,</li>
-<li>a graph of steady-state temperature versus PWM,</li>
-<li>estimated <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling,</li>
-<li>your explanation of heating/cooling asymmetry,</li>
-<li>the Arduino safety-limit code or a link to it,</li>
-<li>a short description of how you verified the safety logic,</li>
-<li>a link to the GitHub commit or repository containing the organized Lab 4 work.</li>
+<li>feedback-loop block diagram,</li>
+<li>sign-test result,</li>
+<li>table of droop versus <code>Kp</code>,</li>
+<li>plot of measured and predicted droop versus <code>Kp</code>,</li>
+<li>strip chart traces for at least two gains,</li>
+<li>table of oscillation amplitude and frequency near instability,</li>
+<li>your P-only control code or a link to it,</li>
+<li>a short paragraph explaining why P-only control has droop,</li>
+<li>a short paragraph explaining why high gain can oscillate.</li>
 </ul></div>
             </div>
         </div>

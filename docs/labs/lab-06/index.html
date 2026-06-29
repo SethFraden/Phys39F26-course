@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 6 - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">Git, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../schedule/" class="nav-link">Course Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../lab-01/" class="dropdown-item">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="../lab-02/" class="dropdown-item">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="../lab-03/" class="dropdown-item">Lab 3</a>
+</li>
+                                    
+<li>
+    <a href="../lab-04/" class="dropdown-item">Lab 4</a>
+</li>
+                                    
+<li>
+    <a href="../lab-05/" class="dropdown-item">Lab 5</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Lab 6</a>
+</li>
+                                    
+<li>
+    <a href="../upcoming/" class="dropdown-item">Upcoming Lab Modules</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab-05/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../upcoming/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#lab-6-assignment-modeling-p-and-pi-temperature-control" class="nav-link">Lab 6 Assignment: Modeling P And PI Temperature Control</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#theme" class="nav-link">Theme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reading" class="nav-link">Reading</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#vocabulary" class="nav-link">Vocabulary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#before-class" class="nav-link">Before Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-you-will-do" class="nav-link">What You Will Do</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-1-algebraic-droop-model" class="nav-link">Part 1: Algebraic Droop Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-first-order-thermal-model" class="nav-link">Part 2: First-Order Thermal Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-estimate-tau" class="nav-link">Part 3: Estimate tau</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-4-simulate-open-loop-response" class="nav-link">Part 4: Simulate Open-Loop Response</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-simulate-p-only-feedback" class="nav-link">Part 5: Simulate P-Only Feedback</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-why-the-first-order-model-may-not-oscillate" class="nav-link">Part 6: Why The First-Order Model May Not Oscillate</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-7-add-integral-action-in-simulation" class="nav-link">Part 7: Add Integral Action In Simulation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-8-windup-thought-experiment" class="nav-link">Part 8: Windup Thought Experiment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-9-modeling-checkpoint" class="nav-link">Part 9: Modeling Checkpoint</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-6-assignment-modeling-p-and-pi-temperature-control">Lab 6 Assignment: Modeling P And PI Temperature Control<a class="headerlink" href="#lab-6-assignment-modeling-p-and-pi-temperature-control" title="Permanent link">&para;</a></h1>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Lab 6 slows down the theory. Lab 5 showed that proportional feedback reduces
+steady-state error but can become unstable. Lab 6 builds simple models that
+explain those observations.</p>
+<p>The goal is not to become fluent in Laplace transforms. The goal is to connect
+thermal physics, feedback equations, and the data you measured from the TEC.</p>
+<p>You will begin with algebra, then write a first-order time-domain model, then
+extend the model just enough to understand why integral control is useful and
+why real feedback loops can oscillate.</p>
+<h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
+<p><strong>Time-Domain Models For P And PI Control</strong></p>
+<p>Droop, time constants, numerical simulation, and the first model of integral
+action.</p>
+<h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
+<p>Read selectively:</p>
+<ol>
+<li>Lienhard and Lienhard, <em>A Heat Transfer Textbook</em>.</li>
+<li>Section 1.3: read for energy-balance language and units.</li>
+<li>Chapter 4, especially Section 4.5: read for transient response and thermal
+     time constants.</li>
+<li>Official free textbook site: <a href="https://ahtt.mit.edu">A Heat Transfer Textbook</a></li>
+<li>Review your Lab 4 and Lab 5 data.</li>
+<li>Optional after class: Bechhoefer pp. 795-797 on feedback and stability.</li>
+</ol>
+<p>Do not try to learn all of transient heat transfer at once. For this lab, you
+need the idea that a physical object has heat capacity, exchanges heat with its
+environment, and responds over a time scale.</p>
+<h2 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Thermal capacitance</strong>, <code>C</code>: how much heat is needed to change temperature.</li>
+<li><strong>Thermal resistance</strong>, <code>R</code>: how strongly the object is thermally connected
+  to its surroundings.</li>
+<li><strong>Time constant</strong>, <code>tau = R*C</code>: the approximate response time of a first-order
+  thermal system.</li>
+<li><strong>Open-loop slope</strong>, <code>S</code>: steady-state temperature change per PWM command.</li>
+<li><strong>P control</strong>: command proportional to current error.</li>
+<li><strong>I control</strong>: command proportional to accumulated error.</li>
+<li><strong>Windup</strong>: integral term grows while the actuator is saturated.</li>
+</ul>
+<h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
+<p>Bring:</p>
+<ul>
+<li>your Lab 4 steady-state <code>T</code> versus PWM data,</li>
+<li>your Lab 5 droop versus <code>Kp</code> data,</li>
+<li>one Lab 5 strip chart trace at a stable gain,</li>
+<li>one Lab 5 strip chart trace near oscillation,</li>
+<li>your current Python plotting/modeling environment.</li>
+</ul>
+<h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What physical part of the apparatus stores heat?</li>
+<li>What physical paths let heat leave the measured block?</li>
+<li>What evidence from your data suggests a thermal time constant?</li>
+<li>Why does the algebraic droop model not predict oscillation?</li>
+</ol>
+<h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Derive the algebraic P-control droop model.</li>
+<li>Fit or estimate an open-loop thermal slope from Lab 4.</li>
+<li>Fit or estimate a time constant from a temperature step.</li>
+<li>Simulate a first-order TEC/block model.</li>
+<li>Add P-only feedback to the simulation.</li>
+<li>Compare simulated droop with measured droop.</li>
+<li>Add a simple PI controller in simulation.</li>
+<li>Explain why integral action reduces droop and why windup is a problem.</li>
+</ul>
+<h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
+<p>Start with the steady-state open-loop relationship from Lab 4:</p>
+<pre><code class="language-text">T = Tamb + S*u
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>T</code> is steady-state temperature,</li>
+<li><code>Tamb</code> is ambient temperature,</li>
+<li><code>S</code> is the open-loop slope in °C/PWM,</li>
+<li><code>u</code> is the signed PWM command.</li>
+</ul>
+<p>For P-only feedback:</p>
+<pre><code class="language-text">u = Kp*(Tset - T)
+</code></pre>
+<p>Combine the two equations:</p>
+<pre><code class="language-text">T = Tamb + S*Kp*(Tset - T)
+</code></pre>
+<p>Solve for the steady-state error:</p>
+<pre><code class="language-text">droop = Tset - T = (Tset - Tamb)/(1 + S*Kp)
+</code></pre>
+<p>Use your own values of <code>S</code>, <code>Tamb</code>, <code>Tset</code>, and <code>Kp</code> to calculate predicted
+droop. Compare the prediction with Lab 5.</p>
+<h2 id="part-2-first-order-thermal-model">Part 2: First-Order Thermal Model<a class="headerlink" href="#part-2-first-order-thermal-model" title="Permanent link">&para;</a></h2>
+<p>Use a one-body thermal model:</p>
+<pre><code class="language-text">dT/dt = -(T - Tamb)/tau + B*u
+</code></pre>
+<p>Interpretation:</p>
+<ul>
+<li><code>-(T - Tamb)/tau</code> pulls the block back toward room temperature,</li>
+<li><code>B*u</code> is the heating or cooling rate caused by the TEC command,</li>
+<li><code>tau</code> is the thermal time constant.</li>
+</ul>
+<p>This model is deliberately simple. It treats the TEC/block/thermistor as one
+effective thermal object.</p>
+<h2 id="part-3-estimate-tau">Part 3: Estimate <code>tau</code><a class="headerlink" href="#part-3-estimate-tau" title="Permanent link">&para;</a></h2>
+<p>Use a temperature step from Lab 4 or Lab 5.</p>
+<p>One practical method:</p>
+<ol>
+<li>Identify the initial temperature, <code>T_initial</code>.</li>
+<li>Identify the approximate final temperature, <code>T_final</code>.</li>
+<li>Calculate 63 percent of the total change:</li>
+</ol>
+<pre><code class="language-text">T_63 = T_initial + 0.63*(T_final - T_initial)
+</code></pre>
+<ol>
+<li>Estimate <code>tau</code> as the time when the temperature first reaches <code>T_63</code>.</li>
+</ol>
+<p>Record how uncertain your estimate is. The trace may not be a perfect
+exponential.</p>
+<h2 id="part-4-simulate-open-loop-response">Part 4: Simulate Open-Loop Response<a class="headerlink" href="#part-4-simulate-open-loop-response" title="Permanent link">&para;</a></h2>
+<p>Write a short Python simulation of:</p>
+<pre><code class="language-text">dT/dt = -(T - Tamb)/tau + B*u
+</code></pre>
+<p>Use Euler integration:</p>
+<pre><code class="language-text">T_next = T + dt * (-(T - Tamb)/tau + B*u)
+</code></pre>
+<p>Simulate a constant PWM command and compare the simulated curve with one of
+your measured open-loop traces.</p>
+<h2 id="part-5-simulate-p-only-feedback">Part 5: Simulate P-Only Feedback<a class="headerlink" href="#part-5-simulate-p-only-feedback" title="Permanent link">&para;</a></h2>
+<p>Replace the constant command with:</p>
+<pre><code class="language-text">u = Kp*(Tset - T)
+</code></pre>
+<p>Clamp <code>u</code> to the allowed PWM range.</p>
+<p>Simulate several values of <code>Kp</code>. Plot:</p>
+<ul>
+<li>temperature versus time,</li>
+<li>PWM command versus time,</li>
+<li>final droop versus <code>Kp</code>.</li>
+</ul>
+<p>Compare with Lab 5. The first-order model should capture some trends, but it
+may not reproduce oscillations.</p>
+<h2 id="part-6-why-the-first-order-model-may-not-oscillate">Part 6: Why The First-Order Model May Not Oscillate<a class="headerlink" href="#part-6-why-the-first-order-model-may-not-oscillate" title="Permanent link">&para;</a></h2>
+<p>If your first-order model does not oscillate, that is useful. It means one
+thermal mass with instantaneous measurement and actuation is too simple.</p>
+<p>Discuss what you would need to add:</p>
+<ul>
+<li>a time delay,</li>
+<li>two thermal masses,</li>
+<li>sensor lag,</li>
+<li>actuator lag,</li>
+<li>discrete controller update time,</li>
+<li>PWM saturation,</li>
+<li>measurement noise.</li>
+</ul>
+<p>Choose one extension that you think is physically most important for the class
+apparatus.</p>
+<h2 id="part-7-add-integral-action-in-simulation">Part 7: Add Integral Action In Simulation<a class="headerlink" href="#part-7-add-integral-action-in-simulation" title="Permanent link">&para;</a></h2>
+<p>Integral control accumulates error:</p>
+<pre><code class="language-text">error_integral = error_integral + error*dt
+u = Kp*error + Ki*error_integral
+</code></pre>
+<p>Simulate PI control for a stable <code>Kp</code>.</p>
+<p>Compare P-only and PI simulations:</p>
+<ul>
+<li>final droop,</li>
+<li>time to approach setpoint,</li>
+<li>overshoot,</li>
+<li>sensitivity to saturation.</li>
+</ul>
+<p>The main point is that integral action can reduce steady-state error, but it can
+also create overshoot and windup.</p>
+<h2 id="part-8-windup-thought-experiment">Part 8: Windup Thought Experiment<a class="headerlink" href="#part-8-windup-thought-experiment" title="Permanent link">&para;</a></h2>
+<p>Suppose the setpoint is far away and the controller demands more PWM than the
+hardware can supply. The PWM saturates, but the integral error may keep growing.</p>
+<p>Answer:</p>
+<ol>
+<li>What happens to the integral term while PWM is saturated?</li>
+<li>What happens after the temperature finally approaches the setpoint?</li>
+<li>Why might this cause overshoot?</li>
+<li>How could software prevent or reduce windup?</li>
+</ol>
+<h2 id="part-9-modeling-checkpoint">Part 9: Modeling Checkpoint<a class="headerlink" href="#part-9-modeling-checkpoint" title="Permanent link">&para;</a></h2>
+<p>Commit your modeling notebook or Python script.</p>
+<pre><code class="language-bash">git status
+git add README.md python docs data
+git commit -m &quot;Model P and PI temperature control&quot;
+git push
+</code></pre>
+<h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
+<p>Submit:</p>
+<ul>
+<li>derivation of the P-control droop equation,</li>
+<li>estimate of open-loop slope <code>S</code>,</li>
+<li>estimate of thermal time constant <code>tau</code>,</li>
+<li>open-loop simulation compared with one measured trace,</li>
+<li>P-only simulation compared with Lab 5 droop data,</li>
+<li>PI simulation compared with P-only simulation,</li>
+<li>short explanation of why the first-order model does or does not oscillate,</li>
+<li>windup thought-experiment answers,</li>
+<li>link to your GitHub modeling checkpoint.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

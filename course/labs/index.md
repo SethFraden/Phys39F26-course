@@ -21,8 +21,8 @@ of the semester.
 | Module 2 | Thermistor temperature measurement, Arduino Serial Plotter output, and H-bridge signal checks | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |
 | Module 3 | Actuators: H-bridge logic, manual TEC heat/cool control, first GUI edits, and a GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |
 | Module 4 | Open-loop TEC calibration, steady-state response, heating/cooling asymmetry, and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |
-| Module 5 | Feedback control: proportional and PI temperature control | [Upcoming Labs](upcoming.md) |
-| Module 6 | Modeling the TEC process and comparing model output with data | [Upcoming Labs](upcoming.md) |
+| Module 5 | P-only feedback control: droop, gain, and instability | [Lab 5: P-Only Temperature Control](lab-05/index.md) |
+| Module 6 | Time-domain modeling of P and PI temperature control | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |
 | Module 7 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
 | Module 8 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
 
@@ -36,14 +36,14 @@ of the semester.
 | 4 | 2026-09-09 | Wed | Open-loop TEC calibration and software safety, part 1 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
 | 5 | 2026-09-14 | Mon | Open-loop TEC calibration and software safety, part 2 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Lab 3 project checkpoint |
 | 6 | 2026-09-16 | Wed | Finish steady-state response; discuss heating/cooling asymmetry | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
-| 7 | 2026-09-23 | Wed | Proportional control, part 1 | [Upcoming Labs](upcoming.md) | Lab 4 note |
-| 8 | 2026-09-28 | Mon | Proportional control, part 2 | [Upcoming Labs](upcoming.md) |  |
-| 9 | 2026-09-30 | Wed | PI control and windup, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 10 | 2026-10-05 | Mon | PI control and windup, part 2 | [Upcoming Labs](upcoming.md) |  |
-| 11 | 2026-10-07 | Wed | Model the TEC process, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 12 | 2026-10-13 | Tue | Model the TEC process, part 2; Brandeis Monday make-up | [Upcoming Labs](upcoming.md) |  |
-| 13 | 2026-10-14 | Wed | Model the TEC process, part 3 | [Upcoming Labs](upcoming.md) |  |
-| 14 | 2026-10-19 | Mon | Finish TEC-only sequence and compare measured response with model | [Upcoming Labs](upcoming.md) | Modeling checkpoint |
+| 7 | 2026-09-23 | Wed | P-only feedback: droop versus gain | [Lab 5: P-Only Temperature Control](lab-05/index.md) | Lab 4 note |
+| 8 | 2026-09-28 | Mon | P-only feedback: onset of instability and oscillation measurements | [Lab 5: P-Only Temperature Control](lab-05/index.md) |  |
+| 9 | 2026-09-30 | Wed | Modeling P control: droop equation and first-order thermal model | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) | Lab 5 data |
+| 10 | 2026-10-05 | Mon | Modeling P control: fit time constant and simulate temperature traces | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 11 | 2026-10-07 | Wed | Modeling PI control: integral action and windup | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 12 | 2026-10-13 | Tue | Modeling checkpoint; Brandeis Monday make-up | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 13 | 2026-10-14 | Wed | TEC-only synthesis: compare measured response with model | [Upcoming Labs](upcoming.md) |  |
+| 14 | 2026-10-19 | Mon | Finish TEC-only sequence and prepare for rod experiments | [Upcoming Labs](upcoming.md) | Modeling checkpoint |
 | 15 | 2026-10-21 | Wed | Temperature along a rod: hardware setup and baseline, part 1 | [Upcoming Labs](upcoming.md) |  |
 | 16 | 2026-10-26 | Mon | Temperature along a rod: sensor calibration and steady baseline, part 2 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
 | 17 | 2026-10-28 | Wed | Temperature along a rod: step response, part 3 | [Upcoming Labs](upcoming.md) |  |

@@ -257,7 +257,7 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 <li>Measure steady-state temperature for several heating PWM values.</li>
 <li>Measure steady-state temperature for several cooling PWM values.</li>
 <li>Plot steady-state temperature versus PWM.</li>
-<li>Estimate <span class="arithmatex">\(dT/dPWM\)</span> for heating and cooling.</li>
+<li>Estimate <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling.</li>
 <li>Explain the asymmetry between heating and cooling.</li>
 <li>Add Arduino code that disables PWM if temperature exceeds 60 °C.</li>
 <li>Verify the safety logic without intentionally overheating the apparatus.</li>
@@ -277,31 +277,11 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 <p>Record the Arduino sketch filename, Python filename, serial port, power-supply
 voltage, and power-supply current limit in your lab notes.</p>
 <h2 id="part-2-choose-pwm-values">Part 2: Choose PWM Values<a class="headerlink" href="#part-2-choose-pwm-values" title="Permanent link">&para;</a></h2>
-<p>Choose about four or five PWM values for heating and about four or five PWM
+<p>Choose  five PWM values for heating and  five PWM
 values for cooling. Include PWM <code>0</code>.</p>
-<p>The exact values may depend on the apparatus, but the goal is to span a useful
+<p>The exact values will depend on the apparatus, but the goal is to span a useful
 range while keeping the temperature between <strong>10 °C and 45 °C</strong>.</p>
-<p>Example planning table:</p>
-<table>
-<thead>
-<tr>
-<th>Direction</th>
-<th>PWM Values To Try</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Heat</td>
-<td>0, 40, 80, 120, 160</td>
-</tr>
-<tr>
-<td>Cool</td>
-<td>0, 40, 80, 120, 160</td>
-</tr>
-</tbody>
-</table>
-<p>Do not use a value just because it is in the example table. Adjust the range if
-the temperature changes too quickly or approaches the safety boundary.</p>
+<p>Start by establishing the PWM value to reach the two temperature limits. If PWM(10C) is the PWM value to reach 10C in steady state, then the five values are PWM(10C), 0.75 PWM(10C), 0.5 PWM(10C), 0.25 PWM(10C), 0.</p>
 <h2 id="part-3-measure-steady-state-temperature">Part 3: Measure Steady-State Temperature<a class="headerlink" href="#part-3-measure-steady-state-temperature" title="Permanent link">&para;</a></h2>
 <p>For each PWM value:</p>
 <ol>
@@ -372,13 +352,13 @@ cooling.</p>
 <li>units for temperature,</li>
 <li>a caption or short note explaining how steady state was chosen.</li>
 </ul>
-<p>Estimate <span class="arithmatex">\(dT/dPWM\)</span> for heating and cooling. A simple estimate is:</p>
+<p>Estimate <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling. A simple estimate is:</p>
 <pre><code class="language-text">dT/dPWM = change in steady-state temperature / change in PWM
 </code></pre>
 <p>If the graph is not very linear, say so. The slope is still useful as a local
 or approximate measure of open-loop response.</p>
 <h2 id="part-5-explain-heatingcooling-asymmetry">Part 5: Explain Heating/Cooling Asymmetry<a class="headerlink" href="#part-5-explain-heatingcooling-asymmetry" title="Permanent link">&para;</a></h2>
-<p>Compare the magnitude of <span class="arithmatex">\(dT/dPWM\)</span> for heating and cooling.</p>
+<p>Compare the magnitude of <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling.</p>
 <p>Write a short explanation of why the slopes may differ. Your explanation should
 refer to the physical apparatus, not only to the code. Useful ideas include:</p>
 <ul>
@@ -442,7 +422,7 @@ lab.</p>
 <li>the steady-state data table,</li>
 <li>one heating trace and one cooling trace,</li>
 <li>a graph of steady-state temperature versus PWM,</li>
-<li>estimated <span class="arithmatex">\(dT/dPWM\)</span> for heating and cooling,</li>
+<li>estimated <span class="arithmatex">\(dT/d\)</span>PWM for heating and cooling,</li>
 <li>your explanation of heating/cooling asymmetry,</li>
 <li>the Arduino safety-limit code or a link to it,</li>
 <li>a short description of how you verified the safety logic,</li>

@@ -60,7 +60,7 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 - Measure steady-state temperature for several heating PWM values.
 - Measure steady-state temperature for several cooling PWM values.
 - Plot steady-state temperature versus PWM.
-- Estimate $dT/dPWM$ for heating and cooling.
+- Estimate $dT/d$PWM for heating and cooling.
 - Explain the asymmetry between heating and cooling.
 - Add Arduino code that disables PWM if temperature exceeds 60 °C.
 - Verify the safety logic without intentionally overheating the apparatus.
@@ -83,21 +83,13 @@ voltage, and power-supply current limit in your lab notes.
 
 ## Part 2: Choose PWM Values
 
-Choose about four or five PWM values for heating and about four or five PWM
+Choose  five PWM values for heating and  five PWM
 values for cooling. Include PWM `0`.
 
-The exact values may depend on the apparatus, but the goal is to span a useful
+The exact values will depend on the apparatus, but the goal is to span a useful
 range while keeping the temperature between **10 °C and 45 °C**.
 
-Example planning table:
-
-| Direction | PWM Values To Try |
-| --- | --- |
-| Heat | 0, 40, 80, 120, 160 |
-| Cool | 0, 40, 80, 120, 160 |
-
-Do not use a value just because it is in the example table. Adjust the range if
-the temperature changes too quickly or approaches the safety boundary.
+Start by establishing the PWM value to reach the two temperature limits. If PWM(10C) is the PWM value to reach 10C in steady state, then the five values are PWM(10C), 0.75 PWM(10C), 0.5 PWM(10C), 0.25 PWM(10C), 0.
 
 ## Part 3: Measure Steady-State Temperature
 
@@ -135,7 +127,7 @@ You may use Python, a spreadsheet, or another tool. The graph should show:
 - units for temperature,
 - a caption or short note explaining how steady state was chosen.
 
-Estimate $dT/dPWM$ for heating and cooling. A simple estimate is:
+Estimate $dT/d$PWM for heating and cooling. A simple estimate is:
 
 ```text
 dT/dPWM = change in steady-state temperature / change in PWM
@@ -146,7 +138,7 @@ or approximate measure of open-loop response.
 
 ## Part 5: Explain Heating/Cooling Asymmetry
 
-Compare the magnitude of $dT/dPWM$ for heating and cooling.
+Compare the magnitude of $dT/d$PWM for heating and cooling.
 
 Write a short explanation of why the slopes may differ. Your explanation should
 refer to the physical apparatus, not only to the code. Useful ideas include:
@@ -226,7 +218,7 @@ Submit a short lab note containing:
 - the steady-state data table,
 - one heating trace and one cooling trace,
 - a graph of steady-state temperature versus PWM,
-- estimated $dT/dPWM$ for heating and cooling,
+- estimated $dT/d$PWM for heating and cooling,
 - your explanation of heating/cooling asymmetry,
 - the Arduino safety-limit code or a link to it,
 - a short description of how you verified the safety logic,

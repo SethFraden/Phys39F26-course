@@ -20,10 +20,11 @@ of the semester.
 | Module 1 | Arduino, signals, oscilloscope, analog input, averaging, and PWM | [Lab 1: First Contact](lab-01/index.md) |
 | Module 2 | Thermistor temperature measurement, Arduino Serial Plotter output, and H-bridge signal checks | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |
 | Module 3 | Actuators: H-bridge logic, manual TEC heat/cool control, first GUI edits, and a GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |
-| Module 4 | Feedback control: manual, proportional, and PI temperature control | [Upcoming Labs](upcoming.md) |
-| Module 5 | Modeling the TEC process and comparing model output with data | [Upcoming Labs](upcoming.md) |
-| Module 6 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
-| Module 7 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
+| Module 4 | Open-loop TEC calibration, steady-state response, heating/cooling asymmetry, and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |
+| Module 5 | Feedback control: proportional and PI temperature control | [Upcoming Labs](upcoming.md) |
+| Module 6 | Modeling the TEC process and comparing model output with data | [Upcoming Labs](upcoming.md) |
+| Module 7 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
+| Module 8 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
 
 ## Meeting Calendar
 
@@ -32,17 +33,17 @@ of the semester.
 | 1 | 2026-08-26 | Wed | First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM | [Lab 1: First Contact](lab-01/index.md) |  |
 | 2 | 2026-08-31 | Mon | First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification | [Lab 2: First Real Instrument Pieces](lab-02/index.md) | Lab 1 note |
 | 3 | 2026-09-02 | Wed | Manual TEC heat/cool, first Python GUI modification, and GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
-| 4 | 2026-09-09 | Wed | Stepper motor direction and speed | [Upcoming Labs](upcoming.md) |  |
-| 5 | 2026-09-14 | Mon | Manual TEC heat/cool direction, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 6 | 2026-09-16 | Wed | Manual TEC heat/cool direction, part 2 | [Upcoming Labs](upcoming.md) |  |
-| 7 | 2026-09-23 | Wed | Steady-state response, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 8 | 2026-09-28 | Mon | Steady-state response, part 2 | [Upcoming Labs](upcoming.md) |  |
-| 9 | 2026-09-30 | Wed | Proportional control, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 10 | 2026-10-05 | Mon | Proportional control, part 2 | [Upcoming Labs](upcoming.md) |  |
-| 11 | 2026-10-07 | Wed | PI control and windup, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 12 | 2026-10-13 | Tue | PI control and windup, part 2; Brandeis Monday make-up | [Upcoming Labs](upcoming.md) |  |
-| 13 | 2026-10-14 | Wed | Model the TEC process, part 1 | [Upcoming Labs](upcoming.md) |  |
-| 14 | 2026-10-19 | Mon | Model the TEC process, part 2; finish TEC-only sequence | [Upcoming Labs](upcoming.md) | Modeling checkpoint |
+| 4 | 2026-09-09 | Wed | Open-loop TEC calibration and software safety, part 1 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
+| 5 | 2026-09-14 | Mon | Open-loop TEC calibration and software safety, part 2 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Lab 3 project checkpoint |
+| 6 | 2026-09-16 | Wed | Finish steady-state response; discuss heating/cooling asymmetry | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
+| 7 | 2026-09-23 | Wed | Proportional control, part 1 | [Upcoming Labs](upcoming.md) | Lab 4 note |
+| 8 | 2026-09-28 | Mon | Proportional control, part 2 | [Upcoming Labs](upcoming.md) |  |
+| 9 | 2026-09-30 | Wed | PI control and windup, part 1 | [Upcoming Labs](upcoming.md) |  |
+| 10 | 2026-10-05 | Mon | PI control and windup, part 2 | [Upcoming Labs](upcoming.md) |  |
+| 11 | 2026-10-07 | Wed | Model the TEC process, part 1 | [Upcoming Labs](upcoming.md) |  |
+| 12 | 2026-10-13 | Tue | Model the TEC process, part 2; Brandeis Monday make-up | [Upcoming Labs](upcoming.md) |  |
+| 13 | 2026-10-14 | Wed | Model the TEC process, part 3 | [Upcoming Labs](upcoming.md) |  |
+| 14 | 2026-10-19 | Mon | Finish TEC-only sequence and compare measured response with model | [Upcoming Labs](upcoming.md) | Modeling checkpoint |
 | 15 | 2026-10-21 | Wed | Temperature along a rod: hardware setup and baseline, part 1 | [Upcoming Labs](upcoming.md) |  |
 | 16 | 2026-10-26 | Mon | Temperature along a rod: sensor calibration and steady baseline, part 2 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
 | 17 | 2026-10-28 | Wed | Temperature along a rod: step response, part 3 | [Upcoming Labs](upcoming.md) |  |

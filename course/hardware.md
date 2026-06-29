@@ -35,7 +35,6 @@ control signals.
 
 ## Component Reference
 
-Thermistor data sheet: [TDK/EPCOS B57861S0104F040V24 100 kOhm NTC thermistor PDF](references/epcos-b57861s0202f040-f2026.pdf)
 
 | Component | Function in the instrument | Reference |
 | --- | --- | --- |

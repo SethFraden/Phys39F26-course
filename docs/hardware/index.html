@@ -249,7 +249,7 @@ control signals.</p>
 <tr>
 <td>Heat exchanger</td>
 <td>Removes waste heat from the TEC hot side and rejects it to the room.</td>
-<td><a href="../references/koolance-exos-lt-v2.pdf">Koolance EXOS LT V2 manual</a></td>
+<td><a href="https://www.idcooling.com/product/detail?id=323&amp;name=DASHFLOW%20240%20BASIC%20WHITE">ID-COOLING DASHFLOW 240 BASIC WHITE product page</a> · <a href="https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK">F2023 parts-list order link</a></td>
 </tr>
 <tr>
 <td>Arduino Uno</td>
@@ -310,10 +310,16 @@ Peltier term, Joule heating, and ordinary thermal conduction:</p>
 <p><img alt="TEC heat-flow equation" src="../assets/tec_heat_equation.gif" /></p>
 <p><a href="../references/melcor-thermal-solutions.pdf">Melcor thermal-solutions reference</a></p>
 <h3 id="heat-exchanger">Heat Exchanger<a class="headerlink" href="#heat-exchanger" title="Permanent link">&para;</a></h3>
-<p>The water-cooled heat exchanger carries waste heat away from the TEC. The TEC
-cannot cool effectively if its hot side is allowed to overheat.</p>
+<p>The water-cooled heat exchanger carries waste heat away from the TEC. The F2023
+parts list identifies the class heat exchanger as an <strong>ID-COOLING DASHFLOW</strong>
+CPU liquid cooler with a 2x120 mm radiator. The TEC cannot cool effectively if
+its hot side is allowed to overheat.</p>
 <p><img alt="Phys 39 heat exchanger" src="../assets/heat_exchanger.jpg" /></p>
-<p><a href="../references/koolance-exos-lt-v2.pdf">Koolance EXOS LT V2 manual</a></p>
+<ul>
+<li><a href="https://www.idcooling.com/product/detail?id=323&amp;name=DASHFLOW%20240%20BASIC%20WHITE">ID-COOLING DASHFLOW 240 BASIC WHITE product page</a></li>
+<li><a href="https://youtu.be/uAy_E5BkyvE">DASHFLOW install video for Intel LGA1700</a></li>
+<li><a href="https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK">F2023 parts-list order link</a></li>
+</ul>
 <h3 id="arduino-uno">Arduino Uno<a class="headerlink" href="#arduino-uno" title="Permanent link">&para;</a></h3>
 <p>The Arduino reads sensor voltages and produces logic-level control signals. Its
 pins cannot directly power the TEC.</p>

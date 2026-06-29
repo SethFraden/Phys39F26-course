@@ -42,7 +42,7 @@ control signals.
 | 100 kOhm NTC thermistor | Senses TEC/block temperature through a voltage divider connected to an Arduino analog input. | [TDK/EPCOS B57861S0104F040V24 data sheet](references/epcos-b57861s0202f040-f2026.pdf) · [Exact class part search](https://www.digikey.com/en/products?keywords=B57861S0104F040V24) · [Thermistor beta equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation) |
 | 100 kOhm precision resistor | Forms the thermistor voltage divider and sets the useful measurement range near room temperature. | Use the approved course part |
 | TEC/Peltier element | Moves heat when current flows; reversing current reverses heat/cool direction. | [Laird CP14-127-045 data sheet](references/laird-tec-cp14-127-045.pdf) |
-| Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [Koolance EXOS LT V2 manual](references/koolance-exos-lt-v2.pdf) |
+| Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [ID-COOLING DASHFLOW 240 BASIC WHITE product page](https://www.idcooling.com/product/detail?id=323&name=DASHFLOW%20240%20BASIC%20WHITE) · [F2023 parts-list order link](https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK) |
 | Arduino Uno | Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals. | [Uno overview](arduino/index.md) · [Uno pinout](arduino/pinout.md) · [Official Uno Rev3](https://docs.arduino.cc/hardware/uno-rev3/) |
 | BTS7960 H-bridge | Uses Arduino PWM inputs to drive TEC current in either direction from the external supply. | [BTS7960 driver reference](references/bts7960-h-bridge.pdf) |
 | Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC. | Use the assigned laboratory supply |
@@ -92,12 +92,16 @@ Peltier term, Joule heating, and ordinary thermal conduction:
 
 ### Heat Exchanger
 
-The water-cooled heat exchanger carries waste heat away from the TEC. The TEC
-cannot cool effectively if its hot side is allowed to overheat.
+The water-cooled heat exchanger carries waste heat away from the TEC. The F2023
+parts list identifies the class heat exchanger as an **ID-COOLING DASHFLOW**
+CPU liquid cooler with a 2x120 mm radiator. The TEC cannot cool effectively if
+its hot side is allowed to overheat.
 
 ![Phys 39 heat exchanger](assets/heat_exchanger.jpg)
 
-[Koolance EXOS LT V2 manual](references/koolance-exos-lt-v2.pdf)
+- [ID-COOLING DASHFLOW 240 BASIC WHITE product page](https://www.idcooling.com/product/detail?id=323&name=DASHFLOW%20240%20BASIC%20WHITE)
+- [DASHFLOW install video for Intel LGA1700](https://youtu.be/uAy_E5BkyvE)
+- [F2023 parts-list order link](https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK)
 
 ### Arduino Uno
 

@@ -15,6 +15,21 @@ instrument code organized, and make a clear record of what you built and tested.
 | Markdown | Write readable documentation in `README.md` files. |
 | AI agent | Help draft or revise code, then explain, test, and improve it yourself. |
 
+## Set Up Accounts And Software
+
+Use these official guides when setting up your computer and accounts:
+
+- [Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github)
+- [Set up Git on your computer](https://docs.github.com/en/get-started/git-basics/set-up-git)
+- [Use source control in VS Code](https://code.visualstudio.com/docs/sourcecontrol/overview)
+- [Set up GitHub Copilot in VS Code](https://code.visualstudio.com/docs/setup/copilot)
+- [Get GitHub Copilot access as a student](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students)
+
+For this course, the default AI coding assistant is GitHub Copilot in VS Code.
+If you use another approved coding AI tool, the same rule applies: AI may help
+you draft code, but you are responsible for testing it, organizing it,
+committing it to GitHub, and explaining what it does.
+
 ## Recommended Project Structure
 
 By the end of Lab 3, organize your work into one clear project folder:
@@ -61,6 +76,12 @@ Use VS Code to:
 
 To preview Markdown, open the `.md` file and choose **Open Preview to the Side**,
 or press **Command-K**, then **V** on a Mac.
+
+To use Copilot, open the Copilot Chat panel in VS Code, paste a course prompt,
+and ask it to write into the file you currently have open. Some AI tools edit
+files directly; others give code in the chat window for you to copy into the
+right file. Make sure Arduino code goes in `.ino` files, Python code goes in
+`.py` files, and documentation goes in `.md` files.
 
 ## The Four-Command Git Checkpoint
 

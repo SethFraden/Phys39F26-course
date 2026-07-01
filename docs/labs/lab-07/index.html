@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 7 - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">Git, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../schedule/" class="nav-link">Course Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Labs</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../lab-01/" class="dropdown-item">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="../lab-02/" class="dropdown-item">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="../lab-03/" class="dropdown-item">Lab 3</a>
+</li>
+                                    
+<li>
+    <a href="../lab-04/" class="dropdown-item">Lab 4</a>
+</li>
+                                    
+<li>
+    <a href="../lab-05/" class="dropdown-item">Lab 5</a>
+</li>
+                                    
+<li>
+    <a href="../lab-06/" class="dropdown-item">Lab 6</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Lab 7</a>
+</li>
+                                    
+<li>
+    <a href="../upcoming/" class="dropdown-item">Upcoming Lab Modules</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab-06/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../upcoming/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#lab-7-assignment-process-model-and-python-simulation" class="nav-link">Lab 7 Assignment: Process Model And Python Simulation</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#introductory-material" class="nav-link">Introductory Material</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#class-theme" class="nav-link">Class Theme</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#at-a-glance" class="nav-link">At A Glance</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#vocabulary" class="nav-link">Vocabulary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#model-equations" class="nav-link">Model Equations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#thermal-transport-theory-assignments" class="nav-link">Thermal Transport Theory Assignments</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pre-class-assignment" class="nav-link">Pre-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#before-class" class="nav-link">Before Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#in-class-assignment" class="nav-link">In-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#what-you-will-do" class="nav-link">What You Will Do</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-1-manual-model" class="nav-link">Part 1: Manual Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-2-one-temperature-proportional-model" class="nav-link">Part 2: One-Temperature Proportional Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-3-two-temperature-thermal-mass-model" class="nav-link">Part 3: Two-Temperature Thermal-Mass Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-4-connect-the-model-to-pi-feedback" class="nav-link">Part 4: Connect The Model To PI Feedback</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-5-complete-the-two-temperature-theory-assignment" class="nav-link">Part 5: Complete The Two-Temperature Theory Assignment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-6-make-one-model-code-modification" class="nav-link">Part 6: Make One Model-Code Modification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#part-7-bridge-to-the-long-rod" class="nav-link">Part 7: Bridge To The Long Rod</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#optional-extension" class="nav-link">Optional Extension</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#instructor-notes" class="nav-link">Instructor Notes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-7-assignment-process-model-and-python-simulation">Lab 7 Assignment: Process Model And Python Simulation<a class="headerlink" href="#lab-7-assignment-process-model-and-python-simulation" title="Permanent link">&para;</a></h1>
+<h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
+<h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
+<p>Lab 7 is the first modeling lab after you have built enough of the instrument to
+measure temperature, drive the TEC, and see feedback behavior. The goal is to
+connect three things:</p>
+<ol>
+<li>the physical TEC/block/thermistor system,</li>
+<li>the feedback-control equations,</li>
+<li>a Python simulation GUI that lets you change model parameters and watch the
+   predicted temperature response.</li>
+</ol>
+<p>This lab is not about perfect prediction. It is about learning how a simple
+model can explain droop, overshoot, lag, and the onset of instability.</p>
+<h3 id="class-theme">Class Theme<a class="headerlink" href="#class-theme" title="Permanent link">&para;</a></h3>
+<p><strong>Model The Process Before You Trust The Controller</strong></p>
+<p>The "process" is the part of the feedback loop that the controller is trying to
+control: the TEC, aluminum block, thermistor, heat loss to the room, and thermal
+lag between where heat enters and where temperature is measured.</p>
+<h3 id="at-a-glance">At A Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
+<p>Before class, spend your time in this order:</p>
+<ul>
+<li><strong>45-60 min</strong>: Read Lienhard Chapter 1 with emphasis on energy balance,
+  heat flux, conduction, thermal resistance, heat capacity, and lumped models.</li>
+<li><strong>30-45 min</strong>: Prepare Problems 1.3 and 1.8 for possible board work.</li>
+<li><strong>10-15 min</strong>: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.</li>
+<li><strong>15-20 min</strong>: Run the Python demo and GUI once so class time can focus on
+  interpretation instead of setup.</li>
+<li><strong>15-20 min</strong>: Copy and annotate the three model equations; complete Theory
+  Assignment 1 and begin Theory Assignment 2 if time permits.</li>
+</ul>
+<p>During class, the approximate schedule for one 170-minute meeting is:</p>
+<ol>
+<li><strong>0-20 min</strong>: Opening discussion and board work on Lienhard Problems 1.3 and
+   1.8.</li>
+<li><strong>20-40 min</strong>: Connect the board work to the Lab 7 model equations and the
+   one-lump/two-lump diagram.</li>
+<li><strong>40-60 min</strong>: Run the manual model and identify the physical meaning of each
+   term and control.</li>
+<li><strong>60-85 min</strong>: Run the one-temperature proportional model and measure droop
+   as <code>Kp</code> changes.</li>
+<li><strong>85-115 min</strong>: Run the two-temperature thermal-mass model and find cases
+   with lag, overshoot, or oscillation.</li>
+<li><strong>115-140 min</strong>: Complete Theory Assignment 2 in groups and connect the
+   two-lump equations to thermistor placement.</li>
+<li><strong>140-160 min</strong>: Make one small code modification and confirm that it changes
+   something visible or understandable.</li>
+<li><strong>160-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
+   why the long-rod experiment will require a spatial model.</li>
+</ol>
+<h3 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Process</strong>: the physical system being controlled. Here, the process is the
+  TEC/block/thermistor thermal system.</li>
+<li><strong>State variable</strong>: a number that describes the current state of the model,
+  such as temperature.</li>
+<li><strong>Lumped model</strong>: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass.</li>
+<li><strong>Thermal mass</strong>: is synomonous with heat capacity. A larger thermal mass changes temperature more slowly.</li>
+<li><strong>Thermal lag</strong>: delay between changing the actuator and observing the
+  measured temperature response.</li>
+<li><strong>Droop</strong>: steady-state error in proportional-only control.</li>
+<li><strong>Saturation</strong>: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.</li>
+<li><strong>Residual</strong>: measured data minus model prediction.</li>
+</ul>
+<h3 id="model-equations">Model Equations<a class="headerlink" href="#model-equations" title="Permanent link">&para;</a></h3>
+<p>The Python GUI shows three models.</p>
+<h4 id="manual-drive">Manual Drive<a class="headerlink" href="#manual-drive" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
+Tm = T
+</code></pre>
+<p>The units of this equation are Watts - energy/time. Check that each term has these units. Here <code>T</code> is the TEC/block temperature in °C, <code>T_room</code> is room temperature in °C,
+<code>Tm</code> is the measured temperature in °C, <code>C</code> is the heat capacity of the lump in
+J/°C, <code>G_room</code> is the thermal conductance to the room in W/°C, <code>Q_max</code> is the
+approximate heat flow supplied by the TEC at full PWM in W, <code>PWM</code> is an Arduino
+PWM command from 0 to 255, and <code>HC</code> is <code>+1</code> for heat or <code>-1</code> for cool. The first
+term represents heat transfer between the block and the room. The second term
+represents the heat transferred to the block by the TEC.</p>
+<p>An equivalent form, after dividing by <code>C</code>, is:</p>
+<pre><code class="language-text">dT/dt = k_room*(T_room - T) + beta_tec*(PWM/255)*HC
+</code></pre>
+<p>where <code>k_room = G_room/C</code> has units of 1/s and <code>beta_tec = Q_max/C</code> has units of
+°C/s.</p>
+<h4 id="proportional-control">Proportional Control<a class="headerlink" href="#proportional-control" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">error = T_set - T
+PWM = min(Kp*abs(error), 255)
+HC = sign(error)
+C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
+Tm = T
+</code></pre>
+<p>This model turns the temperature error into a PWM command. The larger <code>Kp</code> is,
+the more strongly the controller reacts to error. If <code>error</code> is measured in °C,
+then <code>Kp</code> has units of PWM counts per °C. The <code>min(...)</code> function represents
+actuator saturation: the Arduino cannot command a PWM value larger than 255.</p>
+<h4 id="proportional-control-with-measured-thermal-mass">Proportional Control With Measured Thermal Mass<a class="headerlink" href="#proportional-control-with-measured-thermal-mass" title="Permanent link">&para;</a></h4>
+<pre><code class="language-text">error = T_set - Tm
+PWM = min(Kp*abs(error), 255)
+HC = sign(error)
+C1 dT/dt  = Q_max*(PWM/255)*HC - G12*(T - Tm)
+C2 dTm/dt = G12*(T - Tm) - Gm*(Tm - T_room)
+</code></pre>
+<p>This is the most important model for today. The controller responds to <code>Tm</code>, the
+measured thermistor/block temperature, but the TEC-side temperature <code>T</code> can move
+first. This lag can produce overshoot and oscillation. Here <code>C1</code> and <code>C2</code> are
+heat capacities in J/°C, <code>G12</code> is the thermal conductance between the TEC-side
+lump and the measured lump in W/°C, and <code>Gm</code> is the conductance from the measured
+lump to room air in W/°C.</p>
+<p>After dividing by the heat capacities, the coupling terms become rate constants:</p>
+<pre><code class="language-text">dT/dt  = beta_tec*(PWM/255)*HC - k12*(T - Tm)
+dTm/dt = k21*(T - Tm) - km*(Tm - T_room)
+</code></pre>
+<p>where <code>beta_tec = Q_max/C1</code>, <code>k12 = G12/C1</code>, <code>k21 = G12/C2</code>, and <code>km = Gm/C2</code>.
+All of these rate constants have units of 1/s, except <code>beta_tec</code>, which has
+units of °C/s.</p>
+<p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
+<p><em>Course-specific lumped-model diagram. The thermal-resistance/electrical-circuit
+analogy is introduced in Lienhard, A Heat Transfer Textbook, Section 2.3; see
+especially Figures 2.8 and 2.12 for the textbook version of the resistance
+analogy.</em></p>
+<h3 id="thermal-transport-theory-assignments">Thermal Transport Theory Assignments<a class="headerlink" href="#thermal-transport-theory-assignments" title="Permanent link">&para;</a></h3>
+<p>This part of the course uses <strong>lumped thermal models</strong>. A lumped model assumes
+that one object, such as the TEC/block assembly, can be described by one
+temperature. This is an approximation. It is useful before we move to the long
+rod, where temperature depends on position.</p>
+<h4 id="theory-assignment-1-one-lumped-temperature">Theory Assignment 1: One Lumped Temperature<a class="headerlink" href="#theory-assignment-1-one-lumped-temperature" title="Permanent link">&para;</a></h4>
+<p>Start from an energy balance:</p>
+<pre><code class="language-text">rate of change of thermal energy = heat added by TEC - heat lost to room
+</code></pre>
+<p>Use:</p>
+<pre><code class="language-text">C dT/dt = Q_tec - G*(T - T_room)
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>C</code> is the heat capacity of the object in J/°C,</li>
+<li><code>G</code> is the thermal conductance to the room in W/°C,</li>
+<li><code>Q_tec</code> is the heat flow supplied by the TEC in W,</li>
+<li><code>T</code> is the object's temperature in °C,</li>
+<li><code>T_room</code> is the room temperature in °C.</li>
+</ul>
+<p>Divide by <code>C</code>:</p>
+<pre><code class="language-text">dT/dt = -(T - T_room)/tau + A*signed_PWM
+</code></pre>
+<p>where:</p>
+<pre><code class="language-text">tau = C/G
+</code></pre>
+<p>and <code>A</code> is the conversion between signed PWM and heating/cooling rate. The time
+constant <code>tau</code> has units of seconds. If <code>signed_PWM</code> is an Arduino PWM count
+between -255 and +255, then <code>A</code> has units of °C/(s PWM count).</p>
+<p>Do this before class:</p>
+<ol>
+<li>Show the algebra that converts <code>C dT/dt = Q_tec - G*(T - T_room)</code> into the
+   simplified model above.</li>
+<li>Explain in words what <code>tau</code> means.</li>
+<li>Predict what happens when <code>tau</code> is large.</li>
+<li>Predict what happens when <code>G</code> is large.</li>
+<li>Find the steady-state temperature for a constant <code>signed_PWM</code>.</li>
+</ol>
+<h4 id="theory-assignment-2-two-lumped-temperatures">Theory Assignment 2: Two Lumped Temperatures<a class="headerlink" href="#theory-assignment-2-two-lumped-temperatures" title="Permanent link">&para;</a></h4>
+<p>The one-temperature model assumes that the measured temperature instantly equals
+the actuator-side temperature. The next model separates them:</p>
+<pre><code class="language-text">T  = actuator-side TEC/block temperature
+Tm = measured thermistor/block temperature
+</code></pre>
+<p>A simple two-temperature model is:</p>
+<pre><code class="language-text">C1 dT/dt  = Q_tec - G12*(T - Tm)
+C2 dTm/dt = G12*(T - Tm) - Gm*(Tm - T_room)
+</code></pre>
+<p>Here <code>C1</code> and <code>C2</code> are heat capacities in J/°C, <code>G12</code> and <code>Gm</code> are thermal
+conductances in W/°C, and each term has units of W. The left side is a rate of
+thermal-energy change. The right side is the sum of heat flows into and out of
+each lump.</p>
+<p>Do this before class:</p>
+<ol>
+<li>Identify which term transfers heat from the TEC side to the measured
+   thermistor/block side.</li>
+<li>Identify which term describes heat loss from the measured block to room air.</li>
+<li>Explain why <code>Tm</code> can lag behind <code>T</code>.</li>
+<li>Explain why a controller that uses <code>Tm</code> may react too late.</li>
+<li>Compare this model to the simplified rate-constant form:</li>
+</ol>
+<p><code>text
+   dTm/dt = k21*(T - Tm) - km*(Tm - T_room)</code></p>
+<h4 id="later-in-the-course-differential-equations-in-space">Later In The Course: Differential Equations In Space<a class="headerlink" href="#later-in-the-course-differential-equations-in-space" title="Permanent link">&para;</a></h4>
+<p>The long-rod experiment cannot be described by a single temperature. It will
+need a temperature field. In its simplest form as a long, thin rod, temperature depends only on lonngitudinal position and is independent of radius.</p>
+<div class="arithmatex">\[
+T = T(x,t)
+\]</div>
+<p>For the rod we will move toward diffusion equations of the form:</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=
+\alpha \frac{\partial^2 T}{\partial x^2}
+\]</div>
+<p>and, for a rod exchanging heat with the room from its sides, a term that pulls the rod toward room
+temperature:</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=
+\alpha \frac{\partial^2 T}{\partial x^2}
+-
+\beta\left(T - T_{\mathrm{room}}\right)
+\]</div>
+<p>In these equations, <code>alpha</code> is the thermal diffusivity in m²/s and <code>beta</code> is a
+side-loss rate constant in 1/s.</p>
+<p>You do not need to solve these equations in Lab 7. For now, your job is to
+understand how conservation of energy produces the simple lumped equations. The
+spatial differential equations come later, when we measure temperature along the
+long metal cylinder.</p>
+<h2 id="pre-class-assignment">Pre-Class Assignment<a class="headerlink" href="#pre-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Read Lienhard, <strong>Chapter 1: Introduction</strong>. Focus on the parts that connect
+   directly to this lab: conservation of energy, heat flux, conduction, thermal
+   resistance, heat capacity, and lumped thermal models.</p>
+</li>
+<li>
+<p>Prepare to work selected Chapter 1 problems at the board. You may be randomly
+   selected to present one of these:</p>
+</li>
+<li>
+<p><strong>Problem 1.3</strong>: heat flux through a slab. This reinforces Fourier's law,
+     units, and the meaning of a temperature gradient.</p>
+</li>
+<li><strong>Problem 1.8</strong>: cooling of a copper sphere in an air stream. This is the
+     cleanest Chapter 1 example of a one-lump first-order temperature model.</li>
+</ol>
+<p>For each problem, be ready to identify the physical system, write the heat
+   balance or heat-flow law, check units, and explain what approximation makes
+   the problem solvable.</p>
+<ol>
+<li>
+<p>Pay special attention to these Chapter 1 examples:</p>
+</li>
+<li>
+<p><strong>Example 1.1</strong>: conduction through a slab. This is the cleanest worked
+     example of Fourier's law and heat flux.</p>
+</li>
+<li><strong>Example 1.2</strong>: a copper slab protected by stainless steel. This is useful
+     because the same steady heat flow passes through multiple layers, like
+     thermal resistances in series.</li>
+<li>
+<p><strong>Example 1.5</strong>: a thermocouple affected by convection and radiation. This
+     is a good reminder that a temperature sensor does not always read the
+     temperature you think it reads.</p>
+</li>
+<li>
+<p>Open the Python simulation code:</p>
+</li>
+</ol>
+<p><code>text
+   legacy_matlab/converted/modeling_tec_v2.py</code></p>
+<ol>
+<li>Run the non-interactive demo:</li>
+</ol>
+<p><code>bash
+   cd /Users/fraden/Documents/GitHub/Phys39F26
+   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py --demo</code></p>
+<ol>
+<li>Look at the generated plot:</li>
+</ol>
+<p><code>text
+   legacy_matlab/converted/modeling_tec_v2_demo.png</code></p>
+<p>The bottom of the PNG and the terminal output list the model parameters used
+   to make the plot. Record those values so the plot is reproducible.</p>
+<ol>
+<li>Run the GUI:</li>
+</ol>
+<p><code>bash
+   cd /Users/fraden/Documents/GitHub/Phys39F26
+   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py</code></p>
+<ol>
+<li>In your notebook, copy the three model equations and label the meaning of
+   each variable.</li>
+<li>Complete Theory Assignment 1. Begin Theory Assignment 2 if you have time.</li>
+</ol>
+<h3 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h3>
+<p>Write short answers before class.</p>
+<ol>
+<li>In the manual model, what happens if <code>PWM = 0</code>?</li>
+<li>In proportional control, why does the PWM become small when the measured
+   temperature gets close to the setpoint?</li>
+<li>Why can proportional-only control leave a steady-state error?</li>
+<li>In the thermal-mass model, why might <code>T</code> and <code>Tm</code> be different?</li>
+<li>Which parameter in the model most directly changes the amount of thermal
+   lag?</li>
+</ol>
+<h2 id="in-class-assignment">In-Class Assignment<a class="headerlink" href="#in-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h3>
+<p>You will:</p>
+<ul>
+<li>run the Python simulation GUI,</li>
+<li>identify the physical meaning of each control,</li>
+<li>reproduce droop in proportional control,</li>
+<li>produce overshoot or oscillation by increasing gain or lag,</li>
+<li>compare the one-temperature model to the two-temperature model,</li>
+<li>make one small model-code modification,</li>
+<li>explain what this model teaches you about the real TEC experiment.</li>
+</ul>
+<h3 id="part-1-manual-model">Part 1: Manual Model<a class="headerlink" href="#part-1-manual-model" title="Permanent link">&para;</a></h3>
+<p>Set the GUI to <code>manual</code>.</p>
+<ol>
+<li>Turn TEC power off. Run the model. Confirm that the temperature relaxes
+   toward room temperature.</li>
+<li>Turn TEC power on.</li>
+<li>Set <code>HC</code> to heat and try several PWM values.</li>
+<li>Set <code>HC</code> to cool and try several PWM values.</li>
+<li>Record what changes in the temperature plot and the PWM plot.</li>
+</ol>
+<p>Answer:</p>
+<ul>
+<li>What term in the equation represents heat exchange with the room?</li>
+<li>What term represents the TEC actuator?</li>
+<li>Why is this not feedback control?</li>
+</ul>
+<h3 id="part-2-one-temperature-proportional-model">Part 2: One-Temperature Proportional Model<a class="headerlink" href="#part-2-one-temperature-proportional-model" title="Permanent link">&para;</a></h3>
+<p>Set the GUI to <code>proportional</code>.</p>
+<ol>
+<li>Set <code>T_set</code> above room temperature.</li>
+<li>Set a small <code>Kp</code>.</li>
+<li>Run until the trace settles.</li>
+<li>Record the final temperature, setpoint, error, and approximate PWM.</li>
+<li>Increase <code>Kp</code> and repeat.</li>
+</ol>
+<p>Make a table:</p>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th><code>T_set</code></th>
+<th><code>Kp</code></th>
+<th>final <code>T</code></th>
+<th>final error</th>
+<th>final PWM</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Answer:</p>
+<ul>
+<li>Does increasing <code>Kp</code> reduce droop?</li>
+<li>Does increasing <code>Kp</code> eliminate droop completely?</li>
+<li>What happens when PWM saturates?</li>
+</ul>
+<h3 id="part-3-two-temperature-thermal-mass-model">Part 3: Two-Temperature Thermal-Mass Model<a class="headerlink" href="#part-3-two-temperature-thermal-mass-model" title="Permanent link">&para;</a></h3>
+<p>Set the GUI to <code>mass</code>.</p>
+<ol>
+<li>Use the same setpoint as Part 2.</li>
+<li>Start with moderate <code>Kp</code>.</li>
+<li>Change the lag/coupling rate constant, such as <code>k21</code>.</li>
+<li>Watch the difference between <code>T</code> and <code>Tm</code>.</li>
+<li>Find a case where the model overshoots.</li>
+<li>Find a case where the model oscillates or nearly oscillates.</li>
+</ol>
+<p>Make a table:</p>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th><code>Kp</code></th>
+<th>lag/coupling rate constant</th>
+<th>overshoot?</th>
+<th>oscillation?</th>
+<th>qualitative behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Answer:</p>
+<ul>
+<li>Which temperature does the controller use to calculate error?</li>
+<li>Why does measuring the delayed temperature make high gain dangerous?</li>
+<li>What does this suggest about placing a thermistor far from the TEC?</li>
+</ul>
+<h3 id="part-4-connect-the-model-to-pi-feedback">Part 4: Connect The Model To PI Feedback<a class="headerlink" href="#part-4-connect-the-model-to-pi-feedback" title="Permanent link">&para;</a></h3>
+<p>The same feedback structure can be written in compact mathematical form:</p>
+<pre><code class="language-text">error = setpoint - measured temperature
+controller output = proportional part + integral part
+process turns controller output into a new temperature
+</code></pre>
+<p>For proportional-only control:</p>
+<pre><code class="language-text">output = Kp * error
+</code></pre>
+<p>For PI control:</p>
+<pre><code class="language-text">integral = integral + error*dt
+output = Kp*error + Ki*integral
+</code></pre>
+<p>In your notebook:</p>
+<ol>
+<li>Draw the feedback loop: setpoint, error, controller, process, measured
+   temperature.</li>
+<li>Identify where the Python model calculates each part.</li>
+<li>Explain why the integral term should reduce droop.</li>
+<li>Explain why integral control can overshoot if the actuator saturates.</li>
+</ol>
+<h3 id="part-5-complete-the-two-temperature-theory-assignment">Part 5: Complete The Two-Temperature Theory Assignment<a class="headerlink" href="#part-5-complete-the-two-temperature-theory-assignment" title="Permanent link">&para;</a></h3>
+<p>Finish Theory Assignment 2. Then answer:</p>
+<ol>
+<li>Which model variable is closest to what the thermistor measures?</li>
+<li>Which model variable is closest to where the TEC applies heat?</li>
+<li>If the thermistor is moved farther from the TEC, which model parameter should
+   change?</li>
+<li>Why is this still a lumped model rather than a full heat-equation model?</li>
+</ol>
+<h3 id="part-6-make-one-model-code-modification">Part 6: Make One Model-Code Modification<a class="headerlink" href="#part-6-make-one-model-code-modification" title="Permanent link">&para;</a></h3>
+<p>Open:</p>
+<pre><code class="language-text">legacy_matlab/converted/modeling_tec_v2.py
+</code></pre>
+<p>Choose one small modification:</p>
+<ul>
+<li>Change the default setpoint.</li>
+<li>Change the default <code>Kp</code>.</li>
+<li>Add a displayed label for the current error.</li>
+<li>Add a horizontal setpoint line to the GUI plots.</li>
+<li>Add a new output column to the demo data if you choose to save data.</li>
+<li>Add a short comment explaining one model equation.</li>
+</ul>
+<p>Do not rewrite the whole GUI. The goal is to connect one line of code to one
+visible model behavior.</p>
+<h3 id="part-7-bridge-to-the-long-rod">Part 7: Bridge To The Long Rod<a class="headerlink" href="#part-7-bridge-to-the-long-rod" title="Permanent link">&para;</a></h3>
+<p>The TEC-only model has no spatial coordinate. The later long-rod experiment
+will require a model in which temperature depends on both position and time.</p>
+<p>The stationary fin model adds space:</p>
+<pre><code class="language-text">temperature depends on x
+heat conducts along the rod
+heat leaks from the side of the rod to room air
+</code></pre>
+<p>The oscillating fin model adds time-periodic boundary forcing:</p>
+<pre><code class="language-text">base temperature oscillates
+amplitude decays with distance
+phase lags with distance
+</code></pre>
+<p>Answer:</p>
+<ul>
+<li>What is missing from the TEC-only model that the rod model must include?</li>
+<li>Why will the rod experiment need more than one thermistor?</li>
+<li>Why are amplitude and phase more useful than just maximum and minimum
+  temperature?</li>
+</ul>
+<h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
+<p>Submit a short lab note containing:</p>
+<ul>
+<li>Your copied and labeled model equations.</li>
+<li>Theory Assignment 1.</li>
+<li>Theory Assignment 2.</li>
+<li>Manual-model observations.</li>
+<li>Proportional-control droop table.</li>
+<li>Thermal-mass overshoot/oscillation table.</li>
+<li>Screenshot of the Python GUI.</li>
+<li>A short description of your code modification.</li>
+<li>A paragraph answering:</li>
+</ul>
+<p><code>text
+  What did the model explain well, and what would it fail to explain about the
+  real TEC hardware?</code></p>
+<h3 id="optional-extension">Optional Extension<a class="headerlink" href="#optional-extension" title="Permanent link">&para;</a></h3>
+<p>Use data from a real TEC step response. Adjust model parameters until the
+simulated trace roughly overlays the measured trace. Do not worry about a
+perfect fit. Report which part of the curve the model explains poorly.</p>
+<h2 id="instructor-notes">Instructor Notes<a class="headerlink" href="#instructor-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>This lab is a consolidation point after manual control and P/PI control.</li>
+<li>Keep the emphasis on physical interpretation, not formal control theory.</li>
+<li>Students should leave understanding why delay plus gain causes trouble.</li>
+<li>The long-rod model should be introduced as a preview, not fully derived here
+  unless the class is ready.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

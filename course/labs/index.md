@@ -23,8 +23,9 @@ of the semester.
 | Module 4 | Open-loop TEC calibration, steady-state response, heating/cooling asymmetry, and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |
 | Module 5 | P-only feedback control: droop, gain, and instability | [Lab 5: P-Only Temperature Control](lab-05/index.md) |
 | Module 6 | Time-domain modeling of P and PI temperature control | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |
-| Module 7 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
-| Module 8 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
+| Module 7 | TEC process modeling: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |
+| Module 8 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
+| Module 9 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
 
 ## Meeting Calendar
 
@@ -42,8 +43,8 @@ of the semester.
 | 10 | 2026-10-05 | Mon | Modeling P control: fit time constant and simulate temperature traces | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
 | 11 | 2026-10-07 | Wed | Modeling PI control: integral action and windup | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
 | 12 | 2026-10-13 | Tue | Modeling checkpoint; Brandeis Monday make-up | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
-| 13 | 2026-10-14 | Wed | TEC-only synthesis: compare measured response with model | [Upcoming Labs](upcoming.md) |  |
-| 14 | 2026-10-19 | Mon | Finish TEC-only sequence and prepare for rod experiments | [Upcoming Labs](upcoming.md) | Modeling checkpoint |
+| 13 | 2026-10-14 | Wed | TEC process model: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |  |
+| 14 | 2026-10-19 | Mon | Finish TEC-only model comparison and prepare for rod experiments | [Lab 7: Process Model And Python Simulation](lab-07/index.md) | Modeling checkpoint |
 | 15 | 2026-10-21 | Wed | Temperature along a rod: hardware setup and baseline, part 1 | [Upcoming Labs](upcoming.md) |  |
 | 16 | 2026-10-26 | Mon | Temperature along a rod: sensor calibration and steady baseline, part 2 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
 | 17 | 2026-10-28 | Wed | Temperature along a rod: step response, part 3 | [Upcoming Labs](upcoming.md) |  |

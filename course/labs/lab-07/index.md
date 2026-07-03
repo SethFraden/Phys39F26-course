@@ -368,7 +368,7 @@ python Lab_6_7_modeling_tec_v2.py
 1. Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf),
    **Chapter 1: Introduction**. Focus on the parts that connect directly to
    this lab: conservation of energy, heat flux, conduction, thermal resistance,
-   heat capacity, and lumped thermal models.
+   heat capacity, and lumped thermal models. Read through p. 28. Skip most of the last section on radiation.
 
 2. Prepare to work selected Chapter 1 problems at the board. You may be randomly
    selected to present one of these:

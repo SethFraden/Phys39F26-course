@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Theory Bridge: Fourier's Law, Heat Equation, And Biot Number - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">Git, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#theory-bridge-fouriers-law-heat-equation-and-biot-number" class="nav-link">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#why-this-bridge-exists" class="nav-link">Why This Bridge Exists</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#1-fouriers-law" class="nav-link">1. Fourier's Law</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-from-energy-balance-to-the-heat-equation" class="nav-link">2. From Energy Balance To The Heat Equation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-dimensional-analysis-and-the-biot-number" class="nav-link">3. Dimensional Analysis And The Biot Number</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-prepare" class="nav-link">What To Prepare</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#how-this-leads-to-the-next-full-lab" class="nav-link">How This Leads To The Next Full Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="theory-bridge-fouriers-law-heat-equation-and-biot-number">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number<a class="headerlink" href="#theory-bridge-fouriers-law-heat-equation-and-biot-number" title="Permanent link">&para;</a></h1>
+<p>This is a short theory bridge, not a full lab. Its job is to connect the
+lumped thermal models from Lab 7 to the spatial models needed for the long
+cylinder experiment.</p>
+<p>Read selectively in
+<a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard, A Heat Transfer Textbook</a>,
+Section 1.3, pp. 11-26. Focus on Fourier's Law, the derivation of the heat
+conduction equation, convection/lumped cooling, dimensional analysis, the Biot
+number, and Fig. 1.10.</p>
+<p>This bridge follows the order of Lienhard Section 1.3:</p>
+<table>
+<thead>
+<tr>
+<th>Lienhard reading</th>
+<th>How to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pp. 11-13, Fourier's Law</td>
+<td>Read carefully. This is the law that turns a temperature gradient into a heat flux.</td>
+</tr>
+<tr>
+<td>pp. 14-16, thermal conductivity and Example 1.2</td>
+<td>Skim for scale. Notice how <span class="arithmatex">\(k\)</span> controls the temperature gradient needed for a given heat flux.</td>
+</tr>
+<tr>
+<td>pp. 17-18, one-dimensional heat conduction equation</td>
+<td>Read slowly. This is the derivation core of the bridge.</td>
+</tr>
+<tr>
+<td>pp. 19-21, convection and Newton's law of cooling</td>
+<td>Read for the meaning of <span class="arithmatex">\(h\)</span>, the heat transfer coefficient.</td>
+</tr>
+<tr>
+<td>pp. 21-24, lumped capacity, Fig. 1.10, and Biot number</td>
+<td>Read carefully. This explains when a one-temperature model is acceptable.</td>
+</tr>
+<tr>
+<td>pp. 24-26, thermocouple example</td>
+<td>Skim for how Lienhard checks the Biot number assumption in a real calculation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="why-this-bridge-exists">Why This Bridge Exists<a class="headerlink" href="#why-this-bridge-exists" title="Permanent link">&para;</a></h2>
+<p>Lab 7 used lumped models: one temperature for one object, or two temperatures
+for two coupled objects. That works when internal temperature gradients are
+small enough to ignore. The long cylinder is different. Its temperature depends
+on position as well as time, so we need a model that can describe heat flowing
+along the rod.</p>
+<p>The bridge has three questions:</p>
+<ol>
+<li>What law tells us how heat flows down a temperature gradient?</li>
+<li>How does conservation of energy turn that law into a differential equation?</li>
+<li>When is it reasonable to ignore spatial temperature gradients?</li>
+</ol>
+<h2 id="1-fouriers-law">1. Fourier's Law<a class="headerlink" href="#1-fouriers-law" title="Permanent link">&para;</a></h2>
+<p>Use Lienhard Section 1.3, "Modes of heat transfer," pp. 11-13
+(PDF pp. 25-27), as the source for this section.</p>
+<p>This is the first major idea in the pp. 11-26 reading span.</p>
+<table>
+<thead>
+<tr>
+<th>Read this in Lienhard</th>
+<th>What to take from it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Section 1.3, p. 11, line beginning "Fourier's law," through Eq. (1.8)</td>
+<td><span class="arithmatex">\(q\)</span> is heat flux, <span class="arithmatex">\(k\)</span> is thermal conductivity, and the temperature gradient drives conduction.</td>
+</tr>
+<tr>
+<td>Section 1.3, p. 11, line beginning "The heat flux is a vector quantity"</td>
+<td>The minus sign is a direction statement: heat flows from higher temperature to lower temperature.</td>
+</tr>
+<tr>
+<td>Section 1.3, p. 13, line beginning "The direction of heat flow," through Eq. (1.9)</td>
+<td>In one-dimensional steady conduction, Lienhard often rewrites the law with positive <span class="arithmatex">\(\Delta T\)</span> and positive <span class="arithmatex">\(q\)</span>.</td>
+</tr>
+<tr>
+<td>Section 1.3, p. 13, line beginning "Notice that," through Eq. (1.10)</td>
+<td>For the same heat flux, a material with larger <span class="arithmatex">\(k\)</span> needs a smaller temperature gradient.</td>
+</tr>
+</tbody>
+</table>
+<p>Fourier's Law says that heat flows from hot regions toward cold regions. In one
+dimension,</p>
+<div class="arithmatex">\[
+q_x=-k\frac{\partial T}{\partial x}.
+\]</div>
+<p>Here <span class="arithmatex">\(q_x\)</span> is heat flux in W/m<span class="arithmatex">\(^2\)</span>, <span class="arithmatex">\(k\)</span> is thermal conductivity in
+W/(m K), and <span class="arithmatex">\(\partial T/\partial x\)</span> is the temperature gradient. The minus
+sign matters: heat flows in the direction of decreasing temperature.</p>
+<p>For a rod with cross-sectional area <span class="arithmatex">\(A\)</span>, the heat-flow rate is</p>
+<div class="arithmatex">\[
+\dot Q_x=-kA\frac{\partial T}{\partial x}.
+\]</div>
+<p>For this course, the key idea is not the symbol manipulation. The key idea is
+that a temperature gradient causes a heat current.</p>
+<p>When you read Lienhard, notice the small change in notation. Lienhard first
+writes <span class="arithmatex">\(dT/dx\)</span>, because he is describing one-dimensional conduction. We write
+<span class="arithmatex">\(\partial T/\partial x\)</span> here because the long-cylinder experiment will have a
+temperature <span class="arithmatex">\(T(x,t)\)</span> that can depend on both position and time.</p>
+<h2 id="2-from-energy-balance-to-the-heat-equation">2. From Energy Balance To The Heat Equation<a class="headerlink" href="#2-from-energy-balance-to-the-heat-equation" title="Permanent link">&para;</a></h2>
+<p>Use Lienhard Section 1.3, pp. 17-18 (PDF pp. 31-32), beginning with
+"One-dimensional heat conduction equation," and Fig. 1.8. Read this part
+slowly; it is the bridge from a heat-flow law to a temperature equation.</p>
+<p>This is the derivation core of the bridge.</p>
+<p>Your goal is to understand how Lienhard gets from this physical picture:</p>
+<pre><code class="language-text">small slice of material + Fourier's Law + conservation of energy
+</code></pre>
+<p>to this one-dimensional heat equation:</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=
+\alpha\frac{\partial^2T}{\partial x^2}.
+\]</div>
+<p>Follow Lienhard's derivation in this order:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Lienhard reference</th>
+<th>What the step does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Section 1.3, p. 17, line beginning "One-dimensional heat conduction equation"</td>
+<td>Names the problem: Fourier's law contains both <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(q\)</span>, but we want an equation for <span class="arithmatex">\(T(x,t)\)</span>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Section 1.3, p. 17, line beginning "Now let us eliminate q," plus Fig. 1.8 and Eq. (1.12)</td>
+<td>Applies Fourier's Law at the left and right faces of a thin slice. The difference between the two fluxes produces a second derivative, <span class="arithmatex">\(\partial^2T/\partial x^2\)</span>.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Section 1.3, p. 17, line beginning "To eliminate the heat loss," through Eq. (1.13)</td>
+<td>Uses the First Law for the slice: net heat loss changes the slice's internal energy.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Section 1.3, p. 17, line beginning "Combining eqns." through Eq. (1.14)</td>
+<td>Combines the flux difference with energy storage to eliminate <span class="arithmatex">\(q\)</span>. This gives the one-dimensional heat equation.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Section 1.3, p. 18, line beginning "This result is the one-dimensional heat conduction equation"</td>
+<td>Explains why the result matters: we can solve for the temperature distribution <span class="arithmatex">\(T(x,t)\)</span>.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Section 1.3, p. 18, line beginning "This is the thermal diffusivity"</td>
+<td>Introduces thermal diffusivity, <span class="arithmatex">\(\alpha=k/(\rho c)\)</span>, as the material property controlling transient spreading of heat.</td>
+</tr>
+</tbody>
+</table>
+<p>Use these checkpoints while reading pp. 17-18:</p>
+<ol>
+<li>In Eq. (1.12), identify the heat conducted out of the right face and the
+   heat conducted in through the left face.</li>
+<li>Explain why subtracting those two nearby fluxes produces
+   <span class="arithmatex">\(\partial^2T/\partial x^2\)</span>, not just <span class="arithmatex">\(\partial T/\partial x\)</span>.</li>
+<li>In Eq. (1.13), identify the energy-storage term for the slice.</li>
+<li>In Eq. (1.14), point to the moment when <span class="arithmatex">\(q\)</span> disappears and the unknown
+   becomes <span class="arithmatex">\(T(x,t)\)</span>.</li>
+<li>On p. 18, explain in words what thermal diffusivity <span class="arithmatex">\(\alpha\)</span> measures.</li>
+</ol>
+<p>Start with conservation of energy for a small piece of material:</p>
+<pre><code class="language-text">rate of thermal energy storage = heat flowing in - heat flowing out + heat generated
+</code></pre>
+<p>For a solid with density <span class="arithmatex">\(\rho\)</span>, heat capacity <span class="arithmatex">\(c_p\)</span>, and constant thermal
+conductivity <span class="arithmatex">\(k\)</span>, this becomes</p>
+<div class="arithmatex">\[
+\rho c_p\frac{\partial T}{\partial t}
+=
+k\nabla^2 T+\dot q'''.
+\]</div>
+<p>This is the same physical idea as Lienhard's Eq. (1.14), but written in a more
+general three-dimensional form and with a possible internal heat-generation term,
+<span class="arithmatex">\(\dot q'''\)</span>. Lienhard's Chapter 1 derivation is one-dimensional and has no
+internal heat generation.</p>
+<p>If there is no internal heat generation, <span class="arithmatex">\(\dot q'''=0\)</span>, then</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=
+\alpha\nabla^2T,
+\qquad
+\alpha=\frac{k}{\rho c_p}.
+\]</div>
+<p>The parameter <span class="arithmatex">\(\alpha\)</span> is the thermal diffusivity. It tells how quickly a
+temperature disturbance spreads through the material.</p>
+<p>For a long, thin rod whose temperature varies mostly along its length, this
+becomes the one-dimensional heat equation:</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=
+\alpha\frac{\partial^2T}{\partial x^2}.
+\]</div>
+<p>The later rod lab will add side heat loss to the room, because the cylinder is
+not perfectly insulated.</p>
+<h2 id="3-dimensional-analysis-and-the-biot-number">3. Dimensional Analysis And The Biot Number<a class="headerlink" href="#3-dimensional-analysis-and-the-biot-number" title="Permanent link">&para;</a></h2>
+<p>Use Lienhard Section 1.3, pp. 19-26 (PDF pp. 33-40), as the source for this
+section. Read pp. 19-21 to understand Newton's law of cooling and the heat
+transfer coefficient <span class="arithmatex">\(h\)</span>. Then read pp. 21-24 carefully for the lumped-capacity
+model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
+thermocouple example checks whether <span class="arithmatex">\(\mathrm{Bi}\ll1\)</span> is actually valid.</p>
+<p>Dimensional analysis asks which combinations of physical parameters control the
+behavior. For deciding whether an object can be treated as one lumped
+temperature, the important <strong>dimensionless</strong> number is the Biot number:</p>
+<div class="arithmatex">\[
+\mathrm{Bi}=\frac{hL_c}{k}.
+\]</div>
+<p>Here <span class="arithmatex">\(h\)</span> is the convection coefficient to the surroundings, <span class="arithmatex">\(k\)</span> is the
+thermal conductivity inside the solid, and <span class="arithmatex">\(L_c\)</span> is a characteristic length,
+often <span class="arithmatex">\(V/A_s\)</span>, the volume divided by the surface area. The tricky bit is that there can be more than one characteristic length (or thermal conductivity constant) in the problem. How do you choose which one to use? For a long, thin cylinder, the Bi number for the radius can be small, but the Biot number of the length can be large. In this case, instead of having a differential equation that depends on both radius and length, you can reduce it to a 1D problem by ignoring any radial dependence of the temperature.</p>
+<p>Interpretation:</p>
+<ul>
+<li>Small <span class="arithmatex">\(\mathrm{Bi}\)</span>: internal conduction is fast compared with heat loss to
+  the surroundings. The object is closer to one temperature, so a lumped model
+  may be reasonable.</li>
+<li>Large <span class="arithmatex">\(\mathrm{Bi}\)</span>: internal temperature gradients matter. A spatial model
+  is needed.</li>
+</ul>
+<p><a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard Fig. 1.10</a>
+is the figure to keep in mind here: dimensional analysis is not extra
+decoration. It tells us which effects are small enough to neglect and which
+effects must be kept in the model.</p>
+<h2 id="what-to-prepare">What To Prepare<a class="headerlink" href="#what-to-prepare" title="Permanent link">&para;</a></h2>
+<p>Before class, write short answers to these questions. Use Lienhard Section 1.3,
+pp. 11-26. Give most of your time to questions 3-9, which follow the main arc
+from Fourier's Law to the heat equation to the Biot number.</p>
+<ol>
+<li>In Fourier's Law, why is there a minus sign?</li>
+<li>What are the units of <span class="arithmatex">\(q_x\)</span>, <span class="arithmatex">\(\dot Q_x\)</span>, and <span class="arithmatex">\(k\)</span>?</li>
+<li>On pp. 14-16, why does a larger <span class="arithmatex">\(k\)</span> lead to a smaller temperature gradient
+   for the same heat flux?</li>
+<li>In Lienhard Eq. (1.12), what physical quantity is being calculated?</li>
+<li>In Lienhard Eq. (1.13), what physical quantity is being stored?</li>
+<li>Why does combining Eq. (1.12) and Eq. (1.13) produce an equation for
+   <span class="arithmatex">\(T(x,t)\)</span> instead of an equation for <span class="arithmatex">\(q\)</span>?</li>
+<li>What physical property does thermal diffusivity <span class="arithmatex">\(\alpha\)</span> describe?</li>
+<li>Why does a small Biot number support a lumped-temperature model?</li>
+<li>In Lienhard's thermocouple example, why does checking <span class="arithmatex">\(\mathrm{Bi}\)</span> matter?</li>
+<li>Why might the long metal cylinder require a one-dimensional or two-dimensional
+   model instead of a lumped model?</li>
+</ol>
+<h2 id="how-this-leads-to-the-next-full-lab">How This Leads To The Next Full Lab<a class="headerlink" href="#how-this-leads-to-the-next-full-lab" title="Permanent link">&para;</a></h2>
+<p>The next full theory lab will use
+<a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard Chapter 4.5</a>
+on fin design. It will derive the heat equation for the long cylinder in more
+detail, decide when the rod can be treated as one-dimensional, solve the finite
+thin-rod model, and use simulations to compare predictions with measured
+temperature profiles.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -24,6 +24,7 @@ of the semester.
 | Module 5 | P-only feedback control: droop, gain, and instability | [Lab 5: P-Only Temperature Control](lab-05/index.md) |
 | Module 6 | Time-domain modeling of P and PI temperature control | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |
 | Module 7 | TEC process modeling: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |
+| Theory Bridge | Fourier's Law, heat equation, dimensional analysis, and Biot number | [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](theory-bridge-chapter-1/index.md) |
 | Module 8 | Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport | [Upcoming Labs](upcoming.md) |
 | Module 9 | Final synthesis and presentations | [Upcoming Labs](upcoming.md) |
 
@@ -45,7 +46,7 @@ of the semester.
 | 12 | 2026-10-13 | Tue | Modeling checkpoint; Brandeis Monday make-up | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
 | 13 | 2026-10-14 | Wed | TEC process model: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |  |
 | 14 | 2026-10-19 | Mon | Finish TEC-only model comparison and prepare for rod experiments | [Lab 7: Process Model And Python Simulation](lab-07/index.md) | Modeling checkpoint |
-| 15 | 2026-10-21 | Wed | Temperature along a rod: hardware setup and baseline, part 1 | [Upcoming Labs](upcoming.md) |  |
+| 15 | 2026-10-21 | Wed | Chapter 1 theory bridge: Fourier's Law, heat equation, dimensional analysis, and Biot number | [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](theory-bridge-chapter-1/index.md) |  |
 | 16 | 2026-10-26 | Mon | Temperature along a rod: sensor calibration and steady baseline, part 2 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
 | 17 | 2026-10-28 | Wed | Temperature along a rod: step response, part 3 | [Upcoming Labs](upcoming.md) |  |
 | 18 | 2026-11-02 | Mon | Temperature along a rod: repeat step response and uncertainty, part 4 | [Upcoming Labs](upcoming.md) | Dimensional analysis |

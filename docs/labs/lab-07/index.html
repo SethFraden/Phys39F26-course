@@ -130,6 +130,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-assignment" class="nav-link">Pre-Class Assignment</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#how-to-run-the-python-gui" class="nav-link">How To Run The Python GUI</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#before-class" class="nav-link">Before Class</a>
               <ul class="nav flex-column">
               </ul>
@@ -208,8 +212,8 @@ connect three things:</p>
 <ol>
 <li>the physical TEC/block/thermistor system,</li>
 <li>the feedback-control equations,</li>
-<li>a Python simulation GUI that lets you change model parameters and watch the
-   predicted temperature response.</li>
+<li>a <a href="#how-to-run-the-python-gui">Python simulation GUI</a> that lets you change
+   model parameters and watch the predicted temperature response.</li>
 </ol>
 <p>This lab is not about perfect prediction. It is about learning how a simple
 model can explain droop, overshoot, lag, and the onset of instability.</p>
@@ -221,26 +225,28 @@ lag between where heat enters and where temperature is measured.</p>
 <h3 id="at-a-glance">At A Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
 <p>Before class, spend your time in this order:</p>
 <ul>
-<li><strong>45-60 min</strong>: Read Lienhard Chapter 1 with emphasis on energy balance,
-  heat flux, conduction, thermal resistance, heat capacity, and lumped models.</li>
+<li><strong>45-60 min</strong>: Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
+  Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
+  resistance, heat capacity, and lumped models.</li>
 <li><strong>30-45 min</strong>: Prepare Problems 1.3 and 1.8 for possible board work.</li>
 <li><strong>10-15 min</strong>: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.</li>
-<li><strong>15-20 min</strong>: Run the Python demo and GUI once so class time can focus on
-  interpretation instead of setup.</li>
+<li><strong>15-20 min</strong>: Run the <a href="#how-to-run-the-python-gui">Python demo and GUI</a>
+  once so class time can focus on interpretation instead of setup.</li>
 <li><strong>15-20 min</strong>: Copy and annotate the three model equations; complete Theory
   Assignment 1 and begin Theory Assignment 2 if time permits.</li>
 </ul>
 <p>During class, the approximate schedule for one 170-minute meeting is:</p>
 <ol>
-<li><strong>0-20 min</strong>: Opening discussion and board work on Lienhard Problems 1.3 and
-   1.8.</li>
+<li><strong>0-20 min</strong>: Opening discussion and board work on
+   <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
+   Problems 1.3 and 1.8.</li>
 <li><strong>20-40 min</strong>: Connect the board work to the Lab 7 model equations and the
    one-lump/two-lump diagram.</li>
 <li><strong>40-60 min</strong>: Run the manual model and identify the physical meaning of each
    term and control.</li>
-<li><strong>60-85 min</strong>: Run the one-temperature proportional model and measure droop
+<li><strong>60-85 min</strong>: Run the one-lumped-temperature proportional model and measure droop
    as <code>Kp</code> changes.</li>
-<li><strong>85-115 min</strong>: Run the two-temperature thermal-mass model and find cases
+<li><strong>85-115 min</strong>: Run the two-lumped-temperature thermal-mass model and find cases
    with lag, overshoot, or oscillation.</li>
 <li><strong>115-140 min</strong>: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.</li>
@@ -264,10 +270,9 @@ lag between where heat enters and where temperature is measured.</p>
 <li><strong>Residual</strong>: measured data minus model prediction.</li>
 </ul>
 <h3 id="model-equations">Model Equations<a class="headerlink" href="#model-equations" title="Permanent link">&para;</a></h3>
-<p>The Python GUI shows three models.</p>
+<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> shows three models.</p>
 <h4 id="manual-drive">Manual Drive<a class="headerlink" href="#manual-drive" title="Permanent link">&para;</a></h4>
 <pre><code class="language-text">C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-Tm = T
 </code></pre>
 <p>The units of this equation are Watts - energy/time. Check that each term has these units. Here <code>T</code> is the TEC/block temperature in °C, <code>T_room</code> is room temperature in °C,
 <code>Tm</code> is the measured temperature in °C, <code>C</code> is the heat capacity of the lump in
@@ -286,7 +291,6 @@ represents the heat transferred to the block by the TEC.</p>
 PWM = min(Kp*abs(error), 255)
 HC = sign(error)
 C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-Tm = T
 </code></pre>
 <p>This model turns the temperature error into a PWM command. The larger <code>Kp</code> is,
 the more strongly the controller reacts to error. If <code>error</code> is measured in °C,
@@ -312,11 +316,30 @@ dTm/dt = k21*(T - Tm) - km*(Tm - T_room)
 <p>where <code>beta_tec = Q_max/C1</code>, <code>k12 = G12/C1</code>, <code>k21 = G12/C2</code>, and <code>km = Gm/C2</code>.
 All of these rate constants have units of 1/s, except <code>beta_tec</code>, which has
 units of °C/s.</p>
+<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> uses a compact teaching version of
+this two-lump idea:</p>
+<pre><code class="language-text">error = T_set - Tm
+PWM = min(Kp*abs(error), 255)
+dT/dt = h*(T_room - T) + actuator
+dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
+</code></pre>
+<p>Abbreviated stability theory: near equilibrium, before PWM saturation, let
+<code>m = mass^-1</code>. The linearized two-lump model has characteristic equation:</p>
+<pre><code class="language-text">s^2 + alpha*s + beta = 0
+alpha = m + 2*h
+beta = h*(m + h) + m*Kp
+</code></pre>
+<p>The response is underdamped when <code>D = alpha^2 - 4*beta</code> is negative. For
+positive <code>m</code>, this reduces to <code>Kp &gt; m/4</code>. The heat-loss term <code>h</code> makes the real
+part of the roots more negative, so it damps the oscillation even though it
+cancels out of this simple complex-root threshold. The full derivation is in
+<a href="../../analysis/two_lump_stability_analysis.pdf">two_lump_stability_analysis.pdf</a>.</p>
 <p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
 <p><em>Course-specific lumped-model diagram. The thermal-resistance/electrical-circuit
-analogy is introduced in Lienhard, A Heat Transfer Textbook, Section 2.3; see
-especially Figures 2.8 and 2.12 for the textbook version of the resistance
-analogy.</em></p>
+analogy is introduced in
+<a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard, A Heat Transfer Textbook</a>,
+Section 2.3; see especially Figures 2.8 and 2.12 for the textbook version of
+the resistance analogy.</em></p>
 <h3 id="thermal-transport-theory-assignments">Thermal Transport Theory Assignments<a class="headerlink" href="#thermal-transport-theory-assignments" title="Permanent link">&para;</a></h3>
 <p>This part of the course uses <strong>lumped thermal models</strong>. A lumped model assumes
 that one object, such as the TEC/block assembly, can be described by one
@@ -408,12 +431,29 @@ understand how conservation of energy produces the simple lumped equations. The
 spatial differential equations come later, when we measure temperature along the
 long metal cylinder.</p>
 <h2 id="pre-class-assignment">Pre-Class Assignment<a class="headerlink" href="#pre-class-assignment" title="Permanent link">&para;</a></h2>
+<h3 id="how-to-run-the-python-gui">How To Run The Python GUI<a class="headerlink" href="#how-to-run-the-python-gui" title="Permanent link">&para;</a></h3>
+<p>Clicking the Python source-code link opens or downloads the <code>.py</code> file. It does
+not run the simulation. To run the model, use Terminal.</p>
+<p>First run the non-interactive demo:</p>
+<pre><code class="language-bash">cd /Users/fraden/Documents/GitHub/Phys39F26
+.venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
+</code></pre>
+<p>This saves a plot named:</p>
+<pre><code class="language-text">python/Lab_6_7_modeling_tec_v2_demo.png
+</code></pre>
+<p>Then run the desktop GUI:</p>
+<pre><code class="language-bash">cd /Users/fraden/Documents/GitHub/Phys39F26
+.venv/bin/python python/Lab_6_7_modeling_tec_v2.py
+</code></pre>
+<p>Use the source-code link only when you want to inspect the program:
+<a href="../../python/Lab_6_7_modeling_tec_v2.py">Lab_6_7_modeling_tec_v2.py</a>.</p>
 <h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>Read Lienhard, <strong>Chapter 1: Introduction</strong>. Focus on the parts that connect
-   directly to this lab: conservation of energy, heat flux, conduction, thermal
-   resistance, heat capacity, and lumped thermal models.</p>
+<p>Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>,
+   <strong>Chapter 1: Introduction</strong>. Focus on the parts that connect directly to
+   this lab: conservation of energy, heat flux, conduction, thermal resistance,
+   heat capacity, and lumped thermal models.</p>
 </li>
 <li>
 <p>Prepare to work selected Chapter 1 problems at the board. You may be randomly
@@ -446,30 +486,30 @@ long metal cylinder.</p>
      temperature you think it reads.</p>
 </li>
 <li>
-<p>Open the Python simulation code:</p>
+<p>Open the <a href="../../python/Lab_6_7_modeling_tec_v2.py">Python simulation GUI code</a>:</p>
 </li>
 </ol>
 <p><code>text
-   legacy_matlab/converted/modeling_tec_v2.py</code></p>
+   python/Lab_6_7_modeling_tec_v2.py</code></p>
 <ol>
 <li>Run the non-interactive demo:</li>
 </ol>
 <p><code>bash
    cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py --demo</code></p>
+   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo</code></p>
 <ol>
 <li>Look at the generated plot:</li>
 </ol>
 <p><code>text
-   legacy_matlab/converted/modeling_tec_v2_demo.png</code></p>
+   python/Lab_6_7_modeling_tec_v2_demo.png</code></p>
 <p>The bottom of the PNG and the terminal output list the model parameters used
    to make the plot. Record those values so the plot is reproducible.</p>
 <ol>
-<li>Run the GUI:</li>
+<li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
 </ol>
 <p><code>bash
    cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py</code></p>
+   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py</code></p>
 <ol>
 <li>In your notebook, copy the three model equations and label the meaning of
    each variable.</li>
@@ -490,7 +530,7 @@ long metal cylinder.</p>
 <h3 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h3>
 <p>You will:</p>
 <ul>
-<li>run the Python simulation GUI,</li>
+<li>run the <a href="#how-to-run-the-python-gui">Python simulation GUI</a>,</li>
 <li>identify the physical meaning of each control,</li>
 <li>reproduce droop in proportional control,</li>
 <li>produce overshoot or oscillation by increasing gain or lag,</li>
@@ -659,7 +699,7 @@ output = Kp*error + Ki*integral
 </ol>
 <h3 id="part-6-make-one-model-code-modification">Part 6: Make One Model-Code Modification<a class="headerlink" href="#part-6-make-one-model-code-modification" title="Permanent link">&para;</a></h3>
 <p>Open:</p>
-<pre><code class="language-text">legacy_matlab/converted/modeling_tec_v2.py
+<pre><code class="language-text">python/Lab_6_7_modeling_tec_v2.py
 </code></pre>
 <p>Choose one small modification:</p>
 <ul>
@@ -702,7 +742,7 @@ phase lags with distance
 <li>Manual-model observations.</li>
 <li>Proportional-control droop table.</li>
 <li>Thermal-mass overshoot/oscillation table.</li>
-<li>Screenshot of the Python GUI.</li>
+<li>Screenshot of the <a href="#how-to-run-the-python-gui">Python GUI</a>.</li>
 <li>A short description of your code modification.</li>
 <li>A paragraph answering:</li>
 </ul>

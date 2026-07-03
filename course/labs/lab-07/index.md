@@ -10,8 +10,8 @@ connect three things:
 
 1. the physical TEC/block/thermistor system,
 2. the feedback-control equations,
-3. a Python simulation GUI that lets you change model parameters and watch the
-   predicted temperature response.
+3. a [Python simulation GUI](#how-to-run-the-python-gui) that lets you change
+   model parameters and watch the predicted temperature response.
 
 This lab is not about perfect prediction. It is about learning how a simple
 model can explain droop, overshoot, lag, and the onset of instability.
@@ -28,26 +28,28 @@ lag between where heat enters and where temperature is measured.
 
 Before class, spend your time in this order:
 
-- **45-60 min**: Read Lienhard Chapter 1 with emphasis on energy balance,
-  heat flux, conduction, thermal resistance, heat capacity, and lumped models.
+- **45-60 min**: Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
+  Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
+  resistance, heat capacity, and lumped models.
 - **30-45 min**: Prepare Problems 1.3 and 1.8 for possible board work.
 - **10-15 min**: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.
-- **15-20 min**: Run the Python demo and GUI once so class time can focus on
-  interpretation instead of setup.
+- **15-20 min**: Run the [Python demo and GUI](#how-to-run-the-python-gui)
+  once so class time can focus on interpretation instead of setup.
 - **15-20 min**: Copy and annotate the three model equations; complete Theory
   Assignment 1 and begin Theory Assignment 2 if time permits.
 
 During class, the approximate schedule for one 170-minute meeting is:
 
-1. **0-20 min**: Opening discussion and board work on Lienhard Problems 1.3 and
-   1.8.
+1. **0-20 min**: Opening discussion and board work on
+   [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
+   Problems 1.3 and 1.8.
 2. **20-40 min**: Connect the board work to the Lab 7 model equations and the
    one-lump/two-lump diagram.
 3. **40-60 min**: Run the manual model and identify the physical meaning of each
    term and control.
-4. **60-85 min**: Run the one-temperature proportional model and measure droop
+4. **60-85 min**: Run the one-lumped-temperature proportional model and measure droop
    as `Kp` changes.
-5. **85-115 min**: Run the two-temperature thermal-mass model and find cases
+5. **85-115 min**: Run the two-lumped-temperature thermal-mass model and find cases
    with lag, overshoot, or oscillation.
 6. **115-140 min**: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.
@@ -72,13 +74,12 @@ During class, the approximate schedule for one 170-minute meeting is:
 
 ### Model Equations
 
-The Python GUI shows three models.
+The [Python GUI](#how-to-run-the-python-gui) shows three models.
 
 #### Manual Drive
 
 ```text
 C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-Tm = T
 ```
 
 The units of this equation are Watts - energy/time. Check that each term has these units. Here `T` is the TEC/block temperature in °C, `T_room` is room temperature in °C,
@@ -105,7 +106,6 @@ error = T_set - T
 PWM = min(Kp*abs(error), 255)
 HC = sign(error)
 C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-Tm = T
 ```
 
 This model turns the temperature error into a PWM command. The larger `Kp` is,
@@ -141,12 +141,38 @@ where `beta_tec = Q_max/C1`, `k12 = G12/C1`, `k21 = G12/C2`, and `km = Gm/C2`.
 All of these rate constants have units of 1/s, except `beta_tec`, which has
 units of °C/s.
 
+The [Python GUI](#how-to-run-the-python-gui) uses a compact teaching version of
+this two-lump idea:
+
+```text
+error = T_set - Tm
+PWM = min(Kp*abs(error), 255)
+dT/dt = h*(T_room - T) + actuator
+dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
+```
+
+Abbreviated stability theory: near equilibrium, before PWM saturation, let
+`m = mass^-1`. The linearized two-lump model has characteristic equation:
+
+```text
+s^2 + alpha*s + beta = 0
+alpha = m + 2*h
+beta = h*(m + h) + m*Kp
+```
+
+The response is underdamped when `D = alpha^2 - 4*beta` is negative. For
+positive `m`, this reduces to `Kp > m/4`. The heat-loss term `h` makes the real
+part of the roots more negative, so it damps the oscillation even though it
+cancels out of this simple complex-root threshold. The full derivation is in
+[two_lump_stability_analysis.pdf](../../analysis/two_lump_stability_analysis.pdf).
+
 ![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg)
 
 *Course-specific lumped-model diagram. The thermal-resistance/electrical-circuit
-analogy is introduced in Lienhard, A Heat Transfer Textbook, Section 2.3; see
-especially Figures 2.8 and 2.12 for the textbook version of the resistance
-analogy.*
+analogy is introduced in
+[Lienhard, A Heat Transfer Textbook](../../references/lienhard-heat-transfer-textbook-v6.pdf),
+Section 2.3; see especially Figures 2.8 and 2.12 for the textbook version of
+the resistance analogy.*
 
 ### Thermal Transport Theory Assignments
 
@@ -275,11 +301,40 @@ long metal cylinder.
 
 ## Pre-Class Assignment
 
+### How To Run The Python GUI
+
+Clicking the Python source-code link opens or downloads the `.py` file. It does
+not run the simulation. To run the model, use Terminal.
+
+First run the non-interactive demo:
+
+```bash
+cd /Users/fraden/Documents/GitHub/Phys39F26
+.venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
+```
+
+This saves a plot named:
+
+```text
+python/Lab_6_7_modeling_tec_v2_demo.png
+```
+
+Then run the desktop GUI:
+
+```bash
+cd /Users/fraden/Documents/GitHub/Phys39F26
+.venv/bin/python python/Lab_6_7_modeling_tec_v2.py
+```
+
+Use the source-code link only when you want to inspect the program:
+[Lab_6_7_modeling_tec_v2.py](../../python/Lab_6_7_modeling_tec_v2.py).
+
 ### Before Class
 
-1. Read Lienhard, **Chapter 1: Introduction**. Focus on the parts that connect
-   directly to this lab: conservation of energy, heat flux, conduction, thermal
-   resistance, heat capacity, and lumped thermal models.
+1. Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf),
+   **Chapter 1: Introduction**. Focus on the parts that connect directly to
+   this lab: conservation of energy, heat flux, conduction, thermal resistance,
+   heat capacity, and lumped thermal models.
 
 2. Prepare to work selected Chapter 1 problems at the board. You may be randomly
    selected to present one of these:
@@ -304,33 +359,33 @@ long metal cylinder.
      is a good reminder that a temperature sensor does not always read the
      temperature you think it reads.
 
-4. Open the Python simulation code:
+4. Open the [Python simulation GUI code](../../python/Lab_6_7_modeling_tec_v2.py):
 
    ```text
-   legacy_matlab/converted/modeling_tec_v2.py
+   python/Lab_6_7_modeling_tec_v2.py
    ```
 
 5. Run the non-interactive demo:
 
    ```bash
    cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py --demo
+   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
    ```
 
 6. Look at the generated plot:
 
    ```text
-   legacy_matlab/converted/modeling_tec_v2_demo.png
+   python/Lab_6_7_modeling_tec_v2_demo.png
    ```
 
    The bottom of the PNG and the terminal output list the model parameters used
    to make the plot. Record those values so the plot is reproducible.
 
-7. Run the GUI:
+7. Run the [Python GUI](#how-to-run-the-python-gui):
 
    ```bash
    cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python legacy_matlab/converted/modeling_tec_v2.py
+   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py
    ```
 
 8. In your notebook, copy the three model equations and label the meaning of
@@ -355,7 +410,7 @@ Write short answers before class.
 
 You will:
 
-- run the Python simulation GUI,
+- run the [Python simulation GUI](#how-to-run-the-python-gui),
 - identify the physical meaning of each control,
 - reproduce droop in proportional control,
 - produce overshoot or oscillation by increasing gain or lag,
@@ -475,7 +530,7 @@ Finish Theory Assignment 2. Then answer:
 Open:
 
 ```text
-legacy_matlab/converted/modeling_tec_v2.py
+python/Lab_6_7_modeling_tec_v2.py
 ```
 
 Choose one small modification:
@@ -530,7 +585,7 @@ Submit a short lab note containing:
 - Manual-model observations.
 - Proportional-control droop table.
 - Thermal-mass overshoot/oscillation table.
-- Screenshot of the Python GUI.
+- Screenshot of the [Python GUI](#how-to-run-the-python-gui).
 - A short description of your code modification.
 - A paragraph answering:
 

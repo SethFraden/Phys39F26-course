@@ -320,18 +320,21 @@ units of °C/s.</p>
 this two-lump idea:</p>
 <pre><code class="language-text">error = T_set - Tm
 PWM = min(Kp*abs(error), 255)
-dT/dt = h*(T_room - T) + actuator
+dT/dt = h*(T_room - T) + Kp_eff*(T_set - Tm)
 dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
 </code></pre>
+<p>Here <code>Kp_eff</code> is the proportional gain used in the local linear model. When the
+PWM command saturates at 255, the full simulation uses the saturated PWM value
+instead of the unsaturated linear term.</p>
 <p>Abbreviated stability theory: near equilibrium, before PWM saturation, let
 <code>m = mass^-1</code>. The linearized two-lump model has characteristic equation:</p>
 <pre><code class="language-text">s^2 + alpha*s + beta = 0
 alpha = m + 2*h
-beta = h*(m + h) + m*Kp
+beta = h*(m + h) + m*Kp_eff
 </code></pre>
 <p>The response is underdamped when <code>D = alpha^2 - 4*beta</code> is negative. For
-positive <code>m</code>, this reduces to <code>Kp &gt; m/4</code>. The heat-loss term <code>h</code> makes the real
-part of the roots more negative, so it damps the oscillation even though it
+positive <code>m</code>, this reduces to <code>Kp_eff &gt; m/4</code>. The heat-loss term <code>h</code> makes the
+real part of the roots more negative, so it damps the oscillation even though it
 cancels out of this simple complex-root threshold. The full derivation is in
 <a href="../../analysis/two_lump_stability_analysis.pdf">two_lump_stability_analysis.pdf</a>.</p>
 <p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>

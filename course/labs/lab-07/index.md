@@ -147,9 +147,13 @@ this two-lump idea:
 ```text
 error = T_set - Tm
 PWM = min(Kp*abs(error), 255)
-dT/dt = h*(T_room - T) + actuator
+dT/dt = h*(T_room - T) + Kp_eff*(T_set - Tm)
 dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
 ```
+
+Here `Kp_eff` is the proportional gain used in the local linear model. When the
+PWM command saturates at 255, the full simulation uses the saturated PWM value
+instead of the unsaturated linear term.
 
 Abbreviated stability theory: near equilibrium, before PWM saturation, let
 `m = mass^-1`. The linearized two-lump model has characteristic equation:
@@ -157,12 +161,12 @@ Abbreviated stability theory: near equilibrium, before PWM saturation, let
 ```text
 s^2 + alpha*s + beta = 0
 alpha = m + 2*h
-beta = h*(m + h) + m*Kp
+beta = h*(m + h) + m*Kp_eff
 ```
 
 The response is underdamped when `D = alpha^2 - 4*beta` is negative. For
-positive `m`, this reduces to `Kp > m/4`. The heat-loss term `h` makes the real
-part of the roots more negative, so it damps the oscillation even though it
+positive `m`, this reduces to `Kp_eff > m/4`. The heat-loss term `h` makes the
+real part of the roots more negative, so it damps the oscillation even though it
 cancels out of this simple complex-root threshold. The full derivation is in
 [two_lump_stability_analysis.pdf](../../analysis/two_lump_stability_analysis.pdf).
 

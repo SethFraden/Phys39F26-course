@@ -30,7 +30,7 @@ Before class, spend your time in this order:
 
 - **45-60 min**: Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
   Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
-  resistance, heat capacity, and lumped models. Read through p. 28. Skip most of the last section on radiation.
+  resistance, heat capacity, and [lumped models](#lumped-model-figure). Read through p. 28. Skip most of the last section on radiation.
 - **30-45 min**: Prepare Problems 1.3 and 1.8 for possible board work.
 - **10-15 min**: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.
 - **15-20 min**: Run the [Python demo and GUI](#how-to-run-the-python-gui)
@@ -64,7 +64,10 @@ During class, the approximate schedule for one 170-minute meeting is:
   TEC/block/thermistor thermal system.
 - **State variable**: a number that describes the current state of the model,
   such as temperature.
-- **Lumped model**: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass.
+- **Heat**: energy transferred because of a temperature difference. Heat is not
+  the same thing as temperature; temperature tells how hot something is, while
+  heat is energy moving into or out of the system.
+- **Lumped model**: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass. See the [one-lump/two-lump figure](#lumped-model-figure).
 - **Thermal mass**: is synomonous with heat capacity. A larger thermal mass changes temperature more slowly.
 - **Thermal lag**: delay between changing the actuator and observing the
   measured temperature response.
@@ -76,16 +79,16 @@ During class, the approximate schedule for one 170-minute meeting is:
 
 The [Python GUI](#how-to-run-the-python-gui) shows three models.
 
-#### Manual Drive
+#### Manual Control
 
 ```text
 C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
 ```
 
-The units of this equation are Watts - energy/time. Check that each term has these units. Here `T` is the TEC/block temperature in °C, `T_room` is room temperature in °C,
+All these equations describe the change of heat with time. The units of this equation are Watts - energy/time. Check that each term has these units. Here `T` is the TEC/block temperature in °C, `T_room` is room temperature in °C,
 `Tm` is the measured temperature in °C, `C` is the heat capacity of the lump in
 J/°C, `G_room` is the thermal conductance to the room in W/°C, `Q_max` is the
-approximate heat flow supplied by the TEC at full PWM in W, `PWM` is an Arduino
+approximate rate of heat flow supplied by the TEC at full PWM in W, `PWM` is an Arduino
 PWM command from 0 to 255, and `HC` is `+1` for heat or `-1` for cool. The first
 term represents heat transfer between the block and the room. The second term
 represents the heat transferred to the block by the TEC.
@@ -112,6 +115,13 @@ This model turns the temperature error into a PWM command. The larger `Kp` is,
 the more strongly the controller reacts to error. If `error` is measured in °C,
 then `Kp` has units of PWM counts per °C. The `min(...)` function represents
 actuator saturation: the Arduino cannot command a PWM value larger than 255.
+
+\[
+\begin{aligned}
+\mathrm{PWM} &= \min\left(K_p\left|T_{\mathrm{set}}-T\right|,255\right),\\
+\mathrm{HC} &= \operatorname{sign}\left(T_{\mathrm{set}}-T\right).
+\end{aligned}
+\]
 
 #### Proportional Control With Measured Thermal Mass
 
@@ -170,13 +180,11 @@ real part of the roots more negative, so it damps the oscillation even though it
 cancels out of this simple complex-root threshold. The full derivation is in
 [two_lump_stability_analysis.pdf](../../analysis/two_lump_stability_analysis.pdf).
 
+<a id="lumped-model-figure"></a>
+
 ![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg)
 
-*Course-specific lumped-model diagram. The thermal-resistance/electrical-circuit
-analogy is introduced in
-[Lienhard, A Heat Transfer Textbook](../../references/lienhard-heat-transfer-textbook-v6.pdf),
-Section 2.3; see especially Figures 2.8 and 2.12 for the textbook version of
-the resistance analogy.*
+*Course-specific lumped-model diagram.*
 
 ### Thermal Transport Theory Assignments
 

@@ -227,7 +227,7 @@ lag between where heat enters and where temperature is measured.</p>
 <ul>
 <li><strong>45-60 min</strong>: Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
   Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
-  resistance, heat capacity, and lumped models. Read through p. 28. Skip most of the last section on radiation.</li>
+  resistance, heat capacity, and <a href="#lumped-model-figure">lumped models</a>. Read through p. 28. Skip most of the last section on radiation.</li>
 <li><strong>30-45 min</strong>: Prepare Problems 1.3 and 1.8 for possible board work.</li>
 <li><strong>10-15 min</strong>: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.</li>
 <li><strong>15-20 min</strong>: Run the <a href="#how-to-run-the-python-gui">Python demo and GUI</a>
@@ -261,7 +261,10 @@ lag between where heat enters and where temperature is measured.</p>
   TEC/block/thermistor thermal system.</li>
 <li><strong>State variable</strong>: a number that describes the current state of the model,
   such as temperature.</li>
-<li><strong>Lumped model</strong>: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass.</li>
+<li><strong>Heat</strong>: energy transferred because of a temperature difference. Heat is not
+  the same thing as temperature; temperature tells how hot something is, while
+  heat is energy moving into or out of the system.</li>
+<li><strong>Lumped model</strong>: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass. See the <a href="#lumped-model-figure">one-lump/two-lump figure</a>.</li>
 <li><strong>Thermal mass</strong>: is synomonous with heat capacity. A larger thermal mass changes temperature more slowly.</li>
 <li><strong>Thermal lag</strong>: delay between changing the actuator and observing the
   measured temperature response.</li>
@@ -271,13 +274,13 @@ lag between where heat enters and where temperature is measured.</p>
 </ul>
 <h3 id="model-equations">Model Equations<a class="headerlink" href="#model-equations" title="Permanent link">&para;</a></h3>
 <p>The <a href="#how-to-run-the-python-gui">Python GUI</a> shows three models.</p>
-<h4 id="manual-drive">Manual Drive<a class="headerlink" href="#manual-drive" title="Permanent link">&para;</a></h4>
+<h4 id="manual-control">Manual Control<a class="headerlink" href="#manual-control" title="Permanent link">&para;</a></h4>
 <pre><code class="language-text">C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
 </code></pre>
-<p>The units of this equation are Watts - energy/time. Check that each term has these units. Here <code>T</code> is the TEC/block temperature in °C, <code>T_room</code> is room temperature in °C,
+<p>All these equations describe the change of heat with time. The units of this equation are Watts - energy/time. Check that each term has these units. Here <code>T</code> is the TEC/block temperature in °C, <code>T_room</code> is room temperature in °C,
 <code>Tm</code> is the measured temperature in °C, <code>C</code> is the heat capacity of the lump in
 J/°C, <code>G_room</code> is the thermal conductance to the room in W/°C, <code>Q_max</code> is the
-approximate heat flow supplied by the TEC at full PWM in W, <code>PWM</code> is an Arduino
+approximate rate of heat flow supplied by the TEC at full PWM in W, <code>PWM</code> is an Arduino
 PWM command from 0 to 255, and <code>HC</code> is <code>+1</code> for heat or <code>-1</code> for cool. The first
 term represents heat transfer between the block and the room. The second term
 represents the heat transferred to the block by the TEC.</p>
@@ -296,6 +299,12 @@ C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
 the more strongly the controller reacts to error. If <code>error</code> is measured in °C,
 then <code>Kp</code> has units of PWM counts per °C. The <code>min(...)</code> function represents
 actuator saturation: the Arduino cannot command a PWM value larger than 255.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathrm{PWM} &amp;= \min\left(K_p\left|T_{\mathrm{set}}-T\right|,255\right),\\
+\mathrm{HC} &amp;= \operatorname{sign}\left(T_{\mathrm{set}}-T\right).
+\end{aligned}
+\]</div>
 <h4 id="proportional-control-with-measured-thermal-mass">Proportional Control With Measured Thermal Mass<a class="headerlink" href="#proportional-control-with-measured-thermal-mass" title="Permanent link">&para;</a></h4>
 <pre><code class="language-text">error = T_set - Tm
 PWM = min(Kp*abs(error), 255)
@@ -337,12 +346,9 @@ positive <code>m</code>, this reduces to <code>Kp_eff &gt; m/4</code>. The heat-
 real part of the roots more negative, so it damps the oscillation even though it
 cancels out of this simple complex-root threshold. The full derivation is in
 <a href="../../analysis/two_lump_stability_analysis.pdf">two_lump_stability_analysis.pdf</a>.</p>
+<p><a id="lumped-model-figure"></a></p>
 <p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
-<p><em>Course-specific lumped-model diagram. The thermal-resistance/electrical-circuit
-analogy is introduced in
-<a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard, A Heat Transfer Textbook</a>,
-Section 2.3; see especially Figures 2.8 and 2.12 for the textbook version of
-the resistance analogy.</em></p>
+<p><em>Course-specific lumped-model diagram.</em></p>
 <h3 id="thermal-transport-theory-assignments">Thermal Transport Theory Assignments<a class="headerlink" href="#thermal-transport-theory-assignments" title="Permanent link">&para;</a></h3>
 <p>This part of the course uses <strong>lumped thermal models</strong>. A lumped model assumes
 that one object, such as the TEC/block assembly, can be described by one

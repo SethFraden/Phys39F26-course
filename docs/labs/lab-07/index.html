@@ -227,7 +227,7 @@ lag between where heat enters and where temperature is measured.</p>
 <ul>
 <li><strong>45-60 min</strong>: Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
   Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
-  resistance, heat capacity, and lumped models.</li>
+  resistance, heat capacity, and lumped models. Read through p. 28. Skip most of the last section on radiation.</li>
 <li><strong>30-45 min</strong>: Prepare Problems 1.3 and 1.8 for possible board work.</li>
 <li><strong>10-15 min</strong>: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.</li>
 <li><strong>15-20 min</strong>: Run the <a href="#how-to-run-the-python-gui">Python demo and GUI</a>
@@ -433,20 +433,33 @@ long metal cylinder.</p>
 <h2 id="pre-class-assignment">Pre-Class Assignment<a class="headerlink" href="#pre-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="how-to-run-the-python-gui">How To Run The Python GUI<a class="headerlink" href="#how-to-run-the-python-gui" title="Permanent link">&para;</a></h3>
 <p>Clicking the Python source-code link opens or downloads the <code>.py</code> file. It does
-not run the simulation. To run the model, use Terminal.</p>
-<p>First run the non-interactive demo:</p>
-<pre><code class="language-bash">cd /Users/fraden/Documents/GitHub/Phys39F26
-.venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
+not run the simulation. To run the model, download the file and run it from a
+folder on your own computer.</p>
+<p>First make a working folder and put the Python file there:</p>
+<pre><code class="language-bash">mkdir -p ~/phys39-lab7
+cd ~/phys39-lab7
 </code></pre>
-<p>This saves a plot named:</p>
-<pre><code class="language-text">python/Lab_6_7_modeling_tec_v2_demo.png
+<p>Download this file into that folder:
+<a href="../../python/Lab_6_7_modeling_tec_v2.py">Lab_6_7_modeling_tec_v2.py</a>.</p>
+<p>Set up Python the first time you use this folder:</p>
+<pre><code class="language-bash">python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install matplotlib
+</code></pre>
+<p>Run the non-interactive demo:</p>
+<pre><code class="language-bash">python Lab_6_7_modeling_tec_v2.py --demo
+</code></pre>
+<p>This saves a plot in the same folder:</p>
+<pre><code class="language-text">Lab_6_7_modeling_tec_v2_demo.png
 </code></pre>
 <p>Then run the desktop GUI:</p>
-<pre><code class="language-bash">cd /Users/fraden/Documents/GitHub/Phys39F26
-.venv/bin/python python/Lab_6_7_modeling_tec_v2.py
+<pre><code class="language-bash">python Lab_6_7_modeling_tec_v2.py
 </code></pre>
-<p>Use the source-code link only when you want to inspect the program:
-<a href="../../python/Lab_6_7_modeling_tec_v2.py">Lab_6_7_modeling_tec_v2.py</a>.</p>
+<p>After the first setup, start from this folder and run:</p>
+<pre><code class="language-bash">cd ~/phys39-lab7
+source .venv/bin/activate
+python Lab_6_7_modeling_tec_v2.py
+</code></pre>
 <h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -495,21 +508,19 @@ not run the simulation. To run the model, use Terminal.</p>
 <li>Run the non-interactive demo:</li>
 </ol>
 <p><code>bash
-   cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo</code></p>
+   python Lab_6_7_modeling_tec_v2.py --demo</code></p>
 <ol>
 <li>Look at the generated plot:</li>
 </ol>
 <p><code>text
-   python/Lab_6_7_modeling_tec_v2_demo.png</code></p>
+   Lab_6_7_modeling_tec_v2_demo.png</code></p>
 <p>The bottom of the PNG and the terminal output list the model parameters used
    to make the plot. Record those values so the plot is reproducible.</p>
 <ol>
 <li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
 </ol>
 <p><code>bash
-   cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py</code></p>
+   python Lab_6_7_modeling_tec_v2.py</code></p>
 <ol>
 <li>In your notebook, copy the three model equations and label the meaning of
    each variable.</li>

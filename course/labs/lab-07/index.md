@@ -30,7 +30,7 @@ Before class, spend your time in this order:
 
 - **45-60 min**: Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
   Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
-  resistance, heat capacity, and lumped models.
+  resistance, heat capacity, and lumped models. Read through p. 28. Skip most of the last section on radiation.
 - **30-45 min**: Prepare Problems 1.3 and 1.8 for possible board work.
 - **10-15 min**: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.
 - **15-20 min**: Run the [Python demo and GUI](#how-to-run-the-python-gui)
@@ -304,30 +304,52 @@ long metal cylinder.
 ### How To Run The Python GUI
 
 Clicking the Python source-code link opens or downloads the `.py` file. It does
-not run the simulation. To run the model, use Terminal.
+not run the simulation. To run the model, download the file and run it from a
+folder on your own computer.
 
-First run the non-interactive demo:
+First make a working folder and put the Python file there:
 
 ```bash
-cd /Users/fraden/Documents/GitHub/Phys39F26
-.venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
+mkdir -p ~/phys39-lab7
+cd ~/phys39-lab7
 ```
 
-This saves a plot named:
+Download this file into that folder:
+[Lab_6_7_modeling_tec_v2.py](../../python/Lab_6_7_modeling_tec_v2.py).
+
+Set up Python the first time you use this folder:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install matplotlib
+```
+
+Run the non-interactive demo:
+
+```bash
+python Lab_6_7_modeling_tec_v2.py --demo
+```
+
+This saves a plot in the same folder:
 
 ```text
-python/Lab_6_7_modeling_tec_v2_demo.png
+Lab_6_7_modeling_tec_v2_demo.png
 ```
 
 Then run the desktop GUI:
 
 ```bash
-cd /Users/fraden/Documents/GitHub/Phys39F26
-.venv/bin/python python/Lab_6_7_modeling_tec_v2.py
+python Lab_6_7_modeling_tec_v2.py
 ```
 
-Use the source-code link only when you want to inspect the program:
-[Lab_6_7_modeling_tec_v2.py](../../python/Lab_6_7_modeling_tec_v2.py).
+After the first setup, start from this folder and run:
+
+```bash
+cd ~/phys39-lab7
+source .venv/bin/activate
+python Lab_6_7_modeling_tec_v2.py
+```
 
 ### Before Class
 
@@ -368,14 +390,13 @@ Use the source-code link only when you want to inspect the program:
 5. Run the non-interactive demo:
 
    ```bash
-   cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py --demo
+   python Lab_6_7_modeling_tec_v2.py --demo
    ```
 
 6. Look at the generated plot:
 
    ```text
-   python/Lab_6_7_modeling_tec_v2_demo.png
+   Lab_6_7_modeling_tec_v2_demo.png
    ```
 
    The bottom of the PNG and the terminal output list the model parameters used
@@ -384,8 +405,7 @@ Use the source-code link only when you want to inspect the program:
 7. Run the [Python GUI](#how-to-run-the-python-gui):
 
    ```bash
-   cd /Users/fraden/Documents/GitHub/Phys39F26
-   .venv/bin/python python/Lab_6_7_modeling_tec_v2.py
+   python Lab_6_7_modeling_tec_v2.py
    ```
 
 8. In your notebook, copy the three model equations and label the meaning of

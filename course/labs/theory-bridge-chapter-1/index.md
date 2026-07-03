@@ -37,8 +37,7 @@ The bridge has three questions:
 
 ## 1. Fourier's Law
 
-Use Lienhard Section 1.3, "Modes of heat transfer," pp. 11-13
-(PDF pp. 25-27), as the source for this section.
+Use Lienhard Section 1.3, "Modes of heat transfer," pp. 11-27, as the source for this section.
 
 This is the first major idea in the pp. 11-26 reading span.
 
@@ -181,7 +180,7 @@ temperature, the important **dimensionless** number is the Biot number:
 
 Here \(h\) is the convection coefficient to the surroundings, \(k\) is the
 thermal conductivity inside the solid, and \(L_c\) is a characteristic length,
-often \(V/A_s\), the volume divided by the surface area. The tricky bit is that there can be more than one characteristic length (or thermal conductivity constant) in the problem. How do you choose which one to use? For a long, thin cylinder, the Bi number for the radius can be small, but the Biot number of the length can be large. In this case, instead of having a differential equation that depends on both radius and length, you can reduce it to a 1D problem by ignoring any radial dependence of the temperature.
+often \(V/A_s\), the volume divided by the surface area. The tricky bit is that there can be more than one characteristic length (or thermal conductivity constant) in the problem. How do you choose which one to use? For a long, thin cylinder, the Bi number for the radius, $r$, can be small, but the Biot number of the length, $L$, can be large, e.g. $r \ll L$. In this case, instead of having a differential equation that depends on both radius and length, you can reduce it to a 1D problem by ignoring any radial dependence of the temperature.
 
 Interpretation:
 

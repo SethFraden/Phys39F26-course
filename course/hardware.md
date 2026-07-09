@@ -136,7 +136,7 @@ sends control commands.
 
 ## Class Apparatus Photographs
 
-![Labeled Phys 39 apparatus, view A](assets/tec_apparatus_a.jpg)
+![Labeled Phys 39 apparatus, view A](assets/tec_apparatus_a.svg)
 
 ![Labeled Phys 39 apparatus, view B](assets/tec_apparatus_b.jpg)
 

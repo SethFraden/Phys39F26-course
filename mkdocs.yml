@@ -14,7 +14,7 @@ theme:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Git, GitHub, VS Code, And AI: git-vscode-ai-workflow.md
+  - GitHub Desktop, GitHub, VS Code, And AI: git-vscode-ai-workflow.md
   - Labs And Calendar: labs/index.md
   - Hardware: hardware.md
   - Arduino:

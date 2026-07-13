@@ -1,15 +1,16 @@
-# Git, GitHub, VS Code, And AI Workflow
+# GitHub Desktop, GitHub, VS Code, And AI Workflow
 
-This course uses Git, GitHub, VS Code, Markdown, Arduino sketches, Python code,
-and AI coding agents as part of the laboratory workflow. The goal is not to
-become a software engineer. The goal is to avoid losing work, keep your
-instrument code organized, and make a clear record of what you built and tested.
+This course uses GitHub Desktop, GitHub, VS Code, Markdown, Arduino sketches,
+Python code, and AI coding agents as part of the laboratory workflow. The goal
+is not to become a software engineer. The goal is to avoid losing work, keep
+your instrument code organized, and make a clear record of what you built and
+tested.
 
 ## What Each Tool Is For
 
 | Tool | What You Use It For In This Course |
 | --- | --- |
-| Git | Make checkpoints of your code and notes on your computer. |
+| GitHub Desktop | Make checkpoints of your code and notes, then sync them to GitHub. |
 | GitHub | Store a copy of your project online and submit a link to your work. |
 | VS Code | Edit Arduino sketches, Python programs, and Markdown notes in one workspace. |
 | Markdown | Write readable documentation in `README.md` files. |
@@ -20,8 +21,8 @@ instrument code organized, and make a clear record of what you built and tested.
 Use these official guides when setting up your computer and accounts:
 
 - [Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github)
-- [Set up Git on your computer](https://docs.github.com/en/get-started/git-basics/set-up-git)
-- [Use source control in VS Code](https://code.visualstudio.com/docs/sourcecontrol/overview)
+- [Install GitHub Desktop](https://desktop.github.com/)
+- [Get started with GitHub Desktop](https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop)
 - [Set up GitHub Copilot in VS Code](https://code.visualstudio.com/docs/setup/copilot)
 - [Get GitHub Copilot access as a student](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students)
 
@@ -33,7 +34,8 @@ upload the document as a `.jpg` image.
 For this course, the default AI coding assistant is GitHub Copilot in VS Code.
 If you use another approved coding AI tool, the same rule applies: AI may help
 you draft code, but you are responsible for testing it, organizing it,
-committing it to GitHub, and explaining what it does.
+making a checkpoint in GitHub Desktop, syncing it to GitHub, and explaining
+what it does.
 
 ## Recommended Project Structure
 
@@ -88,38 +90,29 @@ files directly; others give code in the chat window for you to copy into the
 right file. Make sure Arduino code goes in `.ino` files, Python code goes in
 `.py` files, and documentation goes in `.md` files.
 
-## The Four-Command Git Checkpoint
+## GitHub Desktop Checkpoint Workflow
 
 Use this workflow whenever you reach a meaningful checkpoint.
 
-```bash
-git status
-git add README.md arduino python docs
-git commit -m "Describe what changed"
-git push
-```
-
-What the commands mean:
-
-| Command | Meaning |
-| --- | --- |
-| `git status` | Show what changed. Run this before every commit. |
-| `git add` | Choose which files go into the next checkpoint. |
-| `git commit -m "..."` | Make the checkpoint on your computer. |
-| `git push` | Upload the checkpoint to GitHub. |
+1. Open GitHub Desktop.
+2. Select your course project repository.
+3. Look at the changed files list.
+4. Uncheck files that do not belong in this checkpoint.
+5. Write a short summary that says what changed.
+6. Click **Commit to main**.
+7. Click **Push origin** or **Sync changes** to upload the checkpoint to GitHub.
 
 Use commit messages that say what changed, for example:
 
-```bash
-git commit -m "Add thermistor serial sketch"
-git commit -m "Add Python display strip chart"
-git commit -m "Document H-bridge wiring"
-git commit -m "Organize Lab 3 TEC control project"
-```
+- Add thermistor serial sketch
+- Add Python display strip chart
+- Document H-bridge wiring
+- Organize Lab 3 TEC control project
 
 ## What Not To Commit
 
-Do not blindly commit everything. Look at `git status` first.
+Do not blindly commit everything. Look at the changed files list in GitHub
+Desktop first.
 
 Usually commit:
 
@@ -148,7 +141,7 @@ Your `README.md` is the front door to your project. It should explain:
 - how to upload the Arduino sketch,
 - how to run the Python program,
 - one example serial line and what each field means,
-- what Git commits you made to organize and preserve your work,
+- what checkpoints you made to organize and preserve your work,
 - what you tested on real hardware,
 - what you still do not fully understand.
 
@@ -173,10 +166,10 @@ how the plot buffers are updated.
 
 ## Practice Exercise
 
-Before using Git on your real lab code, practice with a tiny project:
+Before using GitHub Desktop on your real lab code, practice with a tiny project:
 
 ```text
-phys39-git-practice/
+phys39-desktop-practice/
   README.md
   arduino/
   python/
@@ -186,20 +179,22 @@ phys39-git-practice/
 Then:
 
 1. Write two sentences in `README.md`.
-2. Run `git status`.
-3. Commit the README.
-4. Add one small Arduino sketch.
-5. Run `git status` again.
-6. Commit the sketch.
-7. Push to GitHub.
-8. Open GitHub in a browser and confirm that the files are there.
+2. Open the project in GitHub Desktop.
+3. Look at the changed files list.
+4. Commit the README.
+5. Add one small Arduino sketch.
+6. Check the changed files list again.
+7. Commit the sketch.
+8. Push or sync to GitHub.
+9. Open GitHub in a browser and confirm that the files are there.
 
 ## Troubleshooting
 
-If `git status` shows many unexpected files, stop and ask before committing.
+If GitHub Desktop shows many unexpected changed files, stop and ask before
+committing.
 
-If `git push` asks for GitHub login, follow the GitHub authentication prompt or
-ask for help.
+If GitHub Desktop asks you to sign in, follow the GitHub authentication prompt
+or ask for help.
 
 If VS Code asks whether to save a file you did not mean to edit, choose
 **Cancel** first and inspect the tab. A dot on the tab means there are unsaved

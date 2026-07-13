@@ -10,7 +10,7 @@ feedback control, and heat-transport experiments.
 ## Start Here
 
 - [Prepare your computer and course tools](getting-started.md)
-- [Use Git, GitHub, VS Code, Markdown, and AI](git-vscode-ai-workflow.md)
+- [Use GitHub Desktop, GitHub, VS Code, Markdown, and AI](git-vscode-ai-workflow.md)
 - [Review the temperature-control hardware](hardware.md)
 - [Review the Arduino Uno and its pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)

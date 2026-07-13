@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+<title id="title">PWM duty cycle waveforms</title>
+<desc id="desc">Two PWM square waves compare low duty cycle and high duty cycle. Each waveform switches between 0 volts and 5 volts; the high fraction of each period determines the average output.</desc>
+<style>
+  .axis{stroke:#243746;stroke-width:3;fill:none;stroke-linecap:round}
+  .grid{stroke:#d5dde5;stroke-width:1;fill:none}
+  .pwm{stroke:#b14738;stroke-width:5;fill:none;stroke-linejoin:round;stroke-linecap:square}
+  .avg{stroke:#2f6f95;stroke-width:3;fill:none;stroke-dasharray:8 7}
+  .shade{fill:#b14738;opacity:0.12}
+  .txt{font-family:Arial,Helvetica,sans-serif;fill:#15232f}
+  .h{font-size:22px;font-weight:700}
+  .m{font-size:18px}
+  .s{font-size:15px}
+  .labelbg{fill:#ffffff;stroke:none;opacity:0.95}
+</style>
+<text x="460" y="34" text-anchor="middle" class="txt h">PWM duty cycle changes the fraction of time the pin is high</text>
+
+<g transform="translate(70 65)">
+  <text x="180" y="0" text-anchor="middle" class="txt h">low duty cycle</text>
+  <line x1="0" y1="205" x2="350" y2="205" class="axis"/>
+  <line x1="0" y1="205" x2="0" y2="35" class="axis"/>
+  <g class="grid">
+    <line x1="0" y1="60" x2="350" y2="60"/>
+    <line x1="0" y1="205" x2="350" y2="205"/>
+    <line x1="100" y1="35" x2="100" y2="215"/>
+    <line x1="200" y1="35" x2="200" y2="215"/>
+    <line x1="300" y1="35" x2="300" y2="215"/>
+  </g>
+  <rect x="0" y="60" width="24" height="145" class="shade"/>
+  <rect x="100" y="60" width="24" height="145" class="shade"/>
+  <rect x="200" y="60" width="24" height="145" class="shade"/>
+  <rect x="300" y="60" width="24" height="145" class="shade"/>
+  <path d="M0 205 V60 H24 V205 H100 V60 H124 V205 H200 V60 H224 V205 H300 V60 H324 V205 H350" class="pwm"/>
+  <line x1="0" y1="170" x2="350" y2="170" class="avg"/>
+  <text x="-14" y="66" text-anchor="end" class="txt s">5 V</text>
+  <text x="-14" y="210" text-anchor="end" class="txt s">0 V</text>
+  <text x="175" y="245" text-anchor="middle" class="txt m">short ON time, low average</text>
+  <rect x="236" y="153" width="92" height="25" rx="4" class="labelbg"/>
+  <text x="282" y="172" text-anchor="middle" class="txt s">average</text>
+</g>
+
+<g transform="translate(500 65)">
+  <text x="180" y="0" text-anchor="middle" class="txt h">high duty cycle</text>
+  <line x1="0" y1="205" x2="350" y2="205" class="axis"/>
+  <line x1="0" y1="205" x2="0" y2="35" class="axis"/>
+  <g class="grid">
+    <line x1="0" y1="60" x2="350" y2="60"/>
+    <line x1="0" y1="205" x2="350" y2="205"/>
+    <line x1="100" y1="35" x2="100" y2="215"/>
+    <line x1="200" y1="35" x2="200" y2="215"/>
+    <line x1="300" y1="35" x2="300" y2="215"/>
+  </g>
+  <rect x="0" y="60" width="72" height="145" class="shade"/>
+  <rect x="100" y="60" width="72" height="145" class="shade"/>
+  <rect x="200" y="60" width="72" height="145" class="shade"/>
+  <rect x="300" y="60" width="50" height="145" class="shade"/>
+  <path d="M0 205 V60 H72 V205 H100 V60 H172 V205 H200 V60 H272 V205 H300 V60 H350" class="pwm"/>
+  <line x1="0" y1="100" x2="350" y2="100" class="avg"/>
+  <text x="-14" y="66" text-anchor="end" class="txt s">5 V</text>
+  <text x="-14" y="210" text-anchor="end" class="txt s">0 V</text>
+  <text x="175" y="245" text-anchor="middle" class="txt m">long ON time, high average</text>
+  <rect x="236" y="83" width="92" height="25" rx="4" class="labelbg"/>
+  <text x="282" y="102" text-anchor="middle" class="txt s">average</text>
+</g>
+
+<text x="460" y="340" text-anchor="middle" class="txt m">The Arduino pin is always either LOW or HIGH; duty cycle changes the average value.</text>
+</svg>

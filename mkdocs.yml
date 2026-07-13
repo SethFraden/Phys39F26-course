@@ -19,6 +19,7 @@ nav:
   - Hardware: hardware.md
   - Arduino:
       - Arduino Tutorial: arduino/index.md
+      - Analog, ADC, And PWM: arduino/analog-digital.md
       - Uno Pinout: arduino/pinout.md
   - Safety: safety.md
   - Course Repository: repository.md

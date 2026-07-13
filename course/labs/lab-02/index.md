@@ -29,7 +29,9 @@ hardware becomes warm in the wrong place.
 1. Review your [Lab 1 assignment](../lab-01/index.md) notes on `analogRead`,
    averaging, PWM, and oscilloscope duty-cycle measurements.
 2. Read the [Arduino Tutorial](../../arduino/index.md) through the LED brightness
-   section. The official Arduino references for
+   section and review [Analog, ADC, And PWM](../../arduino/analog-digital.md)
+   for voltage dividers, ADC counts, averaging, and PWM waveforms. The official
+   Arduino references for
    [AnalogReadSerial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/),
    [analogRead](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/),
    [analogWrite](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/),

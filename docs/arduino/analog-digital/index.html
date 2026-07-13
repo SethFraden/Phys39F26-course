@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Analog, ADC, And PWM - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../labs/" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Analog, ADC, And PWM</a>
+</li>
+                                    
+<li>
+    <a href="../pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../pinout/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#analog-to-digital-conversion-measuring-real-voltages-with-arduino" class="nav-link">Analog-To-Digital Conversion: Measuring Real Voltages With Arduino</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1-the-adc-model" class="nav-link">1. The ADC Model</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#how-the-arduino-adc-finds-the-number" class="nav-link">How The Arduino ADC Finds The Number</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-voltage-dividers-are-thevenin-sources" class="nav-link">2. Voltage Dividers Are Thevenin Sources</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-potentiometer-example" class="nav-link">3. Potentiometer Example</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-thermistor-example" class="nav-link">4. Thermistor Example</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5-sampling-and-aliasing" class="nav-link">5. Sampling And Aliasing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#6-noise-averaging-and-bandwidth" class="nav-link">6. Noise, Averaging, And Bandwidth</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#7-rc-filtering-and-pwm" class="nav-link">7. RC Filtering And PWM</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#8-practical-measurement-checklist" class="nav-link">8. Practical Measurement Checklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#9-lab-questions" class="nav-link">9. Lab Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="analog-to-digital-conversion-measuring-real-voltages-with-arduino">Analog-To-Digital Conversion: Measuring Real Voltages With Arduino<a class="headerlink" href="#analog-to-digital-conversion-measuring-real-voltages-with-arduino" title="Permanent link">&para;</a></h1>
+<p>This tutorial is about the circuit physics behind <code>analogRead()</code>. The Arduino
+ADC is useful only when the analog circuit feeding it is understood. The
+important habit is the same one used throughout electronics: draw the circuit,
+replace the source by an equivalent circuit when useful, estimate the error,
+and then check the result with an instrument.</p>
+<p><img alt="Signal chain from a physical quantity to an ADC count" src="../../assets/adc_measurement_chain.svg" /></p>
+<p>An Arduino analog input measures voltage relative to Arduino ground. It does not
+measure temperature, resistance, brightness, or knob position directly. Those
+physical quantities must first be converted into a voltage by a sensor circuit.</p>
+<h2 id="1-the-adc-model">1. The ADC Model<a class="headerlink" href="#1-the-adc-model" title="Permanent link">&para;</a></h2>
+<p>For the Arduino Uno, <code>analogRead()</code> uses a 10-bit analog-to-digital converter.
+With the usual 5 V reference, the returned number is an integer from <code>0</code> to
+<code>1023</code>.</p>
+<div class="arithmatex">\[
+2^{10}=1024 \quad \text{codes}
+\]</div>
+<div class="arithmatex">\[
+\Delta V = \frac{V_{\mathrm{ref}}}{1024}
+\]</div>
+<p>For <span class="arithmatex">\(V_{\mathrm{ref}}=5.00\ \mathrm{V}\)</span>,</p>
+<div class="arithmatex">\[
+\Delta V = 4.88\ \mathrm{mV}
+\]</div>
+<p>The ADC output is therefore a rounded and clipped version of the input voltage.
+Voltages below ground read as <code>0</code>; voltages near or above the reference read as
+<code>1023</code>; intermediate voltages are assigned to the nearest available count.</p>
+<p><img alt="Analog input voltage is converted to a stepped digital ADC count" src="../../assets/adc_quantization_hh.svg" /></p>
+<p>In this transfer curve, the horizontal axis is the analog input voltage
+<span class="arithmatex">\(V_{\mathrm{in}}\)</span>. The vertical axis is the digital output number <span class="arithmatex">\(N\)</span> returned
+by <code>analogRead()</code>. The dashed line is the ideal continuous conversion. The blue
+staircase is the actual A/D conversion. Each flat step is one output code; the
+dashed line crosses each step at the input voltage represented by that code.</p>
+<h3 id="how-the-arduino-adc-finds-the-number">How The Arduino ADC Finds The Number<a class="headerlink" href="#how-the-arduino-adc-finds-the-number" title="Permanent link">&para;</a></h3>
+<p>There are several ways to build an A/D converter. An integrating or dual-slope
+ADC charges an integrator for a known time, then compares against a reference
+while it discharges. That method is common in digital multimeters because it is
+accurate and rejects line-frequency noise well, but it is relatively slow.</p>
+<p>The Arduino Uno uses a different method: a successive-approximation ADC. The ADC
+first samples the input voltage onto a small capacitor. Then internal logic tries
+the bits of the answer from most significant to least significant. For each bit,
+an internal DAC makes a trial voltage and a comparator asks whether the sampled
+input voltage is above or below that trial voltage.</p>
+<p><img alt="Successive-approximation ADC block diagram" src="../../assets/adc_successive_approximation.svg" /></p>
+<p>For a 10-bit ADC, this binary search needs about ten comparator decisions. The
+result is the integer count returned by <code>analogRead()</code>.</p>
+<p>A good first estimate is</p>
+<div class="arithmatex">\[
+V_{\mathrm{in}} \simeq \frac{N}{1023}V_{\mathrm{ref}}
+\]</div>
+<p>where <span class="arithmatex">\(N\)</span> is the ADC count. The quantization uncertainty is roughly half of one
+least significant bit:</p>
+<div class="arithmatex">\[
+\delta V_{\mathrm{quant}} \simeq \pm \frac{1}{2}\Delta V
+\]</div>
+<p>For a 5 V reference, this is about <span class="arithmatex">\(\pm 2.4\ \mathrm{mV}\)</span> before considering
+noise, reference error, source impedance, or calibration error.</p>
+<h2 id="2-voltage-dividers-are-thevenin-sources">2. Voltage Dividers Are Thevenin Sources<a class="headerlink" href="#2-voltage-dividers-are-thevenin-sources" title="Permanent link">&para;</a></h2>
+<p>Many sensors are read using a voltage divider. A thermistor divider is one
+example:</p>
+<p><img alt="Thermistor voltage divider connected to Arduino analog input A0" src="../../assets/adc_thermistor_divider.svg" /></p>
+<p>The open-circuit divider voltage is</p>
+<div class="arithmatex">\[
+V_{A0}=V_{\mathrm{ref}}\frac{R_{\mathrm{thermistor}}}{R_{\mathrm{fixed}}+R_{\mathrm{thermistor}}}
+\]</div>
+<p>The ADC input is connected to the divider midpoint. The divider midpoint is not
+an ideal voltage source, because the voltage is made through resistors. The
+Thevenin equivalent replaces the divider by an ideal voltage source
+<span class="arithmatex">\(V_{\text{th}}\)</span> in series with an effective source resistance <span class="arithmatex">\(R_{\text{th}}\)</span>.</p>
+<p>To derive <span class="arithmatex">\(R_{\text{th}}\)</span>, turn off the ideal 5 V source. An ideal voltage
+source set to zero volts becomes a short circuit to ground. Then, looking back
+into the circuit from A0, there are two paths to ground:</p>
+<div class="arithmatex">\[
+A0 \rightarrow R_{\mathrm{fixed}} \rightarrow \mathrm{GND}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+A0 \rightarrow R_{\mathrm{thermistor}} \rightarrow \mathrm{GND}
+\]</div>
+<p>If a small test voltage <span class="arithmatex">\(v\)</span> is applied at A0, the current drawn from that test
+source is</p>
+<div class="arithmatex">\[
+i = \frac{v}{R_{\mathrm{fixed}}}+\frac{v}{R_{\mathrm{thermistor}}}
+\]</div>
+<p>Therefore</p>
+<div class="arithmatex">\[
+R_{\mathrm{th}}
+= \frac{v}{i}
+= \frac{1}{\frac{1}{R_{\mathrm{fixed}}}+\frac{1}{R_{\mathrm{thermistor}}}}
+= R_{\mathrm{fixed}} \parallel R_{\mathrm{thermistor}}
+\]</div>
+<p>or</p>
+<div class="arithmatex">\[
+R_{\mathrm{th}}
+= \frac{R_{\mathrm{fixed}}R_{\mathrm{thermistor}}}
+{R_{\mathrm{fixed}}+R_{\mathrm{thermistor}}}
+\]</div>
+<p><img alt="A divider replaced by its Thevenin equivalent feeding the ADC input" src="../../assets/adc_thevenin_source.svg" /></p>
+<p>This matters because the ADC input includes a small sample-and-hold capacitor.
+During a conversion, that capacitor must charge through the source resistance.
+If the divider resistance is too large, the capacitor may not settle to the true
+input voltage before the ADC records the sample.</p>
+<p>A practical rule is: do not make the divider impedance unnecessarily large. If
+the measurement is noisy, check wiring and grounding first; if the reading is
+slow or history-dependent, source impedance and ADC settling may be involved.</p>
+<h2 id="3-potentiometer-example">3. Potentiometer Example<a class="headerlink" href="#3-potentiometer-example" title="Permanent link">&para;</a></h2>
+<p>A potentiometer connected between 5 V and GND makes an adjustable divider.</p>
+<pre><code class="language-text">5 V ----/\/\/\/\/\/---- GND
+           |
+           A0
+</code></pre>
+<p>The wiper voltage changes continuously as the knob turns. The ADC reports this
+continuous motion as a sequence of integer counts.</p>
+<pre><code class="language-cpp">const int analogPin = A0;
+const float Vref = 5.0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int count = analogRead(analogPin);
+  float voltage = count * Vref / 1023.0;
+
+  Serial.print(count);
+  Serial.print(&quot;,&quot;);
+  Serial.println(voltage, 4);
+
+  delay(100);
+}
+</code></pre>
+<p>The potentiometer is a good first test because the expected voltage is easy to
+check with a multimeter. If the multimeter and Arduino disagree, check the
+reference voltage, ground connection, wiring, and conversion formula.</p>
+<h2 id="4-thermistor-example">4. Thermistor Example<a class="headerlink" href="#4-thermistor-example" title="Permanent link">&para;</a></h2>
+<p>A thermistor changes resistance with temperature. The Arduino still measures
+only voltage.</p>
+<pre><code class="language-text">temperature -&gt; thermistor resistance -&gt; divider voltage -&gt; ADC count -&gt; calculated temperature
+</code></pre>
+<p>That chain gives several possible places for error:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Possible problem</th>
+<th>Instrument check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thermistor</td>
+<td>Wrong part, poor thermal contact, self-heating</td>
+<td>Compare with room temperature or another thermometer</td>
+</tr>
+<tr>
+<td>Divider</td>
+<td>Wrong resistor value or swapped wiring</td>
+<td>Measure A0 voltage with a multimeter</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td>Noisy ground, unstable reference, source impedance</td>
+<td>Compare ADC voltage to multimeter voltage</td>
+</tr>
+<tr>
+<td>Calibration</td>
+<td>Wrong beta value or formula</td>
+<td>Check calculated resistance before temperature</td>
+</tr>
+</tbody>
+</table>
+<p>This is why it is often better to print intermediate quantities: ADC count,
+voltage, resistance, and temperature. If the temperature is wrong but the
+voltage is right, the bug is after the ADC conversion.</p>
+<h2 id="5-sampling-and-aliasing">5. Sampling And Aliasing<a class="headerlink" href="#5-sampling-and-aliasing" title="Permanent link">&para;</a></h2>
+<p>The ADC samples the voltage at discrete times. It does not know what happened
+between samples.</p>
+<p><img alt="ADC samples of slow and fast signals" src="../../assets/adc_sampling_aliasing.svg" /></p>
+<p>For a slowly changing thermistor, sampling every 0.1 s may be fine. For a PWM
+waveform, casual ADC samples are misleading because the waveform is switching
+between low and high states. Use the oscilloscope for PWM frequency, duty cycle,
+high voltage, low voltage, and edge timing.</p>
+<h2 id="6-noise-averaging-and-bandwidth">6. Noise, Averaging, And Bandwidth<a class="headerlink" href="#6-noise-averaging-and-bandwidth" title="Permanent link">&para;</a></h2>
+<p>Averaging reduces random noise, but it also reduces bandwidth. It is a digital
+low-pass filter.</p>
+<pre><code class="language-cpp">const int analogPin = A0;
+const int nSamples = 1000;
+const float Vref = 5.0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  long total = 0;
+
+  for (int i = 0; i &lt; nSamples; i++) {
+    total += analogRead(analogPin);
+  }
+
+  float averageCount = total / float(nSamples);
+  float averageVoltage = averageCount * Vref / 1023.0;
+
+  Serial.print(averageCount, 1);
+  Serial.print(&quot;,&quot;);
+  Serial.println(averageVoltage, 4);
+}
+</code></pre>
+<p>If the noise is random and uncorrelated from sample to sample, averaging <span class="arithmatex">\(M\)</span>
+samples reduces the random component by about</p>
+<div class="arithmatex">\[
+\frac{1}{\sqrt{M}}
+\]</div>
+<p>But averaging cannot repair a bad ground, a loose breadboard connection, a
+wrong resistor, or a drifting reference voltage. It also makes real changes
+appear later.</p>
+<h2 id="7-rc-filtering-and-pwm">7. RC Filtering And PWM<a class="headerlink" href="#7-rc-filtering-and-pwm" title="Permanent link">&para;</a></h2>
+<p>A PWM output is not an analog voltage. It is a digital waveform whose duty cycle
+can be varied.</p>
+<p><img alt="PWM waveforms for low and high duty cycle" src="../../assets/adc_pwm_duty_cycle.svg" /></p>
+<p>An RC low-pass filter can turn PWM into an approximate average voltage, but only
+if the RC time constant is long compared with the PWM period and short compared
+with the signal changes you care about.</p>
+<div class="arithmatex">\[
+\tau = RC
+\]</div>
+<p>The design tradeoff is unavoidable:</p>
+<ul>
+<li>larger <span class="arithmatex">\(RC\)</span>: smoother voltage, slower response</li>
+<li>smaller <span class="arithmatex">\(RC\)</span>: faster response, more ripple</li>
+</ul>
+<p><img alt="PWM converted to a smoother voltage by an RC low-pass filter" src="../../assets/adc_pwm_filter.svg" /></p>
+<h2 id="8-practical-measurement-checklist">8. Practical Measurement Checklist<a class="headerlink" href="#8-practical-measurement-checklist" title="Permanent link">&para;</a></h2>
+<p>Before trusting an ADC number, check these things:</p>
+<ul>
+<li>Is Arduino ground connected to the circuit ground?</li>
+<li>Is the input voltage between 0 V and <span class="arithmatex">\(V_{\mathrm{ref}}\)</span>?</li>
+<li>What is the actual value of <span class="arithmatex">\(V_{\mathrm{ref}}\)</span>?</li>
+<li>What is the source resistance feeding the ADC input?</li>
+<li>Does a multimeter agree with the calculated ADC voltage?</li>
+<li>Is the signal slow enough for the chosen sampling rate?</li>
+<li>Is averaging hiding real dynamics?</li>
+<li>Should this signal be measured with the oscilloscope instead?</li>
+</ul>
+<h2 id="9-lab-questions">9. Lab Questions<a class="headerlink" href="#9-lab-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>With a potentiometer, measure the ADC count near 0 V, 2.5 V, and 5 V. Does
+   the count agree with the multimeter voltage?</li>
+<li>Estimate the voltage represented by one ADC count. Can you observe a one-count
+   change reliably?</li>
+<li>Build or inspect a thermistor divider. What is <span class="arithmatex">\(R_{\mathrm{th}}\)</span> near room
+   temperature?</li>
+<li>Increase the averaging length. What improves, and what gets worse?</li>
+<li>Look at a PWM output with the oscilloscope. Why is <code>analogRead()</code> not the
+   right way to characterize that waveform?</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

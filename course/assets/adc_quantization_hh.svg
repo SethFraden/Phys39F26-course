@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" role="img" aria-labelledby="title desc">
+<title id="title">ADC quantization transfer curve</title>
+<desc id="desc">Analog input voltage Vin is converted into a digital ADC output count N. A dashed ideal line passes through the midpoint of each blue quantization step.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <path d="M0 0 L10 5 L0 10 Z" fill="#22313f"/>
+  </marker>
+  <style>
+    .axis{stroke:#22313f;stroke-width:3;marker-end:url(#arrow)}
+    .grid{stroke:#d1dbe5;stroke-width:1}
+    .ideal{stroke:#b14738;stroke-width:4;stroke-dasharray:9 8;fill:none}
+    .step{stroke:#254b67;stroke-width:5;fill:none;stroke-linejoin:round}
+    .hit{fill:#ffffff;stroke:#b14738;stroke-width:3}
+    .txt{font-family:Arial,Helvetica,sans-serif;fill:#15232f}
+    .h{font-size:22px;font-weight:700}
+    .s{font-size:16px}
+    .m{font-size:18px}
+    .box{fill:#eef5fa;stroke:#254b67;stroke-width:2}
+    .keyIdeal{stroke:#b14738;stroke-width:4;stroke-dasharray:9 8}
+    .keyStep{stroke:#254b67;stroke-width:5}
+  </style>
+</defs>
+<line x1="100" y1="325" x2="835" y2="325" class="axis"/>
+<line x1="100" y1="325" x2="100" y2="45" class="axis"/>
+<text x="468" y="410" text-anchor="middle" class="txt h">analog input voltage, V<tspan baseline-shift="sub" font-size="14">in</tspan></text>
+<text x="32" y="190" text-anchor="middle" transform="rotate(-90 32 190)" class="txt h">digital A/D output, N = analogRead(A0)</text>
+<g class="grid">
+  <line x1="200" y1="325" x2="200" y2="75"/><line x1="300" y1="325" x2="300" y2="75"/><line x1="400" y1="325" x2="400" y2="75"/><line x1="500" y1="325" x2="500" y2="75"/><line x1="600" y1="325" x2="600" y2="75"/><line x1="700" y1="325" x2="700" y2="75"/><line x1="800" y1="325" x2="800" y2="75"/>
+  <line x1="100" y1="289.3" x2="820" y2="289.3"/><line x1="100" y1="253.6" x2="820" y2="253.6"/><line x1="100" y1="217.9" x2="820" y2="217.9"/><line x1="100" y1="182.1" x2="820" y2="182.1"/><line x1="100" y1="146.4" x2="820" y2="146.4"/><line x1="100" y1="110.7" x2="820" y2="110.7"/><line x1="100" y1="75" x2="820" y2="75"/>
+</g>
+<path d="M100 325 L800 75" class="ideal"/>
+<path d="M100 325 H150 V289.3 H250 V253.6 H350 V217.9 H450 V182.1 H550 V146.4 H650 V110.7 H750 V75 H800" class="step"/>
+<circle cx="100" cy="325" r="5" class="hit"/><circle cx="200" cy="289.3" r="5" class="hit"/><circle cx="300" cy="253.6" r="5" class="hit"/><circle cx="400" cy="217.9" r="5" class="hit"/><circle cx="500" cy="182.1" r="5" class="hit"/><circle cx="600" cy="146.4" r="5" class="hit"/><circle cx="700" cy="110.7" r="5" class="hit"/><circle cx="800" cy="75" r="5" class="hit"/>
+<text x="100" y="352" text-anchor="middle" class="txt s">0 V</text>
+<text x="450" y="352" text-anchor="middle" class="txt s">V<tspan baseline-shift="sub" font-size="11">ref</tspan>/2</text>
+<text x="800" y="352" text-anchor="middle" class="txt s">V<tspan baseline-shift="sub" font-size="11">ref</tspan></text>
+<text x="78" y="331" text-anchor="end" class="txt s">0</text>
+<text x="78" y="205" text-anchor="end" class="txt s">512</text>
+<text x="78" y="81" text-anchor="end" class="txt s">1023</text>
+<line x1="575" y1="245" x2="650" y2="245" class="keyIdeal"/><text x="665" y="250" class="txt m">ideal continuous conversion</text>
+<line x1="575" y1="278" x2="650" y2="278" class="keyStep"/><text x="665" y="283" class="txt m">actual quantized A/D output</text>
+<rect x="110" y="22" width="360" height="42" rx="7" class="box"/>
+<text x="290" y="49" text-anchor="middle" class="txt s">Each blue step is one ADC code; real 10-bit Arduino ADC has 1024 steps.</text>
+</svg>

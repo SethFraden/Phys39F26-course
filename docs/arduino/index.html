@@ -59,6 +59,10 @@
 </li>
                                     
 <li>
+    <a href="analog-digital/" class="dropdown-item">Analog, ADC, And PWM</a>
+</li>
+                                    
+<li>
     <a href="pinout/" class="dropdown-item">Uno Pinout</a>
 </li>
                                 </ul>
@@ -86,7 +90,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="pinout/" class="nav-link">
+                                <a rel="next" href="analog-digital/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -179,6 +183,7 @@ using both the built-in LED and an external LED. The external LED needs to be cu
 <p>Do the official Arduino
 <a href="https://www.arduino.cc/en/Tutorial/AnalogReadSerial">AnalogReadSerial tutorial</a>. Vary the voltage using a potentiometer. Look at the readings on the Serial Monitor and Serial Plotter under the
 Arduino IDE <strong>Tools</strong> menu. The Analog to Digital (A/D) converter is 10 bit. What range of numbers do you observe? Convert the signal to voltage. What range of voltage do you observe?</p>
+<p>For the ideas behind these measurements, use the <a href="analog-digital/">Analog, ADC, And PWM</a> reference.</p>
 <p>Record the smallest change in voltage
 that the Arduino reports. What is the digitization error?</p>
 <h3 id="3-average-the-voltage">3. Average The Voltage<a class="headerlink" href="#3-average-the-voltage" title="Permanent link">&para;</a></h3>
@@ -196,9 +201,11 @@ use the averaged analog voltage to set the brightness of an LED with PWM.</p>
 </code></pre>
 <p>Start by printing the averaged voltage and the PWM value to Serial
 Monitor so you can see what the code is doing. Then measure the PWM output pin
-with the oscilloscope while you turn the potentiometer. Finally, connect the PWM
-pin to an LED with an appropriate series resistor and confirm that the LED
-brightness follows the potentiometer.</p>
+with the oscilloscope while you turn the potentiometer. The <a href="analog-digital/#7-rc-filtering-and-pwm">Analog, ADC, And
+PWM</a> reference explains why PWM is a
+switching waveform rather than a continuously variable voltage. Finally, connect
+the PWM pin to an LED with an appropriate series resistor and confirm that the
+LED brightness follows the potentiometer.</p>
 <h3 id="5-next-lab-pwm-and-h-bridge">5. Next Lab: PWM And H-Bridge<a class="headerlink" href="#5-next-lab-pwm-and-h-bridge" title="Permanent link">&para;</a></h3>
 <p>This is not part of the first lab unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.</p>
 <p>Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
@@ -216,6 +223,7 @@ supply.</p>
 </div>
 <h2 id="helpful-reference">Helpful Reference<a class="headerlink" href="#helpful-reference" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="analog-digital/">Analog, ADC, And PWM</a></li>
 <li><a href="pinout/">Arduino Uno pinout</a></li>
 <li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">Pulse-width modulation background</a></li>

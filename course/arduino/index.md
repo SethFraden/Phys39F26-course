@@ -41,6 +41,8 @@ Do the official Arduino
 [AnalogReadSerial tutorial](https://www.arduino.cc/en/Tutorial/AnalogReadSerial). Vary the voltage using a potentiometer. Look at the readings on the Serial Monitor and Serial Plotter under the
 Arduino IDE **Tools** menu. The Analog to Digital (A/D) converter is 10 bit. What range of numbers do you observe? Convert the signal to voltage. What range of voltage do you observe?
 
+For the ideas behind these measurements, use the [Analog, ADC, And PWM](analog-digital.md) reference.
+
 Record the smallest change in voltage
 that the Arduino reports. What is the digitization error?
 
@@ -69,9 +71,11 @@ pot voltage  -> analogRead ave number -> average voltage -> map to PWM -> analog
 
 Start by printing the averaged voltage and the PWM value to Serial
 Monitor so you can see what the code is doing. Then measure the PWM output pin
-with the oscilloscope while you turn the potentiometer. Finally, connect the PWM
-pin to an LED with an appropriate series resistor and confirm that the LED
-brightness follows the potentiometer.
+with the oscilloscope while you turn the potentiometer. The [Analog, ADC, And
+PWM](analog-digital.md#7-rc-filtering-and-pwm) reference explains why PWM is a
+switching waveform rather than a continuously variable voltage. Finally, connect
+the PWM pin to an LED with an appropriate series resistor and confirm that the
+LED brightness follows the potentiometer.
 
 ### 5. Next Lab: PWM And H-Bridge
 
@@ -94,6 +98,7 @@ heat/cool control, but the TEC power supply remains off until the actuator lab.
 
 ## Helpful Reference
 
+- [Analog, ADC, And PWM](analog-digital.md)
 - [Arduino Uno pinout](pinout.md)
 - [Official Arduino Uno Rev3 page](https://docs.arduino.cc/hardware/uno-rev3/)
 - [Pulse-width modulation background](https://en.wikipedia.org/wiki/Pulse-width_modulation)

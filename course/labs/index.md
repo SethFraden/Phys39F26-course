@@ -32,31 +32,31 @@ of the semester.
 
 | Meeting | Date | Day | Topic | Lab/Assignment | Due |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 2026-08-26 | Wed | First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM | [Lab 1: First Contact](lab-01/index.md) |  |
-| 2 | 2026-08-31 | Mon | First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification | [Lab 2: First Real Instrument Pieces](lab-02/index.md) | Lab 1 note |
-| 3 | 2026-09-02 | Wed | Manual TEC heat/cool, first Python GUI modification, and GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
-| 4 | 2026-09-09 | Wed | Open-loop TEC calibration and software safety, part 1 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
-| 5 | 2026-09-14 | Mon | Open-loop TEC calibration and software safety, part 2 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Lab 3 project checkpoint |
-| 6 | 2026-09-16 | Wed | Finish steady-state response; discuss heating/cooling asymmetry | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
-| 7 | 2026-09-23 | Wed | P-only feedback: droop versus gain | [Lab 5: P-Only Temperature Control](lab-05/index.md) | Lab 4 note |
-| 8 | 2026-09-28 | Mon | P-only feedback: onset of instability and oscillation measurements | [Lab 5: P-Only Temperature Control](lab-05/index.md) |  |
-| 9 | 2026-09-30 | Wed | Modeling P control: droop equation and first-order thermal model | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) | Lab 5 data |
-| 10 | 2026-10-05 | Mon | Modeling P control: fit time constant and simulate temperature traces | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
-| 11 | 2026-10-07 | Wed | Modeling PI control: integral action and windup | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
-| 12 | 2026-10-13 | Tue | Modeling checkpoint; Brandeis Monday make-up | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
-| 13 | 2026-10-14 | Wed | TEC process model: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |  |
-| 14 | 2026-10-19 | Mon | Finish TEC-only model comparison and prepare for rod experiments | [Lab 7: Process Model And Python Simulation](lab-07/index.md) | Modeling checkpoint |
-| 15 | 2026-10-21 | Wed | Chapter 1 theory bridge: Fourier's Law, heat equation, dimensional analysis, and Biot number | [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](theory-bridge-chapter-1/index.md) |  |
-| 16 | 2026-10-26 | Mon | Temperature along a rod: sensor calibration and steady baseline, part 2 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
-| 17 | 2026-10-28 | Wed | Temperature along a rod: step response, part 3 | [Upcoming Labs](upcoming.md) |  |
-| 18 | 2026-11-02 | Mon | Temperature along a rod: repeat step response and uncertainty, part 4 | [Upcoming Labs](upcoming.md) | Dimensional analysis |
-| 19 | 2026-11-04 | Wed | Temperature along a rod: periodic forcing, part 5 | [Upcoming Labs](upcoming.md) |  |
-| 20 | 2026-11-09 | Mon | Temperature along a rod: phase lag and amplitude decay, part 6 | [Upcoming Labs](upcoming.md) |  |
-| 21 | 2026-11-11 | Wed | Heat equation and feed-forward prediction: model setup, part 1 | [Upcoming Labs](upcoming.md) | Heat-transport discussion |
-| 22 | 2026-11-16 | Mon | Heat equation and feed-forward prediction: boundary forcing, part 2 | [Upcoming Labs](upcoming.md) | Modeling app |
-| 23 | 2026-11-18 | Wed | Heat equation and feed-forward prediction: fit diffusivity, part 3 | [Upcoming Labs](upcoming.md) |  |
-| 24 | 2026-11-23 | Mon | Heat equation and feed-forward prediction: feed-forward prediction, part 4 | [Upcoming Labs](upcoming.md) |  |
-| 25 | 2026-11-30 | Mon | Heat equation and feed-forward prediction: measured-versus-predicted comparison, part 5 | [Upcoming Labs](upcoming.md) | Final analysis draft |
+| 1 | 2026-08-26 | Wed | Tool setup with Tim Hebert: install GitHub Desktop, VS Code, and Arduino IDE; introduce Arduino hardware; write simple code and document it with GitHub Desktop | [GitHub Desktop, GitHub, VS Code, And AI](../git-vscode-ai-workflow.md) |  |
+| 2 | 2026-08-31 | Mon | First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM | [Lab 1: First Contact](lab-01/index.md) |  |
+| 3 | 2026-09-02 | Wed | First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification | [Lab 2: First Real Instrument Pieces](lab-02/index.md) | Lab 1 note |
+| 4 | 2026-09-09 | Wed | Manual TEC heat/cool, first Python GUI modification, and GitHub project checkpoint | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
+| 5 | 2026-09-14 | Mon | Open-loop TEC calibration and software safety, part 1 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
+| 6 | 2026-09-16 | Wed | Open-loop TEC calibration and software safety, part 2 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Lab 3 project checkpoint |
+| 7 | 2026-09-23 | Wed | Finish steady-state response; discuss heating/cooling asymmetry | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
+| 8 | 2026-09-28 | Mon | P-only feedback: droop versus gain | [Lab 5: P-Only Temperature Control](lab-05/index.md) | Lab 4 note |
+| 9 | 2026-09-30 | Wed | P-only feedback: onset of instability and oscillation measurements | [Lab 5: P-Only Temperature Control](lab-05/index.md) |  |
+| 10 | 2026-10-05 | Mon | Modeling P control: droop equation and first-order thermal model | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) | Lab 5 data |
+| 11 | 2026-10-07 | Wed | Modeling P control: fit time constant and simulate temperature traces | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 12 | 2026-10-13 | Tue | Modeling PI control: integral action and windup; Brandeis Monday make-up | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 13 | 2026-10-14 | Wed | Modeling checkpoint and PI-control synthesis | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |  |
+| 14 | 2026-10-19 | Mon | TEC process model: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) | Modeling checkpoint |
+| 15 | 2026-10-21 | Wed | Finish TEC-only model comparison and prepare for rod experiments | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |  |
+| 16 | 2026-10-26 | Mon | Chapter 1 theory bridge: Fourier's Law, heat equation, dimensional analysis, and Biot number | [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](theory-bridge-chapter-1/index.md) |  |
+| 17 | 2026-10-28 | Wed | Temperature along a rod: sensor calibration and steady baseline, part 1 | [Upcoming Labs](upcoming.md) | Heat-equation derivation |
+| 18 | 2026-11-02 | Mon | Temperature along a rod: step response, part 2 | [Upcoming Labs](upcoming.md) |  |
+| 19 | 2026-11-04 | Wed | Temperature along a rod: repeat step response and uncertainty, part 3 | [Upcoming Labs](upcoming.md) | Dimensional analysis |
+| 20 | 2026-11-09 | Mon | Temperature along a rod: periodic forcing, part 4 | [Upcoming Labs](upcoming.md) |  |
+| 21 | 2026-11-11 | Wed | Temperature along a rod: phase lag, amplitude decay, and transport discussion, part 5 | [Upcoming Labs](upcoming.md) | Heat-transport discussion |
+| 22 | 2026-11-16 | Mon | Heat equation and feed-forward prediction: model setup and boundary forcing, part 1 | [Upcoming Labs](upcoming.md) | Modeling app |
+| 23 | 2026-11-18 | Wed | Heat equation and feed-forward prediction: fit diffusivity, part 2 | [Upcoming Labs](upcoming.md) |  |
+| 24 | 2026-11-23 | Mon | Heat equation and feed-forward prediction: feed-forward prediction, part 3 | [Upcoming Labs](upcoming.md) |  |
+| 25 | 2026-11-30 | Mon | Heat equation and feed-forward prediction: measured-versus-predicted comparison, part 4 | [Upcoming Labs](upcoming.md) | Final analysis draft |
 | 26 | 2026-12-02 | Wed | Final synthesis and presentations | [Upcoming Labs](upcoming.md) | Final presentation |
 
 ## Calendar Notes

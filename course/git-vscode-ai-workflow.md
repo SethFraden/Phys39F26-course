@@ -25,6 +25,11 @@ Use these official guides when setting up your computer and accounts:
 - [Set up GitHub Copilot in VS Code](https://code.visualstudio.com/docs/setup/copilot)
 - [Get GitHub Copilot access as a student](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students)
 
+When you apply for GitHub student access, do not use your Brandeis ID card as
+the proof document. Students report that GitHub rejects it because it does not
+show a date. A transcript or acceptance letter works better. GitHub asks you to
+upload the document as a `.jpg` image.
+
 For this course, the default AI coding assistant is GitHub Copilot in VS Code.
 If you use another approved coding AI tool, the same rule applies: AI may help
 you draft code, but you are responsible for testing it, organizing it,

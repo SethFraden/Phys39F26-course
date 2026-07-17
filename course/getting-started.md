@@ -10,13 +10,13 @@ You will use:
 - Arduino IDE for uploading sketches,
 - Python for serial communication, plotting, and modeling.
 
-## Before first day of class
 
-1. Install the [Arduino IDE](https://www.arduino.cc/en/software).
-2. Install [VS Code](https://code.visualstudio.com/).
-3. Confirm that you can sign in to GitHub.
-4. Read the [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
+## Before the first day of class
 
+1. Follow the instructions in [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
+2. Confirm that you can sign in to GitHub.
+3. Install the [Arduino IDE](https://www.arduino.cc/en/software).
+4. Confirm that the installed applications open successfully.
 
 ## Reading Markdown
 

@@ -18,13 +18,14 @@ tested.
 
 ## Set Up Accounts And Software
 
-Use these official guides when setting up your computer and accounts:
+Complete these steps in order when setting up your computer and accounts:
 
-- [Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github)
-- [Install GitHub Desktop](https://desktop.github.com/)
-- [Get started with GitHub Desktop](https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop)
-- [Set up GitHub Copilot in VS Code](https://code.visualstudio.com/docs/setup/copilot)
-- [Get GitHub Copilot access as a student](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students)
+1. [Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github), if you do not already have one.
+2. [Install GitHub Desktop](https://desktop.github.com/).
+3. [Sign in to and get started with GitHub Desktop](https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop).
+4. [Install VS Code](https://code.visualstudio.com/).
+5. [Set up GitHub Copilot in VS Code](https://code.visualstudio.com/docs/setup/copilot).
+6. [Get GitHub Copilot access as a student](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students).
 
 When you apply for GitHub student access, do not use your Brandeis ID card as
 the proof document. Students report that GitHub rejects it because it does not

@@ -18,9 +18,9 @@ of the semester.
 | Module | Focus | Lab Pages |
 | --- | --- | --- |
 | Module 1 | Arduino, signals, oscilloscope, analog input, averaging, and PWM | [Lab 1: First Contact](lab-01/index.md) |
-| Module 2 | Thermistor temperature measurement, Arduino Serial Plotter output, and H-bridge signal checks | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |
-| Module 3 | Actuators: set up the H-bridge, external power supply, and brushed DC motor; prepare 18 AWG wire; then begin manual controls and first GUI edits | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |
-| Module 4 | Wire the TEC and thermal switch with 18 AWG wire and crimped spade connectors; then begin open-loop calibration and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |
+| Module 2 | Thermistor temperature measurement, Arduino Serial Plotter output, H-bridge signal checks, and the brushed DC motor test with prepared 18 AWG wire | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |
+| Module 3 | Replace the motor with the TEC and thermal switch using 18 AWG wire and crimped spade connectors; then begin manual controls and first GUI edits | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |
+| Module 4 | Open-loop TEC calibration and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |
 | Module 5 | P-only feedback control: droop, gain, and instability | [Lab 5: P-Only Temperature Control](lab-05/index.md) |
 | Module 6 | Time-domain modeling of P and PI temperature control | [Lab 6: Modeling P And PI Temperature Control](lab-06/index.md) |
 | Module 7 | TEC process modeling: droop, lag, overshoot, and simulation | [Lab 7: Process Model And Python Simulation](lab-07/index.md) |
@@ -35,8 +35,8 @@ of the semester.
 | 1 | 2026-08-26 | Wed | Tool setup with Tim Hebert: install GitHub Desktop, VS Code, and Arduino IDE; introduce Arduino hardware; write simple code and document it with GitHub Desktop | [GitHub Desktop, GitHub, VS Code, And AI](../git-vscode-ai-workflow.md) |  |
 | 2 | 2026-08-31 | Mon | First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM | [Lab 1: First Contact](lab-01/index.md) |  |
 | 3 | 2026-09-02 | Wed | First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification | [Lab 2: First Real Instrument Pieces](lab-02/index.md) | Lab 1 note |
-| 4 | 2026-09-09 | Wed | Set up the H-bridge, external power supply, and brushed DC motor; strip and tin 18 AWG wire; observe PWM speed and direction | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
-| 5 | 2026-09-14 | Mon | Wire the TEC and thermal switch with 18 AWG wire and crimped female spades; begin open-loop TEC calibration and software safety | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
+| 4 | 2026-09-09 | Wed | Set up the H-bridge, external power supply, and brushed DC motor; strip and tin 18 AWG wire; observe PWM speed and direction | [Lab 2: First Real Instrument Pieces](lab-02/index.md) |  |
+| 5 | 2026-09-14 | Mon | Replace the motor with the TEC and thermal switch using 18 AWG wire and crimped female spades; begin manual TEC control and first GUI edits | [Lab 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) |  |
 | 6 | 2026-09-16 | Wed | Open-loop TEC calibration and software safety, part 2 | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Lab 3 project checkpoint |
 | 7 | 2026-09-23 | Wed | Finish steady-state response; discuss heating/cooling asymmetry | [Lab 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) |  |
 | 8 | 2026-09-28 | Mon | P-only feedback: droop versus gain | [Lab 5: P-Only Temperature Control](lab-05/index.md) | Lab 4 note |

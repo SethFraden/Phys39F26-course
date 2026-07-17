@@ -148,7 +148,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#optional-stretch-or-instructor-demo-low-power-manual-tec-heatcool" class="nav-link">Optional Stretch Or Instructor Demo: Low-Power Manual TEC Heat/Cool</a>
+            <li class="nav-item" data-bs-level="2"><a href="#optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm" class="nav-link">Optional Stretch Or Instructor Demo: DC Motor Direction And PWM</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -167,18 +167,19 @@
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>In Lab 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Lab 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.</p>
 <p>The actuator side also begins, but cautiously. You will verify H-bridge logic
-and PWM with the oscilloscope before any TEC power is used.</p>
+and PWM with the oscilloscope before connecting a DC motor. The TEC remains
+disconnected throughout Lab 2.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
 <p><strong>First Real Instrument Pieces</strong></p>
 <p>Thermistor serial data, temperature conversion, Arduino Serial Plotter output,
-H-bridge logic/PWM verification, and possibly a low-power manual TEC heat/cool
-test if the instrument passes the safety checks.</p>
+H-bridge logic/PWM verification, and possibly a low-power DC motor direction
+and speed test if the instrument passes the safety checks.</p>
 <h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
 <p>The thermistor circuit is safe to build and test from Arduino USB power.</p>
-<p>The TEC power supply remains off until the H-bridge input signals have been
-checked with the oscilloscope. If the class reaches the TEC stretch goal, use
-low PWM only and stop immediately if the temperature moves unexpectedly or the
-hardware becomes warm in the wrong place.</p>
+<p>The TEC remains disconnected throughout Lab 2. External actuator power remains
+off until the H-bridge input signals have been checked with the oscilloscope.
+For the optional motor test, use low PWM only and stop immediately if the motor,
+H-bridge, or wiring becomes unexpectedly warm.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Review your <a href="../lab-01/">Lab 1 assignment</a> notes on <code>analogRead</code>,
@@ -217,7 +218,7 @@ hardware becomes warm in the wrong place.</p>
 <li>Use a trim-pot voltage as a manual input that sets PWM.</li>
 <li>Use a separate digital input or switch to choose heat versus cool.</li>
 <li>Verify H-bridge direction and PWM logic on the oscilloscope.</li>
-<li>Attempt low-power manual TEC heating/cooling only if the instructor approves.</li>
+<li>Test DC motor speed and direction at low PWM only if the instructor approves.</li>
 </ul>
 <h2 id="part-1-thermistor-serial-data-and-temperature-conversion">Part 1: Thermistor Serial Data And Temperature Conversion<a class="headerlink" href="#part-1-thermistor-serial-data-and-temperature-conversion" title="Permanent link">&para;</a></h2>
 <p>Wire the thermistor divider:</p>
@@ -230,19 +231,26 @@ hardware becomes warm in the wrong place.</p>
 <p><img alt="Thermistor voltage divider wired to Arduino 5V, A0, and GND" src="../../assets/thermistor_voltage_divider_arduino.svg" /></p>
 <p><a href="../../assets/thermistor_voltage_divider_arduino.svg">Open the thermistor-divider diagram full size</a></p>
 <p>Write a sketch that prints human-readable measurements in Serial Monitor. A good output line looks like this:</p>
-<pre><code class="language-text">time = 1.50 s    average ADC = 511.8    voltage = 2.501 V    resistance = 100.23 kOhm    temperature = 24.9 C    samples = 50
+<pre><code class="language-text">time = 1.50 s    average ADC = 511.8    voltage = 2.501 V    resistance = 100.23 kOhm    temperature = 24.9 C    samples = 100
 </code></pre>
 <p>Every number should have a label and a unit where appropriate. The goal is for a person looking at Serial Monitor to understand the measurement without memorizing a column order.</p>
+<p>From this point forward in the course, every measured temperature must use the
+same acquisition sequence: take between <strong>100 and 1000</strong> raw voltage
+measurements with <code>analogRead(A0)</code>, average those measurements, convert the
+average ADC value to one average voltage, and only then calculate thermistor
+resistance and temperature. Do not calculate a temperature from each raw ADC
+measurement and then average the temperatures.</p>
 <p>Write your own sketch for this measurement. You may ask an AI agent for help, but do not simply upload code that you do not understand. You should be able to explain every calculation and every printed value.</p>
 <h3 id="what-your-sketch-should-do">What Your Sketch Should Do<a class="headerlink" href="#what-your-sketch-should-do" title="Permanent link">&para;</a></h3>
 <p>Include these functions in your sketch. Build and test them one at a time.</p>
 <ul>
-<li>Constants at the top describe the circuit and thermistor model: Arduino pin <code>A0</code>, the 5 V reference, the 100 kOhm fixed resistor, the 100 kOhm thermistor value at 25 C, and the beta value.</li>
-<li><code>adcToVoltage()</code> converts the Arduino ADC number into a voltage.</li>
+<li>Constants at the top describe the circuit and thermistor model: Arduino pin <code>A0</code>, the 5 V reference, the 100 kOhm fixed resistor, the 100 kOhm thermistor value at 25 C, the beta value, and a sample count between <code>100</code> and <code>1000</code>.</li>
+<li><code>averageAdcSamples()</code> reads <code>A0</code> between 100 and 1000 times and returns the average ADC value.</li>
+<li><code>adcToVoltage()</code> converts the average ADC value into an average voltage.</li>
 <li><code>voltageToResistance()</code> uses the voltage-divider equation to calculate the thermistor resistance.</li>
 <li><code>resistanceToCelsius()</code> uses the beta model to convert thermistor resistance into temperature.</li>
 <li><code>setup()</code> starts Serial Monitor at <code>9600</code> baud and prints a short heading.</li>
-<li><code>loop()</code> waits until it is time for a new report, reads <code>A0</code> many times, averages the readings, calculates voltage, resistance, and temperature, then prints one labeled line.</li>
+<li><code>loop()</code> waits until it is time for a new report, averages 100 to 1000 raw readings from <code>A0</code>, then calculates voltage, resistance, and temperature in that order and prints one labeled line.</li>
 <li><code>printHumanReadable()</code> controls the exact text you see in Serial Monitor. If you want the output to look different, this is the safest first place to edit.</li>
 </ul>
 <p>Hold the thermistor firmly between your index finger and thumb to heat it. Slightly moisten the thermistor to cool it. The reported temperature should move slowly and plausibly. If it jumps wildly, check the wiring, ground, and
@@ -289,13 +297,13 @@ resolution and therefore values from <code>0</code> to <code>255</code> are used
 <tbody>
 <tr>
 <td><code>5V</code></td>
-<td>heat</td>
+<td>heat / clockwise</td>
 <td>PWM</td>
 <td><code>0V</code></td>
 </tr>
 <tr>
 <td><code>0V</code></td>
-<td>cool</td>
+<td>cool / counterclockwise</td>
 <td><code>0V</code></td>
 <td>PWM</td>
 </tr>
@@ -303,27 +311,69 @@ resolution and therefore values from <code>0</code> to <code>255</code> are used
 </table>
 <p>This is the logic of H-bridge method 2: the two H-bridge control inputs receive
 either the PWM command or <code>0V</code>, depending on whether you want to heat or cool.
+In the Lab 2 motor demonstration, <strong>heat means clockwise</strong> and <strong>cool means
+counterclockwise</strong>.
 Read the <a href="../../hardware/#h-bridge">H-bridge hardware notes</a> before wiring
 the class board.</p>
-<p>Keep the TEC power off for this part. You are verifying the command signals, not heating or cooling yet.</p>
+<p>Keep actuator power off and the TEC disconnected for this part. You are
+verifying the command signals, not driving a load yet.</p>
 <h2 id="part-4-oscilloscope-checkoff-h-bridge-command-signals">Part 4: Oscilloscope Checkoff: H-Bridge Command Signals<a class="headerlink" href="#part-4-oscilloscope-checkoff-h-bridge-command-signals" title="Permanent link">&para;</a></h2>
-<p>Do this with TEC power off.</p>
+<p>Do this with actuator power off and the TEC disconnected.</p>
 <p>Use the oscilloscope to inspect the Arduino pins that drive the H-bridge. On the
 class boards, the PWM pins are expected to be Arduino pins 9 and 10. Verify the
 actual board wiring before powering anything.</p>
 <p>Check:</p>
 <ul>
-<li>which pin is active in heat mode,</li>
-<li>which pin is active in cool mode,</li>
+<li>which pin is active in heat/clockwise mode,</li>
+<li>which pin is active in cool/counterclockwise mode,</li>
 <li>whether the inactive side stays off,</li>
 <li>whether the PWM duty cycle matches the commanded value,</li>
 <li>whether Arduino ground and oscilloscope ground are common.</li>
 </ul>
-<h2 id="optional-stretch-or-instructor-demo-low-power-manual-tec-heatcool">Optional Stretch Or Instructor Demo: Low-Power Manual TEC Heat/Cool<a class="headerlink" href="#optional-stretch-or-instructor-demo-low-power-manual-tec-heatcool" title="Permanent link">&para;</a></h2>
-<p>Only do this after the instructor checks the H-bridge signals.</p>
-<p>Start with PWM at zero. Increase slowly to a low value and watch the thermistor
-trace. Confirm which command heats and which command cools. If the direction is
-unexpected, set PWM to zero and stop.</p>
+<h2 id="optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm">Optional Stretch Or Instructor Demo: DC Motor Direction And PWM<a class="headerlink" href="#optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm" title="Permanent link">&para;</a></h2>
+<p>Only do this after the instructor checks the H-bridge signals. The TEC must
+remain disconnected.</p>
+<p>Before connecting the TEC in a later lab, use a small motor as the first visible
+H-bridge load. The motor makes direction reversal and PWM speed control easy to
+observe without immediately applying power to the thermal system.</p>
+<p>Complete wiring, including the six Arduino logic connections:</p>
+<p><img alt="Complete wiring from the 12-volt power supply and Arduino Uno to the BTS7960 H-bridge and DC motor" src="../../assets/hbridge_motor_arduino_wiring.svg" /></p>
+<p><a href="../../assets/hbridge_motor_arduino_wiring.svg">Open the complete Arduino, H-bridge, power-supply, and motor wiring diagram full size</a></p>
+<p>Arduino pin <code>9</code> connects to <code>RPWM</code>, and pin <code>10</code> connects to <code>LPWM</code>. Connect
+<code>R_EN</code>, <code>L_EN</code>, and logic <code>VCC</code> to Arduino <code>5V</code>; connect logic <code>GND</code> to Arduino
+<code>GND</code> (0 V). Leave the <code>R_IS</code> and <code>L_IS</code> current-sense outputs unconnected.</p>
+<ol>
+<li>Turn off the actuator power supply and disconnect the TEC and thermal switch
+   from the H-bridge output.</li>
+<li>Prepare two 18 AWG stranded motor leads. Strip the insulation carefully and
+   tin ends that will be soldered or installed in solder-style terminals.
+   Do not put a fully tinned end directly under a screw clamp; use properly
+   stripped bare stranded wire or an approved ferrule there.</li>
+<li>Use two isolated paired positions on the terminal bus to connect the motor
+   leads to H-bridge <code>M+</code> and <code>M-</code>. Each motor lead and its corresponding
+   H-bridge lead terminate on the same paired position; do not solder the wires
+   together. The power-supply <code>V+</code>/<code>V-</code> leads connect directly to H-bridge
+   <code>B+</code>/<code>B-</code> and do not go through this bus.</li>
+<li>Set PWM to zero, have the instructor check the wiring and current limit, and
+   then turn on actuator power.</li>
+<li>Apply a low PWM command in one direction, return to zero, and then apply a
+   low PWM command in the other direction. Record the observed motor direction
+   and relative speed.</li>
+<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
+</ol>
+<p>Before preparing the leads, review these technique illustrations:</p>
+<ul>
+<li><a href="https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire">Tinning stranded wire: illustrated instructions</a></li>
+<li><a href="https://www.youtube.com/watch?v=pRPF4wpXX9Q">How to tin a wire: YouTube demonstration</a></li>
+</ul>
+<p>The small motor might not require 18 AWG wire electrically. You are using
+18 AWG here to learn the stripping, tinning, and termination skills that the
+TEC high-current circuit requires. Do not connect the TEC or thermal switch
+during this motor-first exercise.</p>
+<p>For the Lab 2 demonstration, the heat command should turn the motor clockwise
+and the cool command should turn it counterclockwise. If the mapping is
+reversed, set PWM to zero, turn off actuator power, and ask the instructor
+before swapping the motor leads.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
 <p>Submit a short lab note containing:</p>
 <ul>
@@ -333,8 +383,10 @@ unexpected, set PWM to zero and stop.</p>
 <li>Thermistor constants used in your sketch.</li>
 <li>Serial Plotter screenshot or sketch of temperature versus serial read order.</li>
 <li>Trim-pot-to-PWM code excerpt or signal-path explanation.</li>
-<li>H-bridge signal table for heat and cool commands with TEC power off.</li>
-<li>If attempted: one short heating or cooling trace at low PWM.</li>
+<li>H-bridge signal table for heat/clockwise and cool/counterclockwise commands
+  with actuator power off and the TEC disconnected.</li>
+<li>If attempted: a short motor-test note recording clockwise/counterclockwise
+  direction and the observed PWM speed response.</li>
 <li>A paragraph answering: What makes this setup an instrument rather than just
   an Arduino program?</li>
 </ul></div>

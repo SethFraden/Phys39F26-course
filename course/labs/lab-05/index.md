@@ -127,7 +127,9 @@ Add a P-only mode to your Python GUI or Arduino sketch.
 
 The controller should:
 
-1. read the measured temperature,
+1. read the measured temperature only after averaging between 100 and 1000 raw
+   thermistor-voltage measurements and converting the average voltage to
+   temperature,
 2. calculate `error = Tset - T`,
 3. calculate `u = Kp * error`,
 4. convert the sign of `u` into heat/cool direction,

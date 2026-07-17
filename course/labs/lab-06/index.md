@@ -133,6 +133,10 @@ effective thermal object.
 
 Use a temperature step from Lab 4 or Lab 5.
 
+Use a trace in which every temperature value was calculated after averaging
+between 100 and 1000 raw thermistor-voltage measurements, as required in Labs
+2 through 5.
+
 One practical method:
 
 1. Identify the initial temperature, `T_initial`.

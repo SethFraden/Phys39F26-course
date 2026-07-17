@@ -287,7 +287,9 @@ negative command = cool
 <p>Add a P-only mode to your Python GUI or Arduino sketch.</p>
 <p>The controller should:</p>
 <ol>
-<li>read the measured temperature,</li>
+<li>read the measured temperature only after averaging between 100 and 1000 raw
+   thermistor-voltage measurements and converting the average voltage to
+   temperature,</li>
 <li>calculate <code>error = Tset - T</code>,</li>
 <li>calculate <code>u = Kp * error</code>,</li>
 <li>convert the sign of <code>u</code> into heat/cool direction,</li>

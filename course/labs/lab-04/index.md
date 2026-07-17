@@ -61,8 +61,8 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 
 ## What You Will Do
 
-- Wire the TEC and thermal switch with 18 AWG stranded copper wire.
-- Crimp female spade connectors onto the two thermal-switch wires.
+- Verify the Lab 3 TEC and thermal-switch high-current path before collecting
+  calibration data.
 - Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.
 - Measure steady-state temperature for several heating PWM values.
 - Measure steady-state temperature for several cooling PWM values.
@@ -76,37 +76,33 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 
 Start from your working Lab 3 setup.
 
-### Build The TEC And Thermal-Switch Current Path
+### Verify The TEC And Thermal-Switch Current Path
 
-This wiring begins in Class 4 or 5. The actuator power supply must be turned
-off and disconnected while you build and inspect the circuit.
+This current path was built in Lab 3. The actuator power supply must be turned
+off and disconnected while you inspect it before calibration.
 
-1. Use 18 AWG stranded copper wire for every high-current connection:
+1. Confirm that 18 AWG stranded copper wire is used for every high-current
+   connection:
    - power supply to H-bridge `B+` and `B-`,
    - H-bridge `M+` and `M-` to the TEC circuit, and
    - both wires connected to the thermal switch.
-2. Strip the 18 AWG wire carefully. Tin wire ends only where a soldered
-   termination is required. Do not put a fully tinned end under a screw-clamp
-   terminal.
-3. Crimp a female spade connector onto each thermal-switch wire. The stripped
-   strands captured inside the crimp barrel must remain untinned.
-4. Tug-test each crimp gently, then use a multimeter to verify continuity
-   through each lead and through the closed thermal switch.
-5. Connect the thermal switch in series with the TEC current path so opening
-   the switch interrupts TEC current independently of the Arduino software.
-6. Draw the complete high-current path in your notebook and ask the instructor
+2. Confirm that both Lab 3 female spade crimps remain secure and that a
+   multimeter shows continuity through the closed thermal switch.
+3. Confirm that the thermal switch remains in series with the TEC current path
+   so opening the switch interrupts TEC current independently of the Arduino
+   software.
+4. Draw the complete high-current path in your notebook and ask the instructor
    to inspect the wire gauge, polarity, spade connections, thermal-switch
    placement, and power-supply current limit.
-
-Before making the crimps, review these technique illustrations:
-
-- [How to crimp an electrical connector: illustrated instructions](https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector)
-- [How to crimp quick disconnects (spade terminals): YouTube demonstration](https://www.youtube.com/watch?v=Ed4rbTW7LTw)
 
 Do not enable actuator power until the instructor approves the completed
 wiring.
 
 ### Start The Instrument
+
+Continue using the Lab 2 measurement sequence: average between 100 and 1000 raw
+thermistor-voltage measurements before calculating each temperature. This
+applies to the displayed temperature, recorded data, and software safety check.
 
 1. Upload the Arduino sketch that receives PWM and heat/cool commands from
    Python.
@@ -198,6 +194,8 @@ apparatus even if software fails, but your Arduino code should act first.
 
 Your code should:
 
+- calculate each measured temperature only after averaging between 100 and
+  1000 raw thermistor-voltage measurements,
 - define a named constant for the software limit,
 - check the measured temperature every loop,
 - set both H-bridge PWM outputs to zero when the limit is exceeded,
@@ -222,6 +220,8 @@ GUI, and drives an H-bridge with PWM on pins 9 and 10.
 Modify the sketch to add a software temperature safety limit.
 
 Requirements:
+- Preserve the existing temperature acquisition sequence: average between 100
+  and 1000 raw thermistor-voltage measurements before calculating temperature.
 - Define a named constant called temperatureLimitC with value 60.0.
 - If measured temperature is greater than temperatureLimitC, set commanded PWM
   to 0 and write 0 to both H-bridge PWM outputs.
@@ -255,8 +255,6 @@ Submit a short lab note containing:
 
 - a wiring diagram showing the 18 AWG high-current path and the thermal switch
   in series with the TEC,
-- confirmation that both female spade crimps passed a tug test and continuity
-  check,
 - the PWM values used for heating and cooling,
 - the steady-state data table,
 - one heating trace and one cooling trace,

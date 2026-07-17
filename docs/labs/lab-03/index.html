@@ -142,14 +142,18 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-3-oscilloscope-verification" class="nav-link">Part 3: Oscilloscope Verification</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#motor-first-h-bridge-test" class="nav-link">Motor-First H-Bridge Test</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-4-low-power-heating-and-cooling" class="nav-link">Part 4: Low-Power Heating And Cooling</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#physical-wiring-on-the-class-apparatus" class="nav-link">Physical Wiring On The Class Apparatus</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#crimp-the-thermal-switch-spade-connectors" class="nav-link">Crimp The Thermal-Switch Spade Connectors</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-5-python-display-only-strip-chart" class="nav-link">Part 5: Python Display-Only Strip Chart</a>
@@ -181,21 +185,20 @@
 
 <h1 id="lab-3-assignment-manual-tec-heatcool-and-first-python-gui">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI<a class="headerlink" href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 3 connects measurement to actuation. In Lab 2 you measured temperature and
-verified H-bridge signals. In Lab 3 you first use the H-bridge to drive a small
-motor, which makes PWM magnitude and direction immediately visible. You then
-move to the TEC at low power, record heating and cooling traces, and begin
-treating the Python GUI as an editable part of the instrument.</p>
+<p>Lab 3 connects measurement to thermal actuation. In Lab 2 you measured
+temperature, verified the H-bridge signals, and used a small motor to make PWM
+magnitude and direction immediately visible. In Lab 3 you replace the motor
+with the TEC and thermal switch, operate the TEC at low power, record heating
+and cooling traces, and begin treating the Python GUI as an editable part of
+the instrument.</p>
 <p>This is still not feedback control. You are learning how to drive the actuator,
 how to recognize safe behavior, and how the software interface should represent
 the state of the hardware.</p>
 <h3 id="class-session-boundary">Class-Session Boundary<a class="headerlink" href="#class-session-boundary" title="Permanent link">&para;</a></h3>
-<p>For the first two or three class sessions, use only the Arduino and its
-low-current measurement circuits. In Class 3 or 4, set up the H-bridge,
-external power supply, and brushed DC motor, and learn to strip and tin 18 AWG
-wire. Do not wire the TEC or thermal switch until Class 4 or 5. If this handout
-spans more than one meeting, stop after the motor-first work until the
-instructor begins the TEC-wiring session.</p>
+<p>Lab 2 introduced the H-bridge, external power supply, brushed DC motor, and
+stripping and tinning 18 AWG wire. Lab 3 begins the Class 4 or 5 TEC-wiring
+session. Do not wire or energize the TEC and thermal switch until the instructor
+begins that session.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
 <p><strong>Manual TEC Heat/Cool And First Python GUI</strong></p>
 <p>Manual TEC direction and PWM, temperature traces, and a first small GUI
@@ -208,9 +211,11 @@ modification.</p>
 <li>Arduino ground, H-bridge ground, and oscilloscope ground are understood.</li>
 <li>The power supply current limit is set by the instructor.</li>
 <li>The thermal safety cutoff is identified.</li>
-<li>The motor-first H-bridge test has been completed with the TEC disconnected.</li>
-<li>All wiring in the power-supply, H-bridge, motor/TEC, and thermal-switch
+<li>The Lab 2 motor-first H-bridge test has been completed with the TEC disconnected.</li>
+<li>All wiring in the power-supply, H-bridge, TEC, and thermal-switch
    current path is 18 AWG stranded copper wire.</li>
+<li>Female spade connectors have been crimped onto both thermal-switch wires,
+   tug-tested, and checked for continuity.</li>
 </ol>
 <p>Stop immediately if the temperature moves in the wrong direction, the TEC or
 driver heats unexpectedly, the power supply current is too high, or the serial
@@ -238,7 +243,8 @@ trace disappears.</p>
 <ul>
 <li>Rebuild or inspect the thermistor measurement circuit.</li>
 <li>Verify the H-bridge input signals again with TEC power off.</li>
-<li>Prepare 18 AWG motor leads and test the H-bridge first with a small motor.</li>
+<li>Wire the TEC and thermal switch with 18 AWG stranded copper wire.</li>
+<li>Crimp female spade connectors onto the two thermal-switch wires.</li>
 <li>Run the manual trim-pot or manual PWM TEC sketch.</li>
 <li>Record low-power heating and cooling traces.</li>
 <li>Run the Python strip chart while the TEC is manually driven.</li>
@@ -277,11 +283,15 @@ trace disappears.</p>
 <td></td>
 </tr>
 <tr>
-<td>Motor test completed with TEC disconnected?</td>
+<td>Lab 2 motor test completed with TEC disconnected?</td>
 <td></td>
 </tr>
 <tr>
 <td>High-current leads are 18 AWG?</td>
+<td></td>
+</tr>
+<tr>
+<td>Both female spade crimps tug-tested and checked for continuity?</td>
 <td></td>
 </tr>
 <tr>
@@ -308,9 +318,11 @@ trace disappears.</p>
 </code></pre>
 <p>The essential behavior is:</p>
 <pre><code class="language-text">trim pot -&gt; averaged analog input -&gt; PWM command -&gt; H-bridge -&gt; TEC
-thermistor -&gt; Arduino -&gt; serial line -&gt; laptop plot
+thermistor -&gt; 100-1000 raw ADC readings -&gt; average voltage -&gt; temperature -&gt; serial line -&gt; laptop plot
 </code></pre>
-<p>If you write your own version, keep it simple. Do not add feedback control yet.</p>
+<p>If you write your own version, keep it simple. Do not add feedback control yet.
+Every temperature value must be calculated only after averaging between 100
+and 1000 raw thermistor-voltage measurements, as established in Lab 2.</p>
 <p>This sketch is intentionally not polished. Before improving its structure, make
 sure you can explain the measurement path, the PWM command path, and the
 heat/cool direction path.</p>
@@ -349,41 +361,61 @@ heat/cool direction path.</p>
 </table>
 <p>Only one H-bridge side should be active at a time. The PWM duty cycle should
 match the command from the trim pot or manual setting.</p>
-<h3 id="motor-first-h-bridge-test">Motor-First H-Bridge Test<a class="headerlink" href="#motor-first-h-bridge-test" title="Permanent link">&para;</a></h3>
-<p>Before connecting the TEC, use a small motor as the first visible H-bridge
-load. The motor makes direction reversal and PWM speed control easy to observe
-without immediately applying power to the thermal system.</p>
-<ol>
-<li>Turn off the actuator power supply and disconnect the TEC and thermal switch
-   from the H-bridge output.</li>
-<li>Prepare two 18 AWG stranded motor leads. Strip the insulation carefully and
-   tin ends that will be soldered or installed in solder-style terminals.
-   Do not put a fully tinned end directly under a screw clamp; use properly
-   stripped bare stranded wire or an approved ferrule there.</li>
-<li>Connect the motor to H-bridge <code>M+</code> and <code>M-</code> with the prepared 18 AWG leads.</li>
-<li>Set PWM to zero, have the instructor check the wiring and current limit, and
-   then turn on actuator power.</li>
-<li>Apply a low PWM command in one direction, return to zero, and then apply a
-   low PWM command in the other direction. Record the observed motor direction
-   and relative speed.</li>
-<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
-</ol>
-<p>Before preparing the leads, review these technique illustrations:</p>
-<ul>
-<li><a href="https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire">Tinning stranded wire: illustrated instructions</a></li>
-<li><a href="https://www.youtube.com/watch?v=pRPF4wpXX9Q">How to tin a wire: YouTube demonstration</a></li>
-</ul>
-<p>The small motor might not require 18 AWG wire electrically. You are using
-18 AWG here to learn the stripping, tinning, and termination skills that the
-TEC high-current circuit requires. Do not connect the TEC or thermal switch
-during this motor-first exercise.</p>
 <h2 id="part-4-low-power-heating-and-cooling">Part 4: Low-Power Heating And Cooling<a class="headerlink" href="#part-4-low-power-heating-and-cooling" title="Permanent link">&para;</a></h2>
-<p>This part begins in Class 4 or 5. Do not continue directly from the motor test
-unless the instructor has started the TEC-wiring session.</p>
-<p>After completing the motor-first test, turn off actuator power and replace the
-motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
+<p>This part begins in Class 4 or 5. Do not begin unless the instructor has started
+the TEC-wiring session.</p>
+<p>After completing the Lab 2 motor-first test, turn off actuator power and replace
+the motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
 power-supply-to-H-bridge wiring, <code>M+</code>/<code>M-</code> wiring, and both sides of the thermal
-switch. After instructor approval, connect TEC power.</p>
+switch. Make the TEC-side connections on the isolated paired positions of the
+terminal bus; do not solder two wires together. The power-supply <code>V+</code>/<code>V-</code>
+leads connect directly to H-bridge <code>B+</code>/<code>B-</code> and do not go through the bus.
+After instructor approval, connect TEC power.</p>
+<p><img alt="Complete wiring from the 12-volt power supply and Arduino Uno to the BTS7960 H-bridge, TEC, and normally closed thermal switch in the M-minus lead" src="../../assets/hbridge_tec_arduino_wiring.svg" /></p>
+<p><a href="../../assets/hbridge_tec_arduino_wiring.svg">Open the complete Arduino, H-bridge, TEC, and thermal-switch wiring diagram full size</a></p>
+<h3 id="physical-wiring-on-the-class-apparatus">Physical Wiring On The Class Apparatus<a class="headerlink" href="#physical-wiring-on-the-class-apparatus" title="Permanent link">&para;</a></h3>
+<p>The complete diagram above shows the electrical relationships. On the actual
+class apparatus, the motor, TEC, and thermal-switch leads terminate on the
+barrier-style terminal bus visible in the labeled photograph below. Wires that
+need to be electrically joined are secured on the same paired bus position;
+they are not soldered together. Each pair is isolated from the other pairs, so
+this is not a single common electrical bus.</p>
+<p>The photograph shows these three paired connections:</p>
+<ul>
+<li>H-bridge <code>M+</code> paired with one thermal-switch lead,</li>
+<li>the other thermal-switch lead paired with <code>TEC+</code>, and</li>
+<li><code>TEC-</code> paired with H-bridge <code>M-</code>.</li>
+</ul>
+<p>Thus, the photographed apparatus places the normally closed thermal switch in
+series in the <code>M+</code> path. This is functionally equivalent to placing it in the
+<code>M-</code> path as shown in the electrical diagram: opening the switch interrupts the
+same series current path and removes power from the TEC. When wiring the class
+apparatus, follow the photograph and the labels on your setup. Use female spade
+connectors at the thermal switch. The power-supply <code>V+</code> and <code>V-</code> leads still go
+directly to H-bridge <code>B+</code> and <code>B-</code>; they do not terminate on this bus.</p>
+<p><img alt="Labeled photograph of the class TEC apparatus showing the terminal bus, H-bridge M-plus and M-minus leads, TEC leads, and thermal-switch leads" src="../../assets/tec_apparatus_a.svg" /></p>
+<p><a href="../../assets/tec_apparatus_a.svg">Open the labeled class-apparatus photograph full size</a></p>
+<h3 id="crimp-the-thermal-switch-spade-connectors">Crimp The Thermal-Switch Spade Connectors<a class="headerlink" href="#crimp-the-thermal-switch-spade-connectors" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Prepare two 18 AWG stranded copper leads for the two sides of the thermal
+   switch.</li>
+<li>Strip only enough insulation for the conductor to fit fully inside the crimp
+   barrel. The strands captured inside the crimp barrel must remain untinned.</li>
+<li>Crimp a female spade connector onto each lead using the correctly sized crimp
+   tool position.</li>
+<li>Tug-test each crimp gently.</li>
+<li>Use a multimeter to verify continuity through each lead and through the
+   closed thermal switch.</li>
+<li>Ask the instructor to inspect the wire gauge, crimped spades, thermal-switch
+   placement, polarity, and power-supply current limit.</li>
+</ol>
+<p>Before making the crimps, review these technique illustrations:</p>
+<ul>
+<li><a href="https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector">How to crimp an electrical connector: illustrated instructions</a></li>
+<li><a href="https://www.youtube.com/watch?v=Ed4rbTW7LTw">How to crimp quick disconnects (spade terminals): YouTube demonstration</a></li>
+</ul>
+<p>Do not enable actuator power until the instructor approves the completed
+wiring.</p>
 <ol>
 <li>Start with PWM at zero.</li>
 <li>Increase PWM slowly to a low value.</li>
@@ -495,7 +527,8 @@ keep the thermistor measurement and H-bridge output behavior, but replace the
 trim pot and physical direction wire with commands from the Python GUI.</p>
 <p>The new Arduino sketch should:</p>
 <ul>
-<li>read the thermistor divider on <code>A0</code>,</li>
+<li>read the thermistor divider on <code>A0</code> and average between 100 and 1000 raw ADC
+  measurements before converting the average voltage to temperature,</li>
 <li>output PWM on pin <code>9</code> for heat and pin <code>10</code> for cool,</li>
 <li>start with PWM <code>0</code>,</li>
 <li>receive commands such as <code>SET PWM 120 DIR HEAT</code>,</li>
@@ -514,7 +547,8 @@ Write a new Arduino sketch with clear comments explaining its lineage from the
 trim-pot version.
 
 Requirements:
-- Keep thermistor temperature measurement on A0.
+- Keep thermistor temperature measurement on A0. Average between 100 and 1000
+  raw ADC measurements before converting the average voltage to temperature.
 - Keep H-bridge outputs on pins 9 and 10.
 - Remove the trim-pot input on A1.
 - Remove the physical direction input on pin 11.
@@ -598,8 +632,8 @@ actually do.</p>
 <li>Completed pre-power checklist.</li>
 <li>Wiring or signal-path sketch.</li>
 <li>Oscilloscope table for H-bridge inputs.</li>
-<li>Motor-first test note recording direction reversal, PWM speed response, and
-  confirmation that 18 AWG leads were prepared.</li>
+<li>Confirmation that both female spade crimps passed a tug test and continuity
+  check.</li>
 <li>One heating trace and one cooling trace.</li>
 <li>The Arduino sketch used or modified.</li>
 <li>Python strip-chart screenshot.</li>

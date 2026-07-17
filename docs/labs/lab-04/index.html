@@ -130,7 +130,7 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-prepare-the-instrument" class="nav-link">Part 1: Prepare The Instrument</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#build-the-tec-and-thermal-switch-current-path" class="nav-link">Build The TEC And Thermal-Switch Current Path</a>
+            <li class="nav-item" data-bs-level="3"><a href="#verify-the-tec-and-thermal-switch-current-path" class="nav-link">Verify The TEC And Thermal-Switch Current Path</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -232,8 +232,8 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 </ol>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Wire the TEC and thermal switch with 18 AWG stranded copper wire.</li>
-<li>Crimp female spade connectors onto the two thermal-switch wires.</li>
+<li>Verify the Lab 3 TEC and thermal-switch high-current path before collecting
+  calibration data.</li>
 <li>Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.</li>
 <li>Measure steady-state temperature for several heating PWM values.</li>
 <li>Measure steady-state temperature for several cooling PWM values.</li>
@@ -245,35 +245,30 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 </ul>
 <h2 id="part-1-prepare-the-instrument">Part 1: Prepare The Instrument<a class="headerlink" href="#part-1-prepare-the-instrument" title="Permanent link">&para;</a></h2>
 <p>Start from your working Lab 3 setup.</p>
-<h3 id="build-the-tec-and-thermal-switch-current-path">Build The TEC And Thermal-Switch Current Path<a class="headerlink" href="#build-the-tec-and-thermal-switch-current-path" title="Permanent link">&para;</a></h3>
-<p>This wiring begins in Class 4 or 5. The actuator power supply must be turned
-off and disconnected while you build and inspect the circuit.</p>
+<h3 id="verify-the-tec-and-thermal-switch-current-path">Verify The TEC And Thermal-Switch Current Path<a class="headerlink" href="#verify-the-tec-and-thermal-switch-current-path" title="Permanent link">&para;</a></h3>
+<p>This current path was built in Lab 3. The actuator power supply must be turned
+off and disconnected while you inspect it before calibration.</p>
 <ol>
-<li>Use 18 AWG stranded copper wire for every high-current connection:</li>
+<li>Confirm that 18 AWG stranded copper wire is used for every high-current
+   connection:</li>
 <li>power supply to H-bridge <code>B+</code> and <code>B-</code>,</li>
 <li>H-bridge <code>M+</code> and <code>M-</code> to the TEC circuit, and</li>
 <li>both wires connected to the thermal switch.</li>
-<li>Strip the 18 AWG wire carefully. Tin wire ends only where a soldered
-   termination is required. Do not put a fully tinned end under a screw-clamp
-   terminal.</li>
-<li>Crimp a female spade connector onto each thermal-switch wire. The stripped
-   strands captured inside the crimp barrel must remain untinned.</li>
-<li>Tug-test each crimp gently, then use a multimeter to verify continuity
-   through each lead and through the closed thermal switch.</li>
-<li>Connect the thermal switch in series with the TEC current path so opening
-   the switch interrupts TEC current independently of the Arduino software.</li>
+<li>Confirm that both Lab 3 female spade crimps remain secure and that a
+   multimeter shows continuity through the closed thermal switch.</li>
+<li>Confirm that the thermal switch remains in series with the TEC current path
+   so opening the switch interrupts TEC current independently of the Arduino
+   software.</li>
 <li>Draw the complete high-current path in your notebook and ask the instructor
    to inspect the wire gauge, polarity, spade connections, thermal-switch
    placement, and power-supply current limit.</li>
 </ol>
-<p>Before making the crimps, review these technique illustrations:</p>
-<ul>
-<li><a href="https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector">How to crimp an electrical connector: illustrated instructions</a></li>
-<li><a href="https://www.youtube.com/watch?v=Ed4rbTW7LTw">How to crimp quick disconnects (spade terminals): YouTube demonstration</a></li>
-</ul>
 <p>Do not enable actuator power until the instructor approves the completed
 wiring.</p>
 <h3 id="start-the-instrument">Start The Instrument<a class="headerlink" href="#start-the-instrument" title="Permanent link">&para;</a></h3>
+<p>Continue using the Lab 2 measurement sequence: average between 100 and 1000 raw
+thermistor-voltage measurements before calculating each temperature. This
+applies to the displayed temperature, recorded data, and software safety check.</p>
 <ol>
 <li>Upload the Arduino sketch that receives PWM and heat/cool commands from
    Python.</li>
@@ -385,6 +380,8 @@ temperature exceeds <strong>60 °C</strong>.</p>
 apparatus even if software fails, but your Arduino code should act first.</p>
 <p>Your code should:</p>
 <ul>
+<li>calculate each measured temperature only after averaging between 100 and
+  1000 raw thermistor-voltage measurements,</li>
 <li>define a named constant for the software limit,</li>
 <li>check the measured temperature every loop,</li>
 <li>set both H-bridge PWM outputs to zero when the limit is exceeded,</li>
@@ -405,6 +402,8 @@ GUI, and drives an H-bridge with PWM on pins 9 and 10.
 Modify the sketch to add a software temperature safety limit.
 
 Requirements:
+- Preserve the existing temperature acquisition sequence: average between 100
+  and 1000 raw thermistor-voltage measurements before calculating temperature.
 - Define a named constant called temperatureLimitC with value 60.0.
 - If measured temperature is greater than temperatureLimitC, set commanded PWM
   to 0 and write 0 to both H-bridge PWM outputs.
@@ -430,8 +429,6 @@ lab.</p>
 <ul>
 <li>a wiring diagram showing the 18 AWG high-current path and the thermal switch
   in series with the TEC,</li>
-<li>confirmation that both female spade crimps passed a tug test and continuity
-  check,</li>
 <li>the PWM values used for heating and cooling,</li>
 <li>the steady-state data table,</li>
 <li>one heating trace and one cooling trace,</li>

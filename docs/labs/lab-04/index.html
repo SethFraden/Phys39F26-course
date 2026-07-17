@@ -130,6 +130,14 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-prepare-the-instrument" class="nav-link">Part 1: Prepare The Instrument</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#build-the-tec-and-thermal-switch-current-path" class="nav-link">Build The TEC And Thermal-Switch Current Path</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#start-the-instrument" class="nav-link">Start The Instrument</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-2-choose-pwm-values" class="nav-link">Part 2: Choose PWM Values</a>
@@ -196,6 +204,11 @@ temperature-limit interlock in Arduino code.</p>
 <li>The power supply current limit is set by the instructor.</li>
 <li>The Python display is showing plausible temperature values.</li>
 <li>The hardware thermal switch has been identified.</li>
+<li>Every high-current lead is 18 AWG stranded copper wire.</li>
+<li>Female spade connectors have been crimped onto both thermal-switch wires,
+   tug-tested, and checked for continuity.</li>
+<li>The instructor has inspected the complete TEC and thermal-switch current
+   path before actuator power is enabled.</li>
 </ol>
 <p>During this lab, keep the measured temperature between <strong>10 °C and 45 °C</strong>. Stop
 the run if the temperature moves unexpectedly, the display freezes, the power
@@ -219,6 +232,8 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 </ol>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
+<li>Wire the TEC and thermal switch with 18 AWG stranded copper wire.</li>
+<li>Crimp female spade connectors onto the two thermal-switch wires.</li>
 <li>Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.</li>
 <li>Measure steady-state temperature for several heating PWM values.</li>
 <li>Measure steady-state temperature for several cooling PWM values.</li>
@@ -230,6 +245,35 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 </ul>
 <h2 id="part-1-prepare-the-instrument">Part 1: Prepare The Instrument<a class="headerlink" href="#part-1-prepare-the-instrument" title="Permanent link">&para;</a></h2>
 <p>Start from your working Lab 3 setup.</p>
+<h3 id="build-the-tec-and-thermal-switch-current-path">Build The TEC And Thermal-Switch Current Path<a class="headerlink" href="#build-the-tec-and-thermal-switch-current-path" title="Permanent link">&para;</a></h3>
+<p>This wiring begins in Class 4 or 5. The actuator power supply must be turned
+off and disconnected while you build and inspect the circuit.</p>
+<ol>
+<li>Use 18 AWG stranded copper wire for every high-current connection:</li>
+<li>power supply to H-bridge <code>B+</code> and <code>B-</code>,</li>
+<li>H-bridge <code>M+</code> and <code>M-</code> to the TEC circuit, and</li>
+<li>both wires connected to the thermal switch.</li>
+<li>Strip the 18 AWG wire carefully. Tin wire ends only where a soldered
+   termination is required. Do not put a fully tinned end under a screw-clamp
+   terminal.</li>
+<li>Crimp a female spade connector onto each thermal-switch wire. The stripped
+   strands captured inside the crimp barrel must remain untinned.</li>
+<li>Tug-test each crimp gently, then use a multimeter to verify continuity
+   through each lead and through the closed thermal switch.</li>
+<li>Connect the thermal switch in series with the TEC current path so opening
+   the switch interrupts TEC current independently of the Arduino software.</li>
+<li>Draw the complete high-current path in your notebook and ask the instructor
+   to inspect the wire gauge, polarity, spade connections, thermal-switch
+   placement, and power-supply current limit.</li>
+</ol>
+<p>Before making the crimps, review these technique illustrations:</p>
+<ul>
+<li><a href="https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector">How to crimp an electrical connector: illustrated instructions</a></li>
+<li><a href="https://www.youtube.com/watch?v=Ed4rbTW7LTw">How to crimp quick disconnects (spade terminals): YouTube demonstration</a></li>
+</ul>
+<p>Do not enable actuator power until the instructor approves the completed
+wiring.</p>
+<h3 id="start-the-instrument">Start The Instrument<a class="headerlink" href="#start-the-instrument" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Upload the Arduino sketch that receives PWM and heat/cool commands from
    Python.</li>
@@ -384,6 +428,10 @@ lab.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
 <p>Submit a short lab note containing:</p>
 <ul>
+<li>a wiring diagram showing the 18 AWG high-current path and the thermal switch
+  in series with the TEC,</li>
+<li>confirmation that both female spade crimps passed a tug test and continuity
+  check,</li>
 <li>the PWM values used for heating and cooling,</li>
 <li>the steady-state data table,</li>
 <li>one heating trace and one cooling trace,</li>

@@ -44,8 +44,8 @@ control signals.
 | TEC/Peltier element | Moves heat when current flows; reversing current reverses heat/cool direction. | [Laird CP14-127-045 data sheet](references/laird-tec-cp14-127-045.pdf) |
 | Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [ID-COOLING DASHFLOW 240 BASIC WHITE product page](https://www.idcooling.com/product/detail?id=323&name=DASHFLOW%20240%20BASIC%20WHITE) · [F2023 parts-list order link](https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK) |
 | Arduino Uno | Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals. | [Uno overview](arduino/index.md) · [Uno pinout](arduino/pinout.md) · [Official Uno Rev3](https://docs.arduino.cc/hardware/uno-rev3/) |
-| BTS7960 H-bridge | Uses Arduino PWM inputs to drive TEC current in either direction from the external supply. | [BTS7960 driver reference](references/bts7960-h-bridge.pdf) |
-| Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC. | Use the assigned laboratory supply |
+| BTS7960 H-bridge | Uses Arduino PWM inputs to drive TEC current in either direction from the external supply. Use 18 AWG wire for the TEC. | [BTS7960 driver reference](references/bts7960-h-bridge.pdf) |
+| Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC heat-exchanger. Use 18 AWG wire for the H-bridge. | Use the assigned laboratory supply |
 | Oscilloscope | Verifies voltage levels, timing, PWM duty cycle, direction signals, and grounding. | Use the assigned laboratory oscilloscope |
 | Laptop and Python software | Displays strip charts, logs data, sends commands, and later compares measurements with models. | [Course repository](repository.md) |
 
@@ -53,7 +53,7 @@ control signals.
 
 The hardware thermal switch is independent of the Arduino program. It cuts
 power near 70 °C and remains an important protection even after software
-temperature limits are added.
+temperature limits are added. Use 18G wire and crimped female spades.
 
 [Open the thermal-switch data sheet](references/thermal-switch-cantherm.pdf)
 
@@ -75,7 +75,7 @@ resistance and then converts resistance to temperature with the beta equation.
 
 The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
 reverses which face heats and which face cools. The hot face must remain
-thermally coupled to the heat exchanger.
+thermally coupled to the heat exchanger. Use 18G wire.
 
 ![Thermoelectric cooler heat-flow diagram](assets/tec_cartoon.gif)
 
@@ -94,7 +94,7 @@ Peltier term, Joule heating, and ordinary thermal conduction:
 
 The water-cooled heat exchanger carries waste heat away from the TEC. The F2023
 parts list identifies the class heat exchanger as an **ID-COOLING DASHFLOW**
-CPU liquid cooler with a 2x120 mm radiator. The TEC cannot cool effectively if
+CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if
 its hot side is allowed to overheat.
 
 ![Phys 39 heat exchanger](assets/heat_exchanger.jpg)
@@ -115,7 +115,7 @@ pins cannot directly power the TEC.
 ### H-Bridge
 
 The BTS7960-style H-bridge lets the low-power Arduino control the amount and
-direction of current from the external supply through the TEC.
+direction of current from the external supply through the TEC. Use 18G wire to connect to the 12V power supply B+, B- and the TEC, M+, M-.
 
 On the class board:
 

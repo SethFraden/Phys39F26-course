@@ -106,6 +106,10 @@
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#class-session-boundary" class="nav-link">Class-Session Boundary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#theme" class="nav-link">Theme</a>
@@ -138,6 +142,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-3-oscilloscope-verification" class="nav-link">Part 3: Oscilloscope Verification</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#motor-first-h-bridge-test" class="nav-link">Motor-First H-Bridge Test</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-4-low-power-heating-and-cooling" class="nav-link">Part 4: Low-Power Heating And Cooling</a>
@@ -174,12 +182,20 @@
 <h1 id="lab-3-assignment-manual-tec-heatcool-and-first-python-gui">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI<a class="headerlink" href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Lab 3 connects measurement to actuation. In Lab 2 you measured temperature and
-verified H-bridge signals. In Lab 3 you use the H-bridge to drive the TEC at low
-power, record heating and cooling traces, and begin treating the Python GUI as
-an editable part of the instrument.</p>
+verified H-bridge signals. In Lab 3 you first use the H-bridge to drive a small
+motor, which makes PWM magnitude and direction immediately visible. You then
+move to the TEC at low power, record heating and cooling traces, and begin
+treating the Python GUI as an editable part of the instrument.</p>
 <p>This is still not feedback control. You are learning how to drive the actuator,
 how to recognize safe behavior, and how the software interface should represent
 the state of the hardware.</p>
+<h3 id="class-session-boundary">Class-Session Boundary<a class="headerlink" href="#class-session-boundary" title="Permanent link">&para;</a></h3>
+<p>For the first two or three class sessions, use only the Arduino and its
+low-current measurement circuits. In Class 3 or 4, set up the H-bridge,
+external power supply, and brushed DC motor, and learn to strip and tin 18 AWG
+wire. Do not wire the TEC or thermal switch until Class 4 or 5. If this handout
+spans more than one meeting, stop after the motor-first work until the
+instructor begins the TEC-wiring session.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
 <p><strong>Manual TEC Heat/Cool And First Python GUI</strong></p>
 <p>Manual TEC direction and PWM, temperature traces, and a first small GUI
@@ -192,6 +208,9 @@ modification.</p>
 <li>Arduino ground, H-bridge ground, and oscilloscope ground are understood.</li>
 <li>The power supply current limit is set by the instructor.</li>
 <li>The thermal safety cutoff is identified.</li>
+<li>The motor-first H-bridge test has been completed with the TEC disconnected.</li>
+<li>All wiring in the power-supply, H-bridge, motor/TEC, and thermal-switch
+   current path is 18 AWG stranded copper wire.</li>
 </ol>
 <p>Stop immediately if the temperature moves in the wrong direction, the TEC or
 driver heats unexpectedly, the power supply current is too high, or the serial
@@ -219,6 +238,7 @@ trace disappears.</p>
 <ul>
 <li>Rebuild or inspect the thermistor measurement circuit.</li>
 <li>Verify the H-bridge input signals again with TEC power off.</li>
+<li>Prepare 18 AWG motor leads and test the H-bridge first with a small motor.</li>
 <li>Run the manual trim-pot or manual PWM TEC sketch.</li>
 <li>Record low-power heating and cooling traces.</li>
 <li>Run the Python strip chart while the TEC is manually driven.</li>
@@ -254,6 +274,14 @@ trace disappears.</p>
 </tr>
 <tr>
 <td>PWM starts at zero?</td>
+<td></td>
+</tr>
+<tr>
+<td>Motor test completed with TEC disconnected?</td>
+<td></td>
+</tr>
+<tr>
+<td>High-current leads are 18 AWG?</td>
 <td></td>
 </tr>
 <tr>
@@ -321,8 +349,41 @@ heat/cool direction path.</p>
 </table>
 <p>Only one H-bridge side should be active at a time. The PWM duty cycle should
 match the command from the trim pot or manual setting.</p>
+<h3 id="motor-first-h-bridge-test">Motor-First H-Bridge Test<a class="headerlink" href="#motor-first-h-bridge-test" title="Permanent link">&para;</a></h3>
+<p>Before connecting the TEC, use a small motor as the first visible H-bridge
+load. The motor makes direction reversal and PWM speed control easy to observe
+without immediately applying power to the thermal system.</p>
+<ol>
+<li>Turn off the actuator power supply and disconnect the TEC and thermal switch
+   from the H-bridge output.</li>
+<li>Prepare two 18 AWG stranded motor leads. Strip the insulation carefully and
+   tin ends that will be soldered or installed in solder-style terminals.
+   Do not put a fully tinned end directly under a screw clamp; use properly
+   stripped bare stranded wire or an approved ferrule there.</li>
+<li>Connect the motor to H-bridge <code>M+</code> and <code>M-</code> with the prepared 18 AWG leads.</li>
+<li>Set PWM to zero, have the instructor check the wiring and current limit, and
+   then turn on actuator power.</li>
+<li>Apply a low PWM command in one direction, return to zero, and then apply a
+   low PWM command in the other direction. Record the observed motor direction
+   and relative speed.</li>
+<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
+</ol>
+<p>Before preparing the leads, review these technique illustrations:</p>
+<ul>
+<li><a href="https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire">Tinning stranded wire: illustrated instructions</a></li>
+<li><a href="https://www.youtube.com/watch?v=pRPF4wpXX9Q">How to tin a wire: YouTube demonstration</a></li>
+</ul>
+<p>The small motor might not require 18 AWG wire electrically. You are using
+18 AWG here to learn the stripping, tinning, and termination skills that the
+TEC high-current circuit requires. Do not connect the TEC or thermal switch
+during this motor-first exercise.</p>
 <h2 id="part-4-low-power-heating-and-cooling">Part 4: Low-Power Heating And Cooling<a class="headerlink" href="#part-4-low-power-heating-and-cooling" title="Permanent link">&para;</a></h2>
-<p>After instructor approval, connect TEC power.</p>
+<p>This part begins in Class 4 or 5. Do not continue directly from the motor test
+unless the instructor has started the TEC-wiring session.</p>
+<p>After completing the motor-first test, turn off actuator power and replace the
+motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
+power-supply-to-H-bridge wiring, <code>M+</code>/<code>M-</code> wiring, and both sides of the thermal
+switch. After instructor approval, connect TEC power.</p>
 <ol>
 <li>Start with PWM at zero.</li>
 <li>Increase PWM slowly to a low value.</li>
@@ -537,6 +598,8 @@ actually do.</p>
 <li>Completed pre-power checklist.</li>
 <li>Wiring or signal-path sketch.</li>
 <li>Oscilloscope table for H-bridge inputs.</li>
+<li>Motor-first test note recording direction reversal, PWM speed response, and
+  confirmation that 18 AWG leads were prepared.</li>
 <li>One heating trace and one cooling trace.</li>
 <li>The Arduino sketch used or modified.</li>
 <li>Python strip-chart screenshot.</li>

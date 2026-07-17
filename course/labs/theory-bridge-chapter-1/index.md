@@ -164,7 +164,7 @@ not perfectly insulated.
 
 ## 3. Dimensional Analysis And The Biot Number
 
-Use Lienhard Section 1.3, pp. 19-26 (PDF pp. 33-40), as the source for this
+Use Lienhard Section 1.3, pp. 11-26, as the source for this
 section. Read pp. 19-21 to understand Newton's law of cooling and the heat
 transfer coefficient \(h\). Then read pp. 21-24 carefully for the lumped-capacity
 model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the

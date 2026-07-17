@@ -10,14 +10,14 @@ You will use:
 - Arduino IDE for uploading sketches,
 - Python for serial communication, plotting, and modeling.
 
-## Before Lab 1
+## Before first day of class
 
 1. Install the [Arduino IDE](https://www.arduino.cc/en/software).
 2. Install [VS Code](https://code.visualstudio.com/).
 3. Confirm that you can sign in to GitHub.
 4. Bring a USB cable or adapter that connects your computer to an Arduino Uno.
 5. Read the [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
-6. Read the [Lab 1 assignment](labs/lab-01/index.md).
+
 
 ## Reading Markdown
 

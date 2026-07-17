@@ -4,7 +4,7 @@
 
 ### Purpose
 
-In the first class you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
+In the first lab you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
 
 Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.
 
@@ -29,12 +29,11 @@ You may inspect the TEC, H-bridge, heat exchanger, thermistor, and safety cutoff
 
 ### Before Class
 
-Complete these steps before the first meeting.
+Complete these steps before the first lab.
 
 1. Install the Arduino IDE on the laptop you plan to use in lab, if possible.
-2. Bring a USB cable or adapter that can connect your laptop to an Arduino Uno.
-3. Read this assignment and write down any question that feels basic or confusing.
-4. Skim the vocabulary list below.
+2. Read this assignment and write down any question that feels basic or confusing.
+3. Skim the vocabulary list below.
 
 If you cannot install software before class, come anyway. We will handle setup in lab.
 

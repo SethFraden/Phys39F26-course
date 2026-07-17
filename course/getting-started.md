@@ -15,8 +15,7 @@ You will use:
 1. Install the [Arduino IDE](https://www.arduino.cc/en/software).
 2. Install [VS Code](https://code.visualstudio.com/).
 3. Confirm that you can sign in to GitHub.
-4. Bring a USB cable or adapter that connects your computer to an Arduino Uno.
-5. Read the [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
+4. Read the [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md).
 
 
 ## Reading Markdown

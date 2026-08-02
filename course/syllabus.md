@@ -293,8 +293,11 @@ Lab attendance is expected. Each meeting depends on hands-on work, shared
 equipment, and collaboration with your partner, so it cannot be fully replaced
 by work done later on your own.
 
-This course expects 180 hours of work, divided between 26 in-class meetings and out-of-class activities. For outside work, plan to spend an average of 4 hours and 50 minutes preparing for and following
-up on each lab meeting. This outside work includes readings, code development,
+This course expects 180 hours of work, divided between 26 in-class meetings and
+out-of-class activities. The 26 scheduled meetings of 2 hours 50 minutes total
+73 hours 40 minutes in class. This leaves 106 hours 20 minutes outside class,
+or an average of approximately 4 hours 5 minutes preparing for and following up
+on each lab meeting. This outside work includes readings, code development,
 data analysis, model derivations, GitHub documentation, and report or
 presentation preparation. The amount will vary from week to week.
 

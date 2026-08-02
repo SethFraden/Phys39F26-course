@@ -39,6 +39,9 @@
                                 <a href=".." class="nav-link">Home</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../syllabus/" class="nav-link">Syllabus</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../getting-started/" class="nav-link">Getting Started</a>
                             </li>
                             <li class="nav-item">
@@ -46,6 +49,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="./" class="nav-link active" aria-current="page">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../assessment/" class="nav-link">Assessment And Milestones</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../hardware/" class="nav-link">Hardware</a>
@@ -90,7 +96,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../hardware/" class="nav-link">
+                                <a rel="next" href="../assessment/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -116,6 +122,34 @@
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#lab-modules" class="nav-link">Lab Modules</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#graded-completion-milestones" class="nav-link">Graded Completion Milestones</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#semester-at-a-glance" class="nav-link">Semester At A Glance</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#august-2026" class="nav-link">August 2026</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#september-2026" class="nav-link">September 2026</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#october-2026" class="nav-link">October 2026</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#november-2026" class="nav-link">November 2026</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#december-2026" class="nav-link">December 2026</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#meeting-calendar" class="nav-link">Meeting Calendar</a>
@@ -144,8 +178,9 @@ modules span several meetings, especially the heat-transport work near the end
 of the semester.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This Fall 2026 schedule is a working course plan. Specific lab handouts and
-due dates will be updated as modules are approved.</p>
+<p>This is the complete Fall 2026 course draft. The objectives, graded due
+dates, and completion milestones are fixed planning targets; the instructor
+may revise details after hardware testing or announce a change in class.</p>
 </div>
 <h2 id="lab-modules">Lab Modules<a class="headerlink" href="#lab-modules" title="Permanent link">&para;</a></h2>
 <table>
@@ -164,12 +199,12 @@ due dates will be updated as modules are approved.</p>
 </tr>
 <tr>
 <td>Module 2</td>
-<td>Thermistor temperature measurement, Arduino Serial Plotter output, H-bridge signal checks, and the brushed DC motor test with prepared 18 AWG wire</td>
+<td>Thermistor temperature measurement, Arduino Serial Plotter output, and H-bridge signal checks with actuator power off</td>
 <td><a href="lab-02/">Lab 2: First Real Instrument Pieces</a></td>
 </tr>
 <tr>
 <td>Module 3</td>
-<td>Replace the motor with the TEC and thermal switch using 18 AWG wire and crimped spade connectors; then begin manual controls and first GUI edits</td>
+<td>Connect the TEC and thermal switch using prepared high-current wiring; then begin manual controls and first GUI edits</td>
 <td><a href="lab-03/">Lab 3: Manual TEC Heat/Cool And First Python GUI</a></td>
 </tr>
 <tr>
@@ -199,13 +234,316 @@ due dates will be updated as modules are approved.</p>
 </tr>
 <tr>
 <td>Module 8</td>
-<td>Long metal cylinder: temperature along a rod, heat equation, and Angstrom-method thermal transport</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
+<td>Multichannel rod instrument, step response, heat equation, and stationary-fin model</td>
+<td><a href="lab-08/">Lab 8: Rod Instrument, Step Response, And Stationary Fin</a></td>
 </tr>
 <tr>
 <td>Module 9</td>
-<td>Final synthesis and presentations</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
+<td>Periodic boundary control, amplitude decay, phase lag, and Angstrom parameter inference</td>
+<td><a href="lab-09/">Lab 9: The Angstrom Method</a></td>
+</tr>
+<tr>
+<td>Module 10</td>
+<td>Aluminum conductivity, side heat loss, uncertainty, reproducibility, and final presentation</td>
+<td><a href="lab-10/">Lab 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="graded-completion-milestones">Graded Completion Milestones<a class="headerlink" href="#graded-completion-milestones" title="Permanent link">&para;</a></h2>
+<p>Six completion milestones establish deadlines for the major instrumentation,
+hardware, and software capabilities. Meeting each deadline is part of the <strong>Lab
+notes, checkoffs, and short assignments</strong> grade. A milestone is complete when
+the team can demonstrate a safely functioning system, show current code and
+documentation in its repository, and have each student explain the work.</p>
+<table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Due</th>
+<th>Completion standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../assessment/#c1-development-environment-and-repository"><strong>C1. Development environment and repository ready</strong></a></td>
+<td>Meeting 3, Wed. Sept. 2</td>
+<td>Arduino IDE, GitHub Desktop, and VS Code are working; the course repository is organized; an Arduino sketch runs; and a meaningful commit has been pushed.</td>
+</tr>
+<tr>
+<td><a href="../assessment/#c2-measurement-and-actuator-electronics"><strong>C2. Measurement and actuator electronics complete</strong></a></td>
+<td>Meeting 5, Mon. Sept. 14</td>
+<td>The thermistor reports a plausible calibrated temperature; the H-bridge PWM and direction inputs have been verified with the oscilloscope; and the prepared actuator wiring is complete.</td>
+</tr>
+<tr>
+<td><a href="../assessment/#c3-tec-instrument-and-first-python-gui"><strong>C3. TEC instrument and first Python GUI complete</strong></a></td>
+<td>Meeting 7, Wed. Sept. 23</td>
+<td>The TEC and thermal switch are wired safely; manual heat/cool and PWM work; Python displays and saves the serial data; and an open-loop temperature record has been made.</td>
+</tr>
+<tr>
+<td><a href="../assessment/#c4-feedback-controller-and-tec-process-model"><strong>C4. Feedback controller and TEC process model complete</strong></a></td>
+<td>Meeting 15, Wed. Oct. 21</td>
+<td>P and PI control run safely; droop and oscillation data have been collected; the process model runs; and at least one model trace has been compared with experiment.</td>
+</tr>
+<tr>
+<td><a href="../assessment/#c5-rod-instrument-and-data-acquisition-chain"><strong>C5. Rod instrument and data-acquisition chain complete</strong></a></td>
+<td>Meeting 18, Mon. Nov. 2</td>
+<td>Rod thermistors are calibrated; sensor positions and wiring are documented; multichannel logging works; and baseline plus initial step-response data have been saved.</td>
+</tr>
+<tr>
+<td><a href="../assessment/#c6-final-thermal-transport-package"><strong>C6. Final thermal-transport package complete</strong></a></td>
+<td>Meeting 25, Mon. Nov. 30</td>
+<td>Periodic rod data and reproducible analysis report <code>q</code>, <code>q_prime</code>, diffusivity <code>kappa</code>, aluminum conductivity <code>k</code>, loss rate <code>nu</code>, and side heat-transfer coefficient <code>H</code>, with units and uncertainty.</td>
+</tr>
+</tbody>
+</table>
+<p>For every milestone, late work must still be completed. Timely completion is
+one part of the milestone score because later experiments depend on the system
+being ready.</p>
+<p>See <a href="../assessment/">Assessment And Milestones</a> for exactly what is due, the
+10-point rubric for each <code>C#</code>, the distinction between progress checks and
+graded milestones, and the mapping from assessments to Course Goals.</p>
+<h2 id="semester-at-a-glance">Semester At A Glance<a class="headerlink" href="#semester-at-a-glance" title="Permanent link">&para;</a></h2>
+<p><code>M#</code> identifies the class meeting. <strong>C# due</strong> identifies a graded completion
+milestone. Other assignment deadlines are also shown.</p>
+<h3 id="august-2026">August 2026<a class="headerlink" href="#august-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>24</td>
+<td>25</td>
+<td><strong>26</strong><br><a href="#meeting-1">M1</a></td>
+<td>27</td>
+<td>28</td>
+<td>29</td>
+<td>30</td>
+</tr>
+<tr>
+<td><strong>31</strong><br><a href="#meeting-2">M2</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="september-2026">September 2026<a class="headerlink" href="#september-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31 Aug<br><a href="#meeting-2">M2</a></td>
+<td>1</td>
+<td><strong>2</strong><br><a href="#meeting-3">M3</a><br><strong>C1 due</strong><br>Lab 1 note</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>7</strong><br>No class</td>
+<td>8</td>
+<td><strong>9</strong><br><a href="#meeting-4">M4</a></td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+</tr>
+<tr>
+<td><strong>14</strong><br><a href="#meeting-5">M5</a><br><strong>C2 due</strong></td>
+<td>15</td>
+<td><strong>16</strong><br><a href="#meeting-6">M6</a><br>Lab 3 progress check</td>
+<td>17</td>
+<td>18</td>
+<td>19</td>
+<td>20</td>
+</tr>
+<tr>
+<td><strong>21</strong><br>No class</td>
+<td>22</td>
+<td><strong>23</strong><br><a href="#meeting-7">M7</a><br><strong>C3 due</strong></td>
+<td>24</td>
+<td>25</td>
+<td>26</td>
+<td>27</td>
+</tr>
+<tr>
+<td><strong>28</strong><br><a href="#meeting-8">M8</a><br>Lab 4 note</td>
+<td>29</td>
+<td><strong>30</strong><br><a href="#meeting-9">M9</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="october-2026">October 2026<a class="headerlink" href="#october-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>28 Sep<br><a href="#meeting-8">M8</a></td>
+<td>29 Sep</td>
+<td>30 Sep<br><a href="#meeting-9">M9</a></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>5</strong><br><a href="#meeting-10">M10</a><br>P-control data</td>
+<td>6</td>
+<td><strong>7</strong><br><a href="#meeting-11">M11</a><br>One-lump derivation</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>12</strong><br>No class</td>
+<td><strong>13</strong><br><a href="#meeting-12">M12</a><br>Brandeis Monday</td>
+<td><strong>14</strong><br><a href="#meeting-13">M13</a><br>P/PI memo</td>
+<td>15</td>
+<td>16</td>
+<td>17</td>
+<td>18</td>
+</tr>
+<tr>
+<td><strong>19</strong><br><a href="#meeting-14">M14</a><br>Model progress check</td>
+<td>20</td>
+<td><strong>21</strong><br><a href="#meeting-15">M15</a><br><strong>C4 due</strong><br>Reading memo</td>
+<td>22</td>
+<td>23</td>
+<td>24</td>
+<td>25</td>
+</tr>
+<tr>
+<td><strong>26</strong><br><a href="#meeting-16">M16</a></td>
+<td>27</td>
+<td><strong>28</strong><br><a href="#meeting-17">M17</a><br>Heat-equation derivation</td>
+<td>29</td>
+<td>30</td>
+<td>31</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="november-2026">November 2026<a class="headerlink" href="#november-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2</strong><br><a href="#meeting-18">M18</a><br><strong>C5 due</strong></td>
+<td>3</td>
+<td><strong>4</strong><br><a href="#meeting-19">M19</a><br>Fin analysis</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>9</strong><br><a href="#meeting-20">M20</a><br>Angstrom questions</td>
+<td>10</td>
+<td><strong>11</strong><br><a href="#meeting-21">M21</a><br>Angstrom plan</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+</tr>
+<tr>
+<td><strong>16</strong><br><a href="#meeting-22">M22</a><br>Data check</td>
+<td>17</td>
+<td><strong>18</strong><br><a href="#meeting-23">M23</a><br>App draft</td>
+<td>19</td>
+<td>20</td>
+<td>21</td>
+<td>22</td>
+</tr>
+<tr>
+<td><strong>23</strong><br><a href="#meeting-24">M24</a><br><code>k</code> and <code>H</code> draft</td>
+<td>24</td>
+<td><strong>25</strong><br>No class</td>
+<td>26</td>
+<td>27</td>
+<td>28</td>
+<td>29</td>
+</tr>
+<tr>
+<td><strong>30</strong><br><a href="#meeting-25">M25</a><br><strong>C6 due</strong><br>Final packet</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="december-2026">December 2026<a class="headerlink" href="#december-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30 Nov<br><a href="#meeting-25">M25</a></td>
+<td>1</td>
+<td><strong>2</strong><br><a href="#meeting-26">M26</a><br>Presentation<br>Oral defense</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
 </tr>
 </tbody>
 </table>
@@ -216,219 +554,246 @@ due dates will be updated as modules are approved.</p>
 <th>Meeting</th>
 <th>Date</th>
 <th>Day</th>
-<th>Topic</th>
+<th>By the end of this meeting, students can...</th>
 <th>Lab/Assignment</th>
 <th>Due</th>
+<th>Goals</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td><span id="meeting-1">1</span></td>
 <td>2026-08-26</td>
 <td>Wed</td>
-<td>Tool setup with Tim Hebert: install GitHub Desktop, VS Code, and Arduino IDE; introduce Arduino hardware; write simple code and document it with GitHub Desktop</td>
+<td>Upload and modify an Arduino sketch; identify the instrument and safety boundaries; create and commit to the course repository.</td>
 <td><a href="../git-vscode-ai-workflow/">GitHub Desktop, GitHub, VS Code, And AI</a></td>
-<td></td>
+<td>Setup completed in class</td>
+<td>G1, G5, G12</td>
 </tr>
 <tr>
-<td>2</td>
+<td><span id="meeting-2">2</span></td>
 <td>2026-08-31</td>
 <td>Mon</td>
-<td>First contact with Arduino, safety, serial output, oscilloscope timing, analog input, averaging, LED PWM</td>
+<td>Relate digital output, ADC input, averaging, PWM, and oscilloscope traces to physical voltage and time.</td>
 <td><a href="lab-01/">Lab 1: First Contact</a></td>
-<td></td>
+<td>Arduino examples</td>
+<td>G1, G2, G5</td>
 </tr>
 <tr>
-<td>3</td>
+<td><span id="meeting-3">3</span></td>
 <td>2026-09-02</td>
 <td>Wed</td>
-<td>First real instrument pieces: thermistor serial data, temperature conversion, Arduino Serial Plotter output, H-bridge logic/PWM verification</td>
+<td>Build a thermistor divider; convert ADC readings to resistance and temperature; state calibration assumptions.</td>
 <td><a href="lab-02/">Lab 2: First Real Instrument Pieces</a></td>
-<td>Lab 1 note</td>
+<td><a href="../assessment/#c1-development-environment-and-repository"><strong>C1</strong></a>; Lab 1 note</td>
+<td>G1-G4, G12, G14</td>
 </tr>
 <tr>
-<td>4</td>
+<td><span id="meeting-4">4</span></td>
 <td>2026-09-09</td>
 <td>Wed</td>
-<td>Set up the H-bridge, external power supply, and brushed DC motor; strip and tin 18 AWG wire; observe PWM speed and direction</td>
-<td><a href="lab-02/">Lab 2: First Real Instrument Pieces</a></td>
-<td></td>
+<td>Predict and verify H-bridge PWM and direction waveforms before applying TEC power.</td>
+<td><a href="lab-02/">Lab 2</a></td>
+<td>H-bridge prediction table</td>
+<td>G1, G2, G5, G6</td>
 </tr>
 <tr>
-<td>5</td>
+<td><span id="meeting-5">5</span></td>
 <td>2026-09-14</td>
 <td>Mon</td>
-<td>Replace the motor with the TEC and thermal switch using 18 AWG wire and crimped female spades; begin manual TEC control and first GUI edits</td>
+<td>Produce safe low-power TEC heating and cooling; distinguish measurement, actuation, and feedback.</td>
 <td><a href="lab-03/">Lab 3: Manual TEC Heat/Cool And First Python GUI</a></td>
-<td></td>
+<td><a href="../assessment/#c2-measurement-and-actuator-electronics"><strong>C2</strong></a></td>
+<td>G1, G3-G6</td>
 </tr>
 <tr>
-<td>6</td>
+<td><span id="meeting-6">6</span></td>
 <td>2026-09-16</td>
 <td>Wed</td>
-<td>Open-loop TEC calibration and software safety, part 2</td>
-<td><a href="lab-04/">Lab 4: Open-Loop TEC Calibration And Software Safety</a></td>
-<td>Lab 3 project checkpoint</td>
+<td>Parse real serial data; display and save temperature and PWM; set update interval, window, and axes.</td>
+<td><a href="lab-03/">Lab 3</a></td>
+<td>Lab 3 progress check</td>
+<td>G2, G7, G12</td>
 </tr>
 <tr>
-<td>7</td>
+<td><span id="meeting-7">7</span></td>
 <td>2026-09-23</td>
 <td>Wed</td>
-<td>Finish steady-state response; discuss heating/cooling asymmetry</td>
-<td><a href="lab-04/">Lab 4: Open-Loop TEC Calibration And Software Safety</a></td>
-<td></td>
+<td>Command heat/cool and PWM from Python; test software and hardware limits; save open-loop records.</td>
+<td><a href="lab-03/">Lab 3</a> and <a href="lab-04/">Lab 4</a></td>
+<td><a href="../assessment/#c3-tec-instrument-and-first-python-gui"><strong>C3</strong></a></td>
+<td>G3, G6, G7, G12, G14</td>
 </tr>
 <tr>
-<td>8</td>
+<td><span id="meeting-8">8</span></td>
 <td>2026-09-28</td>
 <td>Mon</td>
-<td>P-only feedback: droop versus gain</td>
-<td><a href="lab-05/">Lab 5: P-Only Temperature Control</a></td>
+<td>Measure steady temperature versus signed PWM and identify asymmetry, limits, and a steady-state criterion.</td>
+<td><a href="lab-04/">Lab 4: Open-Loop TEC Calibration And Software Safety</a></td>
 <td>Lab 4 note</td>
+<td>G2, G3, G6, G7, G9</td>
 </tr>
 <tr>
-<td>9</td>
+<td><span id="meeting-9">9</span></td>
 <td>2026-09-30</td>
 <td>Wed</td>
-<td>P-only feedback: onset of instability and oscillation measurements</td>
+<td>Implement P control and explain why nonzero actuator power produces droop.</td>
 <td><a href="lab-05/">Lab 5: P-Only Temperature Control</a></td>
-<td></td>
+<td>P-control prediction</td>
+<td>G7-G10</td>
 </tr>
 <tr>
-<td>10</td>
+<td><span id="meeting-10">10</span></td>
 <td>2026-10-05</td>
 <td>Mon</td>
-<td>Modeling P control: droop equation and first-order thermal model</td>
-<td><a href="lab-06/">Lab 6: Modeling P And PI Temperature Control</a></td>
-<td>Lab 5 data</td>
+<td>Measure droop versus gain and characterize oscillation amplitude and frequency near instability.</td>
+<td><a href="lab-05/">Lab 5</a></td>
+<td>P-control data package</td>
+<td>G3, G8, G9, G14</td>
 </tr>
 <tr>
-<td>11</td>
+<td><span id="meeting-11">11</span></td>
 <td>2026-10-07</td>
 <td>Wed</td>
-<td>Modeling P control: fit time constant and simulate temperature traces</td>
+<td>Derive and fit a one-lump energy balance; interpret heat capacity, conductance, and time constant dimensionally.</td>
 <td><a href="lab-06/">Lab 6: Modeling P And PI Temperature Control</a></td>
-<td></td>
+<td>One-lump derivation</td>
+<td>G9, G10, G13</td>
 </tr>
 <tr>
-<td>12</td>
+<td><span id="meeting-12">12</span></td>
 <td>2026-10-13</td>
 <td>Tue</td>
-<td>Modeling PI control: integral action and windup; Brandeis Monday make-up</td>
-<td><a href="lab-06/">Lab 6: Modeling P And PI Temperature Control</a></td>
-<td></td>
+<td>Explain how integral action removes droop; implement anti-windup; compare P and PI responses.</td>
+<td><a href="lab-06/">Lab 6</a></td>
+<td>PI preparation</td>
+<td>G8-G10, G13</td>
 </tr>
 <tr>
-<td>13</td>
+<td><span id="meeting-13">13</span></td>
 <td>2026-10-14</td>
 <td>Wed</td>
-<td>Modeling checkpoint and PI-control synthesis</td>
-<td><a href="lab-06/">Lab 6: Modeling P And PI Temperature Control</a></td>
-<td></td>
+<td>Use a two-lump model to explain thermal lag, overshoot, and gain-dependent oscillation.</td>
+<td><a href="lab-06/">Lab 6</a></td>
+<td>P/PI analysis memo</td>
+<td>G9, G10, G13, G14</td>
 </tr>
 <tr>
-<td>14</td>
+<td><span id="meeting-14">14</span></td>
 <td>2026-10-19</td>
 <td>Mon</td>
-<td>TEC process model: droop, lag, overshoot, and simulation</td>
+<td>Fit one- and two-lump models and judge whether added complexity is supported by residuals.</td>
 <td><a href="lab-07/">Lab 7: Process Model And Python Simulation</a></td>
-<td>Modeling checkpoint</td>
+<td>Modeling-app progress check</td>
+<td>G3, G7, G10, G12-G14</td>
 </tr>
 <tr>
-<td>15</td>
+<td><span id="meeting-15">15</span></td>
 <td>2026-10-21</td>
 <td>Wed</td>
-<td>Finish TEC-only model comparison and prepare for rod experiments</td>
-<td><a href="lab-07/">Lab 7: Process Model And Python Simulation</a></td>
-<td></td>
+<td>Defend the TEC controller and model; explain why a rod requires <code>T(x,t)</code> rather than a lumped temperature.</td>
+<td><a href="lab-07/">Lab 7</a></td>
+<td><a href="../assessment/#c4-feedback-controller-and-tec-process-model"><strong>C4</strong></a>; heat-transfer reading memo</td>
+<td>G8-G14</td>
 </tr>
 <tr>
-<td>16</td>
+<td><span id="meeting-16">16</span></td>
 <td>2026-10-26</td>
 <td>Mon</td>
-<td>Chapter 1 theory bridge: Fourier's Law, heat equation, dimensional analysis, and Biot number</td>
-<td><a href="theory-bridge-chapter-1/">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number</a></td>
-<td></td>
+<td>Derive the dimensional one-dimensional heat equation with side loss from conservation and Fourier's law.</td>
+<td><a href="theory-bridge-chapter-1/">Theory Bridge</a></td>
+<td>Lienhard Chapter 1 preparation</td>
+<td>G11, G13, G14</td>
 </tr>
 <tr>
-<td>17</td>
+<td><span id="meeting-17">17</span></td>
 <td>2026-10-28</td>
 <td>Wed</td>
-<td>Temperature along a rod: sensor calibration and steady baseline, part 1</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Heat-equation derivation</td>
+<td>Calibrate and map rod thermistors; define coordinates, metadata, sampling, and uncertainty for <code>T(x,t)</code>.</td>
+<td><a href="lab-08/">Lab 8: Rod Instrument, Step Response, And Stationary Fin</a></td>
+<td>Heat-equation and dimensional-analysis derivation</td>
+<td>G2-G4, G11-G14</td>
 </tr>
 <tr>
-<td>18</td>
+<td><span id="meeting-18">18</span></td>
 <td>2026-11-02</td>
 <td>Mon</td>
-<td>Temperature along a rod: step response, part 2</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td></td>
+<td>Acquire synchronized baseline and step-response data and identify multiple thermal time scales.</td>
+<td><a href="lab-08/">Lab 8</a></td>
+<td><a href="../assessment/#c5-rod-instrument-and-data-acquisition-chain"><strong>C5</strong></a></td>
+<td>G3, G7, G9, G11, G12</td>
 </tr>
 <tr>
-<td>19</td>
+<td><span id="meeting-19">19</span></td>
 <td>2026-11-04</td>
 <td>Wed</td>
-<td>Temperature along a rod: repeat step response and uncertainty, part 3</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Dimensional analysis</td>
+<td>Fit the steady excess-temperature profile and interpret its decay length as conduction competing with side loss.</td>
+<td><a href="lab-08/">Lab 8</a></td>
+<td>Stationary-fin analysis</td>
+<td>G3, G11, G13-G15</td>
 </tr>
 <tr>
-<td>20</td>
+<td><span id="meeting-20">20</span></td>
 <td>2026-11-09</td>
 <td>Mon</td>
-<td>Temperature along a rod: periodic forcing, part 4</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td></td>
+<td>Tune PI control for a sinusoidal base boundary and select a useful period using diffusion length and run time.</td>
+<td><a href="lab-09/">Lab 9: The Angstrom Method</a></td>
+<td>Angstrom reading questions</td>
+<td>G6-G9, G11, G13</td>
 </tr>
 <tr>
-<td>21</td>
+<td><span id="meeting-21">21</span></td>
 <td>2026-11-11</td>
 <td>Wed</td>
-<td>Temperature along a rod: phase lag, amplitude decay, and transport discussion, part 5</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Heat-transport discussion</td>
+<td>Fit sensor mean, amplitude, and phase; explain exponential amplitude decay and linear phase lag.</td>
+<td><a href="lab-09/">Lab 9</a></td>
+<td>Angstrom derivation and experiment plan</td>
+<td>G3, G7, G11, G13-G15</td>
 </tr>
 <tr>
-<td>22</td>
+<td><span id="meeting-22">22</span></td>
 <td>2026-11-16</td>
 <td>Mon</td>
-<td>Heat equation and feed-forward prediction: model setup and boundary forcing, part 1</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Modeling app</td>
+<td>Acquire at least five settled periods and document whether the measured boundary and rod data are usable.</td>
+<td><a href="lab-09/">Lab 9</a></td>
+<td>Data-readiness check</td>
+<td>G2, G3, G7, G11, G12</td>
 </tr>
 <tr>
-<td>23</td>
+<td><span id="meeting-23">23</span></td>
 <td>2026-11-18</td>
 <td>Wed</td>
-<td>Heat equation and feed-forward prediction: fit diffusivity, part 2</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td></td>
+<td>Determine spatial amplitude and phase coefficients and infer diffusivity <code>kappa</code> and loss rate <code>nu</code>.</td>
+<td><a href="lab-09/">Lab 9</a></td>
+<td>Modeling-app draft</td>
+<td>G3, G7, G11-G15</td>
 </tr>
 <tr>
-<td>24</td>
+<td><span id="meeting-24">24</span></td>
 <td>2026-11-23</td>
 <td>Mon</td>
-<td>Heat equation and feed-forward prediction: feed-forward prediction, part 3</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td></td>
+<td>Calculate aluminum conductivity <code>k</code> and side heat-transfer coefficient <code>H</code>; quantify uncertainty and frequency consistency.</td>
+<td><a href="lab-10/">Lab 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis</a></td>
+<td>Draft <code>k</code> and <code>H</code> results</td>
+<td>G3, G11, G13-G15</td>
 </tr>
 <tr>
-<td>25</td>
+<td><span id="meeting-25">25</span></td>
 <td>2026-11-30</td>
 <td>Mon</td>
-<td>Heat equation and feed-forward prediction: measured-versus-predicted comparison, part 4</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Final analysis draft</td>
+<td>Compare measured <code>T(x,t)</code> with the side-loss model and reproduce final parameters and figures from the repository.</td>
+<td><a href="lab-10/">Lab 10</a></td>
+<td><a href="../assessment/#c6-final-thermal-transport-package"><strong>C6</strong></a>; final analysis packet</td>
+<td>G3, G7, G11-G15</td>
 </tr>
 <tr>
-<td>26</td>
+<td><span id="meeting-26">26</span></td>
 <td>2026-12-02</td>
 <td>Wed</td>
-<td>Final synthesis and presentations</td>
-<td><a href="upcoming/">Upcoming Labs</a></td>
-<td>Final presentation</td>
+<td>Present the instrument-to-model chain and individually defend hardware, software, control, and thermal-physics decisions.</td>
+<td><a href="lab-10/">Lab 10</a></td>
+<td>Final presentation and individual oral defense</td>
+<td>G1-G15</td>
 </tr>
 </tbody>
 </table>
@@ -437,7 +802,7 @@ due dates will be updated as modules are approved.</p>
 <li>No class is scheduled on Monday, September 7; Monday, September 21; Monday,
   October 12; or Wednesday, November 25.</li>
 <li>Tuesday, October 13 is included as a Brandeis Monday make-up meeting.</li>
-<li>The TEC-only sequence is planned to finish by Meeting 14 so the second half of
+<li>The TEC-only sequence is planned to finish by Meeting 15 so the second half of
   the course can focus on thermal transport in the long metal cylinder.</li>
 </ul></div>
             </div>

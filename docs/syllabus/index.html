@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Syllabus - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Syllabus</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../labs/" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../assessment/" class="nav-link">Assessment And Milestones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../arduino/analog-digital/" class="dropdown-item">Analog, ADC, And PWM</a>
+</li>
+                                    
+<li>
+    <a href="../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../getting-started/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#phys-39-169-syllabus" class="nav-link">Phys 39 / 169 Syllabus</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#welcome" class="nav-link">Welcome</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#course-goals" class="nav-link">Course Goals</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#format" class="nav-link">Format</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#tools-and-materials" class="nav-link">Tools And Materials</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#readings" class="nav-link">Readings</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#major-course-units" class="nav-link">Major Course Units</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#how-units-goals-and-assessments-align" class="nav-link">How Units, Goals, And Assessments Align</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#assignments-and-grading" class="nav-link">Assignments And Grading</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#lab-notes-and-documentation" class="nav-link">Lab Notes And Documentation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#fixed-assignment-dates" class="nav-link">Fixed Assignment Dates</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#written-reports" class="nav-link">Written Reports</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#presentations" class="nav-link">Presentations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#teams" class="nav-link">Teams</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#use-of-ai-coding-assistants" class="nav-link">Use Of AI Coding Assistants</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#git-github-and-vs-code" class="nav-link">Git, GitHub, And VS Code</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#attendance-and-laboratory-work" class="nav-link">Attendance And Laboratory Work</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#safety" class="nav-link">Safety</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#academic-integrity" class="nav-link">Academic Integrity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#accessibility-and-accommodations" class="nav-link">Accessibility And Accommodations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#classroom-climate" class="nav-link">Classroom Climate</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#graduate-students-in-phys-169" class="nav-link">Graduate Students In Phys 169</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="phys-39-169-syllabus">Phys 39 / 169 Syllabus<a class="headerlink" href="#phys-39-169-syllabus" title="Permanent link">&para;</a></h1>
+<p><strong>Instrumentation and Thermal Physics</strong><br />
+<strong>Fall 2026 - Brandeis University</strong><br />
+<strong>Instructor:</strong> Prof. Seth Fraden<br />
+<strong>Email:</strong> fraden@brandeis.edu<br />
+<strong>Office:</strong> 214 Abelson<br />
+<strong>Office hours:</strong> By appointment, and scheduled times to be announced<br />
+<strong>Meeting time:</strong> Monday and Wednesday, 9:05 AM-11:55 AM<br />
+<strong>Classroom/laboratory:</strong> 340 Abelson<br />
+<strong>Course website:</strong> <a href="https://sethfraden.github.io/Phys39F26-course/">https://sethfraden.github.io/Phys39F26-course/</a></p>
+<!-- **Draft status:** This syllabus is a working draft for instructor review. Items
+marked TBD should be checked before posting to Brandeis or the public course
+website. -->
+
+<h2 id="welcome">Welcome<a class="headerlink" href="#welcome" title="Permanent link">&para;</a></h2>
+<p>Welcome to Physics 39/169, Advanced Laboratory. This is a course about building a real instrument, using it to control a physical quantity, and to make measurements from which to extract physical parameters.   While you don't construct from scratch, the project involves some assembly. </p>
+<p>The first part of the course builds toward temperature control with a
+thermoelectric cooler (TEC). You will use an Arduino to measure voltages across thermistors,
+generate pulse-width modulation (PWM) signals to drive an electronic switch (H-bridge), communicate with a laptop over USB serial, build Python tools for live plotting, and implement Proportional - Integral (PI) feedback control. You will use lumped thermal models for understanding the relationship between heat and temperature and  for elucidating the use of feedback to control temperature.</p>
+<p>The second part of the course leverages the same experimental platform to study heat transport in a
+long metal cylinder, modeling the flow using the heat equation to connect your data to physical models, and implementing the Angstrom method to measure thermal conductivity.</p>
+<p>Feedback and control theory are important ideas that should form part of the
+education of a physicist but rarely do. They are important for any experimentalist, but also for theorists as the concept of control is central to dynamical systems. This course aims to give enough of the
+formal elements of control theory and practice to satisfy the experimentalist
+designing or running a typical physics experiment, and enough modeling to
+connect the instrument to thermal physics.</p>
+<h2 id="course-goals">Course Goals<a class="headerlink" href="#course-goals" title="Permanent link">&para;</a></h2>
+<p>By the end of the course, you should be able to:</p>
+<ul>
+<li><strong>G1.</strong> Build and debug simple Arduino-based laboratory instruments.</li>
+<li><strong>G2.</strong> Measure analog voltages and understand digitization, averaging, noise, and
+  calibration.</li>
+<li><strong>G3.</strong> Address limitations in measurement precision and systematic error.</li>
+<li><strong>G4.</strong> Convert thermistor voltage-divider measurements into temperature estimates.</li>
+<li><strong>G5.</strong> Use an oscilloscope to verify timing, digital signals, PWM, and H-bridge
+  control signals.</li>
+<li><strong>G6.</strong> Drive a TEC in heating and cooling directions.</li>
+<li><strong>G7.</strong> Use Python to read serial data, plot live strip charts, save data, and build
+  simple GUI controls.</li>
+<li><strong>G8.</strong> Implement and interpret manual, proportional, and PI temperature control.</li>
+<li><strong>G9.</strong> Measure droop, steady-state response, step response, oscillation, and the
+  onset of instability.</li>
+<li><strong>G10.</strong> Develop simple lumped thermal models and compare them with experiment.</li>
+<li><strong>G11.</strong> Move from lumped models to spatial heat-transport models.</li>
+<li><strong>G12.</strong> Use Git, GitHub, VS Code, Markdown, and an AI coding assistant to document
+  and organize experimental work.</li>
+<li><strong>G13.</strong> Learn the advantages of dimensional analysis and convert between dimensionless and dimensionfull quantities.</li>
+<li><strong>G14.</strong> Communicate experimental results in written reports, code repositories, and
+  oral presentation.</li>
+<li><strong>G15.</strong> Use steady and periodically forced rod measurements, including the
+  Angstrom method, to determine the thermal conductivity of aluminum and the
+  rod's side heat-transfer coefficient with uncertainty.</li>
+</ul>
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<p>The course meets twice per week in a laboratory format. Most meetings will
+combine:</p>
+<ul>
+<li>a short discussion or board-work exercise,</li>
+<li>hands-on hardware work,</li>
+<li>software development or modification,</li>
+<li>data collection,</li>
+<li>model-building or interpretation,</li>
+<li>documentation in a Git repository.</li>
+</ul>
+<p>You should expect the course to feel iterative. Hardware measurements and
+software models will be developed together in small steps.</p>
+<h2 id="tools-and-materials">Tools And Materials<a class="headerlink" href="#tools-and-materials" title="Permanent link">&para;</a></h2>
+<p>Bring a Windows or Apple laptop. Let the instructor know if you don't have one. The course will use software for:</p>
+<ul>
+<li>Arduino IDE,</li>
+<li>Python,</li>
+<li>VS Code,</li>
+<li>Git and GitHub,</li>
+<li>Markdown,</li>
+<li>AI coding assistants such as GitHub Copilot.</li>
+</ul>
+<p>The course website contains setup instructions:</p>
+<p><a href="https://sethfraden.github.io/Phys39F26-course/getting-started/">https://sethfraden.github.io/Phys39F26-course/getting-started/</a></p>
+<h2 id="readings">Readings<a class="headerlink" href="#readings" title="Permanent link">&para;</a></h2>
+<p>Readings will be assigned as needed from course notes, web resources, and
+selected articles or textbook chapters. Important recurring references include:</p>
+<ul>
+<li>John H. Lienhard IV and John H. Lienhard V, <em>A Heat Transfer Textbook</em>.</li>
+<li>John Bechhoefer, "Feedback for physicists: A tutorial essay on control,"
+  <em>Reviews of Modern Physics</em> 77, 783 (2005).</li>
+<li>John Bechhoefer, <em>Control Theory for Physicists</em>.</li>
+<li>Arduino documentation and examples.</li>
+<li>Course website notes on hardware, Arduino, Git/VS Code/AI, and lab safety.</li>
+</ul>
+<p>The course will emphasize reading for use: you should be able to connect a
+reading to a measurement, circuit, code fragment, or model equation.</p>
+<h2 id="major-course-units">Major Course Units<a class="headerlink" href="#major-course-units" title="Permanent link">&para;</a></h2>
+<p>The  Fall 2026 schedule includes 26 class meetings covering 8 topics.</p>
+<ol>
+<li>
+<p><strong>Arduino primitives and signals</strong><br />
+   Digital output, analog input, digitization, averaging, noise, PWM,
+   oscilloscope verification, and basic Arduino debugging.</p>
+</li>
+<li>
+<p><strong>First real instrument pieces</strong><br />
+   Thermistor serial data, temperature conversion and calibration, measurement
+   precision and systematic error, Arduino Serial Plotter, and H-bridge
+   logic/PWM checks.</p>
+</li>
+<li>
+<p><strong>Manual TEC heat/cool and Python GUI development</strong><br />
+   Manual actuator control, live strip charts, saved data, GUI modification,
+   serial parsing, and Git/GitHub, VS Code, Markdown, and AI-assisted
+   documentation.</p>
+</li>
+<li>
+<p><strong>Open-loop TEC calibration and software safety</strong><br />
+   Heating/cooling asymmetry, steady-state response, data logging, and limits.</p>
+</li>
+<li>
+<p><strong>P-only and PI feedback control</strong><br />
+   Droop, gain, oscillation, instability, integral action, and windup.</p>
+</li>
+<li>
+<p><strong>Process modeling</strong><br />
+   Lumped thermal models, dimensional analysis, time constants, thermal lag,
+   Python simulation, and comparison of models with experiment.</p>
+</li>
+<li>
+<p><strong>Long-cylinder heat transport</strong><br />
+   Temperature along a rod, heat equation, step and periodic forcing, amplitude
+   decay, phase lag, and the Angstrom method.</p>
+</li>
+<li>
+<p><strong>Final synthesis</strong><br />
+   Modeling app, measured-versus-predicted comparison, final analysis,
+   reproducible code repositories, written reports, and oral presentations.</p>
+</li>
+</ol>
+<h3 id="how-units-goals-and-assessments-align">How Units, Goals, And Assessments Align<a class="headerlink" href="#how-units-goals-and-assessments-align" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Major unit</th>
+<th>Principal goals</th>
+<th>Direct assessment evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Arduino primitives and signals</td>
+<td>G1, G2, G5, G12</td>
+<td>Oscilloscope measurements, modified sketches, C1 repository check</td>
+</tr>
+<tr>
+<td>2. First real instrument pieces</td>
+<td>G1-G5</td>
+<td>Thermistor conversion, calibration evidence, H-bridge signal check, C2</td>
+</tr>
+<tr>
+<td>3. Manual TEC and Python GUI</td>
+<td>G6, G7, G12, G14</td>
+<td>Live serial display, saved data, GUI controls, C3</td>
+</tr>
+<tr>
+<td>4. Open-loop TEC calibration</td>
+<td>G3, G6, G7, G9</td>
+<td>Signed-PWM calibration, heating/cooling comparison, Lab 4 note</td>
+</tr>
+<tr>
+<td>5. P and PI control</td>
+<td>G8, G9, G14</td>
+<td>Droop and oscillation data, P/PI comparison, individual explanation</td>
+</tr>
+<tr>
+<td>6. Process modeling</td>
+<td>G3, G9, G10, G13</td>
+<td>One- and two-lump derivations, model fits, residuals, C4</td>
+</tr>
+<tr>
+<td>7. Long-cylinder heat transport</td>
+<td>G2-G4, G7, G11, G13, G15</td>
+<td>Rod calibration, heat-equation derivation, stationary-fin fit, Angstrom data, C5</td>
+</tr>
+<tr>
+<td>8. Final synthesis</td>
+<td>G3, G7, G11-G15</td>
+<td>Reproducible model, aluminum <code>k</code>, side-loss <code>H</code>, C6, final presentation and oral defense</td>
+</tr>
+</tbody>
+</table>
+<p>The current course calendar is maintained on the course website:</p>
+<p><a href="https://sethfraden.github.io/Phys39F26-course/labs/">https://sethfraden.github.io/Phys39F26-course/labs/</a></p>
+<h2 id="assignments-and-grading">Assignments And Grading<a class="headerlink" href="#assignments-and-grading" title="Permanent link">&para;</a></h2>
+<p>There are no exams. Evaluation will be based on laboratory participation,
+documentation, written work, modeling, code, and final presentation.</p>
+<p>Draft grading plan:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th style="text-align: right;">Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Attendance, preparation, and lab participation</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr>
+<td>Lab notes, checkoffs, and short assignments</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr>
+<td>Code, GitHub documentation, and reproducibility</td>
+<td style="text-align: right;">15%</td>
+</tr>
+<tr>
+<td>Modeling assignments and modeling app</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr>
+<td>Written reports or project writeups</td>
+<td style="text-align: right;">15%</td>
+</tr>
+<tr>
+<td>Final oral presentation</td>
+<td style="text-align: right;">10%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-notes-and-documentation">Lab Notes And Documentation<a class="headerlink" href="#lab-notes-and-documentation" title="Permanent link">&para;</a></h3>
+<p>Six graded completion milestones establish deadlines for major instrumentation,
+hardware, and software capabilities. Meeting each deadline is part of the lab
+notes, checkoffs, and short assignments grade. At each milestone, the team must
+demonstrate a safely functioning system, current code and documentation in its
+repository, and enough individual understanding for each student to explain the
+work. The milestone dates and definitions are listed in the
+<a href="https://sethfraden.github.io/Phys39F26-course/labs/">course calendar</a>.</p>
+<p>Each milestone is worth 10 points. The standard structure is 4 points for the
+required working capability, 2 points for experimental or analytical evidence,
+1 point for current reproducible repository documentation, 2 points for an
+individual oral explanation, and 1 point for completion by the deadline.
+Milestone-specific rubrics are published with the course calendar. Late work
+must still be completed and can recover every point except the deadline point.</p>
+<p>You will keep a record of what you built, measured, changed, and learned. Your
+documentation should include:</p>
+<ul>
+<li>wiring diagrams or clear photos when useful,</li>
+<li>Arduino sketches and Python code,</li>
+<li>data files or links to data files,</li>
+<li>plots,</li>
+<li>model equations,</li>
+<li>short explanations of what worked and what failed,</li>
+<li>notes on how AI assistance was used.</li>
+</ul>
+<p>The goal is not polished perfection every week. The goal is a recoverable,
+understandable record of experimental progress.</p>
+<h3 id="fixed-assignment-dates">Fixed Assignment Dates<a class="headerlink" href="#fixed-assignment-dates" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Due</th>
+<th>Graded work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sept. 2</td>
+<td>C1 and Lab 1 note</td>
+</tr>
+<tr>
+<td>Sept. 14</td>
+<td>C2</td>
+</tr>
+<tr>
+<td>Sept. 23</td>
+<td>C3</td>
+</tr>
+<tr>
+<td>Sept. 28</td>
+<td>Lab 4 open-loop note</td>
+</tr>
+<tr>
+<td>Oct. 5</td>
+<td>P-control data package</td>
+</tr>
+<tr>
+<td>Oct. 7</td>
+<td>One-lump derivation</td>
+</tr>
+<tr>
+<td>Oct. 14</td>
+<td>P/PI analysis memo</td>
+</tr>
+<tr>
+<td>Oct. 21</td>
+<td>C4 and heat-transfer reading memo</td>
+</tr>
+<tr>
+<td>Oct. 28</td>
+<td>Heat-equation and dimensional-analysis derivation</td>
+</tr>
+<tr>
+<td>Nov. 2</td>
+<td>C5</td>
+</tr>
+<tr>
+<td>Nov. 4</td>
+<td>Stationary-fin analysis</td>
+</tr>
+<tr>
+<td>Nov. 11</td>
+<td>Angstrom derivation and experiment plan</td>
+</tr>
+<tr>
+<td>Nov. 18</td>
+<td>Modeling-app draft</td>
+</tr>
+<tr>
+<td>Nov. 23</td>
+<td>Draft conductivity and heat-loss results</td>
+</tr>
+<tr>
+<td>Nov. 30</td>
+<td>C6 and final analysis packet</td>
+</tr>
+<tr>
+<td>Dec. 2</td>
+<td>Final presentation and individual oral defense</td>
+</tr>
+</tbody>
+</table>
+<h3 id="written-reports">Written Reports<a class="headerlink" href="#written-reports" title="Permanent link">&para;</a></h3>
+<p>The course will include substantial written work distributed across the fixed
+dates above. The principal pieces include:</p>
+<ul>
+<li>a mid-course temperature-control report or project checkpoint,</li>
+<li>a modeling-app checkpoint,</li>
+<li>thermal-transport theory/modeling assignments,</li>
+<li>final analysis and presentation material.</li>
+</ul>
+<h3 id="presentations">Presentations<a class="headerlink" href="#presentations" title="Permanent link">&para;</a></h3>
+<p>Final presentations will occur on the last class meeting. Each team will explain
+what they measured, what model they used, how well the model worked, and what
+they would improve next.</p>
+<h2 id="teams">Teams<a class="headerlink" href="#teams" title="Permanent link">&para;</a></h2>
+<p>You will usually work in teams of two. Teamwork is part of the course. Both
+partners should understand the hardware, the code, the data, and the model. It
+is acceptable for partners to have different strengths, but it is not acceptable
+for one partner to be the only person who understands an essential part of the
+project.</p>
+<h2 id="use-of-ai-coding-assistants">Use Of AI Coding Assistants<a class="headerlink" href="#use-of-ai-coding-assistants" title="Permanent link">&para;</a></h2>
+<p>AI coding assistants are allowed and encouraged in this course, but they must be
+used thoughtfully. You may use AI to:</p>
+<ul>
+<li>explain code,</li>
+<li>write Arduino sketches,</li>
+<li>write Python,</li>
+<li>generate draft plots or GUIs,</li>
+<li>improve documentation,</li>
+<li>propose model equations,</li>
+<li>help organize Git commits and Markdown notes.</li>
+</ul>
+<p>You remain responsible for understanding and testing anything you submit. You
+should be able to explain what your code does, what data it expects, what output
+it produces, and what assumptions it makes. If AI substantially helps with an
+assignment, briefly note how it was used.</p>
+<p>Do not submit code or text that you cannot explain. Do not use AI to fabricate
+data, conceal errors, or misrepresent what happened in the lab.</p>
+<h2 id="git-github-and-vs-code">Git, GitHub, And VS Code<a class="headerlink" href="#git-github-and-vs-code" title="Permanent link">&para;</a></h2>
+<p>You will use Git and GitHub to organize course work. The minimum expectation is
+that you can:</p>
+<ul>
+<li>keep course files in a clear folder structure,</li>
+<li>edit Markdown and code in VS Code,</li>
+<li>commit meaningful checkpoints,</li>
+<li>push to GitHub,</li>
+<li>recover earlier versions when needed,</li>
+<li>document what changed and why.</li>
+</ul>
+<p>Early in the course we will practice only the minimum workflow needed to be
+productive. More advanced Git use will be introduced only as needed.</p>
+<h2 id="attendance-and-laboratory-work">Attendance And Laboratory Work<a class="headerlink" href="#attendance-and-laboratory-work" title="Permanent link">&para;</a></h2>
+<p>Lab attendance is expected. Each meeting depends on hands-on work, shared
+equipment, and collaboration with your partner, so it cannot be fully replaced
+by work done later on your own.</p>
+<p>This course expects 180 hours of work, divided between 26 in-class meetings and out-of-class activities. For outside work, plan to spend an average of 4 hours and 50 minutes preparing for and following
+up on each lab meeting. This outside work includes readings, code development,
+data analysis, model derivations, GitHub documentation, and report or
+presentation preparation. The amount will vary from week to week.</p>
+<p>Attendance matters because this is a laboratory course. Many assignments depend
+on hardware measurements that are difficult to reproduce outside scheduled lab
+time. If you must miss class, contact the instructor as soon as possible and
+make a plan to catch up.</p>
+<p>Because students work in teams, an absence affects other people. Communicate
+early and clearly with your partner and the instructor.</p>
+<h2 id="safety">Safety<a class="headerlink" href="#safety" title="Permanent link">&para;</a></h2>
+<p>This course uses electrical power supplies, soldering irons, hot/cold TEC
+assemblies, tools, and laboratory hardware. You are expected to follow all
+safety instructions given in class and on the course website. In particular:</p>
+<ul>
+<li>Do not power a circuit until the wiring has been checked when requested.</li>
+<li>Do not leave powered heating/cooling hardware unattended unless the instructor
+  has explicitly approved the setup.</li>
+<li>Use current limits and software limits when instructed.</li>
+<li>Treat unexpected heating, smell, smoke, unstable behavior, or repeated serial
+  failures as reasons to stop and ask for help.</li>
+</ul>
+<p>Safety boundaries may override any assignment instruction.</p>
+<h2 id="academic-integrity">Academic Integrity<a class="headerlink" href="#academic-integrity" title="Permanent link">&para;</a></h2>
+<p>You are expected to follow Brandeis policies on academic integrity. Your data,
+code, plots, reports, and presentations should honestly represent your own work
+and your team's work. Collaboration is expected; misrepresentation is not.</p>
+<p>You are expected to be familiar with, and to follow, the University's policies
+on academic integrity. You are expected to be honest in all of your academic
+work. Please consult <a href="https://www.brandeis.edu/student-rights-community-standards/rights-responsibilities/current/section-4.html">Brandeis University Rights and
+Responsibilities</a>
+for all policies and procedures related to academic integrity. Allegations of
+academic dishonesty will be forwarded to Student Rights and Community Standards.
+Sanctions for academic dishonesty can include failing grades and/or suspension
+from the University. Citation and research assistance can be found through the
+<a href="https://library.brandeis.edu/">Brandeis Library</a>.</p>
+<h2 id="accessibility-and-accommodations">Accessibility And Accommodations<a class="headerlink" href="#accessibility-and-accommodations" title="Permanent link">&para;</a></h2>
+<p>Brandeis seeks to create a learning environment that is welcoming and inclusive.
+Students who may need disability-related academic accommodations should work
+with Student Accessibility Support (SAS). SAS can be reached at
+access@brandeis.edu and 781-736-3537.</p>
+<p>Student Accessibility Support information:</p>
+<p><a href="https://www.brandeis.edu/accessibility/">https://www.brandeis.edu/accessibility/</a></p>
+<p>If you already have an accommodation letter, please share it with the instructor
+as early as possible so that accommodations can be implemented effectively in
+the laboratory setting.</p>
+<!-- TBD: before posting, check whether Brandeis requires exact current SAS syllabus
+language for Fall 2026. -->
+
+<h2 id="classroom-climate">Classroom Climate<a class="headerlink" href="#classroom-climate" title="Permanent link">&para;</a></h2>
+<p>Laboratory work involves uncertainty, mistakes, and revision. A useful lab
+culture is one in which people can ask naive questions, report confusing data,
+admit that code does not work, and help each other reason through problems.
+Everyone is expected to contribute to a respectful, serious, and generous
+working environment.</p>
+<h2 id="graduate-students-in-phys-169">Graduate Students In Phys 169<a class="headerlink" href="#graduate-students-in-phys-169" title="Permanent link">&para;</a></h2>
+<p>Students enrolled in Phys 169 will participate in the same laboratory sequence.
+Graduate-level expectations may include deeper modeling, stronger leadership in
+documentation, or a more advanced final analysis. Specific expectations will be
+set by arrangement with the instructor.</p>
+<!-- TBD: clarify whether Phys 169 has any formal additional written requirement. -->
+
+<!-- ## Historical Note
+
+Earlier versions of this course used LabVIEW and MATLAB for thermal-control
+instrumentation. The Fall 2026 version shifts the software center of gravity to
+Python, Arduino, Git/GitHub, VS Code, and AI-assisted development while keeping
+the same experimental spirit: build the instrument, understand the signal, close
+the loop, and compare the behavior to a physical model. --></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

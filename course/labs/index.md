@@ -14,6 +14,14 @@ of the semester.
     dates, and completion milestones are fixed planning targets; the instructor
     may revise details after hardware testing or announce a change in class.
 
+## Assessment And Milestones
+
+Consult [**Assessment And Milestones**](../assessment.md) early and throughout
+the semester. It explains what must be submitted or demonstrated, when work is
+due, how each assignment and milestone will be graded, and what to expect during
+oral checks. The calendar below shows the corresponding `A#`, `C#`, `P#`, and
+`F1` dates.
+
 ## Lab Modules
 
 | Module | Focus | Lab Pages |

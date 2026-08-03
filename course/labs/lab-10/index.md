@@ -15,8 +15,8 @@ the measured temperature field.
 
 | Meeting | In class | Due |
 | --- | --- | --- |
-| M24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; propagate uncertainty; compare with accepted values | Draft conductivity and heat-loss results |
-| M25, Mon. Nov. 30 | Freeze data, code, parameters, and figures; perform reproducibility check | **C6 and final analysis packet** |
+| M24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | **A11: draft conductivity and heat-loss results** |
+| M25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 and final analysis packet** |
 | M26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
 
 ## Learning Objectives
@@ -29,6 +29,7 @@ By the end of this lab, you should be able to:
 - propagate measurement uncertainty and identify systematic error,
 - compare steady and periodic estimates,
 - simulate or reconstruct `T(x,t)` from a measured boundary condition,
+- explain separately when finite length and finite radius may be ignored,
 - judge model quality using residuals rather than appearance alone,
 - make a repository reproduce the reported result,
 - defend the physical reasoning without relying on AI-generated prose.
@@ -89,6 +90,9 @@ slopes depend directly on sensor coordinates.
 5. Reconstruct or numerically simulate `T(x,t)` using the measured base
    temperature as the boundary condition.
 6. Plot measured-versus-modeled traces and residuals for several positions.
+7. Recalculate `mL`, finite-length error, and the transverse Biot number using
+   the final fitted or inferred parameters rather than the preliminary values
+   used in Labs 8 and 9.
 
 ## Part 3: Systematic Error
 
@@ -118,12 +122,15 @@ The final repository must contain:
 - `q`, `q_prime`, `kappa`, `nu`, aluminum `k`, and side-loss `H`, all with units
   and uncertainty,
 - accepted-value and model-limitation discussion,
+- the finite-length error calculation and final transverse-Biot-number check,
+- the guided numerical comparison of one-dimensional and finite-radius models
+  completed before the Angstrom production analysis,
 - a record of meaningful AI assistance.
 
 For the C6 demonstration, a fresh run from the documented repository must
-reproduce the principal numbers and figures. Each student will answer a short
-individual question about how amplitude decay and phase lag separate
-conductivity from side loss.
+reproduce the principal numbers and figures. Each student will answer short
+individual questions about the Angstrom inference and about when length or
+radius may be neglected.
 
 ## Final Presentation
 

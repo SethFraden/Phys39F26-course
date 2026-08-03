@@ -35,7 +35,43 @@ The bridge has three questions:
 2. How does conservation of energy turn that law into a differential equation?
 3. When is it reasonable to ignore spatial temperature gradients?
 
-## 1. Fourier's Law
+## 1. Heat And Temperature
+
+Heat and temperature are related, but they are not the same quantity.
+Temperature describes the thermal state of a system. Heat is energy transferred
+across the system boundary because of a temperature difference.
+
+![First-Law energy balance for a closed system](../../assets/lienhard-fig-1-1-first-law.png)
+
+*Lienhard and Lienhard, Fig. 1.1, textbook p. 7: First-Law energy balance for a
+closed system.*
+
+The **First Law of Thermodynamics** is conservation of energy. With Lienhard's
+sign convention, the rate at which heat enters a closed system equals the rate
+at which the system does compression work plus the rate at which its internal
+energy increases.
+
+For a closed system with compression work, Lienhard Eq. (1.2a) is
+
+\[
+\dot Q=p\frac{dV}{dt}+\frac{dU}{dt}.
+\tag{1.2a}
+\]
+
+For the incompressible solids and liquids used in this course, the volume-work
+term is normally absent and the specific heats at constant pressure and volume
+may be represented by \(c\). Equation (1.3) then becomes
+
+\[
+\dot Q=\frac{dU}{dt}=mc\frac{dT}{dt}.
+\tag{1.3}
+\]
+
+This equation does **not** say that heat and temperature are identical. It says
+that a net heat-transfer rate changes the internal energy and therefore changes
+temperature at a rate controlled by the thermal mass \(mc\).
+
+## 2. Heat Conduction And Fourier's Law
 
 Use Lienhard Section 1.3, "Modes of heat transfer," pp. 11-27, as the source for this section.
 
@@ -68,18 +104,66 @@ For a rod with cross-sectional area \(A\), the heat-flow rate is
 For this course, the key idea is not the symbol manipulation. The key idea is
 that a temperature gradient causes a heat current.
 
+![Heat conduction between hot and cool walls](../../assets/lienhard-fig-1-5-conduction.png)
+
+*Lienhard and Lienhard, Fig. 1.5, textbook p. 14: a temperature gradient and
+the corresponding direction of conductive heat flow.*
+
+In Lienhard's one-dimensional notation, Fourier's Law is
+
+\[
+q=-k\frac{dT}{dx}.
+\tag{1.8}
+\]
+
 When you read Lienhard, notice the small change in notation. Lienhard first
 writes \(dT/dx\), because he is describing one-dimensional conduction. We write
 \(\partial T/\partial x\) here because the long-cylinder experiment will have a
 temperature \(T(x,t)\) that can depend on both position and time.
 
-## 2. From Energy Balance To The Heat Equation
+## 3. One-Dimensional Conduction: From Energy Balance To The Heat Equation
 
 Use Lienhard Section 1.3, pp. 17-18 (PDF pp. 31-32), beginning with
 "One-dimensional heat conduction equation," and Fig. 1.8. Read this part
 slowly; it is the bridge from a heat-flow law to a temperature equation.
 
 This is the derivation core of the bridge.
+
+![One-dimensional heat-conduction control volume](../../assets/lienhard-fig-1-8-control-volume.png)
+
+*Lienhard and Lienhard, Fig. 1.8, textbook p. 18: Fourier conduction into and
+out of a differential element.*
+
+For the differential element, the net conductive heat loss is
+
+\[
+\dot Q_{\mathrm{net}}
+=-kA\left(
+\left.\frac{\partial T}{\partial x}\right|_{x+\delta x}
+-\left.\frac{\partial T}{\partial x}\right|_x
+\right)
+\simeq-kA\frac{\partial^2T}{\partial x^2}\delta x.
+\tag{1.12}
+\]
+
+The corresponding internal-energy change is
+
+\[
+-\dot Q_{\mathrm{net}}
+=\frac{dU}{dt}
+=\rho cA\frac{\partial T}{\partial t}\delta x.
+\tag{1.13}
+\]
+
+Combining them gives
+
+\[
+\frac{\partial^2T}{\partial x^2}
+=\frac{\rho c}{k}\frac{\partial T}{\partial t}
+=\frac{1}{\alpha}\frac{\partial T}{\partial t},
+\qquad \alpha=\frac{k}{\rho c}.
+\tag{1.14}
+\]
 
 Your goal is to understand how Lienhard gets from this physical picture:
 
@@ -162,7 +246,41 @@ becomes the one-dimensional heat equation:
 The later rod lab will add side heat loss to the room, because the cylinder is
 not perfectly insulated.
 
-## 3. Dimensional Analysis And The Biot Number
+## 4. Heat Convection And Newton's Law Of Cooling
+
+![Convective cooling of a heated body](../../assets/lienhard-fig-1-9-convection.png)
+
+*Lienhard and Lienhard, Fig. 1.9, textbook p. 19: fluid flow carries heat away
+from a warmer body.*
+
+Newton proposed that the cooling rate should be proportional to the difference
+between the body temperature and the incoming-fluid temperature:
+
+\[
+-\frac{dT_{\mathrm{body}}}{dt}
+\propto T_{\mathrm{body}}-T_\infty.
+\tag{1.15}
+\]
+
+Using the First Law gives
+
+\[
+-\dot Q\propto T_{\mathrm{body}}-T_\infty.
+\tag{1.16}
+\]
+
+Defining the positive outward heat flux \(q=\dot Q_{\mathrm{out}}/A\) and the
+heat-transfer coefficient \(h\) gives Newton's law of cooling:
+
+\[
+q=h\left(T_{\mathrm{body}}-T_\infty\right).
+\tag{1.17}
+\]
+
+Here \(h\) has units W/(m\(^2\) K). Unlike \(k\), which is a material property,
+\(h\) depends on the fluid, flow, geometry, and often temperature.
+
+## 5. Lumped Cooling And The Biot Number
 
 Use Lienhard Section 1.3, pp. 11-26, as the source for this
 section. Read pp. 19-21 to understand Newton's law of cooling and the heat
@@ -170,28 +288,146 @@ transfer coefficient \(h\). Then read pp. 21-24 carefully for the lumped-capacit
 model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
 thermocouple example checks whether \(\mathrm{Bi}\ll1\) is actually valid.
 
-Dimensional analysis asks which combinations of physical parameters control the
-behavior. For deciding whether an object can be treated as one lumped
-temperature, the important **dimensionless** number is the Biot number:
+Before assuming that a body has one uniform temperature, ask how heat moves
+through it. Heat must first conduct through the solid to its surface and then
+transfer from the surface to the surroundings by convection. These two stages
+have approximate thermal resistances
 
 \[
-\mathrm{Bi}=\frac{hL_c}{k}.
+R_{\mathrm{cond}}\sim\frac{L_c}{kA},
+\qquad
+R_{\mathrm{conv}}\sim\frac{1}{hA}.
 \]
+
+Thermal resistance relates a temperature difference to a total heat-transfer
+rate:
+
+\[
+\Delta T=R\dot Q.
+\]
+
+Therefore, both \(R_{\mathrm{cond}}\) and \(R_{\mathrm{conv}}\) have units of
+kelvin per watt, K/W. A resistance quoted per unit area, \(R''=AR\), instead has
+units of m\(^2\) K/W.
+
+Using the same representative area for this scaling argument, their ratio is
+
+\[
+\frac{R_{\mathrm{cond}}}{R_{\mathrm{conv}}}
+\sim\frac{hL_c}{k}.
+\]
+
+This ratio compares resistance to heat flow **inside the solid** with resistance
+to heat transfer **from its surface to the surroundings**. We now derive the
+same dimensionless combination from the heat-transport equations.
+
+### Nondimensional Derivation
+
+With no internal heat generation, the temperature inside the solid obeys
+
+\[
+\rho c\frac{\partial T}{\partial t}=k\nabla^2T.
+\]
+
+At a surface cooled by convection, Fourier's Law inside the solid must match
+Newton's law of cooling at the surface:
+
+\[
+-k\frac{\partial T}{\partial n}=h(T-T_\infty),
+\]
+
+where \(n\) is the outward-normal direction. Define dimensionless temperature,
+position, and time by
+
+\[
+\theta=\frac{T-T_\infty}{T_i-T_\infty},
+\qquad
+\mathbf{x}^*=\frac{\mathbf{x}}{L_c},
+\qquad
+\mathrm{Fo}=\frac{\alpha t}{L_c^2}.
+\]
+
+Here \(\mathrm{Fo}\) is the Fourier number and
+\(\alpha=k/(\rho c)\) is the thermal diffusivity. In these variables, the heat
+equation becomes
+
+\[
+\frac{\partial\theta}{\partial\mathrm{Fo}}
+=\nabla^{*2}\theta,
+\]
+
+and the convective boundary condition becomes
+
+\[
+-\frac{\partial\theta}{\partial n^*}
+=\frac{hL_c}{k}\theta
+=\mathrm{Bi}\,\theta,
+\qquad
+\boxed{\mathrm{Bi}=\frac{hL_c}{k}}.
+\]
+
+The Biot number therefore appears naturally when the convective boundary
+condition is made dimensionless. It is not an additional empirical correction.
+It is the parameter that determines how strongly surface cooling competes with
+internal conduction.
 
 Here \(h\) is the convection coefficient to the surroundings, \(k\) is the
 thermal conductivity inside the solid, and \(L_c\) is a characteristic length,
-often \(V/A_s\), the volume divided by the surface area. The tricky bit is that there can be more than one characteristic length (or thermal conductivity constant) in the problem. How do you choose which one to use? For a long, thin cylinder, the Bi number for the radius, $r$, can be small, but the Biot number of the length, $L$, can be large, e.g. $r \ll L$. In this case, instead of having a differential equation that depends on both radius and length, you can reduce it to a 1D problem by ignoring any radial dependence of the temperature.
+often \(V/A_s\), the volume divided by the surface area. The tricky bit is that
+there can be more than one characteristic length (or thermal conductivity
+constant) in the problem. How do you choose which one to use? For a long, thin
+cylinder, the Bi number for the radius, \(r\), can be small, but the Biot number
+of the length, \(L\), can be large, e.g. \(r\ll L\). In this case, instead of
+having a differential equation that depends on both radius and length, you can
+reduce it to a 1D problem by ignoring any radial dependence of the temperature.
 
 Interpretation:
 
-- Small \(\mathrm{Bi}\): internal conduction is fast compared with heat loss to
-  the surroundings. The object is closer to one temperature, so a lumped model
-  may be reasonable.
-- Large \(\mathrm{Bi}\): internal temperature gradients matter. A spatial model
-  is needed.
+- Small \(\mathrm{Bi}\): internal conduction offers much less resistance than
+  convection. Internal temperature gradients are small, so a lumped model may
+  be reasonable.
+- Large \(\mathrm{Bi}\): internal conduction offers appreciable resistance.
+  Internal temperature gradients matter, so a spatial model is needed.
 
-[Lienhard Fig. 1.10](../../references/lienhard-heat-transfer-textbook-v6.pdf)
-is the figure to keep in mind here: dimensional analysis is not extra
+Only after establishing that \(\mathrm{Bi}\) is small do we approximate the
+body by one temperature. Applying the First Law, introduced in Section 1, and
+using Newton's law of cooling then gives
+
+\[
+-hA(T-T_\infty)
+=\frac{d}{dt}\left[\rho cV(T-T_{\mathrm{ref}})\right].
+\tag{1.19}
+\]
+
+Therefore,
+
+\[
+\frac{d(T-T_\infty)}{dt}
+=-\frac{hA}{\rho cV}(T-T_\infty),
+\tag{1.20}
+\]
+
+whose general solution is
+
+\[
+\ln(T-T_\infty)
+=-\frac{t}{\rho cV/(hA)}+C.
+\tag{1.21}
+\]
+
+With \(T(0)=T_i\), define \(\tau=\rho cV/(hA)\). The normalized cooling curve is
+
+\[
+\frac{T-T_\infty}{T_i-T_\infty}=e^{-t/\tau}.
+\tag{1.22}
+\]
+
+![Small-Biot cooling model](../../assets/lienhard-fig-1-10-biot.png)
+
+*Lienhard and Lienhard, Fig. 1.10, textbook p. 23: when internal conduction is
+fast compared with surface cooling, the body remains nearly isothermal.*
+
+Figure 1.10 is the picture to keep in mind: dimensional analysis is not extra
 decoration. It tells us which effects are small enough to neglect and which
 effects must be kept in the model.
 
@@ -210,16 +446,38 @@ from Fourier's Law to the heat equation to the Biot number.
 6. Why does combining Eq. (1.12) and Eq. (1.13) produce an equation for
    \(T(x,t)\) instead of an equation for \(q\)?
 7. What physical property does thermal diffusivity \(\alpha\) describe?
-8. Why does a small Biot number support a lumped-temperature model?
+8. How does the ratio of conduction resistance to convection resistance produce
+   the Biot number, and why does a small Biot number support a lumped-temperature
+   model?
 9. In Lienhard's thermocouple example, why does checking \(\mathrm{Bi}\) matter?
 10. Why might the long metal cylinder require a one-dimensional or two-dimensional
    model instead of a lumped model?
 
-## How This Leads To The Next Full Lab
+## Two Different Approximation Questions
 
-The next full theory lab will use
-[Lienhard Chapter 4.5](../../references/lienhard-heat-transfer-textbook-v6.pdf)
-on fin design. It will derive the heat equation for the long cylinder in more
-detail, decide when the rod can be treated as one-dimensional, solve the finite
-thin-rod model, and use simulations to compare predictions with measured
-temperature profiles.
+The words **long** and **thin** describe two independent approximations. We will
+not hide them inside one general statement that the rod is "approximately
+one-dimensional."
+
+1. **Length:** Can the physical end at \(x=L\) be ignored over the part of the
+   rod we measure? We will answer this first by solving the finite-length
+   one-dimensional boundary-value problem analytically and comparing it with
+   the semi-infinite solution.
+2. **Radius:** Can temperature variation across a cross section be ignored? For
+   a circular rod, we will use
+
+   \(\displaystyle
+   \mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
+   \)
+
+   We will first work in the \(\mathrm{Bi}_{\perp}\ll1\) regime, where a
+   one-dimensional model is justified. Later we will retain radial variation
+   and study the large-Biot-number regime numerically.
+
+The next full theory treatment uses
+[Lienhard Section 4.5](../../references/lienhard-heat-transfer-textbook-v6.pdf)
+to carry out the finite-length solution and the transverse-Biot-number check.
+Each topic will combine an instructor lecture with guided self-study from the
+textbook. The accompanying
+[Fin Design: From A Finite Rod To An Infinite Rod](../fin-design-derivation/index.md)
+page develops every equation from (4.27) through (4.51).

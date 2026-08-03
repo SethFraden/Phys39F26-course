@@ -9,6 +9,7 @@
 **Meeting time:** Monday and Wednesday, 9:05 AM-11:55 AM  
 **Classroom/laboratory:** 340 Abelson  
 **Course website:** <https://sethfraden.github.io/Phys39F26-course/>
+**Brandeis Moodle course:** <https://moodle.brandeis.edu/course/view.php?id=6589>
 
 <!-- **Draft status:** This syllabus is a working draft for instructor review. Items
 marked TBD should be checked before posting to Brandeis or the public course
@@ -50,7 +51,9 @@ By the end of the course, you should be able to:
 - **G9.** Measure droop, steady-state response, step response, oscillation, and the
   onset of instability.
 - **G10.** Develop simple lumped thermal models and compare them with experiment.
-- **G11.** Move from lumped models to spatial heat-transport models.
+- **G11.** Move from lumped models to spatial heat-transport models; distinguish
+  finite-length and finite-radius approximations, quantify their errors, and
+  identify when a numerical model is required.
 - **G12.** Use Git, GitHub, VS Code, Markdown, and an AI coding assistant to document
   and organize experimental work.
 - **G13.** Learn the advantages of dimensional analysis and convert between dimensionless and dimensionfull quantities.
@@ -134,8 +137,10 @@ The  Fall 2026 schedule includes 26 class meetings covering 8 topics.
    Python simulation, and comparison of models with experiment.
 
 7. **Long-cylinder heat transport**  
-   Temperature along a rod, heat equation, step and periodic forcing, amplitude
-   decay, phase lag, and the Angstrom method.
+   Temperature along a rod, heat equation, analytical finite-length solutions,
+   the semi-infinite approximation, the transverse Biot number, guided
+   numerical radial modeling, step and periodic forcing, amplitude decay,
+   phase lag, and the Angstrom method.
 
 8. **Final synthesis**  
    Modeling app, measured-versus-predicted comparison, final analysis,
@@ -206,31 +211,11 @@ documentation should include:
 The goal is not polished perfection every week. The goal is a recoverable,
 understandable record of experimental progress.
 
-### Fixed Assignment Dates
-
-| Due | Graded work |
-| --- | --- |
-| Sept. 2 | C1 and Lab 1 note |
-| Sept. 14 | C2 |
-| Sept. 23 | C3 |
-| Sept. 28 | Lab 4 open-loop note |
-| Oct. 5 | P-control data package |
-| Oct. 7 | One-lump derivation |
-| Oct. 14 | P/PI analysis memo |
-| Oct. 21 | C4 and heat-transfer reading memo |
-| Oct. 28 | Heat-equation and dimensional-analysis derivation |
-| Nov. 2 | C5 |
-| Nov. 4 | Stationary-fin analysis |
-| Nov. 11 | Angstrom derivation and experiment plan |
-| Nov. 18 | Modeling-app draft |
-| Nov. 23 | Draft conductivity and heat-loss results |
-| Nov. 30 | C6 and final analysis packet |
-| Dec. 2 | Final presentation and individual oral defense |
-
 ### Written Reports
 
-The course will include substantial written work distributed across the fixed
-dates above. The principal pieces include:
+The course will include substantial written work distributed across the due
+dates in the [course calendar](https://sethfraden.github.io/Phys39F26-course/labs/).
+The principal pieces include:
 
 - a mid-course temperature-control report or project checkpoint,
 - a modeling-app checkpoint,

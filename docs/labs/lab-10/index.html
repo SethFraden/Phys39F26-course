@@ -175,12 +175,12 @@ the measured temperature field.</p>
 <tbody>
 <tr>
 <td>M24, Mon. Nov. 23</td>
-<td>Convert fitted coefficients into <code>k</code> and <code>H</code>; propagate uncertainty; compare with accepted values</td>
-<td>Draft conductivity and heat-loss results</td>
+<td>Convert fitted coefficients into <code>k</code> and <code>H</code>; update the earlier finite-length and finite-radius checks using measured parameters</td>
+<td><strong>A11: draft conductivity and heat-loss results</strong></td>
 </tr>
 <tr>
 <td>M25, Mon. Nov. 30</td>
-<td>Freeze data, code, parameters, and figures; perform reproducibility check</td>
+<td>Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check</td>
 <td><strong>C6 and final analysis packet</strong></td>
 </tr>
 <tr>
@@ -199,6 +199,7 @@ the measured temperature field.</p>
 <li>propagate measurement uncertainty and identify systematic error,</li>
 <li>compare steady and periodic estimates,</li>
 <li>simulate or reconstruct <code>T(x,t)</code> from a measured boundary condition,</li>
+<li>explain separately when finite length and finite radius may be ignored,</li>
 <li>judge model quality using residuals rather than appearance alone,</li>
 <li>make a repository reproduce the reported result,</li>
 <li>defend the physical reasoning without relying on AI-generated prose.</li>
@@ -249,6 +250,9 @@ slopes depend directly on sensor coordinates.</p>
 <li>Reconstruct or numerically simulate <code>T(x,t)</code> using the measured base
    temperature as the boundary condition.</li>
 <li>Plot measured-versus-modeled traces and residuals for several positions.</li>
+<li>Recalculate <code>mL</code>, finite-length error, and the transverse Biot number using
+   the final fitted or inferred parameters rather than the preliminary values
+   used in Labs 8 and 9.</li>
 </ol>
 <h2 id="part-3-systematic-error">Part 3: Systematic Error<a class="headerlink" href="#part-3-systematic-error" title="Permanent link">&para;</a></h2>
 <p>Discuss at least four of the following and state the expected direction of bias
@@ -276,12 +280,15 @@ when possible:</p>
 <li><code>q</code>, <code>q_prime</code>, <code>kappa</code>, <code>nu</code>, aluminum <code>k</code>, and side-loss <code>H</code>, all with units
   and uncertainty,</li>
 <li>accepted-value and model-limitation discussion,</li>
+<li>the finite-length error calculation and final transverse-Biot-number check,</li>
+<li>the guided numerical comparison of one-dimensional and finite-radius models
+  completed before the Angstrom production analysis,</li>
 <li>a record of meaningful AI assistance.</li>
 </ul>
 <p>For the C6 demonstration, a fresh run from the documented repository must
-reproduce the principal numbers and figures. Each student will answer a short
-individual question about how amplitude decay and phase lag separate
-conductivity from side loss.</p>
+reproduce the principal numbers and figures. Each student will answer short
+individual questions about the Angstrom inference and about when length or
+radius may be neglected.</p>
 <h2 id="final-presentation">Final Presentation<a class="headerlink" href="#final-presentation" title="Permanent link">&para;</a></h2>
 <p>The presentation should tell one connected story:</p>
 <ol>

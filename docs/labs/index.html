@@ -233,6 +233,11 @@ may revise details after hardware testing or announce a change in class.</p>
 <td><a href="theory-bridge-chapter-1/">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number</a></td>
 </tr>
 <tr>
+<td>Fin Theory</td>
+<td>Fin geometry, transverse Biot number, and the complete finite-to-infinite derivation</td>
+<td><a href="fin-design-derivation/">Fin Design: From A Finite Rod To An Infinite Rod</a></td>
+</tr>
+<tr>
 <td>Module 8</td>
 <td>Multichannel rod instrument, step response, heat equation, and stationary-fin model</td>
 <td><a href="lab-08/">Lab 8: Rod Instrument, Step Response, And Stationary Fin</a></td>
@@ -300,11 +305,13 @@ documentation in its repository, and have each student explain the work.</p>
 one part of the milestone score because later experiments depend on the system
 being ready.</p>
 <p>See <a href="../assessment/">Assessment And Milestones</a> for exactly what is due, the
-10-point rubric for each <code>C#</code>, the distinction between progress checks and
-graded milestones, and the mapping from assessments to Course Goals.</p>
+rubrics for each <code>A#</code>, <code>C#</code>, and <code>F1</code>, the scheduled <code>P#</code> progress checks, and
+the mapping from assessments to Course Goals.</p>
 <h2 id="semester-at-a-glance">Semester At A Glance<a class="headerlink" href="#semester-at-a-glance" title="Permanent link">&para;</a></h2>
-<p><code>M#</code> identifies the class meeting. <strong>C# due</strong> identifies a graded completion
-milestone. Other assignment deadlines are also shown.</p>
+<p><code>M#</code> identifies the class meeting. <code>A#</code> identifies a graded assignment, <code>C#</code>
+identifies a graded completion milestone, <code>P#</code> identifies an ungraded progress
+check, and <code>F1</code> identifies the final presentation and oral defense. <code>Prep</code>
+means required preparation with no separate grade.</p>
 <h3 id="august-2026">August 2026<a class="headerlink" href="#august-2026" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -329,7 +336,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>30</td>
 </tr>
 <tr>
-<td><strong>31</strong><br><a href="#meeting-2">M2</a></td>
+<td><strong>31</strong><br><a href="#meeting-2">M2</a><br><strong>Prep</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -354,9 +361,9 @@ milestone. Other assignment deadlines are also shown.</p>
 </thead>
 <tbody>
 <tr>
-<td>31 Aug<br><a href="#meeting-2">M2</a></td>
+<td>31 Aug<br><a href="#meeting-2">M2</a><br><strong>Prep</strong></td>
 <td>1</td>
-<td><strong>2</strong><br><a href="#meeting-3">M3</a><br><strong>C1 due</strong><br>Lab 1 note</td>
+<td><strong>2</strong><br><a href="#meeting-3">M3</a><br><strong>C1 due</strong><br><strong>A1 due</strong></td>
 <td>3</td>
 <td>4</td>
 <td>5</td>
@@ -374,7 +381,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <tr>
 <td><strong>14</strong><br><a href="#meeting-5">M5</a><br><strong>C2 due</strong></td>
 <td>15</td>
-<td><strong>16</strong><br><a href="#meeting-6">M6</a><br>Lab 3 progress check</td>
+<td><strong>16</strong><br><a href="#meeting-6">M6</a><br><strong>P1</strong></td>
 <td>17</td>
 <td>18</td>
 <td>19</td>
@@ -390,9 +397,9 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>27</td>
 </tr>
 <tr>
-<td><strong>28</strong><br><a href="#meeting-8">M8</a><br>Lab 4 note</td>
+<td><strong>28</strong><br><a href="#meeting-8">M8</a><br><strong>A2 due</strong></td>
 <td>29</td>
-<td><strong>30</strong><br><a href="#meeting-9">M9</a></td>
+<td><strong>30</strong><br><a href="#meeting-9">M9</a><br><strong>Prep</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -424,9 +431,9 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>4</td>
 </tr>
 <tr>
-<td><strong>5</strong><br><a href="#meeting-10">M10</a><br>P-control data</td>
+<td><strong>5</strong><br><a href="#meeting-10">M10</a><br><strong>A3 due</strong></td>
 <td>6</td>
-<td><strong>7</strong><br><a href="#meeting-11">M11</a><br>One-lump derivation</td>
+<td><strong>7</strong><br><a href="#meeting-11">M11</a><br><strong>A4 due</strong></td>
 <td>8</td>
 <td>9</td>
 <td>10</td>
@@ -434,26 +441,26 @@ milestone. Other assignment deadlines are also shown.</p>
 </tr>
 <tr>
 <td><strong>12</strong><br>No class</td>
-<td><strong>13</strong><br><a href="#meeting-12">M12</a><br>Brandeis Monday</td>
-<td><strong>14</strong><br><a href="#meeting-13">M13</a><br>P/PI memo</td>
+<td><strong>13</strong><br><a href="#meeting-12">M12</a><br>Brandeis Monday<br><strong>Prep</strong></td>
+<td><strong>14</strong><br><a href="#meeting-13">M13</a><br><strong>A5 due</strong></td>
 <td>15</td>
 <td>16</td>
 <td>17</td>
 <td>18</td>
 </tr>
 <tr>
-<td><strong>19</strong><br><a href="#meeting-14">M14</a><br>Model progress check</td>
+<td><strong>19</strong><br><a href="#meeting-14">M14</a><br><strong>P2</strong></td>
 <td>20</td>
-<td><strong>21</strong><br><a href="#meeting-15">M15</a><br><strong>C4 due</strong><br>Reading memo</td>
+<td><strong>21</strong><br><a href="#meeting-15">M15</a><br><strong>C4 due</strong><br><strong>A6 due</strong></td>
 <td>22</td>
 <td>23</td>
 <td>24</td>
 <td>25</td>
 </tr>
 <tr>
-<td><strong>26</strong><br><a href="#meeting-16">M16</a></td>
+<td><strong>26</strong><br><a href="#meeting-16">M16</a><br><strong>Prep</strong></td>
 <td>27</td>
-<td><strong>28</strong><br><a href="#meeting-17">M17</a><br>Heat-equation derivation</td>
+<td><strong>28</strong><br><a href="#meeting-17">M17</a><br><strong>A7 due</strong></td>
 <td>29</td>
 <td>30</td>
 <td>31</td>
@@ -478,32 +485,32 @@ milestone. Other assignment deadlines are also shown.</p>
 <tr>
 <td><strong>2</strong><br><a href="#meeting-18">M18</a><br><strong>C5 due</strong></td>
 <td>3</td>
-<td><strong>4</strong><br><a href="#meeting-19">M19</a><br>Fin analysis</td>
+<td><strong>4</strong><br><a href="#meeting-19">M19</a><br><strong>A8 due</strong></td>
 <td>5</td>
 <td>6</td>
 <td>7</td>
 <td>8</td>
 </tr>
 <tr>
-<td><strong>9</strong><br><a href="#meeting-20">M20</a><br>Angstrom questions</td>
+<td><strong>9</strong><br><a href="#meeting-20">M20</a><br><strong>P3</strong></td>
 <td>10</td>
-<td><strong>11</strong><br><a href="#meeting-21">M21</a><br>Angstrom plan</td>
+<td><strong>11</strong><br><a href="#meeting-21">M21</a><br><strong>A9 due</strong></td>
 <td>12</td>
 <td>13</td>
 <td>14</td>
 <td>15</td>
 </tr>
 <tr>
-<td><strong>16</strong><br><a href="#meeting-22">M22</a><br>Data check</td>
+<td><strong>16</strong><br><a href="#meeting-22">M22</a><br><strong>P4</strong></td>
 <td>17</td>
-<td><strong>18</strong><br><a href="#meeting-23">M23</a><br>App draft</td>
+<td><strong>18</strong><br><a href="#meeting-23">M23</a><br><strong>A10 due</strong></td>
 <td>19</td>
 <td>20</td>
 <td>21</td>
 <td>22</td>
 </tr>
 <tr>
-<td><strong>23</strong><br><a href="#meeting-24">M24</a><br><code>k</code> and <code>H</code> draft</td>
+<td><strong>23</strong><br><a href="#meeting-24">M24</a><br><strong>A11 due</strong></td>
 <td>24</td>
 <td><strong>25</strong><br>No class</td>
 <td>26</td>
@@ -512,7 +519,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>29</td>
 </tr>
 <tr>
-<td><strong>30</strong><br><a href="#meeting-25">M25</a><br><strong>C6 due</strong><br>Final packet</td>
+<td><strong>30</strong><br><a href="#meeting-25">M25</a><br><strong>C6 due</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -539,7 +546,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <tr>
 <td>30 Nov<br><a href="#meeting-25">M25</a></td>
 <td>1</td>
-<td><strong>2</strong><br><a href="#meeting-26">M26</a><br>Presentation<br>Oral defense</td>
+<td><strong>2</strong><br><a href="#meeting-26">M26</a><br><strong>F1 due</strong></td>
 <td>3</td>
 <td>4</td>
 <td>5</td>
@@ -567,7 +574,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Upload and modify an Arduino sketch; identify the instrument and safety boundaries; create and commit to the course repository.</td>
 <td><a href="../git-vscode-ai-workflow/">GitHub Desktop, GitHub, VS Code, And AI</a></td>
-<td>Setup completed in class</td>
+<td><code>Prep</code>: setup completed in class</td>
 <td>G1, G5, G12</td>
 </tr>
 <tr>
@@ -576,7 +583,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Mon</td>
 <td>Relate digital output, ADC input, averaging, PWM, and oscilloscope traces to physical voltage and time.</td>
 <td><a href="lab-01/">Lab 1: First Contact</a></td>
-<td>Arduino examples</td>
+<td><code>Prep</code>: Arduino examples</td>
 <td>G1, G2, G5</td>
 </tr>
 <tr>
@@ -585,7 +592,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Build a thermistor divider; convert ADC readings to resistance and temperature; state calibration assumptions.</td>
 <td><a href="lab-02/">Lab 2: First Real Instrument Pieces</a></td>
-<td><a href="../assessment/#c1-development-environment-and-repository"><strong>C1</strong></a>; Lab 1 note</td>
+<td><a href="../assessment/#c1-development-environment-and-repository"><strong>C1</strong></a>; <code>A1</code></td>
 <td>G1-G4, G12, G14</td>
 </tr>
 <tr>
@@ -594,7 +601,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Predict and verify H-bridge PWM and direction waveforms before applying TEC power.</td>
 <td><a href="lab-02/">Lab 2</a></td>
-<td>H-bridge prediction table</td>
+<td><code>Prep</code>: H-bridge prediction table</td>
 <td>G1, G2, G5, G6</td>
 </tr>
 <tr>
@@ -612,7 +619,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Parse real serial data; display and save temperature and PWM; set update interval, window, and axes.</td>
 <td><a href="lab-03/">Lab 3</a></td>
-<td>Lab 3 progress check</td>
+<td><code>P1</code></td>
 <td>G2, G7, G12</td>
 </tr>
 <tr>
@@ -630,7 +637,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Mon</td>
 <td>Measure steady temperature versus signed PWM and identify asymmetry, limits, and a steady-state criterion.</td>
 <td><a href="lab-04/">Lab 4: Open-Loop TEC Calibration And Software Safety</a></td>
-<td>Lab 4 note</td>
+<td><code>A2</code></td>
 <td>G2, G3, G6, G7, G9</td>
 </tr>
 <tr>
@@ -639,7 +646,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Implement P control and explain why nonzero actuator power produces droop.</td>
 <td><a href="lab-05/">Lab 5: P-Only Temperature Control</a></td>
-<td>P-control prediction</td>
+<td><code>Prep</code>: P-control prediction</td>
 <td>G7-G10</td>
 </tr>
 <tr>
@@ -648,7 +655,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Mon</td>
 <td>Measure droop versus gain and characterize oscillation amplitude and frequency near instability.</td>
 <td><a href="lab-05/">Lab 5</a></td>
-<td>P-control data package</td>
+<td><code>A3</code></td>
 <td>G3, G8, G9, G14</td>
 </tr>
 <tr>
@@ -657,7 +664,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Derive and fit a one-lump energy balance; interpret heat capacity, conductance, and time constant dimensionally.</td>
 <td><a href="lab-06/">Lab 6: Modeling P And PI Temperature Control</a></td>
-<td>One-lump derivation</td>
+<td><code>A4</code></td>
 <td>G9, G10, G13</td>
 </tr>
 <tr>
@@ -666,7 +673,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Tue</td>
 <td>Explain how integral action removes droop; implement anti-windup; compare P and PI responses.</td>
 <td><a href="lab-06/">Lab 6</a></td>
-<td>PI preparation</td>
+<td><code>Prep</code>: PI-control preparation</td>
 <td>G8-G10, G13</td>
 </tr>
 <tr>
@@ -675,7 +682,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Use a two-lump model to explain thermal lag, overshoot, and gain-dependent oscillation.</td>
 <td><a href="lab-06/">Lab 6</a></td>
-<td>P/PI analysis memo</td>
+<td><code>A5</code></td>
 <td>G9, G10, G13, G14</td>
 </tr>
 <tr>
@@ -684,7 +691,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Mon</td>
 <td>Fit one- and two-lump models and judge whether added complexity is supported by residuals.</td>
 <td><a href="lab-07/">Lab 7: Process Model And Python Simulation</a></td>
-<td>Modeling-app progress check</td>
+<td><code>P2</code></td>
 <td>G3, G7, G10, G12-G14</td>
 </tr>
 <tr>
@@ -693,53 +700,53 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Defend the TEC controller and model; explain why a rod requires <code>T(x,t)</code> rather than a lumped temperature.</td>
 <td><a href="lab-07/">Lab 7</a></td>
-<td><a href="../assessment/#c4-feedback-controller-and-tec-process-model"><strong>C4</strong></a>; heat-transfer reading memo</td>
+<td><a href="../assessment/#c4-feedback-controller-and-tec-process-model"><strong>C4</strong></a>; <code>A6</code></td>
 <td>G8-G14</td>
 </tr>
 <tr>
 <td><span id="meeting-16">16</span></td>
 <td>2026-10-26</td>
 <td>Mon</td>
-<td>Derive the dimensional one-dimensional heat equation with side loss from conservation and Fourier's law.</td>
-<td><a href="theory-bridge-chapter-1/">Theory Bridge</a></td>
-<td>Lienhard Chapter 1 preparation</td>
+<td>Lecture: solve the finite-length one-dimensional rod, obtain the semi-infinite limit, and introduce the transverse Biot number.</td>
+<td><a href="theory-bridge-chapter-1/">Theory Bridge</a> and <a href="lab-08/">Lab 8</a></td>
+<td><code>Prep</code>: Lienhard Chapter 1 and Section 4.5</td>
 <td>G11, G13, G14</td>
 </tr>
 <tr>
 <td><span id="meeting-17">17</span></td>
 <td>2026-10-28</td>
 <td>Wed</td>
-<td>Calibrate and map rod thermistors; define coordinates, metadata, sampling, and uncertainty for <code>T(x,t)</code>.</td>
+<td>Quantify finite-length error and transverse Biot number; calibrate and map rod thermistors for <code>T(x,t)</code>.</td>
 <td><a href="lab-08/">Lab 8: Rod Instrument, Step Response, And Stationary Fin</a></td>
-<td>Heat-equation and dimensional-analysis derivation</td>
+<td><code>A7</code></td>
 <td>G2-G4, G11-G14</td>
 </tr>
 <tr>
 <td><span id="meeting-18">18</span></td>
 <td>2026-11-02</td>
 <td>Mon</td>
-<td>Acquire synchronized baseline and step-response data and identify multiple thermal time scales.</td>
+<td>Acquire baseline and step-response data; lecture on the axisymmetric radial model while the experiment runs.</td>
 <td><a href="lab-08/">Lab 8</a></td>
 <td><a href="../assessment/#c5-rod-instrument-and-data-acquisition-chain"><strong>C5</strong></a></td>
-<td>G3, G7, G9, G11, G12</td>
+<td>G3, G7, G9, G11-G13</td>
 </tr>
 <tr>
 <td><span id="meeting-19">19</span></td>
 <td>2026-11-04</td>
 <td>Wed</td>
-<td>Fit the steady excess-temperature profile and interpret its decay length as conduction competing with side loss.</td>
+<td>Fit finite-length and semi-infinite stationary profiles; compare residuals and approximation error.</td>
 <td><a href="lab-08/">Lab 8</a></td>
-<td>Stationary-fin analysis</td>
+<td><code>A8</code></td>
 <td>G3, G11, G13-G15</td>
 </tr>
 <tr>
 <td><span id="meeting-20">20</span></td>
 <td>2026-11-09</td>
 <td>Mon</td>
-<td>Tune PI control for a sinusoidal base boundary and select a useful period using diffusion length and run time.</td>
+<td>Complete the guided radial-model study, then tune a sinusoidal base boundary and collect an Angstrom pilot run.</td>
 <td><a href="lab-09/">Lab 9: The Angstrom Method</a></td>
-<td>Angstrom reading questions</td>
-<td>G6-G9, G11, G13</td>
+<td><code>P3</code></td>
+<td>G6-G9, G11-G13</td>
 </tr>
 <tr>
 <td><span id="meeting-21">21</span></td>
@@ -747,7 +754,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Fit sensor mean, amplitude, and phase; explain exponential amplitude decay and linear phase lag.</td>
 <td><a href="lab-09/">Lab 9</a></td>
-<td>Angstrom derivation and experiment plan</td>
+<td><code>A9</code></td>
 <td>G3, G7, G11, G13-G15</td>
 </tr>
 <tr>
@@ -756,7 +763,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Mon</td>
 <td>Acquire at least five settled periods and document whether the measured boundary and rod data are usable.</td>
 <td><a href="lab-09/">Lab 9</a></td>
-<td>Data-readiness check</td>
+<td><code>P4</code></td>
 <td>G2, G3, G7, G11, G12</td>
 </tr>
 <tr>
@@ -765,25 +772,25 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Determine spatial amplitude and phase coefficients and infer diffusivity <code>kappa</code> and loss rate <code>nu</code>.</td>
 <td><a href="lab-09/">Lab 9</a></td>
-<td>Modeling-app draft</td>
+<td><code>A10</code></td>
 <td>G3, G7, G11-G15</td>
 </tr>
 <tr>
 <td><span id="meeting-24">24</span></td>
 <td>2026-11-23</td>
 <td>Mon</td>
-<td>Calculate aluminum conductivity <code>k</code> and side heat-transfer coefficient <code>H</code>; quantify uncertainty and frequency consistency.</td>
+<td>Calculate aluminum <code>k</code> and side-loss <code>H</code>; update finite-length and transverse-Biot checks using measured parameters.</td>
 <td><a href="lab-10/">Lab 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis</a></td>
-<td>Draft <code>k</code> and <code>H</code> results</td>
+<td><code>A11</code></td>
 <td>G3, G11, G13-G15</td>
 </tr>
 <tr>
 <td><span id="meeting-25">25</span></td>
 <td>2026-11-30</td>
 <td>Mon</td>
-<td>Compare measured <code>T(x,t)</code> with the side-loss model and reproduce final parameters and figures from the repository.</td>
+<td>Compare measured and modeled <code>T(x,t)</code>; defend finite-length and finite-radius validity checks; reproduce final results.</td>
 <td><a href="lab-10/">Lab 10</a></td>
-<td><a href="../assessment/#c6-final-thermal-transport-package"><strong>C6</strong></a>; final analysis packet</td>
+<td><a href="../assessment/#c6-final-thermal-transport-package"><strong>C6</strong></a></td>
 <td>G3, G7, G11-G15</td>
 </tr>
 <tr>
@@ -792,7 +799,7 @@ milestone. Other assignment deadlines are also shown.</p>
 <td>Wed</td>
 <td>Present the instrument-to-model chain and individually defend hardware, software, control, and thermal-physics decisions.</td>
 <td><a href="lab-10/">Lab 10</a></td>
-<td>Final presentation and individual oral defense</td>
+<td><code>F1</code></td>
 <td>G1-G15</td>
 </tr>
 </tbody>

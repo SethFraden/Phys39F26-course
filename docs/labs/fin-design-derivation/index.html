@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Seth Fraden">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Fin Design: From A Finite Rod To An Infinite Rod - Phys 39 | Instrumentation and Thermal Physics</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../stylesheets/course.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Phys 39 | Instrumentation and Thermal Physics</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../syllabus/" class="nav-link">Syllabus</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../" class="nav-link">Labs And Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../hardware/" class="nav-link">Hardware</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Arduino</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../arduino/" class="dropdown-item">Arduino Tutorial</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/analog-digital/" class="dropdown-item">Analog, ADC, And PWM</a>
+</li>
+                                    
+<li>
+    <a href="../../arduino/pinout/" class="dropdown-item">Uno Pinout</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../safety/" class="nav-link">Safety</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../repository/" class="nav-link">Course Repository</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../legacy/" class="nav-link">Legacy Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#fin-design-from-a-finite-rod-to-an-infinite-rod" class="nav-link">Fin Design: From A Finite Rod To An Infinite Rod</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#what-a-fin-does" class="nav-link">What A Fin Does</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#geometry-and-the-one-dimensional-assumption" class="nav-link">Geometry And The One-Dimensional Assumption</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#energy-balance-and-differential-equation" class="nav-link">Energy Balance And Differential Equation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#dimensional-form" class="nav-link">Dimensional Form</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#finite-rod-with-an-insulated-tip" class="nav-link">Finite Rod With An Insulated Tip</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#exact-convecting-tip-solution" class="nav-link">Exact Convecting-Tip Solution</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#infinite-rod-limit" class="nav-link">Infinite-Rod Limit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-be-able-to-explain" class="nav-link">What To Be Able To Explain</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="fin-design-from-a-finite-rod-to-an-infinite-rod">Fin Design: From A Finite Rod To An Infinite Rod<a class="headerlink" href="#fin-design-from-a-finite-rod-to-an-infinite-rod" title="Permanent link">&para;</a></h1>
+<p>This reference develops Lienhard and Lienhard Section 4.5, textbook
+pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
+logic from a physical fin to the finite-length and infinite-length rod models
+used in Lab 8.</p>
+<h2 id="what-a-fin-does">What A Fin Does<a class="headerlink" href="#what-a-fin-does" title="Permanent link">&para;</a></h2>
+<p>A fin conducts heat along a solid while exchanging heat with the surrounding
+fluid through its surface. Increasing surface area can greatly increase heat
+transfer.</p>
+<p><img alt="Pin-fin heat exchanger" src="../../assets/pin-fin.gif" /></p>
+<p><img alt="Pin-fin assembly" src="../../assets/pin-fin-3.jpg" /></p>
+<p><em>Examples used in the historical Phys 39 course: extended metal surfaces
+increase the area available for heat transfer.</em></p>
+<p><img alt="Possible biological cooling fins" src="../../assets/lienhard-fig-4-7-fin-example.png" /></p>
+<p><em>Lienhard and Lienhard, Fig. 4.7, textbook p. 165: a speculative biological
+example of cooling fins.</em></p>
+<h2 id="geometry-and-the-one-dimensional-assumption">Geometry And The One-Dimensional Assumption<a class="headerlink" href="#geometry-and-the-one-dimensional-assumption" title="Permanent link">&para;</a></h2>
+<p><img alt="One-dimensional fin geometry and energy-balance slice" src="../../assets/lienhard-fig-4-8-fin-model.png" /></p>
+<p><em>Lienhard and Lienhard, Fig. 4.8, textbook p. 166: a fin of length <span class="arithmatex">\(L\)</span>,
+cross-sectional area <span class="arithmatex">\(A\)</span>, perimeter <span class="arithmatex">\(P\)</span>, conductivity <span class="arithmatex">\(k\)</span>, side
+coefficient <span class="arithmatex">\(h\)</span>, and tip coefficient <span class="arithmatex">\(h_L\)</span>.</em></p>
+<p>The transverse Biot number must be small:</p>
+<div class="arithmatex">\[
+\mathrm{Bi}_{\mathrm{fin}}
+=\frac{h(A/P)}{k}\ll1.
+\tag{4.27}
+\]</div>
+<p>For a circular rod, <span class="arithmatex">\(A/P=R/2\)</span>. This criterion allows us to use one
+cross-sectional temperature <span class="arithmatex">\(T(x)\)</span>.</p>
+<h2 id="energy-balance-and-differential-equation">Energy Balance And Differential Equation<a class="headerlink" href="#energy-balance-and-differential-equation" title="Permanent link">&para;</a></h2>
+<p>An energy balance on a slice of width <span class="arithmatex">\(\delta x\)</span> is</p>
+<div class="arithmatex">\[
+-kA\left.\frac{dT}{dx}\right|_{x+\delta x}
++kA\left.\frac{dT}{dx}\right|_x
++hP\delta x\,[T(x)-T_\infty]=0.
+\tag{4.28}
+\]</div>
+<p>As <span class="arithmatex">\(\delta x\rightarrow0\)</span>,</p>
+<div class="arithmatex">\[
+\frac{
+\left.dT/dx\right|_{x+\delta x}
+-\left.dT/dx\right|_x
+}{\delta x}
+\rightarrow
+\frac{d^2T}{dx^2}
+=\frac{d^2(T-T_\infty)}{dx^2}.
+\tag{4.29}
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+\frac{d^2(T-T_\infty)}{dx^2}
+=\frac{hP}{kA}(T-T_\infty).
+\tag{4.30}
+\]</div>
+<p>For a convecting tip,</p>
+<div class="arithmatex">\[
+(T-T_\infty)_{x=0}=T_0-T_\infty,
+\qquad
+-kA\left.\frac{d(T-T_\infty)}{dx}\right|_{x=L}
+=h_LA(T-T_\infty)_{x=L}.
+\tag{4.31a}
+\]</div>
+<p>For an insulated tip,</p>
+<div class="arithmatex">\[
+(T-T_\infty)_{x=0}=T_0-T_\infty,
+\qquad
+\left.\frac{d(T-T_\infty)}{dx}\right|_{x=L}=0.
+\tag{4.31b}
+\]</div>
+<h2 id="dimensional-form">Dimensional Form<a class="headerlink" href="#dimensional-form" title="Permanent link">&para;</a></h2>
+<p>The dimensional functional relation is</p>
+<div class="arithmatex">\[
+T-T_\infty
+=\operatorname{fn}(T_0-T_\infty,x,L,kA,hP,h_LA).
+\tag{4.32}
+\]</div>
+<p>Define</p>
+<div class="arithmatex">\[
+\Theta=\frac{T-T_\infty}{T_0-T_\infty},
+\qquad
+\xi=\frac{x}{L},
+\qquad
+m=\sqrt{\frac{hP}{kA}},
+\qquad
+\mathrm{Bi}_{\mathrm{axial}}=\frac{h_LL}{k}.
+\]</div>
+<p>Then a convecting-tip fin has</p>
+<div class="arithmatex">\[
+\Theta=\operatorname{fn}
+\left(\xi,mL,\mathrm{Bi}_{\mathrm{axial}}\right),
+\tag{4.33a}
+\]</div>
+<p>whereas an adiabatic-tip fin has</p>
+<div class="arithmatex">\[
+\Theta=\operatorname{fn}(\xi,mL).
+\tag{4.33b}
+\]</div>
+<p>The differential equation becomes</p>
+<div class="arithmatex">\[
+\frac{d^2\Theta}{d\xi^2}=(mL)^2\Theta.
+\tag{4.34}
+\]</div>
+<p>Its general solution is</p>
+<div class="arithmatex">\[
+\Theta=C_1e^{mL\xi}+C_2e^{-mL\xi}.
+\tag{4.35}
+\]</div>
+<h2 id="finite-rod-with-an-insulated-tip">Finite Rod With An Insulated Tip<a class="headerlink" href="#finite-rod-with-an-insulated-tip" title="Permanent link">&para;</a></h2>
+<p>The dimensionless boundary conditions are</p>
+<div class="arithmatex">\[
+\Theta(0)=1,
+\qquad
+\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}=0.
+\tag{4.36}
+\]</div>
+<p>Substitution into the general solution gives</p>
+<div class="arithmatex">\[
+C_1+C_2=1,
+\qquad
+C_1e^{mL}-C_2e^{-mL}=0.
+\tag{4.37}
+\]</div>
+<p>The hyperbolic functions used to simplify the result are</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\sinh z&amp;=\frac{e^z-e^{-z}}{2},&amp;
+\cosh z&amp;=\frac{e^z+e^{-z}}{2},\\
+\tanh z&amp;=\frac{\sinh z}{\cosh z},&amp;
+\coth z&amp;=\frac{\cosh z}{\sinh z}.
+\end{aligned}
+\tag{4.38}
+\]</div>
+<p>Their needed derivatives are</p>
+<div class="arithmatex">\[
+\frac{d}{dz}\sinh z=\cosh z,
+\qquad
+\frac{d}{dz}\cosh z=\sinh z.
+\tag{4.39}
+\]</div>
+<p>The constants are</p>
+<div class="arithmatex">\[
+C_1=\frac{e^{-mL}}{2\cosh(mL)},
+\qquad
+C_2=1-\frac{e^{-mL}}{2\cosh(mL)}.
+\tag{4.40}
+\]</div>
+<p>The finite insulated-tip temperature distribution is</p>
+<div class="arithmatex">\[
+\Theta(\xi)
+=\frac{\cosh[mL(1-\xi)]}{\cosh(mL)}
+=\frac{\cosh[m(L-x)]}{\cosh(mL)}.
+\tag{4.41}
+\]</div>
+<p>The heat-transfer rate at the base is</p>
+<div class="arithmatex">\[
+\dot Q_0
+=-kA\left.\frac{d(T-T_\infty)}{dx}\right|_{x=0}.
+\tag{4.42}
+\]</div>
+<p>Thus,</p>
+<div class="arithmatex">\[
+\frac{\dot Q_0L}{kA(T_0-T_\infty)}
+=mL\frac{\sinh(mL)}{\cosh(mL)}
+=mL\tanh(mL),
+\tag{4.43}
+\]</div>
+<p>or</p>
+<div class="arithmatex">\[
+\frac{\dot Q_0}
+{\sqrt{kAhP}\,(T_0-T_\infty)}
+=\tanh(mL).
+\tag{4.44}
+\]</div>
+<p>At the tip,</p>
+<div class="arithmatex">\[
+\Theta_{\mathrm{tip}}=\frac{1}{\cosh(mL)}.
+\tag{4.45}
+\]</div>
+<h2 id="exact-convecting-tip-solution">Exact Convecting-Tip Solution<a class="headerlink" href="#exact-convecting-tip-solution" title="Permanent link">&para;</a></h2>
+<p>The dimensionless boundary conditions become</p>
+<div class="arithmatex">\[
+\Theta(0)=1,
+\qquad
+-\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}
+=\mathrm{Bi}_{\mathrm{axial}}\Theta(1).
+\tag{4.46}
+\]</div>
+<p>Substitution into the general solution gives</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_1+C_2&amp;=1,\\
+-mL(C_1e^{mL}-C_2e^{-mL})
+&amp;=\mathrm{Bi}_{\mathrm{axial}}
+(C_1e^{mL}+C_2e^{-mL}).
+\end{aligned}
+\tag{4.47}
+\]</div>
+<p>The exact temperature distribution is</p>
+<div class="arithmatex">\[
+\Theta(\xi)
+=
+\frac{
+\cosh[mL(1-\xi)]
++(\mathrm{Bi}_{\mathrm{axial}}/mL)\sinh[mL(1-\xi)]
+}{
+\cosh(mL)
++(\mathrm{Bi}_{\mathrm{axial}}/mL)\sinh(mL)
+}.
+\tag{4.48}
+\]</div>
+<p>The corresponding base heat rate is</p>
+<div class="arithmatex">\[
+\frac{\dot Q_0}
+{\sqrt{kAhP}\,(T_0-T_\infty)}
+=
+\frac{
+(\mathrm{Bi}_{\mathrm{axial}}/mL)+\tanh(mL)
+}{
+1+(\mathrm{Bi}_{\mathrm{axial}}/mL)\tanh(mL)
+}.
+\tag{4.49}
+\]</div>
+<h2 id="infinite-rod-limit">Infinite-Rod Limit<a class="headerlink" href="#infinite-rod-limit" title="Permanent link">&para;</a></h2>
+<p>When <span class="arithmatex">\(mL\gg1\)</span>, the finite solution approaches</p>
+<div class="arithmatex">\[
+\lim_{mL\rightarrow\infty}\Theta
+=e^{-mL\xi}
+=e^{-mx}.
+\tag{4.50}
+\]</div>
+<p>The base heat rate becomes</p>
+<div class="arithmatex">\[
+\dot Q_0=\sqrt{kAhP}\,(T_0-T_\infty).
+\tag{4.51}
+\]</div>
+<p>Lienhard recommends <span class="arithmatex">\(mL\gtrsim5\)</span> when using the infinite-fin approximation
+for temperature and <span class="arithmatex">\(mL\gtrsim3\)</span> when using it for the base heat rate. In
+Lab 8 you will calculate the actual finite-versus-infinite error at every
+sensor rather than relying only on these general thresholds.</p>
+<h2 id="what-to-be-able-to-explain">What To Be Able To Explain<a class="headerlink" href="#what-to-be-able-to-explain" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Why does Eq. (4.27) concern the <strong>radius</strong>, whereas <span class="arithmatex">\(mL\)</span> concerns the
+   <strong>length</strong>?</li>
+<li>Which term in Eq. (4.28) represents side heat loss?</li>
+<li>What physical assumption changes Eq. (4.31a) into Eq. (4.31b)?</li>
+<li>How does Eq. (4.41) retain information about the far end?</li>
+<li>Why is Eq. (4.50) an approximation rather than a new physical law?</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

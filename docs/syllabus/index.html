@@ -154,10 +154,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#fixed-assignment-dates" class="nav-link">Fixed Assignment Dates</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-bs-level="3"><a href="#written-reports" class="nav-link">Written Reports</a>
               <ul class="nav flex-column">
               </ul>
@@ -220,7 +216,8 @@
 <strong>Office hours:</strong> By appointment, and scheduled times to be announced<br />
 <strong>Meeting time:</strong> Monday and Wednesday, 9:05 AM-11:55 AM<br />
 <strong>Classroom/laboratory:</strong> 340 Abelson<br />
-<strong>Course website:</strong> <a href="https://sethfraden.github.io/Phys39F26-course/">https://sethfraden.github.io/Phys39F26-course/</a></p>
+<strong>Course website:</strong> <a href="https://sethfraden.github.io/Phys39F26-course/">https://sethfraden.github.io/Phys39F26-course/</a>
+<strong>Brandeis Moodle course:</strong> <a href="https://moodle.brandeis.edu/course/view.php?id=6589">https://moodle.brandeis.edu/course/view.php?id=6589</a></p>
 <!-- **Draft status:** This syllabus is a working draft for instructor review. Items
 marked TBD should be checked before posting to Brandeis or the public course
 website. -->
@@ -254,7 +251,9 @@ connect the instrument to thermal physics.</p>
 <li><strong>G9.</strong> Measure droop, steady-state response, step response, oscillation, and the
   onset of instability.</li>
 <li><strong>G10.</strong> Develop simple lumped thermal models and compare them with experiment.</li>
-<li><strong>G11.</strong> Move from lumped models to spatial heat-transport models.</li>
+<li><strong>G11.</strong> Move from lumped models to spatial heat-transport models; distinguish
+  finite-length and finite-radius approximations, quantify their errors, and
+  identify when a numerical model is required.</li>
 <li><strong>G12.</strong> Use Git, GitHub, VS Code, Markdown, and an AI coding assistant to document
   and organize experimental work.</li>
 <li><strong>G13.</strong> Learn the advantages of dimensional analysis and convert between dimensionless and dimensionfull quantities.</li>
@@ -337,8 +336,10 @@ reading to a measurement, circuit, code fragment, or model equation.</p>
 </li>
 <li>
 <p><strong>Long-cylinder heat transport</strong><br />
-   Temperature along a rod, heat equation, step and periodic forcing, amplitude
-   decay, phase lag, and the Angstrom method.</p>
+   Temperature along a rod, heat equation, analytical finite-length solutions,
+   the semi-infinite approximation, the transverse Biot number, guided
+   numerical radial modeling, step and periodic forcing, amplitude decay,
+   phase lag, and the Angstrom method.</p>
 </li>
 <li>
 <p><strong>Final synthesis</strong><br />
@@ -465,84 +466,10 @@ documentation should include:</p>
 </ul>
 <p>The goal is not polished perfection every week. The goal is a recoverable,
 understandable record of experimental progress.</p>
-<h3 id="fixed-assignment-dates">Fixed Assignment Dates<a class="headerlink" href="#fixed-assignment-dates" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Due</th>
-<th>Graded work</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sept. 2</td>
-<td>C1 and Lab 1 note</td>
-</tr>
-<tr>
-<td>Sept. 14</td>
-<td>C2</td>
-</tr>
-<tr>
-<td>Sept. 23</td>
-<td>C3</td>
-</tr>
-<tr>
-<td>Sept. 28</td>
-<td>Lab 4 open-loop note</td>
-</tr>
-<tr>
-<td>Oct. 5</td>
-<td>P-control data package</td>
-</tr>
-<tr>
-<td>Oct. 7</td>
-<td>One-lump derivation</td>
-</tr>
-<tr>
-<td>Oct. 14</td>
-<td>P/PI analysis memo</td>
-</tr>
-<tr>
-<td>Oct. 21</td>
-<td>C4 and heat-transfer reading memo</td>
-</tr>
-<tr>
-<td>Oct. 28</td>
-<td>Heat-equation and dimensional-analysis derivation</td>
-</tr>
-<tr>
-<td>Nov. 2</td>
-<td>C5</td>
-</tr>
-<tr>
-<td>Nov. 4</td>
-<td>Stationary-fin analysis</td>
-</tr>
-<tr>
-<td>Nov. 11</td>
-<td>Angstrom derivation and experiment plan</td>
-</tr>
-<tr>
-<td>Nov. 18</td>
-<td>Modeling-app draft</td>
-</tr>
-<tr>
-<td>Nov. 23</td>
-<td>Draft conductivity and heat-loss results</td>
-</tr>
-<tr>
-<td>Nov. 30</td>
-<td>C6 and final analysis packet</td>
-</tr>
-<tr>
-<td>Dec. 2</td>
-<td>Final presentation and individual oral defense</td>
-</tr>
-</tbody>
-</table>
 <h3 id="written-reports">Written Reports<a class="headerlink" href="#written-reports" title="Permanent link">&para;</a></h3>
-<p>The course will include substantial written work distributed across the fixed
-dates above. The principal pieces include:</p>
+<p>The course will include substantial written work distributed across the due
+dates in the <a href="https://sethfraden.github.io/Phys39F26-course/labs/">course calendar</a>.
+The principal pieces include:</p>
 <ul>
 <li>a mid-course temperature-control report or project checkpoint,</li>
 <li>a modeling-app checkpoint,</li>

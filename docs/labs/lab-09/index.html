@@ -126,6 +126,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-0-guided-radial-model-study" class="nav-link">Part 0: Guided Radial-Model Study</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-establish-the-boundary-condition" class="nav-link">Part 1: Establish The Boundary Condition</a>
               <ul class="nav flex-column">
               </ul>
@@ -171,13 +175,13 @@ to separate thermal diffusion from heat loss to the air.</p>
 <tbody>
 <tr>
 <td>M20, Mon. Nov. 9</td>
-<td>Tune sinusoidal base-temperature tracking; collect a pilot run</td>
-<td>Angstrom reading questions</td>
+<td>Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run</td>
+<td><code>P3</code> model and pilot check</td>
 </tr>
 <tr>
 <td>M21, Wed. Nov. 11</td>
 <td>Fit pilot amplitudes and phases; choose production period</td>
-<td>Angstrom derivation and experiment plan</td>
+<td><strong>A9: Angstrom derivation and model-validity plan</strong></td>
 </tr>
 <tr>
 <td>M22, Mon. Nov. 16</td>
@@ -200,9 +204,15 @@ to separate thermal diffusion from heat loss to the air.</p>
 <li>distinguish temporal frequency from spatial decay and phase coefficients,</li>
 <li>unwrap phase and maintain consistent sign conventions,</li>
 <li>determine thermal diffusivity and side-loss rate with uncertainty,</li>
+<li>compare one-dimensional and axisymmetric predictions as the transverse Biot
+  number increases,</li>
 <li>test the model using residuals and frequency consistency.</li>
 </ul>
 <h2 id="periodic-solution">Periodic Solution<a class="headerlink" href="#periodic-solution" title="Permanent link">&para;</a></h2>
+<p><img alt="Angstrom's historical thermal-conductivity apparatus" src="../../assets/angstrom-method-drawing.jpg" /></p>
+<p><em>Historical drawing of Angstrom's method for determining thermal
+conductivity. The course replaces the alternating hot and cold reservoirs with
+a TEC-controlled sinusoidal boundary temperature.</em></p>
 <p>Use excess temperature <code>theta = T - T_room</code> and the rod equation</p>
 <div class="arithmatex">\[
 \frac{\partial\theta}{\partial t}
@@ -232,6 +242,41 @@ q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]</div>
+<p>These equations use a one-dimensional, semi-infinite rod. Before selecting
+sensors for the fit, carry forward the finite-length error calculation from
+Lab 8 and complete the radial-model study below. State which sensors and
+conditions satisfy your chosen approximation tolerances.</p>
+<h2 id="part-0-guided-radial-model-study">Part 0: Guided Radial-Model Study<a class="headerlink" href="#part-0-guided-radial-model-study" title="Permanent link">&para;</a></h2>
+<p>The one-dimensional rod equation assumes
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}=HR/(2k)\ll1\)</span>. Retaining radial variation gives the
+axisymmetric equation</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}
+=\alpha\left[
+\frac{\partial^2T}{\partial x^2}
++\frac{1}{r}\frac{\partial}{\partial r}
+\left(r\frac{\partial T}{\partial r}\right)
+\right],
+\]</div>
+<p>with cylindrical-surface boundary condition</p>
+<div class="arithmatex">\[
+-k\left.\frac{\partial T}{\partial r}\right|_{r=R}
+=H\left[T(R,x,t)-T_\infty\right].
+\]</div>
+<p>Use the supplied numerical scaffold; you are not expected to write a
+two-dimensional PDE solver from scratch. Run otherwise identical cases with
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}=0.01, 0.1,\)</span> and <span class="arithmatex">\(1\)</span>. For each case:</p>
+<ol>
+<li>plot centerline, surface, and cross-sectional mean temperature,</li>
+<li>compare them with the one-dimensional prediction,</li>
+<li>quantify surface-versus-mean amplitude and phase differences at a sensor
+   location, and</li>
+<li>explain how a surface thermistor analyzed with a one-dimensional model could
+   bias inferred <span class="arithmatex">\(k\)</span> or <span class="arithmatex">\(H\)</span>.</li>
+</ol>
+<p>This numerical study follows the radial-model lecture from M18. Finish it
+before using the one-dimensional periodic solution for the production
+Angstrom analysis.</p>
 <h2 id="part-1-establish-the-boundary-condition">Part 1: Establish The Boundary Condition<a class="headerlink" href="#part-1-establish-the-boundary-condition" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Choose a safe mean base temperature and an amplitude of approximately
@@ -285,13 +330,16 @@ B(x)=B_0e^{-qx},
 <li>amplitude and unwrapped phase versus position,</li>
 <li>fitted <code>q</code> and <code>q_prime</code> with units and uncertainty,</li>
 <li>calculated <code>kappa</code> and <code>nu</code>,</li>
-<li>residuals and any excluded data with justification.</li>
+<li>residuals and any excluded data with justification,</li>
+<li>the finite-length and transverse-Biot-number checks that justify the
+  one-dimensional semi-infinite analysis for the retained sensors.</li>
 </ul>
 <h2 id="modeling-app-draft-submission">Modeling-App Draft Submission<a class="headerlink" href="#modeling-app-draft-submission" title="Permanent link">&para;</a></h2>
 <p>Submit runnable code, a short README with the exact command or procedure, the
-data file or stable link, intermediate plots, preliminary <code>kappa</code> and <code>nu</code>, and
-a note describing any AI assistance. Every team member must be able to explain
-the input format and the sequence of fits.</p></div>
+data file or stable link, intermediate plots, preliminary <code>kappa</code> and <code>nu</code>, the
+guided radial-model comparison, and a note describing any AI assistance. Every
+team member must be able to explain the input format, the sequence of fits, and
+why the selected one-dimensional approximation is acceptable or not.</p></div>
             </div>
         </div>
 

@@ -130,6 +130,26 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-0-which-geometry-may-we-ignore" class="nav-link">Part 0: Which Geometry May We Ignore?</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#length-solve-it-first" class="nav-link">Length: Solve It First</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#radius-check-the-transverse-biot-number" class="nav-link">Radius: Check The Transverse Biot Number</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#a7-guided-self-study" class="nav-link">A7 Guided Self-Study</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#radial-model-lecture-during-m18" class="nav-link">Radial-Model Lecture During M18</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-sensor-map-and-calibration" class="nav-link">Part 1: Sensor Map And Calibration</a>
               <ul class="nav flex-column">
               </ul>
@@ -179,19 +199,24 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 </thead>
 <tbody>
 <tr>
+<td>M16, Mon. Oct. 26</td>
+<td>Lecture: solve the finite-length one-dimensional rod; obtain the semi-infinite limit; introduce the transverse Biot number</td>
+<td>Guided self-study begins</td>
+</tr>
+<tr>
 <td>M17, Wed. Oct. 28</td>
-<td>Map and calibrate sensors; acquire baseline data</td>
-<td>Heat-equation and dimensional-analysis derivation</td>
+<td>Compare finite and semi-infinite predictions; calculate the rod Biot number; map and calibrate sensors</td>
+<td><strong>A7: finite-length and small-Biot guided study</strong></td>
 </tr>
 <tr>
 <td>M18, Mon. Nov. 2</td>
-<td>Acquire synchronized step response</td>
+<td>Acquire a synchronized step response; lecture on the axisymmetric radial model while the experiment runs</td>
 <td><strong>C5: Rod instrument and data-acquisition chain</strong></td>
 </tr>
 <tr>
 <td>M19, Wed. Nov. 4</td>
-<td>Reach steady state; fit the stationary-fin profile</td>
-<td>Stationary-fin analysis</td>
+<td>Reach steady state; fit finite-length and semi-infinite stationary profiles</td>
+<td><strong>A8: stationary-fin model comparison</strong></td>
 </tr>
 </tbody>
 </table>
@@ -202,6 +227,9 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 <li>calibrate or cross-check several thermistors,</li>
 <li>acquire synchronized <code>T(x,t)</code> data with units and timestamps,</li>
 <li>derive the one-dimensional heat equation with side loss,</li>
+<li>solve the finite-length stationary problem and obtain its semi-infinite limit,</li>
+<li>calculate the error introduced by ignoring the far end,</li>
+<li>use the transverse Biot number to justify neglecting radial variation,</li>
 <li>distinguish a transient from a steady spatial profile,</li>
 <li>fit a stationary-fin model and interpret its decay coefficient,</li>
 <li>identify what the steady experiment can and cannot determine by itself.</li>
@@ -210,8 +238,12 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 <ol>
 <li>Read Chapter 1 of <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>.</li>
 <li>Review <a href="../theory-bridge-chapter-1/">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number</a>.</li>
-<li>Before M17, submit a dimensional derivation beginning with conservation of
-   energy for a rod slice of length <code>dx</code>.</li>
+<li>For the M16 lecture and M17 guided study, read Lienhard Section 4.5,
+   textbook pp. 163-173. Work through the derivation rather than reading only
+   the final formulas.</li>
+<li>Use <a href="../fin-design-derivation/">Fin Design: From A Finite Rod To An Infinite Rod</a>
+   as the equation-by-equation guide to Lienhard Eqs. (4.27)-(4.51).</li>
+<li>Complete the guided work in <code>A7</code>, including Lienhard Problems 4.12 and 4.20.</li>
 </ol>
 <h2 id="model">Model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
 <p>Let</p>
@@ -250,6 +282,57 @@ m^2=\frac{HP}{kA}=\frac{\nu}{\kappa}.
 <p>The fitted <code>m</code> quantifies the competition between axial conduction and side
 loss. It does <strong>not</strong> determine <code>k</code> and <code>H</code> separately. The periodic Angstrom
 experiment in Lab 9 supplies the second independent measurement.</p>
+<h2 id="part-0-which-geometry-may-we-ignore">Part 0: Which Geometry May We Ignore?<a class="headerlink" href="#part-0-which-geometry-may-we-ignore" title="Permanent link">&para;</a></h2>
+<h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>
+<p>For a rod of finite length <span class="arithmatex">\(L\)</span>, prescribed base temperature, and insulated
+tip, the exact normalized stationary solution is</p>
+<div class="arithmatex">\[
+\Theta_{\mathrm{finite}}(x)
+=\frac{\theta(x)}{\theta(0)}
+=\frac{\cosh[m(L-x)]}{\cosh(mL)}.
+\]</div>
+<p>The semi-infinite model is the limiting expression</p>
+<div class="arithmatex">\[
+\Theta_\infty(x)=e^{-mx}.
+\]</div>
+<p>Calculate the relative error at every sensor position:</p>
+<div class="arithmatex">\[
+\epsilon_T(x)=
+\frac{\left|\Theta_{\mathrm{finite}}(x)-\Theta_\infty(x)\right|}
+{\left|\Theta_{\mathrm{finite}}(x)\right|}.
+\]</div>
+<p>State an acceptable error before deciding whether the far end may be ignored.
+The product <span class="arithmatex">\(mL\)</span> is useful, but the answer also depends on which sensor and
+which observable you use.</p>
+<h3 id="radius-check-the-transverse-biot-number">Radius: Check The Transverse Biot Number<a class="headerlink" href="#radius-check-the-transverse-biot-number" title="Permanent link">&para;</a></h3>
+<p>For a circular rod,</p>
+<div class="arithmatex">\[
+\mathrm{Bi}_{\perp}=\frac{H(A/P)}{k}=\frac{HR}{2k}.
+\]</div>
+<p>The small-Biot condition <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> means radial conduction
+is fast enough that a cross section can be represented by one temperature.
+Calculate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius and a justified range of
+<span class="arithmatex">\(H\)</span> and <span class="arithmatex">\(k\)</span>. This is a separate test from the finite-length test.</p>
+<h3 id="a7-guided-self-study">A7 Guided Self-Study<a class="headerlink" href="#a7-guided-self-study" title="Permanent link">&para;</a></h3>
+<p>Submit an individual solution that:</p>
+<ol>
+<li>follows the finite-fin derivation in Lienhard Section 4.5 and identifies the
+   two boundary conditions,</li>
+<li>completes Problem 4.12 to obtain the semi-infinite limit,</li>
+<li>uses Example 4.8 and Problem 4.20 to quantify the effect of a tip-boundary
+   approximation,</li>
+<li>calculates <span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x)\)</span> for each course-rod sensor, using
+   supplied parameters if measured values are not yet available,</li>
+<li>calculates <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span>, and</li>
+<li>gives two separate conclusions: whether the rod may be treated as
+   semi-infinite and whether it may be treated as one-dimensional.</li>
+</ol>
+<h3 id="radial-model-lecture-during-m18">Radial-Model Lecture During M18<a class="headerlink" href="#radial-model-lecture-during-m18" title="Permanent link">&para;</a></h3>
+<p>While the long step-response experiment is running, the lecture will retain
+radial variation and introduce the axisymmetric heat equation. The goal is to
+identify the new radial derivative and surface boundary condition, and to
+distinguish surface, centerline, and cross-sectional mean temperature. The
+guided numerical solution follows in Lab 9 before the Angstrom analysis.</p>
 <h2 id="part-1-sensor-map-and-calibration">Part 1: Sensor Map And Calibration<a class="headerlink" href="#part-1-sensor-map-and-calibration" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Measure the rod diameter and record <code>A</code> and <code>P</code> in SI units.</li>
@@ -289,11 +372,13 @@ experiment in Lab 9 supplies the second independent measurement.</p>
    slowly than your stated steady-state criterion.</li>
 <li>Average each sensor over a justified final time interval.</li>
 <li>Plot <code>theta</code> versus <code>x</code> with error bars.</li>
-<li>Fit the exponential model or a finite-rod model if the end condition matters.</li>
-<li>Plot residuals and report <code>m</code> in inverse meters with uncertainty.</li>
+<li>Fit both the exact finite-length model and the semi-infinite exponential.</li>
+<li>Plot both sets of residuals and report <code>m</code> in inverse meters with uncertainty.</li>
 <li>Calculate the characteristic decay length <code>1/m</code> in meters.</li>
-<li>Discuss the effects of sensor-position error, room-temperature drift,
-   imperfect contact, and the finite rod end.</li>
+<li>Report how much the fitted <code>m</code> changes when the finite end is ignored and
+   compare that shift with the fit uncertainty.</li>
+<li>Discuss sensor-position error, room-temperature drift, imperfect contact,
+   and the measured evidence for the tip boundary condition.</li>
 </ol>
 <h2 id="stationary-fin-submission">Stationary-Fin Submission<a class="headerlink" href="#stationary-fin-submission" title="Permanent link">&para;</a></h2>
 <p>Submit one reproducible analysis containing:</p>
@@ -301,8 +386,9 @@ experiment in Lab 9 supplies the second independent measurement.</p>
 <li>the dimensional governing equation and assumptions,</li>
 <li>the sensor map and calibration result,</li>
 <li>baseline and step-response plots,</li>
-<li>steady <code>theta(x)</code> data, model fit, and residuals,</li>
+<li>steady <code>theta(x)</code> data, finite and semi-infinite fits, and both residual sets,</li>
 <li>fitted <code>m</code> and <code>1/m</code> with units and uncertainty,</li>
+<li>the sensor-by-sensor finite-length error and transverse Biot-number check,</li>
 <li>a short explanation of why this result alone cannot separate <code>k</code> from <code>H</code>.</li>
 </ul></div>
             </div>

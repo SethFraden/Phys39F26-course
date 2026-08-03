@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 4 Assignment: Open-Loop TEC Calibration And Software Safety - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-4-assignment-open-loop-tec-calibration-and-software-safety" class="nav-link">Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-4-assignment-open-loop-tec-calibration-and-software-safety" class="nav-link">Module 4 Assignment: Open-Loop TEC Calibration And Software Safety</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -185,9 +185,9 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-4-assignment-open-loop-tec-calibration-and-software-safety">Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety<a class="headerlink" href="#lab-4-assignment-open-loop-tec-calibration-and-software-safety" title="Permanent link">&para;</a></h1>
+<h1 id="module-4-assignment-open-loop-tec-calibration-and-software-safety">Module 4 Assignment: Open-Loop TEC Calibration And Software Safety<a class="headerlink" href="#module-4-assignment-open-loop-tec-calibration-and-software-safety" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 4 turns the manually controlled TEC from Lab 3 into a measured process. You
+<p>Module 4 turns the manually controlled TEC from Module 3 into a measured process. You
 will hold the TEC at several PWM settings, wait for the temperature to settle,
 and measure the steady-state relationship between PWM command and temperature.</p>
 <p>You will also add the first software safety interlock: the Arduino must disable
@@ -204,7 +204,7 @@ temperature-limit interlock in Arduino code.</p>
 <h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
 <p>Before collecting data:</p>
 <ol>
-<li>The Lab 3 pre-power checklist is complete.</li>
+<li>The Module 3 pre-power checklist is complete.</li>
 <li>The H-bridge outputs have been checked with TEC power off.</li>
 <li>PWM starts at zero.</li>
 <li>The power supply current limit is set by the instructor.</li>
@@ -216,12 +216,12 @@ temperature-limit interlock in Arduino code.</p>
 <li>The instructor has inspected the complete TEC and thermal-switch current
    path before actuator power is enabled.</li>
 </ol>
-<p>During this lab, keep the measured temperature between <strong>10 °C and 45 °C</strong>. Stop
+<p>During this module, keep the measured temperature between <strong>10 °C and 45 °C</strong>. Stop
 the run if the temperature moves unexpectedly, the display freezes, the power
 supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your Lab 3 Arduino sketch and Python GUI.</li>
+<li>Review your Module 3 Arduino sketch and Python GUI.</li>
 <li>Confirm that you can set PWM and heat/cool direction manually.</li>
 <li>Review how your Python program records or displays temperature versus time.</li>
 <li>Read the <a href="../../hardware/#thermal-safety-switch">hardware page section on the thermal safety switch</a>.</li>
@@ -238,9 +238,9 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 </ol>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Verify the Lab 3 TEC and thermal-switch high-current path before collecting
+<li>Verify the TEC and thermal-switch high-current path from Module 3 before collecting
   calibration data.</li>
-<li>Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.</li>
+<li>Use your Module 3 Python GUI and Arduino sketch to command the TEC manually.</li>
 <li>Measure steady-state temperature for several heating PWM values.</li>
 <li>Measure steady-state temperature for several cooling PWM values.</li>
 <li>Plot steady-state temperature versus PWM.</li>
@@ -250,9 +250,9 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 <li>Verify the safety logic without intentionally overheating the apparatus.</li>
 </ul>
 <h2 id="part-1-prepare-the-instrument">Part 1: Prepare The Instrument<a class="headerlink" href="#part-1-prepare-the-instrument" title="Permanent link">&para;</a></h2>
-<p>Start from your working Lab 3 setup.</p>
+<p>Start from your working Module 3 setup.</p>
 <h3 id="verify-the-tec-and-thermal-switch-current-path">Verify The TEC And Thermal-Switch Current Path<a class="headerlink" href="#verify-the-tec-and-thermal-switch-current-path" title="Permanent link">&para;</a></h3>
-<p>This current path was built in Lab 3. The actuator power supply must be turned
+<p>This current path was built in Module 3. The actuator power supply must be turned
 off and disconnected while you inspect it before calibration.</p>
 <ol>
 <li>Confirm that 18 AWG stranded copper wire is used for every high-current
@@ -260,7 +260,7 @@ off and disconnected while you inspect it before calibration.</p>
 <li>power supply to H-bridge <code>B+</code> and <code>B-</code>,</li>
 <li>H-bridge <code>M+</code> and <code>M-</code> to the TEC circuit, and</li>
 <li>both wires connected to the thermal switch.</li>
-<li>Confirm that both Lab 3 female spade crimps remain secure and that a
+<li>Confirm that both Module 3 female spade crimps remain secure and that a
    multimeter shows continuity through the closed thermal switch.</li>
 <li>Confirm that the thermal switch remains in series with the TEC current path
    so opening the switch interrupts TEC current independently of the Arduino
@@ -272,7 +272,7 @@ off and disconnected while you inspect it before calibration.</p>
 <p>Do not enable actuator power until the instructor approves the completed
 wiring.</p>
 <h3 id="start-the-instrument">Start The Instrument<a class="headerlink" href="#start-the-instrument" title="Permanent link">&para;</a></h3>
-<p>Continue using the Lab 2 measurement sequence: average between 100 and 1000 raw
+<p>Continue using the measurement sequence from Module 2: average between 100 and 1000 raw
 thermistor-voltage measurements before calculating each temperature. This
 applies to the displayed temperature, recorded data, and software safety check.</p>
 <ol>
@@ -286,7 +286,7 @@ applies to the displayed temperature, recorded data, and software safety check.<
 <li>After instructor approval, connect TEC power.</li>
 </ol>
 <p>Record the Arduino sketch filename, Python filename, serial port, power-supply
-voltage, and power-supply current limit in your lab notes.</p>
+voltage, and power-supply current limit in your module notes.</p>
 <h2 id="part-2-choose-pwm-values">Part 2: Choose PWM Values<a class="headerlink" href="#part-2-choose-pwm-values" title="Permanent link">&para;</a></h2>
 <p>Choose  five PWM values for heating and  five PWM
 values for cooling. Include PWM <code>0</code>.</p>
@@ -300,7 +300,7 @@ range while keeping the temperature between <strong>10 °C and 45 °C</strong>.<
 <li>Set PWM.</li>
 <li>Watch the temperature trace.</li>
 <li>Wait until the temperature changes slowly enough to call it steady for this
-   lab.</li>
+   module.</li>
 <li>Record the steady-state temperature.</li>
 <li>Return PWM to zero before switching direction or choosing a much larger PWM.</li>
 </ol>
@@ -421,7 +421,7 @@ Requirements:
 <p>After using AI, identify exactly which lines were changed and explain how the
 safety limit works.</p>
 <h2 id="part-8-github-checkpoint">Part 8: GitHub Checkpoint<a class="headerlink" href="#part-8-github-checkpoint" title="Permanent link">&para;</a></h2>
-<p>Commit your work when the lab is complete.</p>
+<p>Commit your work when the module is complete.</p>
 <pre><code class="language-bash">git status
 git add README.md arduino python docs data
 git commit -m &quot;Measure open-loop TEC response and add safety limit&quot;
@@ -429,9 +429,9 @@ git push
 </code></pre>
 <p>Do not commit duplicate drafts or large accidental data files. Your repository
 should make it clear which Arduino sketch and Python program were used for this
-lab.</p>
+module.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short lab note containing:</p>
+<p>Submit a short module note containing:</p>
 <ul>
 <li>a wiring diagram showing the 18 AWG high-current path and the thermal switch
   in series with the TEC,</li>
@@ -443,7 +443,7 @@ lab.</p>
 <li>your explanation of heating/cooling asymmetry,</li>
 <li>the Arduino safety-limit code or a link to it,</li>
 <li>a short description of how you verified the safety logic,</li>
-<li>a link to the GitHub commit or repository containing the organized Lab 4 work.</li>
+<li>a link to the GitHub commit or repository containing the organized Module 4 work.</li>
 </ul></div>
             </div>
         </div>

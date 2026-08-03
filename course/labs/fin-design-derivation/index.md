@@ -3,7 +3,7 @@
 This reference develops Lienhard and Lienhard Section 4.5, textbook
 pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
-used in Lab 8.
+used in Module 8.
 
 ## What A Fin Does
 
@@ -309,7 +309,7 @@ The base heat rate becomes
 
 Lienhard recommends \(mL\gtrsim5\) when using the infinite-fin approximation
 for temperature and \(mL\gtrsim3\) when using it for the base heat rate. In
-Lab 8 you will calculate the actual finite-versus-infinite error at every
+Module 8 you will calculate the actual finite-versus-infinite error at every
 sensor rather than relying only on these general thresholds.
 
 ## What To Be Able To Explain

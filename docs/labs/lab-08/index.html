@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 8: Rod Instrument, Step Response, And Stationary Fin - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 8: Rod Instrument, Step Response, And Stationary Fin - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-8-rod-instrument-step-response-and-stationary-fin" class="nav-link">Lab 8: Rod Instrument, Step Response, And Stationary Fin</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-8-rod-instrument-step-response-and-stationary-fin" class="nav-link">Module 8: Rod Instrument, Step Response, And Stationary Fin</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -144,7 +144,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#radial-model-lecture-during-m18" class="nav-link">Radial-Model Lecture During M18</a>
+            <li class="nav-item" data-bs-level="3"><a href="#radial-model-lecture-during-s18" class="nav-link">Radial-Model Lecture During S18</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -177,51 +177,51 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-8-rod-instrument-step-response-and-stationary-fin">Lab 8: Rod Instrument, Step Response, And Stationary Fin<a class="headerlink" href="#lab-8-rod-instrument-step-response-and-stationary-fin" title="Permanent link">&para;</a></h1>
+<h1 id="module-8-rod-instrument-step-response-and-stationary-fin">Module 8: Rod Instrument, Step Response, And Stationary Fin<a class="headerlink" href="#module-8-rod-instrument-step-response-and-stationary-fin" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>In Labs 1-7, one or two temperatures were enough to describe the TEC process.
+<p>In Modules 1-7, one or two temperatures were enough to describe the TEC process.
 The aluminum rod cannot be treated as one thermal lump. Its temperature depends
 on position and time:</p>
 <div class="arithmatex">\[
 T=T(x,t).
 \]</div>
-<p>In this lab you will build and validate the multichannel rod instrument,
+<p>In this module you will build and validate the multichannel rod instrument,
 measure a step response, and measure the steady temperature profile. The steady
 profile gives the first quantitative evidence of heat loss from the rod's side.</p>
 <h2 id="schedule-and-due-work">Schedule And Due Work<a class="headerlink" href="#schedule-and-due-work" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Meeting</th>
+<th>Session</th>
 <th>In class</th>
 <th>Due</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>M16, Mon. Oct. 26</td>
+<td>S16, Mon. Oct. 26</td>
 <td>Lecture: solve the finite-length one-dimensional rod; obtain the semi-infinite limit; introduce the transverse Biot number</td>
 <td>Guided self-study begins</td>
 </tr>
 <tr>
-<td>M17, Wed. Oct. 28</td>
+<td>S17, Wed. Oct. 28</td>
 <td>Compare finite and semi-infinite predictions; calculate the rod Biot number; map and calibrate sensors</td>
 <td><strong>A7: finite-length and small-Biot guided study</strong></td>
 </tr>
 <tr>
-<td>M18, Mon. Nov. 2</td>
+<td>S18, Mon. Nov. 2</td>
 <td>Acquire a synchronized step response; lecture on the axisymmetric radial model while the experiment runs</td>
 <td><strong>C5: Rod instrument and data-acquisition chain</strong></td>
 </tr>
 <tr>
-<td>M19, Wed. Nov. 4</td>
+<td>S19, Wed. Nov. 4</td>
 <td>Reach steady state; fit finite-length and semi-infinite stationary profiles</td>
 <td><strong>A8: stationary-fin model comparison</strong></td>
 </tr>
 </tbody>
 </table>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
-<p>By the end of this lab, you should be able to:</p>
+<p>By the end of this module, you should be able to:</p>
 <ul>
 <li>define coordinates and metadata for a spatial temperature measurement,</li>
 <li>calibrate or cross-check several thermistors,</li>
@@ -238,7 +238,7 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 <ol>
 <li>Read Chapter 1 of <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>.</li>
 <li>Review <a href="../theory-bridge-chapter-1/">Theory Bridge: Fourier's Law, Heat Equation, And Biot Number</a>.</li>
-<li>For the M16 lecture and M17 guided study, read Lienhard Section 4.5,
+<li>For the S16 lecture and S17 guided study, read Lienhard Section 4.5,
    textbook pp. 163-173. Work through the derivation rather than reading only
    the final formulas.</li>
 <li>Use <a href="../fin-design-derivation/">Fin Design: From A Finite Rod To An Infinite Rod</a>
@@ -281,7 +281,7 @@ m^2=\frac{HP}{kA}=\frac{\nu}{\kappa}.
 \]</div>
 <p>The fitted <code>m</code> quantifies the competition between axial conduction and side
 loss. It does <strong>not</strong> determine <code>k</code> and <code>H</code> separately. The periodic Angstrom
-experiment in Lab 9 supplies the second independent measurement.</p>
+experiment in Module 9 supplies the second independent measurement.</p>
 <h2 id="part-0-which-geometry-may-we-ignore">Part 0: Which Geometry May We Ignore?<a class="headerlink" href="#part-0-which-geometry-may-we-ignore" title="Permanent link">&para;</a></h2>
 <h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>
 <p>For a rod of finite length <span class="arithmatex">\(L\)</span>, prescribed base temperature, and insulated
@@ -327,12 +327,12 @@ Calculate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod 
 <li>gives two separate conclusions: whether the rod may be treated as
    semi-infinite and whether it may be treated as one-dimensional.</li>
 </ol>
-<h3 id="radial-model-lecture-during-m18">Radial-Model Lecture During M18<a class="headerlink" href="#radial-model-lecture-during-m18" title="Permanent link">&para;</a></h3>
+<h3 id="radial-model-lecture-during-s18">Radial-Model Lecture During S18<a class="headerlink" href="#radial-model-lecture-during-s18" title="Permanent link">&para;</a></h3>
 <p>While the long step-response experiment is running, the lecture will retain
 radial variation and introduce the axisymmetric heat equation. The goal is to
 identify the new radial derivative and surface boundary condition, and to
 distinguish surface, centerline, and cross-sectional mean temperature. The
-guided numerical solution follows in Lab 9 before the Angstrom analysis.</p>
+guided numerical solution follows in Module 9 before the Angstrom analysis.</p>
 <h2 id="part-1-sensor-map-and-calibration">Part 1: Sensor Map And Calibration<a class="headerlink" href="#part-1-sensor-map-and-calibration" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Measure the rod diameter and record <code>A</code> and <code>P</code> in SI units.</li>
@@ -356,7 +356,7 @@ guided numerical solution follows in Lab 9 before the Angstrom analysis.</p>
    measured base is the actual boundary condition.</li>
 </ol>
 <h2 id="c5-checkoff">C5 Checkoff<a class="headerlink" href="#c5-checkoff" title="Permanent link">&para;</a></h2>
-<p>At M18, demonstrate:</p>
+<p>At S18, demonstrate:</p>
 <ul>
 <li>calibrated or cross-checked rod thermistors,</li>
 <li>documented sensor coordinates and wiring,</li>

@@ -6,7 +6,7 @@
 **Email:** fraden@brandeis.edu  
 **Office:** 214 Abelson  
 **Office hours:** By appointment, and scheduled times to be announced  
-**Meeting time:** Monday and Wednesday, 9:05 AM-11:55 AM  
+**Class time:** Monday and Wednesday, 9:05 AM-11:55 AM<br>
 **Classroom/laboratory:** 340 Abelson  
 **Course website:** <https://sethfraden.github.io/Phys39F26-course/>
 **Brandeis Moodle course:** <https://moodle.brandeis.edu/course/view.php?id=6589>
@@ -65,7 +65,7 @@ By the end of the course, you should be able to:
 
 ## Format
 
-The course meets twice per week in a laboratory format. Most meetings will
+The course meets twice per week in a laboratory format. Most sessions will
 combine:
 
 - a short discussion or board-work exercise,
@@ -110,7 +110,7 @@ reading to a measurement, circuit, code fragment, or model equation.
 
 ## Major Course Units
 
-The  Fall 2026 schedule includes 26 class meetings covering 8 topics.
+The  Fall 2026 schedule includes 26 class sessions covering 8 topics.
 
 1. **Arduino primitives and signals**  
    Digital output, analog input, digitization, averaging, noise, PWM,
@@ -153,7 +153,7 @@ The  Fall 2026 schedule includes 26 class meetings covering 8 topics.
 | 1. Arduino primitives and signals | G1, G2, G5, G12 | Oscilloscope measurements, modified sketches, C1 repository check |
 | 2. First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | 3. Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
-| 4. Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Lab 4 note |
+| 4. Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Module 4 note |
 | 5. P and PI control | G8, G9, G14 | Droop and oscillation data, P/PI comparison, individual explanation |
 | 6. Process modeling | G3, G9, G10, G13 | One- and two-lump derivations, model fits, residuals, C4 |
 | 7. Long-cylinder heat transport | G2-G4, G7, G11, G13, G15 | Rod calibration, heat-equation derivation, stationary-fin fit, Angstrom data, C5 |
@@ -172,19 +172,19 @@ Draft grading plan:
 
 | Component | Weight |
 | --- | ---: |
-| Attendance, preparation, and lab participation | 20% |
-| Lab notes, checkoffs, and short assignments | 20% |
+| Attendance, preparation, and in-class participation | 20% |
+| Module notes, checkoffs, and short assignments | 20% |
 | Code, GitHub documentation, and reproducibility | 15% |
 | Modeling assignments and modeling app | 20% |
 | Written reports or project writeups | 15% |
 | Final oral presentation | 10% |
 
 
-### Lab Notes And Documentation
+### Module Notes And Documentation
 
 Six graded completion milestones establish deadlines for major instrumentation,
-hardware, and software capabilities. Meeting each deadline is part of the lab
-notes, checkoffs, and short assignments grade. At each milestone, the team must
+hardware, and software capabilities. Completing each milestone by its deadline
+is part of the module notes, checkoffs, and short assignments grade. At each milestone, the team must
 demonstrate a safely functioning system, current code and documentation in its
 repository, and enough individual understanding for each student to explain the
 work. The milestone dates and definitions are listed in the
@@ -224,7 +224,7 @@ The principal pieces include:
 
 ### Presentations
 
-Final presentations will occur on the last class meeting. Each team will explain
+Final presentations will occur during the last class session. Each team will explain
 what they measured, what model they used, how well the model worked, and what
 they would improve next.
 
@@ -255,7 +255,7 @@ it produces, and what assumptions it makes. If AI substantially helps with an
 assignment, briefly note how it was used.
 
 Do not submit code or text that you cannot explain. Do not use AI to fabricate
-data, conceal errors, or misrepresent what happened in the lab.
+data, conceal errors, or misrepresent what happened in the experiment.
 
 ## Git, GitHub, And VS Code
 
@@ -274,20 +274,20 @@ productive. More advanced Git use will be introduced only as needed.
 
 ## Attendance And Laboratory Work
 
-Lab attendance is expected. Each meeting depends on hands-on work, shared
+Session attendance is expected. Each session depends on hands-on work, shared
 equipment, and collaboration with your partner, so it cannot be fully replaced
 by work done later on your own.
 
-This course expects 180 hours of work, divided between 26 in-class meetings and
-out-of-class activities. The 26 scheduled meetings of 2 hours 50 minutes total
+This course expects 180 hours of work, divided between 26 in-class sessions and
+out-of-class activities. The 26 scheduled sessions of 2 hours 50 minutes total
 73 hours 40 minutes in class. This leaves 106 hours 20 minutes outside class,
 or an average of approximately 4 hours 5 minutes preparing for and following up
-on each lab meeting. This outside work includes readings, code development,
+for each class session. This outside work includes readings, code development,
 data analysis, model derivations, GitHub documentation, and report or
 presentation preparation. The amount will vary from week to week.
 
 Attendance matters because this is a laboratory course. Many assignments depend
-on hardware measurements that are difficult to reproduce outside scheduled lab
+on hardware measurements that are difficult to reproduce outside scheduled class
 time. If you must miss class, contact the instructor as soon as possible and
 make a plan to catch up.
 

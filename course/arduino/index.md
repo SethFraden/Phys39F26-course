@@ -1,4 +1,4 @@
-# Lab 1 Assignment: First Contact
+# Module 1 Assignment: First Contact
 
 Learn how to use an Arduino for input and output. The point of this tutorial is
 not to write a large program all at once. The point is to make one small piece
@@ -11,7 +11,7 @@ because students can find them again after the course. Open them from:
 File -> Examples
 ```
 
-Another great resource are the [worked examples](https://docs.arduino.cc/built-in-examples/) from Arduino. This lab is based on some of them.
+Another great resource are the [worked examples](https://docs.arduino.cc/built-in-examples/) from Arduino. This module is based on some of them.
 
 ## What The Arduino Does In This Course
 
@@ -77,9 +77,9 @@ switching waveform rather than a continuously variable voltage. Finally, connect
 the PWM pin to an LED with an appropriate series resistor and confirm that the
 LED brightness follows the potentiometer.
 
-### 5. Next Lab: PWM And H-Bridge
+### 5. Next Module: PWM And H-Bridge
 
-This is not part of the first lab unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.
+This is not part of Module 1 unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.
 
 Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
 Arduino PWM output. Run the motor at different PWM settings.
@@ -89,7 +89,7 @@ direction.
 
 Measure the PWM signal with the oscilloscope. Record the PWM frequency, high
 voltage, low voltage, and duty cycle. This step prepares you for later TEC
-heat/cool control, but the TEC power supply remains off until the actuator lab.
+heat/cool control, but the TEC power supply remains off until the actuator module.
 
 !!! warning
     Arduino pins provide logic signals, not motor or TEC power. The motor or TEC

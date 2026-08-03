@@ -1,4 +1,4 @@
-# Lab 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis
+# Module 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis
 
 ## Purpose
 
@@ -13,15 +13,15 @@ the measured temperature field.
 
 ## Schedule And Due Work
 
-| Meeting | In class | Due |
+| Session | In class | Due |
 | --- | --- | --- |
-| M24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | **A11: draft conductivity and heat-loss results** |
-| M25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 and final analysis packet** |
-| M26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
+| S24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | **A11: draft conductivity and heat-loss results** |
+| S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 and final analysis packet** |
+| S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
 
 ## Learning Objectives
 
-By the end of this lab, you should be able to:
+By the end of this module, you should be able to:
 
 - carry units through the complete inference,
 - convert diffusivity and loss rate into conductivity and heat-transfer
@@ -36,7 +36,7 @@ By the end of this lab, you should be able to:
 
 ## From Angstrom Fits To Physical Properties
 
-From Lab 9,
+From Module 9,
 
 \[
 \kappa=\frac{\omega}{2qq'},
@@ -92,7 +92,7 @@ slopes depend directly on sensor coordinates.
 6. Plot measured-versus-modeled traces and residuals for several positions.
 7. Recalculate `mL`, finite-length error, and the transverse Biot number using
    the final fitted or inferred parameters rather than the preliminary values
-   used in Labs 8 and 9.
+   used in Modules 8 and 9.
 
 ## Part 3: Systematic Error
 

@@ -1,7 +1,7 @@
 # Theory Bridge: Fourier's Law, Heat Equation, And Biot Number
 
-This is a short theory bridge, not a full lab. Its job is to connect the
-lumped thermal models from Lab 7 to the spatial models needed for the long
+This is a short theory bridge, not a full module. Its job is to connect the
+lumped thermal models from Module 7 to the spatial models needed for the long
 cylinder experiment.
 
 Read selectively in
@@ -23,7 +23,7 @@ This bridge follows the order of Lienhard Section 1.3:
 
 ## Why This Bridge Exists
 
-Lab 7 used lumped models: one temperature for one object, or two temperatures
+Module 7 used lumped models: one temperature for one object, or two temperatures
 for two coupled objects. That works when internal temperature gradients are
 small enough to ignore. The long cylinder is different. Its temperature depends
 on position as well as time, so we need a model that can describe heat flowing
@@ -243,7 +243,7 @@ becomes the one-dimensional heat equation:
 \alpha\frac{\partial^2T}{\partial x^2}.
 \]
 
-The later rod lab will add side heat loss to the room, because the cylinder is
+The later rod module will add side heat loss to the room, because the cylinder is
 not perfectly insulated.
 
 ## 4. Heat Convection And Newton's Law Of Cooling

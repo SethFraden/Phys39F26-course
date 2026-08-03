@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 5 Assignment: P-Only Temperature Control - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 5 Assignment: P-Only Temperature Control - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-5-assignment-p-only-temperature-control" class="nav-link">Lab 5 Assignment: P-Only Temperature Control</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-5-assignment-p-only-temperature-control" class="nav-link">Module 5 Assignment: P-Only Temperature Control</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -158,7 +158,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-5-predict-droop-from-lab-4" class="nav-link">Part 5: Predict Droop From Lab 4</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-predict-droop-from-module-4" class="nav-link">Part 5: Predict Droop From Module 4</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -185,10 +185,10 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-5-assignment-p-only-temperature-control">Lab 5 Assignment: P-Only Temperature Control<a class="headerlink" href="#lab-5-assignment-p-only-temperature-control" title="Permanent link">&para;</a></h1>
+<h1 id="module-5-assignment-p-only-temperature-control">Module 5 Assignment: P-Only Temperature Control<a class="headerlink" href="#module-5-assignment-p-only-temperature-control" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 5 closes the feedback loop for the first time. In Lab 4 you measured how
-the TEC responds when you choose a PWM command directly. In Lab 5 you ask the
+<p>Module 5 closes the feedback loop for the first time. In Module 4 you measured how
+the TEC responds when you choose a PWM command directly. In Module 5 you ask the
 computer to choose the PWM command from the temperature error.</p>
 <p>The first controller is proportional-only:</p>
 <pre><code class="language-text">PWM command = Kp * temperature error
@@ -220,7 +220,7 @@ not mastery of all the mathematics.</p>
 <h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
 <p>Before using feedback control:</p>
 <ol>
-<li>The Lab 4 software temperature limit is present.</li>
+<li>The Module 4 software temperature limit is present.</li>
 <li>PWM starts at zero.</li>
 <li>The Python GUI shows plausible temperature.</li>
 <li>Heat and cool directions have the correct sign.</li>
@@ -246,7 +246,7 @@ amplitude.</p>
 </ul>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your Lab 4 open-loop graph of steady-state temperature versus PWM.</li>
+<li>Review your Module 4 open-loop graph of steady-state temperature versus PWM.</li>
 <li>Identify the approximate open-loop slope, <code>S = dT/dPWM</code>, near room
    temperature.</li>
 <li>Confirm that your Arduino safety shutdown still works.</li>
@@ -350,8 +350,8 @@ for several values of <code>Kp</code>.</p>
 <li>Save a strip chart trace.</li>
 </ol>
 <p>Plot droop versus <code>Kp</code>.</p>
-<h2 id="part-5-predict-droop-from-lab-4">Part 5: Predict Droop From Lab 4<a class="headerlink" href="#part-5-predict-droop-from-lab-4" title="Permanent link">&para;</a></h2>
-<p>Use the Lab 4 open-loop slope:</p>
+<h2 id="part-5-predict-droop-from-module-4">Part 5: Predict Droop From Module 4<a class="headerlink" href="#part-5-predict-droop-from-module-4" title="Permanent link">&para;</a></h2>
+<p>Use the open-loop slope from Module 4:</p>
 <pre><code class="language-text">T = Tamb + S u
 </code></pre>
 <p>and the P-only controller:</p>

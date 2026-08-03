@@ -292,7 +292,7 @@ Before trusting an ADC number, check these things:
 - Is averaging hiding real dynamics?
 - Should this signal be measured with the oscilloscope instead?
 
-## 9. Lab Questions
+## 9. Module Questions
 
 1. With a potentiometer, measure the ADC count near 0 V, 2.5 V, and 5 V. Does
    the count agree with the multimeter voltage?

@@ -1,10 +1,10 @@
-# Lab 7 Assignment: Process Model And Python Simulation
+# Module 7 Assignment: Process Model And Python Simulation
 
 ## Introductory Material
 
 ### Purpose
 
-Lab 7 is the first modeling lab after you have built enough of the instrument to
+Module 7 is the first modeling module after you have built enough of the instrument to
 measure temperature, drive the TEC, and see feedback behavior. The goal is to
 connect three things:
 
@@ -13,7 +13,7 @@ connect three things:
 3. a [Python simulation GUI](#how-to-run-the-python-gui) that lets you change
    model parameters and watch the predicted temperature response.
 
-This lab is not about perfect prediction. It is about learning how a simple
+This module is not about perfect prediction. It is about learning how a simple
 model can explain droop, overshoot, lag, and the onset of instability.
 
 ### Class Theme
@@ -43,7 +43,7 @@ During class, the approximate schedule for one 170-minute meeting is:
 1. **0-20 min**: Opening discussion and board work on
    [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
    Problems 1.3 and 1.8.
-2. **20-40 min**: Connect the board work to the Lab 7 model equations and the
+2. **20-40 min**: Connect the board work to the model equations in Module 7 and the
    one-lump/two-lump diagram.
 3. **40-60 min**: Run the manual model and identify the physical meaning of each
    term and control.
@@ -306,7 +306,7 @@ temperature:
 In these equations, `alpha` is the thermal diffusivity in m²/s and `beta` is a
 side-loss rate constant in 1/s.
 
-You do not need to solve these equations in Lab 7. For now, your job is to
+You do not need to solve these equations in Module 7. For now, your job is to
 understand how conservation of energy produces the simple lumped equations. The
 spatial differential equations come later, when we measure temperature along the
 long metal cylinder.
@@ -367,7 +367,7 @@ python Lab_6_7_modeling_tec_v2.py
 
 1. Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf),
    **Chapter 1: Introduction**. Focus on the parts that connect directly to
-   this lab: conservation of energy, heat flux, conduction, thermal resistance,
+   this module: conservation of energy, heat flux, conduction, thermal resistance,
    heat capacity, and lumped thermal models. Read through p. 28. Skip most of the last section on radiation.
 
 2. Prepare to work selected Chapter 1 problems at the board. You may be randomly
@@ -609,7 +609,7 @@ Answer:
 
 ### What To Submit
 
-Submit a short lab note containing:
+Submit a short module note containing:
 
 - Your copied and labeled model equations.
 - Theory Assignment 1.
@@ -634,7 +634,7 @@ perfect fit. Report which part of the curve the model explains poorly.
 
 ## Instructor Notes
 
-- This lab is a consolidation point after manual control and P/PI control.
+- This module is a consolidation point after manual control and P/PI control.
 - Keep the emphasis on physical interpretation, not formal control theory.
 - Students should leave understanding why delay plus gain causes trouble.
 - The long-rod model should be introduced as a preview, not fully derived here

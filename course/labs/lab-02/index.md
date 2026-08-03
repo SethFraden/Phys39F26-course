@@ -1,12 +1,12 @@
-# Lab 2 Assignment: First Real Instrument Pieces
+# Module 2 Assignment: First Real Instrument Pieces
 
 ## Purpose
 
-In Lab 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Lab 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.
+In Module 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Module 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.
 
 The actuator side also begins, but cautiously. You will verify H-bridge logic
 and PWM with the oscilloscope before connecting a DC motor. The TEC remains
-disconnected throughout Lab 2.
+disconnected throughout Module 2.
 
 ## Theme
 
@@ -20,14 +20,14 @@ and speed test if the instrument passes the safety checks.
 
 The thermistor circuit is safe to build and test from Arduino USB power.
 
-The TEC remains disconnected throughout Lab 2. External actuator power remains
+The TEC remains disconnected throughout Module 2. External actuator power remains
 off until the H-bridge input signals have been checked with the oscilloscope.
 For the optional motor test, use low PWM only and stop immediately if the motor,
 H-bridge, or wiring becomes unexpectedly warm.
 
 ## Before Class
 
-1. Review your [Lab 1 assignment](../lab-01/index.md) notes on `analogRead`,
+1. Review your [Module 1 assignment](../lab-01/index.md) notes on `analogRead`,
    averaging, PWM, and oscilloscope duty-cycle measurements.
 2. Read the [Arduino Tutorial](../../arduino/index.md) through the LED brightness
    section and review [Analog, ADC, And PWM](../../arduino/analog-digital.md)
@@ -43,7 +43,7 @@ H-bridge, or wiring becomes unexpectedly warm.
    [H-bridge](../../hardware.md#h-bridge), and
    [TEC](../../hardware.md#thermoelectric-cooler).
 4. Bring the Arduino, thermistor divider parts, trim pot, USB cable, and your
-   Lab 1 notes.
+   Module 1 notes.
 
 ## Pre-Class Questions
 
@@ -136,11 +136,11 @@ Record:
 - whether warming and cooling the thermistor move the plotted temperature in
   the expected direction.
 
-Lab 2 stays inside the Arduino IDE.
+Module 2 stays inside the Arduino IDE.
 
 ## Part 3: Trim Pot To PWM And Heat/Cool Direction
 
-In Lab 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.
+In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.
 
 Build code with this signal path:
 
@@ -162,7 +162,7 @@ Use a separate digital pin as a heat/cool input, for example pin `11`:
 
 This is the logic of H-bridge method 2: the two H-bridge control inputs receive
 either the PWM command or `0V`, depending on whether you want to heat or cool.
-In the Lab 2 motor demonstration, **heat means clockwise** and **cool means
+In the motor demonstration in Module 2, **heat means clockwise** and **cool means
 counterclockwise**.
 Read the [H-bridge hardware notes](../../hardware.md#h-bridge) before wiring
 the class board.
@@ -192,7 +192,7 @@ Check:
 Only do this after the instructor checks the H-bridge signals. The TEC must
 remain disconnected.
 
-Before connecting the TEC in a later lab, use a small motor as the first visible
+Before connecting the TEC in a later module, use a small motor as the first visible
 H-bridge load. The motor makes direction reversal and PWM speed control easy to
 observe without immediately applying power to the thermal system.
 
@@ -234,14 +234,14 @@ The small motor might not require 18 AWG wire electrically. You are using
 TEC high-current circuit requires. Do not connect the TEC or thermal switch
 during this motor-first exercise.
 
-For the Lab 2 demonstration, the heat command should turn the motor clockwise
+For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor
 before swapping the motor leads.
 
 ## What To Submit
 
-Submit a short lab note containing:
+Submit a short module note containing:
 
 - Thermistor divider circuit sketch.
 - Three human-readable serial lines copied from the Part 1 Arduino output.

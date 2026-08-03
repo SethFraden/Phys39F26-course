@@ -1,9 +1,9 @@
-# Lab 6 Assignment: Modeling P And PI Temperature Control
+# Module 6 Assignment: Modeling P And PI Temperature Control
 
 ## Purpose
 
-Lab 6 slows down the theory. Lab 5 showed that proportional feedback reduces
-steady-state error but can become unstable. Lab 6 builds simple models that
+Module 6 slows down the theory. Module 5 showed that proportional feedback reduces
+steady-state error but can become unstable. Module 6 builds simple models that
 explain those observations.
 
 The goal is not to become fluent in Laplace transforms. The goal is to connect
@@ -29,10 +29,10 @@ Read selectively:
    - Chapter 4, especially Section 4.5: read for transient response and thermal
      time constants.
    - Official free textbook site: [A Heat Transfer Textbook](https://ahtt.mit.edu)
-2. Review your Lab 4 and Lab 5 data.
+2. Review your Module 4 and Module 5 data.
 3. Optional after class: Bechhoefer pp. 795-797 on feedback and stability.
 
-Do not try to learn all of transient heat transfer at once. For this lab, you
+Do not try to learn all of transient heat transfer at once. For this module, you
 need the idea that a physical object has heat capacity, exchanges heat with its
 environment, and responds over a time scale.
 
@@ -52,10 +52,10 @@ environment, and responds over a time scale.
 
 Bring:
 
-- your Lab 4 steady-state `T` versus PWM data,
-- your Lab 5 droop versus `Kp` data,
-- one Lab 5 strip chart trace at a stable gain,
-- one Lab 5 strip chart trace near oscillation,
+- your Module 4 steady-state `T` versus PWM data,
+- your Module 5 droop versus `Kp` data,
+- one Module 5 strip chart trace at a stable gain,
+- one Module 5 strip chart trace near oscillation,
 - your current Python plotting/modeling environment.
 
 ## Pre-Class Questions
@@ -68,7 +68,7 @@ Bring:
 ## What You Will Do
 
 - Derive the algebraic P-control droop model.
-- Fit or estimate an open-loop thermal slope from Lab 4.
+- Fit or estimate an open-loop thermal slope from Module 4.
 - Fit or estimate a time constant from a temperature step.
 - Simulate a first-order TEC/block model.
 - Add P-only feedback to the simulation.
@@ -78,7 +78,7 @@ Bring:
 
 ## Part 1: Algebraic Droop Model
 
-Start with the steady-state open-loop relationship from Lab 4:
+Start with the steady-state open-loop relationship from Module 4:
 
 ```text
 T = Tamb + S*u
@@ -110,7 +110,7 @@ droop = Tset - T = (Tset - Tamb)/(1 + S*Kp)
 ```
 
 Use your own values of `S`, `Tamb`, `Tset`, and `Kp` to calculate predicted
-droop. Compare the prediction with Lab 5.
+droop. Compare the prediction with Module 5.
 
 ## Part 2: First-Order Thermal Model
 
@@ -131,10 +131,10 @@ effective thermal object.
 
 ## Part 3: Estimate `tau`
 
-Use a temperature step from Lab 4 or Lab 5.
+Use a temperature step from Module 4 or Module 5.
 
 Use a trace in which every temperature value was calculated after averaging
-between 100 and 1000 raw thermistor-voltage measurements, as required in Labs
+between 100 and 1000 raw thermistor-voltage measurements, as required in Modules
 2 through 5.
 
 One practical method:
@@ -185,7 +185,7 @@ Simulate several values of `Kp`. Plot:
 - PWM command versus time,
 - final droop versus `Kp`.
 
-Compare with Lab 5. The first-order model should capture some trends, but it
+Compare with Module 5. The first-order model should capture some trends, but it
 may not reproduce oscillations.
 
 ## Part 6: Why The First-Order Model May Not Oscillate
@@ -258,7 +258,7 @@ Submit:
 - estimate of open-loop slope `S`,
 - estimate of thermal time constant `tau`,
 - open-loop simulation compared with one measured trace,
-- P-only simulation compared with Lab 5 droop data,
+- P-only simulation compared with Module 5 droop data,
 - PI simulation compared with P-only simulation,
 - short explanation of why the first-order model does or does not oscillate,
 - windup thought-experiment answers,

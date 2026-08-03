@@ -1,10 +1,10 @@
-# Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI
+# Module 3 Assignment: Manual TEC Heat/Cool And First Python GUI
 
 ## Purpose
 
-Lab 3 connects measurement to thermal actuation. In Lab 2 you measured
+Module 3 connects measurement to thermal actuation. In Module 2 you measured
 temperature, verified the H-bridge signals, and used a small motor to make PWM
-magnitude and direction immediately visible. In Lab 3 you replace the motor
+magnitude and direction immediately visible. In Module 3 you replace the motor
 with the TEC and thermal switch, operate the TEC at low power, record heating
 and cooling traces, and begin treating the Python GUI as an editable part of
 the instrument.
@@ -15,8 +15,8 @@ the state of the hardware.
 
 ### Class-Session Boundary
 
-Lab 2 introduced the H-bridge, external power supply, brushed DC motor, and
-stripping and tinning 18 AWG wire. Lab 3 begins the Class 4 or 5 TEC-wiring
+Module 2 introduced the H-bridge, external power supply, brushed DC motor, and
+stripping and tinning 18 AWG wire. Module 3 begins the Class 4 or 5 TEC-wiring
 session. Do not wire or energize the TEC and thermal switch until the instructor
 begins that session.
 
@@ -36,7 +36,7 @@ Before TEC power is connected:
 3. Arduino ground, H-bridge ground, and oscilloscope ground are understood.
 4. The power supply current limit is set by the instructor.
 5. The thermal safety cutoff is identified.
-6. The Lab 2 motor-first H-bridge test has been completed with the TEC disconnected.
+6. The Module 2 motor-first H-bridge test has been completed with the TEC disconnected.
 7. All wiring in the power-supply, H-bridge, TEC, and thermal-switch
    current path is 18 AWG stranded copper wire.
 8. Female spade connectors have been crimped onto both thermal-switch wires,
@@ -48,7 +48,7 @@ trace disappears.
 
 ## Before Class
 
-1. Review your Lab 2 thermistor conversion notes.
+1. Review your Module 2 thermistor conversion notes.
 2. Review which Arduino pins drive the H-bridge on the class board.
 3. Open the Python GUI or strip-chart code in VS Code and identify:
    - imports,
@@ -80,7 +80,7 @@ trace disappears.
 
 ## Part 1: Pre-Power Checklist
 
-Before turning on TEC power, fill in this checklist in your lab notes.
+Before turning on TEC power, fill in this checklist in your module notes.
 
 | Item | Value Or Observation |
 | --- | --- |
@@ -89,7 +89,7 @@ Before turning on TEC power, fill in this checklist in your lab notes.
 | H-bridge heat pin |  |
 | H-bridge cool pin |  |
 | PWM starts at zero? |  |
-| Lab 2 motor test completed with TEC disconnected? |  |
+| Module 2 motor test completed with TEC disconnected? |  |
 | High-current leads are 18 AWG? |  |
 | Both female spade crimps tug-tested and checked for continuity? |  |
 | Power supply voltage |  |
@@ -114,7 +114,7 @@ thermistor -> 100-1000 raw ADC readings -> average voltage -> temperature -> ser
 
 If you write your own version, keep it simple. Do not add feedback control yet.
 Every temperature value must be calculated only after averaging between 100
-and 1000 raw thermistor-voltage measurements, as established in Lab 2.
+and 1000 raw thermistor-voltage measurements, as established in Module 2.
 
 This sketch is intentionally not polished. Before improving its structure, make
 sure you can explain the measurement path, the PWM command path, and the
@@ -140,7 +140,7 @@ match the command from the trim pot or manual setting.
 This part begins in Class 4 or 5. Do not begin unless the instructor has started
 the TEC-wiring session.
 
-After completing the Lab 2 motor-first test, turn off actuator power and replace
+After completing the motor-first test in Module 2, turn off actuator power and replace
 the motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
 power-supply-to-H-bridge wiring, `M+`/`M-` wiring, and both sides of the thermal
 switch. Make the TEC-side connections on the isolated paired positions of the
@@ -382,7 +382,7 @@ manual heat/cool test.
 
 ## Part 8: Project Cleanup And GitHub Checkpoint
 
-By the end of Lab 3, you may have several Arduino sketches, Python files,
+By the end of Module 3, you may have several Arduino sketches, Python files,
 AI-generated drafts, notes, screenshots, and data files. Before moving on, take
 time to organize the work so that another person, including your future self,
 can understand what you built.
@@ -430,7 +430,7 @@ Use Git and GitHub to make a checkpoint:
 ```bash
 git status
 git add README.md arduino python docs
-git commit -m "Organize Lab 3 TEC control project"
+git commit -m "Organize Module 3 TEC control project"
 git push
 ```
 
@@ -452,7 +452,7 @@ Also include a short AI use note in your `README.md`:
 
 ## What To Submit
 
-Submit a short lab note containing:
+Submit a short module note containing:
 
 - Completed pre-power checklist.
 - Wiring or signal-path sketch.

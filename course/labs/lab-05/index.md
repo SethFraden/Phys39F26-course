@@ -1,9 +1,9 @@
-# Lab 5 Assignment: P-Only Temperature Control
+# Module 5 Assignment: P-Only Temperature Control
 
 ## Purpose
 
-Lab 5 closes the feedback loop for the first time. In Lab 4 you measured how
-the TEC responds when you choose a PWM command directly. In Lab 5 you ask the
+Module 5 closes the feedback loop for the first time. In Module 4 you measured how
+the TEC responds when you choose a PWM command directly. In Module 5 you ask the
 computer to choose the PWM command from the temperature error.
 
 The first controller is proportional-only:
@@ -45,7 +45,7 @@ not mastery of all the mathematics.
 
 Before using feedback control:
 
-1. The Lab 4 software temperature limit is present.
+1. The Module 4 software temperature limit is present.
 2. PWM starts at zero.
 3. The Python GUI shows plausible temperature.
 4. Heat and cool directions have the correct sign.
@@ -72,7 +72,7 @@ amplitude.
 
 ## Before Class
 
-1. Review your Lab 4 open-loop graph of steady-state temperature versus PWM.
+1. Review your Module 4 open-loop graph of steady-state temperature versus PWM.
 2. Identify the approximate open-loop slope, `S = dT/dPWM`, near room
    temperature.
 3. Confirm that your Arduino safety shutdown still works.
@@ -173,9 +173,9 @@ For each gain:
 
 Plot droop versus `Kp`.
 
-## Part 5: Predict Droop From Lab 4
+## Part 5: Predict Droop From Module 4
 
-Use the Lab 4 open-loop slope:
+Use the open-loop slope from Module 4:
 
 ```text
 T = Tamb + S u

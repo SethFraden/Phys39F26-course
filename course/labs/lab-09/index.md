@@ -1,24 +1,24 @@
-# Lab 9: The Angstrom Method
+# Module 9: The Angstrom Method
 
 ## Purpose
 
-In this lab the TEC controller creates a sinusoidal temperature boundary at the
+In this module the TEC controller creates a sinusoidal temperature boundary at the
 base of the aluminum rod. Thermal diffusion causes the oscillation amplitude to
 decrease and its phase to lag with distance. Measuring both effects allows you
 to separate thermal diffusion from heat loss to the air.
 
 ## Schedule And Due Work
 
-| Meeting | In class | Due |
+| Session | In class | Due |
 | --- | --- | --- |
-| M20, Mon. Nov. 9 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | `P3` model and pilot check |
-| M21, Wed. Nov. 11 | Fit pilot amplitudes and phases; choose production period | **A9: Angstrom derivation and model-validity plan** |
-| M22, Mon. Nov. 16 | Acquire settled production data at one or more periods | Data-readiness check |
-| M23, Wed. Nov. 18 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | Modeling-app draft |
+| S20, Mon. Nov. 9 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | `P3` model and pilot check |
+| S21, Wed. Nov. 11 | Fit pilot amplitudes and phases; choose production period | **A9: Angstrom derivation and model-validity plan** |
+| S22, Mon. Nov. 16 | Acquire settled production data at one or more periods | Data-readiness check |
+| S23, Wed. Nov. 18 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | Modeling-app draft |
 
 ## Learning Objectives
 
-By the end of this lab, you should be able to:
+By the end of this module, you should be able to:
 
 - impose and verify a sinusoidal temperature boundary with PI control,
 - choose a useful forcing period using physical and practical constraints,
@@ -79,7 +79,7 @@ The useful inverse relations are
 
 These equations use a one-dimensional, semi-infinite rod. Before selecting
 sensors for the fit, carry forward the finite-length error calculation from
-Lab 8 and complete the radial-model study below. State which sensors and
+Module 8 and complete the radial-model study below. State which sensors and
 conditions satisfy your chosen approximation tolerances.
 
 ## Part 0: Guided Radial-Model Study
@@ -115,7 +115,7 @@ two-dimensional PDE solver from scratch. Run otherwise identical cases with
 4. explain how a surface thermistor analyzed with a one-dimensional model could
    bias inferred \(k\) or \(H\).
 
-This numerical study follows the radial-model lecture from M18. Finish it
+This numerical study follows the radial-model lecture from S18. Finish it
 before using the one-dimensional periodic solution for the production
 Angstrom analysis.
 

@@ -40,7 +40,7 @@ what it does.
 
 ## Recommended Project Structure
 
-By the end of Lab 3, organize your work into one clear project folder:
+By the end of Module 3, organize your work into one clear project folder:
 
 ```text
 phys39-tec-control/
@@ -108,7 +108,7 @@ Use commit messages that say what changed, for example:
 - Add thermistor serial sketch
 - Add Python display strip chart
 - Document H-bridge wiring
-- Organize Lab 3 TEC control project
+- Organize Module 3 TEC control project
 
 ## What Not To Commit
 

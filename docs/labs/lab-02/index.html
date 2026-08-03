@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 2 Assignment: First Real Instrument Pieces - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 2 Assignment: First Real Instrument Pieces - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-2-assignment-first-real-instrument-pieces" class="nav-link">Lab 2 Assignment: First Real Instrument Pieces</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-2-assignment-first-real-instrument-pieces" class="nav-link">Module 2 Assignment: First Real Instrument Pieces</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -169,12 +169,12 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-2-assignment-first-real-instrument-pieces">Lab 2 Assignment: First Real Instrument Pieces<a class="headerlink" href="#lab-2-assignment-first-real-instrument-pieces" title="Permanent link">&para;</a></h1>
+<h1 id="module-2-assignment-first-real-instrument-pieces">Module 2 Assignment: First Real Instrument Pieces<a class="headerlink" href="#module-2-assignment-first-real-instrument-pieces" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>In Lab 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Lab 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.</p>
+<p>In Module 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Module 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.</p>
 <p>The actuator side also begins, but cautiously. You will verify H-bridge logic
 and PWM with the oscilloscope before connecting a DC motor. The TEC remains
-disconnected throughout Lab 2.</p>
+disconnected throughout Module 2.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
 <p><strong>First Real Instrument Pieces</strong></p>
 <p>Thermistor serial data, temperature conversion, Arduino Serial Plotter output,
@@ -182,13 +182,13 @@ H-bridge logic/PWM verification, and possibly a low-power DC motor direction
 and speed test if the instrument passes the safety checks.</p>
 <h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
 <p>The thermistor circuit is safe to build and test from Arduino USB power.</p>
-<p>The TEC remains disconnected throughout Lab 2. External actuator power remains
+<p>The TEC remains disconnected throughout Module 2. External actuator power remains
 off until the H-bridge input signals have been checked with the oscilloscope.
 For the optional motor test, use low PWM only and stop immediately if the motor,
 H-bridge, or wiring becomes unexpectedly warm.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your <a href="../lab-01/">Lab 1 assignment</a> notes on <code>analogRead</code>,
+<li>Review your <a href="../lab-01/">Module 1 assignment</a> notes on <code>analogRead</code>,
    averaging, PWM, and oscilloscope duty-cycle measurements.</li>
 <li>Read the <a href="../../arduino/">Arduino Tutorial</a> through the LED brightness
    section and review <a href="../../arduino/analog-digital/">Analog, ADC, And PWM</a>
@@ -204,7 +204,7 @@ H-bridge, or wiring becomes unexpectedly warm.</p>
    <a href="../../hardware/#h-bridge">H-bridge</a>, and
    <a href="../../hardware/#thermoelectric-cooler">TEC</a>.</li>
 <li>Bring the Arduino, thermistor divider parts, trim pot, USB cable, and your
-   Lab 1 notes.</li>
+   Module 1 notes.</li>
 </ol>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
@@ -280,9 +280,9 @@ between your fingers or cool it with a slightly moistened finger.</p>
 <li>whether warming and cooling the thermistor move the plotted temperature in
   the expected direction.</li>
 </ul>
-<p>Lab 2 stays inside the Arduino IDE.</p>
+<p>Module 2 stays inside the Arduino IDE.</p>
 <h2 id="part-3-trim-pot-to-pwm-and-heatcool-direction">Part 3: Trim Pot To PWM And Heat/Cool Direction<a class="headerlink" href="#part-3-trim-pot-to-pwm-and-heatcool-direction" title="Permanent link">&para;</a></h2>
-<p>In Lab 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.</p>
+<p>In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.</p>
 <p>Build code with this signal path:</p>
 <pre><code class="language-text">trim-pot voltage -&gt; analogRead average -&gt; map to PWM -&gt; analogWrite -&gt; H-bridge input
 </code></pre>
@@ -317,7 +317,7 @@ resolution and therefore values from <code>0</code> to <code>255</code> are used
 </table>
 <p>This is the logic of H-bridge method 2: the two H-bridge control inputs receive
 either the PWM command or <code>0V</code>, depending on whether you want to heat or cool.
-In the Lab 2 motor demonstration, <strong>heat means clockwise</strong> and <strong>cool means
+In the motor demonstration in Module 2, <strong>heat means clockwise</strong> and <strong>cool means
 counterclockwise</strong>.
 Read the <a href="../../hardware/#h-bridge">H-bridge hardware notes</a> before wiring
 the class board.</p>
@@ -339,7 +339,7 @@ actual board wiring before powering anything.</p>
 <h2 id="optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm">Optional Stretch Or Instructor Demo: DC Motor Direction And PWM<a class="headerlink" href="#optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm" title="Permanent link">&para;</a></h2>
 <p>Only do this after the instructor checks the H-bridge signals. The TEC must
 remain disconnected.</p>
-<p>Before connecting the TEC in a later lab, use a small motor as the first visible
+<p>Before connecting the TEC in a later module, use a small motor as the first visible
 H-bridge load. The motor makes direction reversal and PWM speed control easy to
 observe without immediately applying power to the thermal system.</p>
 <p>Complete wiring, including the six Arduino logic connections:</p>
@@ -376,12 +376,12 @@ observe without immediately applying power to the thermal system.</p>
 18 AWG here to learn the stripping, tinning, and termination skills that the
 TEC high-current circuit requires. Do not connect the TEC or thermal switch
 during this motor-first exercise.</p>
-<p>For the Lab 2 demonstration, the heat command should turn the motor clockwise
+<p>For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor
 before swapping the motor leads.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short lab note containing:</p>
+<p>Submit a short module note containing:</p>
 <ul>
 <li>Thermistor divider circuit sketch.</li>
 <li>Three human-readable serial lines copied from the Part 1 Arduino output.</li>

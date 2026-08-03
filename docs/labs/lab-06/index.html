@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 6 Assignment: Modeling P And PI Temperature Control - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 6 Assignment: Modeling P And PI Temperature Control - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-6-assignment-modeling-p-and-pi-temperature-control" class="nav-link">Lab 6 Assignment: Modeling P And PI Temperature Control</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-6-assignment-modeling-p-and-pi-temperature-control" class="nav-link">Module 6 Assignment: Modeling P And PI Temperature Control</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -185,10 +185,10 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-6-assignment-modeling-p-and-pi-temperature-control">Lab 6 Assignment: Modeling P And PI Temperature Control<a class="headerlink" href="#lab-6-assignment-modeling-p-and-pi-temperature-control" title="Permanent link">&para;</a></h1>
+<h1 id="module-6-assignment-modeling-p-and-pi-temperature-control">Module 6 Assignment: Modeling P And PI Temperature Control<a class="headerlink" href="#module-6-assignment-modeling-p-and-pi-temperature-control" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 6 slows down the theory. Lab 5 showed that proportional feedback reduces
-steady-state error but can become unstable. Lab 6 builds simple models that
+<p>Module 6 slows down the theory. Module 5 showed that proportional feedback reduces
+steady-state error but can become unstable. Module 6 builds simple models that
 explain those observations.</p>
 <p>The goal is not to become fluent in Laplace transforms. The goal is to connect
 thermal physics, feedback equations, and the data you measured from the TEC.</p>
@@ -207,10 +207,10 @@ action.</p>
 <li>Chapter 4, especially Section 4.5: read for transient response and thermal
      time constants.</li>
 <li>Official free textbook site: <a href="https://ahtt.mit.edu">A Heat Transfer Textbook</a></li>
-<li>Review your Lab 4 and Lab 5 data.</li>
+<li>Review your Module 4 and Module 5 data.</li>
 <li>Optional after class: Bechhoefer pp. 795-797 on feedback and stability.</li>
 </ol>
-<p>Do not try to learn all of transient heat transfer at once. For this lab, you
+<p>Do not try to learn all of transient heat transfer at once. For this module, you
 need the idea that a physical object has heat capacity, exchanges heat with its
 environment, and responds over a time scale.</p>
 <h2 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h2>
@@ -228,10 +228,10 @@ environment, and responds over a time scale.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <p>Bring:</p>
 <ul>
-<li>your Lab 4 steady-state <code>T</code> versus PWM data,</li>
-<li>your Lab 5 droop versus <code>Kp</code> data,</li>
-<li>one Lab 5 strip chart trace at a stable gain,</li>
-<li>one Lab 5 strip chart trace near oscillation,</li>
+<li>your Module 4 steady-state <code>T</code> versus PWM data,</li>
+<li>your Module 5 droop versus <code>Kp</code> data,</li>
+<li>one Module 5 strip chart trace at a stable gain,</li>
+<li>one Module 5 strip chart trace near oscillation,</li>
 <li>your current Python plotting/modeling environment.</li>
 </ul>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
@@ -244,7 +244,7 @@ environment, and responds over a time scale.</p>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Derive the algebraic P-control droop model.</li>
-<li>Fit or estimate an open-loop thermal slope from Lab 4.</li>
+<li>Fit or estimate an open-loop thermal slope from Module 4.</li>
 <li>Fit or estimate a time constant from a temperature step.</li>
 <li>Simulate a first-order TEC/block model.</li>
 <li>Add P-only feedback to the simulation.</li>
@@ -253,7 +253,7 @@ environment, and responds over a time scale.</p>
 <li>Explain why integral action reduces droop and why windup is a problem.</li>
 </ul>
 <h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
-<p>Start with the steady-state open-loop relationship from Lab 4:</p>
+<p>Start with the steady-state open-loop relationship from Module 4:</p>
 <pre><code class="language-text">T = Tamb + S*u
 </code></pre>
 <p>where:</p>
@@ -273,7 +273,7 @@ environment, and responds over a time scale.</p>
 <pre><code class="language-text">droop = Tset - T = (Tset - Tamb)/(1 + S*Kp)
 </code></pre>
 <p>Use your own values of <code>S</code>, <code>Tamb</code>, <code>Tset</code>, and <code>Kp</code> to calculate predicted
-droop. Compare the prediction with Lab 5.</p>
+droop. Compare the prediction with Module 5.</p>
 <h2 id="part-2-first-order-thermal-model">Part 2: First-Order Thermal Model<a class="headerlink" href="#part-2-first-order-thermal-model" title="Permanent link">&para;</a></h2>
 <p>Use a one-body thermal model:</p>
 <pre><code class="language-text">dT/dt = -(T - Tamb)/tau + B*u
@@ -287,9 +287,9 @@ droop. Compare the prediction with Lab 5.</p>
 <p>This model is deliberately simple. It treats the TEC/block/thermistor as one
 effective thermal object.</p>
 <h2 id="part-3-estimate-tau">Part 3: Estimate <code>tau</code><a class="headerlink" href="#part-3-estimate-tau" title="Permanent link">&para;</a></h2>
-<p>Use a temperature step from Lab 4 or Lab 5.</p>
+<p>Use a temperature step from Module 4 or Module 5.</p>
 <p>Use a trace in which every temperature value was calculated after averaging
-between 100 and 1000 raw thermistor-voltage measurements, as required in Labs
+between 100 and 1000 raw thermistor-voltage measurements, as required in Modules
 2 through 5.</p>
 <p>One practical method:</p>
 <ol>
@@ -324,7 +324,7 @@ your measured open-loop traces.</p>
 <li>PWM command versus time,</li>
 <li>final droop versus <code>Kp</code>.</li>
 </ul>
-<p>Compare with Lab 5. The first-order model should capture some trends, but it
+<p>Compare with Module 5. The first-order model should capture some trends, but it
 may not reproduce oscillations.</p>
 <h2 id="part-6-why-the-first-order-model-may-not-oscillate">Part 6: Why The First-Order Model May Not Oscillate<a class="headerlink" href="#part-6-why-the-first-order-model-may-not-oscillate" title="Permanent link">&para;</a></h2>
 <p>If your first-order model does not oscillate, that is useful. It means one
@@ -380,7 +380,7 @@ git push
 <li>estimate of open-loop slope <code>S</code>,</li>
 <li>estimate of thermal time constant <code>tau</code>,</li>
 <li>open-loop simulation compared with one measured trace,</li>
-<li>P-only simulation compared with Lab 5 droop data,</li>
+<li>P-only simulation compared with Module 5 droop data,</li>
 <li>PI simulation compared with P-only simulation,</li>
 <li>short explanation of why the first-order model does or does not oscillate,</li>
 <li>windup thought-experiment answers,</li>

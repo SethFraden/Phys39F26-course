@@ -1,10 +1,10 @@
-# Lab 1 Assignment: First Contact With The Instrument
+# Module 1 Assignment: First Contact With The Instrument
 
 ## Introductory Material
 
 ### Purpose
 
-In the first lab you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
+In Module 1 you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
 
 Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.
 
@@ -19,17 +19,17 @@ Before class, your job is to arrive ready to connect to an Arduino, upload a sim
 - **H-bridge**: an electronic circuit that lets the low-power Arduino control the amount and direction of current from a high-power supply through a load.
 - **PWM**: pulse-width modulation, a way to control average power using fast on/off switching.
 
-### Safety Boundary For Lab 1
+### Safety Boundary For Module 1
 
-In Lab 1, the Arduino is powered by USB. The TEC power supply stays off.
+In Module 1, the Arduino is powered by USB. The TEC power supply stays off.
 
-You may inspect the TEC, H-bridge, heat exchanger, thermistor, and safety cutoff, but you will not power the TEC during the first lab. This is deliberate. The course begins by verifying the measurement and communication chain before applying actuator power.
+You may inspect the TEC, H-bridge, heat exchanger, thermistor, and safety cutoff, but you will not power the TEC during Module 1. This is deliberate. The course begins by verifying the measurement and communication chain before applying actuator power.
 
 ## Pre-Class Assignment
 
 ### Before Class
 
-Complete these steps before the first lab.
+Complete these steps before Module 1.
 
 1. Install the Arduino IDE on the laptop you plan to use in lab, if possible.
 2. Read this assignment and write down any question that feels basic or confusing.
@@ -73,7 +73,7 @@ You will:
 
 - (5-10 mins) Read the section on <a href="https://sethfraden.github.io/Phys39F26-course/hardware/">Hardware for temperature control</a> (there are no exercises here). It contains a description of the setup with links to details about the components.  
 
-- (120 mins) The bulk of the first lab is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino assignment</a>. </p> It consists of the following steps:
+- (120 mins) The bulk of Module 1 is next. Do the <a href="https://sethfraden.github.io/Phys39F26-course/arduino/">intro to arduino assignment</a>. </p> It consists of the following steps:
 <ol>
   <li>Run the official Blink sketch using the built-in LED and then an external LED with a current-limiting resistor.</li>
   <li>Modify Blink so the duty cycle is 1:1, 10:1, and 1:10. Measure the digital output with the oscilloscope.</li>
@@ -83,7 +83,7 @@ You will:
 </ol>
 
 The H-bridge and TEC remain inspection-only today. We will use the H-bridge in
-a later actuator lab after everyone has measured PWM directly and can explain
+a later actuator module after everyone has measured PWM directly and can explain
 what `analogWrite` is doing.
 
  <!-- In class,
@@ -107,7 +107,7 @@ You should expect to revise the sketch after the first upload. Debugging board s
 
 ### What To Submit
 
-Submit a short lab note containing:
+Submit a short module note containing:
 
 - A labeled photo or sketch of the apparatus.
 - The Arduino board and serial port you used.

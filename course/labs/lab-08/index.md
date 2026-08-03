@@ -1,8 +1,8 @@
-# Lab 8: Rod Instrument, Step Response, And Stationary Fin
+# Module 8: Rod Instrument, Step Response, And Stationary Fin
 
 ## Purpose
 
-In Labs 1-7, one or two temperatures were enough to describe the TEC process.
+In Modules 1-7, one or two temperatures were enough to describe the TEC process.
 The aluminum rod cannot be treated as one thermal lump. Its temperature depends
 on position and time:
 
@@ -10,22 +10,22 @@ on position and time:
 T=T(x,t).
 \]
 
-In this lab you will build and validate the multichannel rod instrument,
+In this module you will build and validate the multichannel rod instrument,
 measure a step response, and measure the steady temperature profile. The steady
 profile gives the first quantitative evidence of heat loss from the rod's side.
 
 ## Schedule And Due Work
 
-| Meeting | In class | Due |
+| Session | In class | Due |
 | --- | --- | --- |
-| M16, Mon. Oct. 26 | Lecture: solve the finite-length one-dimensional rod; obtain the semi-infinite limit; introduce the transverse Biot number | Guided self-study begins |
-| M17, Wed. Oct. 28 | Compare finite and semi-infinite predictions; calculate the rod Biot number; map and calibrate sensors | **A7: finite-length and small-Biot guided study** |
-| M18, Mon. Nov. 2 | Acquire a synchronized step response; lecture on the axisymmetric radial model while the experiment runs | **C5: Rod instrument and data-acquisition chain** |
-| M19, Wed. Nov. 4 | Reach steady state; fit finite-length and semi-infinite stationary profiles | **A8: stationary-fin model comparison** |
+| S16, Mon. Oct. 26 | Lecture: solve the finite-length one-dimensional rod; obtain the semi-infinite limit; introduce the transverse Biot number | Guided self-study begins |
+| S17, Wed. Oct. 28 | Compare finite and semi-infinite predictions; calculate the rod Biot number; map and calibrate sensors | **A7: finite-length and small-Biot guided study** |
+| S18, Mon. Nov. 2 | Acquire a synchronized step response; lecture on the axisymmetric radial model while the experiment runs | **C5: Rod instrument and data-acquisition chain** |
+| S19, Wed. Nov. 4 | Reach steady state; fit finite-length and semi-infinite stationary profiles | **A8: stationary-fin model comparison** |
 
 ## Learning Objectives
 
-By the end of this lab, you should be able to:
+By the end of this module, you should be able to:
 
 - define coordinates and metadata for a spatial temperature measurement,
 - calibrate or cross-check several thermistors,
@@ -42,7 +42,7 @@ By the end of this lab, you should be able to:
 
 1. Read Chapter 1 of [Lienhard and Lienhard, *A Heat Transfer Textbook*](../../references/lienhard-heat-transfer-textbook-v6.pdf).
 2. Review [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](../theory-bridge-chapter-1/index.md).
-3. For the M16 lecture and M17 guided study, read Lienhard Section 4.5,
+3. For the S16 lecture and S17 guided study, read Lienhard Section 4.5,
    textbook pp. 163-173. Work through the derivation rather than reading only
    the final formulas.
 4. Use [Fin Design: From A Finite Rod To An Infinite Rod](../fin-design-derivation/index.md)
@@ -97,7 +97,7 @@ Far from the rod end, a useful first model is
 
 The fitted `m` quantifies the competition between axial conduction and side
 loss. It does **not** determine `k` and `H` separately. The periodic Angstrom
-experiment in Lab 9 supplies the second independent measurement.
+experiment in Module 9 supplies the second independent measurement.
 
 ## Part 0: Which Geometry May We Ignore?
 
@@ -158,13 +158,13 @@ Submit an individual solution that:
 6. gives two separate conclusions: whether the rod may be treated as
    semi-infinite and whether it may be treated as one-dimensional.
 
-### Radial-Model Lecture During M18
+### Radial-Model Lecture During S18
 
 While the long step-response experiment is running, the lecture will retain
 radial variation and introduce the axisymmetric heat equation. The goal is to
 identify the new radial derivative and surface boundary condition, and to
 distinguish surface, centerline, and cross-sectional mean temperature. The
-guided numerical solution follows in Lab 9 before the Angstrom analysis.
+guided numerical solution follows in Module 9 before the Angstrom analysis.
 
 ## Part 1: Sensor Map And Calibration
 
@@ -190,7 +190,7 @@ guided numerical solution follows in Lab 9 before the Angstrom analysis.
 
 ## C5 Checkoff
 
-At M18, demonstrate:
+At S18, demonstrate:
 
 - calibrated or cross-checked rod thermistors,
 - documented sensor coordinates and wiring,

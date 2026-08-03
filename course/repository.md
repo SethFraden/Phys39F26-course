@@ -8,7 +8,7 @@ repository. Assignments are Markdown files, so they can be read:
 - in VS Code Markdown Preview.
 
 Students will receive separate private repositories for their own code, data,
-lab records, and submissions.
+module records, and submissions.
 
 Use the [GitHub Desktop, GitHub, VS Code, and AI workflow](git-vscode-ai-workflow.md)
 page for the checkpoint and documentation habits expected in this course.

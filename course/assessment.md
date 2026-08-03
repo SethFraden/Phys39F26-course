@@ -84,7 +84,7 @@ For every required `GC`, the grader will look for all of the following:
 - a README identifies the hardware assumptions, data format, dependencies, and
   exact command needed to run or reproduce the work,
 - data and figures named in the submission are present at the cited paths,
-- files have descriptive names and are organized by lab or assignment,
+- files have descriptive names and are organized by module or assignment,
 - the commit message says what capability or analysis was completed,
 - another person can follow the README from a fresh checkout without guessing
   which of several similarly named files is authoritative.
@@ -113,12 +113,12 @@ Progress checks are brief demonstrations or reviews. They identify problems
 early and do not create another document to grade. Bring the current apparatus,
 code, plots, and repository state.
 
-| Check | Meeting and date | Show during the check |
+| Check | Session and date | Show during the check |
 | --- | --- | --- |
-| `P1` | M6, Wed. Sept. 16 | Python reads real serial data, displays temperature and PWM, and saves a labeled data file. |
-| `P2` | M14, Mon. Oct. 19 | The modeling program runs, imports an experimental trace, produces at least one fitted curve, and displays residuals. |
-| `P3` | M20, Mon. Nov. 9 | Completed Angstrom reading questions, a proposed drive period, and a prediction for amplitude decay and phase lag. |
-| `P4` | M22, Mon. Nov. 16 | A periodic dataset containing at least five settled cycles, sensor positions and units, acquisition metadata, and a base-temperature tracking check. |
+| `P1` | S6, Wed. Sept. 16 | Python reads real serial data, displays temperature and PWM, and saves a labeled data file. |
+| `P2` | S14, Mon. Oct. 19 | The modeling program runs, imports an experimental trace, produces at least one fitted curve, and displays residuals. |
+| `P3` | S20, Mon. Nov. 9 | Completed Angstrom reading questions, a proposed drive period, and a prediction for amplitude decay and phase lag. |
+| `P4` | S22, Mon. Nov. 16 | A periodic dataset containing at least five settled cycles, sensor positions and units, acquisition metadata, and a base-temperature tracking check. |
 
 ## How Milestones Are Graded
 
@@ -138,7 +138,7 @@ understanding, not surprise examinations.
 
 ## C1: Development Environment And Repository
 
-**Due:** Meeting 3, Wednesday, September 2
+**Due:** Session S3, Wednesday, September 2
 
 | Criterion | Points |
 | --- | ---: |
@@ -158,7 +158,7 @@ understanding, not surprise examinations.
 
 ## C2: Measurement And Actuator Electronics
 
-**Due:** Meeting 5, Monday, September 14
+**Due:** Session S5, Monday, September 14
 
 | Criterion | Points |
 | --- | ---: |
@@ -179,7 +179,7 @@ understanding, not surprise examinations.
 
 ## C3: TEC Instrument And First Python GUI
 
-**Due:** Meeting 7, Wednesday, September 23
+**Due:** Session S7, Wednesday, September 23
 
 | Criterion | Points |
 | --- | ---: |
@@ -200,7 +200,7 @@ understanding, not surprise examinations.
 
 ## C4: Feedback Controller And TEC Process Model
 
-**Due:** Meeting 15, Wednesday, October 21
+**Due:** Session S15, Wednesday, October 21
 
 | Criterion | Points |
 | --- | ---: |
@@ -222,7 +222,7 @@ understanding, not surprise examinations.
 
 ## C5: Rod Instrument And Data-Acquisition Chain
 
-**Due:** Meeting 18, Monday, November 2
+**Due:** Session S18, Monday, November 2
 
 | Criterion | Points |
 | --- | ---: |
@@ -245,7 +245,7 @@ understanding, not surprise examinations.
 
 ## C6: Final Thermal-Transport Package
 
-**Due:** Meeting 25, Monday, November 30
+**Due:** Session S25, Monday, November 30
 
 | Criterion | Points |
 | --- | ---: |
@@ -294,7 +294,7 @@ assignment page specifies otherwise, use this rubric:
 
 | Code | Due | What must be submitted: definition of done |
 | --- | --- | --- |
-| `A1` | Sept. 2 | **Lab 1 evidence note:** a Markdown record naming the Arduino examples tested, the modifications made, and oscilloscope or measured evidence for digital timing, analog input, averaging, and PWM. Link the relevant sketches and `GC`. |
+| `A1` | Sept. 2 | **Module 1 evidence note:** a Markdown record naming the Arduino examples tested, the modifications made, and oscilloscope or measured evidence for digital timing, analog input, averaging, and PWM. Link the relevant sketches and `GC`. |
 | `C1` | Sept. 2 | Development environment and repository milestone, demonstrated using the rubric above. |
 | `C2` | Sept. 14 | Measurement and actuator-electronics milestone, demonstrated using the rubric above. |
 | `C3` | Sept. 23 | TEC instrument and first-Python-GUI milestone, demonstrated using the rubric above. |
@@ -333,7 +333,7 @@ The individual `F1` oral defense uses the announced questions in the
 | Arduino primitives and signals | G1, G2, G5, G12 | Oscilloscope measurements, modified sketches, C1 |
 | First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
-| Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Lab 4 note |
+| Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Module 4 note |
 | P and PI control | G8, G9, G14 | Droop and oscillation data, P/PI comparison, oral explanation |
 | Process modeling | G3, G9, G10, G13 | Lumped-model derivations, fits, residuals, C4 |
 | Long-cylinder heat transport | G2-G4, G7, G11, G13, G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, Angstrom data, C5 |

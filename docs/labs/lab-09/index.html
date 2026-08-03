@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 9: The Angstrom Method - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 9: The Angstrom Method - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-9-the-angstrom-method" class="nav-link">Lab 9: The Angstrom Method</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-9-the-angstrom-method" class="nav-link">Module 9: The Angstrom Method</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -157,9 +157,9 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-9-the-angstrom-method">Lab 9: The Angstrom Method<a class="headerlink" href="#lab-9-the-angstrom-method" title="Permanent link">&para;</a></h1>
+<h1 id="module-9-the-angstrom-method">Module 9: The Angstrom Method<a class="headerlink" href="#module-9-the-angstrom-method" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>In this lab the TEC controller creates a sinusoidal temperature boundary at the
+<p>In this module the TEC controller creates a sinusoidal temperature boundary at the
 base of the aluminum rod. Thermal diffusion causes the oscillation amplitude to
 decrease and its phase to lag with distance. Measuring both effects allows you
 to separate thermal diffusion from heat loss to the air.</p>
@@ -167,36 +167,36 @@ to separate thermal diffusion from heat loss to the air.</p>
 <table>
 <thead>
 <tr>
-<th>Meeting</th>
+<th>Session</th>
 <th>In class</th>
 <th>Due</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>M20, Mon. Nov. 9</td>
+<td>S20, Mon. Nov. 9</td>
 <td>Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run</td>
 <td><code>P3</code> model and pilot check</td>
 </tr>
 <tr>
-<td>M21, Wed. Nov. 11</td>
+<td>S21, Wed. Nov. 11</td>
 <td>Fit pilot amplitudes and phases; choose production period</td>
 <td><strong>A9: Angstrom derivation and model-validity plan</strong></td>
 </tr>
 <tr>
-<td>M22, Mon. Nov. 16</td>
+<td>S22, Mon. Nov. 16</td>
 <td>Acquire settled production data at one or more periods</td>
 <td>Data-readiness check</td>
 </tr>
 <tr>
-<td>M23, Wed. Nov. 18</td>
+<td>S23, Wed. Nov. 18</td>
 <td>Fit spatial decay and phase slopes; infer <code>kappa</code> and <code>nu</code></td>
 <td>Modeling-app draft</td>
 </tr>
 </tbody>
 </table>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
-<p>By the end of this lab, you should be able to:</p>
+<p>By the end of this module, you should be able to:</p>
 <ul>
 <li>impose and verify a sinusoidal temperature boundary with PI control,</li>
 <li>choose a useful forcing period using physical and practical constraints,</li>
@@ -244,7 +244,7 @@ q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
 \]</div>
 <p>These equations use a one-dimensional, semi-infinite rod. Before selecting
 sensors for the fit, carry forward the finite-length error calculation from
-Lab 8 and complete the radial-model study below. State which sensors and
+Module 8 and complete the radial-model study below. State which sensors and
 conditions satisfy your chosen approximation tolerances.</p>
 <h2 id="part-0-guided-radial-model-study">Part 0: Guided Radial-Model Study<a class="headerlink" href="#part-0-guided-radial-model-study" title="Permanent link">&para;</a></h2>
 <p>The one-dimensional rod equation assumes
@@ -274,7 +274,7 @@ two-dimensional PDE solver from scratch. Run otherwise identical cases with
 <li>explain how a surface thermistor analyzed with a one-dimensional model could
    bias inferred <span class="arithmatex">\(k\)</span> or <span class="arithmatex">\(H\)</span>.</li>
 </ol>
-<p>This numerical study follows the radial-model lecture from M18. Finish it
+<p>This numerical study follows the radial-model lecture from S18. Finish it
 before using the one-dimensional periodic solution for the production
 Angstrom analysis.</p>
 <h2 id="part-1-establish-the-boundary-condition">Part 1: Establish The Boundary Condition<a class="headerlink" href="#part-1-establish-the-boundary-condition" title="Permanent link">&para;</a></h2>

@@ -1,6 +1,6 @@
-# Upcoming Lab Modules
+# Upcoming Course Modules
 
-Labs 1-7 have draft or approved student-facing pages. Later modules will appear
+Modules 1-7 have draft or approved student-facing pages. Later modules will appear
 here as the course materials are developed and tested.
 
 ## Next Planned Topics

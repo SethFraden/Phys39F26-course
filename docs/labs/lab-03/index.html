@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 3 Assignment: Manual TEC Heat/Cool And First Python GUI - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                                 <a href="../../git-vscode-ai-workflow/" class="nav-link">GitHub Desktop, GitHub, VS Code, And AI</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../" class="nav-link">Labs And Calendar</a>
+                                <a href="../" class="nav-link">Modules And Calendar</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../assessment/" class="nav-link">Assessment And Milestones</a>
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" class="nav-link">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-3-assignment-manual-tec-heatcool-and-first-python-gui" class="nav-link">Module 3 Assignment: Manual TEC Heat/Cool And First Python GUI</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -189,11 +189,11 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-3-assignment-manual-tec-heatcool-and-first-python-gui">Lab 3 Assignment: Manual TEC Heat/Cool And First Python GUI<a class="headerlink" href="#lab-3-assignment-manual-tec-heatcool-and-first-python-gui" title="Permanent link">&para;</a></h1>
+<h1 id="module-3-assignment-manual-tec-heatcool-and-first-python-gui">Module 3 Assignment: Manual TEC Heat/Cool And First Python GUI<a class="headerlink" href="#module-3-assignment-manual-tec-heatcool-and-first-python-gui" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Lab 3 connects measurement to thermal actuation. In Lab 2 you measured
+<p>Module 3 connects measurement to thermal actuation. In Module 2 you measured
 temperature, verified the H-bridge signals, and used a small motor to make PWM
-magnitude and direction immediately visible. In Lab 3 you replace the motor
+magnitude and direction immediately visible. In Module 3 you replace the motor
 with the TEC and thermal switch, operate the TEC at low power, record heating
 and cooling traces, and begin treating the Python GUI as an editable part of
 the instrument.</p>
@@ -201,8 +201,8 @@ the instrument.</p>
 how to recognize safe behavior, and how the software interface should represent
 the state of the hardware.</p>
 <h3 id="class-session-boundary">Class-Session Boundary<a class="headerlink" href="#class-session-boundary" title="Permanent link">&para;</a></h3>
-<p>Lab 2 introduced the H-bridge, external power supply, brushed DC motor, and
-stripping and tinning 18 AWG wire. Lab 3 begins the Class 4 or 5 TEC-wiring
+<p>Module 2 introduced the H-bridge, external power supply, brushed DC motor, and
+stripping and tinning 18 AWG wire. Module 3 begins the Class 4 or 5 TEC-wiring
 session. Do not wire or energize the TEC and thermal switch until the instructor
 begins that session.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
@@ -217,7 +217,7 @@ modification.</p>
 <li>Arduino ground, H-bridge ground, and oscilloscope ground are understood.</li>
 <li>The power supply current limit is set by the instructor.</li>
 <li>The thermal safety cutoff is identified.</li>
-<li>The Lab 2 motor-first H-bridge test has been completed with the TEC disconnected.</li>
+<li>The Module 2 motor-first H-bridge test has been completed with the TEC disconnected.</li>
 <li>All wiring in the power-supply, H-bridge, TEC, and thermal-switch
    current path is 18 AWG stranded copper wire.</li>
 <li>Female spade connectors have been crimped onto both thermal-switch wires,
@@ -228,7 +228,7 @@ driver heats unexpectedly, the power supply current is too high, or the serial
 trace disappears.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your Lab 2 thermistor conversion notes.</li>
+<li>Review your Module 2 thermistor conversion notes.</li>
 <li>Review which Arduino pins drive the H-bridge on the class board.</li>
 <li>Open the Python GUI or strip-chart code in VS Code and identify:</li>
 <li>imports,</li>
@@ -259,7 +259,7 @@ trace disappears.</p>
 <li>Clean up your Arduino, Python, and notes into a readable project checkpoint.</li>
 </ul>
 <h2 id="part-1-pre-power-checklist">Part 1: Pre-Power Checklist<a class="headerlink" href="#part-1-pre-power-checklist" title="Permanent link">&para;</a></h2>
-<p>Before turning on TEC power, fill in this checklist in your lab notes.</p>
+<p>Before turning on TEC power, fill in this checklist in your module notes.</p>
 <table>
 <thead>
 <tr>
@@ -289,7 +289,7 @@ trace disappears.</p>
 <td></td>
 </tr>
 <tr>
-<td>Lab 2 motor test completed with TEC disconnected?</td>
+<td>Module 2 motor test completed with TEC disconnected?</td>
 <td></td>
 </tr>
 <tr>
@@ -328,7 +328,7 @@ thermistor -&gt; 100-1000 raw ADC readings -&gt; average voltage -&gt; temperatu
 </code></pre>
 <p>If you write your own version, keep it simple. Do not add feedback control yet.
 Every temperature value must be calculated only after averaging between 100
-and 1000 raw thermistor-voltage measurements, as established in Lab 2.</p>
+and 1000 raw thermistor-voltage measurements, as established in Module 2.</p>
 <p>This sketch is intentionally not polished. Before improving its structure, make
 sure you can explain the measurement path, the PWM command path, and the
 heat/cool direction path.</p>
@@ -370,7 +370,7 @@ match the command from the trim pot or manual setting.</p>
 <h2 id="part-4-low-power-heating-and-cooling">Part 4: Low-Power Heating And Cooling<a class="headerlink" href="#part-4-low-power-heating-and-cooling" title="Permanent link">&para;</a></h2>
 <p>This part begins in Class 4 or 5. Do not begin unless the instructor has started
 the TEC-wiring session.</p>
-<p>After completing the Lab 2 motor-first test, turn off actuator power and replace
+<p>After completing the motor-first test in Module 2, turn off actuator power and replace
 the motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
 power-supply-to-H-bridge wiring, <code>M+</code>/<code>M-</code> wiring, and both sides of the thermal
 switch. Make the TEC-side connections on the isolated paired positions of the
@@ -575,7 +575,7 @@ Requirements:
 Arduino outputs as expected. Only after that check may you repeat a low-power
 manual heat/cool test.</p>
 <h2 id="part-8-project-cleanup-and-github-checkpoint">Part 8: Project Cleanup And GitHub Checkpoint<a class="headerlink" href="#part-8-project-cleanup-and-github-checkpoint" title="Permanent link">&para;</a></h2>
-<p>By the end of Lab 3, you may have several Arduino sketches, Python files,
+<p>By the end of Module 3, you may have several Arduino sketches, Python files,
 AI-generated drafts, notes, screenshots, and data files. Before moving on, take
 time to organize the work so that another person, including your future self,
 can understand what you built.</p>
@@ -615,7 +615,7 @@ A reasonable structure is:</p>
 <p>Use Git and GitHub to make a checkpoint:</p>
 <pre><code class="language-bash">git status
 git add README.md arduino python docs
-git commit -m &quot;Organize Lab 3 TEC control project&quot;
+git commit -m &quot;Organize Module 3 TEC control project&quot;
 git push
 </code></pre>
 <p>Do not blindly commit everything in the folder. Look at <code>git status</code> first.
@@ -633,7 +633,7 @@ actually do.</p>
 <li>Which parts can you explain without looking at the AI transcript?</li>
 </ul>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short lab note containing:</p>
+<p>Submit a short module note containing:</p>
 <ul>
 <li>Completed pre-power checklist.</li>
 <li>Wiring or signal-path sketch.</li>

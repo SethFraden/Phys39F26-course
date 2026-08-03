@@ -1,8 +1,8 @@
-# Lab 4 Assignment: Open-Loop TEC Calibration And Software Safety
+# Module 4 Assignment: Open-Loop TEC Calibration And Software Safety
 
 ## Purpose
 
-Lab 4 turns the manually controlled TEC from Lab 3 into a measured process. You
+Module 4 turns the manually controlled TEC from Module 3 into a measured process. You
 will hold the TEC at several PWM settings, wait for the temperature to settle,
 and measure the steady-state relationship between PWM command and temperature.
 
@@ -26,7 +26,7 @@ temperature-limit interlock in Arduino code.
 
 Before collecting data:
 
-1. The Lab 3 pre-power checklist is complete.
+1. The Module 3 pre-power checklist is complete.
 2. The H-bridge outputs have been checked with TEC power off.
 3. PWM starts at zero.
 4. The power supply current limit is set by the instructor.
@@ -38,13 +38,13 @@ Before collecting data:
 9. The instructor has inspected the complete TEC and thermal-switch current
    path before actuator power is enabled.
 
-During this lab, keep the measured temperature between **10 °C and 45 °C**. Stop
+During this module, keep the measured temperature between **10 °C and 45 °C**. Stop
 the run if the temperature moves unexpectedly, the display freezes, the power
 supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 
 ## Before Class
 
-1. Review your Lab 3 Arduino sketch and Python GUI.
+1. Review your Module 3 Arduino sketch and Python GUI.
 2. Confirm that you can set PWM and heat/cool direction manually.
 3. Review how your Python program records or displays temperature versus time.
 4. Read the [hardware page section on the thermal safety switch](../../hardware.md#thermal-safety-switch).
@@ -61,9 +61,9 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 
 ## What You Will Do
 
-- Verify the Lab 3 TEC and thermal-switch high-current path before collecting
+- Verify the TEC and thermal-switch high-current path from Module 3 before collecting
   calibration data.
-- Use your Lab 3 Python GUI and Arduino sketch to command the TEC manually.
+- Use your Module 3 Python GUI and Arduino sketch to command the TEC manually.
 - Measure steady-state temperature for several heating PWM values.
 - Measure steady-state temperature for several cooling PWM values.
 - Plot steady-state temperature versus PWM.
@@ -74,11 +74,11 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 
 ## Part 1: Prepare The Instrument
 
-Start from your working Lab 3 setup.
+Start from your working Module 3 setup.
 
 ### Verify The TEC And Thermal-Switch Current Path
 
-This current path was built in Lab 3. The actuator power supply must be turned
+This current path was built in Module 3. The actuator power supply must be turned
 off and disconnected while you inspect it before calibration.
 
 1. Confirm that 18 AWG stranded copper wire is used for every high-current
@@ -86,7 +86,7 @@ off and disconnected while you inspect it before calibration.
    - power supply to H-bridge `B+` and `B-`,
    - H-bridge `M+` and `M-` to the TEC circuit, and
    - both wires connected to the thermal switch.
-2. Confirm that both Lab 3 female spade crimps remain secure and that a
+2. Confirm that both Module 3 female spade crimps remain secure and that a
    multimeter shows continuity through the closed thermal switch.
 3. Confirm that the thermal switch remains in series with the TEC current path
    so opening the switch interrupts TEC current independently of the Arduino
@@ -100,7 +100,7 @@ wiring.
 
 ### Start The Instrument
 
-Continue using the Lab 2 measurement sequence: average between 100 and 1000 raw
+Continue using the measurement sequence from Module 2: average between 100 and 1000 raw
 thermistor-voltage measurements before calculating each temperature. This
 applies to the displayed temperature, recorded data, and software safety check.
 
@@ -114,7 +114,7 @@ applies to the displayed temperature, recorded data, and software safety check.
 6. After instructor approval, connect TEC power.
 
 Record the Arduino sketch filename, Python filename, serial port, power-supply
-voltage, and power-supply current limit in your lab notes.
+voltage, and power-supply current limit in your module notes.
 
 ## Part 2: Choose PWM Values
 
@@ -134,7 +134,7 @@ For each PWM value:
 2. Set PWM.
 3. Watch the temperature trace.
 4. Wait until the temperature changes slowly enough to call it steady for this
-   lab.
+   module.
 5. Record the steady-state temperature.
 6. Return PWM to zero before switching direction or choosing a much larger PWM.
 
@@ -236,7 +236,7 @@ safety limit works.
 
 ## Part 8: GitHub Checkpoint
 
-Commit your work when the lab is complete.
+Commit your work when the module is complete.
 
 ```bash
 git status
@@ -247,11 +247,11 @@ git push
 
 Do not commit duplicate drafts or large accidental data files. Your repository
 should make it clear which Arduino sketch and Python program were used for this
-lab.
+module.
 
 ## What To Submit
 
-Submit a short lab note containing:
+Submit a short module note containing:
 
 - a wiring diagram showing the 18 AWG high-current path and the thermal switch
   in series with the TEC,
@@ -263,4 +263,4 @@ Submit a short lab note containing:
 - your explanation of heating/cooling asymmetry,
 - the Arduino safety-limit code or a link to it,
 - a short description of how you verified the safety logic,
-- a link to the GitHub commit or repository containing the organized Lab 4 work.
+- a link to the GitHub commit or repository containing the organized Module 4 work.

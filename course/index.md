@@ -26,9 +26,9 @@ feedback control, and heat-transport experiments.
 5. Model heat transport.
 6. Implement the Angstrom method to measure thermal properties of a metal rod.
 
-## Labs And Course Calendar
+## Modules And Course Calendar
 
-- [Open the labs and course calendar](labs/index.md)
+- [Open the modules and course calendar](labs/index.md)
 
 !!! note "Website status"
     This is the new Phys39F26 student website. The historical Phys 39 website

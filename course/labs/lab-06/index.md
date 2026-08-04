@@ -101,7 +101,70 @@ complete and understood.
 
 ## Part 1: Algebraic Droop Model
 
-Start with the steady-state open-loop relationship from Module 4:
+The dimensional one-lump model is
+
+\[
+C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+\]
+
+This equation does not directly describe the time dependence of heat. It is an
+energy-conservation equation that predicts the time dependence of the lump's
+temperature, \(T(t)\). Heat is energy being transferred; temperature describes
+the thermal state of the lump.
+
+Begin with the First Law in rate form:
+
+\[
+\frac{dU}{dt}=\dot Q_{\mathrm{in}}-\dot Q_{\mathrm{out}}.
+\]
+
+If the lump has constant thermal capacitance \(C\), then \(dU=C\,dT\), so
+
+\[
+\frac{dU}{dt}=C\frac{dT}{dt}.
+\]
+
+Each of the three terms in the one-lump model therefore has units of power:
+
+**1. Energy storage**
+
+\[
+C\frac{dT}{dt}.
+\]
+
+The thermal capacitance \(C=mc_p\) has units J/K, and \(dT/dt\) has units
+K/s or °C/s. Their product has units J/s = W. A positive value means the
+lump is warming; a negative value means it is cooling.
+
+**2. TEC heating or cooling**
+
+\[
+P_u u.
+\]
+
+The signed PWM command \(u\) is positive for heating and negative for
+cooling. The effective TEC coefficient \(P_u\) has units W/PWM, so
+\(P_u u\) has units W. This term treats the rapidly switched PWM drive as
+an average thermal power.
+
+**3. Heat transfer to the surroundings**
+
+\[
+-H(T-T_{\mathrm{amb}}).
+\]
+
+The total heat-loss conductance \(H\) has units W/K, while
+\(T-T_{\mathrm{amb}}\) is a temperature difference in K or °C. Their
+product has units W. If \(T>T_{\mathrm{amb}}\), this term is negative and
+the lump loses heat. If \(T<T_{\mathrm{amb}}\), the term is positive: the
+room transfers heat into the colder lump.
+
+The algebraic droop model below is the steady-state limit of this energy
+balance, where \(dT/dt=0\).
+
+### Student Instructions: Code The Steady-State Model
+
+Start by coding the steady-state open-loop relationship measured in Module 4:
 
 ```text
 T = Tamb + S*u

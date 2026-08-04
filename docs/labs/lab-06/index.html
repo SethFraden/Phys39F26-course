@@ -168,6 +168,14 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-7-add-integral-action-in-simulation" class="nav-link">Part 7: Add Integral Action In Simulation</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#why-pi-can-be-underdamped" class="nav-link">Why PI Can Be Underdamped</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#instructor-verification-and-exploration-tool" class="nav-link">Instructor Verification And Exploration Tool</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-8-windup-thought-experiment" class="nav-link">Part 8: Windup Thought Experiment</a>
@@ -224,7 +232,9 @@ action.</p>
      time constants.</li>
 <li>Official free textbook site: <a href="https://ahtt.mit.edu">A Heat Transfer Textbook</a></li>
 <li>Review your Module 4 and Module 5 data.</li>
-<li>Optional after class: Bechhoefer pp. 795-797 on feedback and stability.</li>
+<li>Optional after class: <a href="../../references/bechhoefer-feedback-for-physicists-2005.pdf">Bechhoefer, <em>Feedback for Physicists</em>,
+   pp. 795-797</a>,
+   on feedback and stability.</li>
 </ol>
 <p>Do not try to learn all of transient heat transfer at once. For this module, you
 need the idea that a physical object has heat capacity, exchanges heat with its
@@ -234,6 +244,10 @@ environment, and responds over a time scale.</p>
 <li><strong>Thermal capacitance</strong>, <code>C</code>: how much heat is needed to change temperature.</li>
 <li><strong>Thermal resistance</strong>, <code>R</code>: how strongly the object is thermally connected
   to its surroundings.</li>
+<li><strong>Heat-loss conductance</strong>, <code>H = 1/R</code>: heat-loss rate per kelvin above ambient,
+  in W/K.</li>
+<li><strong>TEC power coefficient</strong>, <code>P_u</code>: thermal power per signed PWM count, in
+  W/PWM.</li>
 <li><strong>Time constant</strong>, <code>tau = R*C</code>: the approximate response time of a first-order
   thermal system.</li>
 <li><strong>Open-loop slope</strong>, <code>S</code>: steady-state temperature change per PWM command.</li>
@@ -404,6 +418,85 @@ may not reproduce oscillations.</p>
 <h2 id="part-6-why-the-first-order-model-may-not-oscillate">Part 6: Why The First-Order Model May Not Oscillate<a class="headerlink" href="#part-6-why-the-first-order-model-may-not-oscillate" title="Permanent link">&para;</a></h2>
 <p>If your first-order model does not oscillate, that is useful. It means one
 thermal mass with instantaneous measurement and actuation is too simple.</p>
+<p>The dimensional one-lump model is</p>
+<div class="arithmatex">\[
+C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+\]</div>
+<p>With P control,</p>
+<div class="arithmatex">\[
+u=K_p(T_{\mathrm{set}}-T),
+\]</div>
+<p>so</p>
+<div class="arithmatex">\[
+C\frac{dT}{dt}
+=P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
+-(H+P_uK_p)T.
+\]</div>
+<p>First find the equilibrium temperature by setting <span class="arithmatex">\(dT/dt=0\)</span>:</p>
+<div class="arithmatex">\[
+T_{\mathrm{eq}}
+=\frac{P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}}
+{H+P_uK_p}.
+\]</div>
+<p>The remaining error from the setpoint is the P-control droop:</p>
+<div class="arithmatex">\[
+T_{\mathrm{set}}-T_{\mathrm{eq}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
+{H+P_uK_p}.
+\]</div>
+<p>Now define the displacement from equilibrium,</p>
+<div class="arithmatex">\[
+\theta(t)=T(t)-T_{\mathrm{eq}}.
+\]</div>
+<p>Substitution reduces the entire closed-loop P model to</p>
+<div class="arithmatex">\[
+C\frac{d\theta}{dt}=-(H+P_uK_p)\theta.
+\]</div>
+<p>Separate variables and integrate:</p>
+<div class="arithmatex">\[
+\frac{d\theta}{\theta}
+=-\frac{H+P_uK_p}{C}\,dt,
+\]</div>
+<div class="arithmatex">\[
+\ln\!\left(\frac{\theta(t)}{\theta(0)}\right)
+=-\frac{H+P_uK_p}{C}t.
+\]</div>
+<p>Therefore the temperature is explicitly</p>
+<div class="arithmatex">\[
+\boxed{
+T(t)=T_{\mathrm{eq}}
++\left[T(0)-T_{\mathrm{eq}}\right]
+\exp\!\left(-\frac{H+P_uK_p}{C}t\right)
+}.
+\]</div>
+<p>Equivalently,</p>
+<div class="arithmatex">\[
+T(t)=T_{\mathrm{eq}}
++\left[T(0)-T_{\mathrm{eq}}\right]e^{-t/\tau_{\mathrm{cl}}},
+\qquad
+\tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
+\]</div>
+<p>To find the eigenvalue directly, try an exponential mode,</p>
+<div class="arithmatex">\[
+\theta(t)=\theta_0e^{\lambda t},
+\qquad
+\frac{d\theta}{dt}=\lambda\theta.
+\]</div>
+<p>Substitute this trial solution into the homogeneous P equation:</p>
+<div class="arithmatex">\[
+C\lambda\theta=-(H+P_uK_p)\theta.
+\]</div>
+<p>Cancel the nonzero factor <span class="arithmatex">\(\theta\)</span>. There is only one eigenvalue,</p>
+<div class="arithmatex">\[
+\lambda=-\frac{H+P_uK_p}{C},
+\]</div>
+<p>and it is real and negative for positive physical parameters and negative
+feedback. The exponential is always positive, so
+<span class="arithmatex">\(T(t)-T_{\mathrm{eq}}\)</span> retains its
+initial sign while shrinking toward zero. The response therefore cannot cross
+the equilibrium, overshoot, or oscillate. Increasing <span class="arithmatex">\(K_p\)</span> decreases both
+droop and <span class="arithmatex">\(\tau_{\mathrm{cl}}\)</span>; it does not create the additional dynamical
+state or time delay needed for oscillation.</p>
 <p>Discuss what you would need to add:</p>
 <ul>
 <li>a time delay,</li>
@@ -431,6 +524,128 @@ u = Kp*error + Ki*error_integral
 </ul>
 <p>The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.</p>
+<h3 id="why-pi-can-be-underdamped">Why PI Can Be Underdamped<a class="headerlink" href="#why-pi-can-be-underdamped" title="Permanent link">&para;</a></h3>
+<p>First call the controller's accumulated error <span class="arithmatex">\(q\)</span>. It is the time integral of
+the error:</p>
+<div class="arithmatex">\[
+q(t)=q(0)+\int_0^t e(t')\,dt'.
+\]</div>
+<p>Therefore</p>
+<div class="arithmatex">\[
+\frac{dq}{dt}=e,
+\qquad
+u=K_p e+K_i q,
+\qquad
+e=T_{\mathrm{set}}-T.
+\]</div>
+<p>For an unsaturated PI controller at equilibrium, the temperature reaches the
+setpoint and the integral term supplies the PWM needed to balance heat loss:</p>
+<div class="arithmatex">\[
+T_{\mathrm{eq}}=T_{\mathrm{set}},
+\qquad
+q_{\mathrm{eq}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
+\]</div>
+<p>Now define the <strong>two state variables as displacements from equilibrium</strong>:</p>
+<div class="arithmatex">\[
+\boxed{
+\theta(t)=T(t)-T_{\mathrm{set}}
+},
+\qquad
+\boxed{
+z(t)=q(t)-q_{\mathrm{eq}}
+}.
+\]</div>
+<p>Thus <span class="arithmatex">\(\theta\)</span> is the temperature displacement and <span class="arithmatex">\(z\)</span> is the integral-state
+displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time derivatives obey</p>
+<div class="arithmatex">\[
+\frac{d\theta}{dt}
+=-\frac{H+P_uK_p}{C}\theta
++\frac{P_uK_i}{C}z,
+\qquad
+\frac{dz}{dt}=-\theta.
+\]</div>
+<p>In matrix form,</p>
+<div class="arithmatex">\[
+\frac{d}{dt}
+\begin{pmatrix}
+\theta\\ z
+\end{pmatrix}
+=
+\underbrace{
+\begin{pmatrix}
+-\dfrac{H+P_uK_p}{C} &amp; \dfrac{P_uK_i}{C}\\
+-1 &amp; 0
+\end{pmatrix}
+}_{A}
+\begin{pmatrix}
+\theta\\ z
+\end{pmatrix}.
+\]</div>
+<p>The eigenvalues satisfy</p>
+<div class="arithmatex">\[
+\det(A-\lambda I)=0.
+\]</div>
+<p>Evaluating this determinant gives the characteristic equation</p>
+<div class="arithmatex">\[
+\lambda^2
++\frac{H+P_uK_p}{C}\lambda
++\frac{P_uK_i}{C}=0.
+\]</div>
+<p>The quadratic formula gives both eigenvalues:</p>
+<div class="arithmatex">\[
+\boxed{
+\lambda_{\pm}
+=-\frac{H+P_uK_p}{2C}
+\pm
+\sqrt{
+\left(\frac{H+P_uK_p}{2C}\right)^2
+-\frac{P_uK_i}{C}
+}
+}.
+\]</div>
+<ul>
+<li>Two negative real eigenvalues give an overdamped response.</li>
+<li>One repeated negative eigenvalue gives critical damping.</li>
+<li>A complex-conjugate pair with negative real parts gives an underdamped
+  oscillation.</li>
+<li>An eigenvalue with a positive real part gives an unstable response.</li>
+</ul>
+<p>Its damping ratio is</p>
+<div class="arithmatex">\[
+\boxed{
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
+}.
+\]</div>
+<p>The linear PI response is underdamped when</p>
+<div class="arithmatex">\[
+\zeta&lt;1
+\qquad\Longleftrightarrow\qquad
+(H+P_uK_p)^2&lt;4CP_uK_i.
+\]</div>
+<p>Use the simulation to find one overdamped and one underdamped parameter set.
+For each case, record <span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, the displayed
+value of <span class="arithmatex">\(\zeta\)</span>, and whether the temperature trace agrees with the
+prediction. The formula applies only while the model is linear and the PWM is
+not saturated.</p>
+<h3 id="instructor-verification-and-exploration-tool">Instructor Verification And Exploration Tool<a class="headerlink" href="#instructor-verification-and-exploration-tool" title="Permanent link">&para;</a></h3>
+<p><strong>First implement your own one-lump model for open-loop, P, and PI control.</strong>
+Your program must perform the Euler update itself and produce the comparisons
+requested in Parts 4, 5, and 7. Do not begin with the supplied program, and do
+not submit the supplied program unchanged as your own work.</p>
+<p>After your own P and PI simulations run, download
+<a href="../../downloads/Lab_6_first_order_p_pi_simulation.py">the Module 6 P/PI lumped-model simulation</a>.
+Save it in your project repository as
+<code>python/Lab_6_first_order_p_pi_simulation.py</code>, then run it from the repository
+root:</p>
+<pre><code class="language-bash">python python/Lab_6_first_order_p_pi_simulation.py
+</code></pre>
+<p>The supplied simulation displays the dimensional energy balance, the
+equivalent time-constant model, the P and PI controller equations, the
+predicted P droop, and the PI damping ratio. Use it to check your reasoning,
+compare its predictions with your independently written model, and investigate
+parameter changes. Do not substitute its plots for comparisons with your own
+experimental data.</p>
 <h2 id="part-8-windup-thought-experiment">Part 8: Windup Thought Experiment<a class="headerlink" href="#part-8-windup-thought-experiment" title="Permanent link">&para;</a></h2>
 <p>Suppose the setpoint is far away and the controller demands more PWM than the
 hardware can supply. The PWM saturates, but the integral error may keep growing.</p>

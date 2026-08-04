@@ -30,7 +30,9 @@ Read selectively:
      time constants.
    - Official free textbook site: [A Heat Transfer Textbook](https://ahtt.mit.edu)
 2. Review your Module 4 and Module 5 data.
-3. Optional after class: Bechhoefer pp. 795-797 on feedback and stability.
+3. Optional after class: [Bechhoefer, *Feedback for Physicists*,
+   pp. 795-797](../../references/bechhoefer-feedback-for-physicists-2005.pdf),
+   on feedback and stability.
 
 Do not try to learn all of transient heat transfer at once. For this module, you
 need the idea that a physical object has heat capacity, exchanges heat with its
@@ -41,6 +43,10 @@ environment, and responds over a time scale.
 - **Thermal capacitance**, `C`: how much heat is needed to change temperature.
 - **Thermal resistance**, `R`: how strongly the object is thermally connected
   to its surroundings.
+- **Heat-loss conductance**, `H = 1/R`: heat-loss rate per kelvin above ambient,
+  in W/K.
+- **TEC power coefficient**, `P_u`: thermal power per signed PWM count, in
+  W/PWM.
 - **Time constant**, `tau = R*C`: the approximate response time of a first-order
   thermal system.
 - **Open-loop slope**, `S`: steady-state temperature change per PWM command.
@@ -210,6 +216,113 @@ may not reproduce oscillations.
 If your first-order model does not oscillate, that is useful. It means one
 thermal mass with instantaneous measurement and actuation is too simple.
 
+The dimensional one-lump model is
+
+\[
+C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+\]
+
+With P control,
+
+\[
+u=K_p(T_{\mathrm{set}}-T),
+\]
+
+so
+
+\[
+C\frac{dT}{dt}
+=P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
+-(H+P_uK_p)T.
+\]
+
+First find the equilibrium temperature by setting \(dT/dt=0\):
+
+\[
+T_{\mathrm{eq}}
+=\frac{P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}}
+{H+P_uK_p}.
+\]
+
+The remaining error from the setpoint is the P-control droop:
+
+\[
+T_{\mathrm{set}}-T_{\mathrm{eq}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
+{H+P_uK_p}.
+\]
+
+Now define the displacement from equilibrium,
+
+\[
+\theta(t)=T(t)-T_{\mathrm{eq}}.
+\]
+
+Substitution reduces the entire closed-loop P model to
+
+\[
+C\frac{d\theta}{dt}=-(H+P_uK_p)\theta.
+\]
+
+Separate variables and integrate:
+
+\[
+\frac{d\theta}{\theta}
+=-\frac{H+P_uK_p}{C}\,dt,
+\]
+
+\[
+\ln\!\left(\frac{\theta(t)}{\theta(0)}\right)
+=-\frac{H+P_uK_p}{C}t.
+\]
+
+Therefore the temperature is explicitly
+
+\[
+\boxed{
+T(t)=T_{\mathrm{eq}}
++\left[T(0)-T_{\mathrm{eq}}\right]
+\exp\!\left(-\frac{H+P_uK_p}{C}t\right)
+}.
+\]
+
+Equivalently,
+
+\[
+T(t)=T_{\mathrm{eq}}
++\left[T(0)-T_{\mathrm{eq}}\right]e^{-t/\tau_{\mathrm{cl}}},
+\qquad
+\tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
+\]
+
+To find the eigenvalue directly, try an exponential mode,
+
+\[
+\theta(t)=\theta_0e^{\lambda t},
+\qquad
+\frac{d\theta}{dt}=\lambda\theta.
+\]
+
+Substitute this trial solution into the homogeneous P equation:
+
+\[
+C\lambda\theta=-(H+P_uK_p)\theta.
+\]
+
+Cancel the nonzero factor \(\theta\). There is only one eigenvalue,
+
+\[
+\lambda=-\frac{H+P_uK_p}{C},
+\]
+
+and it is real and negative for positive physical parameters and negative
+feedback. The exponential is always positive, so
+\(T(t)-T_{\mathrm{eq}}\) retains its
+initial sign while shrinking toward zero. The response therefore cannot cross
+the equilibrium, overshoot, or oscillate. Increasing \(K_p\) decreases both
+droop and \(\tau_{\mathrm{cl}}\); it does not create the additional dynamical
+state or time delay needed for oscillation.
+
 Discuss what you would need to add:
 
 - a time delay,
@@ -243,6 +356,157 @@ Compare P-only and PI simulations:
 
 The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.
+
+### Why PI Can Be Underdamped
+
+First call the controller's accumulated error \(q\). It is the time integral of
+the error:
+
+\[
+q(t)=q(0)+\int_0^t e(t')\,dt'.
+\]
+
+Therefore
+
+\[
+\frac{dq}{dt}=e,
+\qquad
+u=K_p e+K_i q,
+\qquad
+e=T_{\mathrm{set}}-T.
+\]
+
+For an unsaturated PI controller at equilibrium, the temperature reaches the
+setpoint and the integral term supplies the PWM needed to balance heat loss:
+
+\[
+T_{\mathrm{eq}}=T_{\mathrm{set}},
+\qquad
+q_{\mathrm{eq}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
+\]
+
+Now define the **two state variables as displacements from equilibrium**:
+
+\[
+\boxed{
+\theta(t)=T(t)-T_{\mathrm{set}}
+},
+\qquad
+\boxed{
+z(t)=q(t)-q_{\mathrm{eq}}
+}.
+\]
+
+Thus \(\theta\) is the temperature displacement and \(z\) is the integral-state
+displacement. Because \(e=-\theta\), their time derivatives obey
+
+\[
+\frac{d\theta}{dt}
+=-\frac{H+P_uK_p}{C}\theta
++\frac{P_uK_i}{C}z,
+\qquad
+\frac{dz}{dt}=-\theta.
+\]
+
+In matrix form,
+
+\[
+\frac{d}{dt}
+\begin{pmatrix}
+\theta\\ z
+\end{pmatrix}
+=
+\underbrace{
+\begin{pmatrix}
+-\dfrac{H+P_uK_p}{C} & \dfrac{P_uK_i}{C}\\
+-1 & 0
+\end{pmatrix}
+}_{A}
+\begin{pmatrix}
+\theta\\ z
+\end{pmatrix}.
+\]
+
+The eigenvalues satisfy
+
+\[
+\det(A-\lambda I)=0.
+\]
+
+Evaluating this determinant gives the characteristic equation
+
+\[
+\lambda^2
++\frac{H+P_uK_p}{C}\lambda
++\frac{P_uK_i}{C}=0.
+\]
+
+The quadratic formula gives both eigenvalues:
+
+\[
+\boxed{
+\lambda_{\pm}
+=-\frac{H+P_uK_p}{2C}
+\pm
+\sqrt{
+\left(\frac{H+P_uK_p}{2C}\right)^2
+-\frac{P_uK_i}{C}
+}
+}.
+\]
+
+- Two negative real eigenvalues give an overdamped response.
+- One repeated negative eigenvalue gives critical damping.
+- A complex-conjugate pair with negative real parts gives an underdamped
+  oscillation.
+- An eigenvalue with a positive real part gives an unstable response.
+
+Its damping ratio is
+
+\[
+\boxed{
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
+}.
+\]
+
+The linear PI response is underdamped when
+
+\[
+\zeta<1
+\qquad\Longleftrightarrow\qquad
+(H+P_uK_p)^2<4CP_uK_i.
+\]
+
+Use the simulation to find one overdamped and one underdamped parameter set.
+For each case, record \(C\), \(H\), \(P_u\), \(K_p\), \(K_i\), the displayed
+value of \(\zeta\), and whether the temperature trace agrees with the
+prediction. The formula applies only while the model is linear and the PWM is
+not saturated.
+
+### Instructor Verification And Exploration Tool
+
+**First implement your own one-lump model for open-loop, P, and PI control.**
+Your program must perform the Euler update itself and produce the comparisons
+requested in Parts 4, 5, and 7. Do not begin with the supplied program, and do
+not submit the supplied program unchanged as your own work.
+
+After your own P and PI simulations run, download
+[the Module 6 P/PI lumped-model simulation](../../downloads/Lab_6_first_order_p_pi_simulation.py).
+Save it in your project repository as
+`python/Lab_6_first_order_p_pi_simulation.py`, then run it from the repository
+root:
+
+```bash
+python python/Lab_6_first_order_p_pi_simulation.py
+```
+
+The supplied simulation displays the dimensional energy balance, the
+equivalent time-constant model, the P and PI controller equations, the
+predicted P droop, and the PI damping ratio. Use it to check your reasoning,
+compare its predictions with your independently written model, and investigate
+parameter changes. Do not substitute its plots for comparisons with your own
+experimental data.
 
 ## Part 8: Windup Thought Experiment
 

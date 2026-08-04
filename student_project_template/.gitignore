@@ -1,0 +1,18 @@
+# macOS and editor files
+.DS_Store
+*.swp
+*.tmp
+~$*
+.vscode/
+
+# Python-generated files and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Test and analysis caches
+.pytest_cache/
+
+# Do not add broad data-file patterns here. Decide deliberately which
+# experimental data are small and useful enough to preserve in Git.

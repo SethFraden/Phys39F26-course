@@ -134,6 +134,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -174,8 +178,16 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+            <li class="nav-item" data-bs-level="2"><a href="#collect-p-control-evidence-during-class" class="nav-link">Collect P-Control Evidence During Class</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#evidence-to-preserve-for-a3-and-c4" class="nav-link">Evidence To Preserve For A3 And C4</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#evidence-check" class="nav-link">Evidence Check</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -255,6 +267,66 @@ amplitude.</p>
 <pre><code class="language-text">positive command = heat
 negative command = cool
 </code></pre>
+<h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S9</td>
+<td>Read this assignment</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S9</td>
+<td>Read and work to understand the assigned Bechhoefer pages</td>
+<td style="text-align: right;">90 minutes</td>
+</tr>
+<tr>
+<td>S9</td>
+<td>Skim the Wikipedia/NI references and answer the pre-class questions</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>S9</td>
+<td>Review the Module 4 slope and safety behavior</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S9</td>
+<td><strong>Total associated with S9</strong></td>
+<td style="text-align: right;"><strong>3 hours 15 minutes</strong></td>
+</tr>
+<tr>
+<td>S10</td>
+<td>Prepare the controller, settings table, and file-naming plan</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>Analyze droop and oscillation data for the later A3 memo</td>
+<td style="text-align: right;">90 minutes</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>Label evidence, update the note, commit, and push</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S10</td>
+<td><strong>Total associated with S10</strong></td>
+<td style="text-align: right;"><strong>2 hours 45 minutes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The Bechhoefer allocation is for careful conceptual reading, not merely turning
+pages. Bring questions about Laplace-transform notation; mastery of that
+notation is not expected here.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>If <code>Tset = 30 °C</code> and <code>T = 25 °C</code>, should the TEC heat or cool?</li>
@@ -419,8 +491,30 @@ git add README.md arduino python docs data
 git commit -m &quot;Measure P-only temperature control&quot;
 git push
 </code></pre>
-<h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit:</p>
+<h2 id="collect-p-control-evidence-during-class">Collect P-Control Evidence During Class<a class="headerlink" href="#collect-p-control-evidence-during-class" title="Permanent link">&para;</a></h2>
+<p>Complete the gain sweep and instability measurements during S9-S10. For every
+retained run, record the setpoint, room temperature, <code>Kp</code>, sampling interval,
+safety limit, steady-state temperature, droop, oscillation amplitude,
+oscillation frequency, and data filename. Save:</p>
+<ul>
+<li>the feedback-loop diagram and low-gain sign test,</li>
+<li>raw traces at enough gains to show the stable, near-onset, and oscillatory
+  regimes,</li>
+<li>the measured and predicted droop table,</li>
+<li>the oscillation table and the criterion used to identify onset,</li>
+<li>the exact controller and plotting code, and</li>
+<li>notes about saturation, noise, delay, or any stopped unsafe run.</li>
+</ul>
+<p>Keep the record in <code>docs/module_notes/module_05_p_control.md</code>, raw data in
+<code>data/module_05/</code>, and figures in <code>docs/figures/module_05/</code>. Calculate droop
+and oscillation quantities during class while the run and settings can still
+be checked.</p>
+<h2 id="evidence-to-preserve-for-a3-and-c4">Evidence To Preserve For A3 And C4<a class="headerlink" href="#evidence-to-preserve-for-a3-and-c4" title="Permanent link">&para;</a></h2>
+<p>This is not a separate paper. It is the experimental core of the later
+<a href="../lab-06/#a3-feedback-data-and-lumped-model-memo"><code>A3</code> feedback-and-model memo</a>
+and the C4 demonstration. Use about <strong>90 minutes</strong> after the in-class gain
+sweep for droop/oscillation analysis, captions, and the Git checkpoint.</p>
+<p>Keep the following in the module note and repository:</p>
 <ul>
 <li>feedback-loop block diagram,</li>
 <li>sign-test result,</li>
@@ -431,7 +525,11 @@ git push
 <li>your P-only control code or a link to it,</li>
 <li>a short paragraph explaining why P-only control has droop,</li>
 <li>a short paragraph explaining why high gain can oscillate.</li>
-</ul></div>
+</ul>
+<h3 id="evidence-check">Evidence Check<a class="headerlink" href="#evidence-check" title="Permanent link">&para;</a></h3>
+<p>Before Module 6, confirm that the dimensional gain/droop table, predicted
+droop, representative traces, oscillation-onset measurements, raw data, code,
+and brief physical interpretation are present in the pushed repository.</p></div>
             </div>
         </div>
 
@@ -446,7 +544,7 @@ git push
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

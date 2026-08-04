@@ -51,9 +51,12 @@ By the end of the course, you should be able to:
 - **G9.** Measure droop, steady-state response, step response, oscillation, and the
   onset of instability.
 - **G10.** Develop simple lumped thermal models and compare them with experiment.
-- **G11.** Move from lumped models to spatial heat-transport models; distinguish
-  finite-length and finite-radius approximations, quantify their errors, and
-  identify when a numerical model is required.
+- **G11.** Derive the heat-conduction equation from conservation of energy and
+  Fourier's law; use Newton's law of cooling for surface heat transfer; solve
+  the long-thin-rod equation analytically for finite and semi-infinite rods;
+  use the Biot number to justify the one-dimensional approximation; quantify
+  finite-length and finite-radius errors; and identify when a numerical model
+  is required.
 - **G12.** Use Git, GitHub, VS Code, Markdown, and an AI coding assistant to document
   and organize experimental work.
 - **G13.** Learn the advantages of dimensional analysis and convert between dimensionless and dimensionfull quantities.
@@ -137,8 +140,9 @@ The  Fall 2026 schedule includes 26 class sessions covering 8 topics.
    Python simulation, and comparison of models with experiment.
 
 7. **Long-cylinder heat transport**  
-   Temperature along a rod, heat equation, analytical finite-length solutions,
-   the semi-infinite approximation, the transverse Biot number, guided
+   Conservation of energy, Fourier's law, Newton's law of cooling, temperature
+   along a rod, derivation of the heat equation, analytical finite-length and
+   semi-infinite solutions, the transverse Biot number, guided
    numerical radial modeling, step and periodic forcing, amplitude decay,
    phase lag, and the Angstrom method.
 
@@ -213,14 +217,20 @@ understandable record of experimental progress.
 
 ### Written Reports
 
-The course will include substantial written work distributed across the due
-dates in the [course calendar](https://sethfraden.github.io/Phys39F26-course/labs/).
-The principal pieces include:
+Written assessment is limited to five purposeful submissions distributed
+through the semester:
 
-- a mid-course temperature-control report or project checkpoint,
-- a modeling-app checkpoint,
-- thermal-transport theory/modeling assignments,
-- final analysis and presentation material.
+1. a short early measurement-evidence note,
+2. an open-loop TEC instrument note,
+3. an integrated feedback-data and lumped-model memo,
+4. an individual finite-rod and Biot-number derivation, and
+5. an individual Angstrom-method derivation and experiment plan.
+
+Routine module notes, modeling-app progress, and Git checkpoints remain
+important evidence but are not separate papers. The final team analysis is
+assessed through C6 and the presentation. This structure combines a small
+number of carefully prepared written products with brief individual oral
+questions during laboratory checkoffs.
 
 ### Presentations
 

@@ -128,7 +128,19 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#recommended-project-structure" class="nav-link">Recommended Project Structure</a>
+            <li class="nav-item" data-bs-level="2"><a href="#receive-and-clone-your-team-repository" class="nav-link">Receive And Clone Your Team Repository</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#working-with-a-partner" class="nav-link">Working With A Partner</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#team-project-structure" class="nav-link">Team Project Structure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#create-and-move-files-in-vs-code" class="nav-link">Create And Move Files In VS Code</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -223,32 +235,111 @@ If you use another approved coding AI tool, the same rule applies: AI may help
 you draft code, but you are responsible for testing it, organizing it,
 making a checkpoint in GitHub Desktop, syncing it to GitHub, and explaining
 what it does.</p>
-<h2 id="recommended-project-structure">Recommended Project Structure<a class="headerlink" href="#recommended-project-structure" title="Permanent link">&para;</a></h2>
-<p>By the end of Module 3, organize your work into one clear project folder:</p>
-<pre><code class="language-text">phys39-tec-control/
+<h2 id="receive-and-clone-your-team-repository">Receive And Clone Your Team Repository<a class="headerlink" href="#receive-and-clone-your-team-repository" title="Permanent link">&para;</a></h2>
+<p>Each team will use one private project repository for the entire course. The
+instructor will provide the repository or an invitation link. Do not create a
+second experimental repository unless the instructor asks you to do so.</p>
+<p>The standard starter project is available publicly:</p>
+<ul>
+<li><a href="../downloads/phys39-instrumentation-starter.zip">Download the Phys 39 starter project</a></li>
+<li><a href="https://github.com/SethFraden/Phys39F26-course/tree/main/student_project_template">Browse the starter-project files on GitHub</a></li>
+</ul>
+<p>Your assigned private repository may already contain these files. If it does
+not, the instructor will tell you to download and unzip the starter project,
+then copy <code>README.md</code>, <code>.gitignore</code>, <code>requirements.txt</code>, and the <code>arduino</code>,
+<code>python</code>, <code>docs</code>, and <code>data</code> folders into the top level of your cloned private
+repository. Do not leave them inside an extra nested starter-project folder.</p>
+<p>After both team members can open the repository on GitHub:</p>
+<ol>
+<li>Open GitHub Desktop.</li>
+<li>Choose <strong>File &gt; Clone Repository...</strong>.</li>
+<li>On the <strong>GitHub.com</strong> tab, select your assigned Phys 39 repository. If it is
+   not listed, use the <strong>URL</strong> tab and paste the repository URL.</li>
+<li>Choose a local path you can find again, such as your <code>Documents/GitHub</code>
+   folder, and click <strong>Clone</strong>.</li>
+<li>In GitHub Desktop, choose <strong>Repository &gt; Open in Visual Studio Code</strong>.</li>
+<li>Confirm that VS Code Explorer shows <code>README.md</code>, <code>.gitignore</code>,
+   <code>requirements.txt</code>, <code>arduino</code>, <code>python</code>, <code>docs</code>, and <code>data</code> at the top
+   level. If the starter files are absent, follow the instructor's directions
+   for copying the downloaded files before proceeding.</li>
+</ol>
+<p>Cloning makes a working copy on your laptop and connects it to the private
+GitHub repository. Both partners should clone the same team repository onto
+their own computers.</p>
+<h3 id="working-with-a-partner">Working With A Partner<a class="headerlink" href="#working-with-a-partner" title="Permanent link">&para;</a></h3>
+<p>At the beginning of a work session, open GitHub Desktop and click <strong>Fetch
+origin</strong>. If <strong>Pull origin</strong> appears, click it before editing. This brings your
+partner's committed work onto your computer.</p>
+<p>Until the class introduces more advanced Git tools, do not have both partners
+edit the same file at the same time. Agree who is editing it, make and push a
+checkpoint, and then have the other partner fetch and pull before continuing.
+You may work simultaneously on different files, but communicate before moving
+or renaming shared folders.</p>
+<h2 id="team-project-structure">Team Project Structure<a class="headerlink" href="#team-project-structure" title="Permanent link">&para;</a></h2>
+<p>Use one repository throughout the course. By the end of Module 3, the working
+part of the repository should resemble this structure:</p>
+<pre><code class="language-text">phys39-instrumentation/
   README.md
+  .gitignore
+  requirements.txt
   arduino/
     thermistor_serial/
+      thermistor_serial.ino
     tec_manual_control/
-    tec_python_serial_control/
+      tec_manual_control.ino
+    tec_python_control/
+      tec_python_control.ino
   python/
-    display_strip_chart/
-    manual_control_gui/
+    tec_display_strip_chart.py
+    tec_control_gui.py
+    models/
+    analysis/
   docs/
-    wiring_notes/
-    screenshots/
+    module_notes/
+    wiring/
+    figures/
   data/
-    example_runs/
 </code></pre>
-<p>You may use a different structure if it is clear. The important point is that a
-reader should be able to find your Arduino code, Python code, notes, images, and
-data without guessing.</p>
+<p>Do not create every future experiment folder immediately. Add folders as the
+project develops. For example, create <code>data/module_04_open_loop/</code> when you
+collect the Module 4 data.</p>
+<p>The important rules are:</p>
+<ul>
+<li>A reader can find code, notes, figures, and data without guessing.</li>
+<li>Every Arduino <code>.ino</code> file is inside a folder with exactly the same name. For
+  example, <code>thermistor_serial.ino</code> belongs in <code>thermistor_serial/</code>.</li>
+<li>Small standalone Python programs can sit directly in <code>python/</code>. Later
+  simulations and data-processing programs go in <code>python/models/</code> and
+  <code>python/analysis/</code>.</li>
+<li><code>README.md</code> identifies which Arduino and Python programs currently work
+  together.</li>
+<li><code>.gitignore</code> excludes local environments and temporary files. Do not use it
+  to hide files merely because their purpose is unclear.</li>
+<li><code>requirements.txt</code> records the Python packages needed to run the project.</li>
+</ul>
+<p>Git records files, not empty folders. A folder will appear on GitHub only after
+it contains a committed file. The starter repository therefore includes short
+<code>README.md</code> files in folders that would otherwise be empty.</p>
+<h2 id="create-and-move-files-in-vs-code">Create And Move Files In VS Code<a class="headerlink" href="#create-and-move-files-in-vs-code" title="Permanent link">&para;</a></h2>
+<p>Use the Explorer panel on the left side of VS Code:</p>
+<ol>
+<li>Select the project name at the top of Explorer.</li>
+<li>Click the <strong>New Folder</strong> icon and enter a folder name such as <code>arduino</code>.</li>
+<li>Select the destination folder, click the <strong>New File</strong> icon, and enter the
+   complete filename, including <code>.ino</code>, <code>.py</code>, or <code>.md</code>.</li>
+<li>Drag an existing file onto a folder in Explorer to move it.</li>
+<li>Save the file and check that it appears in the intended folder.</li>
+</ol>
+<p>When moving an Arduino sketch, move its same-named sketch folder as a unit. Open
+the moved <code>.ino</code> file in Arduino IDE, compile it, and upload it again before
+discarding the earlier copy. Avoid accumulating ambiguous names such as
+<code>final.py</code>, <code>final2.py</code>, or <code>newest.py</code>; use names that describe the program.</p>
 <h2 id="vs-code-basics">VS Code Basics<a class="headerlink" href="#vs-code-basics" title="Permanent link">&para;</a></h2>
 <p>Open your project folder, not just a single file:</p>
 <ol>
 <li>Open VS Code.</li>
 <li>Choose <strong>File &gt; Open Folder...</strong>.</li>
-<li>Select your project folder, such as <code>phys39-tec-control</code>.</li>
+<li>Select your project folder, such as <code>phys39-instrumentation</code>.</li>
 <li>Use the Explorer panel on the left to inspect folders and files.</li>
 <li>Use <strong>Terminal &gt; New Terminal</strong> to open a terminal inside VS Code.</li>
 </ol>
@@ -270,15 +361,26 @@ right file. Make sure Arduino code goes in <code>.ino</code> files, Python code 
 <code>.py</code> files, and documentation goes in <code>.md</code> files.</p>
 <h2 id="github-desktop-checkpoint-workflow">GitHub Desktop Checkpoint Workflow<a class="headerlink" href="#github-desktop-checkpoint-workflow" title="Permanent link">&para;</a></h2>
 <p>Use this workflow whenever you reach a meaningful checkpoint.</p>
-<ol>
-<li>Open GitHub Desktop.</li>
+<ul>
+<li><strong>Save</strong> writes the current file to your laptop.</li>
+<li><strong>Commit</strong> records a named checkpoint in the Git repository on your laptop.</li>
+<li>
+<p><strong>Push</strong> uploads your committed checkpoints to GitHub.</p>
+</li>
+<li>
+<p>Open GitHub Desktop.</p>
+</li>
 <li>Select your course project repository.</li>
+<li>Click <strong>Fetch origin</strong> and then <strong>Pull origin</strong> if it appears. If pulling
+   introduces unexpected changes, stop and inspect them before committing.</li>
 <li>Look at the changed files list.</li>
 <li>Uncheck files that do not belong in this checkpoint.</li>
 <li>Write a short summary that says what changed.</li>
 <li>Click <strong>Commit to main</strong>.</li>
 <li>Click <strong>Push origin</strong> or <strong>Sync changes</strong> to upload the checkpoint to GitHub.</li>
-</ol>
+<li>Choose <strong>Repository &gt; View on GitHub</strong> and confirm that the latest commit and
+   intended files appear online.</li>
+</ul>
 <p>Use commit messages that say what changed, for example:</p>
 <ul>
 <li>Add thermistor serial sketch</li>
@@ -381,7 +483,7 @@ MATLAB, or another Python GUI that may already be using the port.</p></div>
         </script>
         <script src="../js/base.js"></script>
         <script src="../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../javascripts/tex-svg.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

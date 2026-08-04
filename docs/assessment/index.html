@@ -124,7 +124,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#informal-and-formal-assessment" class="nav-link">Informal And Formal Assessment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#assessment-codes" class="nav-link">Assessment Codes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-rule" class="nav-link">Outside-Class Workload Rule</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -240,6 +248,16 @@ evidence, and explain your reasoning individually.</p>
 <p>The <a href="../syllabus/">course syllabus</a> lists the full Course Goals. The
 <a href="../labs/">course calendar</a> gives the objective and due work for every
 meeting.</p>
+<h2 id="informal-and-formal-assessment">Informal And Formal Assessment<a class="headerlink" href="#informal-and-formal-assessment" title="Permanent link">&para;</a></h2>
+<p>The instructor speaks with each student during all 26 class meetings. Those
+conversations, board work, debugging discussions, and progress checks are
+formative: they reveal misconceptions early and guide the next explanation or
+practice task without generating another paper to grade.</p>
+<p>Formal assessment is deliberately limited to five written assessments, six
+working-capability checkoffs, and the final presentation. During each C#
+checkoff, each student answers one announced primary question and, when useful,
+one short follow-up. The individual portion should normally take about <strong>3-5
+minutes per student</strong> and occurs while laboratory work is underway.</p>
 <h2 id="assessment-codes">Assessment Codes<a class="headerlink" href="#assessment-codes" title="Permanent link">&para;</a></h2>
 <p>Every calendar entry uses one of the following labels so that you can tell
 whether work is preparation, feedback, or a graded submission.</p>
@@ -263,9 +281,9 @@ whether work is preparation, feedback, or a graded submission.</p>
 <td>No separate score</td>
 </tr>
 <tr>
-<td><code>A1</code>-<code>A11</code></td>
-<td>Graded written, data-analysis, or modeling assignment</td>
-<td>Yes, normally 5 points</td>
+<td><code>A1</code>-<code>A5</code></td>
+<td>Five key written, data-analysis, or modeling assessments</td>
+<td>Yes; A1 is 5 points and A2-A5 are 10 points</td>
 </tr>
 <tr>
 <td><code>C1</code>-<code>C6</code></td>
@@ -284,6 +302,16 @@ whether work is preparation, feedback, or a graded submission.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="outside-class-workload-rule">Outside-Class Workload Rule<a class="headerlink" href="#outside-class-workload-rule" title="Permanent link">&para;</a></h2>
+<p>No class session assigns more than <strong>four hours of outside-class work</strong>. Each
+module's workload table includes time to read the assignment itself, read and
+work to understand the theory, prepare for class, analyze or code, and package
+the submission. Four hours is a maximum, not a target.</p>
+<p>Hardware measurements are completed during scheduled or instructor-approved
+supervised laboratory time. If a software, access, or hardware problem would
+push work beyond the stated budget, preserve the current state, document the
+blocker, and bring it to class. Do not hide an unfinished step or substitute an
+unverified AI result merely to meet a deadline.</p>
 <h2 id="where-and-how-to-submit-work">Where And How To Submit Work<a class="headerlink" href="#where-and-how-to-submit-work" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://moodle.brandeis.edu/course/view.php?id=6589">Phys 39/169 Brandeis Moodle course</a>
 is the official submission and grade-record location. GitHub holds the working
@@ -291,9 +319,9 @@ code, data, figures, and documentation. Except when the instructor announces a
 hardware emergency or accommodation, email is not a submission method.</p>
 <h3 id="a-written-data-and-modeling-assignments">A# Written, Data, And Modeling Assignments<a class="headerlink" href="#a-written-data-and-modeling-assignments" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Submit one PDF to the Moodle activity bearing the same code, such as <code>A8</code>.</li>
-<li>Name a team file <code>A8_Lastname_Lastname.pdf</code>; name an individual file
-  <code>A7_Lastname.pdf</code>.</li>
+<li>Submit one PDF to the Moodle activity bearing the same code, such as <code>A5</code>.</li>
+<li>Name a team file <code>A5_Lastname_Lastname.pdf</code>; name an individual file
+  <code>A3_Lastname.pdf</code>.</li>
 <li>Put student names, assignment code, date, repository URL, and exact Git commit
   hash on the first page.</li>
 <li>Include the requested reasoning, equations, tables, and figures in the PDF.
@@ -302,11 +330,11 @@ hardware emergency or accommodation, email is not a submission method.</p>
   exact repository paths needed to locate them.</li>
 <li>Submit the Moodle file and push the cited <code>GC</code> by the stated deadline.</li>
 </ul>
-<p>The following assignments are <strong>individual</strong>: <code>A4</code>, <code>A6</code>, <code>A7</code>, and <code>A9</code>.
-They assess each student's understanding of the thermal-model derivations and
-reading. Assignments <code>A1</code>-<code>A3</code>, <code>A5</code>, <code>A8</code>, <code>A10</code>, and <code>A11</code> are normally one
-submission per laboratory team; both partners remain responsible for every
-part.</p>
+<p>The following assignments are <strong>individual</strong>: <code>A4</code> and <code>A5</code>. They assess each
+student's understanding of the finite-rod/Biot and Angstrom derivations.
+Assignments <code>A1</code>, <code>A2</code>, and <code>A3</code> are one submission per laboratory team; both
+partners remain responsible for every part and answer individual oral
+questions during the associated checkoffs.</p>
 <h3 id="c-completion-milestones">C# Completion Milestones<a class="headerlink" href="#c-completion-milestones" title="Permanent link">&para;</a></h3>
 <p>A milestone has two required pieces:</p>
 <ol>
@@ -404,8 +432,13 @@ and may ask one short follow-up. A complete answer identifies the physical or
 computational principle, points to relevant hardware, code, or data when
 appropriate, and uses correct signs and units. These are brief checks of
 understanding, not surprise examinations.</p>
+<p>The oral check is not a separate appointment or a long examination. It is a
+brief formal sample of understanding embedded in the scheduled laboratory
+meeting. Informal questions during other meetings are used for feedback rather
+than points.</p>
 <h2 id="c1-development-environment-and-repository">C1: Development Environment And Repository<a class="headerlink" href="#c1-development-environment-and-repository" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S3, Wednesday, September 2</p>
+<p><strong>Due:</strong> Demonstration during Session S3, Wednesday, September 2; Moodle
+<code>C1 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -445,7 +478,8 @@ understanding, not surprise examinations.</p>
    preceding version of one file.</li>
 </ol>
 <h2 id="c2-measurement-and-actuator-electronics">C2: Measurement And Actuator Electronics<a class="headerlink" href="#c2-measurement-and-actuator-electronics" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S5, Monday, September 14</p>
+<p><strong>Due:</strong> Demonstration during Session S5, Monday, September 14; Moodle
+<code>C2 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -486,7 +520,8 @@ understanding, not surprise examinations.</p>
    low voltages, and physical meaning?</li>
 </ol>
 <h2 id="c3-tec-instrument-and-first-python-gui">C3: TEC Instrument And First Python GUI<a class="headerlink" href="#c3-tec-instrument-and-first-python-gui" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S7, Wednesday, September 23</p>
+<p><strong>Due:</strong> Demonstration during Session S7, Wednesday, September 23; Moodle
+<code>C3 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -527,7 +562,8 @@ understanding, not surprise examinations.</p>
    broken serial connection, or over-temperature condition?</li>
 </ol>
 <h2 id="c4-feedback-controller-and-tec-process-model">C4: Feedback Controller And TEC Process Model<a class="headerlink" href="#c4-feedback-controller-and-tec-process-model" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S15, Wednesday, October 21</p>
+<p><strong>Due:</strong> Demonstration during Session S15, Wednesday, October 21; Moodle
+<code>C4 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -569,7 +605,8 @@ understanding, not surprise examinations.</p>
    data constrain it.</li>
 </ol>
 <h2 id="c5-rod-instrument-and-data-acquisition-chain">C5: Rod Instrument And Data-Acquisition Chain<a class="headerlink" href="#c5-rod-instrument-and-data-acquisition-chain" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S18, Monday, November 2</p>
+<p><strong>Due:</strong> Demonstration during Session S18, Monday, November 2; Moodle
+<code>C5 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -610,9 +647,15 @@ understanding, not surprise examinations.</p>
    it affects the later conductivity result.</li>
 <li>What two different approximations are meant by calling the rod "long and
    thin"? Which calculation tests each approximation?</li>
+<li>Starting from a thin rod slice, how do conservation of energy, Fourier's
+   law, and Newton's law of cooling produce the stationary fin equation?</li>
+<li>Write or explain the finite insulated-tip and semi-infinite analytical
+   temperature profiles. Which boundary condition is lost in the
+   semi-infinite limit?</li>
 </ol>
 <h2 id="c6-final-thermal-transport-package">C6: Final Thermal-Transport Package<a class="headerlink" href="#c6-final-thermal-transport-package" title="Permanent link">&para;</a></h2>
-<p><strong>Due:</strong> Session S25, Monday, November 30</p>
+<p><strong>Due:</strong> Demonstration during Session S25, Monday, November 30; Moodle
+<code>C6 Team Checkoff</code> receipt due by <strong>11:55 AM</strong></p>
 <table>
 <thead>
 <tr>
@@ -666,8 +709,13 @@ of <code>F1</code>.</p>
    thermistor measure most directly?</li>
 </ol>
 <h2 id="graded-assignment-rubric">Graded Assignment Rubric<a class="headerlink" href="#graded-assignment-rubric" title="Permanent link">&para;</a></h2>
-<p>Assignments <code>A1</code> through <code>A11</code> are normally worth 5 points. Unless an
-assignment page specifies otherwise, use this rubric:</p>
+<p>The course uses five written assessments rather than a paper after every
+module. <code>A1</code> is a 5-point introductory evidence note. <code>A2</code>-<code>A5</code> are 10-point
+assessments with specific rubrics on their module pages. Intermediate notes,
+plots, code, and Git checkpoints receive feedback and support the oral
+checkoffs; they are not separate papers to grade.</p>
+<p>The 5-point table below is the A1 rubric; the A2-A5 pages use expanded 10-point
+rubrics.</p>
 <table>
 <thead>
 <tr>
@@ -706,88 +754,58 @@ assignment page specifies otherwise, use this rubric:</p>
 <tbody>
 <tr>
 <td><code>A1</code></td>
-<td>Sept. 2</td>
-<td><strong>Module 1 evidence note:</strong> a Markdown record naming the Arduino examples tested, the modifications made, and oscilloscope or measured evidence for digital timing, analog input, averaging, and PWM. Link the relevant sketches and <code>GC</code>.</td>
+<td>Sept. 2, 9:05 AM</td>
+<td><strong>Module 1 evidence note (team):</strong> complete the <a href="../labs/lab-01/#a1-module-1-evidence-note">Module 1 A1 instructions</a>. Submit <code>A1_Lastname_Lastname.pdf</code> to Moodle; keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurement table in the repository; cite the pushed <code>GC</code>.</td>
 </tr>
 <tr>
 <td><code>C1</code></td>
-<td>Sept. 2</td>
-<td>Development environment and repository milestone, demonstrated using the rubric above.</td>
+<td>Sept. 2, during S3; receipt by 11:55 AM</td>
+<td>Development environment and repository milestone, demonstrated using the rubric above. This is separate from <code>A1</code>, although both may cite the same pushed commit.</td>
 </tr>
 <tr>
 <td><code>C2</code></td>
-<td>Sept. 14</td>
-<td>Measurement and actuator-electronics milestone, demonstrated using the rubric above.</td>
+<td>Sept. 14, during S5; receipt by 11:55 AM</td>
+<td><a href="../labs/lab-02/#collect-your-c2-evidence-during-class">Measurement and actuator-electronics milestone</a>, demonstrated using the C2 rubric above.</td>
 </tr>
 <tr>
 <td><code>C3</code></td>
-<td>Sept. 23</td>
-<td>TEC instrument and first-Python-GUI milestone, demonstrated using the rubric above.</td>
+<td>Sept. 23, during S7; receipt by 11:55 AM</td>
+<td><a href="../labs/lab-03/#collect-your-c3-evidence-during-class">TEC instrument and first-Python-GUI milestone</a>, demonstrated using the C3 rubric above.</td>
 </tr>
 <tr>
 <td><code>A2</code></td>
-<td>Sept. 28</td>
-<td><strong>Open-loop TEC note:</strong> signed-PWM settings, labeled heating and cooling records, the criterion used to call a temperature steady, observed asymmetry or saturation, and the operating limits used.</td>
+<td>Sept. 28, 6:00 PM</td>
+<td><a href="../labs/lab-04/#a2-open-loop-tec-instrument-note"><strong>Open-loop TEC instrument note</strong></a> (team): signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and <code>GC</code>.</td>
 </tr>
 <tr>
 <td><code>A3</code></td>
-<td>Oct. 5</td>
-<td><strong>P-control data package:</strong> setpoint and gain table, measured droop versus gain, time traces near instability, oscillation amplitude and frequency versus gain, safety limit, interpretation, data, code, and <code>GC</code>.</td>
-</tr>
-<tr>
-<td><code>A4</code></td>
-<td>Oct. 7</td>
-<td><strong>One-lump derivation:</strong> dimensional energy-balance equation, equilibrium temperature, time constant, definition and units of every parameter, and a comparison with one measured transient or stated testable prediction.</td>
-</tr>
-<tr>
-<td><code>A5</code></td>
-<td>Oct. 14</td>
-<td><strong>P/PI analysis memo:</strong> P and PI responses under comparable conditions, quantitative droop and transient metrics, actuator saturation evidence, and an explanation of integral action and anti-windup.</td>
-</tr>
-<tr>
-<td><code>A6</code></td>
-<td>Oct. 21</td>
-<td><strong>Heat-transfer reading memo:</strong> one page connecting Fourier conduction, side heat loss, boundary conditions, and measurable quantities to the aluminum-rod experiment.</td>
+<td>Oct. 14, 6:00 PM</td>
+<td><a href="../labs/lab-06/#a3-feedback-data-and-lumped-model-memo"><strong>Feedback data and lumped-model memo</strong></a> (team): selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and <code>GC</code>.</td>
 </tr>
 <tr>
 <td><code>C4</code></td>
-<td>Oct. 21</td>
-<td>Feedback-controller and TEC-process-model milestone, demonstrated using the rubric above.</td>
+<td>Oct. 21, during S15; receipt by 11:55 AM</td>
+<td><a href="../labs/lab-07/#c4-feedback-controller-and-tec-process-model">Feedback-controller and TEC-process-model milestone</a>, demonstrated using the C4 rubric above.</td>
 </tr>
 <tr>
-<td><code>A7</code></td>
-<td>Oct. 28</td>
-<td><strong>Finite-length and small-Biot guided study (individual):</strong> using Lienhard Section 4.5, complete Problems 4.12 and 4.20; derive the finite insulated-tip profile and its semi-infinite limit; calculate <code>mL</code>, finite-versus-infinite error at each sensor, and the transverse Biot number; state separately when length and radius may be ignored.</td>
+<td><code>A4</code></td>
+<td>Oct. 28, 9:05 AM</td>
+<td><a href="../labs/lab-08/#a4-finite-length-and-small-biot-guided-study"><strong>Finite-length and small-Biot guided study</strong></a> (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number.</td>
 </tr>
 <tr>
 <td><code>C5</code></td>
-<td>Nov. 2</td>
-<td>Rod instrument and data-acquisition milestone, demonstrated using the rubric above.</td>
+<td>Nov. 2, during S18; receipt by 11:55 AM</td>
+<td><a href="../labs/lab-08/#c5-rod-instrument-and-data-acquisition-chain">Rod instrument and data-acquisition milestone</a>, demonstrated using the C5 rubric above.</td>
 </tr>
 <tr>
-<td><code>A8</code></td>
-<td>Nov. 4</td>
-<td><strong>Stationary-fin analysis:</strong> plot steady excess temperature <code>theta(x) = T(x) - T_room</code> versus position with units; fit both finite-length and semi-infinite models; compare residuals and the shift in <code>m</code>; report the decay coefficient in <code>1/m</code> with uncertainty; explain <code>m^2 = HP/(kA)</code> and why this steady fit alone cannot separate <code>H</code> from <code>k</code>. Include data, fit code, and <code>GC</code>.</td>
-</tr>
-<tr>
-<td><code>A9</code></td>
-<td>Nov. 11</td>
-<td><strong>Angstrom derivation and model-validity plan (individual):</strong> derive or explain the periodic amplitude and phase relations; show how <code>q</code> and <code>q_prime</code> determine <code>kappa</code> and <code>nu</code>; choose and justify the drive period, sampling interval, settled-cycle count, and sensor range; include the guided numerical comparison for transverse Biot numbers <code>0.01</code>, <code>0.1</code>, and <code>1</code>, and state whether the course rod supports one-dimensional analysis.</td>
-</tr>
-<tr>
-<td><code>A10</code></td>
-<td>Nov. 18</td>
-<td><strong>Modeling-app draft:</strong> runnable code loads rod data, fits a sinusoid at every sensor, plots amplitude and unwrapped phase versus position, fits <code>q</code> and <code>q_prime</code>, estimates <code>kappa</code> and <code>nu</code>, shows intermediate plots and residuals, and includes run instructions plus <code>GC</code>.</td>
-</tr>
-<tr>
-<td><code>A11</code></td>
-<td>Nov. 23</td>
-<td><strong>Draft conductivity and heat-loss results:</strong> preliminary <code>k = kappa*rho*c</code> and <code>H = nu*rho*c*A/P</code>, with units, uncertainty, accepted-value comparison, frequency/model check, and dominant systematic limitations.</td>
+<td><code>A5</code></td>
+<td>Nov. 11, 9:05 AM</td>
+<td><a href="../labs/lab-09/#a5-angstrom-derivation-and-model-validity-plan"><strong>Angstrom derivation and model-validity plan</strong></a> (individual): periodic relations, <code>kappa</code> and <code>nu</code>, acquisition plan, and radial-model comparison.</td>
 </tr>
 <tr>
 <td><code>C6</code></td>
-<td>Nov. 30</td>
-<td>Final thermal-transport package, including the finite-length check and guided numerical finite-radius comparison, demonstrated using the rubric above.</td>
+<td>Nov. 30, during S25; receipt by 11:55 AM</td>
+<td><a href="../labs/lab-10/#c6-submission">Final thermal-transport package</a>, including finite-length and finite-radius checks, demonstrated using the C6 rubric above.</td>
 </tr>
 <tr>
 <td><code>F1</code></td>
@@ -842,7 +860,7 @@ assignment page specifies otherwise, use this rubric:</p>
 <tr>
 <td>Arduino primitives and signals</td>
 <td>G1, G2, G5, G12</td>
-<td>Oscilloscope measurements, modified sketches, C1</td>
+<td>A1 oscilloscope measurements and modified sketches; C1 repository check</td>
 </tr>
 <tr>
 <td>First real instrument pieces</td>
@@ -895,7 +913,7 @@ assignment page specifies otherwise, use this rubric:</p>
         </script>
         <script src="../js/base.js"></script>
         <script src="../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../javascripts/tex-svg.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

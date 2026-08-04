@@ -50,6 +50,20 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 4. Read the [hardware page section on the thermal safety switch](../../hardware.md#thermal-safety-switch).
 5. Read the [hardware page section on the TEC](../../hardware.md#thermoelectric-cooler).
 
+## Outside-Class Workload Budget For S8
+
+| Work | Planned time |
+| --- | ---: |
+| Read this assignment and review the safety boundary | 30 minutes |
+| Prepare the signed-PWM table, steady-state criterion, and data-file plan | 45 minutes |
+| Analyze the in-class runs and make the required graph | 120 minutes |
+| Write, check, commit, push, and submit A2 | 60 minutes |
+| **Total outside class associated with S8** | **3 hours 15 minutes** |
+
+All physical runs and safety tests occur in class. If analysis reveals that a
+measurement must be repeated, identify it for the next supervised opportunity
+rather than exceeding the four-hour outside-class limit.
+
 ## Pre-Class Questions
 
 1. What does it mean for the TEC/block temperature to reach steady state?
@@ -249,7 +263,38 @@ Do not commit duplicate drafts or large accidental data files. Your repository
 should make it clear which Arduino sketch and Python program were used for this
 module.
 
+## Collect Open-Loop Evidence During Class
+
+Complete the open-loop runs and safety tests during S7-S8. Before shutting down
+or changing the apparatus, save:
+
+- the final high-current wiring diagram and safety settings,
+- the complete signed-PWM table, including the steady-state criterion,
+- raw time-series data for every retained point,
+- one labeled heating trace and one labeled cooling trace,
+- the steady temperature-versus-signed-PWM figure,
+- the exact Arduino and Python versions used, and
+- evidence that the software limit sets both H-bridge outputs to zero while
+  serial reporting continues.
+
+Use `docs/module_notes/module_04_open_loop_tec.md` for the formative note,
+`data/module_04/` for raw data, and `docs/figures/module_04/` for figures. Fill
+the data table and write short observations while each run is fresh. The
+post-class work should be assembly and interpretation, not another experiment.
+
 ## What To Submit
+
+### A2: Open-Loop TEC Instrument Note
+
+- **Type:** team, 10 points
+- **Due:** Monday, September 28, at **6:00 PM**
+- **Moodle file:** `A2_Lastname_Lastname.pdf`
+- **Repository file:** `docs/assessments/a2_open_loop_tec.md`
+
+This early formal assessment establishes expectations for dimensional graphs,
+physical interpretation, reproducible code/data links, safety evidence, and a
+clear Git checkpoint. Reserve about **60 minutes** to finish the paper and
+submission after the in-class measurements and graph are complete.
 
 Submit a short module note containing:
 
@@ -264,3 +309,13 @@ Submit a short module note containing:
 - the Arduino safety-limit code or a link to it,
 - a short description of how you verified the safety logic,
 - a link to the GitHub commit or repository containing the organized Module 4 work.
+
+### A2 Rubric
+
+| Criterion | Points |
+| --- | ---: |
+| Signed-PWM table, steady-state criterion, and retained raw data are complete | 2 |
+| Heating/cooling traces and dimensional steady-temperature plot are credible | 2 |
+| Asymmetry, slope, saturation, and operating limits are interpreted physically | 2 |
+| Software and hardware safety behavior are demonstrated and explained | 2 |
+| PDF, code/data links, and cited Git checkpoint are clear and on time | 2 |

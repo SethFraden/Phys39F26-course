@@ -83,6 +83,24 @@ positive command = heat
 negative command = cool
 ```
 
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S9 | Read this assignment | 30 minutes |
+| S9 | Read and work to understand the assigned Bechhoefer pages | 90 minutes |
+| S9 | Skim the Wikipedia/NI references and answer the pre-class questions | 45 minutes |
+| S9 | Review the Module 4 slope and safety behavior | 30 minutes |
+| S9 | **Total associated with S9** | **3 hours 15 minutes** |
+| S10 | Prepare the controller, settings table, and file-naming plan | 45 minutes |
+| S10 | Analyze droop and oscillation data for the later A3 memo | 90 minutes |
+| S10 | Label evidence, update the note, commit, and push | 30 minutes |
+| S10 | **Total associated with S10** | **2 hours 45 minutes** |
+
+The Bechhoefer allocation is for careful conceptual reading, not merely turning
+pages. Bring questions about Laplace-transform notation; mastery of that
+notation is not expected here.
+
 ## Pre-Class Questions
 
 1. If `Tset = 30 °C` and `T = 25 °C`, should the TEC heat or cool?
@@ -246,9 +264,34 @@ git commit -m "Measure P-only temperature control"
 git push
 ```
 
-## What To Submit
+## Collect P-Control Evidence During Class
 
-Submit:
+Complete the gain sweep and instability measurements during S9-S10. For every
+retained run, record the setpoint, room temperature, `Kp`, sampling interval,
+safety limit, steady-state temperature, droop, oscillation amplitude,
+oscillation frequency, and data filename. Save:
+
+- the feedback-loop diagram and low-gain sign test,
+- raw traces at enough gains to show the stable, near-onset, and oscillatory
+  regimes,
+- the measured and predicted droop table,
+- the oscillation table and the criterion used to identify onset,
+- the exact controller and plotting code, and
+- notes about saturation, noise, delay, or any stopped unsafe run.
+
+Keep the record in `docs/module_notes/module_05_p_control.md`, raw data in
+`data/module_05/`, and figures in `docs/figures/module_05/`. Calculate droop
+and oscillation quantities during class while the run and settings can still
+be checked.
+
+## Evidence To Preserve For A3 And C4
+
+This is not a separate paper. It is the experimental core of the later
+[`A3` feedback-and-model memo](../lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
+and the C4 demonstration. Use about **90 minutes** after the in-class gain
+sweep for droop/oscillation analysis, captions, and the Git checkpoint.
+
+Keep the following in the module note and repository:
 
 - feedback-loop block diagram,
 - sign-test result,
@@ -259,3 +302,9 @@ Submit:
 - your P-only control code or a link to it,
 - a short paragraph explaining why P-only control has droop,
 - a short paragraph explaining why high gain can oscillate.
+
+### Evidence Check
+
+Before Module 6, confirm that the dimensional gain/droop table, predicted
+droop, representative traces, oscillation-onset measurements, raw data, code,
+and brief physical interpretation are present in the pushed repository.

@@ -12,9 +12,30 @@ to separate thermal diffusion from heat loss to the air.
 | Session | In class | Due |
 | --- | --- | --- |
 | S20, Mon. Nov. 9 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | `P3` model and pilot check |
-| S21, Wed. Nov. 11 | Fit pilot amplitudes and phases; choose production period | **A9: Angstrom derivation and model-validity plan** |
+| S21, Wed. Nov. 11 | Fit pilot amplitudes and phases; choose production period | **A5: Angstrom derivation and model-validity plan** |
 | S22, Mon. Nov. 16 | Acquire settled production data at one or more periods | Data-readiness check |
-| S23, Wed. Nov. 18 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | Modeling-app draft |
+| S23, Wed. Nov. 18 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | Formative modeling-app check |
+
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S20 | Read this assignment and review the periodic solution | 60 minutes |
+| S20 | Run the supplied radial scaffold and compare the three Biot-number cases | 120 minutes |
+| S20 | Prepare the pilot-run settings and metadata plan | 30 minutes |
+| S20 | **Total associated with S20** | **3 hours 30 minutes** |
+| S21 | Complete and check the individual A5 derivation and validity plan | 180 minutes |
+| S21 | Inspect pilot fits and prepare the production-run plan | 45 minutes |
+| S21 | **Total associated with S21** | **3 hours 45 minutes** |
+| S22 | Prepare production filenames, metadata, and data-readiness checklist | 60 minutes |
+| S22 | **Total associated with S22** | **1 hour** |
+| S23 | Complete the modeling-app fits, uncertainty, and residual displays | 150 minutes |
+| S23 | Document, commit, and push the formative modeling-app checkpoint | 30 minutes |
+| S23 | **Total associated with S23** | **3 hours** |
+
+Production data are acquired in class. If five settled periods do not fit in a
+meeting, use an instructor-approved supervised run rather than silently adding
+unscheduled outside laboratory time.
 
 ## Learning Objectives
 
@@ -182,10 +203,52 @@ Your Python app, notebook, or script must visibly show:
 - the finite-length and transverse-Biot-number checks that justify the
   one-dimensional semi-infinite analysis for the retained sensors.
 
-## Modeling-App Draft Submission
+## Modeling-App Draft And Evidence
+
+### Evidence To Save During S20-S23
+
+Preserve the requested and measured boundary waveforms, controller settings,
+sensor map, raw pilot and production data, fitting intervals, exclusions,
+intermediate fit parameters, residuals, and exact code version. Use
+`docs/module_notes/module_09_angstrom.md`, `data/module_09/`, and
+`docs/figures/module_09/`. Never replace raw measurements with processed data.
+
+### A5: Angstrom Derivation And Model-Validity Plan
+
+- **Type:** individual, 10 points
+- **Due:** Wednesday, November 11, at **9:05 AM**
+- **Moodle file:** `A5_Lastname.pdf`
+- **Repository file:** `docs/assessments/a5_angstrom_derivation_plan.md`
+
+Submit the amplitude/phase derivation, inverse relations for `kappa` and `nu`,
+dimensional checks, justified acquisition plan, and the guided radial-model
+comparison. State explicitly whether the course rod supports the proposed
+one-dimensional analysis.
+
+### Formative Modeling-App Check
+
+There is no separate modeling-app paper. Keep the team note at
+`docs/module_notes/module_09_modeling_app.md` and authoritative runnable app,
+script, or notebook under `python/analysis/`. Show it during the scheduled
+progress check; its code, plots, and residuals become part of C6 and F1.
 
 Submit runnable code, a short README with the exact command or procedure, the
 data file or stable link, intermediate plots, preliminary `kappa` and `nu`, the
 guided radial-model comparison, and a note describing any AI assistance. Every
 team member must be able to explain the input format, the sequence of fits, and
 why the selected one-dimensional approximation is acceptable or not.
+
+### A5 Rubric
+
+| Criterion | Points |
+| --- | ---: |
+| Periodic amplitude and phase relations and inverse equations are correct | 2 |
+| Units and sign conventions are explicit and consistent | 2 |
+| Drive period, sampling, settling, sensors, and safety limits are justified | 2 |
+| Finite-length and radial-model validity checks support a clear conclusion | 2 |
+| Individual PDF and cited Git checkpoint are clear and on time | 2 |
+
+The formative app is ready when it loads documented raw data; displays
+per-sensor fits, amplitude, unwrapped phase, and residuals; reports `q`,
+`q_prime`, `kappa`, and `nu` with units and uncertainty; and documents
+exclusions, approximation checks, run instructions, and AI assistance.

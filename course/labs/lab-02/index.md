@@ -45,6 +45,23 @@ H-bridge, or wiring becomes unexpectedly warm.
 4. Bring the Arduino, thermistor divider parts, trim pot, USB cable, and your
    Module 1 notes.
 
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S3 | Read this assignment and inspect the thermistor diagram | 30 minutes |
+| S3 | Arduino tutorial, hardware references, and thermistor data-sheet reading | 60 minutes |
+| S3 | Pre-class calculations and questions | 60 minutes |
+| S3 | **Total associated with S3** | **2 hours 30 minutes** |
+| S4 | Review and finish the thermistor/PWM sketches needed in class | 60 minutes |
+| S4 | Predict the H-bridge signals and prepare the checkoff table | 30 minutes |
+| S4 | Label, commit, and push the C2 evidence after class | 30 minutes |
+| S4 | **Total associated with S4** | **2 hours** |
+
+The time includes reading the assignment itself. If hardware access or a
+software problem would push the work beyond four hours for a session, document
+the blocker and bring it to class.
+
 ## Pre-Class Questions
 
 1. A 100 k$\Omega$ fixed resistor and a 100 k$\Omega$ thermistor form a voltage
@@ -239,9 +256,38 @@ and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor
 before swapping the motor leads.
 
-## What To Submit
+## Collect Your C2 Evidence During Class
 
-Submit a short module note containing:
+Module 2 produces most of the evidence for
+[`C2`, Measurement And Actuator Electronics](../../assessment.md#c2-measurement-and-actuator-electronics).
+Do not plan to recreate oscilloscope measurements after the apparatus has been
+dismantled. Before leaving S4, save:
+
+- the labeled thermistor-divider diagram and constants,
+- three representative human-readable serial lines,
+- the Serial Plotter warming/cooling record,
+- the completed heat/cool H-bridge signal table,
+- oscilloscope evidence for both active PWM pins, including voltage, frequency,
+  and duty cycle,
+- the exact Arduino sketch used, and
+- the optional motor observations, if the motor test was performed.
+
+Put the evidence in `docs/module_notes/module_02_instrument_pieces.md` and put
+the authoritative sketch in a descriptively named folder under `arduino/`.
+Use links to code files rather than pasting a complete sketch into the note.
+Reserve no more than **30 minutes after S4** to label the saved evidence, update
+the note, commit, and push. The physical measurements themselves must be made
+in class.
+
+## C2 Evidence Record
+
+There is no separate `A#` submission for Module 2. This note and its cited Git
+checkpoint are evidence for `C2`, demonstrated during S5 on Monday, September
+14. One team member must submit the `C2 Team Checkoff` Moodle receipt by
+**11:55 AM**. Follow the [C2 rubric and oral-question
+bank](../../assessment.md#c2-measurement-and-actuator-electronics).
+
+Keep a short module note containing:
 
 - Thermistor divider circuit sketch.
 - Three human-readable serial lines copied from the Part 1 Arduino output.

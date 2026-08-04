@@ -38,30 +38,119 @@ you draft code, but you are responsible for testing it, organizing it,
 making a checkpoint in GitHub Desktop, syncing it to GitHub, and explaining
 what it does.
 
-## Recommended Project Structure
+## Receive And Clone Your Team Repository
 
-By the end of Module 3, organize your work into one clear project folder:
+Each team will use one private project repository for the entire course. The
+instructor will provide the repository or an invitation link. Do not create a
+second experimental repository unless the instructor asks you to do so.
+
+The standard starter project is available publicly:
+
+- [Download the Phys 39 starter project](downloads/phys39-instrumentation-starter.zip)
+- [Browse the starter-project files on GitHub](https://github.com/SethFraden/Phys39F26-course/tree/main/student_project_template)
+
+Your assigned private repository may already contain these files. If it does
+not, the instructor will tell you to download and unzip the starter project,
+then copy `README.md`, `.gitignore`, `requirements.txt`, and the `arduino`,
+`python`, `docs`, and `data` folders into the top level of your cloned private
+repository. Do not leave them inside an extra nested starter-project folder.
+
+After both team members can open the repository on GitHub:
+
+1. Open GitHub Desktop.
+2. Choose **File > Clone Repository...**.
+3. On the **GitHub.com** tab, select your assigned Phys 39 repository. If it is
+   not listed, use the **URL** tab and paste the repository URL.
+4. Choose a local path you can find again, such as your `Documents/GitHub`
+   folder, and click **Clone**.
+5. In GitHub Desktop, choose **Repository > Open in Visual Studio Code**.
+6. Confirm that VS Code Explorer shows `README.md`, `.gitignore`,
+   `requirements.txt`, `arduino`, `python`, `docs`, and `data` at the top
+   level. If the starter files are absent, follow the instructor's directions
+   for copying the downloaded files before proceeding.
+
+Cloning makes a working copy on your laptop and connects it to the private
+GitHub repository. Both partners should clone the same team repository onto
+their own computers.
+
+### Working With A Partner
+
+At the beginning of a work session, open GitHub Desktop and click **Fetch
+origin**. If **Pull origin** appears, click it before editing. This brings your
+partner's committed work onto your computer.
+
+Until the class introduces more advanced Git tools, do not have both partners
+edit the same file at the same time. Agree who is editing it, make and push a
+checkpoint, and then have the other partner fetch and pull before continuing.
+You may work simultaneously on different files, but communicate before moving
+or renaming shared folders.
+
+## Team Project Structure
+
+Use one repository throughout the course. By the end of Module 3, the working
+part of the repository should resemble this structure:
 
 ```text
-phys39-tec-control/
+phys39-instrumentation/
   README.md
+  .gitignore
+  requirements.txt
   arduino/
     thermistor_serial/
+      thermistor_serial.ino
     tec_manual_control/
-    tec_python_serial_control/
+      tec_manual_control.ino
+    tec_python_control/
+      tec_python_control.ino
   python/
-    display_strip_chart/
-    manual_control_gui/
+    tec_display_strip_chart.py
+    tec_control_gui.py
+    models/
+    analysis/
   docs/
-    wiring_notes/
-    screenshots/
+    module_notes/
+    wiring/
+    figures/
   data/
-    example_runs/
 ```
 
-You may use a different structure if it is clear. The important point is that a
-reader should be able to find your Arduino code, Python code, notes, images, and
-data without guessing.
+Do not create every future experiment folder immediately. Add folders as the
+project develops. For example, create `data/module_04_open_loop/` when you
+collect the Module 4 data.
+
+The important rules are:
+
+- A reader can find code, notes, figures, and data without guessing.
+- Every Arduino `.ino` file is inside a folder with exactly the same name. For
+  example, `thermistor_serial.ino` belongs in `thermistor_serial/`.
+- Small standalone Python programs can sit directly in `python/`. Later
+  simulations and data-processing programs go in `python/models/` and
+  `python/analysis/`.
+- `README.md` identifies which Arduino and Python programs currently work
+  together.
+- `.gitignore` excludes local environments and temporary files. Do not use it
+  to hide files merely because their purpose is unclear.
+- `requirements.txt` records the Python packages needed to run the project.
+
+Git records files, not empty folders. A folder will appear on GitHub only after
+it contains a committed file. The starter repository therefore includes short
+`README.md` files in folders that would otherwise be empty.
+
+## Create And Move Files In VS Code
+
+Use the Explorer panel on the left side of VS Code:
+
+1. Select the project name at the top of Explorer.
+2. Click the **New Folder** icon and enter a folder name such as `arduino`.
+3. Select the destination folder, click the **New File** icon, and enter the
+   complete filename, including `.ino`, `.py`, or `.md`.
+4. Drag an existing file onto a folder in Explorer to move it.
+5. Save the file and check that it appears in the intended folder.
+
+When moving an Arduino sketch, move its same-named sketch folder as a unit. Open
+the moved `.ino` file in Arduino IDE, compile it, and upload it again before
+discarding the earlier copy. Avoid accumulating ambiguous names such as
+`final.py`, `final2.py`, or `newest.py`; use names that describe the program.
 
 ## VS Code Basics
 
@@ -69,7 +158,7 @@ Open your project folder, not just a single file:
 
 1. Open VS Code.
 2. Choose **File > Open Folder...**.
-3. Select your project folder, such as `phys39-tec-control`.
+3. Select your project folder, such as `phys39-instrumentation`.
 4. Use the Explorer panel on the left to inspect folders and files.
 5. Use **Terminal > New Terminal** to open a terminal inside VS Code.
 
@@ -95,13 +184,21 @@ right file. Make sure Arduino code goes in `.ino` files, Python code goes in
 
 Use this workflow whenever you reach a meaningful checkpoint.
 
+- **Save** writes the current file to your laptop.
+- **Commit** records a named checkpoint in the Git repository on your laptop.
+- **Push** uploads your committed checkpoints to GitHub.
+
 1. Open GitHub Desktop.
 2. Select your course project repository.
-3. Look at the changed files list.
-4. Uncheck files that do not belong in this checkpoint.
-5. Write a short summary that says what changed.
-6. Click **Commit to main**.
-7. Click **Push origin** or **Sync changes** to upload the checkpoint to GitHub.
+3. Click **Fetch origin** and then **Pull origin** if it appears. If pulling
+   introduces unexpected changes, stop and inspect them before committing.
+4. Look at the changed files list.
+5. Uncheck files that do not belong in this checkpoint.
+6. Write a short summary that says what changed.
+7. Click **Commit to main**.
+8. Click **Push origin** or **Sync changes** to upload the checkpoint to GitHub.
+9. Choose **Repository > View on GitHub** and confirm that the latest commit and
+   intended files appear online.
 
 Use commit messages that say what changed, for example:
 

@@ -118,6 +118,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
               <ul class="nav flex-column">
               </ul>
@@ -140,6 +144,14 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#c6-checkoff-and-final-analysis-packet" class="nav-link">C6 Checkoff And Final Analysis Packet</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#final-thermal-transport-analysis-packet" class="nav-link">Final Thermal-Transport Analysis Packet</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#c6-submission" class="nav-link">C6 Submission</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#final-presentation" class="nav-link">Final Presentation</a>
@@ -176,12 +188,12 @@ the measured temperature field.</p>
 <tr>
 <td>S24, Mon. Nov. 23</td>
 <td>Convert fitted coefficients into <code>k</code> and <code>H</code>; update the earlier finite-length and finite-radius checks using measured parameters</td>
-<td><strong>A11: draft conductivity and heat-loss results</strong></td>
+<td>Formative draft-results check</td>
 </tr>
 <tr>
 <td>S25, Mon. Nov. 30</td>
 <td>Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check</td>
-<td><strong>C6 and final analysis packet</strong></td>
+<td><strong>C6 final analysis package</strong></td>
 </tr>
 <tr>
 <td>S26, Wed. Dec. 2</td>
@@ -190,6 +202,61 @@ the measured temperature field.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S24</td>
+<td>Read this assignment and organize the final parameter table</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>S24</td>
+<td>Propagate uncertainty, compare accepted values, and prepare the draft-results check</td>
+<td style="text-align: right;">150 minutes</td>
+</tr>
+<tr>
+<td>S24</td>
+<td>Document, commit, and push the draft</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S24</td>
+<td><strong>Total associated with S24</strong></td>
+<td style="text-align: right;"><strong>3 hours 45 minutes</strong></td>
+</tr>
+<tr>
+<td>S25</td>
+<td>Freeze the analysis, run the reproducibility test, and prepare C6</td>
+<td style="text-align: right;">240 minutes</td>
+</tr>
+<tr>
+<td>S25</td>
+<td><strong>Total associated with S25</strong></td>
+<td style="text-align: right;"><strong>4 hours</strong></td>
+</tr>
+<tr>
+<td>S26</td>
+<td>Prepare slides, rehearse, and practice the announced oral questions</td>
+<td style="text-align: right;">240 minutes</td>
+</tr>
+<tr>
+<td>S26</td>
+<td><strong>Total associated with S26</strong></td>
+<td style="text-align: right;"><strong>4 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<p>These final sessions use the full allowance. Reuse the figures, equations, and
+documentation already produced during Modules 8-9; do not create a second parallel
+analysis solely for presentation polish.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this module, you should be able to:</p>
 <ul>
@@ -270,6 +337,22 @@ when possible:</p>
 <li>temperature dependence or alloy dependence of material properties.</li>
 </ul>
 <h2 id="c6-checkoff-and-final-analysis-packet">C6 Checkoff And Final Analysis Packet<a class="headerlink" href="#c6-checkoff-and-final-analysis-packet" title="Permanent link">&para;</a></h2>
+<h3 id="final-thermal-transport-analysis-packet">Final Thermal-Transport Analysis Packet<a class="headerlink" href="#final-thermal-transport-analysis-packet" title="Permanent link">&para;</a></h3>
+<p>This team analysis is graded within C6 and F1 rather than as a sixth written
+assignment. Keep the report at
+<code>docs/assessments/final_thermal_transport_analysis.md</code> and cite it in the C6
+Moodle receipt.</p>
+<p>Before leaving S24, preserve a formative draft containing the exact <code>q</code>, <code>q_prime</code>, geometry, material
+properties, uncertainty method, accepted-value source, finite-length check,
+transverse-Biot check, and code version used for the draft result.</p>
+<p>The C6 rubric evaluates whether the stationary and periodic analyses are
+reproducible; the dimensional quantities, units, uncertainties, and sources
+are correct; and residuals, accepted-value comparisons, and model-validity
+checks support the conclusions.</p>
+<h3 id="c6-submission">C6 Submission<a class="headerlink" href="#c6-submission" title="Permanent link">&para;</a></h3>
+<p>Demonstrate C6 during S25. The <code>C6 Team Checkoff</code> Moodle receipt is due by
+<strong>11:55 AM</strong> and must cite the frozen, pushed analysis commit. Use the
+<a href="../../assessment/#c6-final-thermal-transport-package">C6 rubric and oral-question bank</a>.</p>
 <p>The final repository must contain:</p>
 <ul>
 <li>raw data and an immutable description of the run,</li>
@@ -290,6 +373,9 @@ reproduce the principal numbers and figures. Each student will answer short
 individual questions about the Angstrom inference and about when length or
 radius may be neglected.</p>
 <h2 id="final-presentation">Final Presentation<a class="headerlink" href="#final-presentation" title="Permanent link">&para;</a></h2>
+<p>One team member submits <code>F1_Lastname_Lastname_slides.pdf</code> to Moodle before the
+S26 presentation and cites the final repository commit. Every student prepares
+the announced <a href="../../assessment/#c6-oral-questions">C6/F1 oral questions</a>.</p>
 <p>The presentation should tell one connected story:</p>
 <ol>
 <li>How the Arduino, thermistors, TEC, H-bridge, Python GUI, and PI controller
@@ -316,7 +402,7 @@ question about hardware, software, control, or thermal physics.</p></div>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

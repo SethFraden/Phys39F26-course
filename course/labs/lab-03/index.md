@@ -57,6 +57,24 @@ trace disappears.
    - the place where labels or displayed values are set.
 4. Write down one small GUI change you would like to make.
 
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S5 | Read this assignment; review the wiring, safety boundary, and prior thermistor code | 75 minutes |
+| S5 | Inspect the Python strip-chart structure and prepare one proposed change | 45 minutes |
+| S5 | **Total associated with S5** | **2 hours** |
+| S6 | Develop or revise the display-only GUI using the provided prompt | 120 minutes |
+| S6 | Update run instructions and record unresolved questions | 30 minutes |
+| S6 | **Total associated with S6** | **2 hours 30 minutes** |
+| S7 | Develop and test the GUI controls and serial-command code without TEC power | 120 minutes |
+| S7 | Organize the repository, README, evidence, and C3 receipt | 60 minutes |
+| S7 | **Total associated with S7** | **3 hours** |
+
+Stop when the planned time is exhausted. Preserve the current working state and
+bring a precise description of the blocker to class; do not trade away safety
+or understanding to finish an AI-generated feature.
+
 ## Pre-Class Questions
 
 1. Why should the H-bridge be checked with the oscilloscope before the TEC power
@@ -391,27 +409,45 @@ Use the course [Git, GitHub, VS Code, and AI workflow](../../git-vscode-ai-workf
 page as your reference for the minimal Git commands and documentation habits
 expected in this course.
 
-Create one clean project folder for the code and documentation you want to keep.
-A reasonable structure is:
+Use the one private team repository supplied for the course; do not create a
+second project repository. Follow the workflow page to clone it with GitHub
+Desktop and open the repository folder in VS Code.
+
+Organize the code and documentation you want to keep. By this point, the
+working part of the repository should resemble:
 
 ```text
-phys39-tec-control/
+phys39-instrumentation/
   README.md
+  .gitignore
+  requirements.txt
   arduino/
     thermistor_serial/
+      thermistor_serial.ino
     tec_manual_control/
+      tec_manual_control.ino
     tec_python_control/
+      tec_python_control.ino
   python/
-    display_strip_chart/
-    manual_control_gui/
+    tec_display_strip_chart.py
+    tec_control_gui.py
+    models/
+    analysis/
   docs/
-    wiring_notes/
-    screenshots/
+    module_notes/
+    wiring/
+    figures/
   data/
-    example_runs/
 ```
 
-You may use a different structure if it is clear and consistent.
+You may customize this structure if it remains clear and consistent. Do not
+create empty future data folders merely to fill out the diagram. Remember that
+each Arduino sketch folder and its `.ino` file must have exactly the same name.
+
+Use VS Code Explorer to create folders and files and to move earlier work into
+the repository. After moving code, compile and test the Arduino sketch and run
+the Python program from their new locations. Do not delete a known working copy
+until the moved version has passed the same test.
 
 Write or revise `README.md` so it explains:
 
@@ -425,14 +461,13 @@ Write or revise `README.md` so it explains:
 - what you tested yourself,
 - what you still do not fully understand.
 
-Use Git and GitHub to make a checkpoint:
+Use GitHub Desktop to make the checkpoint:
 
-```bash
-git status
-git add README.md arduino python docs
-git commit -m "Organize Module 3 TEC control project"
-git push
-```
+1. Inspect every changed file and exclude temporary or duplicate drafts.
+2. Commit with the summary `Organize Module 3 TEC control project`.
+3. Push the commit to GitHub.
+4. Choose **Repository > View on GitHub** and verify that the new folders,
+   `README.md`, and latest commit appear in the private team repository.
 
 Do not blindly commit everything in the folder. Look at `git status` first.
 Temporary files, duplicate AI drafts, and large accidental data files should not
@@ -450,9 +485,41 @@ Also include a short AI use note in your `README.md`:
 - Which parts did you test on real hardware?
 - Which parts can you explain without looking at the AI transcript?
 
-## What To Submit
+## Collect Your C3 Evidence During Class
 
-Submit a short module note containing:
+Module 3 spans S5-S7. Save evidence as each capability works; do not wait until
+the end and try to reconstruct which code produced which trace. Before the C3
+demonstration, save:
+
+- the signed pre-power checklist and final wiring record,
+- the heat/cool oscilloscope table with TEC power off,
+- one labeled low-power heating record and one labeled cooling record,
+- a raw data file with units and acquisition metadata,
+- screenshots of the display-only and control GUIs,
+- the exact paired Arduino and Python versions used for the final test,
+- a record of the over-temperature and invalid-command safety tests, and
+- the organized repository README and AI-use note from Part 8.
+
+Keep the module record in `docs/module_notes/module_03_tec_gui.md`. Put raw data
+under `data/module_03/`, figures under `docs/figures/module_03/`, and the
+authoritative programs under `arduino/` and `python/`. Complete each row or
+caption while the corresponding test is running.
+
+## C3 Evidence Record
+
+This material supports [`C3`, TEC Instrument And First Python
+GUI](../../assessment.md#c3-tec-instrument-and-first-python-gui), demonstrated
+during S7 on Wednesday, September 23. The `P1` check during S6 is a rehearsal:
+show that Python reads real serial data, updates the display, and saves a
+labeled file. It has no separate Moodle submission.
+
+After the experimental evidence is complete, reserve about **60 minutes** to check
+paths, finish captions, commit, push, and prepare the `C3 Team Checkoff` Moodle
+receipt. The receipt is due by **11:55 AM in S7** and must cite the exact pushed
+commit. Use the [C3 rubric and oral-question
+bank](../../assessment.md#c3-tec-instrument-and-first-python-gui).
+
+Keep a short module note containing:
 
 - Completed pre-power checklist.
 - Wiring or signal-path sketch.

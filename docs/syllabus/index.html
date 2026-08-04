@@ -251,9 +251,12 @@ connect the instrument to thermal physics.</p>
 <li><strong>G9.</strong> Measure droop, steady-state response, step response, oscillation, and the
   onset of instability.</li>
 <li><strong>G10.</strong> Develop simple lumped thermal models and compare them with experiment.</li>
-<li><strong>G11.</strong> Move from lumped models to spatial heat-transport models; distinguish
-  finite-length and finite-radius approximations, quantify their errors, and
-  identify when a numerical model is required.</li>
+<li><strong>G11.</strong> Derive the heat-conduction equation from conservation of energy and
+  Fourier's law; use Newton's law of cooling for surface heat transfer; solve
+  the long-thin-rod equation analytically for finite and semi-infinite rods;
+  use the Biot number to justify the one-dimensional approximation; quantify
+  finite-length and finite-radius errors; and identify when a numerical model
+  is required.</li>
 <li><strong>G12.</strong> Use Git, GitHub, VS Code, Markdown, and an AI coding assistant to document
   and organize experimental work.</li>
 <li><strong>G13.</strong> Learn the advantages of dimensional analysis and convert between dimensionless and dimensionfull quantities.</li>
@@ -336,8 +339,9 @@ reading to a measurement, circuit, code fragment, or model equation.</p>
 </li>
 <li>
 <p><strong>Long-cylinder heat transport</strong><br />
-   Temperature along a rod, heat equation, analytical finite-length solutions,
-   the semi-infinite approximation, the transverse Biot number, guided
+   Conservation of energy, Fourier's law, Newton's law of cooling, temperature
+   along a rod, derivation of the heat equation, analytical finite-length and
+   semi-infinite solutions, the transverse Biot number, guided
    numerical radial modeling, step and periodic forcing, amplitude decay,
    phase lag, and the Angstrom method.</p>
 </li>
@@ -467,15 +471,20 @@ documentation should include:</p>
 <p>The goal is not polished perfection every week. The goal is a recoverable,
 understandable record of experimental progress.</p>
 <h3 id="written-reports">Written Reports<a class="headerlink" href="#written-reports" title="Permanent link">&para;</a></h3>
-<p>The course will include substantial written work distributed across the due
-dates in the <a href="https://sethfraden.github.io/Phys39F26-course/labs/">course calendar</a>.
-The principal pieces include:</p>
-<ul>
-<li>a mid-course temperature-control report or project checkpoint,</li>
-<li>a modeling-app checkpoint,</li>
-<li>thermal-transport theory/modeling assignments,</li>
-<li>final analysis and presentation material.</li>
-</ul>
+<p>Written assessment is limited to five purposeful submissions distributed
+through the semester:</p>
+<ol>
+<li>a short early measurement-evidence note,</li>
+<li>an open-loop TEC instrument note,</li>
+<li>an integrated feedback-data and lumped-model memo,</li>
+<li>an individual finite-rod and Biot-number derivation, and</li>
+<li>an individual Angstrom-method derivation and experiment plan.</li>
+</ol>
+<p>Routine module notes, modeling-app progress, and Git checkpoints remain
+important evidence but are not separate papers. The final team analysis is
+assessed through C6 and the presentation. This structure combines a small
+number of carefully prepared written products with brief individual oral
+questions during laboratory checkoffs.</p>
 <h3 id="presentations">Presentations<a class="headerlink" href="#presentations" title="Permanent link">&para;</a></h3>
 <p>Final presentations will occur during the last class session. Each team will explain
 what they measured, what model they used, how well the model worked, and what
@@ -607,7 +616,7 @@ the loop, and compare the behavior to a physical model. --></div>
         </script>
         <script src="../js/base.js"></script>
         <script src="../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../javascripts/tex-svg.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

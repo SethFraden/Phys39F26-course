@@ -52,6 +52,19 @@ Write short answers before class. These are not meant to be polished.
 - Lab notebook or note-taking device.
 - Questions.
 
+### Outside-Class Workload Budget For S2
+
+| Work | Planned time |
+| --- | ---: |
+| Read this module assignment | 20 minutes |
+| Read the linked Arduino and hardware introductions | 35 minutes |
+| Answer the pre-class questions | 20 minutes |
+| Assemble and submit A1 after the in-class evidence is complete | 30 minutes |
+| **Total outside class associated with S2** | **1 hour 45 minutes** |
+
+The four-hour course limit is a maximum, not a target. Ask for help rather than
+silently exceeding it because of installation or access problems.
+
 ## In-Class Assignment
 
 ### What You Will Do
@@ -82,6 +95,51 @@ You will:
   <li>Modify the averaged analog-reading sketch into an LED-brightness sketch: potentiometer voltage to averaged analog number to PWM output to LED brightness. Measure the PWM output with the oscilloscope.</li>
 </ol>
 
+### Collect Your A1 Evidence During Class
+
+The post-class assignment is designed to take no more than **30 minutes**. To
+make that possible, collect and save all measurements, code, and images while
+you still have the Arduino and oscilloscope in front of you.
+
+Before leaving class, complete this checklist. If an item cannot be completed,
+show the instructor what is missing before you leave.
+
+- [ ] Save a labeled photograph or quick sketch of the apparatus.
+- [ ] Record the Arduino board model and serial-port name.
+- [ ] Save the exact modified Blink, averaged analog-reading, and
+  LED-brightness sketches used for the measurements.
+- [ ] Copy three representative labeled lines from Serial Monitor.
+- [ ] Save evidence comparing the unaveraged and 1000-reading averaged analog
+  signal, such as a Serial Plotter screenshot or a short numerical record.
+- [ ] Save an oscilloscope screenshot or clear hand sketch of a Blink waveform.
+- [ ] Save an oscilloscope screenshot or clear hand sketch of the LED PWM
+  waveform.
+- [ ] Fill in the measurement table below using oscilloscope measurements, not
+  ideal values copied from the code.
+- [ ] Write two or three bullet points about what the oscilloscope revealed that
+  the serial displays did not.
+
+| Signal measured | Arduino setting | Expected duty cycle | $V_{\mathrm{low}}$ | $V_{\mathrm{high}}$ | Measured period $T$ | Frequency $f$ | Measured duty cycle |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Blink | HIGH:LOW = 1:1 | 50.0% |  |  |  |  |  |
+| Blink | HIGH:LOW = 10:1 | 90.9% |  |  |  |  |  |
+| Blink | HIGH:LOW = 1:10 | 9.1% |  |  |  |  |  |
+| LED PWM | `analogWrite = ___` |  |  |  |  |  |  |
+
+Include units with every measured quantity. Calculate
+
+$$
+f=\frac{1}{T},
+\qquad
+D=100\%\frac{t_{\mathrm{HIGH}}}{T}.
+$$
+
+For Arduino PWM, the expected duty cycle is approximately
+
+$$
+D_{\mathrm{expected}}=100\%\frac{\texttt{analogWrite value}}{255}.
+$$
+
 The H-bridge and TEC remain inspection-only today. We will use the H-bridge in
 a later actuator module after everyone has measured PWM directly and can explain
 what `analogWrite` is doing.
@@ -105,15 +163,71 @@ You should expect to revise the sketch after the first upload. Debugging board s
 
 ## Post-Class Assignment
 
-### What To Submit
+### A1: Module 1 Evidence Note
 
-Submit a short module note containing:
+- **Assessment code:** `A1`, graded team assignment, 5 points
+- **Due:** before Session S3, Wednesday, September 2, at **9:05 AM**
+- **Repository file:** `docs/module_notes/module_01_evidence.md`
+- **Moodle submission:** `A1_Lastname_Lastname.pdf`
+- **Expected post-class time:** no more than **30 minutes**, provided the
+  in-class evidence checklist is complete
 
-- A labeled photo or sketch of the apparatus.
-- The Arduino board and serial port you used.
-- The Arduino sketch you wrote.
-- Three lines copied from Serial Monitor.
-- An oscilloscope screenshot or hand sketch of the Blink waveform.
-- An oscilloscope screenshot or hand sketch of the PWM waveform.
-- A small table with `V_low`, `V_high`, period, frequency, and duty cycle.
-- A paragraph answering: What did the oscilloscope show that the Serial Monitor and Serial Plotter did not?
+`A1` assesses the scientific and technical evidence from Module 1. It is
+separate from [`C1`, the development-environment and repository
+milestone](../../assessment.md#c1-development-environment-and-repository),
+which you will demonstrate during S3.
+
+### Assemble And Submit The Note
+
+After class:
+
+1. Put the evidence gathered in class into
+   `docs/module_notes/module_01_evidence.md`.
+2. Add links to the exact repository files for the modified Blink, averaged
+   analog-reading, and LED-brightness sketches. Do not paste pages of Arduino
+   code into the note.
+3. Complete the table above and write a three-to-five-sentence answer to the
+   comparison question below.
+4. Commit the note, sketches, and evidence; push the Git checkpoint (`GC`) to
+   GitHub.
+5. Export the note as `A1_Lastname_Lastname.pdf`. Put the team members,
+   repository URL, and full commit hash on the first page, then submit the PDF
+   to the [`A1` Moodle activity](https://moodle.brandeis.edu/course/view.php?id=6589)
+   before the deadline.
+
+Your note must contain:
+
+- the labeled apparatus photograph or sketch,
+- the Arduino board and serial port,
+- links to the three exact Arduino sketches used,
+- three representative labeled Serial Monitor lines,
+- the brief unaveraged-versus-averaged comparison,
+- the Blink and LED-PWM oscilloscope images or hand sketches,
+- the completed measurement table, with units, and
+- a three-to-five-sentence answer to: **What did the oscilloscope show that the
+  Serial Monitor and Serial Plotter did not?**
+
+Your answer should distinguish a direct electrical measurement from values
+chosen and printed by software. Discuss the actual high and low voltages,
+individual pulses, period, frequency, and duty cycle. The Serial Monitor shows
+printed numbers, while the Serial Plotter graphs those samples against serial
+sample order; neither display shows the individual fast PWM pulses when the
+program prints only a summary value.
+
+### Thirty-Minute Time Budget
+
+| Task | Target time |
+| --- | ---: |
+| Organize the in-class evidence and add code links | 5 minutes |
+| Finish the measurement table | 10 minutes |
+| Write the comparison answer | 5 minutes |
+| Check the note, commit, push, export, and submit | 10 minutes |
+
+### A1 Rubric
+
+| Criterion | Points |
+| --- | ---: |
+| Exact code links and labeled serial/averaging evidence are complete | 1 |
+| Oscilloscope evidence and measurement table are complete, dimensional, and credible | 2 |
+| The comparison correctly distinguishes the measured waveform from serial output | 1 |
+| The PDF is clear, cites the pushed `GC`, and is submitted by the deadline | 1 |

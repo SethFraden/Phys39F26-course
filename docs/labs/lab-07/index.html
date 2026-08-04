@@ -124,6 +124,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#vocabulary" class="nav-link">Vocabulary</a>
               <ul class="nav flex-column">
               </ul>
@@ -192,7 +196,15 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+            <li class="nav-item" data-bs-level="3"><a href="#preserve-the-p2-and-c4-evidence" class="nav-link">Preserve The P2 And C4 Evidence</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#c4-feedback-controller-and-tec-process-model" class="nav-link">C4: Feedback Controller And TEC Process Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#c4-evidence-record" class="nav-link">C4 Evidence Record</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -265,6 +277,61 @@ lag between where heat enters and where temperature is measured.</p>
 <li><strong>160-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.</li>
 </ol>
+<h3 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S14</td>
+<td>Read this assignment and the assigned Lienhard Chapter 1 material</td>
+<td style="text-align: right;">90 minutes</td>
+</tr>
+<tr>
+<td>S14</td>
+<td>Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S14</td>
+<td>Install/run the model and annotate the equations</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>S14</td>
+<td><strong>Total associated with S14</strong></td>
+<td style="text-align: right;"><strong>3 hours 15 minutes</strong></td>
+</tr>
+<tr>
+<td>S15</td>
+<td>Complete the model comparisons, code modification, and C4 evidence</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>S15</td>
+<td>Complete the theory-bridge questions used in the oral discussion</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S15</td>
+<td>Commit, push, and prepare the C4 receipt</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S15</td>
+<td><strong>Total associated with S15</strong></td>
+<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The Chapter 1 time is for reading with equations and physical interpretation,
+not for a quick skim. The optional extension is not part of the four-hour
+budget and should be attempted only after required work is complete.</p>
 <h3 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Process</strong>: the physical system being controlled. Here, the process is the
@@ -763,8 +830,21 @@ phase lags with distance
   temperature?</li>
 </ul>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
-<h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
-<p>Submit a short module note containing:</p>
+<h3 id="preserve-the-p2-and-c4-evidence">Preserve The P2 And C4 Evidence<a class="headerlink" href="#preserve-the-p2-and-c4-evidence" title="Permanent link">&para;</a></h3>
+<p>During S14, <code>P2</code> checks that the model runs, imports an experimental trace,
+produces at least one fitted curve, and displays residuals. Before leaving S15,
+save the copied equations, completed theory assignments, parameter tables,
+screenshots, code modification, exact run command, and one model-versus-data
+comparison. Keep the team record in
+<code>docs/module_notes/module_07_process_model.md</code> and authoritative model code
+under <code>python/models/</code>.</p>
+<h3 id="c4-feedback-controller-and-tec-process-model">C4: Feedback Controller And TEC Process Model<a class="headerlink" href="#c4-feedback-controller-and-tec-process-model" title="Permanent link">&para;</a></h3>
+<p>Demonstrate <code>C4</code> during S15. One team member submits the <code>C4 Team Checkoff</code>
+Moodle receipt by <strong>11:55 AM</strong>, citing the pushed commit and paths to the
+controller, model, data, figures, parameter record, and README. Prepare the
+<a href="../../assessment/#c4-feedback-controller-and-tec-process-model">C4 oral questions</a>.</p>
+<h3 id="c4-evidence-record">C4 Evidence Record<a class="headerlink" href="#c4-evidence-record" title="Permanent link">&para;</a></h3>
+<p>Keep a short module note containing:</p>
 <ul>
 <li>Your copied and labeled model equations.</li>
 <li>Theory Assignment 1.</li>
@@ -805,7 +885,7 @@ perfect fit. Report which part of the curve the model explains poorly.</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

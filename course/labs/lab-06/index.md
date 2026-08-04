@@ -58,6 +58,23 @@ Bring:
 - one Module 5 strip chart trace near oscillation,
 - your current Python plotting/modeling environment.
 
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S11 | Read this assignment and the selected heat-transfer material | 90 minutes |
+| S11 | Complete and check the guided one-lump derivation | 120 minutes |
+| S11 | **Total associated with S11** | **3 hours 30 minutes** |
+| S12 | Review PI control and windup; answer the preparation questions | 60 minutes |
+| S12 | Prepare or revise the P/PI simulation for in-class comparison | 105 minutes |
+| S12 | **Total associated with S12** | **2 hours 45 minutes** |
+| S13 | Analyze matched P/PI results | 90 minutes |
+| S13 | Write, check, commit, push, and submit A3 | 120 minutes |
+| S13 | **Total associated with S13** | **3 hours 30 minutes** |
+
+Do not add optional reading until the required derivation and A3 evidence are
+complete and understood.
+
 ## Pre-Class Questions
 
 1. What physical part of the apparatus stores heat?
@@ -250,6 +267,30 @@ git commit -m "Model P and PI temperature control"
 git push
 ```
 
+## Complete And Preserve The A3 Work
+
+Module 6 combines the most important Module 4-6 evidence into one purposeful
+team paper. The one-lump derivation is guided work used in the paper and in the
+C4 oral questions; it is not a separate document to grade.
+
+For the in-class modeling work, save the parameter set, units, initial
+conditions, controller settings, saturation limits, exact command used to run
+the model, open-loop comparison, matched P/PI plots, and residuals. Complete
+the comparison table while the simulations and experimental traces are open.
+
+### A3: Feedback Data And Lumped-Model Memo
+
+- **Due:** Wednesday, October 14, at **6:00 PM**
+- **Type:** team, 10 points
+- **Moodle file:** `A3_Lastname_Lastname.pdf`
+- **Repository file:** `docs/assessments/a3_feedback_model.md`
+- **Analysis and submission target:** about **2 hours** after the in-class analysis is
+  complete
+
+The final A3 assembly consists of selecting the already completed comparison
+plots and table, writing the short interpretation, checking paths, committing,
+pushing, and submitting the PDF.
+
 ## What To Submit
 
 Submit:
@@ -263,3 +304,13 @@ Submit:
 - short explanation of why the first-order model does or does not oscillate,
 - windup thought-experiment answers,
 - link to your GitHub modeling checkpoint.
+
+### A3 Rubric
+
+| Criterion | Points |
+| --- | ---: |
+| P-control droop and instability evidence is quantitative and reproducible | 2 |
+| One-lump energy balance, equilibrium, time constant, parameters, and units are correct | 2 |
+| P and PI cases use comparable conditions and quantitative transient metrics | 2 |
+| Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
+| PDF, code, data links, and cited Git checkpoint are clear and on time | 2 |

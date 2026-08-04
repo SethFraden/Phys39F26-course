@@ -5,6 +5,20 @@ pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 8.
 
+## How To Use This Reference
+
+Read this page alongside Lienhard Section 4.5 for A4. The Module 8 workload
+budget includes **150 minutes total** for reading the module, the textbook
+section, and this guide. This page is not a separate submission and should not
+be copied into another report.
+
+Annotate the derivation with three questions in mind:
+
+1. Which term comes from Fourier conduction along the rod?
+2. Which term comes from Newton cooling through the rod's side?
+3. Which boundary condition distinguishes the finite insulated-tip solution
+   from the semi-infinite solution?
+
 ## What A Fin Does
 
 A fin conducts heat along a solid while exchanging heat with the surrounding
@@ -320,3 +334,12 @@ sensor rather than relying only on these general thresholds.
 3. What physical assumption changes Eq. (4.31a) into Eq. (4.31b)?
 4. How does Eq. (4.41) retain information about the far end?
 5. Why is Eq. (4.50) an approximation rather than a new physical law?
+6. Starting from Eq. (4.28), derive Eq. (4.30) and check every term's units.
+7. Starting from the general solution, use the base and insulated-tip boundary
+   conditions to obtain Eq. (4.41).
+8. Show mathematically how Eq. (4.41) approaches Eq. (4.50) when the far end
+   becomes irrelevant.
+
+These are assessed in the [A4 written derivation](../lab-08/index.md#a4-finite-length-and-small-biot-guided-study)
+and may be sampled in the C5 oral check. Understanding the derivation matters
+more than reproducing a long sequence of algebra from memory.

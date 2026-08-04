@@ -11,6 +11,19 @@ The [course syllabus](syllabus.md) lists the full Course Goals. The
 [course calendar](labs/index.md) gives the objective and due work for every
 meeting.
 
+## Informal And Formal Assessment
+
+The instructor speaks with each student during all 26 class meetings. Those
+conversations, board work, debugging discussions, and progress checks are
+formative: they reveal misconceptions early and guide the next explanation or
+practice task without generating another paper to grade.
+
+Formal assessment is deliberately limited to five written assessments, six
+working-capability checkoffs, and the final presentation. During each C#
+checkoff, each student answers one announced primary question and, when useful,
+one short follow-up. The individual portion should normally take about **3-5
+minutes per student** and occurs while laboratory work is underway.
+
 ## Assessment Codes
 
 Every calendar entry uses one of the following labels so that you can tell
@@ -20,10 +33,23 @@ whether work is preparation, feedback, or a graded submission.
 | --- | --- | --- |
 | `Prep` | Required pre-class preparation that will be used or checked in class | No separate score |
 | `P1`-`P4` | Scheduled progress check while work is still underway | No separate score |
-| `A1`-`A11` | Graded written, data-analysis, or modeling assignment | Yes, normally 5 points |
+| `A1`-`A5` | Five key written, data-analysis, or modeling assessments | Yes; A1 is 5 points and A2-A5 are 10 points |
 | `C1`-`C6` | Graded completion milestone for a working capability | Yes, 10 points |
 | `GC` | Git checkpoint: a meaningful commit and push preserving the submitted state | Evidence within an `A#` or `C#`, not a separate assignment |
 | `F1` | Final team presentation and individual oral defense | Yes, 10 points |
+
+## Outside-Class Workload Rule
+
+No class session assigns more than **four hours of outside-class work**. Each
+module's workload table includes time to read the assignment itself, read and
+work to understand the theory, prepare for class, analyze or code, and package
+the submission. Four hours is a maximum, not a target.
+
+Hardware measurements are completed during scheduled or instructor-approved
+supervised laboratory time. If a software, access, or hardware problem would
+push work beyond the stated budget, preserve the current state, document the
+blocker, and bring it to class. Do not hide an unfinished step or substitute an
+unverified AI result merely to meet a deadline.
 
 ## Where And How To Submit Work
 
@@ -34,9 +60,9 @@ hardware emergency or accommodation, email is not a submission method.
 
 ### A# Written, Data, And Modeling Assignments
 
-- Submit one PDF to the Moodle activity bearing the same code, such as `A8`.
-- Name a team file `A8_Lastname_Lastname.pdf`; name an individual file
-  `A7_Lastname.pdf`.
+- Submit one PDF to the Moodle activity bearing the same code, such as `A5`.
+- Name a team file `A5_Lastname_Lastname.pdf`; name an individual file
+  `A3_Lastname.pdf`.
 - Put student names, assignment code, date, repository URL, and exact Git commit
   hash on the first page.
 - Include the requested reasoning, equations, tables, and figures in the PDF.
@@ -45,11 +71,11 @@ hardware emergency or accommodation, email is not a submission method.
   exact repository paths needed to locate them.
 - Submit the Moodle file and push the cited `GC` by the stated deadline.
 
-The following assignments are **individual**: `A4`, `A6`, `A7`, and `A9`.
-They assess each student's understanding of the thermal-model derivations and
-reading. Assignments `A1`-`A3`, `A5`, `A8`, `A10`, and `A11` are normally one
-submission per laboratory team; both partners remain responsible for every
-part.
+The following assignments are **individual**: `A4` and `A5`. They assess each
+student's understanding of the finite-rod/Biot and Angstrom derivations.
+Assignments `A1`, `A2`, and `A3` are one submission per laboratory team; both
+partners remain responsible for every part and answer individual oral
+questions during the associated checkoffs.
 
 ### C# Completion Milestones
 
@@ -136,9 +162,15 @@ computational principle, points to relevant hardware, code, or data when
 appropriate, and uses correct signs and units. These are brief checks of
 understanding, not surprise examinations.
 
+The oral check is not a separate appointment or a long examination. It is a
+brief formal sample of understanding embedded in the scheduled laboratory
+meeting. Informal questions during other meetings are used for feedback rather
+than points.
+
 ## C1: Development Environment And Repository
 
-**Due:** Session S3, Wednesday, September 2
+**Due:** Demonstration during Session S3, Wednesday, September 2; Moodle
+`C1 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -158,7 +190,8 @@ understanding, not surprise examinations.
 
 ## C2: Measurement And Actuator Electronics
 
-**Due:** Session S5, Monday, September 14
+**Due:** Demonstration during Session S5, Monday, September 14; Moodle
+`C2 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -179,7 +212,8 @@ understanding, not surprise examinations.
 
 ## C3: TEC Instrument And First Python GUI
 
-**Due:** Session S7, Wednesday, September 23
+**Due:** Demonstration during Session S7, Wednesday, September 23; Moodle
+`C3 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -200,7 +234,8 @@ understanding, not surprise examinations.
 
 ## C4: Feedback Controller And TEC Process Model
 
-**Due:** Session S15, Wednesday, October 21
+**Due:** Demonstration during Session S15, Wednesday, October 21; Moodle
+`C4 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -222,7 +257,8 @@ understanding, not surprise examinations.
 
 ## C5: Rod Instrument And Data-Acquisition Chain
 
-**Due:** Session S18, Monday, November 2
+**Due:** Demonstration during Session S18, Monday, November 2; Moodle
+`C5 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -242,10 +278,16 @@ understanding, not surprise examinations.
    it affects the later conductivity result.
 5. What two different approximations are meant by calling the rod "long and
    thin"? Which calculation tests each approximation?
+6. Starting from a thin rod slice, how do conservation of energy, Fourier's
+   law, and Newton's law of cooling produce the stationary fin equation?
+7. Write or explain the finite insulated-tip and semi-infinite analytical
+   temperature profiles. Which boundary condition is lost in the
+   semi-infinite limit?
 
 ## C6: Final Thermal-Transport Package
 
-**Due:** Session S25, Monday, November 30
+**Due:** Demonstration during Session S25, Monday, November 30; Moodle
+`C6 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -280,8 +322,14 @@ of `F1`.
 
 ## Graded Assignment Rubric
 
-Assignments `A1` through `A11` are normally worth 5 points. Unless an
-assignment page specifies otherwise, use this rubric:
+The course uses five written assessments rather than a paper after every
+module. `A1` is a 5-point introductory evidence note. `A2`-`A5` are 10-point
+assessments with specific rubrics on their module pages. Intermediate notes,
+plots, code, and Git checkpoints receive feedback and support the oral
+checkoffs; they are not separate papers to grade.
+
+The 5-point table below is the A1 rubric; the A2-A5 pages use expanded 10-point
+rubrics.
 
 | Criterion | Points |
 | --- | ---: |
@@ -294,23 +342,17 @@ assignment page specifies otherwise, use this rubric:
 
 | Code | Due | What must be submitted: definition of done |
 | --- | --- | --- |
-| `A1` | Sept. 2 | **Module 1 evidence note:** a Markdown record naming the Arduino examples tested, the modifications made, and oscilloscope or measured evidence for digital timing, analog input, averaging, and PWM. Link the relevant sketches and `GC`. |
-| `C1` | Sept. 2 | Development environment and repository milestone, demonstrated using the rubric above. |
-| `C2` | Sept. 14 | Measurement and actuator-electronics milestone, demonstrated using the rubric above. |
-| `C3` | Sept. 23 | TEC instrument and first-Python-GUI milestone, demonstrated using the rubric above. |
-| `A2` | Sept. 28 | **Open-loop TEC note:** signed-PWM settings, labeled heating and cooling records, the criterion used to call a temperature steady, observed asymmetry or saturation, and the operating limits used. |
-| `A3` | Oct. 5 | **P-control data package:** setpoint and gain table, measured droop versus gain, time traces near instability, oscillation amplitude and frequency versus gain, safety limit, interpretation, data, code, and `GC`. |
-| `A4` | Oct. 7 | **One-lump derivation:** dimensional energy-balance equation, equilibrium temperature, time constant, definition and units of every parameter, and a comparison with one measured transient or stated testable prediction. |
-| `A5` | Oct. 14 | **P/PI analysis memo:** P and PI responses under comparable conditions, quantitative droop and transient metrics, actuator saturation evidence, and an explanation of integral action and anti-windup. |
-| `A6` | Oct. 21 | **Heat-transfer reading memo:** one page connecting Fourier conduction, side heat loss, boundary conditions, and measurable quantities to the aluminum-rod experiment. |
-| `C4` | Oct. 21 | Feedback-controller and TEC-process-model milestone, demonstrated using the rubric above. |
-| `A7` | Oct. 28 | **Finite-length and small-Biot guided study (individual):** using Lienhard Section 4.5, complete Problems 4.12 and 4.20; derive the finite insulated-tip profile and its semi-infinite limit; calculate `mL`, finite-versus-infinite error at each sensor, and the transverse Biot number; state separately when length and radius may be ignored. |
-| `C5` | Nov. 2 | Rod instrument and data-acquisition milestone, demonstrated using the rubric above. |
-| `A8` | Nov. 4 | **Stationary-fin analysis:** plot steady excess temperature `theta(x) = T(x) - T_room` versus position with units; fit both finite-length and semi-infinite models; compare residuals and the shift in `m`; report the decay coefficient in `1/m` with uncertainty; explain `m^2 = HP/(kA)` and why this steady fit alone cannot separate `H` from `k`. Include data, fit code, and `GC`. |
-| `A9` | Nov. 11 | **Angstrom derivation and model-validity plan (individual):** derive or explain the periodic amplitude and phase relations; show how `q` and `q_prime` determine `kappa` and `nu`; choose and justify the drive period, sampling interval, settled-cycle count, and sensor range; include the guided numerical comparison for transverse Biot numbers `0.01`, `0.1`, and `1`, and state whether the course rod supports one-dimensional analysis. |
-| `A10` | Nov. 18 | **Modeling-app draft:** runnable code loads rod data, fits a sinusoid at every sensor, plots amplitude and unwrapped phase versus position, fits `q` and `q_prime`, estimates `kappa` and `nu`, shows intermediate plots and residuals, and includes run instructions plus `GC`. |
-| `A11` | Nov. 23 | **Draft conductivity and heat-loss results:** preliminary `k = kappa*rho*c` and `H = nu*rho*c*A/P`, with units, uncertainty, accepted-value comparison, frequency/model check, and dominant systematic limitations. |
-| `C6` | Nov. 30 | Final thermal-transport package, including the finite-length check and guided numerical finite-radius comparison, demonstrated using the rubric above. |
+| `A1` | Sept. 2, 9:05 AM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Submit `A1_Lastname_Lastname.pdf` to Moodle; keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurement table in the repository; cite the pushed `GC`. |
+| `C1` | Sept. 2, during S3; receipt by 11:55 AM | Development environment and repository milestone, demonstrated using the rubric above. This is separate from `A1`, although both may cite the same pushed commit. |
+| `C2` | Sept. 14, during S5; receipt by 11:55 AM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#collect-your-c2-evidence-during-class), demonstrated using the C2 rubric above. |
+| `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#collect-your-c3-evidence-during-class), demonstrated using the C3 rubric above. |
+| `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |
+| `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
+| `C4` | Oct. 21, during S15; receipt by 11:55 AM | [Feedback-controller and TEC-process-model milestone](labs/lab-07/index.md#c4-feedback-controller-and-tec-process-model), demonstrated using the C4 rubric above. |
+| `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
+| `C5` | Nov. 2, during S18; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
+| `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
+| `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |
 | `F1` | Dec. 2 | Final team presentation and individual oral defense, using the rubric below. |
 
 ## F1: Final Presentation And Individual Oral Defense
@@ -330,7 +372,7 @@ The individual `F1` oral defense uses the announced questions in the
 
 | Major course unit | Goals assessed | Principal evidence |
 | --- | --- | --- |
-| Arduino primitives and signals | G1, G2, G5, G12 | Oscilloscope measurements, modified sketches, C1 |
+| Arduino primitives and signals | G1, G2, G5, G12 | A1 oscilloscope measurements and modified sketches; C1 repository check |
 | First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
 | Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Module 4 note |

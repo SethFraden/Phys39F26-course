@@ -15,9 +15,26 @@ the measured temperature field.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | **A11: draft conductivity and heat-loss results** |
-| S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 and final analysis packet** |
+| S24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | Formative draft-results check |
+| S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 final analysis package** |
 | S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
+
+## Outside-Class Workload Budget
+
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S24 | Read this assignment and organize the final parameter table | 45 minutes |
+| S24 | Propagate uncertainty, compare accepted values, and prepare the draft-results check | 150 minutes |
+| S24 | Document, commit, and push the draft | 30 minutes |
+| S24 | **Total associated with S24** | **3 hours 45 minutes** |
+| S25 | Freeze the analysis, run the reproducibility test, and prepare C6 | 240 minutes |
+| S25 | **Total associated with S25** | **4 hours** |
+| S26 | Prepare slides, rehearse, and practice the announced oral questions | 240 minutes |
+| S26 | **Total associated with S26** | **4 hours** |
+
+These final sessions use the full allowance. Reuse the figures, equations, and
+documentation already produced during Modules 8-9; do not create a second parallel
+analysis solely for presentation polish.
 
 ## Learning Objectives
 
@@ -112,6 +129,28 @@ when possible:
 
 ## C6 Checkoff And Final Analysis Packet
 
+### Final Thermal-Transport Analysis Packet
+
+This team analysis is graded within C6 and F1 rather than as a sixth written
+assignment. Keep the report at
+`docs/assessments/final_thermal_transport_analysis.md` and cite it in the C6
+Moodle receipt.
+
+Before leaving S24, preserve a formative draft containing the exact `q`, `q_prime`, geometry, material
+properties, uncertainty method, accepted-value source, finite-length check,
+transverse-Biot check, and code version used for the draft result.
+
+The C6 rubric evaluates whether the stationary and periodic analyses are
+reproducible; the dimensional quantities, units, uncertainties, and sources
+are correct; and residuals, accepted-value comparisons, and model-validity
+checks support the conclusions.
+
+### C6 Submission
+
+Demonstrate C6 during S25. The `C6 Team Checkoff` Moodle receipt is due by
+**11:55 AM** and must cite the frozen, pushed analysis commit. Use the
+[C6 rubric and oral-question bank](../../assessment.md#c6-final-thermal-transport-package).
+
 The final repository must contain:
 
 - raw data and an immutable description of the run,
@@ -133,6 +172,10 @@ individual questions about the Angstrom inference and about when length or
 radius may be neglected.
 
 ## Final Presentation
+
+One team member submits `F1_Lastname_Lastname_slides.pdf` to Moodle before the
+S26 presentation and cites the final repository commit. Every student prepares
+the announced [C6/F1 oral questions](../../assessment.md#c6-oral-questions).
 
 The presentation should tell one connected story:
 

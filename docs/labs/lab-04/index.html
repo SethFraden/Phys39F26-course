@@ -126,6 +126,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget-for-s8" class="nav-link">Outside-Class Workload Budget For S8</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -174,8 +178,20 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#collect-open-loop-evidence-during-class" class="nav-link">Collect Open-Loop Evidence During Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#a2-open-loop-tec-instrument-note" class="nav-link">A2: Open-Loop TEC Instrument Note</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#a2-rubric" class="nav-link">A2 Rubric</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -227,6 +243,40 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.</
 <li>Read the <a href="../../hardware/#thermal-safety-switch">hardware page section on the thermal safety switch</a>.</li>
 <li>Read the <a href="../../hardware/#thermoelectric-cooler">hardware page section on the TEC</a>.</li>
 </ol>
+<h2 id="outside-class-workload-budget-for-s8">Outside-Class Workload Budget For S8<a class="headerlink" href="#outside-class-workload-budget-for-s8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read this assignment and review the safety boundary</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>Prepare the signed-PWM table, steady-state criterion, and data-file plan</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>Analyze the in-class runs and make the required graph</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>Write, check, commit, push, and submit A2</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td><strong>Total outside class associated with S8</strong></td>
+<td style="text-align: right;"><strong>3 hours 15 minutes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>All physical runs and safety tests occur in class. If analysis reveals that a
+measurement must be repeated, identify it for the next supervised opportunity
+rather than exceeding the four-hour outside-class limit.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>What does it mean for the TEC/block temperature to reach steady state?</li>
@@ -430,7 +480,35 @@ git push
 <p>Do not commit duplicate drafts or large accidental data files. Your repository
 should make it clear which Arduino sketch and Python program were used for this
 module.</p>
+<h2 id="collect-open-loop-evidence-during-class">Collect Open-Loop Evidence During Class<a class="headerlink" href="#collect-open-loop-evidence-during-class" title="Permanent link">&para;</a></h2>
+<p>Complete the open-loop runs and safety tests during S7-S8. Before shutting down
+or changing the apparatus, save:</p>
+<ul>
+<li>the final high-current wiring diagram and safety settings,</li>
+<li>the complete signed-PWM table, including the steady-state criterion,</li>
+<li>raw time-series data for every retained point,</li>
+<li>one labeled heating trace and one labeled cooling trace,</li>
+<li>the steady temperature-versus-signed-PWM figure,</li>
+<li>the exact Arduino and Python versions used, and</li>
+<li>evidence that the software limit sets both H-bridge outputs to zero while
+  serial reporting continues.</li>
+</ul>
+<p>Use <code>docs/module_notes/module_04_open_loop_tec.md</code> for the formative note,
+<code>data/module_04/</code> for raw data, and <code>docs/figures/module_04/</code> for figures. Fill
+the data table and write short observations while each run is fresh. The
+post-class work should be assembly and interpretation, not another experiment.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
+<h3 id="a2-open-loop-tec-instrument-note">A2: Open-Loop TEC Instrument Note<a class="headerlink" href="#a2-open-loop-tec-instrument-note" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Type:</strong> team, 10 points</li>
+<li><strong>Due:</strong> Monday, September 28, at <strong>6:00 PM</strong></li>
+<li><strong>Moodle file:</strong> <code>A2_Lastname_Lastname.pdf</code></li>
+<li><strong>Repository file:</strong> <code>docs/assessments/a2_open_loop_tec.md</code></li>
+</ul>
+<p>This early formal assessment establishes expectations for dimensional graphs,
+physical interpretation, reproducible code/data links, safety evidence, and a
+clear Git checkpoint. Reserve about <strong>60 minutes</strong> to finish the paper and
+submission after the in-class measurements and graph are complete.</p>
 <p>Submit a short module note containing:</p>
 <ul>
 <li>a wiring diagram showing the 18 AWG high-current path and the thermal switch
@@ -444,7 +522,38 @@ module.</p>
 <li>the Arduino safety-limit code or a link to it,</li>
 <li>a short description of how you verified the safety logic,</li>
 <li>a link to the GitHub commit or repository containing the organized Module 4 work.</li>
-</ul></div>
+</ul>
+<h3 id="a2-rubric">A2 Rubric<a class="headerlink" href="#a2-rubric" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signed-PWM table, steady-state criterion, and retained raw data are complete</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Heating/cooling traces and dimensional steady-temperature plot are credible</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Asymmetry, slope, saturation, and operating limits are interpreted physically</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Software and hardware safety behavior are demonstrated and explained</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>PDF, code/data links, and cited Git checkpoint are clear and on time</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
@@ -459,7 +568,7 @@ module.</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

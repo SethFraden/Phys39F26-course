@@ -453,6 +453,49 @@ from Fourier's Law to the heat equation to the Biot number.
 10. Why might the long metal cylinder require a one-dimensional or two-dimensional
    model instead of a lumped model?
 
+## How This Work Is Assessed
+
+This bridge supports the later individual `A4` and `A5` derivations and the C4
+oral discussion. It does not create an additional submission. Keep your
+answers above and a dimensional equation sheet in
+`docs/theory/theory_bridge_chapter_1_notes.md` so you can reuse the reasoning
+without rewriting it for an extra grade.
+
+The planned outside-class time is already counted in the Module 7 budget:
+
+| Work | Planned time |
+| --- | ---: |
+| Read this bridge alongside the selected Chapter 1 pages | 60 minutes |
+| Work through Eqs. (1.12)-(1.14) and the Biot-number scaling | 45 minutes |
+| Answer the preparation questions and check units | 30 minutes |
+| **Total theory-bridge preparation** | **2 hours 15 minutes** |
+
+Do not add this time again when reading the Module 7 workload table. Bring
+specific questions to class if the derivations remain unclear after the
+planned time.
+
+## Core Equations And Explanations To Master
+
+By the time of A4 and the C5 oral check, you should be able to do the following
+without relying on AI-generated prose:
+
+1. state Fourier's law and explain its sign and units,
+2. apply conservation of energy to a differential slice and obtain the heat
+   equation,
+3. state Newton's law of cooling and explain the meaning and units of (h),
+4. combine axial conduction and side cooling to obtain the stationary fin
+   equation,
+5. solve that equation with a prescribed base temperature and insulated-tip
+   boundary condition,
+6. obtain the semi-infinite exponential solution as a limit of the finite
+   solution, and
+7. derive and interpret the transverse Biot number as the test for neglecting
+   radial temperature variation.
+
+The goal is not memorization of an isolated formula. You should be able to
+identify the physical balance, state the boundary conditions, carry the units,
+and explain what approximation each solution uses.
+
 ## Two Different Approximation Questions
 
 The words **long** and **thin** describe two independent approximations. We will

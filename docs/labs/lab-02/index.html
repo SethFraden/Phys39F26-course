@@ -126,6 +126,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -158,7 +162,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+            <li class="nav-item" data-bs-level="2"><a href="#collect-your-c2-evidence-during-class" class="nav-link">Collect Your C2 Evidence During Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#c2-evidence-record" class="nav-link">C2 Evidence Record</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -206,6 +214,61 @@ H-bridge, or wiring becomes unexpectedly warm.</p>
 <li>Bring the Arduino, thermistor divider parts, trim pot, USB cable, and your
    Module 1 notes.</li>
 </ol>
+<h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3</td>
+<td>Read this assignment and inspect the thermistor diagram</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>Arduino tutorial, hardware references, and thermistor data-sheet reading</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>Pre-class calculations and questions</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S3</td>
+<td><strong>Total associated with S3</strong></td>
+<td style="text-align: right;"><strong>2 hours 30 minutes</strong></td>
+</tr>
+<tr>
+<td>S4</td>
+<td>Review and finish the thermistor/PWM sketches needed in class</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>Predict the H-bridge signals and prepare the checkoff table</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>Label, commit, and push the C2 evidence after class</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S4</td>
+<td><strong>Total associated with S4</strong></td>
+<td style="text-align: right;"><strong>2 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The time includes reading the assignment itself. If hardware access or a
+software problem would push the work beyond four hours for a session, document
+the blocker and bring it to class.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>A 100 k<span class="arithmatex">\(\Omega\)</span> fixed resistor and a 100 k<span class="arithmatex">\(\Omega\)</span> thermistor form a voltage
@@ -380,8 +443,34 @@ during this motor-first exercise.</p>
 and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor
 before swapping the motor leads.</p>
-<h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short module note containing:</p>
+<h2 id="collect-your-c2-evidence-during-class">Collect Your C2 Evidence During Class<a class="headerlink" href="#collect-your-c2-evidence-during-class" title="Permanent link">&para;</a></h2>
+<p>Module 2 produces most of the evidence for
+<a href="../../assessment/#c2-measurement-and-actuator-electronics"><code>C2</code>, Measurement And Actuator Electronics</a>.
+Do not plan to recreate oscilloscope measurements after the apparatus has been
+dismantled. Before leaving S4, save:</p>
+<ul>
+<li>the labeled thermistor-divider diagram and constants,</li>
+<li>three representative human-readable serial lines,</li>
+<li>the Serial Plotter warming/cooling record,</li>
+<li>the completed heat/cool H-bridge signal table,</li>
+<li>oscilloscope evidence for both active PWM pins, including voltage, frequency,
+  and duty cycle,</li>
+<li>the exact Arduino sketch used, and</li>
+<li>the optional motor observations, if the motor test was performed.</li>
+</ul>
+<p>Put the evidence in <code>docs/module_notes/module_02_instrument_pieces.md</code> and put
+the authoritative sketch in a descriptively named folder under <code>arduino/</code>.
+Use links to code files rather than pasting a complete sketch into the note.
+Reserve no more than <strong>30 minutes after S4</strong> to label the saved evidence, update
+the note, commit, and push. The physical measurements themselves must be made
+in class.</p>
+<h2 id="c2-evidence-record">C2 Evidence Record<a class="headerlink" href="#c2-evidence-record" title="Permanent link">&para;</a></h2>
+<p>There is no separate <code>A#</code> submission for Module 2. This note and its cited Git
+checkpoint are evidence for <code>C2</code>, demonstrated during S5 on Monday, September
+14. One team member must submit the <code>C2 Team Checkoff</code> Moodle receipt by
+<strong>11:55 AM</strong>. Follow the <a href="../../assessment/#c2-measurement-and-actuator-electronics">C2 rubric and oral-question
+bank</a>.</p>
+<p>Keep a short module note containing:</p>
 <ul>
 <li>Thermistor divider circuit sketch.</li>
 <li>Three human-readable serial lines copied from the Part 1 Arduino output.</li>
@@ -410,7 +499,7 @@ before swapping the motor leads.</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

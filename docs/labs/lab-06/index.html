@@ -130,6 +130,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -174,8 +178,20 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#complete-and-preserve-the-a3-work" class="nav-link">Complete And Preserve The A3 Work</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#a3-feedback-data-and-lumped-model-memo" class="nav-link">A3: Feedback Data And Lumped-Model Memo</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#a3-rubric" class="nav-link">A3 Rubric</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -234,6 +250,65 @@ environment, and responds over a time scale.</p>
 <li>one Module 5 strip chart trace near oscillation,</li>
 <li>your current Python plotting/modeling environment.</li>
 </ul>
+<h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S11</td>
+<td>Read this assignment and the selected heat-transfer material</td>
+<td style="text-align: right;">90 minutes</td>
+</tr>
+<tr>
+<td>S11</td>
+<td>Complete and check the guided one-lump derivation</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>S11</td>
+<td><strong>Total associated with S11</strong></td>
+<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+</tr>
+<tr>
+<td>S12</td>
+<td>Review PI control and windup; answer the preparation questions</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S12</td>
+<td>Prepare or revise the P/PI simulation for in-class comparison</td>
+<td style="text-align: right;">105 minutes</td>
+</tr>
+<tr>
+<td>S12</td>
+<td><strong>Total associated with S12</strong></td>
+<td style="text-align: right;"><strong>2 hours 45 minutes</strong></td>
+</tr>
+<tr>
+<td>S13</td>
+<td>Analyze matched P/PI results</td>
+<td style="text-align: right;">90 minutes</td>
+</tr>
+<tr>
+<td>S13</td>
+<td>Write, check, commit, push, and submit A3</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>S13</td>
+<td><strong>Total associated with S13</strong></td>
+<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Do not add optional reading until the required derivation and A3 evidence are
+complete and understood.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>What physical part of the apparatus stores heat?</li>
@@ -373,6 +448,26 @@ git add README.md python docs data
 git commit -m &quot;Model P and PI temperature control&quot;
 git push
 </code></pre>
+<h2 id="complete-and-preserve-the-a3-work">Complete And Preserve The A3 Work<a class="headerlink" href="#complete-and-preserve-the-a3-work" title="Permanent link">&para;</a></h2>
+<p>Module 6 combines the most important Module 4-6 evidence into one purposeful
+team paper. The one-lump derivation is guided work used in the paper and in the
+C4 oral questions; it is not a separate document to grade.</p>
+<p>For the in-class modeling work, save the parameter set, units, initial
+conditions, controller settings, saturation limits, exact command used to run
+the model, open-loop comparison, matched P/PI plots, and residuals. Complete
+the comparison table while the simulations and experimental traces are open.</p>
+<h3 id="a3-feedback-data-and-lumped-model-memo">A3: Feedback Data And Lumped-Model Memo<a class="headerlink" href="#a3-feedback-data-and-lumped-model-memo" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Due:</strong> Wednesday, October 14, at <strong>6:00 PM</strong></li>
+<li><strong>Type:</strong> team, 10 points</li>
+<li><strong>Moodle file:</strong> <code>A3_Lastname_Lastname.pdf</code></li>
+<li><strong>Repository file:</strong> <code>docs/assessments/a3_feedback_model.md</code></li>
+<li><strong>Analysis and submission target:</strong> about <strong>2 hours</strong> after the in-class analysis is
+  complete</li>
+</ul>
+<p>The final A3 assembly consists of selecting the already completed comparison
+plots and table, writing the short interpretation, checking paths, committing,
+pushing, and submitting the PDF.</p>
 <h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
 <p>Submit:</p>
 <ul>
@@ -385,7 +480,38 @@ git push
 <li>short explanation of why the first-order model does or does not oscillate,</li>
 <li>windup thought-experiment answers,</li>
 <li>link to your GitHub modeling checkpoint.</li>
-</ul></div>
+</ul>
+<h3 id="a3-rubric">A3 Rubric<a class="headerlink" href="#a3-rubric" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-control droop and instability evidence is quantitative and reproducible</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>One-lump energy balance, equilibrium, time constant, parameters, and units are correct</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>P and PI cases use comparable conditions and quantitative transient metrics</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Integral action, anti-windup, thermal lag, and a model limitation are explained</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>PDF, code, data links, and cited Git checkpoint are clear and on time</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
@@ -400,7 +526,7 @@ git push
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

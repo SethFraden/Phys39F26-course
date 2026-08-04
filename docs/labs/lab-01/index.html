@@ -140,6 +140,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#outside-class-workload-budget-for-s2" class="nav-link">Outside-Class Workload Budget For S2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#in-class-assignment" class="nav-link">In-Class Assignment</a>
@@ -152,11 +156,27 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#collect-your-a1-evidence-during-class" class="nav-link">Collect Your A1 Evidence During Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+            <li class="nav-item" data-bs-level="3"><a href="#a1-module-1-evidence-note" class="nav-link">A1: Module 1 Evidence Note</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#assemble-and-submit-the-note" class="nav-link">Assemble And Submit The Note</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#thirty-minute-time-budget" class="nav-link">Thirty-Minute Time Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#a1-rubric" class="nav-link">A1 Rubric</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -211,6 +231,39 @@
 <li>Lab notebook or note-taking device.</li>
 <li>Questions.</li>
 </ul>
+<h3 id="outside-class-workload-budget-for-s2">Outside-Class Workload Budget For S2<a class="headerlink" href="#outside-class-workload-budget-for-s2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read this module assignment</td>
+<td style="text-align: right;">20 minutes</td>
+</tr>
+<tr>
+<td>Read the linked Arduino and hardware introductions</td>
+<td style="text-align: right;">35 minutes</td>
+</tr>
+<tr>
+<td>Answer the pre-class questions</td>
+<td style="text-align: right;">20 minutes</td>
+</tr>
+<tr>
+<td>Assemble and submit A1 after the in-class evidence is complete</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td><strong>Total outside class associated with S2</strong></td>
+<td style="text-align: right;"><strong>1 hour 45 minutes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The four-hour course limit is a maximum, not a target. Ask for help rather than
+silently exceeding it because of installation or access problems.</p>
 <h2 id="in-class-assignment">In-Class Assignment<a class="headerlink" href="#in-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h3>
 <p>You will:</p>
@@ -244,6 +297,94 @@
   <li>Modify the averaged analog-reading sketch into an LED-brightness sketch: potentiometer voltage to averaged analog number to PWM output to LED brightness. Measure the PWM output with the oscilloscope.</li>
 </ol>
 
+<h3 id="collect-your-a1-evidence-during-class">Collect Your A1 Evidence During Class<a class="headerlink" href="#collect-your-a1-evidence-during-class" title="Permanent link">&para;</a></h3>
+<p>The post-class assignment is designed to take no more than <strong>30 minutes</strong>. To
+make that possible, collect and save all measurements, code, and images while
+you still have the Arduino and oscilloscope in front of you.</p>
+<p>Before leaving class, complete this checklist. If an item cannot be completed,
+show the instructor what is missing before you leave.</p>
+<ul>
+<li>[ ] Save a labeled photograph or quick sketch of the apparatus.</li>
+<li>[ ] Record the Arduino board model and serial-port name.</li>
+<li>[ ] Save the exact modified Blink, averaged analog-reading, and
+  LED-brightness sketches used for the measurements.</li>
+<li>[ ] Copy three representative labeled lines from Serial Monitor.</li>
+<li>[ ] Save evidence comparing the unaveraged and 1000-reading averaged analog
+  signal, such as a Serial Plotter screenshot or a short numerical record.</li>
+<li>[ ] Save an oscilloscope screenshot or clear hand sketch of a Blink waveform.</li>
+<li>[ ] Save an oscilloscope screenshot or clear hand sketch of the LED PWM
+  waveform.</li>
+<li>[ ] Fill in the measurement table below using oscilloscope measurements, not
+  ideal values copied from the code.</li>
+<li>[ ] Write two or three bullet points about what the oscilloscope revealed that
+  the serial displays did not.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Signal measured</th>
+<th>Arduino setting</th>
+<th style="text-align: right;">Expected duty cycle</th>
+<th style="text-align: right;"><span class="arithmatex">\(V_{\mathrm{low}}\)</span></th>
+<th style="text-align: right;"><span class="arithmatex">\(V_{\mathrm{high}}\)</span></th>
+<th style="text-align: right;">Measured period <span class="arithmatex">\(T\)</span></th>
+<th style="text-align: right;">Frequency <span class="arithmatex">\(f\)</span></th>
+<th style="text-align: right;">Measured duty cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blink</td>
+<td>HIGH:LOW = 1:1</td>
+<td style="text-align: right;">50.0%</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>Blink</td>
+<td>HIGH:LOW = 10:1</td>
+<td style="text-align: right;">90.9%</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>Blink</td>
+<td>HIGH:LOW = 1:10</td>
+<td style="text-align: right;">9.1%</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>LED PWM</td>
+<td><code>analogWrite = ___</code></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>Include units with every measured quantity. Calculate</p>
+<div class="arithmatex">\[
+f=\frac{1}{T},
+\qquad
+D=100\%\frac{t_{\mathrm{HIGH}}}{T}.
+\]</div>
+<p>For Arduino PWM, the expected duty cycle is approximately</p>
+<div class="arithmatex">\[
+D_{\mathrm{expected}}=100\%\frac{\texttt{analogWrite value}}{255}.
+\]</div>
 <p>The H-bridge and TEC remain inspection-only today. We will use the H-bridge in
 a later actuator module after everyone has measured PWM directly and can explain
 what <code>analogWrite</code> is doing.</p>
@@ -264,18 +405,108 @@ what <code>analogWrite</code> is doing.</p>
 You should expect to revise the sketch after the first upload. Debugging board selection, port selection, baud rate, and timing is part of the lab. -->
 
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
-<h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
-<p>Submit a short module note containing:</p>
+<h3 id="a1-module-1-evidence-note">A1: Module 1 Evidence Note<a class="headerlink" href="#a1-module-1-evidence-note" title="Permanent link">&para;</a></h3>
 <ul>
-<li>A labeled photo or sketch of the apparatus.</li>
-<li>The Arduino board and serial port you used.</li>
-<li>The Arduino sketch you wrote.</li>
-<li>Three lines copied from Serial Monitor.</li>
-<li>An oscilloscope screenshot or hand sketch of the Blink waveform.</li>
-<li>An oscilloscope screenshot or hand sketch of the PWM waveform.</li>
-<li>A small table with <code>V_low</code>, <code>V_high</code>, period, frequency, and duty cycle.</li>
-<li>A paragraph answering: What did the oscilloscope show that the Serial Monitor and Serial Plotter did not?</li>
-</ul></div>
+<li><strong>Assessment code:</strong> <code>A1</code>, graded team assignment, 5 points</li>
+<li><strong>Due:</strong> before Session S3, Wednesday, September 2, at <strong>9:05 AM</strong></li>
+<li><strong>Repository file:</strong> <code>docs/module_notes/module_01_evidence.md</code></li>
+<li><strong>Moodle submission:</strong> <code>A1_Lastname_Lastname.pdf</code></li>
+<li><strong>Expected post-class time:</strong> no more than <strong>30 minutes</strong>, provided the
+  in-class evidence checklist is complete</li>
+</ul>
+<p><code>A1</code> assesses the scientific and technical evidence from Module 1. It is
+separate from <a href="../../assessment/#c1-development-environment-and-repository"><code>C1</code>, the development-environment and repository
+milestone</a>,
+which you will demonstrate during S3.</p>
+<h3 id="assemble-and-submit-the-note">Assemble And Submit The Note<a class="headerlink" href="#assemble-and-submit-the-note" title="Permanent link">&para;</a></h3>
+<p>After class:</p>
+<ol>
+<li>Put the evidence gathered in class into
+   <code>docs/module_notes/module_01_evidence.md</code>.</li>
+<li>Add links to the exact repository files for the modified Blink, averaged
+   analog-reading, and LED-brightness sketches. Do not paste pages of Arduino
+   code into the note.</li>
+<li>Complete the table above and write a three-to-five-sentence answer to the
+   comparison question below.</li>
+<li>Commit the note, sketches, and evidence; push the Git checkpoint (<code>GC</code>) to
+   GitHub.</li>
+<li>Export the note as <code>A1_Lastname_Lastname.pdf</code>. Put the team members,
+   repository URL, and full commit hash on the first page, then submit the PDF
+   to the <a href="https://moodle.brandeis.edu/course/view.php?id=6589"><code>A1</code> Moodle activity</a>
+   before the deadline.</li>
+</ol>
+<p>Your note must contain:</p>
+<ul>
+<li>the labeled apparatus photograph or sketch,</li>
+<li>the Arduino board and serial port,</li>
+<li>links to the three exact Arduino sketches used,</li>
+<li>three representative labeled Serial Monitor lines,</li>
+<li>the brief unaveraged-versus-averaged comparison,</li>
+<li>the Blink and LED-PWM oscilloscope images or hand sketches,</li>
+<li>the completed measurement table, with units, and</li>
+<li>a three-to-five-sentence answer to: <strong>What did the oscilloscope show that the
+  Serial Monitor and Serial Plotter did not?</strong></li>
+</ul>
+<p>Your answer should distinguish a direct electrical measurement from values
+chosen and printed by software. Discuss the actual high and low voltages,
+individual pulses, period, frequency, and duty cycle. The Serial Monitor shows
+printed numbers, while the Serial Plotter graphs those samples against serial
+sample order; neither display shows the individual fast PWM pulses when the
+program prints only a summary value.</p>
+<h3 id="thirty-minute-time-budget">Thirty-Minute Time Budget<a class="headerlink" href="#thirty-minute-time-budget" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th style="text-align: right;">Target time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organize the in-class evidence and add code links</td>
+<td style="text-align: right;">5 minutes</td>
+</tr>
+<tr>
+<td>Finish the measurement table</td>
+<td style="text-align: right;">10 minutes</td>
+</tr>
+<tr>
+<td>Write the comparison answer</td>
+<td style="text-align: right;">5 minutes</td>
+</tr>
+<tr>
+<td>Check the note, commit, push, export, and submit</td>
+<td style="text-align: right;">10 minutes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a1-rubric">A1 Rubric<a class="headerlink" href="#a1-rubric" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact code links and labeled serial/averaging evidence are complete</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>Oscilloscope evidence and measurement table are complete, dimensional, and credible</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>The comparison correctly distinguishes the measured waveform from serial output</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>The PDF is clear, cites the pushed <code>GC</code>, and is submitted by the deadline</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
@@ -290,7 +521,7 @@ You should expect to revise the sketch after the first upload. Debugging board s
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

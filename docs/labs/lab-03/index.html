@@ -130,6 +130,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -178,7 +182,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#what-to-submit" class="nav-link">What To Submit</a>
+            <li class="nav-item" data-bs-level="2"><a href="#collect-your-c3-evidence-during-class" class="nav-link">Collect Your C3 Evidence During Class</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#c3-evidence-record" class="nav-link">C3 Evidence Record</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -237,6 +245,66 @@ trace disappears.</p>
 <li>the place where labels or displayed values are set.</li>
 <li>Write down one small GUI change you would like to make.</li>
 </ol>
+<h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Work</th>
+<th style="text-align: right;">Planned time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S5</td>
+<td>Read this assignment; review the wiring, safety boundary, and prior thermistor code</td>
+<td style="text-align: right;">75 minutes</td>
+</tr>
+<tr>
+<td>S5</td>
+<td>Inspect the Python strip-chart structure and prepare one proposed change</td>
+<td style="text-align: right;">45 minutes</td>
+</tr>
+<tr>
+<td>S5</td>
+<td><strong>Total associated with S5</strong></td>
+<td style="text-align: right;"><strong>2 hours</strong></td>
+</tr>
+<tr>
+<td>S6</td>
+<td>Develop or revise the display-only GUI using the provided prompt</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>S6</td>
+<td>Update run instructions and record unresolved questions</td>
+<td style="text-align: right;">30 minutes</td>
+</tr>
+<tr>
+<td>S6</td>
+<td><strong>Total associated with S6</strong></td>
+<td style="text-align: right;"><strong>2 hours 30 minutes</strong></td>
+</tr>
+<tr>
+<td>S7</td>
+<td>Develop and test the GUI controls and serial-command code without TEC power</td>
+<td style="text-align: right;">120 minutes</td>
+</tr>
+<tr>
+<td>S7</td>
+<td>Organize the repository, README, evidence, and C3 receipt</td>
+<td style="text-align: right;">60 minutes</td>
+</tr>
+<tr>
+<td>S7</td>
+<td><strong>Total associated with S7</strong></td>
+<td style="text-align: right;"><strong>3 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Stop when the planned time is exhausted. Preserve the current working state and
+bring a precise description of the blocker to class; do not trade away safety
+or understanding to finish an AI-generated feature.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Why should the H-bridge be checked with the oscilloscope before the TEC power
@@ -582,24 +650,40 @@ can understand what you built.</p>
 <p>Use the course <a href="../../git-vscode-ai-workflow/">Git, GitHub, VS Code, and AI workflow</a>
 page as your reference for the minimal Git commands and documentation habits
 expected in this course.</p>
-<p>Create one clean project folder for the code and documentation you want to keep.
-A reasonable structure is:</p>
-<pre><code class="language-text">phys39-tec-control/
+<p>Use the one private team repository supplied for the course; do not create a
+second project repository. Follow the workflow page to clone it with GitHub
+Desktop and open the repository folder in VS Code.</p>
+<p>Organize the code and documentation you want to keep. By this point, the
+working part of the repository should resemble:</p>
+<pre><code class="language-text">phys39-instrumentation/
   README.md
+  .gitignore
+  requirements.txt
   arduino/
     thermistor_serial/
+      thermistor_serial.ino
     tec_manual_control/
+      tec_manual_control.ino
     tec_python_control/
+      tec_python_control.ino
   python/
-    display_strip_chart/
-    manual_control_gui/
+    tec_display_strip_chart.py
+    tec_control_gui.py
+    models/
+    analysis/
   docs/
-    wiring_notes/
-    screenshots/
+    module_notes/
+    wiring/
+    figures/
   data/
-    example_runs/
 </code></pre>
-<p>You may use a different structure if it is clear and consistent.</p>
+<p>You may customize this structure if it remains clear and consistent. Do not
+create empty future data folders merely to fill out the diagram. Remember that
+each Arduino sketch folder and its <code>.ino</code> file must have exactly the same name.</p>
+<p>Use VS Code Explorer to create folders and files and to move earlier work into
+the repository. After moving code, compile and test the Arduino sketch and run
+the Python program from their new locations. Do not delete a known working copy
+until the moved version has passed the same test.</p>
 <p>Write or revise <code>README.md</code> so it explains:</p>
 <ul>
 <li>what your project does,</li>
@@ -612,12 +696,14 @@ A reasonable structure is:</p>
 <li>what you tested yourself,</li>
 <li>what you still do not fully understand.</li>
 </ul>
-<p>Use Git and GitHub to make a checkpoint:</p>
-<pre><code class="language-bash">git status
-git add README.md arduino python docs
-git commit -m &quot;Organize Module 3 TEC control project&quot;
-git push
-</code></pre>
+<p>Use GitHub Desktop to make the checkpoint:</p>
+<ol>
+<li>Inspect every changed file and exclude temporary or duplicate drafts.</li>
+<li>Commit with the summary <code>Organize Module 3 TEC control project</code>.</li>
+<li>Push the commit to GitHub.</li>
+<li>Choose <strong>Repository &gt; View on GitHub</strong> and verify that the new folders,
+   <code>README.md</code>, and latest commit appear in the private team repository.</li>
+</ol>
 <p>Do not blindly commit everything in the folder. Look at <code>git status</code> first.
 Temporary files, duplicate AI drafts, and large accidental data files should not
 be included unless there is a reason to keep them.</p>
@@ -632,8 +718,36 @@ actually do.</p>
 <li>Which parts did you test on real hardware?</li>
 <li>Which parts can you explain without looking at the AI transcript?</li>
 </ul>
-<h2 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h2>
-<p>Submit a short module note containing:</p>
+<h2 id="collect-your-c3-evidence-during-class">Collect Your C3 Evidence During Class<a class="headerlink" href="#collect-your-c3-evidence-during-class" title="Permanent link">&para;</a></h2>
+<p>Module 3 spans S5-S7. Save evidence as each capability works; do not wait until
+the end and try to reconstruct which code produced which trace. Before the C3
+demonstration, save:</p>
+<ul>
+<li>the signed pre-power checklist and final wiring record,</li>
+<li>the heat/cool oscilloscope table with TEC power off,</li>
+<li>one labeled low-power heating record and one labeled cooling record,</li>
+<li>a raw data file with units and acquisition metadata,</li>
+<li>screenshots of the display-only and control GUIs,</li>
+<li>the exact paired Arduino and Python versions used for the final test,</li>
+<li>a record of the over-temperature and invalid-command safety tests, and</li>
+<li>the organized repository README and AI-use note from Part 8.</li>
+</ul>
+<p>Keep the module record in <code>docs/module_notes/module_03_tec_gui.md</code>. Put raw data
+under <code>data/module_03/</code>, figures under <code>docs/figures/module_03/</code>, and the
+authoritative programs under <code>arduino/</code> and <code>python/</code>. Complete each row or
+caption while the corresponding test is running.</p>
+<h2 id="c3-evidence-record">C3 Evidence Record<a class="headerlink" href="#c3-evidence-record" title="Permanent link">&para;</a></h2>
+<p>This material supports <a href="../../assessment/#c3-tec-instrument-and-first-python-gui"><code>C3</code>, TEC Instrument And First Python
+GUI</a>, demonstrated
+during S7 on Wednesday, September 23. The <code>P1</code> check during S6 is a rehearsal:
+show that Python reads real serial data, updates the display, and saves a
+labeled file. It has no separate Moodle submission.</p>
+<p>After the experimental evidence is complete, reserve about <strong>60 minutes</strong> to check
+paths, finish captions, commit, push, and prepare the <code>C3 Team Checkoff</code> Moodle
+receipt. The receipt is due by <strong>11:55 AM in S7</strong> and must cite the exact pushed
+commit. Use the <a href="../../assessment/#c3-tec-instrument-and-first-python-gui">C3 rubric and oral-question
+bank</a>.</p>
+<p>Keep a short module note containing:</p>
 <ul>
 <li>Completed pre-power checklist.</li>
 <li>Wiring or signal-path sketch.</li>
@@ -669,7 +783,7 @@ actually do.</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

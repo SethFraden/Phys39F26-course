@@ -110,6 +110,10 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#fin-design-from-a-finite-rod-to-an-infinite-rod" class="nav-link">Fin Design: From A Finite Rod To An Infinite Rod</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#how-to-use-this-reference" class="nav-link">How To Use This Reference</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#what-a-fin-does" class="nav-link">What A Fin Does</a>
               <ul class="nav flex-column">
               </ul>
@@ -154,6 +158,18 @@
 pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 8.</p>
+<h2 id="how-to-use-this-reference">How To Use This Reference<a class="headerlink" href="#how-to-use-this-reference" title="Permanent link">&para;</a></h2>
+<p>Read this page alongside Lienhard Section 4.5 for A4. The Module 8 workload
+budget includes <strong>150 minutes total</strong> for reading the module, the textbook
+section, and this guide. This page is not a separate submission and should not
+be copied into another report.</p>
+<p>Annotate the derivation with three questions in mind:</p>
+<ol>
+<li>Which term comes from Fourier conduction along the rod?</li>
+<li>Which term comes from Newton cooling through the rod's side?</li>
+<li>Which boundary condition distinguishes the finite insulated-tip solution
+   from the semi-infinite solution?</li>
+</ol>
 <h2 id="what-a-fin-does">What A Fin Does<a class="headerlink" href="#what-a-fin-does" title="Permanent link">&para;</a></h2>
 <p>A fin conducts heat along a solid while exchanging heat with the surrounding
 fluid through its surface. Increasing surface area can greatly increase heat
@@ -396,7 +412,15 @@ sensor rather than relying only on these general thresholds.</p>
 <li>What physical assumption changes Eq. (4.31a) into Eq. (4.31b)?</li>
 <li>How does Eq. (4.41) retain information about the far end?</li>
 <li>Why is Eq. (4.50) an approximation rather than a new physical law?</li>
-</ol></div>
+<li>Starting from Eq. (4.28), derive Eq. (4.30) and check every term's units.</li>
+<li>Starting from the general solution, use the base and insulated-tip boundary
+   conditions to obtain Eq. (4.41).</li>
+<li>Show mathematically how Eq. (4.41) approaches Eq. (4.50) when the far end
+   becomes irrelevant.</li>
+</ol>
+<p>These are assessed in the <a href="../lab-08/#a4-finite-length-and-small-biot-guided-study">A4 written derivation</a>
+and may be sampled in the C5 oral check. Understanding the derivation matters
+more than reproducing a long sequence of algebra from memory.</p></div>
             </div>
         </div>
 
@@ -411,7 +435,7 @@ sensor rather than relying only on these general thresholds.</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/mathjax.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../javascripts/tex-svg.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

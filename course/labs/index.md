@@ -75,44 +75,44 @@ means required preparation with no separate grade.
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| 24 | 25 | **26**<br>[S1](#session-1) | 27 | 28 | 29 | 30 |
-| **31**<br>[S2](#session-2)<br>Collect A1 evidence |  |  |  |  |  |  |
+| 24 | 25 | **26**<br>[S1](#session-1)<br>[Module 1](lab-01/index.md) | 27 | 28 | 29 | 30 |
+| **31**<br>[S2](#session-2)<br>[Module 1](lab-01/index.md)<br>Collect A1 evidence |  |  |  |  |  |  |
 
 ### September 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| 31 Aug<br>[S2](#session-2)<br>Collect A1 evidence | 1 | **2**<br>[S3](#session-3)<br>[**A1 due 9:05 AM**](lab-01/index.md#a1-module-1-evidence-note)<br>[**C1 checkoff**](../assessment.md#c1-development-environment-and-repository) | 3 | 4 | 5 | 6 |
-| **7**<br>No class | 8 | **9**<br>[S4](#session-4) | 10 | 11 | 12 | 13 |
-| **14**<br>[S5](#session-5)<br>**C2 checkoff** | 15 | **16**<br>[S6](#session-6)<br>**P1** | 17 | 18 | 19 | 20 |
-| **21**<br>No class | 22 | **23**<br>[S7](#session-7)<br>**C3 checkoff** | 24 | 25 | 26 | 27 |
-| **28**<br>[S8](#session-8)<br>**A2 due** | 29 | **30**<br>[S9](#session-9)<br>**Prep** |  |  |  |  |
+| 31 Aug<br>[S2](#session-2)<br>[Module 1](lab-01/index.md)<br>Collect A1 evidence | 1 | **2**<br>[S3](#session-3)<br>[Module 2](lab-02/index.md)<br>[**A1 due 9:05 AM**](lab-01/index.md#a1-module-1-evidence-note)<br>[**C1 checkoff**](../assessment.md#c1-development-environment-and-repository) | 3 | 4 | 5 | 6 |
+| **7**<br>No class | 8 | **9**<br>[S4](#session-4)<br>[Module 2](lab-02/index.md) | 10 | 11 | 12 | 13 |
+| **14**<br>[S5](#session-5)<br>[Module 3](lab-03/index.md)<br>**C2 checkoff** | 15 | **16**<br>[S6](#session-6)<br>[Module 3](lab-03/index.md)<br>**P1** | 17 | 18 | 19 | 20 |
+| **21**<br>No class | 22 | **23**<br>[S7](#session-7)<br>[Module 3](lab-03/index.md) / [Module 4](lab-04/index.md)<br>**C3 checkoff** | 24 | 25 | 26 | 27 |
+| **28**<br>[S8](#session-8)<br>[Module 4](lab-04/index.md)<br>**A2 due** | 29 | **30**<br>[S9](#session-9)<br>[Module 5](lab-05/index.md)<br>**Prep** |  |  |  |  |
 
 ### October 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| 28 Sep<br>[S8](#session-8) | 29 Sep | 30 Sep<br>[S9](#session-9) | 1 | 2 | 3 | 4 |
-| **5**<br>[S10](#session-10)<br>P-control record | 6 | **7**<br>[S11](#session-11)<br>Guided derivation | 8 | 9 | 10 | 11 |
-| **12**<br>No class | **13**<br>[S12](#session-12)<br>Brandeis Monday<br>**Prep** | **14**<br>[S13](#session-13)<br>**A3 due** | 15 | 16 | 17 | 18 |
-| **19**<br>[S14](#session-14)<br>**P2** | 20 | **21**<br>[S15](#session-15)<br>**C4 checkoff** | 22 | 23 | 24 | 25 |
-| **26**<br>[S16](#session-16)<br>**Prep** | 27 | **28**<br>[S17](#session-17)<br>**A4 due** | 29 | 30 | 31 |  |
+| 28 Sep<br>[S8](#session-8)<br>[Module 4](lab-04/index.md) | 29 Sep | 30 Sep<br>[S9](#session-9)<br>[Module 5](lab-05/index.md) | 1 | 2 | 3 | 4 |
+| **5**<br>[S10](#session-10)<br>[Module 5](lab-05/index.md)<br>P-control record | 6 | **7**<br>[S11](#session-11)<br>[Module 6](lab-06/index.md)<br>Guided derivation | 8 | 9 | 10 | 11 |
+| **12**<br>No class | **13**<br>[S12](#session-12)<br>[Module 6](lab-06/index.md)<br>Brandeis Monday<br>**Prep** | **14**<br>[S13](#session-13)<br>[Module 6](lab-06/index.md)<br>**A3 due** | 15 | 16 | 17 | 18 |
+| **19**<br>[S14](#session-14)<br>[Module 7](lab-07/index.md)<br>**P2** | 20 | **21**<br>[S15](#session-15)<br>[Module 7](lab-07/index.md)<br>**C4 checkoff** | 22 | 23 | 24 | 25 |
+| **26**<br>[S16](#session-16)<br>[Theory Bridge](theory-bridge-chapter-1/index.md) / [Module 8](lab-08/index.md)<br>**Prep** | 27 | **28**<br>[S17](#session-17)<br>[Module 8](lab-08/index.md)<br>**A4 due** | 29 | 30 | 31 |  |
 
 ### November 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| **2**<br>[S18](#session-18)<br>**C5 checkoff** | 3 | **4**<br>[S19](#session-19)<br>Stationary analysis | 5 | 6 | 7 | 8 |
-| **9**<br>[S20](#session-20)<br>**P3** | 10 | **11**<br>[S21](#session-21)<br>**A5 due** | 12 | 13 | 14 | 15 |
-| **16**<br>[S22](#session-22)<br>**P4** | 17 | **18**<br>[S23](#session-23)<br>Modeling-app check | 19 | 20 | 21 | 22 |
-| **23**<br>[S24](#session-24)<br>A5 draft | 24 | **25**<br>No class | 26 | 27 | 28 | 29 |
-| **30**<br>[S25](#session-25)<br>**C6 checkoff** |  |  |  |  |  |  |
+| **2**<br>[S18](#session-18)<br>[Module 8](lab-08/index.md)<br>**C5 checkoff** | 3 | **4**<br>[S19](#session-19)<br>[Module 8](lab-08/index.md)<br>Stationary analysis | 5 | 6 | 7 | 8 |
+| **9**<br>[S20](#session-20)<br>[Module 9](lab-09/index.md)<br>**P3** | 10 | **11**<br>[S21](#session-21)<br>[Module 9](lab-09/index.md)<br>**A5 due** | 12 | 13 | 14 | 15 |
+| **16**<br>[S22](#session-22)<br>[Module 9](lab-09/index.md)<br>**P4** | 17 | **18**<br>[S23](#session-23)<br>[Module 9](lab-09/index.md)<br>Modeling-app check | 19 | 20 | 21 | 22 |
+| **23**<br>[S24](#session-24)<br>[Module 10](lab-10/index.md)<br>A5 draft | 24 | **25**<br>No class | 26 | 27 | 28 | 29 |
+| **30**<br>[S25](#session-25)<br>[Module 10](lab-10/index.md)<br>**C6 checkoff** |  |  |  |  |  |  |
 
 ### December 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| 30 Nov<br>[S25](#session-25) | 1 | **2**<br>[S26](#session-26)<br>**F1 due** | 3 | 4 | 5 | 6 |
+| 30 Nov<br>[S25](#session-25)<br>[Module 10](lab-10/index.md) | 1 | **2**<br>[S26](#session-26)<br>[Module 10](lab-10/index.md)<br>**F1 due** | 3 | 4 | 5 | 6 |
 
 ## Outside-Class Workload At A Glance
 

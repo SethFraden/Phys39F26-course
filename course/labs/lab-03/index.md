@@ -170,6 +170,8 @@ After instructor approval, connect TEC power.
 
 [Open the complete Arduino, H-bridge, TEC, and thermal-switch wiring diagram full size](../../assets/hbridge_tec_arduino_wiring.svg)
 
+[Download the editable Adobe Illustrator source](../../assets/hbridge_tec_arduino_wiring.ai)
+
 ### Physical Wiring On The Class Apparatus
 
 The complete diagram above shows the electrical relationships. On the actual

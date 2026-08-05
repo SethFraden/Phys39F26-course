@@ -9,7 +9,11 @@
 **Class time:** Monday and Wednesday, 9:05 AM-11:55 AM<br>
 **Classroom/laboratory:** 340 Abelson  
 **Course website:** <https://sethfraden.github.io/Phys39F26-course/>
-**Brandeis Moodle course:** <https://moodle.brandeis.edu/course/view.php?id=6589>
+
+**Brandeis Moodle:** [Open the Phys 39/169 Moodle course](https://moodle.brandeis.edu/course/view.php?id=6589)<br>
+Brandeis login and course enrollment are required. If the link opens the Moodle
+login page, sign in and then open the course link again. If the course does not
+appear, check **Dashboard -> My courses** in Moodle.
 
 <!-- **Draft status:** This syllabus is a working draft for instructor review. Items
 marked TBD should be checked before posting to Brandeis or the public course

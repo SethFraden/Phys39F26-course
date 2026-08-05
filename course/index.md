@@ -17,6 +17,10 @@ feedback control, and heat-transport experiments.
 - [Review the Arduino Uno and its pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)
 
+Moodle requires Brandeis login and course enrollment. If the link opens the
+Moodle login page, sign in and then open the course link again. If the course
+does not appear, check **Dashboard -> My courses** in Moodle.
+
 ## Course Path
 
 1. Observe digital and analog signals with Arduino and an oscilloscope.
@@ -30,6 +34,6 @@ feedback control, and heat-transport experiments.
 
 - [Open the modules and course calendar](labs/index.md)
 
-!!! note "Website status"
+<!-- !!! note "Website status"
     This is the new Phys39F26 student website. The historical Phys 39 website
-    is preserved separately as a legacy resource and will not be edited.
+    is preserved separately as a legacy resource and will not be edited. -->

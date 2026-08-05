@@ -105,10 +105,15 @@ The course website contains setup instructions:
 Readings will be assigned as needed from course notes, web resources, and
 selected articles or textbook chapters. Important recurring references include:
 
-- John H. Lienhard IV and John H. Lienhard V, *A Heat Transfer Textbook*.
-- John Bechhoefer, "Feedback for physicists: A tutorial essay on control,"
-  *Reviews of Modern Physics* 77, 783 (2005).
-- John Bechhoefer, *Control Theory for Physicists*.
+- John H. Lienhard IV and John H. Lienhard V,
+  [*A Heat Transfer Textbook*](references/lienhard-heat-transfer-textbook-v6.pdf).
+- John Bechhoefer,
+  ["Feedback for physicists: A tutorial essay on control"](references/bechhoefer-feedback-for-physicists-2005.pdf),
+  *Reviews of Modern Physics* **77**, 783-836 (2005).
+- John Bechhoefer,
+  [*Control Theory for Physicists*](https://www.cambridge.org/core/books/control-theory-for-physicists/21AFE5D6C475D1B44BCF9B8536338D98)
+  (Cambridge University Press, 2021), ISBN 978-1-107-00118-3,
+  <https://doi.org/10.1017/9780511734809>.
 - Arduino documentation and examples.
 - Course website notes on hardware, Arduino, Git/VS Code/AI, and lab safety.
 

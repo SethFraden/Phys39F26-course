@@ -24,23 +24,23 @@ body {
 /* The course mark is cropped to its illustrated upper portion at nav size. */
 .navbar .navbar-brand {
   position: relative;
-  min-height: 50px;
-  padding-left: 48px;
+  min-height: 58px;
+  padding-left: 82px;
 }
 
 .navbar .navbar-brand::before {
   position: absolute;
-  top: 3px;
-  left: 8px;
+  top: 2px;
+  left: 6px;
   display: block;
-  width: 34px;
-  height: 42px;
+  width: 68px;
+  height: 54px;
   overflow: hidden;
   content: "";
   background-image: url("../assets/thermal_measurement_logo.gif");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 36px auto;
+  background-size: 68px auto;
 }
 
 .navbar-default .navbar-brand:hover,

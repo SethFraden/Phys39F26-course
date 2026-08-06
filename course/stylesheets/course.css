@@ -22,13 +22,13 @@ body {
 }
 
 /* The course mark is cropped to its illustrated upper portion at nav size. */
-.navbar-default .navbar-brand {
+.navbar .navbar-brand {
   position: relative;
   min-height: 50px;
   padding-left: 48px;
 }
 
-.navbar-default .navbar-brand::before {
+.navbar .navbar-brand::before {
   position: absolute;
   top: 3px;
   left: 8px;

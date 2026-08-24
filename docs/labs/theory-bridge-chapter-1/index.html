@@ -411,32 +411,37 @@ writes <span class="arithmatex">\(dT/dx\)</span>, because he is describing one-d
 <span class="arithmatex">\(\partial T/\partial x\)</span> here because the long-cylinder experiment will have a
 temperature <span class="arithmatex">\(T(x,t)\)</span> that can depend on both position and time.</p>
 <h3 id="unified-transport-equations">Unified Transport Equations<a class="headerlink" href="#unified-transport-equations" title="Permanent link">&para;</a></h3>
-<p>Fourier's law is one member of a broad family of linear transport laws: the
-gradient of a driving field produces a flux. A conservation law then states
-whether that flux accumulates in the system or is balanced by sources and
-sinks.</p>
+<p>Fourier's law is one member of a broad family of linear transport laws. The
+logical sequence has three steps: a gradient of a driving field produces a
+flux; a local balance law states how flux divergence and sources produce
+accumulation; substituting the flux law into the balance produces the field
+equation.</p>
 <table>
 <thead>
 <tr>
 <th>Phenomenon</th>
 <th>Driving field and flux law</th>
-<th>Conservation result</th>
+<th>Local balance or source equation</th>
+<th>Field equation after substitution</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Heat conduction</td>
 <td><span class="arithmatex">\(\mathbf q=-k\nabla T\)</span></td>
+<td><span class="arithmatex">\(\rho c\,\partial T/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\)</span></td>
 <td><span class="arithmatex">\(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\)</span></td>
 </tr>
 <tr>
 <td>Molecular diffusion</td>
 <td><span class="arithmatex">\(\mathbf J_m=-D\nabla c\)</span></td>
+<td><span class="arithmatex">\(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\)</span></td>
 <td><span class="arithmatex">\(\partial c/\partial t=D\nabla^2c+s\)</span></td>
 </tr>
 <tr>
-<td>Steady electrical conduction</td>
+<td>Electrical conduction</td>
 <td><span class="arithmatex">\(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\)</span></td>
+<td><span class="arithmatex">\(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\)</span>; at steady state, <span class="arithmatex">\(\nabla\!\cdot\mathbf J=0\)</span></td>
 <td><span class="arithmatex">\(\nabla\!\cdot(\sigma\nabla\phi)=0\)</span></td>
 </tr>
 </tbody>
@@ -445,9 +450,10 @@ sinks.</p>
 flux, <span class="arithmatex">\(\mathbf J\)</span> is electrical current density in A/m<span class="arithmatex">\(^2\)</span>, and <span class="arithmatex">\(c\)</span> in
 the molecular-diffusion row is concentration. The <span class="arithmatex">\(c\)</span> in <span class="arithmatex">\(\rho c\)</span> is
 specific heat; the symbols coincide but represent different physical
-quantities.</p>
-<p>Electrostatics adds a source equation. <strong>Gauss's law</strong> says that charge is the
-source of electric field. In vacuum,</p>
+quantities. The source <span class="arithmatex">\(\dot q_v\)</span> is heat generated per unit volume, whereas
+<span class="arithmatex">\(s\)</span> is the net rate at which molecules are added per unit volume.</p>
+<p>Electrostatics uses a related field-source equation. <strong>Gauss's law</strong> says that
+charge is the source of electric field. In vacuum,</p>
 <div class="arithmatex">\[
 \nabla\!\cdot\mathbf E=\frac{\rho_e}{\epsilon_0}.
 \]</div>

@@ -218,25 +218,27 @@ temperature \(T(x,t)\) that can depend on both position and time.
 
 ### Unified Transport Equations
 
-Fourier's law is one member of a broad family of linear transport laws: the
-gradient of a driving field produces a flux. A conservation law then states
-whether that flux accumulates in the system or is balanced by sources and
-sinks.
+Fourier's law is one member of a broad family of linear transport laws. The
+logical sequence has three steps: a gradient of a driving field produces a
+flux; a local balance law states how flux divergence and sources produce
+accumulation; substituting the flux law into the balance produces the field
+equation.
 
-| Phenomenon | Driving field and flux law | Conservation result |
-| --- | --- | --- |
-| Heat conduction | \(\mathbf q=-k\nabla T\) | \(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\) |
-| Molecular diffusion | \(\mathbf J_m=-D\nabla c\) | \(\partial c/\partial t=D\nabla^2c+s\) |
-| Steady electrical conduction | \(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\) | \(\nabla\!\cdot(\sigma\nabla\phi)=0\) |
+| Phenomenon | Driving field and flux law | Local balance or source equation | Field equation after substitution |
+| --- | --- | --- | --- |
+| Heat conduction | \(\mathbf q=-k\nabla T\) | \(\rho c\,\partial T/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\) | \(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\) |
+| Molecular diffusion | \(\mathbf J_m=-D\nabla c\) | \(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\) | \(\partial c/\partial t=D\nabla^2c+s\) |
+| Electrical conduction | \(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\) | \(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\); at steady state, \(\nabla\!\cdot\mathbf J=0\) | \(\nabla\!\cdot(\sigma\nabla\phi)=0\) |
 
 Here \(\mathbf q\) is heat flux in W/m\(^2\), \(\mathbf J_m\) is molecular
 flux, \(\mathbf J\) is electrical current density in A/m\(^2\), and \(c\) in
 the molecular-diffusion row is concentration. The \(c\) in \(\rho c\) is
 specific heat; the symbols coincide but represent different physical
-quantities.
+quantities. The source \(\dot q_v\) is heat generated per unit volume, whereas
+\(s\) is the net rate at which molecules are added per unit volume.
 
-Electrostatics adds a source equation. **Gauss's law** says that charge is the
-source of electric field. In vacuum,
+Electrostatics uses a related field-source equation. **Gauss's law** says that
+charge is the source of electric field. In vacuum,
 
 \[
 \nabla\!\cdot\mathbf E=\frac{\rho_e}{\epsilon_0}.

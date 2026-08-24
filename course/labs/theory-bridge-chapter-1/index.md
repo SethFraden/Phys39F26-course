@@ -41,6 +41,101 @@ Heat and temperature are related, but they are not the same quantity.
 Temperature describes the thermal state of a system. Heat is energy transferred
 across the system boundary because of a temperature difference.
 
+### Analogy: Heat Flow, Water Flow, And Electrical Current
+
+One useful analogy is water flowing between reservoirs at different heights.
+Water height, or equivalently gravitational pressure head, is analogous to
+temperature: it is a **driving potential**, not the quantity that flows. A
+difference in height drives a volume-flow rate of water; a difference in
+temperature drives a heat-transfer rate. In this course, we will often call
+\(\dot Q\) the **heat current**: an energy-current rate measured in watts.
+The familiar electrical version is
+**Ohm's law**: a voltage difference drives an electrical current. In all three
+systems, a long or narrow path opposes the flow.
+
+| Heat transfer | Gravity-driven water flow | Electrical current |
+| --- | --- | --- |
+| Temperature difference, \(\Delta T\) | Height difference, \(\Delta h\), or pressure difference, \(\Delta p\) | Voltage difference, \(\Delta V\) |
+| Heat current (heat-transfer rate), \(\dot Q\) (W) | Volume-flow rate, \(\dot V\) (m\(^3\)/s) | Current, \(I\) (A) |
+| Thermal resistance, \(R_{\mathrm{th}}\) (K/W) | Hydraulic resistance, \(R_{\mathrm{hyd}}\) (Pa s/m\(^3\)) | Electrical resistance, \(R\) (\(\Omega\)) |
+| Thermal capacitance, \(mc\) (J/K) | Storage capacity of a tank | Electrical capacitance, \(C\) (F) |
+
+The three steady-flow laws have the same mathematical form:
+
+\[
+\underbrace{\dot Q}_{\text{heat current}}
+=\frac{\underbrace{\Delta T}_{\text{temperature difference}}}
+{\underbrace{R_{\mathrm{th}}}_{\text{thermal resistance}}},
+\qquad
+\underbrace{\dot V}_{\text{water-flow rate}}
+=\frac{\underbrace{\Delta p}_{\text{pressure difference}}}
+{\underbrace{R_{\mathrm{hyd}}}_{\text{hydraulic resistance}}},
+\qquad
+\underbrace{I}_{\text{current}}
+=\frac{\underbrace{\Delta V}_{\text{voltage difference}}}
+{\underbrace{R}_{\text{electrical resistance}}}.
+\]
+
+For steady one-dimensional heat conduction through a uniform material,
+
+\[
+R_{\mathrm{th}}=\frac{L}{kA},
+\qquad
+\dot Q=\frac{T_{\mathrm{hot}}-T_{\mathrm{cold}}}{R_{\mathrm{th}}}.
+\]
+
+For a reservoir-height difference \(\Delta h\), gravity produces a pressure
+difference \(\Delta p=\rho g\Delta h\). For fully developed laminar flow of
+an incompressible Newtonian fluid through a straight circular pipe,
+
+\[
+R_{\mathrm{hyd}}=\frac{8\mu L}{\pi r^4},
+\qquad
+\dot V=\frac{\Delta p}{R_{\mathrm{hyd}}}
+=\frac{\rho g\Delta h}{R_{\mathrm{hyd}}}.
+\]
+
+Ohm's law is the corresponding electrical relation:
+
+\[
+I=\frac{\Delta V}{R}.
+\]
+
+The corresponding **storage**, or capacitance, laws describe what happens when
+the driving potential changes in time:
+
+\[
+\underbrace{\dot Q}_{\text{heat current}}
+=\underbrace{mc}_{C_{\mathrm{th}}\text{, thermal capacitance}}
+\frac{dT}{dt},
+\qquad
+\underbrace{\dot V}_{\text{water-flow rate}}
+=\underbrace{A_{\mathrm{tank}}}_{C_{\mathrm{hyd}}\text{, hydraulic capacitance}}
+\frac{dh}{dt},
+\qquad
+\underbrace{I}_{\text{current}}
+=\underbrace{C}_{\text{electrical capacitance}}
+\frac{dV}{dt}.
+\]
+
+Here \(A_{\mathrm{tank}}\) is the horizontal cross-sectional area of a tank:
+it determines how much water must enter to raise its water level by a given
+amount. Similarly, \(mc\) determines how much energy must enter to raise the
+temperature of a body by a given amount. These forms assume that \(m\), \(c\),
+\(A_{\mathrm{tank}}\), and \(C\) are constant over the range considered.
+
+Thus \(C_{\mathrm{th}}=mc\) is the thermal analogue of electrical capacitance
+\(C\). The analogy is useful, but limited: a temperature difference is a
+thermal potential that drives heat current. Heat is not a substance stored in
+an object; it is energy transferred across the object boundary because of a
+temperature difference. The transferred energy changes the object's internal
+energy \(U\), which is stored in the object. Thermal capacitance relates heat
+current to the rate of temperature change,
+\(\dot Q=C_{\mathrm{th}}\,dT/dt\), just as electrical capacitance relates
+current to the rate of voltage change. A larger thermal mass requires more
+transferred energy to produce a given temperature change.
+
+
 ![First-Law energy balance for a closed system](../../assets/lienhard-fig-1-1-first-law.png)
 
 *Lienhard and Lienhard, Fig. 1.1, textbook p. 7: First-Law energy balance for a

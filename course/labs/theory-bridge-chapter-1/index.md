@@ -216,6 +216,57 @@ writes \(dT/dx\), because he is describing one-dimensional conduction. We write
 \(\partial T/\partial x\) here because the long-cylinder experiment will have a
 temperature \(T(x,t)\) that can depend on both position and time.
 
+### Unified Transport Equations
+
+Fourier's law is one member of a broad family of linear transport laws: the
+gradient of a driving field produces a flux. A conservation law then states
+whether that flux accumulates in the system or is balanced by sources and
+sinks.
+
+| Phenomenon | Driving field and flux law | Conservation result |
+| --- | --- | --- |
+| Heat conduction | \(\mathbf q=-k\nabla T\) | \(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\) |
+| Molecular diffusion | \(\mathbf J_m=-D\nabla c\) | \(\partial c/\partial t=D\nabla^2c+s\) |
+| Steady electrical conduction | \(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\) | \(\nabla\!\cdot(\sigma\nabla\phi)=0\) |
+
+Here \(\mathbf q\) is heat flux in W/m\(^2\), \(\mathbf J_m\) is molecular
+flux, \(\mathbf J\) is electrical current density in A/m\(^2\), and \(c\) in
+the molecular-diffusion row is concentration. The \(c\) in \(\rho c\) is
+specific heat; the symbols coincide but represent different physical
+quantities.
+
+Electrostatics adds a source equation. **Gauss's law** says that charge is the
+source of electric field. In vacuum,
+
+\[
+\nabla\!\cdot\mathbf E=\frac{\rho_e}{\epsilon_0}.
+\]
+
+Thus, with \(\mathbf E=-\nabla\phi\), the electrostatic potential obeys
+Poisson's equation,
+
+\[
+\nabla^2\phi=-\frac{\rho_e}{\epsilon_0}.
+\]
+
+In matter, the more general statement is
+\(\nabla\!\cdot\mathbf D=\rho_{\mathrm{free}}\), where
+\(\mathbf D=\epsilon\mathbf E\) for a simple linear dielectric. In a region
+with no charge, electrostatics gives Laplace's equation,
+\(\nabla^2\phi=0\).
+
+The closest thermal parallel is **steady** conduction. With volumetric heat
+generation \(\dot q_v\), a uniform material obeys
+
+\[
+\nabla^2T=-\frac{\dot q_v}{k};
+\]
+
+without internal generation it obeys \(\nabla^2T=0\). By contrast, the
+time-dependent heat and molecular-diffusion equations describe fields that
+smooth out over time. This distinction will matter when we move from the
+steady finite-rod model to the time-dependent Angstrom experiment.
+
 ## 3. One-Dimensional Conduction: From Energy Balance To The Heat Equation
 
 Use Lienhard Section 1.3, pp. 17-18 (PDF pp. 31-32), beginning with

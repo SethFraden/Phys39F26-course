@@ -124,6 +124,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#2-heat-conduction-and-fouriers-law" class="nav-link">2. Heat Conduction And Fourier's Law</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#unified-transport-equations" class="nav-link">Unified Transport Equations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#3-one-dimensional-conduction-from-energy-balance-to-the-heat-equation" class="nav-link">3. One-Dimensional Conduction: From Energy Balance To The Heat Equation</a>
@@ -406,6 +410,66 @@ q=-k\frac{dT}{dx}.
 writes <span class="arithmatex">\(dT/dx\)</span>, because he is describing one-dimensional conduction. We write
 <span class="arithmatex">\(\partial T/\partial x\)</span> here because the long-cylinder experiment will have a
 temperature <span class="arithmatex">\(T(x,t)\)</span> that can depend on both position and time.</p>
+<h3 id="unified-transport-equations">Unified Transport Equations<a class="headerlink" href="#unified-transport-equations" title="Permanent link">&para;</a></h3>
+<p>Fourier's law is one member of a broad family of linear transport laws: the
+gradient of a driving field produces a flux. A conservation law then states
+whether that flux accumulates in the system or is balanced by sources and
+sinks.</p>
+<table>
+<thead>
+<tr>
+<th>Phenomenon</th>
+<th>Driving field and flux law</th>
+<th>Conservation result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heat conduction</td>
+<td><span class="arithmatex">\(\mathbf q=-k\nabla T\)</span></td>
+<td><span class="arithmatex">\(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\)</span></td>
+</tr>
+<tr>
+<td>Molecular diffusion</td>
+<td><span class="arithmatex">\(\mathbf J_m=-D\nabla c\)</span></td>
+<td><span class="arithmatex">\(\partial c/\partial t=D\nabla^2c+s\)</span></td>
+</tr>
+<tr>
+<td>Steady electrical conduction</td>
+<td><span class="arithmatex">\(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot(\sigma\nabla\phi)=0\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="arithmatex">\(\mathbf q\)</span> is heat flux in W/m<span class="arithmatex">\(^2\)</span>, <span class="arithmatex">\(\mathbf J_m\)</span> is molecular
+flux, <span class="arithmatex">\(\mathbf J\)</span> is electrical current density in A/m<span class="arithmatex">\(^2\)</span>, and <span class="arithmatex">\(c\)</span> in
+the molecular-diffusion row is concentration. The <span class="arithmatex">\(c\)</span> in <span class="arithmatex">\(\rho c\)</span> is
+specific heat; the symbols coincide but represent different physical
+quantities.</p>
+<p>Electrostatics adds a source equation. <strong>Gauss's law</strong> says that charge is the
+source of electric field. In vacuum,</p>
+<div class="arithmatex">\[
+\nabla\!\cdot\mathbf E=\frac{\rho_e}{\epsilon_0}.
+\]</div>
+<p>Thus, with <span class="arithmatex">\(\mathbf E=-\nabla\phi\)</span>, the electrostatic potential obeys
+Poisson's equation,</p>
+<div class="arithmatex">\[
+\nabla^2\phi=-\frac{\rho_e}{\epsilon_0}.
+\]</div>
+<p>In matter, the more general statement is
+<span class="arithmatex">\(\nabla\!\cdot\mathbf D=\rho_{\mathrm{free}}\)</span>, where
+<span class="arithmatex">\(\mathbf D=\epsilon\mathbf E\)</span> for a simple linear dielectric. In a region
+with no charge, electrostatics gives Laplace's equation,
+<span class="arithmatex">\(\nabla^2\phi=0\)</span>.</p>
+<p>The closest thermal parallel is <strong>steady</strong> conduction. With volumetric heat
+generation <span class="arithmatex">\(\dot q_v\)</span>, a uniform material obeys</p>
+<div class="arithmatex">\[
+\nabla^2T=-\frac{\dot q_v}{k};
+\]</div>
+<p>without internal generation it obeys <span class="arithmatex">\(\nabla^2T=0\)</span>. By contrast, the
+time-dependent heat and molecular-diffusion equations describe fields that
+smooth out over time. This distinction will matter when we move from the
+steady finite-rod model to the time-dependent Angstrom experiment.</p>
 <h2 id="3-one-dimensional-conduction-from-energy-balance-to-the-heat-equation">3. One-Dimensional Conduction: From Energy Balance To The Heat Equation<a class="headerlink" href="#3-one-dimensional-conduction-from-energy-balance-to-the-heat-equation" title="Permanent link">&para;</a></h2>
 <p>Use Lienhard Section 1.3, pp. 17-18 (PDF pp. 31-32), beginning with
 "One-dimensional heat conduction equation," and Fig. 1.8. Read this part

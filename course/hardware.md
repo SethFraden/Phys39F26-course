@@ -45,7 +45,7 @@ control signals.
 | Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [ID-COOLING DASHFLOW 240 BASIC WHITE product page](https://www.idcooling.com/product/detail?id=323&name=DASHFLOW%20240%20BASIC%20WHITE) · [F2023 parts-list order link](https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK) |
 | Arduino Uno | Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals. | [Uno overview](arduino/index.md) · [Uno pinout](arduino/pinout.md) · [Official Uno Rev3](https://docs.arduino.cc/hardware/uno-rev3/) |
 | BTS7960 H-bridge | Uses Arduino PWM inputs to drive TEC current in either direction from the external supply. Use 18 AWG wire for the TEC. | [BTS7960 driver reference](references/bts7960-h-bridge.pdf) |
-| Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC heat-exchanger. Use 18 AWG wire for the H-bridge. | Use the assigned laboratory supply |
+| Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC heat-exchanger. Use 18 AWG wire for the H-bridge. | [ALITOVE 12V 10A power adapter](https://alitove.com/products/alitove-12v-10a-power-adapter) |
 | Oscilloscope | Verifies voltage levels, timing, PWM duty cycle, direction signals, and grounding. | Use the assigned laboratory oscilloscope |
 | Laptop and Python software | Displays strip charts, logs data, sends commands, and later compares measurements with models. | [Course repository](repository.md) |
 

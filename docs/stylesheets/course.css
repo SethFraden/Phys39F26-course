@@ -114,13 +114,13 @@ code {
 }
 
 .hotspot-switch {
-  top: 14%;
-  left: 13%;
+  top: 16%;
+  left: 16%;
   width: 20%;
 }
 
 .hotspot-thermistor {
-  top: 29%;
+  top: 30%;
   left: 35%;
   width: 14%;
 }
@@ -132,25 +132,30 @@ code {
 }
 
 .hotspot-exchanger {
-  top: 62%;
-  left: 17%;
+  top: 57%;
+  left: 13%;
   width: 18%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hotspot-arduino {
-  top: 37%;
+  top: 38%;
   left: 61%;
   width: 12%;
 }
 
 .hotspot-hbridge {
-  top: 82%;
-  left: 61%;
+  top: 80%;
+  left: 59%;
   width: 14%;
 }
 
 .hotspot-laptop {
   top: 18%;
-  left: 86%;
+  left: 85%;
   width: 10%;
 }

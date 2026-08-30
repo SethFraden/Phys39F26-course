@@ -437,7 +437,7 @@ $$
 ### A1: Module 1 Evidence Note
 
 - **Assessment code:** `A1`, graded team assignment, 5 points
-- **Due:** Monday, September 7, at **9:05 AM**, one week after Session S2
+- **Due:** Monday, September 7, at **5:00 PM**, one week after Session S2
 - **Repository file:** `docs/module_notes/module_01_evidence.md`
 - **Moodle submission:** `A1_Lastname_Lastname.pdf`
 - **Expected post-class time:** **90-120 minutes**, provided the in-class

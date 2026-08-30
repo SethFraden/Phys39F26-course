@@ -155,12 +155,12 @@ deadline point.
 
 ### Oral Check Format
 
-Each `C#` section below includes the questions students should prepare. The
-instructor asks each student one primary question from that milestone's list
-and may ask one short follow-up. A complete answer identifies the physical or
-computational principle, points to relevant hardware, code, or data when
-appropriate, and uses correct signs and units. These are brief checks of
-understanding, not surprise examinations.
+Each `C#` section below, or its linked module section, includes the questions
+students should prepare. The instructor asks each student one primary question
+from that milestone's list and may ask one short follow-up. A complete answer
+identifies the physical or computational principle, points to relevant
+hardware, code, or data when appropriate, and uses correct signs and units.
+These are brief checks of understanding, not surprise examinations.
 
 The oral check is not a separate appointment or a long examination. It is a
 brief formal sample of understanding embedded in the scheduled laboratory
@@ -172,21 +172,8 @@ than points.
 **Due:** Demonstration during Session S3, Wednesday, September 2; Moodle
 `C1 Team Checkoff` receipt due by **11:55 AM**
 
-| Criterion | Points |
-| --- | ---: |
-| Arduino IDE, VS Code, and GitHub workflow operate; a modified sketch uploads and runs | 4 |
-| Organized folder and short README identify what was tested | 2 |
-| Meaningful commit is pushed and can be located | 1 |
-| Individual explains files, upload, commit, and push | 2 |
-| Complete by the deadline | 1 |
-
-### C1 Oral Questions
-
-1. Show where the Arduino sketch is stored. What did you change, and how can
-   you tell the uploaded board is running that version?
-2. What is the difference between saving a file, committing it, and pushing it?
-3. Starting from the cited commit, show how you would inspect or recover the
-   preceding version of one file.
+The complete C1 rubric and the single authoritative set of announced questions
+are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-assessment).
 
 ## C2: Measurement And Actuator Electronics
 
@@ -342,8 +329,8 @@ rubrics.
 
 | Code | Due | What must be submitted: definition of done |
 | --- | --- | --- |
-| `A1` | Sept. 2, 9:05 AM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Submit `A1_Lastname_Lastname.pdf` to Moodle; keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurement table in the repository; cite the pushed `GC`. |
-| `C1` | Sept. 2, during S3; receipt by 11:55 AM | Development environment and repository milestone, demonstrated using the rubric above. This is separate from `A1`, although both may cite the same pushed commit. |
+| `C1` | Sept. 2, during S3; receipt by 11:55 AM | Development environment, repository, and Module 1 measurement milestone, demonstrated using the [Module 1 C1 rubric and oral questions](labs/lab-01/index.md#c1-in-class-assessment). This is separate from `A1`, although both may cite the same pushed commit. |
+| `A1` | Sept. 7, 9:05 AM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Submit `A1_Lastname_Lastname.pdf` to Moodle; keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
 | `C2` | Sept. 14, during S5; receipt by 11:55 AM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#collect-your-c2-evidence-during-class), demonstrated using the C2 rubric above. |
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#collect-your-c3-evidence-during-class), demonstrated using the C3 rubric above. |
 | `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |

@@ -20,7 +20,7 @@ nav:
   - Assessment And Milestones: assessment.md
   - Hardware: hardware.md
   - Arduino:
-      - Arduino Tutorial: arduino/index.md
+      - Arduino Reference: arduino/index.md
       - Analog, ADC, And PWM: arduino/analog-digital.md
       - Uno Pinout: arduino/pinout.md
   - Safety: safety.md

@@ -14,7 +14,7 @@ feedback control, and heat-transport experiments.
 - [Open the Phys 39/169 Brandeis Moodle course](https://moodle.brandeis.edu/course/view.php?id=6589)
 - [Use GitHub Desktop, GitHub, VS Code, Markdown, and AI](git-vscode-ai-workflow.md)
 - [Review the temperature-control hardware](hardware.md)
-- [Review the Arduino Uno and its pinout](arduino/index.md)
+- [Review the Arduino references and Uno pinout](arduino/index.md)
 - [Read the laboratory safety boundaries](safety.md)
 
 Moodle requires Brandeis login and course enrollment. If the link opens the

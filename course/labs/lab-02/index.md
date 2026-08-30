@@ -29,8 +29,9 @@ H-bridge, or wiring becomes unexpectedly warm.
 
 1. Review your [Module 1 assignment](../lab-01/index.md) notes on `analogRead`,
    averaging, PWM, and oscilloscope duty-cycle measurements.
-2. Read the [Arduino Tutorial](../../arduino/index.md) through the LED brightness
-   section and review [Analog, ADC, And PWM](../../arduino/analog-digital.md)
+2. Review the [Module 1 assignment](../lab-01/index.md), especially
+   AnalogReadSerial, averaging, and LED brightness, and review [Analog, ADC, And
+   PWM](../../arduino/analog-digital.md)
    for voltage dividers, ADC counts, averaging, and PWM waveforms. The official
    Arduino references for
    [AnalogReadSerial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/),

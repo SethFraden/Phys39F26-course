@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Arduino Tutorial - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Arduino Reference - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Arduino Tutorial</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Arduino Reference</a>
 </li>
                                     
 <li>
@@ -118,37 +118,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#module-1-assignment-first-contact" class="nav-link">Module 1 Assignment: First Contact</a>
+            <li class="nav-item" data-bs-level="1"><a href="#arduino-reference" class="nav-link">Arduino Reference</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#what-the-arduino-does-in-this-course" class="nav-link">What The Arduino Does In This Course</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#tutorial-exercises" class="nav-link">Tutorial Exercises</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#1-blink" class="nav-link">1. Blink</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#2-analogreadserial" class="nav-link">2. AnalogReadSerial</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#3-average-the-voltage" class="nav-link">3. Average The Voltage</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#4-led-brightness-from-averaged-analog-input" class="nav-link">4. LED Brightness From Averaged Analog Input</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#5-next-module-pwm-and-h-bridge" class="nav-link">5. Next Module: PWM And H-Bridge</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#helpful-reference" class="nav-link">Helpful Reference</a>
+            <li class="nav-item" data-bs-level="2"><a href="#course-references" class="nav-link">Course References</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -159,15 +135,17 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="module-1-assignment-first-contact">Module 1 Assignment: First Contact<a class="headerlink" href="#module-1-assignment-first-contact" title="Permanent link">&para;</a></h1>
-<p>Learn how to use an Arduino for input and output. The point of this tutorial is
-not to write a large program all at once. The point is to make one small piece
-of hardware work, measure what it does, and then add one more piece.</p>
+<h1 id="arduino-reference">Arduino Reference<a class="headerlink" href="#arduino-reference" title="Permanent link">&para;</a></h1>
+<p>The hands-on Arduino exercises are part of the <a href="../labs/lab-01/">Module 1
+assignment</a>. This page is a compact reference to the
+Arduino material used throughout the course.</p>
 <p>The Arduino IDE includes permanent example sketches that are worth learning
 because students can find them again after the course. Open them from:</p>
 <pre><code class="language-text">File -&gt; Examples
 </code></pre>
-<p>Another great resource are the <a href="https://docs.arduino.cc/built-in-examples/">worked examples</a> from Arduino. This module is based on some of them.</p>
+<p>Arduino also publishes <a href="https://docs.arduino.cc/built-in-examples/">worked built-in
+examples</a>. Module 1 begins with
+<code>Blink</code> and <code>AnalogReadSerial</code>.</p>
 <h2 id="what-the-arduino-does-in-this-course">What The Arduino Does In This Course<a class="headerlink" href="#what-the-arduino-does-in-this-course" title="Permanent link">&para;</a></h2>
 <p>The Arduino Uno is the small computer at the center of the first part of the
 course. It reads voltages from sensors, communicates with the laptop over USB,
@@ -179,58 +157,13 @@ and produces digital or PWM control signals.</p>
 <li>Produces PWM signals for actuator control.</li>
 <li>Implements safety logic and, later, feedback control.</li>
 </ul>
-<h2 id="tutorial-exercises">Tutorial Exercises<a class="headerlink" href="#tutorial-exercises" title="Permanent link">&para;</a></h2>
-<h3 id="1-blink">1. Blink<a class="headerlink" href="#1-blink" title="Permanent link">&para;</a></h3>
-<p>Do the official Arduino
-<a href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink">Blink tutorial</a>
-using both the built-in LED and an external LED. The external LED needs to be current limited so place a resistor between 200 <span class="arithmatex">\( \Omega \)</span> and  2000 <span class="arithmatex">\(\Omega\)</span> in series with the LED.  Follow the schematic in the link.</p>
-<p>Change the duty cycle from 1:1 to 10:1 and 1:10. Play with the on- and -off times.</p>
-<h3 id="2-analogreadserial">2. AnalogReadSerial<a class="headerlink" href="#2-analogreadserial" title="Permanent link">&para;</a></h3>
-<p>Do the official Arduino
-<a href="https://www.arduino.cc/en/Tutorial/AnalogReadSerial">AnalogReadSerial tutorial</a>. Vary the voltage using a potentiometer. Look at the readings on the Serial Monitor and Serial Plotter under the
-Arduino IDE <strong>Tools</strong> menu. The Analog to Digital (A/D) converter is 10 bit. What range of numbers do you observe? Convert the signal to voltage. What range of voltage do you observe?</p>
-<p>For the ideas behind these measurements, use the <a href="analog-digital/">Analog, ADC, And PWM</a> reference.</p>
-<p>Record the smallest change in voltage
-that the Arduino reports. What is the digitization error?</p>
-<h3 id="3-average-the-voltage">3. Average The Voltage<a class="headerlink" href="#3-average-the-voltage" title="Permanent link">&para;</a></h3>
-<p>Modify the analog-reading code so that it averages 1000 consecutive measurements
-before printing a value.</p>
-<p>Observe the result on the Serial Plotter. What changes as you vary the number
-of samples included in the average?</p>
-<p><img alt="Arduino analog-reading sketch screenshot" src="../assets/arduino_analog_average_sketch.png" /></p>
-<h3 id="4-led-brightness-from-averaged-analog-input">4. LED Brightness From Averaged Analog Input<a class="headerlink" href="#4-led-brightness-from-averaged-analog-input" title="Permanent link">&para;</a></h3>
-<p>Modify your <code>AveAnalogReadSerial</code> sketch to make a new <code>LEDbrightness</code> sketch.
-Keep the potentiometer connected to an analog input, keep the averaging, and
-use the averaged analog voltage to set the brightness of an LED with PWM.</p>
-<p>The signal chain is:</p>
-<pre><code class="language-text">pot voltage  -&gt; analogRead ave number -&gt; average voltage -&gt; map to PWM -&gt; analogWrite -&gt; oscilloscope -&gt; LED brightness
-</code></pre>
-<p>Start by printing the averaged voltage and the PWM value to Serial
-Monitor so you can see what the code is doing. Then measure the PWM output pin
-with the oscilloscope while you turn the potentiometer. The <a href="analog-digital/#7-rc-filtering-and-pwm">Analog, ADC, And
-PWM</a> reference explains why PWM is a
-switching waveform rather than a continuously variable voltage. Finally, connect
-the PWM pin to an LED with an appropriate series resistor and confirm that the
-LED brightness follows the potentiometer.</p>
-<h3 id="5-next-module-pwm-and-h-bridge">5. Next Module: PWM And H-Bridge<a class="headerlink" href="#5-next-module-pwm-and-h-bridge" title="Permanent link">&para;</a></h3>
-<p>This is not part of Module 1 unless your instructor explicitly asks you to continue. First make sure you can explain the LED PWM waveform from Step 4.</p>
-<p>Hook up a small DC motor to the H-bridge. Connect one H-bridge PWM input to an
-Arduino PWM output. Run the motor at different PWM settings.</p>
-<p>Reverse direction using your push button. Disable the motor before reversing
-direction.</p>
-<p>Measure the PWM signal with the oscilloscope. Record the PWM frequency, high
-voltage, low voltage, and duty cycle. This step prepares you for later TEC
-heat/cool control, but the TEC power supply remains off until the actuator module.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Arduino pins provide logic signals, not motor or TEC power. The motor or TEC
-must be driven through the H-bridge and an appropriate external power
-supply.</p>
-</div>
-<h2 id="helpful-reference">Helpful Reference<a class="headerlink" href="#helpful-reference" title="Permanent link">&para;</a></h2>
+<h2 id="course-references">Course References<a class="headerlink" href="#course-references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="analog-digital/">Analog, ADC, And PWM</a></li>
 <li><a href="pinout/">Arduino Uno pinout</a></li>
+<li><a href="../labs/lab-01/">Module 1 assignment</a></li>
+<li><a href="https://docs.arduino.cc/built-in-examples/basics/Blink/">Official Blink example</a></li>
+<li><a href="https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/">Official AnalogReadSerial example</a></li>
 <li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">Pulse-width modulation background</a></li>
 </ul></div>

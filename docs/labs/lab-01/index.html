@@ -315,11 +315,10 @@ provide another permanent reference.</p>
 <p>Do the official Arduino <a href="https://docs.arduino.cc/built-in-examples/basics/Blink/">Blink
 tutorial</a> using both
 the built-in LED and an external LED. The external LED must be current limited,
-so place a resistor between 200 <span class="arithmatex">\(\Omega\)</span> and 2000 <span class="arithmatex">\(\Omega\)</span> in series with the
+so place a resistor between 200 <span class="arithmatex">\(\Omega\)</span> and 4000 <span class="arithmatex">\(\Omega\)</span> in series with the
 LED. Follow the schematic in the tutorial.</p>
 <p>Change the HIGH:LOW time ratio from 1:1 to 10:1 and then 1:10. Play with the
-on and off times. For each case, use the oscilloscope to measure the output-pin
-high voltage, low voltage, period, frequency, and duty cycle.</p>
+on and off times.</p>
 <h3 id="part-2-analogreadserial">Part 2: AnalogReadSerial<a class="headerlink" href="#part-2-analogreadserial" title="Permanent link">&para;</a></h3>
 <p>Do the official Arduino <a href="https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/">AnalogReadSerial
 tutorial</a>.
@@ -330,8 +329,7 @@ sensible rate.</p>
 <p>Rotate the potentiometer and confirm that the reported ADC number responds.
 Part 3 develops this observation into a quantitative measurement of ADC
 digitization and averaging.</p>
-<p>Use <a href="../../arduino/analog-digital/">Analog, ADC, And PWM</a> when you need the
-ideas behind the measurement.</p>
+<p>Read <a href="../../arduino/analog-digital/">Analog, ADC, And PWM</a> for explanations of how analog to digital conversion works.</p>
 <h3 id="part-3-quantify-the-power-of-averaging">Part 3: Quantify The Power Of Averaging<a class="headerlink" href="#part-3-quantify-the-power-of-averaging" title="Permanent link">&para;</a></h3>
 <p>Use a 100 kΩ potentiometer as a voltage divider. Connect one outer terminal to
 Arduino <code>5V</code>, the other outer terminal to Arduino <code>GND</code>, and the center wiper to
@@ -361,6 +359,7 @@ what you see in both displays. In particular:</p>
 <li>What does Serial Monitor reveal that is difficult to see in Serial Plotter,
    and vice versa?</li>
 </ol>
+<p>Call the instructor over at this point and show him what you see on the Serial Plotter.</p>
 <h4 id="3b-convert-adc-number-to-voltage">3B: Convert ADC Number To Voltage<a class="headerlink" href="#3b-convert-adc-number-to-voltage" title="Permanent link">&para;</a></h4>
 <p>Modify your code so that it converts each ADC number <span class="arithmatex">\(n\)</span> to voltage and
 prints the voltage continuously:</p>
@@ -403,6 +402,7 @@ plotter when the transition between an unaveraged block and a 1000-reading
 average block is approximately halfway across the graph, as in the figure
 below. Your numerical values and detailed trace need not look identical to the
 example. Save this screenshot and the corresponding numerical output.</p>
+<p>Call your instructor over to show him plots of the data for the averaged and non-averaged signal on the Serial Plotter.</p>
 <p><img alt="Example Serial Plotter view with the transition between averaging blocks near the center" src="../../assets/arduino_analog_average_sketch.png" /></p>
 <p><strong>(a)</strong> For each 100-point block, calculate the mean voltage and sample standard
 deviation <span class="arithmatex">\(s\)</span>. In this exercise, use <span class="arithmatex">\(s\)</span> as an empirical estimate of the
@@ -448,6 +448,7 @@ additional calculation or Serial output time.</p>
 filter: rapid fluctuations tend to cancel, but changes occurring during the
 averaging window are smoothed or delayed. Improved voltage precision therefore
 comes with reduced time resolution.</p>
+<p>Call your instructor over and explain this to him.</p>
 <h3 id="part-4-led-brightness-from-averaged-analog-input">Part 4: LED Brightness From Averaged Analog Input<a class="headerlink" href="#part-4-led-brightness-from-averaged-analog-input" title="Permanent link">&para;</a></h3>
 <p>Return the potentiometer to the analog input. Modify your Arduino code to use
 the averaged potentiometer voltage to set the brightness of an LED with PWM.</p>
@@ -468,6 +469,7 @@ compare the measured frequency with the expected value of approximately 490
 Hz. Compare this with the roughly 50-60 Hz range above which ordinary flicker
 often appears steady to the eye. Explain why the LED looks continuously lit
 even though the oscilloscope resolves individual pulses.</p>
+<p>Call your instructor over and show him the PWM traces as you vary the potentiometer.</p>
 <p>You should expect to revise your sketches after the first upload. Debugging
 board selection, port selection, baud rate, wiring, and timing is part of the
 lab.</p>

@@ -146,16 +146,6 @@ recognizes, such as
 ADC:512
 ```
 
-Hold the potentiometer fixed at one setting and observe the output. Then choose
-at least one substantially different setting and repeat. Describe and explain
-what you see in both displays. In particular:
-
-1. Do the reported values vary even when you do not touch the potentiometer?
-2. Do the values change continuously, or do they occupy discrete integer
-   levels? Why?
-3. What does Serial Monitor reveal that is difficult to see in Serial Plotter,
-   and vice versa?
-
 Turn the potentiometer carefully to both ends of its range. Record the minimum
 and maximum ADC values that you can obtain. Then set the potentiometer close to
 the midpoint of the measured range,
@@ -166,6 +156,18 @@ n_{\mathrm{mid}}=\frac{n_{\mathrm{min}}+n_{\mathrm{max}}}{2},
 
 and leave it untouched for the remaining measurements. Save screenshots that
 show the integer output and its discrete levels.
+
+Hold the potentiometer fixed at approximately the midpoint and observe the output. Then choose
+at least one substantially different setting and repeat. Describe and explain
+what you see in both displays. In particular:
+
+1. Do the reported values vary even when you do not touch the potentiometer?
+2. Do the values change continuously, or do they occupy discrete integer
+   levels? Why?
+3. What does Serial Monitor reveal that is difficult to see in Serial Plotter,
+   and vice versa?
+
+
 
 #### 3B: Convert ADC Number To Voltage
 

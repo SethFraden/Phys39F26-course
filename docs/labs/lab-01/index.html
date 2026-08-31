@@ -343,7 +343,15 @@ Monitor and Serial Plotter. Use a single labeled quantity that Serial Plotter
 recognizes, such as</p>
 <pre><code class="language-text">ADC:512
 </code></pre>
-<p>Hold the potentiometer fixed at one setting and observe the output. Then choose
+<p>Turn the potentiometer carefully to both ends of its range. Record the minimum
+and maximum ADC values that you can obtain. Then set the potentiometer close to
+the midpoint of the measured range,</p>
+<div class="arithmatex">\[
+n_{\mathrm{mid}}=\frac{n_{\mathrm{min}}+n_{\mathrm{max}}}{2},
+\]</div>
+<p>and leave it untouched for the remaining measurements. Save screenshots that
+show the integer output and its discrete levels.</p>
+<p>Hold the potentiometer fixed at approximately the midpoint and observe the output. Then choose
 at least one substantially different setting and repeat. Describe and explain
 what you see in both displays. In particular:</p>
 <ol>
@@ -353,14 +361,6 @@ what you see in both displays. In particular:</p>
 <li>What does Serial Monitor reveal that is difficult to see in Serial Plotter,
    and vice versa?</li>
 </ol>
-<p>Turn the potentiometer carefully to both ends of its range. Record the minimum
-and maximum ADC values that you can obtain. Then set the potentiometer close to
-the midpoint of the measured range,</p>
-<div class="arithmatex">\[
-n_{\mathrm{mid}}=\frac{n_{\mathrm{min}}+n_{\mathrm{max}}}{2},
-\]</div>
-<p>and leave it untouched for the remaining measurements. Save screenshots that
-show the integer output and its discrete levels.</p>
 <h4 id="3b-convert-adc-number-to-voltage">3B: Convert ADC Number To Voltage<a class="headerlink" href="#3b-convert-adc-number-to-voltage" title="Permanent link">&para;</a></h4>
 <p>Modify your code so that it converts each ADC number <span class="arithmatex">\(n\)</span> to voltage and
 prints the voltage continuously:</p>

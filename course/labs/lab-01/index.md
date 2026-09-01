@@ -116,8 +116,10 @@ on and off times.
 
 Do the official Arduino [AnalogReadSerial
 tutorial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/).
-Use a potentiometer as a voltage divider that supplies 0-5 V to the analog
-input. View the readings with both **Serial Monitor** and **Serial Plotter**
+Use a 100 kΩ potentiometer as a voltage divider that supplies 0-5 V to the analog
+input. Connect one outer terminal to
+Arduino `5V`, the other outer terminal to Arduino `GND`, and the center wiper to
+`A0`. If you feel the need to bend the legs of the pot, something is wrong! View the readings with both **Serial Monitor** and **Serial Plotter**
 from the Arduino IDE **Tools** menu. Slow the interval between reports to a
 sensible rate.
 
@@ -129,9 +131,7 @@ Read [Analog, ADC, And PWM](../../arduino/analog-digital.md) for explanations of
 
 ### Part 3: Quantify The Power Of Averaging
 
-Use a 100 kΩ potentiometer as a voltage divider. Connect one outer terminal to
-Arduino `5V`, the other outer terminal to Arduino `GND`, and the center wiper to
-`A0`.
+Continue using the 100 kΩ potentiometer as a voltage divider.
 
 #### 3A: Observe The Integer ADC Readings
 
@@ -152,8 +152,7 @@ the midpoint of the measured range,
 n_{\mathrm{mid}}=\frac{n_{\mathrm{min}}+n_{\mathrm{max}}}{2},
 \]
 
-and leave it untouched for the remaining measurements. Save screenshots that
-show the integer output and its discrete levels.
+and leave it untouched for the remaining measurements.
 
 Hold the potentiometer fixed at approximately the midpoint and observe the output. Then choose
 at least one substantially different setting and repeat. Describe and explain
@@ -165,7 +164,7 @@ what you see in both displays. In particular:
 3. What does Serial Monitor reveal that is difficult to see in Serial Plotter,
    and vice versa?
 
-Call the instructor over at this point and show him what you see on the Serial Plotter.
+**Checkpoint**: Call the instructor over at this point and show him what you see on the Serial Plotter.
 
 
 #### 3B: Convert ADC Number To Voltage
@@ -223,7 +222,7 @@ average block is approximately halfway across the graph, as in the figure
 below. Your numerical values and detailed trace need not look identical to the
 example. Save this screenshot and the corresponding numerical output.
 
-Call your instructor over to show him plots of the data for the averaged and non-averaged signal on the Serial Plotter.
+**Checkpoint**: Call your instructor over to show him plots of the data for the averaged and non-averaged signal on the Serial Plotter.
 
 ![Example Serial Plotter view with the transition between averaging blocks near the center](../../assets/arduino_analog_average_sketch.png)
 
@@ -282,7 +281,7 @@ filter: rapid fluctuations tend to cancel, but changes occurring during the
 averaging window are smoothed or delayed. Improved voltage precision therefore
 comes with reduced time resolution.
 
-Call your instructor over and explain this to him.
+**Checkpoint**: Call your instructor over and explain this to him.
 
 ### Part 4: LED Brightness From Averaged Analog Input
 
@@ -311,7 +310,7 @@ Hz. Compare this with the roughly 50-60 Hz range above which ordinary flicker
 often appears steady to the eye. Explain why the LED looks continuously lit
 even though the oscilloscope resolves individual pulses.
 
-Call your instructor over and show him the PWM traces as you vary the potentiometer.
+**Checkpoint**: Call your instructor over and show him the PWM traces as you vary the potentiometer.
 
 You should expect to revise your sketches after the first upload. Debugging
 board selection, port selection, baud rate, wiring, and timing is part of the
@@ -319,8 +318,8 @@ lab.
 
 ### C1 In-Class Assessment
 
-There will be a short graded assessment of Module 1 during **Session S3,
-Wednesday, September 2**. The Moodle `C1 Team Checkoff` receipt is due by
+There will be a short graded assessment of Module 1 during **Session S4,
+Wednesday, September 9**. The Moodle `C1 Team Checkoff` receipt is due by
 **11:55 AM** that day.
 
 Before the checkoff:
@@ -444,7 +443,7 @@ $$
 ### A1: Module 1 Evidence Note
 
 - **Assessment code:** `A1`, graded team assignment, 5 points
-- **Due:** Monday, September 7, at **5:00 PM**, one week after Session S2
+- **Due:** Monday, September 14, at **5:00 PM**
 - **Repository file:** `docs/module_notes/module_01_evidence.md`
 - **Moodle submission:** `A1_Lastname_Lastname.pdf`
 - **Expected post-class time:** **90-120 minutes**, provided the in-class
@@ -452,7 +451,7 @@ $$
 
 `A1` assesses the scientific and technical evidence from Module 1. It is
 separate from the [`C1` in-class assessment](#c1-in-class-assessment), which
-you will demonstrate during S3.
+you will demonstrate during S4.
 
 You will complete the in-class `C1` checkoff before submitting `A1`. Use the
 questions and feedback from that checkoff to improve the clarity, organization,

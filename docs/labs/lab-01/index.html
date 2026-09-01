@@ -322,8 +322,10 @@ on and off times.</p>
 <h3 id="part-2-analogreadserial">Part 2: AnalogReadSerial<a class="headerlink" href="#part-2-analogreadserial" title="Permanent link">&para;</a></h3>
 <p>Do the official Arduino <a href="https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/">AnalogReadSerial
 tutorial</a>.
-Use a potentiometer as a voltage divider that supplies 0-5 V to the analog
-input. View the readings with both <strong>Serial Monitor</strong> and <strong>Serial Plotter</strong>
+Use a 100 kΩ potentiometer as a voltage divider that supplies 0-5 V to the analog
+input. Connect one outer terminal to
+Arduino <code>5V</code>, the other outer terminal to Arduino <code>GND</code>, and the center wiper to
+<code>A0</code>. If you feel the need to bend the legs of the pot, something is wrong! View the readings with both <strong>Serial Monitor</strong> and <strong>Serial Plotter</strong>
 from the Arduino IDE <strong>Tools</strong> menu. Slow the interval between reports to a
 sensible rate.</p>
 <p>Rotate the potentiometer and confirm that the reported ADC number responds.
@@ -331,9 +333,7 @@ Part 3 develops this observation into a quantitative measurement of ADC
 digitization and averaging.</p>
 <p>Read <a href="../../arduino/analog-digital/">Analog, ADC, And PWM</a> for explanations of how analog to digital conversion works.</p>
 <h3 id="part-3-quantify-the-power-of-averaging">Part 3: Quantify The Power Of Averaging<a class="headerlink" href="#part-3-quantify-the-power-of-averaging" title="Permanent link">&para;</a></h3>
-<p>Use a 100 kΩ potentiometer as a voltage divider. Connect one outer terminal to
-Arduino <code>5V</code>, the other outer terminal to Arduino <code>GND</code>, and the center wiper to
-<code>A0</code>.</p>
+<p>Continue using the 100 kΩ potentiometer as a voltage divider.</p>
 <h4 id="3a-observe-the-integer-adc-readings">3A: Observe The Integer ADC Readings<a class="headerlink" href="#3a-observe-the-integer-adc-readings" title="Permanent link">&para;</a></h4>
 <p>Starting from <code>AnalogReadSerial</code>, write a sketch that continuously reads <code>A0</code>
 and prints the result as an <strong>integer</strong>. Display the same stream in both Serial
@@ -347,8 +347,7 @@ the midpoint of the measured range,</p>
 <div class="arithmatex">\[
 n_{\mathrm{mid}}=\frac{n_{\mathrm{min}}+n_{\mathrm{max}}}{2},
 \]</div>
-<p>and leave it untouched for the remaining measurements. Save screenshots that
-show the integer output and its discrete levels.</p>
+<p>and leave it untouched for the remaining measurements.</p>
 <p>Hold the potentiometer fixed at approximately the midpoint and observe the output. Then choose
 at least one substantially different setting and repeat. Describe and explain
 what you see in both displays. In particular:</p>
@@ -359,7 +358,7 @@ what you see in both displays. In particular:</p>
 <li>What does Serial Monitor reveal that is difficult to see in Serial Plotter,
    and vice versa?</li>
 </ol>
-<p>Call the instructor over at this point and show him what you see on the Serial Plotter.</p>
+<p><strong>Checkpoint</strong>: Call the instructor over at this point and show him what you see on the Serial Plotter.</p>
 <h4 id="3b-convert-adc-number-to-voltage">3B: Convert ADC Number To Voltage<a class="headerlink" href="#3b-convert-adc-number-to-voltage" title="Permanent link">&para;</a></h4>
 <p>Modify your code so that it converts each ADC number <span class="arithmatex">\(n\)</span> to voltage and
 prints the voltage continuously:</p>
@@ -402,7 +401,7 @@ plotter when the transition between an unaveraged block and a 1000-reading
 average block is approximately halfway across the graph, as in the figure
 below. Your numerical values and detailed trace need not look identical to the
 example. Save this screenshot and the corresponding numerical output.</p>
-<p>Call your instructor over to show him plots of the data for the averaged and non-averaged signal on the Serial Plotter.</p>
+<p><strong>Checkpoint</strong>: Call your instructor over to show him plots of the data for the averaged and non-averaged signal on the Serial Plotter.</p>
 <p><img alt="Example Serial Plotter view with the transition between averaging blocks near the center" src="../../assets/arduino_analog_average_sketch.png" /></p>
 <p><strong>(a)</strong> For each 100-point block, calculate the mean voltage and sample standard
 deviation <span class="arithmatex">\(s\)</span>. In this exercise, use <span class="arithmatex">\(s\)</span> as an empirical estimate of the
@@ -448,7 +447,7 @@ additional calculation or Serial output time.</p>
 filter: rapid fluctuations tend to cancel, but changes occurring during the
 averaging window are smoothed or delayed. Improved voltage precision therefore
 comes with reduced time resolution.</p>
-<p>Call your instructor over and explain this to him.</p>
+<p><strong>Checkpoint</strong>: Call your instructor over and explain this to him.</p>
 <h3 id="part-4-led-brightness-from-averaged-analog-input">Part 4: LED Brightness From Averaged Analog Input<a class="headerlink" href="#part-4-led-brightness-from-averaged-analog-input" title="Permanent link">&para;</a></h3>
 <p>Return the potentiometer to the analog input. Modify your Arduino code to use
 the averaged potentiometer voltage to set the brightness of an LED with PWM.</p>
@@ -469,13 +468,13 @@ compare the measured frequency with the expected value of approximately 490
 Hz. Compare this with the roughly 50-60 Hz range above which ordinary flicker
 often appears steady to the eye. Explain why the LED looks continuously lit
 even though the oscilloscope resolves individual pulses.</p>
-<p>Call your instructor over and show him the PWM traces as you vary the potentiometer.</p>
+<p><strong>Checkpoint</strong>: Call your instructor over and show him the PWM traces as you vary the potentiometer.</p>
 <p>You should expect to revise your sketches after the first upload. Debugging
 board selection, port selection, baud rate, wiring, and timing is part of the
 lab.</p>
 <h3 id="c1-in-class-assessment">C1 In-Class Assessment<a class="headerlink" href="#c1-in-class-assessment" title="Permanent link">&para;</a></h3>
-<p>There will be a short graded assessment of Module 1 during <strong>Session S3,
-Wednesday, September 2</strong>. The Moodle <code>C1 Team Checkoff</code> receipt is due by
+<p>There will be a short graded assessment of Module 1 during <strong>Session S4,
+Wednesday, September 9</strong>. The Moodle <code>C1 Team Checkoff</code> receipt is due by
 <strong>11:55 AM</strong> that day.</p>
 <p>Before the checkoff:</p>
 <ol>
@@ -637,7 +636,7 @@ D_{\mathrm{expected}}=100\%\frac{\texttt{analogWrite value}}{255}.
 <h3 id="a1-module-1-evidence-note">A1: Module 1 Evidence Note<a class="headerlink" href="#a1-module-1-evidence-note" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Assessment code:</strong> <code>A1</code>, graded team assignment, 5 points</li>
-<li><strong>Due:</strong> Monday, September 7, at <strong>5:00 PM</strong>, one week after Session S2</li>
+<li><strong>Due:</strong> Monday, September 14, at <strong>5:00 PM</strong></li>
 <li><strong>Repository file:</strong> <code>docs/module_notes/module_01_evidence.md</code></li>
 <li><strong>Moodle submission:</strong> <code>A1_Lastname_Lastname.pdf</code></li>
 <li><strong>Expected post-class time:</strong> <strong>90-120 minutes</strong>, provided the in-class
@@ -645,7 +644,7 @@ D_{\mathrm{expected}}=100\%\frac{\texttt{analogWrite value}}{255}.
 </ul>
 <p><code>A1</code> assesses the scientific and technical evidence from Module 1. It is
 separate from the <a href="#c1-in-class-assessment"><code>C1</code> in-class assessment</a>, which
-you will demonstrate during S3.</p>
+you will demonstrate during S4.</p>
 <p>You will complete the in-class <code>C1</code> checkoff before submitting <code>A1</code>. Use the
 questions and feedback from that checkoff to improve the clarity, organization,
 and technical accuracy of your written evidence note.</p>

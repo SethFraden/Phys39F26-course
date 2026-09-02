@@ -319,8 +319,14 @@ lab.
 ### C1 In-Class Assessment
 
 There will be a short graded assessment of Module 1 during **Session S4,
-Wednesday, September 9**. The Moodle `C1 Team Checkoff` receipt is due by
-**11:55 AM** that day.
+Wednesday, September 9**. Each student must submit a text response to the
+Moodle `C1 Team Checkoff` activity by **5:00 PM on September 9**. The text may
+be identical for both members of a team because it documents shared repository
+evidence, but each student must make a separate Moodle submission.
+
+The text response must give both team members' names, the team repository URL,
+the full Git commit hash demonstrated during the checkoff, and the paths to the
+project `README.md` and principal Arduino sketch or sketches.
 
 Before the checkoff:
 
@@ -445,7 +451,8 @@ $$
 - **Assessment code:** `A1`, graded team assignment, 5 points
 - **Due:** Monday, September 14, at **5:00 PM**
 - **Repository file:** `docs/module_notes/module_01_evidence.md`
-- **Moodle submission:** `A1_Lastname_Lastname.pdf`
+- **Moodle submission:** Each student uploads `A1_Lastname_Lastname.pdf`;
+  teammates may upload the same PDF
 - **Expected post-class time:** **90-120 minutes**, provided the in-class
   evidence checklist is complete
 
@@ -492,9 +499,10 @@ After class, complete these steps in order:
 8. Commit the note, sketches, and evidence; push the [Git checkpoint
    (`GC`)](#pushed-git-checkpoint) to GitHub and copy its full commit hash.
 9. Export the note as `A1_Lastname_Lastname.pdf`. Confirm that the first page
-   gives the team members, repository URL, and full commit hash, then submit
-   the PDF to the [`A1` Moodle activity](https://moodle.brandeis.edu/course/view.php?id=6589)
-   before the deadline.
+   gives the team members, repository URL, and full commit hash. Each team
+   member must separately submit the PDF to the [`A1` Moodle
+   activity](https://moodle.brandeis.edu/course/view.php?id=6589) before the
+   deadline. Teammates may upload the same PDF.
 
 <span id="pushed-git-checkpoint"></span>**Pushed Git checkpoint:** Save the current files, create a Git
 commit with a meaningful message, and push that commit to GitHub. Record the

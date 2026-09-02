@@ -289,6 +289,8 @@ post-class work should be assembly and interpretation, not another experiment.
 - **Type:** team, 10 points
 - **Due:** Monday, September 28, at **6:00 PM**
 - **Moodle file:** `A2_Lastname_Lastname.pdf`
+- **Moodle submission:** Each student uploads the team PDF separately;
+  teammates may upload the same PDF
 - **Repository file:** `docs/assessments/a2_open_loop_tec.md`
 
 This early formal assessment establishes expectations for dimensional graphs,

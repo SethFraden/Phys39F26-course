@@ -60,9 +60,12 @@ hardware emergency or accommodation, email is not a submission method.
 
 ### A# Written, Data, And Modeling Assignments
 
-- Submit one PDF to the Moodle activity bearing the same code, such as `A5`.
-- Name a team file `A5_Lastname_Lastname.pdf`; name an individual file
-  `A3_Lastname.pdf`.
+- Every student submits one PDF to the Moodle activity bearing the same code.
+- For the team assignments `A1`, `A2`, and `A3`, both partners may upload the
+  same team PDF, named `A#_Lastname_Lastname.pdf`, but each student must make a
+  separate Moodle submission.
+- For the individual assignments `A4` and `A5`, submit independently written
+  work named `A#_Lastname.pdf`.
 - Put student names, assignment code, date, repository URL, and exact Git commit
   hash on the first page.
 - Include the requested reasoning, equations, tables, and figures in the PDF.
@@ -73,9 +76,10 @@ hardware emergency or accommodation, email is not a submission method.
 
 The following assignments are **individual**: `A4` and `A5`. They assess each
 student's understanding of the finite-rod/Biot and Angstrom derivations.
-Assignments `A1`, `A2`, and `A3` are one submission per laboratory team; both
-partners remain responsible for every part and answer individual oral
-questions during the associated checkoffs.
+Assignments `A1`, `A2`, and `A3` are team assignments, so partners may submit
+identical PDFs; however, each student must upload the PDF separately. Both
+partners remain responsible for every part and answer individual oral questions
+during the associated checkoffs.
 
 ### C# Completion Milestones
 
@@ -86,6 +90,8 @@ A milestone has two required pieces:
 2. Before the deadline, one team member submits a Moodle text response named
    `C# Team Checkoff` containing the team names, repository URL, exact commit
    hash, and paths to the README, principal code, data, and requested evidence.
+   **C1 is the exception:** every student submits the text response individually,
+   although teammates may submit identical text documenting their shared work.
 
 The instructor records the shared system/evidence/repository points and the
 individual oral points in Moodle. A demonstration without the Moodle receipt
@@ -169,8 +175,9 @@ than points.
 
 ## C1: Development Environment And Repository
 
-**Due:** Demonstration during Session S4, Wednesday, September 9; Moodle
-`C1 Team Checkoff` receipt due by **11:55 AM**
+**Due:** Demonstration during Session S4, Wednesday, September 9; each student
+must submit a Moodle `C1 Team Checkoff` text response by **5:00 PM**. Teammates
+may submit identical text, but each student must submit it separately.
 
 The complete C1 rubric and the single authoritative set of announced questions
 are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-assessment).
@@ -329,12 +336,12 @@ rubrics.
 
 | Code | Due | What must be submitted: definition of done |
 | --- | --- | --- |
-| `C1` | Sept. 9, during S4; receipt by 11:55 AM | Development environment, repository, and Module 1 measurement milestone, demonstrated using the [Module 1 C1 rubric and oral questions](labs/lab-01/index.md#c1-in-class-assessment). This is separate from `A1`, although both may cite the same pushed commit. |
-| `A1` | Sept. 14, 5:00 PM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Submit `A1_Lastname_Lastname.pdf` to Moodle; keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
+| `C1` | Sept. 9, during S4; individual text response by 5:00 PM | Development environment, repository, and Module 1 measurement milestone, demonstrated using the [Module 1 C1 rubric and oral questions](labs/lab-01/index.md#c1-in-class-assessment). Every student submits the Moodle text response; teammates may use identical text. This is separate from `A1`, although both may cite the same pushed commit. |
+| `A1` | Sept. 14, 5:00 PM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Each student submits `A1_Lastname_Lastname.pdf` to Moodle; teammates may upload the same PDF. Keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
 | `C2` | Sept. 14, during S5; receipt by 11:55 AM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#collect-your-c2-evidence-during-class), demonstrated using the C2 rubric above. |
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#collect-your-c3-evidence-during-class), demonstrated using the C3 rubric above. |
-| `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |
-| `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
+| `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): each student uploads the team PDF; teammates may upload the same file. Include the signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |
+| `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
 | `C4` | Oct. 21, during S15; receipt by 11:55 AM | [Feedback-controller and TEC-process-model milestone](labs/lab-07/index.md#c4-feedback-controller-and-tec-process-model), demonstrated using the C4 rubric above. |
 | `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Nov. 2, during S18; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |

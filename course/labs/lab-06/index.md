@@ -610,6 +610,8 @@ the comparison table while the simulations and experimental traces are open.
 - **Due:** Wednesday, October 14, at **6:00 PM**
 - **Type:** team, 10 points
 - **Moodle file:** `A3_Lastname_Lastname.pdf`
+- **Moodle submission:** Each student uploads the team PDF separately;
+  teammates may upload the same PDF
 - **Repository file:** `docs/assessments/a3_feedback_model.md`
 - **Analysis and submission target:** about **2 hours** after the in-class analysis is
   complete

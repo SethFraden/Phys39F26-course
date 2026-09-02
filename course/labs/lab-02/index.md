@@ -252,7 +252,7 @@ H-bridge outputs, not ground points.**
    the outputs one at a time while keeping the probe ground on Arduino `GND`.
 5. Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
    connection, and current limit, and then turn on actuator power.
-6. Vary the PWM command over a safe range. Use the tape flag to observe how
+6. Vary the PWM command over the full range. Use the tape flag to observe how
    motor speed changes, and observe the corresponding `M+` and `M-` waveforms
    on the oscilloscope. Switch between heat/clockwise and
    cool/counterclockwise. Record the motor direction, relative speed, and what

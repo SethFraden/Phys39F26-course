@@ -283,9 +283,9 @@ in class.
 ## C2 Evidence Record
 
 There is no separate `A#` submission for Module 2. This note and its cited Git
-checkpoint are evidence for `C2`, demonstrated during S5 on Monday, September
-14. One team member must submit the `C2 Team Checkoff` Moodle receipt by
-**11:55 AM**. Follow the [C2 rubric and oral-question
+checkpoint are evidence for `C2`, demonstrated during S6 on Wednesday,
+September 16. One team member must submit the `C2 Team Checkoff` Moodle receipt
+by **5:00 PM**. Follow the [C2 rubric and oral-question
 bank](../../assessment.md#c2-measurement-and-actuator-electronics).
 
 Keep a short module note containing:

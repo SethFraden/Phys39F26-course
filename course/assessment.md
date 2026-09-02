@@ -184,8 +184,8 @@ are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-asses
 
 ## C2: Measurement And Actuator Electronics
 
-**Due:** Demonstration during Session S5, Monday, September 14; Moodle
-`C2 Team Checkoff` receipt due by **11:55 AM**
+**Due:** Demonstration during Session S6, Wednesday, September 16; Moodle
+`C2 Team Checkoff` receipt due by **5:00 PM**
 
 | Criterion | Points |
 | --- | ---: |
@@ -338,7 +338,7 @@ rubrics.
 | --- | --- | --- |
 | `C1` | Sept. 9, during S4; individual text response by 5:00 PM | Development environment, repository, and Module 1 measurement milestone, demonstrated using the [Module 1 C1 rubric and oral questions](labs/lab-01/index.md#c1-in-class-assessment). Every student submits the Moodle text response; teammates may use identical text. This is separate from `A1`, although both may cite the same pushed commit. |
 | `A1` | Sept. 14, 5:00 PM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Each student submits `A1_Lastname_Lastname.pdf` to Moodle; teammates may upload the same PDF. Keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
-| `C2` | Sept. 14, during S5; receipt by 11:55 AM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#collect-your-c2-evidence-during-class), demonstrated using the C2 rubric above. |
+| `C2` | Sept. 16, during S6; receipt by 5:00 PM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#collect-your-c2-evidence-during-class), demonstrated using the C2 rubric above. |
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#collect-your-c3-evidence-during-class), demonstrated using the C3 rubric above. |
 | `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): each student uploads the team PDF; teammates may upload the same file. Include the signed-PWM table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |
 | `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |

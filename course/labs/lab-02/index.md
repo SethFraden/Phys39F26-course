@@ -258,6 +258,7 @@ H-bridge outputs, not ground points.**
    cool/counterclockwise. Record the motor direction, relative speed, and what
    changes on each H-bridge output.
 7. Return PWM to zero and turn off actuator power before removing the motor.
+8. **Show the instructor the scope output on the H-bridge and the operation of the motor.**
 
 For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. If the mapping is

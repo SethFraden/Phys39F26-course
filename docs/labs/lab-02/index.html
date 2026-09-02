@@ -427,6 +427,9 @@ observe without immediately applying power to the thermal system.</p>
 <p>Arduino pin <code>9</code> connects to <code>RPWM</code>, and pin <code>10</code> connects to <code>LPWM</code>. Connect
 <code>R_EN</code>, <code>L_EN</code>, and logic <code>VCC</code> to Arduino <code>5V</code>; connect logic <code>GND</code> to Arduino
 <code>GND</code> (0 V). Leave the <code>R_IS</code> and <code>L_IS</code> current-sense outputs unconnected.</p>
+<p><strong>Oscilloscope warning: Every scope ground clip must connect to Arduino
+<code>GND</code>. Never connect a scope ground clip to <code>M+</code> or <code>M-</code>; both are driven
+H-bridge outputs, not ground points.</strong></p>
 <ol>
 <li>Turn off the actuator power supply and confirm that the TEC and thermal
    switch are disconnected from the H-bridge output.</li>
@@ -442,17 +445,15 @@ observe without immediately applying power to the thermal system.</p>
    to Arduino <code>GND</code>. Put one probe tip on H-bridge output <code>M+</code> and a second
    probe tip on <code>M-</code>. If only one oscilloscope channel is available, examine
    the outputs one at a time while keeping the probe ground on Arduino <code>GND</code>.</li>
-</ol>
-<p><strong>Never connect a scope ground clip to <code>M+</code> or <code>M-</code>. Both are driven
-   H-bridge outputs, not ground points.</strong>
-5. Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
-   connection, and current limit, and then turn on actuator power.
-6. Vary the PWM command over a safe range. Use the tape flag to observe how
+<li>Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
+   connection, and current limit, and then turn on actuator power.</li>
+<li>Vary the PWM command over a safe range. Use the tape flag to observe how
    motor speed changes, and observe the corresponding <code>M+</code> and <code>M-</code> waveforms
    on the oscilloscope. Switch between heat/clockwise and
    cool/counterclockwise. Record the motor direction, relative speed, and what
-   changes on each H-bridge output.
-7. Return PWM to zero and turn off actuator power before removing the motor.</p>
+   changes on each H-bridge output.</li>
+<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
+</ol>
 <p>For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor

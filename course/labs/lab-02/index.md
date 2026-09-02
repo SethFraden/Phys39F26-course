@@ -232,6 +232,10 @@ Arduino pin `9` connects to `RPWM`, and pin `10` connects to `LPWM`. Connect
 `R_EN`, `L_EN`, and logic `VCC` to Arduino `5V`; connect logic `GND` to Arduino
 `GND` (0 V). Leave the `R_IS` and `L_IS` current-sense outputs unconnected.
 
+**Oscilloscope warning: Every scope ground clip must connect to Arduino
+`GND`. Never connect a scope ground clip to `M+` or `M-`; both are driven
+H-bridge outputs, not ground points.**
+
 1. Turn off the actuator power supply and confirm that the TEC and thermal
    switch are disconnected from the H-bridge output.
 2. Inspect the prepared motor leads and terminal-bus connections. Use two
@@ -246,8 +250,6 @@ Arduino pin `9` connects to `RPWM`, and pin `10` connects to `LPWM`. Connect
    to Arduino `GND`. Put one probe tip on H-bridge output `M+` and a second
    probe tip on `M-`. If only one oscilloscope channel is available, examine
    the outputs one at a time while keeping the probe ground on Arduino `GND`.
-   **Never connect a scope ground clip to `M+` or `M-`; both are driven
-   H-bridge outputs, not ground points.**
 5. Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
    connection, and current limit, and then turn on actuator power.
 6. Vary the PWM command over a safe range. Use the tape flag to observe how

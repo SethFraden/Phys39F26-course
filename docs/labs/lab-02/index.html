@@ -150,16 +150,20 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-trim-pot-to-pwm-and-heatcool-direction" class="nav-link">Part 3: Trim Pot To PWM And Heat/Cool Direction</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction" class="nav-link">Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#3a-write-the-trim-pot-and-direction-code" class="nav-link">3A: Write The Trim-Pot And Direction Code</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-4-oscilloscope-checkoff-h-bridge-command-signals" class="nav-link">Part 4: Oscilloscope Checkoff: H-Bridge Command Signals</a>
+            <li class="nav-item" data-bs-level="3"><a href="#3b-verify-the-h-bridge-command-signals" class="nav-link">3B: Verify The H-Bridge Command Signals</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm" class="nav-link">Optional Stretch Or Instructor Demo: DC Motor Direction And PWM</a>
+            <li class="nav-item" data-bs-level="3"><a href="#3c-drive-the-dc-motor" class="nav-link">3C: Drive The DC Motor</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#collect-your-c2-evidence-during-class" class="nav-link">Collect Your C2 Evidence During Class</a>
@@ -167,6 +171,10 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#c2-evidence-record" class="nav-link">C2 Evidence Record</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#appendix-soldering-references-for-future-use" class="nav-link">Appendix: Soldering References For Future Use</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -186,14 +194,18 @@ disconnected throughout Module 2.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
 <p><strong>First Real Instrument Pieces</strong></p>
 <p>Thermistor serial data, temperature conversion, Arduino Serial Plotter output,
-H-bridge logic/PWM verification, and possibly a low-power DC motor direction
-and speed test if the instrument passes the safety checks.</p>
+H-bridge logic/PWM verification, and a low-power DC motor direction and speed
+test after the instrument passes the safety checks.</p>
 <h2 id="safety-boundary">Safety Boundary<a class="headerlink" href="#safety-boundary" title="Permanent link">&para;</a></h2>
 <p>The thermistor circuit is safe to build and test from Arduino USB power.</p>
 <p>The TEC remains disconnected throughout Module 2. External actuator power remains
 off until the H-bridge input signals have been checked with the oscilloscope.
-For the optional motor test, use low PWM only and stop immediately if the motor,
+For the motor test, use low PWM only and stop immediately if the motor,
 H-bridge, or wiring becomes unexpectedly warm.</p>
+<p><strong>Oscilloscope ground warning:</strong> Connect every oscilloscope probe ground clip
+to Arduino <code>GND</code>. <strong>Never connect a scope ground clip to H-bridge output <code>M+</code>
+or <code>M-</code>.</strong> The H-bridge drives both motor terminals; grounding either output
+through the oscilloscope can short the output and damage the apparatus.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Review your <a href="../lab-01/">Module 1 assignment</a> notes on <code>analogRead</code>,
@@ -288,7 +300,9 @@ the blocker and bring it to class.</p>
 <li>Use a trim-pot voltage as a manual input that sets PWM.</li>
 <li>Use a separate digital input or switch to choose heat versus cool.</li>
 <li>Verify H-bridge direction and PWM logic on the oscilloscope.</li>
-<li>Test DC motor speed and direction at low PWM only if the instructor approves.</li>
+<li>View the H-bridge <code>M+</code> and <code>M-</code> output waveforms with the oscilloscope.</li>
+<li>Test DC motor speed and direction at low PWM after the instructor checks the
+  H-bridge signals.</li>
 </ul>
 <h2 id="part-1-thermistor-serial-data-and-temperature-conversion">Part 1: Thermistor Serial Data And Temperature Conversion<a class="headerlink" href="#part-1-thermistor-serial-data-and-temperature-conversion" title="Permanent link">&para;</a></h2>
 <p>Wire the thermistor divider:</p>
@@ -324,7 +338,7 @@ measurement and then average the temperatures.</p>
 <li><code>printHumanReadable()</code> controls the exact text you see in Serial Monitor. If you want the output to look different, this is the safest first place to edit.</li>
 </ul>
 <p>Hold the thermistor firmly between your index finger and thumb to heat it. Slightly moisten the thermistor to cool it. The reported temperature should move slowly and plausibly. If it jumps wildly, check the wiring, ground, and
-serial parsing before changing the code.</p>
+serial parsing before changing the code. <strong>Show the instructor when this works or if you are stuck.</strong></p>
 <h2 id="part-2-serial-plotter-output">Part 2: Serial Plotter Output<a class="headerlink" href="#part-2-serial-plotter-output" title="Permanent link">&para;</a></h2>
 <p>Revise the sketch so each serial line contains only one temperature value. For
 example:</p>
@@ -344,8 +358,9 @@ between your fingers or cool it with a slightly moistened finger.</p>
 <li>whether warming and cooling the thermistor move the plotted temperature in
   the expected direction.</li>
 </ul>
-<p>Module 2 stays inside the Arduino IDE.</p>
-<h2 id="part-3-trim-pot-to-pwm-and-heatcool-direction">Part 3: Trim Pot To PWM And Heat/Cool Direction<a class="headerlink" href="#part-3-trim-pot-to-pwm-and-heatcool-direction" title="Permanent link">&para;</a></h2>
+<p>Module 2 stays inside the Arduino IDE. <strong>Quickly show the instructor when the serial plotter displays the temperature.</strong></p>
+<h2 id="part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction">Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction<a class="headerlink" href="#part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction" title="Permanent link">&para;</a></h2>
+<h3 id="3a-write-the-trim-pot-and-direction-code">3A: Write The Trim-Pot And Direction Code<a class="headerlink" href="#3a-write-the-trim-pot-and-direction-code" title="Permanent link">&para;</a></h3>
 <p>In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.</p>
 <p>Build code with this signal path:</p>
 <pre><code class="language-text">trim-pot voltage -&gt; analogRead average -&gt; map to PWM -&gt; analogWrite -&gt; H-bridge input
@@ -387,7 +402,7 @@ Read the <a href="../../hardware/#h-bridge">H-bridge hardware notes</a> before w
 the class board.</p>
 <p>Keep actuator power off and the TEC disconnected for this part. You are
 verifying the command signals, not driving a load yet.</p>
-<h2 id="part-4-oscilloscope-checkoff-h-bridge-command-signals">Part 4: Oscilloscope Checkoff: H-Bridge Command Signals<a class="headerlink" href="#part-4-oscilloscope-checkoff-h-bridge-command-signals" title="Permanent link">&para;</a></h2>
+<h3 id="3b-verify-the-h-bridge-command-signals">3B: Verify The H-Bridge Command Signals<a class="headerlink" href="#3b-verify-the-h-bridge-command-signals" title="Permanent link">&para;</a></h3>
 <p>Do this with actuator power off and the TEC disconnected.</p>
 <p>Use the oscilloscope to inspect the Arduino pins that drive the H-bridge. On the
 class boards, the PWM pins are expected to be Arduino pins 9 and 10. Verify the
@@ -400,7 +415,7 @@ actual board wiring before powering anything.</p>
 <li>whether the PWM duty cycle matches the commanded value,</li>
 <li>whether Arduino ground and oscilloscope ground are common.</li>
 </ul>
-<h2 id="optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm">Optional Stretch Or Instructor Demo: DC Motor Direction And PWM<a class="headerlink" href="#optional-stretch-or-instructor-demo-dc-motor-direction-and-pwm" title="Permanent link">&para;</a></h2>
+<h3 id="3c-drive-the-dc-motor">3C: Drive The DC Motor<a class="headerlink" href="#3c-drive-the-dc-motor" title="Permanent link">&para;</a></h3>
 <p>Only do this after the instructor checks the H-bridge signals. The TEC must
 remain disconnected.</p>
 <p>Before connecting the TEC in a later module, use a small motor as the first visible
@@ -413,33 +428,31 @@ observe without immediately applying power to the thermal system.</p>
 <code>R_EN</code>, <code>L_EN</code>, and logic <code>VCC</code> to Arduino <code>5V</code>; connect logic <code>GND</code> to Arduino
 <code>GND</code> (0 V). Leave the <code>R_IS</code> and <code>L_IS</code> current-sense outputs unconnected.</p>
 <ol>
-<li>Turn off the actuator power supply and disconnect the TEC and thermal switch
-   from the H-bridge output.</li>
-<li>Prepare two 18 AWG stranded motor leads. Strip the insulation carefully and
-   tin ends that will be soldered or installed in solder-style terminals.
-   Do not put a fully tinned end directly under a screw clamp; use properly
-   stripped bare stranded wire or an approved ferrule there.</li>
-<li>Use two isolated paired positions on the terminal bus to connect the motor
-   leads to H-bridge <code>M+</code> and <code>M-</code>. Each motor lead and its corresponding
-   H-bridge lead terminate on the same paired position; do not solder the wires
-   together. The power-supply <code>V+</code>/<code>V-</code> leads connect directly to H-bridge
-   <code>B+</code>/<code>B-</code> and do not go through this bus.</li>
-<li>Set PWM to zero, have the instructor check the wiring and current limit, and
-   then turn on actuator power.</li>
-<li>Apply a low PWM command in one direction, return to zero, and then apply a
-   low PWM command in the other direction. Record the observed motor direction
-   and relative speed.</li>
-<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
+<li>Turn off the actuator power supply and confirm that the TEC and thermal
+   switch are disconnected from the H-bridge output.</li>
+<li>Inspect the prepared motor leads and terminal-bus connections. Use two
+   isolated paired positions on the terminal bus to connect the motor leads to
+   H-bridge <code>M+</code> and <code>M-</code>. Each motor lead and its corresponding H-bridge lead
+   terminate on the same paired position. The power-supply <code>V+</code>/<code>V-</code> leads
+   connect directly to H-bridge <code>B+</code>/<code>B-</code> and do not go through this bus.</li>
+<li>Securely attach a short piece of masking tape to the motor shaft so that it
+   forms a visible flag perpendicular to the rotation axis. Make sure the flag
+   can rotate freely without striking the wiring or apparatus.</li>
+<li>With actuator power still off, connect each oscilloscope probe ground clip
+   to Arduino <code>GND</code>. Put one probe tip on H-bridge output <code>M+</code> and a second
+   probe tip on <code>M-</code>. If only one oscilloscope channel is available, examine
+   the outputs one at a time while keeping the probe ground on Arduino <code>GND</code>.</li>
 </ol>
-<p>Before preparing the leads, review these technique illustrations:</p>
-<ul>
-<li><a href="https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire">Tinning stranded wire: illustrated instructions</a></li>
-<li><a href="https://www.youtube.com/watch?v=pRPF4wpXX9Q">How to tin a wire: YouTube demonstration</a></li>
-</ul>
-<p>The small motor might not require 18 AWG wire electrically. You are using
-18 AWG here to learn the stripping, tinning, and termination skills that the
-TEC high-current circuit requires. Do not connect the TEC or thermal switch
-during this motor-first exercise.</p>
+<p><strong>Never connect a scope ground clip to <code>M+</code> or <code>M-</code>. Both are driven
+   H-bridge outputs, not ground points.</strong>
+5. Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
+   connection, and current limit, and then turn on actuator power.
+6. Vary the PWM command over a safe range. Use the tape flag to observe how
+   motor speed changes, and observe the corresponding <code>M+</code> and <code>M-</code> waveforms
+   on the oscilloscope. Switch between heat/clockwise and
+   cool/counterclockwise. Record the motor direction, relative speed, and what
+   changes on each H-bridge output.
+7. Return PWM to zero and turn off actuator power before removing the motor.</p>
 <p>For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. If the mapping is
 reversed, set PWM to zero, turn off actuator power, and ask the instructor
@@ -456,8 +469,10 @@ dismantled. Before leaving S4, save:</p>
 <li>the completed heat/cool H-bridge signal table,</li>
 <li>oscilloscope evidence for both active PWM pins, including voltage, frequency,
   and duty cycle,</li>
+<li>oscilloscope evidence for H-bridge outputs <code>M+</code> and <code>M-</code> during both motor
+  directions,</li>
 <li>the exact Arduino sketch used, and</li>
-<li>the optional motor observations, if the motor test was performed.</li>
+<li>the motor direction and PWM speed observations.</li>
 </ul>
 <p>Put the evidence in <code>docs/module_notes/module_02_instrument_pieces.md</code> and put
 the authoritative sketch in a descriptively named folder under <code>arduino/</code>.
@@ -481,10 +496,19 @@ bank</a>.</p>
 <li>Trim-pot-to-PWM code excerpt or signal-path explanation.</li>
 <li>H-bridge signal table for heat/clockwise and cool/counterclockwise commands
   with actuator power off and the TEC disconnected.</li>
-<li>If attempted: a short motor-test note recording clockwise/counterclockwise
-  direction and the observed PWM speed response.</li>
+<li>A short comparison of the <code>M+</code> and <code>M-</code> oscilloscope waveforms in both
+  directions, stating where the probe ground clip was connected.</li>
+<li>A short motor-test note recording clockwise/counterclockwise direction and
+  the observed PWM speed response.</li>
 <li>A paragraph answering: What makes this setup an instrument rather than just
   an Arduino program?</li>
+</ul>
+<h2 id="appendix-soldering-references-for-future-use">Appendix: Soldering References For Future Use<a class="headerlink" href="#appendix-soldering-references-for-future-use" title="Permanent link">&para;</a></h2>
+<p>All Module 2 wires are prepared in advance; students do not solder wires for
+this assignment. Keep these references for later repair or fabrication work:</p>
+<ul>
+<li><a href="https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire">Tinning stranded wire: illustrated instructions</a></li>
+<li><a href="https://www.youtube.com/watch?v=pRPF4wpXX9Q">How to tin a wire: YouTube demonstration</a></li>
 </ul></div>
             </div>
         </div>

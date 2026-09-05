@@ -71,14 +71,12 @@ silently exceeding it because of installation or access problems.
 
 You will:
 
-- Identify the instrument's sensor, actuator, controller, power stage, thermal load, and safety cutoff.
 - Upload Arduino sketches from the Arduino IDE.
-- Open Serial Monitor and read heartbeat messages from the Arduino.
-- Probe an Arduino digital output with an oscilloscope.
-- Measure voltage levels, timing, and PWM duty cycle.
+- Open Serial Monitor and read "heartbeat" messages from the Arduino.
+- Probe an Arduino digital PWM output with an oscilloscope to determine frequency and duty cycle.
 - Read a potentiometer voltage with `analogRead`.
-- Quantify potentiometer-signal variation and test how averaging changes it.
-- Use an averaged analog reading to control LED brightness.
+- Quantify potentiometer-signal noise and test how averaging changes it.
+- Use an averaged analog reading to control LED brightness via the PWM output.
 - Compare the measured signals to the code that generated them.
 
 ### Get Oriented
@@ -260,9 +258,11 @@ Equivalently, averaging \(2^m\) independent measurements ideally provides
 readings can ideally add about **five effective bits of precision** to the
 estimated voltage.
 
-This gain requires the underlying voltage to remain essentially constant over
-the averaging interval and the measurement fluctuations to be sufficiently
-independent. Explain likely departures from the \(1/\sqrt{N}\) prediction,
+The \(1/\sqrt{N}\) improvement requires that the underlying voltage remains
+constant, the fluctuations have approximately zero mean and are sufficiently
+independent, and there is enough analog noise or dither for repeated
+conversions to sample neighboring ADC codes. If every reading returns the same
+ADC code, averaging cannot recover additional information. There are many likely departures from the \(1/\sqrt{N}\) prediction,
 including drift, correlated pickup, quantization, and variation of the Arduino
 reference voltage. Averaging improves precision under these conditions, but it
 does not automatically improve absolute accuracy or remove calibration errors.
@@ -283,7 +283,9 @@ comes with reduced time resolution.
 
 **Checkpoint**: Call your instructor over and explain this to him.
 
-### Part 4: LED Brightness From Averaged Analog Input
+### Part 4: LED Brightness From PWM Controlled By Averaged Analog Input
+
+First, understand a PWM signal by reading [Basics of PWM](https://docs.arduino.cc/learn/microcontrollers/analog-output/).
 
 Return the potentiometer to the analog input. Modify your Arduino code to use
 the averaged potentiometer voltage to set the brightness of an LED with PWM.
@@ -291,7 +293,7 @@ the averaged potentiometer voltage to set the brightness of an LED with PWM.
 The signal chain is:
 
 ```text
-pot voltage -> averaged ADC number -> voltage -> map to PWM -> analogWrite -> oscilloscope -> LED brightness
+pot voltage -> averaged ADC 10-bit number -> voltage -> map to PWM 8-bit number-> analogWrite -> oscilloscope -> LED brightness
 ```
 
 Start by printing the averaged voltage and PWM value to Serial Monitor so you
@@ -357,7 +359,7 @@ Before the checkoff:
 #### C1 Oral Questions
 
 Each student will answer one workflow question from Questions 1-3 and one
-measurement question from Questions 4-8. Be prepared to answer without asking
+measurement question from Questions 4-8. Everyone should be able to answer Questions 9 & 10. Be prepared to answer without asking
 an AI agent during the checkoff.
 
 1. Show where the Arduino sketch is stored. What did you change, and how can
@@ -390,6 +392,15 @@ an AI agent during the checkoff.
    LED appear steady even though the oscilloscope shows that it repeatedly
    switches on and off? Explain why the visual threshold is not one universal
    frequency but depends on brightness, contrast, and viewing conditions.
+9. In this module, the Arduino's principal way of sensing a continuously
+   varying physical quantity is through an analog input. Concisely describe
+   the Arduino Uno analog input, including what it measures, its voltage
+   range, ADC resolution and code range, and approximate acquisition time.
+10. In this module, the Arduino's principal way of producing a continuously
+   adjustable actuator command is through a PWM output. Concisely describe
+   the Arduino Uno PWM output, including its voltage levels, command range,
+   duty cycle and frequency, and why a power stage is required to run a motor.
+   Explain why PWM is not a true analog voltage.
 
 ### Collect Your A1 Evidence During Class
 
@@ -417,6 +428,7 @@ show the instructor what is missing before you leave.
 - [ ] Fill in the averaging table below.
 - [ ] Write two or three bullet points about what the oscilloscope revealed that
   the serial displays did not.
+- [ ] Answer in writing questions 9 and 10 of C1.
 
 
 

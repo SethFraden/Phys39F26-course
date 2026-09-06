@@ -321,7 +321,7 @@ or understanding to finish an AI-generated feature.</p>
 <li>Write a fixed-direction Arduino sketch using the trim pot for PWM.</li>
 <li>Reverse direction  by swapping the two Arduino-to-H-bridge control leads.</li>
 <li>Write a second Arduino sketch that uses a digital input on pin <code>11</code> to select heat or cool.</li>
-<li>Read the complete measurement and command record in Serial Monitor.</li>
+<li>Display in real time the complete measurement and command record in Serial Monitor.</li>
 <li>Write a Python strip chart that plots only temperature and echoes the full
   Arduino line in the terminal.</li>
 <li>Add PWM and direction controls and displays to make the complete manual GUI.</li>
@@ -332,7 +332,7 @@ or understanding to finish an AI-generated feature.</p>
 </ul>
 <h2 id="part-1-tec-wiring-and-pre-power-checklist">Part 1: TEC Wiring And Pre-Power Checklist<a class="headerlink" href="#part-1-tec-wiring-and-pre-power-checklist" title="Permanent link">&para;</a></h2>
 <p>Do not begin until the instructor starts the TEC session. Turn off actuator
-power, remove the Module 2 motor, and connect the prepared TEC and thermal
+power and remove the Module 2 motor. Look for 18G wires in your box. If you don't have them you will need to solder them. See appendix below. Next, connect the 18G TEC and thermal
 switch wiring. The power-supply <code>V+</code> and <code>V-</code> leads connect directly to
 H-bridge <code>B+</code> and <code>B-</code>; they do not go through the terminal bus.</p>
 <p>Connect the TEC heat exchanger directly to the 12 V power supply, with its
@@ -347,8 +347,8 @@ running.</p>
 terminal-bus pairs connect H-bridge <code>M+</code> to one thermal-switch lead, the other
 thermal-switch lead to <code>TEC+</code>, and <code>TEC-</code> to H-bridge <code>M-</code>. Opening the normally
 closed thermal switch therefore interrupts the TEC current. Most setups have
-prepared wires. If your setup lacks either 18 AWG thermal-switch lead, use the
-appendix at the end of this module only after consulting the instructor.</p>
+prepared wires. If your setup lacks either the two 18 AWG thermal-switch leads or the four 18G H-bridge leads, use the
+appendix at the end of this module for instruction for how to fabricate the wires after consulting the instructor.</p>
 <p><img alt="Labeled photograph of the class TEC apparatus showing the terminal bus, H-bridge M-plus and M-minus leads, TEC leads, and thermal-switch leads" src="../../assets/tec_apparatus_a.svg" /></p>
 <p><a href="../../assets/tec_apparatus_a.svg">Open the labeled class-apparatus photograph full size</a></p>
 <p>Before turning on TEC power, fill in this checklist in your module notes.</p>
@@ -423,24 +423,27 @@ fixed direction -&gt; H-bridge -&gt; TEC
 </code></pre>
 <p>For the first version, make pin <code>9</code> remain <code>LOW</code> and send the trim-pot PWM
 command to pin <code>10</code>. It does not matter whether this assignment initially
-heats or cools the thermistor. Arduino pins <code>9</code> and <code>10</code> are logic-level
+heats or cools the thermistor embedded in the TEC plate. Arduino pins <code>9</code> and <code>10</code> are logic-level
 H-bridge control signals; they are not ground and they are not the H-bridge
 power outputs <code>M+</code> and <code>M-</code>.</p>
 <p>Print one labeled line containing time, temperature, PWM, and the fixed
 direction. For example:</p>
 <pre><code class="language-text">Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 0
 </code></pre>
-<p>Use Serial Monitor only; do not plot yet. With TEC power off, use the
-oscilloscope to verify that pin <code>9</code> is low and pin <code>10</code> carries the expected
-PWM waveform. After instructor approval, apply low power and determine whether
-the fixed command heats or cools.</p>
+<p>Use Serial Monitor only; do not plot yet. After instructor approval, apply low
+power and determine whether the fixed command heats or cools.</p>
 <p>To reverse direction for a second test, set PWM to zero and swap only the two Arduino-to-H-bridge control leads connected to
-pins <code>9</code> and <code>10</code>. Recheck the signals before restoring power. Do not swap TEC
+pins <code>9</code> and <code>10</code>. Then increase the PWM signal and observe if the heating/cooling function has reversed.  Do not swap TEC
 power leads (M+/M-) for this exercise.</p>
 <h2 id="part-3-second-manual-sketch-hardware-direction-input">Part 3: Second Manual Sketch - Hardware Direction Input<a class="headerlink" href="#part-3-second-manual-sketch-hardware-direction-input" title="Permanent link">&para;</a></h2>
-<p>Save the first working sketch, then make a second sketch that eliminates the
-wire swap. Keep <code>A0</code> for temperature and <code>A1</code> for the trim-pot PWM command. Add
+<p>Save the first working sketch, then make a second sketch that replaces the
+wire swap with the flipping of a switch. Keep <code>A0</code> for temperature and <code>A1</code> for the trim-pot PWM command. Add
 a direction input on pin <code>11</code>:</p>
+<p>Use the single-pole, double-throw (SPDT) slide switch shown below. Connect its
+center, common terminal to Arduino pin <code>11</code>, and connect its two outer
+terminals to Arduino <code>5V</code> and <code>GND</code>.</p>
+<p><img src="../../assets/1pole2throwSwitch.jpg" alt="Single-pole, double-throw slide switch and its internal connection diagram" style="width: 100%; max-width: 520px; height: auto;"></p>
+<p><a href="../../assets/1pole2throwSwitch.jpg">Open the SPDT slide-switch photograph full size</a></p>
 <table>
 <thead>
 <tr>
@@ -453,13 +456,13 @@ a direction input on pin <code>11</code>:</p>
 <tbody>
 <tr>
 <td><code>5V</code></td>
-<td>heat</td>
+<td>heat (cool)</td>
 <td>PWM</td>
 <td><code>LOW</code></td>
 </tr>
 <tr>
 <td><code>0V</code></td>
-<td>cool</td>
+<td>cool (heat)</td>
 <td><code>LOW</code></td>
 <td>PWM</td>
 </tr>
@@ -469,13 +472,56 @@ a direction input on pin <code>11</code>:</p>
 <code>if</code>/<code>else</code> statement to select which H-bridge input receives PWM. Keep the
 same labeled serial output so Serial Monitor shows temperature, elapsed time,
 PWM, and heat/cool direction. Do not plot yet.</p>
-<p>With TEC power off, verify both modes on pins <code>9</code> and <code>10</code> with the
-oscilloscope. Record the measured frequency and duty cycle and confirm that
-the inactive pin remains low. Then show the instructor the result before
-applying TEC power.</p>
-<p>Do not enable actuator power until the instructor approves the wiring and
-current limit. Start at PWM zero, increase slowly to a low value, and watch the
-temperature reported in Serial Monitor. Test both settings of the pin <code>11</code>
+<p>Use the oscilloscope to compare the Arduino control signals with the H-bridge
+power outputs for both switch positions. First, with TEC power off, observe
+Arduino pins <code>9</code> and <code>10</code>. Then show the instructor your wiring and current
+limit. After approval, turn on the 12 V supply, use a low PWM value, and
+observe H-bridge outputs <code>M+</code> and <code>M-</code>, each measured relative to Arduino
+ground.</p>
+<p><strong>Oscilloscope ground warning:</strong> Connect every oscilloscope probe ground clip
+to Arduino <code>GND</code>. <strong>Never connect a scope ground clip to <code>M+</code> or <code>M-</code>.</strong> A
+ground clip is earth-referenced and can short an H-bridge output. Place the
+probe tip on the signal being measured. To display <code>M+</code> and <code>M-</code> simultaneously,
+use two channels with both ground clips connected to Arduino <code>GND</code>, one probe
+tip on <code>M+</code>, and the other probe tip on <code>M-</code>.</p>
+<p>Record your observations for both positions of the direction switch:</p>
+<table>
+<thead>
+<tr>
+<th>Pin <code>11</code> input</th>
+<th>Pin <code>9</code> waveform</th>
+<th>Pin <code>10</code> waveform</th>
+<th><code>M+</code> waveform</th>
+<th><code>M-</code> waveform</th>
+<th>PWM frequency</th>
+<th>PWM duty cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5V</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>0V</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Confirm that changing the switch reverses which Arduino control pin carries
+PWM and reverses the corresponding <code>M+</code>/<code>M-</code> output behavior.</p>
+<p>After completing the oscilloscope observations, continue at low PWM and watch
+the temperature reported in Serial Monitor. Test both settings of the pin <code>11</code>
 direction input. Record several consecutive serial lines for heating and for
 cooling, including the PWM and direction fields. Do not chase a target
 temperature; this remains open-loop manual actuation.</p>
@@ -541,9 +587,9 @@ control GUI. Add:</p>
 <ol>
 <li>a heat/cool switch,</li>
 <li>a PWM slider from <code>0</code> to <code>255</code>,</li>
-<li>a PWM text box,</li>
+<li>a PWM text box that allows input from the keyboard and output from the slider,</li>
 <li>displayed values for temperature, PWM, direction, and elapsed time,</li>
-<li>a second strip chart showing PWM versus time.</li>
+<li>a second strip chart showing PWM versus time, with a red solid line when heating and a blue solid line when cooling. </li>
 </ol>
 <p>The slider and text box should stay synchronized. If you move the slider, the
 text box should show the new PWM value. If you type a number in the text box,
@@ -774,8 +820,8 @@ bank</a>.</p>
 only if the instructor confirms that your setup is missing one or both leads.
 Do not replace prepared wiring merely for practice.</p>
 <p>Disconnect USB and actuator power before working on these leads. Each lead
-must use 18 AWG stranded copper wire and must have a female spade connector at
-the thermal-switch end.</p>
+must use 18 AWG stranded copper wire. Wires to B+, B-, M+ and M- are tinned on both ends. Wires to the thermal switch  must have a female spade connector at
+the thermal-switch and tinned wire at the terminal block end.</p>
 <ol>
 <li>Compare with a completed setup and cut the missing 18 AWG lead to the
    required length.</li>
@@ -787,7 +833,7 @@ the thermal-switch end.</p>
    sized crimp-tool position.</li>
 <li>Gently tug-test the wire. If it moves inside the terminal, cut off the
    connector and repeat with a new connector.</li>
-<li>Prepare the terminal-bus end to match the completed class apparatus. Tin
+<li>Prepare the terminal block end to match the completed class apparatus. Tin
    this end only if the instructor directs you to do so.</li>
 <li>Use a multimeter to verify continuity through each completed lead and
    through the normally closed thermal switch.</li>

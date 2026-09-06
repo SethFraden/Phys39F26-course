@@ -4,6 +4,8 @@
 
 In Module 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Module 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.
 
+Module 2 is taught during **Session S4 on Wednesday, September 9**.
+
 The actuator side also begins, but cautiously. You will verify H-bridge logic
 and PWM with the oscilloscope before connecting a DC motor. The TEC remains
 disconnected throughout Module 2.
@@ -30,6 +32,8 @@ to Arduino `GND`. **Never connect a scope ground clip to H-bridge output `M+`
 or `M-`.** The H-bridge drives both motor terminals; grounding either output
 through the oscilloscope can short the output and damage the apparatus.
 
+<p style="font-size: 3rem; line-height: 1; margin: 0.75rem 0; text-align: center;" role="img" aria-label="Death's-head safety warning" title="Safety first">☠</p>
+
 ## Before Class
 
 1. Review your [Module 1 assignment](../lab-01/index.md) notes on `analogRead`,
@@ -55,14 +59,12 @@ through the oscilloscope can short the output and damage the apparatus.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S3 | Read this assignment and inspect the thermistor diagram | 30 minutes |
-| S3 | Arduino tutorial, hardware references, and thermistor data-sheet reading | 60 minutes |
-| S3 | Pre-class calculations and questions | 60 minutes |
-| S3 | **Total associated with S3** | **2 hours 30 minutes** |
+| S4 | Read this assignment and inspect the thermistor diagram | 30 minutes |
+| S4 | Arduino tutorial, hardware references, and thermistor data-sheet reading | 45 minutes |
+| S4 | Complete the pre-class calculations, questions, and H-bridge prediction table | 45 minutes |
 | S4 | Review and finish the thermistor/PWM sketches needed in class | 60 minutes |
-| S4 | Predict the H-bridge signals and prepare the checkoff table | 30 minutes |
 | S4 | Label, commit, and push the C2 evidence after class | 30 minutes |
-| S4 | **Total associated with S4** | **2 hours** |
+| S4 | **Total associated with S4** | **3 hours 30 minutes** |
 
 The time includes reading the assignment itself. If hardware access or a
 software problem would push the work beyond four hours for a session, document

@@ -6,6 +6,10 @@
 
 In Module 1 you will meet the temperature-control instrument that we will build toward during the semester. It uses an Arduino, a thermistor, a thermoelectric cooler, an H-bridge driver, a power supply, a heat exchanger, an oscilloscope, and laptop software. If you haven't already, read the course<strong> </strong><a href="https://sethfraden.github.io/Phys39F26-course/">Overview</a>.
 
+Module 1 occupies **Sessions S2 and S3**. Use S2 to begin the Arduino,
+oscilloscope, and analog-input work, and S3 to complete the averaging and PWM
+work and save the evidence required for A1.
+
 Before class, your job is to arrive ready to connect to an Arduino, upload a simple program, and think clearly about safety.
 
 ### Vocabulary
@@ -52,15 +56,16 @@ Write short answers before class. These are not meant to be polished.
 - Lab notebook or note-taking device.
 - Questions.
 
-### Outside-Class Workload Budget For S2
+### Outside-Class Workload Budget For S2 And S3
 
-| Work | Planned time |
-| --- | ---: |
-| Read this module assignment | 20 minutes |
-| Read the linked Arduino and hardware introductions | 35 minutes |
-| Answer the pre-class questions | 20 minutes |
-| Assemble and submit A1 after the in-class evidence is complete | 90-120 minutes |
-| **Total outside class associated with S2** | **2 hours 45 minutes-3 hours 15 minutes** |
+| Session | Work | Planned time |
+| --- | --- | ---: |
+| S2 | Read this module assignment | 20 minutes |
+| S2 | Read the linked Arduino and hardware introductions | 35 minutes |
+| S2 | Answer the pre-class questions | 20 minutes |
+| S2 | **Total associated with S2** | **1 hour 15 minutes** |
+| S3 | Assemble and submit A1 after the in-class evidence is complete | 90-120 minutes |
+| S3 | **Total associated with S3** | **1 hour 30 minutes-2 hours** |
 
 The four-hour course limit is a maximum, not a target. Ask for help rather than
 silently exceeding it because of installation or access problems.
@@ -408,7 +413,7 @@ The post-class assignment is expected to take **90-120 minutes**. To stay near
 the lower end of that range, collect and save all measurements, code, and
 images while you still have the Arduino and oscilloscope in front of you.
 
-Before leaving class, complete this checklist. If an item cannot be completed,
+Before leaving S3, complete this checklist. If an item cannot be completed,
 show the instructor what is missing before you leave.
 
 - [ ] Save a labeled photograph or quick sketch of the apparatus.

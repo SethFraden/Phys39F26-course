@@ -263,9 +263,7 @@ H-bridge outputs, not ground points.**
 8. **Show the instructor the scope output on the H-bridge and the operation of the motor.**
 
 For the demonstration in Module 2, the heat command should turn the motor clockwise
-and the cool command should turn it counterclockwise. If the mapping is
-reversed, set PWM to zero, turn off actuator power, and ask the instructor
-before swapping the motor leads.
+and the cool command should turn it counterclockwise. 
 
 ## Collect Your C2 Evidence During Class
 
@@ -308,18 +306,16 @@ Keep a short module note containing:
 - Thermistor constants used in your sketch.
 - Serial Plotter screenshot or sketch of temperature versus serial read order.
 - Trim-pot-to-PWM code excerpt or signal-path explanation.
-- H-bridge signal table for heat/clockwise and cool/counterclockwise commands
-  with actuator power off and the TEC disconnected.
+- H-bridge signal table for heat/clockwise and cool/counterclockwise commands.
 - A short comparison of the `M+` and `M-` oscilloscope waveforms in both
   directions, stating where the probe ground clip was connected.
 - A short motor-test note recording clockwise/counterclockwise direction and
   the observed PWM speed response.
-- A paragraph answering: What makes this setup an instrument rather than just
-  an Arduino program?
+
 
 ## Appendix: Soldering References For Future Use
 
-All Module 2 wires are prepared in advance; students do not solder wires for
+All Module 2 wires are prepared in advance; students do not need to solder wires for
 this assignment. Keep these references for later repair or fabrication work:
 
 - [Tinning stranded wire: illustrated instructions](https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire)

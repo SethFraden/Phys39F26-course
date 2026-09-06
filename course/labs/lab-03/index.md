@@ -15,10 +15,10 @@ the state of the hardware.
 
 ### Class-Session Boundary
 
-Module 2 introduced the H-bridge, external power supply, brushed DC motor, and
-stripping and tinning 18 AWG wire. Module 3 begins the Class 4 or 5 TEC-wiring
-session. Do not wire or energize the TEC and thermal switch until the instructor
-begins that session.
+Module 2 introduced the thermistor, H-bridge, external power supply, and test
+motor. Module 3 spans Sessions S5-S7 and replaces the motor with the TEC. Do
+not energize the TEC until the instructor checks the prepared high-current
+wiring, thermal switch, and power-supply current limit.
 
 ## Theme
 
@@ -34,13 +34,10 @@ Before TEC power is connected:
 1. PWM starts at zero.
 2. H-bridge inputs have been verified on the oscilloscope.
 3. Arduino ground, H-bridge ground, and oscilloscope ground are understood.
-4. The power supply current limit is set by the instructor.
 5. The thermal safety cutoff is identified.
 6. The Module 2 motor-first H-bridge test has been completed with the TEC disconnected.
-7. All wiring in the power-supply, H-bridge, TEC, and thermal-switch
-   current path is 18 AWG stranded copper wire.
-8. Female spade connectors have been crimped onto both thermal-switch wires,
-   tug-tested, and checked for continuity.
+7. The prepared high-current wiring and thermal-switch connections have been
+   inspected for loose or damaged connections.
 
 Stop immediately if the temperature moves in the wrong direction, the TEC or
 driver heats unexpectedly, the power supply current is too high, or the serial
@@ -50,12 +47,10 @@ trace disappears.
 
 1. Review your Module 2 thermistor conversion notes.
 2. Review which Arduino pins drive the H-bridge on the class board.
-3. Open the Python GUI or strip-chart code in VS Code and identify:
-   - imports,
-   - the serial parser,
-   - the plot update function,
-   - the place where labels or displayed values are set.
-4. Write down one small GUI change you would like to make.
+3. Locate your Module 2 Arduino sketch in VS Code. Identify the thermistor
+   input, trim-pot input, two H-bridge outputs, and direction input.
+4. Confirm that your Python environment has `pyserial`, `PySide6`, and
+   `pyqtgraph`, following the [Getting Started](../../getting-started.md) page.
 
 ## Outside-Class Workload Budget
 
@@ -85,18 +80,48 @@ or understanding to finish an AI-generated feature.
 
 ## What You Will Do
 
-- Rebuild or inspect the thermistor measurement circuit.
-- Verify the H-bridge input signals again with TEC power off.
-- Wire the TEC and thermal switch with 18 AWG stranded copper wire.
-- Crimp female spade connectors onto the two thermal-switch wires.
-- Run the manual trim-pot or manual PWM TEC sketch.
-- Record low-power heating and cooling traces.
-- Run the Python strip chart while the TEC is manually driven.
-- Add Python GUI controls for PWM and heat/cool direction.
-- Write an Arduino sketch that receives PWM and heat/cool commands from Python.
+- Write a fixed-direction Arduino sketch using the trim pot for PWM.
+- Reverse direction  by swapping the two Arduino-to-H-bridge control leads.
+- Write a second Arduino sketch that uses a digital input on pin `11` to select heat or cool.
+- Read the complete measurement and command record in Serial Monitor.
+- Write a Python strip chart that plots only temperature and echoes the full
+  Arduino line in the terminal.
+- Add PWM and direction controls and displays to make the complete manual GUI.
+- Write the final Arduino sketch that receives PWM and direction commands from
+  Python.
+- Verify the complete paired Arduino-Python manual control system.
 - Clean up your Arduino, Python, and notes into a readable project checkpoint.
 
-## Part 1: Pre-Power Checklist
+## Part 1: TEC Wiring And Pre-Power Checklist
+
+Do not begin until the instructor starts the TEC session. Turn off actuator
+power, remove the Module 2 motor, and connect the prepared TEC and thermal
+switch wiring. The power-supply `V+` and `V-` leads connect directly to
+H-bridge `B+` and `B-`; they do not go through the terminal bus.
+
+Connect the TEC heat exchanger directly to the 12 V power supply, with its
+positive lead connected to `V+` and its negative lead connected to `V-`.
+Before applying current to the TEC, verify that the heat-exchanger pump and
+radiator fans are operating. Do not operate the TEC without its heat exchanger
+running.
+
+![Complete wiring from the 12-volt power supply and Arduino Uno to the BTS7960 H-bridge, TEC, and normally closed thermal switch in the M-minus lead](../../assets/hbridge_tec_arduino_wiring.svg)
+
+[Open the complete Arduino, H-bridge, TEC, and thermal-switch wiring diagram full size](../../assets/hbridge_tec_arduino_wiring.svg)
+
+
+### Physical Wiring On The Class Apparatus
+
+Use the labels on your apparatus and the photograph below. The three isolated
+terminal-bus pairs connect H-bridge `M+` to one thermal-switch lead, the other
+thermal-switch lead to `TEC+`, and `TEC-` to H-bridge `M-`. Opening the normally
+closed thermal switch therefore interrupts the TEC current. Most setups have
+prepared wires. If your setup lacks either 18 AWG thermal-switch lead, use the
+appendix at the end of this module only after consulting the instructor.
+
+![Labeled photograph of the class TEC apparatus showing the terminal bus, H-bridge M-plus and M-minus leads, TEC leads, and thermal-switch leads](../../assets/tec_apparatus_a.svg)
+
+[Open the labeled class-apparatus photograph full size](../../assets/tec_apparatus_a.svg)
 
 Before turning on TEC power, fill in this checklist in your module notes.
 
@@ -109,137 +134,79 @@ Before turning on TEC power, fill in this checklist in your module notes.
 | PWM starts at zero? |  |
 | Module 2 motor test completed with TEC disconnected? |  |
 | High-current leads are 18 AWG? |  |
-| Both female spade crimps tug-tested and checked for continuity? |  |
+| Prepared TEC and thermal-switch wiring inspected? |  |
+| Heat exchanger connected to 12 V and operating? |  |
 | Power supply voltage |  |
 | Power supply current limit |  |
 | Thermal cutoff identified? |  |
 | Instructor check complete? |  |
 
-## Part 2: Manual TEC Sketch
+## Part 2: First Manual Sketch - Fixed Direction
 
-Use or inspect the instructor reference sketch:
-
-```text
-arduino/tec_manual_trim_pot/tec_manual_trim_pot.ino
-```
-
-The essential behavior is:
+Write a simple Arduino sketch with two input paths and one fixed-direction
+output path:
 
 ```text
-trim pot -> averaged analog input -> PWM command -> H-bridge -> TEC
-thermistor -> 100-1000 raw ADC readings -> average voltage -> temperature -> serial line -> laptop plot
+A0 thermistor -> average -> temperature
+A1 trim pot -> ADC value -> PWM command
+fixed direction -> H-bridge -> TEC
 ```
 
-If you write your own version, keep it simple. Do not add feedback control yet.
-Every temperature value must be calculated only after averaging between 100
-and 1000 raw thermistor-voltage measurements, as established in Module 2.
+For the first version, make pin `9` remain `LOW` and send the trim-pot PWM
+command to pin `10`. It does not matter whether this assignment initially
+heats or cools the thermistor. Arduino pins `9` and `10` are logic-level
+H-bridge control signals; they are not ground and they are not the H-bridge
+power outputs `M+` and `M-`.
 
-This sketch is intentionally not polished. Before improving its structure, make
-sure you can explain the measurement path, the PWM command path, and the
-heat/cool direction path.
+Print one labeled line containing time, temperature, PWM, and the fixed
+direction. For example:
 
-## Part 3: Oscilloscope Verification
+```text
+Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 0
+```
 
-With TEC power off, check the H-bridge input signals.
+Use Serial Monitor only; do not plot yet. With TEC power off, use the
+oscilloscope to verify that pin `9` is low and pin `10` carries the expected
+PWM waveform. After instructor approval, apply low power and determine whether
+the fixed command heats or cools.
 
-Record a table:
+To reverse direction for a second test, set PWM to zero and swap only the two Arduino-to-H-bridge control leads connected to
+pins `9` and `10`. Recheck the signals before restoring power. Do not swap TEC
+power leads (M+/M-) for this exercise.
 
-| Command | Pin 9 Observation | Pin 10 Observation | Expected TEC Direction |
+## Part 3: Second Manual Sketch - Hardware Direction Input
+
+Save the first working sketch, then make a second sketch that eliminates the
+wire swap. Keep `A0` for temperature and `A1` for the trim-pot PWM command. Add
+a direction input on pin `11`:
+
+| Pin `11` input | Mode | Pin `9` output | Pin `10` output |
 | --- | --- | --- | --- |
-| PWM = 0 |  |  | off |
-| heat, low PWM |  |  | heat |
-| cool, low PWM |  |  | cool |
+| `5V` | heat | PWM | `LOW` |
+| `0V` | cool | `LOW` | PWM |
 
-Only one H-bridge side should be active at a time. The PWM duty cycle should
-match the command from the trim pot or manual setting.
+Do not leave pin `11` unconnected. Read it with `digitalRead()` and use an
+`if`/`else` statement to select which H-bridge input receives PWM. Keep the
+same labeled serial output so Serial Monitor shows temperature, elapsed time,
+PWM, and heat/cool direction. Do not plot yet.
 
-## Part 4: Low-Power Heating And Cooling
+With TEC power off, verify both modes on pins `9` and `10` with the
+oscilloscope. Record the measured frequency and duty cycle and confirm that
+the inactive pin remains low. Then show the instructor the result before
+applying TEC power.
 
-This part begins in Class 4 or 5. Do not begin unless the instructor has started
-the TEC-wiring session.
+Do not enable actuator power until the instructor approves the wiring and
+current limit. Start at PWM zero, increase slowly to a low value, and watch the
+temperature reported in Serial Monitor. Test both settings of the pin `11`
+direction input. Record several consecutive serial lines for heating and for
+cooling, including the PWM and direction fields. Do not chase a target
+temperature; this remains open-loop manual actuation.
 
-After completing the motor-first test in Module 2, turn off actuator power and replace
-the motor with the TEC high-current circuit. Use 18 AWG stranded copper for the
-power-supply-to-H-bridge wiring, `M+`/`M-` wiring, and both sides of the thermal
-switch. Make the TEC-side connections on the isolated paired positions of the
-terminal bus; do not solder two wires together. The power-supply `V+`/`V-`
-leads connect directly to H-bridge `B+`/`B-` and do not go through the bus.
-After instructor approval, connect TEC power.
+## Part 4: Python Display-Only Strip Chart
 
-![Complete wiring from the 12-volt power supply and Arduino Uno to the BTS7960 H-bridge, TEC, and normally closed thermal switch in the M-minus lead](../../assets/hbridge_tec_arduino_wiring.svg)
-
-[Open the complete Arduino, H-bridge, TEC, and thermal-switch wiring diagram full size](../../assets/hbridge_tec_arduino_wiring.svg)
-
-[Download the editable Adobe Illustrator source](../../assets/hbridge_tec_arduino_wiring.ai)
-
-### Physical Wiring On The Class Apparatus
-
-The complete diagram above shows the electrical relationships. On the actual
-class apparatus, the motor, TEC, and thermal-switch leads terminate on the
-barrier-style terminal bus visible in the labeled photograph below. Wires that
-need to be electrically joined are secured on the same paired bus position;
-they are not soldered together. Each pair is isolated from the other pairs, so
-this is not a single common electrical bus.
-
-The photograph shows these three paired connections:
-
-- H-bridge `M+` paired with one thermal-switch lead,
-- the other thermal-switch lead paired with `TEC+`, and
-- `TEC-` paired with H-bridge `M-`.
-
-Thus, the photographed apparatus places the normally closed thermal switch in
-series in the `M+` path. This is functionally equivalent to placing it in the
-`M-` path as shown in the electrical diagram: opening the switch interrupts the
-same series current path and removes power from the TEC. When wiring the class
-apparatus, follow the photograph and the labels on your setup. Use female spade
-connectors at the thermal switch. The power-supply `V+` and `V-` leads still go
-directly to H-bridge `B+` and `B-`; they do not terminate on this bus.
-
-![Labeled photograph of the class TEC apparatus showing the terminal bus, H-bridge M-plus and M-minus leads, TEC leads, and thermal-switch leads](../../assets/tec_apparatus_a.svg)
-
-[Open the labeled class-apparatus photograph full size](../../assets/tec_apparatus_a.svg)
-
-### Crimp The Thermal-Switch Spade Connectors
-
-1. Prepare two 18 AWG stranded copper leads for the two sides of the thermal
-   switch.
-2. Strip only enough insulation for the conductor to fit fully inside the crimp
-   barrel. The strands captured inside the crimp barrel must remain untinned.
-3. Crimp a female spade connector onto each lead using the correctly sized crimp
-   tool position.
-4. Tug-test each crimp gently.
-5. Use a multimeter to verify continuity through each lead and through the
-   closed thermal switch.
-6. Ask the instructor to inspect the wire gauge, crimped spades, thermal-switch
-   placement, polarity, and power-supply current limit.
-
-Before making the crimps, review these technique illustrations:
-
-- [How to crimp an electrical connector: illustrated instructions](https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector)
-- [How to crimp quick disconnects (spade terminals): YouTube demonstration](https://www.youtube.com/watch?v=Ed4rbTW7LTw)
-
-Do not enable actuator power until the instructor approves the completed
-wiring.
-
-1. Start with PWM at zero.
-2. Increase PWM slowly to a low value.
-3. Watch the temperature trace.
-4. Record which command heats the thermistor and which command cools it.
-5. Return PWM to zero between trials.
-
-Take at least one short heating trace and one short cooling trace. Do not chase
-a target temperature; this is open-loop manual actuation.
-
-## Part 5: Python Display-Only Strip Chart
-
-Write a Python program that reads the Arduino serial output and displays two
-live strip charts:
-
-1. temperature in Celsius versus time,
-2. PWM value versus time.
-
-This first Python version is display-only. It must not send commands to the
-Arduino.
+Write a Python program that reads the complete Arduino serial output but plots
+only **temperature in Celsius versus time**. This first version is display-only:
+it must not send commands to the Arduino.
 
 The Arduino serial lines look like this:
 
@@ -247,13 +214,24 @@ The Arduino serial lines look like this:
 Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
 ```
 
-Your strip chart should let you set, near the top of the Python file:
+First confirm the line format in Arduino Serial Monitor. The Arduino provides
+only **one USB serial connection**, and access to it is all or nothing. On the
+laptop, either Arduino Serial Monitor or Serial Plotter can open that connection,
+or the Python program can open it. They cannot use it at the same time. Close
+Serial Monitor and Serial Plotter completely before starting Python; later,
+close Python before reopening either Arduino serial window.
+
+Because Serial Monitor cannot remain open while Python runs, have the Python
+program print each complete received line in the VS Code terminal while it
+extracts and plots only temperature. The terminal output then provides the
+same human-readable information that you previously saw in Serial Monitor.
+
+The program should let you set near the top of the file:
 
 - the serial port and baud rate,
 - the visible strip-chart window duration,
 - the plot update interval,
-- the temperature-axis limits,
-- the PWM-axis limits.
+- the temperature-axis limits.
 
 You may work with an AI agent to produce the first version. A good prompt is:
 
@@ -261,9 +239,8 @@ You may work with an AI agent to produce the first version. A good prompt is:
 I am writing a Python display-only strip chart for a physics instrumentation lab.
 
 Write a simple Python program using PySide6 and pyqtgraph that reads Arduino
-serial data and displays two live strip charts:
-1. temperature in Celsius versus time
-2. PWM value versus time
+serial data and displays one live strip chart: temperature in Celsius versus
+time.
 
 The program must not send commands to the Arduino.
 
@@ -272,12 +249,15 @@ Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
 
 Requirements:
 - Use pyserial to read from a serial port.
+- Print each complete line received from the Arduino in the terminal so I can
+  compare the text with the plotted temperature.
 - Let me set the serial port and baud rate near the top of the file.
 - Plot only the most recent N seconds of data, where N is a variable called
   window_seconds.
 - Let me set the plot update interval in milliseconds.
-- Let me set y-axis limits for temperature and PWM near the top of the file.
+- Let me set the temperature y-axis limits near the top of the file.
 - Parse temperature_C, time_s, PWM, and Heat/Cool from each serial line.
+- Store all four parsed values, but plot only temperature versus time.
 - Ignore startup/status lines that do not match the data format.
 - Use Celsius only.
 - Keep the code simple enough for an advanced physics student who is new to
@@ -286,16 +266,19 @@ Requirements:
   and plot updating.
 ```
 
-After the code runs, identify the parts of the program that read serial data,
-parse one line, store recent data, and update the plots.
+After the code runs, identify the parts that read serial data, print the raw
+line, parse one line, store recent data, and update the temperature plot.
 
-## Part 6: Add Python Manual Controls
+## Part 5: Add Python Manual Controls
 
-Modify the display-only Python strip chart so it has manual controls:
+Modify the display-only Python strip chart into the course's complete manual
+control GUI. Add:
 
 1. a heat/cool switch,
 2. a PWM slider from `0` to `255`,
-3. a PWM text box.
+3. a PWM text box,
+4. displayed values for temperature, PWM, direction, and elapsed time,
+5. a second strip chart showing PWM versus time.
 
 The slider and text box should stay synchronized. If you move the slider, the
 text box should show the new PWM value. If you type a number in the text box,
@@ -310,18 +293,22 @@ SET PWM 120 DIR HEAT
 SET PWM 45 DIR COOL
 ```
 
-Keep the two strip charts from Part 5. The PWM plot should show heating in red
-and cooling in blue.
+Keep the temperature strip chart from Part 4. The new PWM plot should show
+heating in red and cooling in blue. Continue printing the complete Arduino
+measurement lines in the VS Code terminal while developing and debugging the
+GUI.
 
 Use this prompt to ask your AI agent for help:
 
 ```text
 Modify my existing PySide6 + pyqtgraph display-only strip chart.
 
-Add manual controls:
+Turn it into a complete manual TEC control GUI. Add:
 1. a heat/cool switch,
 2. a PWM slider from 0 to 255,
-3. a PWM text box.
+3. a PWM text box,
+4. displayed values for temperature, PWM, direction, and elapsed time,
+5. a second strip chart showing PWM versus time.
 
 The PWM slider and PWM text box must stay synchronized:
 - moving the slider updates the text box,
@@ -333,19 +320,20 @@ serial port in this format:
 SET PWM 120 DIR HEAT
 SET PWM 45 DIR COOL
 
-Keep the existing temperature and PWM strip charts. Plot PWM heating samples in
-red and PWM cooling samples in blue. Do not implement feedback control. Use
+Keep the existing temperature strip chart. Plot PWM heating samples in red and
+PWM cooling samples in blue on the new PWM strip chart. Continue printing each
+complete Arduino line in the terminal. Do not implement feedback control. Use
 Celsius only.
 
 Include comments explaining how the GUI widgets, serial command sending, and
 plot updates work.
 ```
 
-At this stage, the old trim-pot Arduino sketch will not obey these commands.
-That is expected. The goal of this part is to build the Python interface and
-define the serial command format.
+At this stage, the hardware-direction Arduino sketch will not obey these
+commands. That is expected. Part 5 builds the interface and defines the command
+format; Part 6 completes the matching Arduino program.
 
-## Part 7: Arduino Serial-Command Control Sketch
+## Part 6: Arduino Serial-Command Control Sketch
 
 Write a new Arduino sketch descended from the manual trim-pot sketch. It should
 keep the thermistor measurement and H-bridge output behavior, but replace the
@@ -396,9 +384,17 @@ Requirements:
 - Include comments explaining the serial command parser and safety startup.
 ```
 
-With TEC power off, verify on the oscilloscope that Python commands change the
-Arduino outputs as expected. Only after that check may you repeat a low-power
-manual heat/cool test.
+## Part 7: Integrated Manual-Control Test
+
+Pair the Part 5 Python GUI with the Part 6 Arduino sketch. With TEC power off,
+verify on the oscilloscope that Python commands change the Arduino outputs as
+expected. Only after that check may you repeat a low-power manual heat/cool
+test.
+
+The final product of Part 7 is the canonical manual control system: Python sets
+and displays PWM and direction, Arduino applies the command and measures
+temperature, and the GUI displays temperature and PWM versus time while the
+Arduino continues to report the complete state.
 
 ## Part 8: Project Cleanup And GitHub Checkpoint
 
@@ -424,14 +420,14 @@ phys39-instrumentation/
   .gitignore
   requirements.txt
   arduino/
-    thermistor_serial/
-      thermistor_serial.ino
-    tec_manual_control/
-      tec_manual_control.ino
+    tec_manual_fixed_direction/
+      tec_manual_fixed_direction.ino
+    tec_manual_hardware_direction/
+      tec_manual_hardware_direction.ino
     tec_python_control/
       tec_python_control.ino
   python/
-    tec_display_strip_chart.py
+    tec_temperature_strip_chart.py
     tec_control_gui.py
     models/
     analysis/
@@ -494,12 +490,14 @@ the end and try to reconstruct which code produced which trace. Before the C3
 demonstration, save:
 
 - the signed pre-power checklist and final wiring record,
-- the heat/cool oscilloscope table with TEC power off,
-- one labeled low-power heating record and one labeled cooling record,
+- oscilloscope checks for the fixed-direction and hardware-direction sketches
+  with TEC power off,
+- one labeled low-power heating serial record and one labeled cooling serial
+  record,
 - a raw data file with units and acquisition metadata,
-- screenshots of the display-only and control GUIs,
+- screenshots of the temperature-only strip chart and complete control GUI,
 - the exact paired Arduino and Python versions used for the final test,
-- a record of the over-temperature and invalid-command safety tests, and
+- a record of the zero-PWM startup and invalid-command tests, and
 - the organized repository README and AI-use note from Part 8.
 
 Keep the module record in `docs/module_notes/module_03_tec_gui.md`. Put raw data
@@ -525,20 +523,55 @@ Keep a short module note containing:
 
 - Completed pre-power checklist.
 - Wiring or signal-path sketch.
-- Oscilloscope table for H-bridge inputs.
-- Confirmation that both female spade crimps passed a tug test and continuity
-  check.
-- One heating trace and one cooling trace.
-- The Arduino sketch used or modified.
-- Python strip-chart screenshot.
-- The Python strip-chart code.
+- Oscilloscope checks for both manual Arduino sketches.
+- One heating serial record and one cooling serial record.
+- Both manual Arduino sketches and the final serial-command sketch.
+- Temperature-only Python strip-chart screenshot and code.
+- Complete Python manual-control GUI screenshot and code.
 - The AI prompt you used, if you used one.
 - A short description of where the Python code reads serial data, parses one
   line, updates the plots, and sends commands.
-- The Arduino serial-command sketch from Part 7.
+- The Arduino serial-command sketch from Part 6.
 - An oscilloscope check showing that Python commands change pins `9` and `10`
   correctly with TEC power off.
 - A link to your organized GitHub project repository.
 - Your `README.md` from Part 8.
 - A paragraph answering: What is the difference between measuring temperature,
   manually actuating the TEC, and feedback-controlling temperature?
+
+## Appendix: Prepare Missing 18 AWG Thermal-Switch Leads
+
+Most setups already have both thermal-switch leads. Complete this appendix
+only if the instructor confirms that your setup is missing one or both leads.
+Do not replace prepared wiring merely for practice.
+
+Disconnect USB and actuator power before working on these leads. Each lead
+must use 18 AWG stranded copper wire and must have a female spade connector at
+the thermal-switch end.
+
+1. Compare with a completed setup and cut the missing 18 AWG lead to the
+   required length.
+2. Strip only enough insulation at the thermal-switch end for the conductor to
+   fit fully inside the female-spade crimp barrel.
+3. Do **not** tin the strands that go inside the crimp barrel. The crimp must
+   close directly onto bare copper strands.
+4. Insert all strands fully into the barrel and crimp it with the correctly
+   sized crimp-tool position.
+5. Gently tug-test the wire. If it moves inside the terminal, cut off the
+   connector and repeat with a new connector.
+6. Prepare the terminal-bus end to match the completed class apparatus. Tin
+   this end only if the instructor directs you to do so.
+7. Use a multimeter to verify continuity through each completed lead and
+   through the normally closed thermal switch.
+8. Have the instructor inspect the wire gauge, exposed-conductor length,
+   crimps, continuity, and final connections before restoring power.
+
+### Crimping References
+
+- [How to crimp an electrical connector: illustrated instructions](https://learn.sparkfun.com/tutorials/working-with-wire/how-to-crimp-an-electrical-connector)
+- [How to crimp quick disconnects: video demonstration](https://www.youtube.com/watch?v=Ed4rbTW7LTw)
+
+### Soldering And Tinning References
+
+- [Tinning stranded wire: illustrated instructions](https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire)
+- [How to tin a wire: video demonstration](https://www.youtube.com/watch?v=pRPF4wpXX9Q)

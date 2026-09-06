@@ -311,12 +311,3 @@ Keep a short module note containing:
   directions, stating where the probe ground clip was connected.
 - A short motor-test note recording clockwise/counterclockwise direction and
   the observed PWM speed response.
-
-
-## Appendix: Soldering References For Future Use
-
-All Module 2 wires are prepared in advance; students do not need to solder wires for
-this assignment. Keep these references for later repair or fabrication work:
-
-- [Tinning stranded wire: illustrated instructions](https://cei-lab.github.io/ece3400-2017/tutorials/Soldering/Soldering_Tutorial.html#tinning-stranded-wire)
-- [How to tin a wire: YouTube demonstration](https://www.youtube.com/watch?v=pRPF4wpXX9Q)

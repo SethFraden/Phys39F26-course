@@ -81,7 +81,7 @@ rather than exceeding the four-hour outside-class limit.
 - Measure steady-state temperature for several heating PWM values.
 - Measure steady-state temperature for several cooling PWM values.
 - Plot steady-state temperature versus PWM.
-- Estimate $dT/d$PWM for heating and cooling.
+- Estimate the temperature susceptibility, $dT/d$PWM, for heating and cooling.
 - Explain the asymmetry between heating and cooling.
 - Add Arduino code that disables PWM if temperature exceeds 60 °C.
 - Verify the safety logic without intentionally overheating the apparatus.
@@ -122,10 +122,8 @@ applies to the displayed temperature, recorded data, and software safety check.
    Python.
 2. Start the Python GUI.
 3. Confirm that PWM begins at `0`.
-4. Confirm that the measured temperature is plausible.
-5. With TEC power off, verify on the oscilloscope that the Python command
-   changes pins `9` and `10` as expected.
-6. After instructor approval, connect TEC power.
+4. Confirm that the measured temperature is plausible by observing the stripchart of temperature while you vary PWM and heat/cool.
+
 
 Record the Arduino sketch filename, Python filename, serial port, power-supply
 voltage, and power-supply current limit in your module notes.
@@ -193,7 +191,7 @@ Write a short explanation of why the slopes may differ. Your explanation should
 refer to the physical apparatus, not only to the code. Useful ideas include:
 
 - the TEC moves heat in one direction while also producing Joule heat,
-- the heat exchanger rejects heat to the room but is not an infinite heat sink,
+- the heat exchanger transfers heat from the TEC to the room but is not an infinite heat sink,
 - the thermistor measures one location, not the entire thermal system,
 - thermal contact, heat capacity, and room-temperature boundary conditions
   matter.

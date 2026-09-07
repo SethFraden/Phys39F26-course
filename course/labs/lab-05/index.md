@@ -33,8 +33,7 @@ not mastery of all the mathematics.
      why derivative control is sensitive to noise.
    - Skim equations involving Laplace-transform notation. We will translate
      the main ideas into time-domain Arduino/Python models.
-   - The PDF will be provided through Brandeis course materials. Public DOI
-     link: [Feedback for Physicists](https://doi.org/10.1103/RevModPhys.77.783)
+   - Course PDF: [Feedback for Physicists](../../references/bechhoefer-feedback-for-physicists-2005.pdf)
 2. [Wikipedia: PID controller](https://en.wikipedia.org/wiki/PID_controller)
    - Skim for vocabulary and the block diagram.
 3. [NI: PID theory explained](https://www.ni.com/en/shop/labview/pid-theory-explained.html)

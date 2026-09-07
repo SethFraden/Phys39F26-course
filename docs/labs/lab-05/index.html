@@ -138,33 +138,33 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-1-draw-the-feedback-loop" class="nav-link">Part 1: Draw The Feedback Loop</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-1-implement-p-only-control" class="nav-link">Part 1: Implement P-Only Control</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-implement-p-only-control" class="nav-link">Part 2: Implement P-Only Control</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-sign-test-at-low-gain" class="nav-link">Part 2: Sign Test At Low Gain</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-sign-test-at-low-gain" class="nav-link">Part 3: Sign Test At Low Gain</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-measure-droop-versus-gain" class="nav-link">Part 3: Measure Droop Versus Gain</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-4-measure-droop-versus-gain" class="nav-link">Part 4: Measure Droop Versus Gain</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-4-predict-droop-from-module-4" class="nav-link">Part 4: Predict Droop From Module 4</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-5-predict-droop-from-module-4" class="nav-link">Part 5: Predict Droop From Module 4</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-explore-the-high-gain-response" class="nav-link">Part 5: Explore The High-Gain Response</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-6-explore-the-high-gain-response" class="nav-link">Part 6: Explore The High-Gain Response</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-7-interpret-and-preserve-the-results" class="nav-link">Part 7: Interpret And Preserve The Results</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-interpret-and-preserve-the-results" class="nav-link">Part 6: Interpret And Preserve The Results</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="3"><a href="#thermal-capacity-and-the-one-lump-model" class="nav-link">Thermal Capacity And The One-Lump Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#student-derivation-recover-the-droop-equation" class="nav-link">Student Derivation: Recover The Droop Equation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -192,11 +192,11 @@
 <h1 id="module-5-assignment-p-only-temperature-control">Module 5 Assignment: P-Only Temperature Control<a class="headerlink" href="#module-5-assignment-p-only-temperature-control" title="Permanent link">&para;</a></h1>
 <h2 id="module-at-a-glance">Module At A Glance<a class="headerlink" href="#module-at-a-glance" title="Permanent link">&para;</a></h2>
 <p>Module 4 measured the TEC response to manually chosen commands. Module 5 closes
-the feedback loop: Python calculates the proportional control demand</p>
+the feedback loop: Python calculates the signed PWM, <span class="arithmatex">\(u\)</span> [PWM], proportional to the error, <span class="arithmatex">\(e\)</span> [°C], with</p>
 <div class="arithmatex">\[
-e=T_{\mathrm{set}}-T, \qquad u=K_p e.
+e=T_{\mathrm{set}}-T, \qquad u=K_p e
 \]</div>
-<p>The sign of <span class="arithmatex">\(u\)</span> selects heat or cool; its magnitude becomes the nonnegative
+<p>and <span class="arithmatex">\(K_p\)</span> a conversion constant. The sign of <span class="arithmatex">\(u\)</span> selects heat or cool; its magnitude becomes the nonnegative
 8-bit PWM value sent to the Arduino. The Arduino applies the command and retains
 independent shutdown authority. During S9-S10 you will verify the feedback sign,
 measure droop versus gain, explore high-gain behavior, and compare the data with
@@ -247,13 +247,13 @@ amplitude.</p>
 </tr>
 <tr>
 <td><span class="arithmatex">\(u=K_p e\)</span></td>
-<td>Signed control demand calculated by Python</td>
+<td>Signed PWM calculated by Python</td>
 <td>PWM counts</td>
 </tr>
 <tr>
-<td>$P=</td>
-<td>u</td>
-<td>$</td>
+<td><span class="arithmatex">\(P=\lvert u\rvert\)</span></td>
+<td>Nonnegative Arduino PWM magnitude, limited to 0-255</td>
+<td>PWM counts</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(K_p\)</span></td>
@@ -307,17 +307,18 @@ amplitude.</p>
    output?</li>
 <li>What experimental symptoms might indicate that <span class="arithmatex">\(K_p\)</span> is too large?</li>
 </ol>
-<h2 id="part-1-draw-the-feedback-loop">Part 1: Draw The Feedback Loop<a class="headerlink" href="#part-1-draw-the-feedback-loop" title="Permanent link">&para;</a></h2>
-<p>Draw a block diagram with these pieces:</p>
-<pre><code class="language-text">Tset -&gt; error e -&gt; P controller -&gt; signed demand u -&gt; direction + PWM magnitude
-  ^                                                                  |
-  |                                                                  v
-  +---------------- thermistor &lt;- TEC/block &lt;- H-bridge -------------+
-</code></pre>
-<p>Label <span class="arithmatex">\(T_{\mathrm{set}}\)</span>, <span class="arithmatex">\(T\)</span>, <span class="arithmatex">\(e=T_{\mathrm{set}}-T\)</span>, <span class="arithmatex">\(u=K_p e\)</span>,
-<span class="arithmatex">\(P=|u|\)</span>, the heat/cool direction, and the physical system.</p>
-<h2 id="part-2-implement-p-only-control">Part 2: Implement P-Only Control<a class="headerlink" href="#part-2-implement-p-only-control" title="Permanent link">&para;</a></h2>
-<p>Add a P-only mode to your Python GUI. Python calculates the control demand and
+<h2 id="part-1-implement-p-only-control">Part 1: Implement P-Only Control<a class="headerlink" href="#part-1-implement-p-only-control" title="Permanent link">&para;</a></h2>
+<p>The feedback loop you will implement is shown below.</p>
+<p><a href="../../assets/module5_p_feedback_loop.svg"><img alt="P-only temperature-control feedback loop" src="../../assets/module5_p_feedback_loop.svg" /></a></p>
+<p><em>Figure 1. The computer calculates the signed PWM. The Arduino and
+H-bridge apply it to the thermal apparatus, and the thermistor measurement
+closes the loop.</em></p>
+<p>Python subtracts the measured temperature from <span class="arithmatex">\(T_{\mathrm{set}}\)</span>, calculates
+<span class="arithmatex">\(u=K_p e\)</span>, and converts the sign and magnitude of <span class="arithmatex">\(u\)</span> into the heat/cool
+direction and nonnegative PWM magnitude. The Arduino applies those commands to
+the H-bridge, measures the resulting temperature through the thermistor, and
+sends the measurement back to Python to close the loop.</p>
+<p>Add a P-only mode to your Python GUI. Python calculates the signed PWM and
 sends direction and PWM magnitude to the Arduino. The Arduino continues to
 measure temperature, parse commands, drive the H-bridge, and enforce the
 independent software temperature limit developed in Module 4.</p>
@@ -335,7 +336,7 @@ independent software temperature limit developed in Module 4.</p>
 <li>keep plotting temperature, PWM, direction, setpoint, and error.</li>
 </ol>
 <p>Start with a very small gain. Do not tune aggressively at first.</p>
-<h2 id="part-3-sign-test-at-low-gain">Part 3: Sign Test At Low Gain<a class="headerlink" href="#part-3-sign-test-at-low-gain" title="Permanent link">&para;</a></h2>
+<h2 id="part-2-sign-test-at-low-gain">Part 2: Sign Test At Low Gain<a class="headerlink" href="#part-2-sign-test-at-low-gain" title="Permanent link">&para;</a></h2>
 <p>Before trying to regulate temperature:</p>
 <ol>
 <li>Choose a setpoint slightly above room temperature.</li>
@@ -345,7 +346,7 @@ independent software temperature limit developed in Module 4.</p>
 <li>Confirm that negative error produces cooling.</li>
 </ol>
 <p>If the sign is wrong, stop and fix the sign convention before continuing.</p>
-<h2 id="part-4-measure-droop-versus-gain">Part 4: Measure Droop Versus Gain<a class="headerlink" href="#part-4-measure-droop-versus-gain" title="Permanent link">&para;</a></h2>
+<h2 id="part-3-measure-droop-versus-gain">Part 3: Measure Droop Versus Gain<a class="headerlink" href="#part-3-measure-droop-versus-gain" title="Permanent link">&para;</a></h2>
 <p>Choose one setpoint, for example <strong>30 °C</strong>, and use the corresponding Module 4
 temperature susceptibility to select your own gain range. First estimate the
 PWM magnitude required to produce the desired open-loop temperature change:</p>
@@ -353,7 +354,7 @@ PWM magnitude required to produce the desired open-loop temperature change:</p>
 P_{\mathrm{required}}\approx
 \frac{|T_{\mathrm{set}}-T_{\mathrm{amb}}|}{|\chi_T|}.
 \]</div>
-<p>For every candidate gain, predict the initial control demand:</p>
+<p>For every candidate gain, predict the initial PWM magnitude:</p>
 <div class="arithmatex">\[
 P_0=K_p|e_0|,
 \qquad e_0=T_{\mathrm{set}}-T_{\mathrm{amb}}.
@@ -397,7 +398,7 @@ running it.</p>
 <li>Save a strip chart trace.</li>
 </ol>
 <p>Plot droop versus <span class="arithmatex">\(K_p\)</span>.</p>
-<h2 id="part-5-predict-droop-from-module-4">Part 5: Predict Droop From Module 4<a class="headerlink" href="#part-5-predict-droop-from-module-4" title="Permanent link">&para;</a></h2>
+<h2 id="part-4-predict-droop-from-module-4">Part 4: Predict Droop From Module 4<a class="headerlink" href="#part-4-predict-droop-from-module-4" title="Permanent link">&para;</a></h2>
 <p>For a heating setpoint above room temperature, use the heating susceptibility
 <span class="arithmatex">\(\chi_{T,h}&gt;0\)</span> measured in Module 4:</p>
 <div class="arithmatex">\[
@@ -422,7 +423,7 @@ susceptibility and the magnitude of the cooling error in the analogous model.
 Calculate the predicted droop for each tested gain and overlay predicted and
 measured droop on the same graph.</p>
 <p>This model will not be perfect. Its job is to explain the main trend.</p>
-<h2 id="part-6-explore-the-high-gain-response">Part 6: Explore The High-Gain Response<a class="headerlink" href="#part-6-explore-the-high-gain-response" title="Permanent link">&para;</a></h2>
+<h2 id="part-5-explore-the-high-gain-response">Part 5: Explore The High-Gain Response<a class="headerlink" href="#part-5-explore-the-high-gain-response" title="Permanent link">&para;</a></h2>
 <p>Continue through your instructor-approved gain range. Do not assume that the
 apparatus must oscillate. For every retained gain, record the setpoint, mean or
 steady temperature, response shape, PWM behavior, and whether PWM saturates.</p>
@@ -456,7 +457,7 @@ differs from the low-gain response.</p>
 </table>
 <p>Do not let oscillations grow without supervision. Stop control and set PWM to
 zero if the run becomes unsafe.</p>
-<h2 id="part-7-interpret-and-preserve-the-results">Part 7: Interpret And Preserve The Results<a class="headerlink" href="#part-7-interpret-and-preserve-the-results" title="Permanent link">&para;</a></h2>
+<h2 id="part-6-interpret-and-preserve-the-results">Part 6: Interpret And Preserve The Results<a class="headerlink" href="#part-6-interpret-and-preserve-the-results" title="Permanent link">&para;</a></h2>
 <h3 id="thermal-capacity-and-the-one-lump-model">Thermal Capacity And The One-Lump Model<a class="headerlink" href="#thermal-capacity-and-the-one-lump-model" title="Permanent link">&para;</a></h3>
 <p>To describe time dependence, first treat the TEC, block, and thermistor as one
 object at one uniform temperature <span class="arithmatex">\(T\)</span>. Its thermal capacity is</p>
@@ -465,20 +466,59 @@ C=\frac{dU}{dT}\approx mc_p,
 \]</div>
 <p>where <span class="arithmatex">\(U\)</span> is stored thermal energy. The units of <span class="arithmatex">\(C\)</span> are J/°C (equivalently
 J/K): it is the energy needed to raise the lump's temperature by one degree.
-The simplest energy balance is</p>
+For P-only control, the one-lump energy balance is</p>
 <div class="arithmatex">\[
-C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+C\frac{dT}{dt}
+=P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 \]</div>
 <p>The left side is the rate of stored-energy change. The first term on the right
 is TEC heating or cooling, where <span class="arithmatex">\(P_u\)</span> has units W/PWM count, and the second is
 heat transfer to the room, where <span class="arithmatex">\(H\)</span> has units W/°C. Every term has units of
 watts. The model assumes one uniform temperature, linear heat loss,
 instantaneous measurement and actuation, and no saturation.</p>
+<p>The coefficient <span class="arithmatex">\(P_u\)</span> describes the strength of the TEC actuator in the
+operating range being modeled. It is the change in thermal power delivered to
+the lump per signed PWM count, with units W/PWM count. Thus, <span class="arithmatex">\(P_u\)</span> is not itself
+a power: <span class="arithmatex">\(P_uK_p(T_{\mathrm{set}}-T)\)</span> is the signed TEC heat-transfer rate in
+watts. With our convention, a positive temperature error adds heat to the lump
+and a negative temperature error removes heat from it. Treating <span class="arithmatex">\(P_u\)</span> as
+constant is an approximation that is most reasonable over a limited PWM and
+temperature range.</p>
+<p>The coefficient <span class="arithmatex">\(H\)</span> is the lump's total passive thermal conductance to its
+surroundings, with units W/°C or W/K. It combines all modeled paths by which the
+lump exchanges heat with the room. When <span class="arithmatex">\(T&gt;T_{\mathrm{amb}}\)</span>, the quantity
+<span class="arithmatex">\(H(T-T_{\mathrm{amb}})\)</span> is positive and heat leaves the lump. When
+<span class="arithmatex">\(T&lt;T_{\mathrm{amb}}\)</span>, it is negative, so the minus sign in the energy balance
+makes the room transfer heat into the colder lump. A larger <span class="arithmatex">\(H\)</span> means a
+stronger pull toward room temperature; its reciprocal <span class="arithmatex">\(1/H\)</span> is the thermal
+resistance, with units °C/W or K/W.</p>
+<h3 id="student-derivation-recover-the-droop-equation">Student Derivation: Recover The Droop Equation<a class="headerlink" href="#student-derivation-recover-the-droop-equation" title="Permanent link">&para;</a></h3>
+<p>Show that the dynamic one-lump model predicts the same steady-state droop as
+the experimental susceptibility model in Part 4. Work through these steps in
+your notes:</p>
+<ol>
+<li>At steady state, set <span class="arithmatex">\(dT/dt=0\)</span>.</li>
+<li>Starting from the expanded P-only equation above, collect the terms that
+   contain <span class="arithmatex">\(T\)</span>.</li>
+<li>Solve algebraically for the droop <span class="arithmatex">\(T_{\mathrm{set}}-T\)</span>.</li>
+<li>Compare your result with the Part 4 equation and identify the relationship
+   among <span class="arithmatex">\(\chi_T\)</span>, <span class="arithmatex">\(P_u\)</span>, and <span class="arithmatex">\(H\)</span>.</li>
+<li>Check the units of that relationship.</li>
+<li>Explain physically why the thermal capacity <span class="arithmatex">\(C\)</span> affects the transient
+   response but does not appear in the steady-state droop.</li>
+<li>State which assumptions must hold for the two droop predictions to agree.</li>
+</ol>
+<p>Preserve this derivation for A3. It should make clear how the measured
+susceptibility in Part 4 is connected to the heat-transfer parameters in the
+one-lump model.</p>
 <h3 id="first-order-expectation">First-Order Expectation<a class="headerlink" href="#first-order-expectation" title="Permanent link">&para;</a></h3>
-<p>The algebraic model predicts droop but says nothing about time dependence. For
-the one-lump model developed fully in <a href="../lab-06/">Module 6</a>, define
-<span class="arithmatex">\(\theta=T-T_{\mathrm{eq}}\)</span>. Under P-only control its deviation from equilibrium
-obeys</p>
+<p>The algebraic model predicts droop but says nothing about time dependence. Let
+<span class="arithmatex">\(T_{\mathrm{ss}}\)</span> denote the steady-state temperature predicted for the chosen
+<span class="arithmatex">\(T_{\mathrm{set}}\)</span>, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>. It is found by setting
+<span class="arithmatex">\(dT/dt=0\)</span> in the one-lump equation and generally differs from the setpoint
+because of droop. For the one-lump model developed fully in
+<a href="../lab-06/">Module 6</a>, define the deviation from steady state as
+<span class="arithmatex">\(\theta=T-T_{\mathrm{ss}}\)</span>. Under P-only control, this deviation obeys</p>
 <div class="arithmatex">\[
 \frac{d\theta}{dt}=-\frac{\theta}{\tau_{\mathrm{cl}}},
 \]</div>
@@ -486,7 +526,7 @@ obeys</p>
 <div class="arithmatex">\[
 \theta(t)=\theta(0)e^{-t/\tau_{\mathrm{cl}}}.
 \]</div>
-<p>This response approaches equilibrium exponentially and cannot sustain an
+<p>This response approaches the steady state exponentially and cannot sustain an
 oscillation. If the apparatus oscillates, the one-lump model is missing
 important physics or implementation details. Discuss plausible causes such as
 thermal delay between the TEC and thermistor, another thermal mass, discrete
@@ -496,10 +536,11 @@ sampling, sensor noise, or PWM saturation.</p>
 <a href="../lab-06/#a3-feedback-data-and-lumped-model-memo"><code>A3</code> feedback-and-model memo</a>
 and the C4 demonstration. During S9-S10, preserve:</p>
 <ul>
-<li>the feedback-loop diagram and low-gain sign test,</li>
+<li>the low-gain feedback sign test,</li>
 <li>the chosen gain range and the calculation used to justify it,</li>
 <li>dimensional droop and high-gain response tables,</li>
 <li>measured and predicted droop on one graph,</li>
+<li>the derivation connecting the Part 4 droop equation to the one-lump model of Part 6,</li>
 <li>representative low- and high-gain strip-chart traces,</li>
 <li>the exact Python controller, Arduino sketch, and raw-data filenames, and</li>
 <li>a brief explanation of droop and of why oscillations did or did not appear.</li>

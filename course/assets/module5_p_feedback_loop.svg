@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="690" viewBox="0 0 1500 690">
+  <title>Proportional temperature-control feedback loop</title>
+  <desc>The temperature setpoint is compared with the measured temperature. Python applies proportional control and maps the signed PWM into direction and PWM magnitude. The Arduino commands the H-bridge, which drives the TEC and thermal block. A thermistor and Arduino measurement return the measured temperature to the comparator.</desc>
+
+  <rect x="0" y="0" width="1500" height="690" fill="#ffffff"/>
+
+  <text x="750" y="52" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#17233c">P-only temperature-control loop</text>
+  <text x="750" y="84" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#4b5563">Commands travel across the top; the measured temperature returns along the bottom.</text>
+
+  <!-- Setpoint -->
+  <rect x="35" y="205" width="155" height="96" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="3"/>
+  <text x="112" y="238" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#17233c">Setpoint</text>
+  <text x="112" y="275" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-style="italic" fill="#17233c">T<tspan baseline-shift="sub" font-size="17">set</tspan></text>
+
+  <!-- Comparator -->
+  <circle cx="260" cy="253" r="43" fill="#ffffff" stroke="#17233c" stroke-width="4"/>
+  <text x="251" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#17233c">+</text>
+  <text x="269" y="276" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#b42318">−</text>
+  <text x="260" y="184" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4b5563">COMPARE</text>
+
+  <!-- Python controller -->
+  <rect x="355" y="180" width="220" height="146" rx="6" fill="#2457a6" stroke="#173b73" stroke-width="3"/>
+  <text x="465" y="216" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Python P controller</text>
+  <text x="465" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-style="italic" fill="#ffffff">u = K<tspan baseline-shift="sub" font-size="16">p</tspan> e</text>
+  <text x="465" y="298" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#dce9ff">signed PWM</text>
+
+  <!-- Command mapping -->
+  <rect x="635" y="180" width="235" height="146" rx="6" fill="#6b4fa1" stroke="#4c3677" stroke-width="3"/>
+  <text x="752" y="216" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Command mapping</text>
+  <text x="752" y="255" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#ffffff">sign(u) → heat / cool</text>
+  <text x="752" y="290" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#ffffff">|u| → PWM 0–255</text>
+
+  <!-- Arduino -->
+  <rect x="930" y="180" width="175" height="146" rx="6" fill="#087f8c" stroke="#075c66" stroke-width="3"/>
+  <text x="1017" y="221" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#ffffff">Arduino</text>
+  <text x="1017" y="257" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#e1fbfd">direction pins</text>
+  <text x="1017" y="286" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#e1fbfd">PWM outputs</text>
+
+  <!-- H-bridge -->
+  <rect x="1165" y="180" width="145" height="146" rx="6" fill="#d97706" stroke="#9a4f05" stroke-width="3"/>
+  <text x="1237" y="239" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#ffffff">H-bridge</text>
+  <text x="1237" y="275" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#fff4df">power driver</text>
+
+  <!-- TEC plant -->
+  <rect x="1365" y="180" width="110" height="146" rx="6" fill="#b53b3b" stroke="#7f2525" stroke-width="3"/>
+  <rect x="1365" y="253" width="110" height="73" rx="0" fill="#3976b8"/>
+  <text x="1420" y="222" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff">TEC</text>
+  <text x="1420" y="246" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#ffffff">+ block</text>
+  <text x="1420" y="285" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#ffffff">thermal</text>
+  <text x="1420" y="307" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#ffffff">process</text>
+
+  <!-- Forward arrows -->
+  <line x1="190" y1="253" x2="211" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="211,245 227,253 211,261" fill="#17233c"/>
+
+  <line x1="303" y1="253" x2="335" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="335,245 351,253 335,261" fill="#17233c"/>
+  <text x="327" y="229" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-style="italic" fill="#17233c">e</text>
+
+  <line x1="575" y1="253" x2="615" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="615,245 631,253 615,261" fill="#17233c"/>
+  <text x="603" y="229" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-style="italic" fill="#17233c">u</text>
+
+  <line x1="870" y1="253" x2="910" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="910,245 926,253 910,261" fill="#17233c"/>
+  <text x="900" y="218" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#4b5563">USB serial</text>
+
+  <line x1="1105" y1="253" x2="1145" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="1145,245 1161,253 1145,261" fill="#17233c"/>
+
+  <line x1="1310" y1="253" x2="1345" y2="253" stroke="#17233c" stroke-width="4"/>
+  <polygon points="1345,245 1361,253 1345,261" fill="#17233c"/>
+
+  <!-- Temperature output and sensor -->
+  <line x1="1400" y1="326" x2="1400" y2="481" stroke="#17233c" stroke-width="4"/>
+  <line x1="1400" y1="481" x2="1045" y2="481" stroke="#17233c" stroke-width="4"/>
+  <polygon points="1045,473 1029,481 1045,489" fill="#17233c"/>
+  <text x="1378" y="462" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="21" font-style="italic" fill="#17233c">T</text>
+
+  <rect x="715" y="420" width="310" height="122" rx="6" fill="#26836a" stroke="#17624f" stroke-width="3"/>
+  <text x="870" y="458" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#ffffff">Temperature measurement</text>
+  <text x="870" y="491" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#e5fff7">thermistor divider → Arduino ADC</text>
+  <text x="870" y="520" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#e5fff7">averaging and conversion to °C</text>
+
+  <!-- Feedback return -->
+  <line x1="715" y1="481" x2="260" y2="481" stroke="#2457a6" stroke-width="5"/>
+  <line x1="260" y1="481" x2="260" y2="316" stroke="#2457a6" stroke-width="5"/>
+  <polygon points="252,316 260,300 268,316" fill="#2457a6"/>
+  <text x="487" y="512" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#2457a6">
+    <tspan x="487" dy="0">measured temperature T</tspan>
+    <tspan x="487" dy="24">returned to Python by USB serial</tspan>
+  </text>
+
+  <!-- Ambient disturbance -->
+  <rect x="1225" y="520" width="250" height="58" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="1350" y="555" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#374151">surroundings at T<tspan baseline-shift="sub" font-size="13">amb</tspan></text>
+  <line x1="1460" y1="346" x2="1460" y2="504" stroke="#6b7280" stroke-width="3" stroke-dasharray="9 7"/>
+  <polygon points="1452,346 1460,330 1468,346" fill="#6b7280"/>
+  <polygon points="1452,504 1460,520 1468,504" fill="#6b7280"/>
+  <text x="1438" y="493" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#6b7280">passive heat exchange</text>
+
+  <!-- Region labels -->
+  <line x1="355" y1="130" x2="870" y2="130" stroke="#9ca3af" stroke-width="2"/>
+  <text x="612" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#6b7280">COMPUTER</text>
+  <line x1="930" y1="130" x2="1475" y2="130" stroke="#9ca3af" stroke-width="2"/>
+  <text x="1202" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#6b7280">PHYSICAL APPARATUS</text>
+</svg>

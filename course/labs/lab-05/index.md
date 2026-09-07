@@ -3,13 +3,13 @@
 ## Module At A Glance
 
 Module 4 measured the TEC response to manually chosen commands. Module 5 closes
-the feedback loop: Python calculates the proportional control demand
+the feedback loop: Python calculates the signed PWM, $u$ [PWM], proportional to the error, $e$ [°C], with
 
 \[
-e=T_{\mathrm{set}}-T, \qquad u=K_p e.
+e=T_{\mathrm{set}}-T, \qquad u=K_p e
 \]
 
-The sign of $u$ selects heat or cool; its magnitude becomes the nonnegative
+and $K_p$ a conversion constant. The sign of $u$ selects heat or cool; its magnitude becomes the nonnegative
 8-bit PWM value sent to the Arduino. The Arduino applies the command and retains
 independent shutdown authority. During S9-S10 you will verify the feedback sign,
 measure droop versus gain, explore high-gain behavior, and compare the data with
@@ -48,8 +48,8 @@ amplitude.
 | --- | --- | --- |
 | $T_{\mathrm{set}}$ | Desired temperature | °C |
 | $e=T_{\mathrm{set}}-T$ | Temperature error; steady nonzero error is **droop** | °C |
-| $u=K_p e$ | Signed control demand calculated by Python | PWM counts |
-| $P=|u|$ | Nonnegative Arduino PWM magnitude, limited to 0-255 | PWM counts |
+| $u=K_p e$ | Signed PWM calculated by Python | PWM counts |
+| $P=\lvert u\rvert$ | Nonnegative Arduino PWM magnitude, limited to 0-255 | PWM counts |
 | $K_p$ | Proportional gain | PWM counts/°C |
 
 **Saturation** occurs when the requested PWM exceeds its allowed range.
@@ -84,23 +84,23 @@ Optional background reading is not included in the required workload budget.
    output?
 4. What experimental symptoms might indicate that $K_p$ is too large?
 
-## Part 1: Draw The Feedback Loop
+## Part 1: Implement P-Only Control
 
-Draw a block diagram with these pieces:
+The feedback loop you will implement is shown below.
 
-```text
-Tset -> error e -> P controller -> signed demand u -> direction + PWM magnitude
-  ^                                                                  |
-  |                                                                  v
-  +---------------- thermistor <- TEC/block <- H-bridge -------------+
-```
+[![P-only temperature-control feedback loop](../../assets/module5_p_feedback_loop.svg)](../../assets/module5_p_feedback_loop.svg)
 
-Label $T_{\mathrm{set}}$, $T$, $e=T_{\mathrm{set}}-T$, $u=K_p e$,
-$P=|u|$, the heat/cool direction, and the physical system.
+*Figure 1. The computer calculates the signed PWM. The Arduino and
+H-bridge apply it to the thermal apparatus, and the thermistor measurement
+closes the loop.*
 
-## Part 2: Implement P-Only Control
+Python subtracts the measured temperature from $T_{\mathrm{set}}$, calculates
+$u=K_p e$, and converts the sign and magnitude of $u$ into the heat/cool
+direction and nonnegative PWM magnitude. The Arduino applies those commands to
+the H-bridge, measures the resulting temperature through the thermistor, and
+sends the measurement back to Python to close the loop.
 
-Add a P-only mode to your Python GUI. Python calculates the control demand and
+Add a P-only mode to your Python GUI. Python calculates the signed PWM and
 sends direction and PWM magnitude to the Arduino. The Arduino continues to
 measure temperature, parse commands, drive the H-bridge, and enforce the
 independent software temperature limit developed in Module 4.
@@ -120,7 +120,7 @@ The controller should:
 
 Start with a very small gain. Do not tune aggressively at first.
 
-## Part 3: Sign Test At Low Gain
+## Part 2: Sign Test At Low Gain
 
 Before trying to regulate temperature:
 
@@ -132,7 +132,7 @@ Before trying to regulate temperature:
 
 If the sign is wrong, stop and fix the sign convention before continuing.
 
-## Part 4: Measure Droop Versus Gain
+## Part 3: Measure Droop Versus Gain
 
 Choose one setpoint, for example **30 °C**, and use the corresponding Module 4
 temperature susceptibility to select your own gain range. First estimate the
@@ -143,7 +143,7 @@ P_{\mathrm{required}}\approx
 \frac{|T_{\mathrm{set}}-T_{\mathrm{amb}}|}{|\chi_T|}.
 \]
 
-For every candidate gain, predict the initial control demand:
+For every candidate gain, predict the initial PWM magnitude:
 
 \[
 P_0=K_p|e_0|,
@@ -172,7 +172,7 @@ For each gain:
 
 Plot droop versus $K_p$.
 
-## Part 5: Predict Droop From Module 4
+## Part 4: Predict Droop From Module 4
 
 For a heating setpoint above room temperature, use the heating susceptibility
 $\chi_{T,h}>0$ measured in Module 4:
@@ -206,7 +206,7 @@ measured droop on the same graph.
 
 This model will not be perfect. Its job is to explain the main trend.
 
-## Part 6: Explore The High-Gain Response
+## Part 5: Explore The High-Gain Response
 
 Continue through your instructor-approved gain range. Do not assume that the
 apparatus must oscillate. For every retained gain, record the setpoint, mean or
@@ -224,7 +224,7 @@ differs from the low-gain response.
 Do not let oscillations grow without supervision. Stop control and set PWM to
 zero if the run becomes unsafe.
 
-## Part 7: Interpret And Preserve The Results
+## Part 6: Interpret And Preserve The Results
 
 ### Thermal Capacity And The One-Lump Model
 
@@ -237,10 +237,11 @@ $$
 
 where $U$ is stored thermal energy. The units of $C$ are J/°C (equivalently
 J/K): it is the energy needed to raise the lump's temperature by one degree.
-The simplest energy balance is
+For P-only control, the one-lump energy balance is
 
 $$
-C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+C\frac{dT}{dt}
+=P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 $$
 
 The left side is the rate of stored-energy change. The first term on the right
@@ -249,12 +250,54 @@ heat transfer to the room, where $H$ has units W/°C. Every term has units of
 watts. The model assumes one uniform temperature, linear heat loss,
 instantaneous measurement and actuation, and no saturation.
 
+The coefficient $P_u$ describes the strength of the TEC actuator in the
+operating range being modeled. It is the change in thermal power delivered to
+the lump per signed PWM count, with units W/PWM count. Thus, $P_u$ is not itself
+a power: $P_uK_p(T_{\mathrm{set}}-T)$ is the signed TEC heat-transfer rate in
+watts. With our convention, a positive temperature error adds heat to the lump
+and a negative temperature error removes heat from it. Treating $P_u$ as
+constant is an approximation that is most reasonable over a limited PWM and
+temperature range.
+
+The coefficient $H$ is the lump's total passive thermal conductance to its
+surroundings, with units W/°C or W/K. It combines all modeled paths by which the
+lump exchanges heat with the room. When $T>T_{\mathrm{amb}}$, the quantity
+$H(T-T_{\mathrm{amb}})$ is positive and heat leaves the lump. When
+$T<T_{\mathrm{amb}}$, it is negative, so the minus sign in the energy balance
+makes the room transfer heat into the colder lump. A larger $H$ means a
+stronger pull toward room temperature; its reciprocal $1/H$ is the thermal
+resistance, with units °C/W or K/W.
+
+### Student Derivation: Recover The Droop Equation
+
+Show that the dynamic one-lump model predicts the same steady-state droop as
+the experimental susceptibility model in Part 4. Work through these steps in
+your notes:
+
+1. At steady state, set $dT/dt=0$.
+2. Starting from the expanded P-only equation above, collect the terms that
+   contain $T$.
+3. Solve algebraically for the droop $T_{\mathrm{set}}-T$.
+4. Compare your result with the Part 4 equation and identify the relationship
+   among $\chi_T$, $P_u$, and $H$.
+5. Check the units of that relationship.
+6. Explain physically why the thermal capacity $C$ affects the transient
+   response but does not appear in the steady-state droop.
+7. State which assumptions must hold for the two droop predictions to agree.
+
+Preserve this derivation for A3. It should make clear how the measured
+susceptibility in Part 4 is connected to the heat-transfer parameters in the
+one-lump model.
+
 ### First-Order Expectation
 
-The algebraic model predicts droop but says nothing about time dependence. For
-the one-lump model developed fully in [Module 6](../lab-06/index.md), define
-$\theta=T-T_{\mathrm{eq}}$. Under P-only control its deviation from equilibrium
-obeys
+The algebraic model predicts droop but says nothing about time dependence. Let
+$T_{\mathrm{ss}}$ denote the steady-state temperature predicted for the chosen
+$T_{\mathrm{set}}$, $K_p$, and $T_{\mathrm{amb}}$. It is found by setting
+$dT/dt=0$ in the one-lump equation and generally differs from the setpoint
+because of droop. For the one-lump model developed fully in
+[Module 6](../lab-06/index.md), define the deviation from steady state as
+$\theta=T-T_{\mathrm{ss}}$. Under P-only control, this deviation obeys
 
 $$
 \frac{d\theta}{dt}=-\frac{\theta}{\tau_{\mathrm{cl}}},
@@ -266,7 +309,7 @@ $$
 \theta(t)=\theta(0)e^{-t/\tau_{\mathrm{cl}}}.
 $$
 
-This response approaches equilibrium exponentially and cannot sustain an
+This response approaches the steady state exponentially and cannot sustain an
 oscillation. If the apparatus oscillates, the one-lump model is missing
 important physics or implementation details. Discuss plausible causes such as
 thermal delay between the TEC and thermistor, another thermal mass, discrete
@@ -278,10 +321,11 @@ Module 5 requires no separate paper. Its results support the later
 [`A3` feedback-and-model memo](../lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
 and the C4 demonstration. During S9-S10, preserve:
 
-- the feedback-loop diagram and low-gain sign test,
+- the low-gain feedback sign test,
 - the chosen gain range and the calculation used to justify it,
 - dimensional droop and high-gain response tables,
 - measured and predicted droop on one graph,
+- the derivation connecting the Part 4 droop equation to the one-lump model of Part 6,
 - representative low- and high-gain strip-chart traces,
 - the exact Python controller, Arduino sketch, and raw-data filenames, and
 - a brief explanation of droop and of why oscillations did or did not appear.

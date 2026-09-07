@@ -1,6 +1,6 @@
 # Module 4 Assignment: Open-Loop TEC Calibration And Software Safety
 
-## Purpose
+## Module At A Glance
 
 Module 4 turns the manually controlled TEC from Module 3 into a measured process. You
 will hold the TEC at several PWM settings, wait for the temperature to settle,
@@ -15,33 +15,6 @@ This is still open-loop control. You are not asking the Arduino or Python to
 hit a target temperature automatically. You are measuring how the physical
 system responds to commands.
 
-## Theme
-
-**Open-Loop TEC Calibration And Software Safety**
-
-Steady-state temperature versus PWM, heating/cooling asymmetry, and a
-temperature-limit interlock in Arduino code.
-
-## Safety Boundary
-
-Before collecting data:
-
-1. The Module 3 pre-power checklist is complete.
-2. The H-bridge outputs have been checked with TEC power off.
-3. PWM starts at zero.
-4. The power supply current limit is set by the instructor.
-5. The Python display is showing plausible temperature values.
-6. The hardware thermal switch has been identified.
-7. Every high-current lead is 18 AWG stranded copper wire.
-8. Female spade connectors have been crimped onto both thermal-switch wires,
-   tug-tested, and checked for continuity.
-9. The instructor has inspected the complete TEC and thermal-switch current
-   path before actuator power is enabled.
-
-During this module, keep the measured temperature between **10 °C and 45 °C**. Stop
-the run if the temperature moves unexpectedly, the display freezes, the power
-supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
-
 ## Before Class
 
 1. Review your Module 3 Arduino sketch and Python GUI.
@@ -55,7 +28,7 @@ supply current rises unexpectedly, or the TEC/driver becomes hot to the touch.
 | Work | Planned time |
 | --- | ---: |
 | Read this assignment and review the safety boundary | 30 minutes |
-| Prepare the signed-PWM table, steady-state criterion, and data-file plan | 45 minutes |
+| Prepare the direction/PWM table, steady-state criterion, and data-file plan | 45 minutes |
 | Analyze the in-class runs and make the required graph | 120 minutes |
 | Write, check, commit, push, and submit A2 | 60 minutes |
 | **Total outside class associated with S8** | **3 hours 15 minutes** |
@@ -73,27 +46,14 @@ rather than exceeding the four-hour outside-class limit.
 4. Why is a software temperature limit useful even when a hardware thermal
    switch is present?
 
-## What You Will Do
-
-- Verify the TEC and thermal-switch high-current path from Module 3 before collecting
-  calibration data.
-- Use your Module 3 Python GUI and Arduino sketch to command the TEC manually.
-- Measure steady-state temperature for several heating PWM values.
-- Measure steady-state temperature for several cooling PWM values.
-- Plot steady-state temperature versus PWM.
-- Estimate the temperature susceptibility, $dT/d$PWM, for heating and cooling.
-- Explain the asymmetry between heating and cooling.
-- Add Arduino code that disables PWM if temperature exceeds 60 °C.
-- Verify the safety logic without intentionally overheating the apparatus.
-
-## Part 1: Prepare The Instrument
+## Part 1: Prepare The Instrument And Add The Safety Interlock
 
 Start from your working Module 3 setup.
 
-### Verify The TEC And Thermal-Switch Current Path
+### Safety And Startup Checklist
 
-This current path was built in Module 3. The actuator power supply must be turned
-off and disconnected while you inspect it before calibration.
+Start with the actuator power supply turned off and disconnected. This current
+path was built in Module 3, but it must be inspected before calibration.
 
 1. Confirm that 18 AWG stranded copper wire is used for every high-current
    connection:
@@ -105,38 +65,76 @@ off and disconnected while you inspect it before calibration.
 3. Confirm that the thermal switch remains in series with the TEC current path
    so opening the switch interrupts TEC current independently of the Arduino
    software.
-4. Draw the complete high-current path in your notebook and ask the instructor
+4. Confirm that the H-bridge outputs were checked with TEC power off in Module 3.
+5. Upload the Arduino sketch that receives PWM and heat/cool commands from
+   Python, start the Python GUI, and confirm that PWM begins at `0`.
+6. Confirm that the displayed temperature is plausible.
+7. Draw the complete high-current path in your notebook and ask the instructor
    to inspect the wire gauge, polarity, spade connections, thermal-switch
    placement, and power-supply current limit.
 
 Do not enable actuator power until the instructor approves the completed
 wiring.
 
-### Start The Instrument
+During this module, keep the measured temperature between **10 °C and 45 °C**.
+Stop the run if the temperature moves unexpectedly, the display freezes, the
+power-supply current rises unexpectedly, or the TEC or H-bridge becomes hot to
+the touch.
 
-Continue using the measurement sequence from Module 2: average between 100 and 1000 raw
-thermistor-voltage measurements before calculating each temperature. This
-applies to the displayed temperature, recorded data, and software safety check.
+### Add And Verify The Software Temperature Limit
 
-1. Upload the Arduino sketch that receives PWM and heat/cool commands from
-   Python.
-2. Start the Python GUI.
-3. Confirm that PWM begins at `0`.
-4. Confirm that the measured temperature is plausible by observing the stripchart of temperature while you vary PWM and heat/cool.
+Continue using the measurement sequence from Module 2: average between 100 and
+1000 raw thermistor-voltage measurements before calculating each temperature.
+This applies to the displayed temperature, recorded data, and software safety
+check.
 
+Before collecting calibration data, modify the Arduino sketch so that it
+disables TEC PWM if the measured temperature exceeds **60 °C**. The hardware
+thermal switch opens near 70 °C and remains the independent final protection.
+
+Your code should:
+
+- define a named constant for the software temperature limit,
+- check the averaged temperature every loop,
+- set both H-bridge PWM outputs to zero when the limit is exceeded,
+- continue printing serial data so the Python GUI shows what happened, and
+- report clearly in the serial output when the safety shutdown is active.
+
+Do not intentionally heat the apparatus to 60 °C. With TEC power off, temporarily
+set the software limit just below the measured room temperature and verify that
+the shutdown activates and both PWM outputs are set to zero. Then restore the
+limit to 60 °C and show the result to the instructor.
+
+### Start The TEC
+
+After the wiring and software interlock are approved:
+
+1. Confirm again that PWM begins at `0` and the temperature is plausible.
+2. Enable the power supply using the instructor-approved voltage and current
+   limit.
+3. At low PWM, test both heat and cool and confirm that the temperature responds
+   plausibly. In the strip chart, the PWM trace should be red during heating and
+   blue during cooling.
 
 Record the Arduino sketch filename, Python filename, serial port, power-supply
 voltage, and power-supply current limit in your module notes.
 
-## Part 2: Choose PWM Values
+## Part 2: Choose Direction And PWM Values
 
-Choose  five PWM values for heating and  five PWM
-values for cooling. Include PWM `0`.
+The Arduino treats **PWM as an 8-bit nonnegative magnitude** and uses a separate
+**1-bit heat/cool value** to select direction. Record both quantities for every
+measurement. The Python strip chart communicates the heat/cool bit visually by
+drawing the PWM trace red for heat and blue for cool.
 
-The exact values will depend on the apparatus, but the goal is to span a useful
-range while keeping the temperature between **10 °C and 45 °C**.
+Begin with a cautious exploratory sweep in each direction. Start at low PWM and
+increase it gradually while watching the temperature and power-supply current.
+Identify a maximum useful PWM magnitude for heating and another for cooling.
+The maxima may differ. They should span a useful temperature range without
+driving the apparatus outside **10 °C to 45 °C**.
 
-Start by establishing the PWM value to reach the two temperature limits. If PWM(10C) is the PWM value to reach 10C in steady state, then the five values are PWM(10C), 0.75 PWM(10C), 0.5 PWM(10C), 0.25 PWM(10C), 0.
+For each direction, use five PWM magnitudes: `0`, approximately 25%, 50%, and
+75% of that direction's maximum useful PWM, and the maximum useful PWM itself.
+Record the exact integer values that you actually use.
 
 ## Part 3: Measure Steady-State Temperature
 
@@ -148,7 +146,6 @@ For each PWM value:
 4. Wait until the temperature changes slowly enough to call it steady for this
    module.
 5. Record the steady-state temperature.
-6. Return PWM to zero before switching direction or choosing a much larger PWM.
 
 Use a table like this:
 
@@ -164,17 +161,27 @@ cooling.
 
 ## Part 4: Plot Temperature Versus PWM
 
-Make a graph of steady-state temperature $T$ versus PWM.
+Make a graph of steady-state temperature $T$ versus PWM magnitude. Plot the
+heating and cooling measurements as separate data sets: use red for heating and
+blue for cooling, matching the color convention in the strip chart.
 
 You may use Python, a spreadsheet, or another tool. The graph should show:
 
-- heating data,
-- cooling data,
+- red heating data,
+- blue cooling data,
 - labeled axes,
 - units for temperature,
 - a caption or short note explaining how steady state was chosen.
 
-Estimate $dT/d$PWM for heating and cooling. A simple estimate is:
+For each direction, estimate the **temperature susceptibility**
+
+\[
+\chi_T = \frac{dT}{d(\mathrm{PWM})}.
+\]
+
+It tells you how much the steady-state temperature changes for one PWM count
+while the heat/cool direction is held fixed. Its units are **°C per PWM count**.
+A simple estimate is:
 
 ```text
 dT/dPWM = change in steady-state temperature / change in PWM
@@ -185,7 +192,7 @@ or approximate measure of open-loop response.
 
 ## Part 5: Explain Heating/Cooling Asymmetry
 
-Compare the magnitude of $dT/d$PWM for heating and cooling.
+Compare the magnitude of $\chi_T$ for heating and cooling.
 
 Write a short explanation of why the slopes may differ. Your explanation should
 refer to the physical apparatus, not only to the code. Useful ideas include:
@@ -196,91 +203,11 @@ refer to the physical apparatus, not only to the code. Useful ideas include:
 - thermal contact, heat capacity, and room-temperature boundary conditions
   matter.
 
-## Part 6: Add A Software Temperature Limit
+## Part 6: Assemble And Submit A2
 
-Modify the Arduino sketch so that it disables TEC PWM if the measured
-temperature exceeds **60 °C**.
-
-The hardware thermal switch opens near 70 °C. That hardware switch protects the
-apparatus even if software fails, but your Arduino code should act first.
-
-Your code should:
-
-- calculate each measured temperature only after averaging between 100 and
-  1000 raw thermistor-voltage measurements,
-- define a named constant for the software limit,
-- check the measured temperature every loop,
-- set both H-bridge PWM outputs to zero when the limit is exceeded,
-- keep printing serial data so the Python GUI shows what happened,
-- make it obvious in the serial output that the safety limit is active.
-
-Do not test this by intentionally heating the apparatus to 60 °C. Instead, ask
-the instructor how to verify the logic safely. For example, you may temporarily
-lower the software limit to a temperature just above room temperature, confirm
-that PWM shuts off, and then restore the 60 °C limit.
-
-## Part 7: AI Prompt For The Safety Edit
-
-You may ask an AI coding assistant for help, but test and understand the result.
-A useful prompt is:
-
-```text
-I have an Arduino sketch for a TEC temperature-control lab. The sketch measures
-temperature from a thermistor, receives PWM and heat/cool commands from a Python
-GUI, and drives an H-bridge with PWM on pins 9 and 10.
-
-Modify the sketch to add a software temperature safety limit.
-
-Requirements:
-- Preserve the existing temperature acquisition sequence: average between 100
-  and 1000 raw thermistor-voltage measurements before calculating temperature.
-- Define a named constant called temperatureLimitC with value 60.0.
-- If measured temperature is greater than temperatureLimitC, set commanded PWM
-  to 0 and write 0 to both H-bridge PWM outputs.
-- Keep printing serial output so the Python GUI continues to update.
-- Add a field to the serial output that says whether safety shutdown is active.
-- Do not remove the existing temperature measurement or serial command parser.
-- Keep the code simple and explain the new safety logic in comments.
-```
-
-After using AI, identify exactly which lines were changed and explain how the
-safety limit works.
-
-## Part 8: GitHub Checkpoint
-
-Commit your work when the module is complete.
-
-```bash
-git status
-git add README.md arduino python docs data
-git commit -m "Measure open-loop TEC response and add safety limit"
-git push
-```
-
-Do not commit duplicate drafts or large accidental data files. Your repository
-should make it clear which Arduino sketch and Python program were used for this
-module.
-
-## Collect Open-Loop Evidence During Class
-
-Complete the open-loop runs and safety tests during S7-S8. Before shutting down
-or changing the apparatus, save:
-
-- the final high-current wiring diagram and safety settings,
-- the complete signed-PWM table, including the steady-state criterion,
-- raw time-series data for every retained point,
-- one labeled heating trace and one labeled cooling trace,
-- the steady temperature-versus-signed-PWM figure,
-- the exact Arduino and Python versions used, and
-- evidence that the software limit sets both H-bridge outputs to zero while
-  serial reporting continues.
-
-Use `docs/module_notes/module_04_open_loop_tec.md` for the formative note,
-`data/module_04/` for raw data, and `docs/figures/module_04/` for figures. Fill
-the data table and write short observations while each run is fresh. The
-post-class work should be assembly and interpretation, not another experiment.
-
-## What To Submit
+Complete all physical runs and safety tests during S7-S8. Fill the data table
+and write short observations while each run is fresh. Before shutting down or
+changing the apparatus, make sure you have the evidence needed for A2.
 
 ### A2: Open-Loop TEC Instrument Note
 
@@ -296,26 +223,71 @@ physical interpretation, reproducible code/data links, safety evidence, and a
 clear Git checkpoint. Reserve about **60 minutes** to finish the paper and
 submission after the in-class measurements and graph are complete.
 
-Submit a short module note containing:
+Use `docs/module_notes/module_04_open_loop_tec.md` for the working note,
+`data/module_04/` for raw data, `docs/figures/module_04/` for figures, and
+`docs/assessments/a2_open_loop_tec.md` for the repository version of A2.
+
+Submit a short instrument note containing:
 
 - a wiring diagram showing the 18 AWG high-current path and the thermal switch
   in series with the TEC,
-- the PWM values used for heating and cooling,
-- the steady-state data table,
-- one heating trace and one cooling trace,
-- a graph of steady-state temperature versus PWM,
-- estimated $dT/d$PWM for heating and cooling,
+- the power-supply and software safety settings,
+- the direction/PWM-magnitude table and the criterion you used to identify
+  steady state,
+- the retained raw time-series data and one labeled trace for each direction,
+- a dimensional graph of steady-state temperature versus PWM magnitude, with
+  separate red heating and blue cooling data,
+- the heating and cooling values of $\chi_T$ in °C per PWM count,
 - your explanation of heating/cooling asymmetry,
-- the Arduino safety-limit code or a link to it,
-- a short description of how you verified the safety logic,
+- links to the exact Arduino safety-limit code and Python program used,
+- evidence that the safety test set both H-bridge outputs to zero while serial
+  reporting continued, and
 - a link to the GitHub commit or repository containing the organized Module 4 work.
+
+### GitHub Checkpoint
+
+Commit the organized work before submitting A2.
+
+```bash
+git status
+git add README.md arduino python docs data
+git commit -m "Measure open-loop TEC response and add safety limit"
+git push
+```
+
+Do not commit duplicate drafts or large accidental data files. Your repository
+should make it clear which Arduino sketch, Python program, data, and figures
+support the submitted note.
 
 ### A2 Rubric
 
 | Criterion | Points |
 | --- | ---: |
-| Signed-PWM table, steady-state criterion, and retained raw data are complete | 2 |
+| Direction/PWM-magnitude table, steady-state criterion, and retained raw data are complete | 2 |
 | Heating/cooling traces and dimensional steady-temperature plot are credible | 2 |
-| Asymmetry, slope, saturation, and operating limits are interpreted physically | 2 |
+| Asymmetry, susceptibility, saturation, and operating limits are interpreted physically | 2 |
 | Software and hardware safety behavior are demonstrated and explained | 2 |
 | PDF, code/data links, and cited Git checkpoint are clear and on time | 2 |
+
+## Appendix: Optional AI Prompt For The Safety Edit
+
+You may ask an AI coding assistant for help, but you must test and understand
+the result. After using AI, identify the lines that changed and explain how the
+safety limit works.
+
+<details markdown="1">
+<summary>Show a possible prompt</summary>
+
+```text
+My Arduino sketch measures TEC temperature from a thermistor, receives PWM
+magnitude and heat/cool commands from a Python GUI, and drives an H-bridge using
+pins 9 and 10. Add a software temperature safety limit without removing the
+existing measurement, serial reporting, or command parser.
+
+Average 100 to 1000 thermistor readings before calculating temperature. Define
+temperatureLimitC as 60.0. Above that limit, set the commanded PWM to 0, write 0
+to both H-bridge PWM outputs, continue serial reporting, and report that safety
+shutdown is active. Keep the code simple and comment the new logic.
+```
+
+</details>

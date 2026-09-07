@@ -166,7 +166,7 @@ The  Fall 2026 schedule includes 26 class sessions covering 8 topics.
 | 1. Arduino primitives and signals | G1, G2, G5, G12 | Oscilloscope measurements, modified sketches, C1 repository check |
 | 2. First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | 3. Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
-| 4. Open-loop TEC calibration | G3, G6, G7, G9 | Signed-PWM calibration, heating/cooling comparison, Module 4 note |
+| 4. Open-loop TEC calibration | G3, G6, G7, G9 | PWM-magnitude calibration for each direction, heating/cooling comparison, Module 4 note |
 | 5. P and PI control | G8, G9, G14 | Droop and oscillation data, P/PI comparison, individual explanation |
 | 6. Process modeling | G3, G9, G10, G13 | One- and two-lump derivations, model fits, residuals, C4 |
 | 7. Long-cylinder heat transport | G2-G4, G7, G11, G13, G15 | Rod calibration, heat-equation derivation, stationary-fin fit, Angstrom data, C5 |

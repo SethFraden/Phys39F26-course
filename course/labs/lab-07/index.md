@@ -1,10 +1,13 @@
-# Module 7 Assignment: Process Model And Python Simulation
+# Module 6, Part II: TEC Process Model And Python Simulation
+
+This is the second part of Module 6. Complete
+[Part I: P/PI Control And Lumped Modeling](../lab-06/index.md) first.
 
 ## Introductory Material
 
 ### Purpose
 
-Module 7 is the first modeling module after you have built enough of the instrument to
+This part follows the first Module 6 modeling work, after you have built enough of the instrument to
 measure temperature, drive the TEC, and see feedback behavior. The goal is to
 connect three things:
 
@@ -43,7 +46,7 @@ During class, the approximate schedule for one 170-minute meeting is:
 1. **0-20 min**: Opening discussion and board work on
    [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
    Problems 1.3 and 1.8.
-2. **20-40 min**: Connect the board work to the model equations in Module 7 and the
+2. **20-40 min**: Connect the board work to the model equations in Module 6 and the
    one-lump/two-lump diagram.
 3. **40-60 min**: Run the manual model and identify the physical meaning of each
    term and control.
@@ -323,7 +326,7 @@ temperature:
 In these equations, `alpha` is the thermal diffusivity in m²/s and `beta` is a
 side-loss rate constant in 1/s.
 
-You do not need to solve these equations in Module 7. For now, your job is to
+You do not need to solve these equations in Module 6. For now, your job is to
 understand how conservation of energy produces the simple lumped equations. The
 spatial differential equations come later, when we measure temperature along the
 long metal cylinder.

@@ -1,8 +1,12 @@
-# Module 8: Rod Instrument, Step Response, And Stationary Fin
+# Module 7, Part III: Rod Instrument, Step Response, And Stationary Fin
+
+This is the experimental part of Module 7. It builds on [Part I: Thermal
+Transport Foundations](../theory-bridge-chapter-1/index.md) and [Part II: Finite
+And Infinite Rod Theory](../fin-design-derivation/index.md).
 
 ## Purpose
 
-In Modules 1-7, one or two temperatures were enough to describe the TEC process.
+In Modules 1-6, one or two temperatures were enough to describe the TEC process.
 The aluminum rod cannot be treated as one thermal lump. Its temperature depends
 on position and time:
 
@@ -62,7 +66,7 @@ By the end of this module, you should be able to:
 ## Reading And Preparation
 
 1. Read Chapter 1 of [Lienhard and Lienhard, *A Heat Transfer Textbook*](../../references/lienhard-heat-transfer-textbook-v6.pdf).
-2. Review [Theory Bridge: Fourier's Law, Heat Equation, And Biot Number](../theory-bridge-chapter-1/index.md).
+2. Review [Module 7, Part I: Thermal Transport Foundations](../theory-bridge-chapter-1/index.md).
 3. For the S16 lecture and S17 guided study, read Lienhard Section 4.5,
    textbook pp. 163-173. Work through the derivation rather than reading only
    the final formulas.
@@ -118,7 +122,7 @@ Far from the rod end, a useful first model is
 
 The fitted `m` quantifies the competition between axial conduction and side
 loss. It does **not** determine `k` and `H` separately. The periodic Angstrom
-experiment in Module 9 supplies the second independent measurement.
+experiment in Module 8, Part I, supplies the second independent measurement.
 
 ## Part 0: Which Geometry May We Ignore?
 
@@ -187,7 +191,7 @@ While the long step-response experiment is running, the lecture will retain
 radial variation and introduce the axisymmetric heat equation. The goal is to
 identify the new radial derivative and surface boundary condition, and to
 distinguish surface, centerline, and cross-sectional mean temperature. The
-guided numerical solution follows in Module 9 before the Angstrom analysis.
+guided numerical solution follows in Module 8, Part I, before the Angstrom analysis.
 
 ## Part 1: Sensor Map And Calibration
 

@@ -141,23 +141,23 @@ The  Fall 2026 schedule includes 26 class sessions covering 8 topics.
 4. **Open-loop TEC calibration and software safety**  
    Heating/cooling asymmetry, steady-state response, data logging, and limits.
 
-5. **P-only and PI feedback control**  
-   Droop, gain, oscillation, instability, integral action, and windup.
+5. **P-only feedback control**
+   Droop, gain, oscillation, instability, and the limits of proportional control.
 
-6. **Process modeling**  
-   Lumped thermal models, dimensional analysis, time constants, thermal lag,
-   Python simulation, and comparison of models with experiment.
+6. **P/PI control and process modeling**
+   Integral action, windup, lumped thermal models, dimensional analysis, time
+   constants, thermal lag, Python simulation, and comparison with experiment.
 
-7. **Long-cylinder heat transport**  
+7. **Thermal transport theory and the rod instrument**
    Conservation of energy, Fourier's law, Newton's law of cooling, temperature
    along a rod, derivation of the heat equation, analytical finite-length and
-   semi-infinite solutions, the transverse Biot number, guided
-   numerical radial modeling, step and periodic forcing, amplitude decay,
-   phase lag, and the Angstrom method.
+   semi-infinite solutions, the transverse Biot number, guided numerical radial
+   modeling, rod thermometry, step response, and stationary profiles.
 
-8. **Final synthesis**  
-   Modeling app, measured-versus-predicted comparison, final analysis,
-   reproducible code repositories, written reports, and oral presentations.
+8. **Angstrom method and final synthesis**
+   Periodic forcing, amplitude decay, phase lag, thermal-property inference,
+   measured-versus-predicted comparison, reproducible analysis, and oral
+   presentation.
 
 ### How Units, Goals, And Assessments Align
 
@@ -167,10 +167,10 @@ The  Fall 2026 schedule includes 26 class sessions covering 8 topics.
 | 2. First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | 3. Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
 | 4. Open-loop TEC calibration | G3, G6, G7, G9 | PWM-magnitude calibration for each direction, heating/cooling comparison, Module 4 note |
-| 5. P and PI control | G8, G9, G14 | Droop and oscillation data, P/PI comparison, individual explanation |
-| 6. Process modeling | G3, G9, G10, G13 | One- and two-lump derivations, model fits, residuals, C4 |
-| 7. Long-cylinder heat transport | G2-G4, G7, G11, G13, G15 | Rod calibration, heat-equation derivation, stationary-fin fit, Angstrom data, C5 |
-| 8. Final synthesis | G3, G7, G11-G15 | Reproducible model, aluminum `k`, side-loss `H`, C6, final presentation and oral defense |
+| 5. P-only feedback control | G8, G9, G14 | Droop and instability evidence, controller implementation, individual explanation |
+| 6. P/PI control and process modeling | G3, G8-G10, G13, G14 | P/PI comparison, one- and two-lump derivations, model fits, residuals, C4 |
+| 7. Thermal transport theory and rod instrument | G2-G4, G7, G11, G13-G15 | Heat-equation derivation, rod calibration, finite-length and Biot checks, stationary-fin fit, C5 |
+| 8. Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum `k`, side-loss `H`, C6, final presentation and oral defense |
 
 The current course calendar is maintained on the course website:
 

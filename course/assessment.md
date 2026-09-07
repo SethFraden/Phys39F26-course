@@ -370,7 +370,7 @@ The individual `F1` oral defense uses the announced questions in the
 | First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
 | Open-loop TEC calibration | G3, G6, G7, G9 | PWM-magnitude calibration for each direction, heating/cooling comparison, Module 4 note |
-| P and PI control | G8, G9, G14 | Droop and oscillation data, P/PI comparison, oral explanation |
-| Process modeling | G3, G9, G10, G13 | Lumped-model derivations, fits, residuals, C4 |
-| Long-cylinder heat transport | G2-G4, G7, G11, G13, G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, Angstrom data, C5 |
-| Final synthesis | G3, G7, G11-G15 | Reproducible model, aluminum conductivity `k`, side-loss `H`, C6, presentation |
+| P-only feedback control | G8, G9, G14 | Droop and instability evidence, controller implementation, oral explanation |
+| P/PI control and process modeling | G3, G8-G10, G13, G14 | P/PI comparison, lumped-model derivations, fits, residuals, C4 |
+| Thermal transport theory and rod instrument | G2-G4, G7, G11, G13-G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, C5 |
+| Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity `k`, side-loss `H`, C6, presentation |

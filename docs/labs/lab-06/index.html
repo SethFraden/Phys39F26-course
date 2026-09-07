@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Module 6 Assignment: Modeling P And PI Temperature Control - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 6, Part I: P/PI Control And Lumped Modeling - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#module-6-assignment-modeling-p-and-pi-temperature-control" class="nav-link">Module 6 Assignment: Modeling P And PI Temperature Control</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-6-part-i-ppi-control-and-lumped-modeling" class="nav-link">Module 6, Part I: P/PI Control And Lumped Modeling</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -213,7 +213,15 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="module-6-assignment-modeling-p-and-pi-temperature-control">Module 6 Assignment: Modeling P And PI Temperature Control<a class="headerlink" href="#module-6-assignment-modeling-p-and-pi-temperature-control" title="Permanent link">&para;</a></h1>
+<h1 id="module-6-part-i-ppi-control-and-lumped-modeling">Module 6, Part I: P/PI Control And Lumped Modeling<a class="headerlink" href="#module-6-part-i-ppi-control-and-lumped-modeling" title="Permanent link">&para;</a></h1>
+<p>Module 6 has two linked parts:</p>
+<ol>
+<li><strong>Part I (this page):</strong> develop one-lump P and PI models and connect them to
+   the Module 5 measurements.</li>
+<li><a href="../lab-07/"><strong>Part II: TEC Process Model And Python Simulation</strong></a>:
+   extend the model, compare one- and two-lump descriptions, and test the model
+   in Python.</li>
+</ol>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Module 6 slows down the theory. Module 5 showed that proportional feedback reduces
 steady-state error but can become unstable. Module 6 builds simple models that
@@ -480,21 +488,21 @@ C\frac{dT}{dt}
 =P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
 -(H+P_uK_p)T.
 \]</div>
-<p>First find the equilibrium temperature by setting <span class="arithmatex">\(dT/dt=0\)</span>:</p>
+<p>First find the steady-state temperature by setting <span class="arithmatex">\(dT/dt=0\)</span>:</p>
 <div class="arithmatex">\[
-T_{\mathrm{eq}}
+T_{\mathrm{ss}}
 =\frac{P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}}
 {H+P_uK_p}.
 \]</div>
 <p>The remaining error from the setpoint is the P-control droop:</p>
 <div class="arithmatex">\[
-T_{\mathrm{set}}-T_{\mathrm{eq}}
+T_{\mathrm{set}}-T_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
 {H+P_uK_p}.
 \]</div>
-<p>Now define the displacement from equilibrium,</p>
+<p>Now define the displacement from steady state,</p>
 <div class="arithmatex">\[
-\theta(t)=T(t)-T_{\mathrm{eq}}.
+\theta(t)=T(t)-T_{\mathrm{ss}}.
 \]</div>
 <p>Substitution reduces the entire closed-loop P model to</p>
 <div class="arithmatex">\[
@@ -512,15 +520,15 @@ C\frac{d\theta}{dt}=-(H+P_uK_p)\theta.
 <p>Therefore the temperature is explicitly</p>
 <div class="arithmatex">\[
 \boxed{
-T(t)=T_{\mathrm{eq}}
-+\left[T(0)-T_{\mathrm{eq}}\right]
+T(t)=T_{\mathrm{ss}}
++\left[T(0)-T_{\mathrm{ss}}\right]
 \exp\!\left(-\frac{H+P_uK_p}{C}t\right)
 }.
 \]</div>
 <p>Equivalently,</p>
 <div class="arithmatex">\[
-T(t)=T_{\mathrm{eq}}
-+\left[T(0)-T_{\mathrm{eq}}\right]e^{-t/\tau_{\mathrm{cl}}},
+T(t)=T_{\mathrm{ss}}
++\left[T(0)-T_{\mathrm{ss}}\right]e^{-t/\tau_{\mathrm{cl}}},
 \qquad
 \tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
 \]</div>
@@ -540,9 +548,9 @@ C\lambda\theta=-(H+P_uK_p)\theta.
 \]</div>
 <p>and it is real and negative for positive physical parameters and negative
 feedback. The exponential is always positive, so
-<span class="arithmatex">\(T(t)-T_{\mathrm{eq}}\)</span> retains its
+<span class="arithmatex">\(T(t)-T_{\mathrm{ss}}\)</span> retains its
 initial sign while shrinking toward zero. The response therefore cannot cross
-the equilibrium, overshoot, or oscillate. Increasing <span class="arithmatex">\(K_p\)</span> decreases both
+the steady state, overshoot, or oscillate. Increasing <span class="arithmatex">\(K_p\)</span> decreases both
 droop and <span class="arithmatex">\(\tau_{\mathrm{cl}}\)</span>; it does not create the additional dynamical
 state or time delay needed for oscillation.</p>
 <p>Discuss what you would need to add:</p>
@@ -586,22 +594,22 @@ u=K_p e+K_i q,
 \qquad
 e=T_{\mathrm{set}}-T.
 \]</div>
-<p>For an unsaturated PI controller at equilibrium, the temperature reaches the
+<p>For an unsaturated PI controller at steady state, the temperature reaches the
 setpoint and the integral term supplies the PWM needed to balance heat loss:</p>
 <div class="arithmatex">\[
-T_{\mathrm{eq}}=T_{\mathrm{set}},
+T_{\mathrm{ss}}=T_{\mathrm{set}},
 \qquad
-q_{\mathrm{eq}}
+q_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
 \]</div>
-<p>Now define the <strong>two state variables as displacements from equilibrium</strong>:</p>
+<p>Now define the <strong>two state variables as displacements from steady state</strong>:</p>
 <div class="arithmatex">\[
 \boxed{
 \theta(t)=T(t)-T_{\mathrm{set}}
 },
 \qquad
 \boxed{
-z(t)=q(t)-q_{\mathrm{eq}}
+z(t)=q(t)-q_{\mathrm{ss}}
 }.
 \]</div>
 <p>Thus <span class="arithmatex">\(\theta\)</span> is the temperature displacement and <span class="arithmatex">\(z\)</span> is the integral-state
@@ -760,7 +768,7 @@ pushing, and submitting the PDF.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>One-lump energy balance, equilibrium, time constant, parameters, and units are correct</td>
+<td>One-lump energy balance, steady state, time constant, parameters, and units are correct</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>

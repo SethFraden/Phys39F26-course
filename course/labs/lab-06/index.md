@@ -1,4 +1,12 @@
-# Module 6 Assignment: Modeling P And PI Temperature Control
+# Module 6, Part I: P/PI Control And Lumped Modeling
+
+Module 6 has two linked parts:
+
+1. **Part I (this page):** develop one-lump P and PI models and connect them to
+   the Module 5 measurements.
+2. [**Part II: TEC Process Model And Python Simulation**](../lab-07/index.md):
+   extend the model, compare one- and two-lump descriptions, and test the model
+   in Python.
 
 ## Purpose
 
@@ -299,10 +307,10 @@ C\frac{dT}{dt}
 -(H+P_uK_p)T.
 \]
 
-First find the equilibrium temperature by setting \(dT/dt=0\):
+First find the steady-state temperature by setting \(dT/dt=0\):
 
 \[
-T_{\mathrm{eq}}
+T_{\mathrm{ss}}
 =\frac{P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}}
 {H+P_uK_p}.
 \]
@@ -310,15 +318,15 @@ T_{\mathrm{eq}}
 The remaining error from the setpoint is the P-control droop:
 
 \[
-T_{\mathrm{set}}-T_{\mathrm{eq}}
+T_{\mathrm{set}}-T_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
 {H+P_uK_p}.
 \]
 
-Now define the displacement from equilibrium,
+Now define the displacement from steady state,
 
 \[
-\theta(t)=T(t)-T_{\mathrm{eq}}.
+\theta(t)=T(t)-T_{\mathrm{ss}}.
 \]
 
 Substitution reduces the entire closed-loop P model to
@@ -343,8 +351,8 @@ Therefore the temperature is explicitly
 
 \[
 \boxed{
-T(t)=T_{\mathrm{eq}}
-+\left[T(0)-T_{\mathrm{eq}}\right]
+T(t)=T_{\mathrm{ss}}
++\left[T(0)-T_{\mathrm{ss}}\right]
 \exp\!\left(-\frac{H+P_uK_p}{C}t\right)
 }.
 \]
@@ -352,8 +360,8 @@ T(t)=T_{\mathrm{eq}}
 Equivalently,
 
 \[
-T(t)=T_{\mathrm{eq}}
-+\left[T(0)-T_{\mathrm{eq}}\right]e^{-t/\tau_{\mathrm{cl}}},
+T(t)=T_{\mathrm{ss}}
++\left[T(0)-T_{\mathrm{ss}}\right]e^{-t/\tau_{\mathrm{cl}}},
 \qquad
 \tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
 \]
@@ -380,9 +388,9 @@ Cancel the nonzero factor \(\theta\). There is only one eigenvalue,
 
 and it is real and negative for positive physical parameters and negative
 feedback. The exponential is always positive, so
-\(T(t)-T_{\mathrm{eq}}\) retains its
+\(T(t)-T_{\mathrm{ss}}\) retains its
 initial sign while shrinking toward zero. The response therefore cannot cross
-the equilibrium, overshoot, or oscillate. Increasing \(K_p\) decreases both
+the steady state, overshoot, or oscillate. Increasing \(K_p\) decreases both
 droop and \(\tau_{\mathrm{cl}}\); it does not create the additional dynamical
 state or time delay needed for oscillation.
 
@@ -439,17 +447,17 @@ u=K_p e+K_i q,
 e=T_{\mathrm{set}}-T.
 \]
 
-For an unsaturated PI controller at equilibrium, the temperature reaches the
+For an unsaturated PI controller at steady state, the temperature reaches the
 setpoint and the integral term supplies the PWM needed to balance heat loss:
 
 \[
-T_{\mathrm{eq}}=T_{\mathrm{set}},
+T_{\mathrm{ss}}=T_{\mathrm{set}},
 \qquad
-q_{\mathrm{eq}}
+q_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
 \]
 
-Now define the **two state variables as displacements from equilibrium**:
+Now define the **two state variables as displacements from steady state**:
 
 \[
 \boxed{
@@ -457,7 +465,7 @@ Now define the **two state variables as displacements from equilibrium**:
 },
 \qquad
 \boxed{
-z(t)=q(t)-q_{\mathrm{eq}}
+z(t)=q(t)-q_{\mathrm{ss}}
 }.
 \]
 
@@ -639,7 +647,7 @@ Submit:
 | Criterion | Points |
 | --- | ---: |
 | P-control droop and instability evidence is quantitative and reproducible | 2 |
-| One-lump energy balance, equilibrium, time constant, parameters, and units are correct | 2 |
+| One-lump energy balance, steady state, time constant, parameters, and units are correct | 2 |
 | P and PI cases use comparable conditions and quantitative transient metrics | 2 |
 | Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
 | PDF, code, data links, and cited Git checkpoint are clear and on time | 2 |

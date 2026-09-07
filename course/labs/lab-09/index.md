@@ -1,4 +1,8 @@
-# Module 9: The Angstrom Method
+# Module 8, Part I: The Angstrom Method
+
+Module 8 has two linked parts. This page develops and applies the Angstrom
+method. Continue with [Part II: Conductivity, Heat Loss, And Final
+Synthesis](../lab-10/index.md).
 
 ## Purpose
 
@@ -100,7 +104,7 @@ The useful inverse relations are
 
 These equations use a one-dimensional, semi-infinite rod. Before selecting
 sensors for the fit, carry forward the finite-length error calculation from
-Module 8 and complete the radial-model study below. State which sensors and
+Module 7 and complete the radial-model study below. State which sensors and
 conditions satisfy your chosen approximation tolerances.
 
 ## Part 0: Guided Radial-Model Study

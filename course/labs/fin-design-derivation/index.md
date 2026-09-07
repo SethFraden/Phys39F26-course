@@ -1,13 +1,17 @@
-# Fin Design: From A Finite Rod To An Infinite Rod
+# Module 7, Part II: Finite And Infinite Rod Theory
+
+This is the second part of Module 7. Read [Part I: Thermal Transport
+Foundations](../theory-bridge-chapter-1/index.md) first, then use this derivation
+in [Part III: Rod Instrument And Stationary Fin](../lab-08/index.md).
 
 This reference develops Lienhard and Lienhard Section 4.5, textbook
 pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
-used in Module 8.
+used in Module 7, Part III.
 
 ## How To Use This Reference
 
-Read this page alongside Lienhard Section 4.5 for A4. The Module 8 workload
+Read this page alongside Lienhard Section 4.5 for A4. The Module 7 workload
 budget includes **150 minutes total** for reading the module, the textbook
 section, and this guide. This page is not a separate submission and should not
 be copied into another report.
@@ -323,7 +327,7 @@ The base heat rate becomes
 
 Lienhard recommends \(mL\gtrsim5\) when using the infinite-fin approximation
 for temperature and \(mL\gtrsim3\) when using it for the base heat rate. In
-Module 8 you will calculate the actual finite-versus-infinite error at every
+In Module 7, Part III, you will calculate the actual finite-versus-infinite error at every
 sensor rather than relying only on these general thresholds.
 
 ## What To Be Able To Explain

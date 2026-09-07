@@ -1,4 +1,8 @@
-# Module 10: Aluminum Conductivity, Side Heat Loss, And Final Synthesis
+# Module 8, Part II: Conductivity, Heat Loss, And Final Synthesis
+
+This is the second and final part of Module 8. It converts the measurements
+from [Part I: The Angstrom Method](../lab-09/index.md) into physical properties
+and a final test of the model.
 
 ## Purpose
 
@@ -53,7 +57,7 @@ By the end of this module, you should be able to:
 
 ## From Angstrom Fits To Physical Properties
 
-From Module 9,
+From Module 8, Part I,
 
 \[
 \kappa=\frac{\omega}{2qq'},

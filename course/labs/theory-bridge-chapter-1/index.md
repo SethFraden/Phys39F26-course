@@ -1,8 +1,10 @@
-# Theory Bridge: Fourier's Law, Heat Equation, And Biot Number
+# Module 7, Part I: Thermal Transport Foundations
 
-This is a short theory bridge, not a full module. Its job is to connect the
-lumped thermal models from Module 7 to the spatial models needed for the long
-cylinder experiment.
+Module 7 has three linked parts. This first part connects the lumped thermal
+models from Module 6 to the spatial models needed for the long-cylinder
+experiment. Continue with [Part II: Finite And Infinite Rod
+Theory](../fin-design-derivation/index.md), followed by [Part III: Rod
+Instrument And Stationary Fin](../lab-08/index.md).
 
 Read selectively in
 [Lienhard, A Heat Transfer Textbook](../../references/lienhard-heat-transfer-textbook-v6.pdf),
@@ -23,7 +25,7 @@ This bridge follows the order of Lienhard Section 1.3:
 
 ## Why This Bridge Exists
 
-Module 7 used lumped models: one temperature for one object, or two temperatures
+Module 6 used lumped models: one temperature for one object, or two temperatures
 for two coupled objects. That works when internal temperature gradients are
 small enough to ignore. The long cylinder is different. Its temperature depends
 on position as well as time, so we need a model that can describe heat flowing
@@ -670,5 +672,5 @@ The next full theory treatment uses
 to carry out the finite-length solution and the transverse-Biot-number check.
 Each topic will combine an instructor lecture with guided self-study from the
 textbook. The accompanying
-[Fin Design: From A Finite Rod To An Infinite Rod](../fin-design-derivation/index.md)
+[Module 7, Part II: Finite And Infinite Rod Theory](../fin-design-derivation/index.md)
 page develops every equation from (4.27) through (4.51).

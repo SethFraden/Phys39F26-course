@@ -267,7 +267,11 @@ amplitude.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
 <li>From Module 4, identify the appropriate temperature susceptibility
-   <span class="arithmatex">\(\chi_T=dT/d(\mathrm{PWM})\)</span> near room temperature.</li>
+   <span class="arithmatex">\(\chi_T=dT/d(\mathrm{PWM})\)</span> near room temperature.
+   In Module 4, <code>PWM</code> means the nonnegative magnitude (P=|u|). Keep the
+   direction fixed when measuring this slope: for heating,
+   <span class="arithmatex">\(\chi_{T,h}=dT/dP&gt;0\)</span>; for cooling, <span class="arithmatex">\(dT/dP\)</span> is usually negative, and
+   its magnitude is the cooling susceptibility.</li>
 <li>Confirm that your Arduino safety shutdown still works.</li>
 <li>Choose a preliminary setpoint and calculate
    <span class="arithmatex">\(e_0=T_{\mathrm{set}}-T_{\mathrm{amb}}\)</span>.</li>
@@ -464,16 +468,22 @@ object at one uniform temperature <span class="arithmatex">\(T\)</span>. Its the
 <div class="arithmatex">\[
 C=\frac{dU}{dT}\approx mc_p,
 \]</div>
-<p>where <span class="arithmatex">\(U\)</span> is stored thermal energy. The units of <span class="arithmatex">\(C\)</span> are J/°C (equivalently
-J/K): it is the energy needed to raise the lump's temperature by one degree.
-For P-only control, the one-lump energy balance is</p>
+<p>where <span class="arithmatex">\(U\)</span> is stored thermal energy, <span class="arithmatex">\(m\)</span> is the mass of the lump in kg, and
+<span class="arithmatex">\(c_p\)</span> is its specific heat capacity in J/(kg K), equivalently J/(kg °C) for
+a temperature change. The units of <span class="arithmatex">\(C\)</span> are J/°C (equivalently J/K): it is
+the energy needed to raise the lump's temperature by one degree.</p>
+<p>For P-only control, the one-lump energy balance is</p>
 <div class="arithmatex">\[
 C\frac{dT}{dt}
 =P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 \]</div>
-<p>The left side is the rate of stored-energy change. The first term on the right
-is TEC heating or cooling, where <span class="arithmatex">\(P_u\)</span> has units W/PWM count, and the second is
-heat transfer to the room, where <span class="arithmatex">\(H\)</span> has units W/°C. Every term has units of
+<p><a href="../../assets/module5_one_lump_energy_balance.svg"><img alt="Thermal capacity and P-controlled one-lump energy balance" src="../../assets/module5_one_lump_energy_balance.svg" /></a></p>
+<p><em>Figure 2. Panel (a) connects added energy to the temperature change of a
+massive object. Panel (b) shows the signed TEC heat flow, energy storage in the
+lump, and passive heat exchange with the surroundings.</em></p>
+<p>The left side is the rate of stored-energy change with units watts (joules/sec). The first term on the right
+is TEC heating or cooling, where <span class="arithmatex">\(P_u\)</span> has units W/PWM count and <span class="arithmatex">\(K_p\)</span> has units PWM/°C. The second term on the right is
+heat transfer to the room, where <span class="arithmatex">\(H\)</span> has units W/°C, thus every term in the equation has units of
 watts. The model assumes one uniform temperature, linear heat loss,
 instantaneous measurement and actuation, and no saturation.</p>
 <p>The coefficient <span class="arithmatex">\(P_u\)</span> describes the strength of the TEC actuator in the
@@ -492,17 +502,48 @@ lump exchanges heat with the room. When <span class="arithmatex">\(T&gt;T_{\math
 makes the room transfer heat into the colder lump. A larger <span class="arithmatex">\(H\)</span> means a
 stronger pull toward room temperature; its reciprocal <span class="arithmatex">\(1/H\)</span> is the thermal
 resistance, with units °C/W or K/W.</p>
+<p>The susceptibility used in Module 4 and the signed-PWM derivative are related
+but are not identical definitions. With the signed convention used here,</p>
+<div class="arithmatex">\[
+\chi_{T,u}=\frac{dT}{du}=\frac{P_u}{H}.
+\]</div>
+<p>For heating, <span class="arithmatex">\(u=P&gt;0\)</span>, so <span class="arithmatex">\(\chi_{T,h}=dT/dP=P_u/H\)</span>. For cooling,
+the Arduino still receives the positive magnitude <span class="arithmatex">\(P=-u\)</span>, so
+<span class="arithmatex">\(dT/dP=-P_u/H\)</span>. Thus the cooling magnitude is
+<span class="arithmatex">\(|\chi_{T,c}|=P_u/H\)</span>, while the signed derivative with respect to <span class="arithmatex">\(u\)</span>
+remains <span class="arithmatex">\(P_u/H\)</span> in both directions.</p>
 <h3 id="student-derivation-recover-the-droop-equation">Student Derivation: Recover The Droop Equation<a class="headerlink" href="#student-derivation-recover-the-droop-equation" title="Permanent link">&para;</a></h3>
 <p>Show that the dynamic one-lump model predicts the same steady-state droop as
 the experimental susceptibility model in Part 4. Work through these steps in
 your notes:</p>
+<p><strong>Hint.</strong> First temporarily regard the loop as open, so that <span class="arithmatex">\(u\)</span> is an
+independent signed input rather than <span class="arithmatex">\(K_p(T_{\mathrm{set}}-T)\)</span>. At steady state,
+the one-lump model becomes</p>
+<div class="arithmatex">\[
+0=P_u u-H(T-T_{\mathrm{amb}}),
+\]</div>
+<p>so</p>
+<div class="arithmatex">\[
+T-T_{\mathrm{amb}}=\frac{P_u}{H}u.
+\]</div>
+<p>For the signed-PWM convention used in this section, the open-loop susceptibility
+is therefore</p>
+<div class="arithmatex">\[
+\chi_{T,u}=\frac{dT}{du}=\frac{P_u}{H},
+\qquad\text{and hence}\qquad
+\boxed{P_u=H\chi_{T,u}}.
+\]</div>
+<p>Relate this signed susceptibility to the heating or cooling magnitude slope
+from Module 4 before substituting the proportional-control law. The hint gives
+the physical relationship among <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(H\)</span>, and susceptibility; the remaining
+steps are yours.</p>
 <ol>
 <li>At steady state, set <span class="arithmatex">\(dT/dt=0\)</span>.</li>
 <li>Starting from the expanded P-only equation above, collect the terms that
    contain <span class="arithmatex">\(T\)</span>.</li>
 <li>Solve algebraically for the droop <span class="arithmatex">\(T_{\mathrm{set}}-T\)</span>.</li>
 <li>Compare your result with the Part 4 equation and identify the relationship
-   among <span class="arithmatex">\(\chi_T\)</span>, <span class="arithmatex">\(P_u\)</span>, and <span class="arithmatex">\(H\)</span>.</li>
+   among the appropriate directional susceptibility, <span class="arithmatex">\(P_u\)</span>, and <span class="arithmatex">\(H\)</span>.</li>
 <li>Check the units of that relationship.</li>
 <li>Explain physically why the thermal capacity <span class="arithmatex">\(C\)</span> affects the transient
    response but does not appear in the steady-state droop.</li>

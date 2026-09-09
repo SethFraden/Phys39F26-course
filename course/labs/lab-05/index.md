@@ -59,6 +59,10 @@ amplitude.
 
 1. From Module 4, identify the appropriate temperature susceptibility
    \(\chi_T=dT/d(\mathrm{PWM})\) near room temperature.
+   In Module 4, `PWM` means the nonnegative magnitude (P=|u|). Keep the
+   direction fixed when measuring this slope: for heating,
+   \(\chi_{T,h}=dT/dP>0\); for cooling, \(dT/dP\) is usually negative, and
+   its magnitude is the cooling susceptibility.
 2. Confirm that your Arduino safety shutdown still works.
 3. Choose a preliminary setpoint and calculate
    \(e_0=T_{\mathrm{set}}-T_{\mathrm{amb}}\).
@@ -235,8 +239,11 @@ $$
 C=\frac{dU}{dT}\approx mc_p,
 $$
 
-where $U$ is stored thermal energy. The units of $C$ are J/°C (equivalently
-J/K): it is the energy needed to raise the lump's temperature by one degree.
+where $U$ is stored thermal energy, $m$ is the mass of the lump in kg, and
+$c_p$ is its specific heat capacity in J/(kg K), equivalently J/(kg °C) for
+a temperature change. The units of $C$ are J/°C (equivalently J/K): it is
+the energy needed to raise the lump's temperature by one degree.
+
 For P-only control, the one-lump energy balance is
 
 $$
@@ -244,9 +251,15 @@ C\frac{dT}{dt}
 =P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 $$
 
-The left side is the rate of stored-energy change. The first term on the right
-is TEC heating or cooling, where $P_u$ has units W/PWM count, and the second is
-heat transfer to the room, where $H$ has units W/°C. Every term has units of
+[![Thermal capacity and P-controlled one-lump energy balance](../../assets/module5_one_lump_energy_balance.svg)](../../assets/module5_one_lump_energy_balance.svg)
+
+*Figure 2. Panel (a) connects added energy to the temperature change of a
+massive object. Panel (b) shows the signed TEC heat flow, energy storage in the
+lump, and passive heat exchange with the surroundings.*
+
+The left side is the rate of stored-energy change with units watts (joules/sec). The first term on the right
+is TEC heating or cooling, where $P_u$ has units W/PWM count and $K_p$ has units PWM/°C. The second term on the right is
+heat transfer to the room, where $H$ has units W/°C, thus every term in the equation has units of
 watts. The model assumes one uniform temperature, linear heat loss,
 instantaneous measurement and actuation, and no saturation.
 
@@ -268,18 +281,59 @@ makes the room transfer heat into the colder lump. A larger $H$ means a
 stronger pull toward room temperature; its reciprocal $1/H$ is the thermal
 resistance, with units °C/W or K/W.
 
+The susceptibility used in Module 4 and the signed-PWM derivative are related
+but are not identical definitions. With the signed convention used here,
+
+\[
+\chi_{T,u}=\frac{dT}{du}=\frac{P_u}{H}.
+\]
+
+For heating, \(u=P>0\), so \(\chi_{T,h}=dT/dP=P_u/H\). For cooling,
+the Arduino still receives the positive magnitude \(P=-u\), so
+\(dT/dP=-P_u/H\). Thus the cooling magnitude is
+\(|\chi_{T,c}|=P_u/H\), while the signed derivative with respect to \(u\)
+remains \(P_u/H\) in both directions.
+
 ### Student Derivation: Recover The Droop Equation
 
 Show that the dynamic one-lump model predicts the same steady-state droop as
 the experimental susceptibility model in Part 4. Work through these steps in
 your notes:
 
+**Hint.** First temporarily regard the loop as open, so that $u$ is an
+independent signed input rather than $K_p(T_{\mathrm{set}}-T)$. At steady state,
+the one-lump model becomes
+
+\[
+0=P_u u-H(T-T_{\mathrm{amb}}),
+\]
+
+so
+
+\[
+T-T_{\mathrm{amb}}=\frac{P_u}{H}u.
+\]
+
+For the signed-PWM convention used in this section, the open-loop susceptibility
+is therefore
+
+\[
+\chi_{T,u}=\frac{dT}{du}=\frac{P_u}{H},
+\qquad\text{and hence}\qquad
+\boxed{P_u=H\chi_{T,u}}.
+\]
+
+Relate this signed susceptibility to the heating or cooling magnitude slope
+from Module 4 before substituting the proportional-control law. The hint gives
+the physical relationship among $P_u$, $H$, and susceptibility; the remaining
+steps are yours.
+
 1. At steady state, set $dT/dt=0$.
 2. Starting from the expanded P-only equation above, collect the terms that
    contain $T$.
 3. Solve algebraically for the droop $T_{\mathrm{set}}-T$.
 4. Compare your result with the Part 4 equation and identify the relationship
-   among $\chi_T$, $P_u$, and $H$.
+   among the appropriate directional susceptibility, $P_u$, and $H$.
 5. Check the units of that relationship.
 6. Explain physically why the thermal capacity $C$ affects the transient
    response but does not appear in the steady-state droop.

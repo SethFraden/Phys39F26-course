@@ -63,12 +63,20 @@ By the end of this module, you should be able to:
 conductivity. The course replaces the alternating hot and cold reservoirs with
 a TEC-controlled sinusoidal boundary temperature.*
 
-Use excess temperature `theta = T - T_room` and the rod equation
+### Start With The Rod Equation
+
+Use excess temperature $\theta=T-T_{\mathrm{room}}$ and the rod equation
 
 \[
 \frac{\partial\theta}{\partial t}
 =\kappa\frac{\partial^2\theta}{\partial x^2}-\nu\theta.
 \]
+
+Here $\kappa$ is thermal diffusivity in $\mathrm{m^2/s}$ and $\nu$ is
+the lateral heat-loss rate coefficient in $\mathrm{s^{-1}}$. Every term has
+units of K/s. We assume constant material properties, linear heat loss,
+constant room temperature, and a temperature uniform across each cross
+section. We initially treat the rod as semi-infinite, with $x\geq0$.
 
 Drive the measured base temperature approximately as
 
@@ -78,15 +86,78 @@ Drive the measured base temperature approximately as
 \omega=\frac{2\pi}{\tau},
 \]
 
-where `tau` is the period. After transients decay, the semi-infinite-rod
-solution has the form
+where $\tau$ is the period in seconds and $\omega$ is angular frequency in
+rad/s. We seek the settled periodic response after initial transients decay.
+If the base oscillates about a mean above room temperature, the full solution
+also contains a stationary mean profile. By linearity, we can solve for that
+profile and the oscillating component separately; the derivation below gives
+the oscillating component.
+
+### Guess A Complex Exponential
+
+A complex exponential is useful because differentiation returns a constant
+times the same function. Guess
 
 \[
-\theta(x,t)=B_0e^{-qx}\cos(\omega t-q'x+\phi_0).
+\widetilde{\theta}(x,t)=\theta_b e^{-sx}e^{i\omega t}.
 \]
 
-The amplitude-decay coefficient `q` and phase coefficient `q_prime` both have
-units of inverse meters:
+The physical temperature is the **real part** of this expression. Because the
+equation is linear with real coefficients, the real part of a complex solution
+also satisfies the equation. Allowing $s$ to be complex lets us describe both
+amplitude decay and phase delay along the rod. At $x=0$, taking the real part
+gives the specified cosine boundary condition.
+
+The derivatives are
+
+\[
+\frac{\partial\widetilde{\theta}}{\partial t}
+=i\omega\widetilde{\theta},
+\qquad
+\frac{\partial^2\widetilde{\theta}}{\partial x^2}
+=s^2\widetilde{\theta}.
+\]
+
+Substitution into the rod equation and cancellation of the common exponential
+turn the differential equation into algebra:
+
+\[
+i\omega=\kappa s^2-\nu,
+\qquad
+\boxed{s^2=\frac{\nu+i\omega}{\kappa}}.
+\]
+
+The two spatial solutions are $e^{-sx}$ and $e^{+sx}$. Choose the square root
+with positive real part and discard the growing solution $e^{+sx}$, because
+the temperature oscillation must vanish far from the driven end.
+
+### Separate Amplitude Decay From Phase Delay
+
+Write $s=q+iq'$, with $q>0$ and $q'>0$ for positive driving frequency. The
+prime in $q'$ is part of its name, not a derivative. Squaring gives
+
+\[
+s^2=q^2-q'^2+2iqq'.
+\]
+
+Equating real and imaginary parts with $(\nu+i\omega)/\kappa$ gives
+
+\[
+\boxed{q^2-q'^2=\frac{\nu}{\kappa}},
+\qquad
+\boxed{2qq'=\frac{\omega}{\kappa}}.
+\]
+
+To find the two coefficients explicitly, use
+
+\[
+(q^2+q'^2)^2=(q^2-q'^2)^2+(2qq')^2
+=\frac{\nu^2+\omega^2}{\kappa^2}.
+\]
+
+Thus $q^2+q'^2=\sqrt{\nu^2+\omega^2}/\kappa$. Adding and subtracting
+the expressions for this sum and for $q^2-q'^2$ gives the amplitude-decay
+and phase coefficients, both in inverse meters:
 
 \[
 q=\sqrt{\frac{\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}},
@@ -94,13 +165,73 @@ q=\sqrt{\frac{\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}},
 q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
 \]
 
-The useful inverse relations are
+### Take The Real Part
+
+The complex solution can now be written
+
+\[
+\widetilde{\theta}(x,t)=\theta_b e^{-qx}e^{i(\omega t-q'x)}.
+\]
+
+Taking its real part gives
+
+\[
+\boxed{\theta(x,t)=\theta_b e^{-qx}\cos(\omega t-q'x)}.
+\]
+
+At every position, temperature oscillates at the imposed frequency. Its
+amplitude decreases as $e^{-qx}$ and it lags the base by $q'x$ radians,
+corresponding to a time delay $q'x/\omega$. This wave-like pattern is a
+diffusive response, not ordinary wave propagation.
+
+Allowing an arbitrary base amplitude $B_0$ and phase $\phi_0$ gives the form
+used to fit the experiment:
+
+\[
+\theta(x,t)=B_0e^{-qx}\cos(\omega t-q'x+\phi_0).
+\]
+
+For the boundary condition chosen above, $B_0=\theta_b$ and $\phi_0=0$.
+
+### Recover Diffusivity And Heat Loss From Measurements
+
+For two sensors separated by $\Delta x=x_2-x_1>0$, let their oscillation
+amplitudes be $B_1>B_2$, and let the downstream sensor lag by
+$\Delta\phi=\phi_1-\phi_2>0$ radians after phase unwrapping. Then
+
+\[
+q=\frac{\ln(B_1/B_2)}{\Delta x},
+\qquad
+q'=\frac{\Delta\phi}{\Delta x}.
+\]
+
+With several sensors, fit the slopes of log amplitude and unwrapped phase
+versus position. Rearranging the real- and imaginary-part equations gives
+the useful inverse relations:
 
 \[
 \kappa=\frac{\omega}{2qq'},
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]
+
+Amplitude attenuation and phase delay provide two independent measurements,
+allowing us to separate thermal diffusivity from lateral heat loss. Thermal
+conductivity follows from $k=\rho c_p\kappa$, where $\rho$ is density in
+$\mathrm{kg/m^3}$ and $c_p$ is specific heat capacity in $\mathrm{J/(kg\,K)}$;
+thus $k$ has units $\mathrm{W/(m\,K)}$.
+
+As a check, with no lateral loss, $\nu=0$, so
+
+\[
+q=q'=\sqrt{\frac{\omega}{2\kappa}}.
+\]
+
+Positive lateral heat loss makes $q>q'$. A shorter driving period produces
+stronger attenuation and phase change per unit distance. These expressions
+describe the settled periodic response; they do not include startup transients.
+A finite rod generally requires both spatial exponentials to satisfy its
+far-end boundary condition.
 
 These equations use a one-dimensional, semi-infinite rod. Before selecting
 sensors for the fit, carry forward the finite-length error calculation from

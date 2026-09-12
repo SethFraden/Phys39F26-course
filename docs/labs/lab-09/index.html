@@ -128,6 +128,26 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#periodic-solution" class="nav-link">Periodic Solution</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#start-with-the-rod-equation" class="nav-link">Start With The Rod Equation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#guess-a-complex-exponential" class="nav-link">Guess A Complex Exponential</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#separate-amplitude-decay-from-phase-delay" class="nav-link">Separate Amplitude Decay From Phase Delay</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#take-the-real-part" class="nav-link">Take The Real Part</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#recover-diffusivity-and-heat-loss-from-measurements" class="nav-link">Recover Diffusivity And Heat Loss From Measurements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-0-guided-radial-model-study" class="nav-link">Part 0: Guided Radial-Model Study</a>
@@ -311,35 +331,133 @@ unscheduled outside laboratory time.</p>
 <p><em>Historical drawing of Angstrom's method for determining thermal
 conductivity. The course replaces the alternating hot and cold reservoirs with
 a TEC-controlled sinusoidal boundary temperature.</em></p>
-<p>Use excess temperature <code>theta = T - T_room</code> and the rod equation</p>
+<h3 id="start-with-the-rod-equation">Start With The Rod Equation<a class="headerlink" href="#start-with-the-rod-equation" title="Permanent link">&para;</a></h3>
+<p>Use excess temperature <span class="arithmatex">\(\theta=T-T_{\mathrm{room}}\)</span> and the rod equation</p>
 <div class="arithmatex">\[
 \frac{\partial\theta}{\partial t}
 =\kappa\frac{\partial^2\theta}{\partial x^2}-\nu\theta.
 \]</div>
+<p>Here <span class="arithmatex">\(\kappa\)</span> is thermal diffusivity in <span class="arithmatex">\(\mathrm{m^2/s}\)</span> and <span class="arithmatex">\(\nu\)</span> is
+the lateral heat-loss rate coefficient in <span class="arithmatex">\(\mathrm{s^{-1}}\)</span>. Every term has
+units of K/s. We assume constant material properties, linear heat loss,
+constant room temperature, and a temperature uniform across each cross
+section. We initially treat the rod as semi-infinite, with <span class="arithmatex">\(x\geq0\)</span>.</p>
 <p>Drive the measured base temperature approximately as</p>
 <div class="arithmatex">\[
 \theta(0,t)=\theta_b\cos(\omega t),
 \qquad
 \omega=\frac{2\pi}{\tau},
 \]</div>
-<p>where <code>tau</code> is the period. After transients decay, the semi-infinite-rod
-solution has the form</p>
+<p>where <span class="arithmatex">\(\tau\)</span> is the period in seconds and <span class="arithmatex">\(\omega\)</span> is angular frequency in
+rad/s. We seek the settled periodic response after initial transients decay.
+If the base oscillates about a mean above room temperature, the full solution
+also contains a stationary mean profile. By linearity, we can solve for that
+profile and the oscillating component separately; the derivation below gives
+the oscillating component.</p>
+<h3 id="guess-a-complex-exponential">Guess A Complex Exponential<a class="headerlink" href="#guess-a-complex-exponential" title="Permanent link">&para;</a></h3>
+<p>A complex exponential is useful because differentiation returns a constant
+times the same function. Guess</p>
 <div class="arithmatex">\[
-\theta(x,t)=B_0e^{-qx}\cos(\omega t-q'x+\phi_0).
+\widetilde{\theta}(x,t)=\theta_b e^{-sx}e^{i\omega t}.
 \]</div>
-<p>The amplitude-decay coefficient <code>q</code> and phase coefficient <code>q_prime</code> both have
-units of inverse meters:</p>
+<p>The physical temperature is the <strong>real part</strong> of this expression. Because the
+equation is linear with real coefficients, the real part of a complex solution
+also satisfies the equation. Allowing <span class="arithmatex">\(s\)</span> to be complex lets us describe both
+amplitude decay and phase delay along the rod. At <span class="arithmatex">\(x=0\)</span>, taking the real part
+gives the specified cosine boundary condition.</p>
+<p>The derivatives are</p>
+<div class="arithmatex">\[
+\frac{\partial\widetilde{\theta}}{\partial t}
+=i\omega\widetilde{\theta},
+\qquad
+\frac{\partial^2\widetilde{\theta}}{\partial x^2}
+=s^2\widetilde{\theta}.
+\]</div>
+<p>Substitution into the rod equation and cancellation of the common exponential
+turn the differential equation into algebra:</p>
+<div class="arithmatex">\[
+i\omega=\kappa s^2-\nu,
+\qquad
+\boxed{s^2=\frac{\nu+i\omega}{\kappa}}.
+\]</div>
+<p>The two spatial solutions are <span class="arithmatex">\(e^{-sx}\)</span> and <span class="arithmatex">\(e^{+sx}\)</span>. Choose the square root
+with positive real part and discard the growing solution <span class="arithmatex">\(e^{+sx}\)</span>, because
+the temperature oscillation must vanish far from the driven end.</p>
+<h3 id="separate-amplitude-decay-from-phase-delay">Separate Amplitude Decay From Phase Delay<a class="headerlink" href="#separate-amplitude-decay-from-phase-delay" title="Permanent link">&para;</a></h3>
+<p>Write <span class="arithmatex">\(s=q+iq'\)</span>, with <span class="arithmatex">\(q&gt;0\)</span> and <span class="arithmatex">\(q'&gt;0\)</span> for positive driving frequency. The
+prime in <span class="arithmatex">\(q'\)</span> is part of its name, not a derivative. Squaring gives</p>
+<div class="arithmatex">\[
+s^2=q^2-q'^2+2iqq'.
+\]</div>
+<p>Equating real and imaginary parts with <span class="arithmatex">\((\nu+i\omega)/\kappa\)</span> gives</p>
+<div class="arithmatex">\[
+\boxed{q^2-q'^2=\frac{\nu}{\kappa}},
+\qquad
+\boxed{2qq'=\frac{\omega}{\kappa}}.
+\]</div>
+<p>To find the two coefficients explicitly, use</p>
+<div class="arithmatex">\[
+(q^2+q'^2)^2=(q^2-q'^2)^2+(2qq')^2
+=\frac{\nu^2+\omega^2}{\kappa^2}.
+\]</div>
+<p>Thus <span class="arithmatex">\(q^2+q'^2=\sqrt{\nu^2+\omega^2}/\kappa\)</span>. Adding and subtracting
+the expressions for this sum and for <span class="arithmatex">\(q^2-q'^2\)</span> gives the amplitude-decay
+and phase coefficients, both in inverse meters:</p>
 <div class="arithmatex">\[
 q=\sqrt{\frac{\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}},
 \qquad
 q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
 \]</div>
-<p>The useful inverse relations are</p>
+<h3 id="take-the-real-part">Take The Real Part<a class="headerlink" href="#take-the-real-part" title="Permanent link">&para;</a></h3>
+<p>The complex solution can now be written</p>
+<div class="arithmatex">\[
+\widetilde{\theta}(x,t)=\theta_b e^{-qx}e^{i(\omega t-q'x)}.
+\]</div>
+<p>Taking its real part gives</p>
+<div class="arithmatex">\[
+\boxed{\theta(x,t)=\theta_b e^{-qx}\cos(\omega t-q'x)}.
+\]</div>
+<p>At every position, temperature oscillates at the imposed frequency. Its
+amplitude decreases as <span class="arithmatex">\(e^{-qx}\)</span> and it lags the base by <span class="arithmatex">\(q'x\)</span> radians,
+corresponding to a time delay <span class="arithmatex">\(q'x/\omega\)</span>. This wave-like pattern is a
+diffusive response, not ordinary wave propagation.</p>
+<p>Allowing an arbitrary base amplitude <span class="arithmatex">\(B_0\)</span> and phase <span class="arithmatex">\(\phi_0\)</span> gives the form
+used to fit the experiment:</p>
+<div class="arithmatex">\[
+\theta(x,t)=B_0e^{-qx}\cos(\omega t-q'x+\phi_0).
+\]</div>
+<p>For the boundary condition chosen above, <span class="arithmatex">\(B_0=\theta_b\)</span> and <span class="arithmatex">\(\phi_0=0\)</span>.</p>
+<h3 id="recover-diffusivity-and-heat-loss-from-measurements">Recover Diffusivity And Heat Loss From Measurements<a class="headerlink" href="#recover-diffusivity-and-heat-loss-from-measurements" title="Permanent link">&para;</a></h3>
+<p>For two sensors separated by <span class="arithmatex">\(\Delta x=x_2-x_1&gt;0\)</span>, let their oscillation
+amplitudes be <span class="arithmatex">\(B_1&gt;B_2\)</span>, and let the downstream sensor lag by
+<span class="arithmatex">\(\Delta\phi=\phi_1-\phi_2&gt;0\)</span> radians after phase unwrapping. Then</p>
+<div class="arithmatex">\[
+q=\frac{\ln(B_1/B_2)}{\Delta x},
+\qquad
+q'=\frac{\Delta\phi}{\Delta x}.
+\]</div>
+<p>With several sensors, fit the slopes of log amplitude and unwrapped phase
+versus position. Rearranging the real- and imaginary-part equations gives
+the useful inverse relations:</p>
 <div class="arithmatex">\[
 \kappa=\frac{\omega}{2qq'},
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]</div>
+<p>Amplitude attenuation and phase delay provide two independent measurements,
+allowing us to separate thermal diffusivity from lateral heat loss. Thermal
+conductivity follows from <span class="arithmatex">\(k=\rho c_p\kappa\)</span>, where <span class="arithmatex">\(\rho\)</span> is density in
+<span class="arithmatex">\(\mathrm{kg/m^3}\)</span> and <span class="arithmatex">\(c_p\)</span> is specific heat capacity in <span class="arithmatex">\(\mathrm{J/(kg\,K)}\)</span>;
+thus <span class="arithmatex">\(k\)</span> has units <span class="arithmatex">\(\mathrm{W/(m\,K)}\)</span>.</p>
+<p>As a check, with no lateral loss, <span class="arithmatex">\(\nu=0\)</span>, so</p>
+<div class="arithmatex">\[
+q=q'=\sqrt{\frac{\omega}{2\kappa}}.
+\]</div>
+<p>Positive lateral heat loss makes <span class="arithmatex">\(q&gt;q'\)</span>. A shorter driving period produces
+stronger attenuation and phase change per unit distance. These expressions
+describe the settled periodic response; they do not include startup transients.
+A finite rod generally requires both spatial exponentials to satisfy its
+far-end boundary condition.</p>
 <p>These equations use a one-dimensional, semi-infinite rod. Before selecting
 sensors for the fit, carry forward the finite-length error calculation from
 Module 7 and complete the radial-model study below. State which sensors and

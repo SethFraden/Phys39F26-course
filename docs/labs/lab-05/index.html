@@ -112,6 +112,10 @@
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#module-at-a-glance" class="nav-link">Module At A Glance</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#key-learning-objectives" class="nav-link">Key Learning Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#optional-background-sources" class="nav-link">Optional Background Sources</a>
@@ -176,6 +180,14 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#c4-oral-questions-p-control" class="nav-link">C4 Oral Questions: P Control</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#evidence-to-preserve" class="nav-link">Evidence To Preserve</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#github-checkpoint" class="nav-link">GitHub Checkpoint</a>
               <ul class="nav flex-column">
               </ul>
@@ -201,6 +213,16 @@ e=T_{\mathrm{set}}-T, \qquad u=K_p e
 independent shutdown authority. During S9-S10 you will verify the feedback sign,
 measure droop versus gain, explore high-gain behavior, and compare the data with
 a simple model. PI control follows in Module 6.</p>
+<h3 id="key-learning-objectives">Key Learning Objectives<a class="headerlink" href="#key-learning-objectives" title="Permanent link">&para;</a></h3>
+<p>By the end of this module, you should be able to:</p>
+<ol>
+<li>Explain why pure proportional control needs a nonzero error (<strong>droop</strong>) to
+   balance heat exchange with the surroundings at a nonambient setpoint.</li>
+<li>Relate measured temperature susceptibility to TEC power per PWM count and
+   environmental heat transfer per degree, rather than to thermal capacity.</li>
+<li>Decide whether gain is small or large using the <strong>dimensionless loop gain</strong>,
+   and use it to predict the fraction of the temperature error that remains.</li>
+</ol>
 <h2 id="optional-background-sources">Optional Background Sources<a class="headerlink" href="#optional-background-sources" title="Permanent link">&para;</a></h2>
 <p>These are optional; Laplace transforms are not required in Module 5:</p>
 <ul>
@@ -291,6 +313,16 @@ unit of thermal power.</p>
 <td>°C</td>
 </tr>
 <tr>
+<td><span class="arithmatex">\(L=K_p\chi_{T,u}\)</span></td>
+<td>Dimensionless loop gain; use the heating slope or the magnitude of the cooling slope measured in Module 4</td>
+<td>Dimensionless</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\chi_{T,u}\)</span></td>
+<td>Open-loop susceptibility versus signed PWM, <span class="arithmatex">\(dT/du=P_u/H\)</span> in the one-lump model</td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
 <td><span class="arithmatex">\(P_{\mathrm{required}}\)</span></td>
 <td>Estimated open-loop PWM magnitude needed for the desired temperature change</td>
 <td>PWM counts</td>
@@ -339,11 +371,6 @@ unit of thermal power.</p>
 <td><span class="arithmatex">\(\Delta U\)</span>, <span class="arithmatex">\(\Delta T\)</span></td>
 <td>Changes in stored energy and temperature in Figure 2; <span class="arithmatex">\(\Delta T\approx\Delta U/C\)</span></td>
 <td>J, K respectively</td>
-</tr>
-<tr>
-<td><span class="arithmatex">\(\chi_{T,u}\)</span></td>
-<td>Open-loop susceptibility versus signed PWM, <span class="arithmatex">\(dT/du=P_u/H\)</span> in the one-lump model</td>
-<td>°C/PWM count</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(\chi_{T,c}\)</span></td>
@@ -421,6 +448,13 @@ closed loop, respectively.</p>
 <li>What experimental symptoms might indicate that <span class="arithmatex">\(K_p\)</span> is too large?</li>
 </ol>
 <h2 id="part-1-implement-p-only-control">Part 1: Implement P-Only Control<a class="headerlink" href="#part-1-implement-p-only-control" title="Permanent link">&para;</a></h2>
+<p><strong>Why expect droop?</strong> At the setpoint, the error is zero, so pure P control
+commands zero TEC heat flow. But a lump hotter than the room still loses heat,
+and a lump colder than the room still gains heat. Its temperature therefore
+moves away from the setpoint. A nonzero error is needed to command the TEC heat
+flow that balances this passive exchange. For finite gain, nonzero thermal
+conductance, and a nonambient setpoint, there must be steady-state droop in
+this model. This argument assumes no added control bias or other heat source.</p>
 <p>The feedback loop you will implement is shown below.</p>
 <p><a href="../../assets/module5_p_feedback_loop.svg"><img alt="P-only temperature-control feedback loop" src="../../assets/module5_p_feedback_loop.svg" /></a></p>
 <p><em>Figure 1. The computer calculates the signed PWM. The Arduino and
@@ -459,6 +493,17 @@ independent software temperature limit developed in Module 4.</p>
 <li>Confirm that negative error produces cooling.</li>
 </ol>
 <p>If the sign is wrong, stop and fix the sign convention before continuing.</p>
+<p><strong>Small compared with what?</strong> A numerical value of <span class="arithmatex">\(K_p\)</span> alone cannot answer
+this question: it has units. Compare it with the inverse susceptibility using
+the dimensionless loop gain</p>
+<div class="arithmatex">\[
+L=K_p\chi_{T,u}.
+\]</div>
+<p>Here <span class="arithmatex">\(\chi_{T,u}\)</span> is the steady-state slope with respect to signed PWM. Use
+the heating slope or the magnitude of the cooling slope from Module 4 for the
+chosen direction. Small gain means <span class="arithmatex">\(L\ll1\)</span>; <span class="arithmatex">\(L\sim1\)</span> and <span class="arithmatex">\(L\gg1\)</span> describe
+comparable and strong feedback. Part 6 will identify <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span>.
+A large <span class="arithmatex">\(L\)</span> does not guarantee safe or stable operation of the real apparatus.</p>
 <h2 id="part-3-measure-droop-versus-gain">Part 3: Measure Droop Versus Gain<a class="headerlink" href="#part-3-measure-droop-versus-gain" title="Permanent link">&para;</a></h2>
 <p>Choose one setpoint, for example <strong>30 °C</strong>, and use the corresponding Module 4
 temperature susceptibility to select your own gain range. First estimate the
@@ -536,6 +581,15 @@ susceptibility and the magnitude of the cooling error in the analogous model.
 Calculate the predicted droop for each tested gain and overlay predicted and
 measured droop on the same graph.</p>
 <p>This model will not be perfect. Its job is to explain the main trend.</p>
+<p>For either direction, the result can be written as a fractional droop:</p>
+<div class="arithmatex">\[
+\frac{T_{\mathrm{set}}-T_{\mathrm{ss}}}
+{T_{\mathrm{set}}-T_{\mathrm{amb}}}=\frac{1}{1+L}.
+\]</div>
+<p>Here <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> is the settled temperature. For <span class="arithmatex">\(L\ll1\)</span>, almost all
+of the initial error remains; for <span class="arithmatex">\(L=1\)</span>, half remains; and for <span class="arithmatex">\(L\gg1\)</span>, the
+fraction is approximately <span class="arithmatex">\(1/L\)</span>. The ratio is undefined for an ambient
+setpoint, where the ideal model needs no TEC heat flow.</p>
 <h2 id="part-5-explore-the-high-gain-response">Part 5: Explore The High-Gain Response<a class="headerlink" href="#part-5-explore-the-high-gain-response" title="Permanent link">&para;</a></h2>
 <p>Continue through your instructor-approved gain range. Do not assume that the
 apparatus must oscillate. For every retained gain, record the setpoint, mean or
@@ -622,16 +676,30 @@ the Arduino still receives the positive magnitude <span class="arithmatex">\(P=-
 <span class="arithmatex">\(|\chi_{T,c}|=P_u/H\)</span>, while the signed derivative with respect to <span class="arithmatex">\(u\)</span>
 remains <span class="arithmatex">\(P_u/H\)</span> in both directions.</p>
 <h3 id="student-derivation-recover-the-droop-equation">Student Derivation: Recover The Droop Equation<a class="headerlink" href="#student-derivation-recover-the-droop-equation" title="Permanent link">&para;</a></h3>
+<p><strong>Physical interpretation.</strong> The ratio <span class="arithmatex">\(P_u/H\)</span> compares TEC power per PWM
+count with passive heat transfer per degree. A stronger actuator increases
+susceptibility; stronger environmental coupling decreases it. It is not a
+ratio of the actual heat-transfer rates, which balance at steady state.
+Thermal capacity <span class="arithmatex">\(C\)</span> sets the time needed to change temperature, but does not
+enter this steady-state ratio. Thus <span class="arithmatex">\(L=K_pP_u/H\)</span> compares the controller's
+thermal response per degree of error with the environmental conductance.</p>
 <p>Show that the dynamic one-lump model predicts the same steady-state droop as
 the experimental susceptibility model in Part 4. In your notes:</p>
 <ol>
-<li>Derive the steady-state droop from the one-lump energy balance and show that
-   it agrees with Part 4, using the appropriate heating or cooling susceptibility.</li>
-<li>Explain physically why the thermal capacity <span class="arithmatex">\(C\)</span> affects the transient
-   response but does not appear in the steady-state droop.</li>
-<li>State which assumptions must hold for the two droop predictions to agree.</li>
+<li>Suppose the lump reaches a nonambient setpoint. Identify the commanded TEC
+   heat flow and remaining environmental heat exchange, and explain what happens
+   next. Derive the steady-state droop from the one-lump balance and connect it
+   to Part 4. State the assumptions needed for agreement.</li>
+<li>Show that <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span>, with units. Predict what happens to
+   susceptibility if <span class="arithmatex">\(P_u\)</span> doubles, <span class="arithmatex">\(H\)</span> doubles, or <span class="arithmatex">\(C\)</span> alone doubles.
+   Explain why <span class="arithmatex">\(C\)</span> affects the transient but not steady-state droop.</li>
+<li>Calculate <span class="arithmatex">\(L\)</span> for your experimental gains and compare measured fractional
+   droop with <span class="arithmatex">\(1/(1+L)\)</span>. Which runs genuinely have small gain? Explain
+   discrepancies, using the appropriate directional susceptibility.</li>
 </ol>
 <p>Preserve this derivation for A3.</p>
+<p>These three responses are the Module 5 interpretation for A3, not an additional
+assignment. Use your existing droop graph and data rather than repeating them.</p>
 <details>
 <summary>Derivation help: connect susceptibility to the heat-balance model</summary>
 <p><strong>Hint.</strong> First temporarily regard the loop as open, so that <span class="arithmatex">\(u\)</span> is an
@@ -680,6 +748,23 @@ important physics or implementation details. Discuss plausible causes such as
 thermal delay between the TEC and thermistor, another thermal mass, discrete
 sampling, sensor noise, or PWM saturation.</p>
 <h3 id="evidence-for-a3-and-c4">Evidence For A3 And C4<a class="headerlink" href="#evidence-for-a3-and-c4" title="Permanent link">&para;</a></h3>
+<h3 id="c4-oral-questions-p-control">C4 Oral Questions: P Control<a class="headerlink" href="#c4-oral-questions-p-control" title="Permanent link">&para;</a></h3>
+<p>This is the authoritative P-control question bank for C4. Prepare to answer
+one primary question and a brief follow-up individually. The
+<a href="../../assessment/#c4-feedback-controller-and-tec-process-model">C4 deadline and rubric</a>
+remain on the Assessment page; additional questions address
+<a href="../lab-06/#c4-oral-questions-pi-control">PI control in Module 6</a> and
+<a href="../lab-07/#c4-oral-questions-process-modeling">modeling in Module 7</a>.</p>
+<ol>
+<li>The block reaches its setpoint above room temperature. Why will it not stay
+   there under pure P-only control? What changes for a setpoint below ambient?</li>
+<li>Two apparatuses have the same TEC but different insulation. Which has greater
+   susceptibility and less droop at the same gain? Explain what is held fixed.</li>
+<li>Is <span class="arithmatex">\(K_p=1\)</span> small? What units and additional measurement do you need to decide?</li>
+<li>You double thermal capacity without changing actuator strength or heat-transfer
+   paths. What changes: susceptibility, steady-state droop, or settling time?</li>
+</ol>
+<h3 id="evidence-to-preserve">Evidence To Preserve<a class="headerlink" href="#evidence-to-preserve" title="Permanent link">&para;</a></h3>
 <p>Module 5 requires no separate paper. Its results support the later
 <a href="../lab-06/#a3-feedback-data-and-lumped-model-memo"><code>A3</code> feedback-and-model memo</a>
 and the C4 demonstration. During S9-S10, preserve:</p>

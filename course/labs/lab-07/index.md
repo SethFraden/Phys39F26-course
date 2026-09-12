@@ -646,6 +646,20 @@ controller, model, data, figures, parameter record, and README. Prepare the
 
 ### C4 Evidence Record
 
+### C4 Oral Questions: Process Modeling
+
+This is the authoritative modeling question bank for C4:
+
+1. Which physical lag in the apparatus can produce overshoot or oscillation as
+   gain increases?
+2. Identify one fitted model parameter, give its units, and explain how the
+   data constrain it.
+
+Also prepare the [Module 5 P-control questions](../lab-05/index.md#c4-oral-questions-p-control)
+and [Module 6 PI-control question](../lab-06/index.md#c4-oral-questions-pi-control).
+
+### Model Evidence Record
+
 Keep a short module note containing:
 
 - Your copied and labeled model equations.

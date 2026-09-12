@@ -241,13 +241,13 @@ are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-asses
 
 ### C4 Oral Questions
 
-1. Why does P-only control have droop? Use the steady-state controller and
-   thermal-balance equations in your explanation.
-2. Why can integral action remove droop, and what is integral windup?
-3. Which physical lag in the apparatus can produce overshoot or oscillation as
-   gain increases?
-4. Identify one fitted model parameter, give its units, and explain how the
-   data constrain it.
+Prepare the authoritative question banks in the modules where the concepts
+are developed. Each student answers one primary question and, when useful,
+a brief follow-up; this is not a requirement to answer every question at checkoff.
+
+- [Module 5: P control](labs/lab-05/index.md#c4-oral-questions-p-control): physical origin of droop, susceptibility, dimensionless gain, and thermal capacity.
+- [Module 6: PI control](labs/lab-06/index.md#c4-oral-questions-pi-control): integral action and windup.
+- [Module 7: Process modeling](labs/lab-07/index.md#c4-oral-questions-process-modeling): physical lag and fitted parameters.
 
 ## C5: Rod Instrument And Data-Acquisition Chain
 

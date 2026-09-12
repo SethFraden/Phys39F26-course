@@ -633,6 +633,7 @@ pushing, and submitting the PDF.
 Submit:
 
 - derivation of the P-control droop equation,
+- concise responses to the [three Module 5 interpretation questions](../lab-05/index.md#student-derivation-recover-the-droop-equation), integrated with that derivation and the droop data rather than repeated separately,
 - estimate of open-loop slope `S`,
 - estimate of thermal time constant `tau`,
 - open-loop simulation compared with one measured trace,
@@ -647,7 +648,18 @@ Submit:
 | Criterion | Points |
 | --- | ---: |
 | P-control droop and instability evidence is quantitative and reproducible | 2 |
-| One-lump energy balance, steady state, time constant, parameters, and units are correct | 2 |
+| One-lump energy balance, steady state, time constant, parameters, and units are correct; interpretation explains why droop is needed, susceptibility as $P_u/H$, and dimensionless gain | 2 |
 | P and PI cases use comparable conditions and quantitative transient metrics | 2 |
 | Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
 | PDF, code, data links, and cited Git checkpoint are clear and on time | 2 |
+
+### C4 Oral Questions: PI Control
+
+This is the authoritative PI-control question for C4:
+
+1. Why can integral action remove droop, and what is integral windup?
+
+Also prepare the [Module 5 P-control questions](../lab-05/index.md#c4-oral-questions-p-control)
+and [Module 7 modeling questions](../lab-07/index.md#c4-oral-questions-process-modeling).
+The [C4 deadline and rubric](../../assessment.md#c4-feedback-controller-and-tec-process-model)
+remain on the Assessment page.

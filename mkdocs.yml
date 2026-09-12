@@ -35,6 +35,7 @@ extra_javascript:
   - javascripts/tex-svg.js
 
 markdown_extensions:
+  - md_in_html
   - pymdownx.arithmatex:
       generic: true
       smart_dollar: false

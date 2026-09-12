@@ -44,13 +44,44 @@ amplitude.
 
 ## Vocabulary
 
+Symbols are listed in order of first appearance in the module's text and
+equations, excluding this table. Symbols introduced only in Figure 2 are
+included alongside its energy-balance quantities. Temperature differences have
+the same numerical value in °C and K. A PWM count is a command increment, not a
+unit of thermal power.
+
 | Quantity | Meaning | Units |
 | --- | --- | --- |
-| $T_{\mathrm{set}}$ | Desired temperature | °C |
-| $e=T_{\mathrm{set}}-T$ | Temperature error; steady nonzero error is **droop** | °C |
 | $u=K_p e$ | Signed PWM calculated by Python | PWM counts |
-| $P=\lvert u\rvert$ | Nonnegative Arduino PWM magnitude, limited to 0-255 | PWM counts |
+| $e=T_{\mathrm{set}}-T$ | Temperature error; steady nonzero error is **droop** | °C |
+| $T_{\mathrm{set}}$ | Desired temperature | °C |
+| $T$ | Measured temperature; the uniform lump temperature in the model | °C |
 | $K_p$ | Proportional gain | PWM counts/°C |
+| $P=\lvert u\rvert$ | Nonnegative Arduino PWM magnitude, limited to 0-255 | PWM counts |
+| $\chi_T$ | Open-loop temperature susceptibility: steady-state temperature slope versus PWM magnitude at fixed direction, $dT/dP$ | °C/PWM count |
+| $\chi_{T,h}$ | Heating susceptibility; positive slope $dT/dP$ | °C/PWM count |
+| $e_0=T_{\mathrm{set}}-T_{\mathrm{amb}}$ | Initial error when starting at room temperature | °C |
+| $T_{\mathrm{amb}}$ | Ambient (room) temperature | °C |
+| $P_{\mathrm{required}}$ | Estimated open-loop PWM magnitude needed for the desired temperature change | PWM counts |
+| $P_0=K_p\lvert e_0\rvert$ | Predicted initial PWM magnitude before clamping | PWM counts |
+| $C=dU/dT\approx mc_p$ | Thermal capacity of the whole lump: energy required per degree of temperature rise | J/K |
+| $U$ | Stored thermal energy | J |
+| $m$ | Mass of the lump | kg |
+| $c_p$ | Specific heat capacity (per unit mass, at constant pressure) | J/(kg K) |
+| $t$ | Elapsed time; $dU/dt$ is the energy-storage rate and $dT/dt$ is the temperature-change rate | s; rates in W and K/s |
+| $P_u$ | TEC thermal-power coefficient per signed PWM count; not the PWM magnitude $P$ | W/PWM count |
+| $H$ | Total passive thermal conductance to the surroundings; its reciprocal $1/H$ is thermal resistance | W/K; reciprocal in K/W |
+| $\Delta U$, $\Delta T$ | Changes in stored energy and temperature in Figure 2; $\Delta T\approx\Delta U/C$ | J, K respectively |
+| $\chi_{T,u}$ | Open-loop susceptibility versus signed PWM, $dT/du=P_u/H$ in the one-lump model | °C/PWM count |
+| $\chi_{T,c}$ | Cooling slope $dT/dP$, normally negative; $\lvert\chi_{T,c}\rvert$ is its positive magnitude | °C/PWM count |
+| $T_{\mathrm{ss}}$ | Steady-state temperature under the chosen control conditions; generally not the setpoint | °C |
+| $\theta=T-T_{\mathrm{ss}}$ | Temperature deviation from steady state; $\theta(0)$ is its initial value | K |
+| $\tau_{\mathrm{cl}}$ | Closed-loop time constant for the one-lump P model, $C/(H+P_uK_p)$ | s |
+
+In $e^{-t/\tau_{\mathrm{cl}}}$, the exponential base $e$ is Euler's number
+(approximately 2.718), not the temperature error. The subscripts $h$, $c$,
+$\mathrm{ss}$, and $\mathrm{cl}$ mean heating, cooling, steady state, and
+closed loop, respectively.
 
 **Saturation** occurs when the requested PWM exceeds its allowed range.
 **Instability** means the response oscillates or diverges instead of settling.
@@ -128,8 +159,8 @@ Start with a very small gain. Do not tune aggressively at first.
 
 Before trying to regulate temperature:
 
-1. Choose a setpoint slightly above room temperature.
-2. Use a very small $K_p$.
+1. Choose a setpoint slightly above room temperature, e.g. between 30 °C and 35 °C.
+2. Use a  small $K_p$. Think about the meaning of "small'. With respect to what? Hint: It's related to $\chi_T$.
 3. Confirm that positive error produces heating.
 4. Choose a setpoint slightly below room temperature.
 5. Confirm that negative error produces cooling.
@@ -297,8 +328,18 @@ remains \(P_u/H\) in both directions.
 ### Student Derivation: Recover The Droop Equation
 
 Show that the dynamic one-lump model predicts the same steady-state droop as
-the experimental susceptibility model in Part 4. Work through these steps in
-your notes:
+the experimental susceptibility model in Part 4. In your notes:
+
+1. Derive the steady-state droop from the one-lump energy balance and show that
+   it agrees with Part 4, using the appropriate heating or cooling susceptibility.
+2. Explain physically why the thermal capacity $C$ affects the transient
+   response but does not appear in the steady-state droop.
+3. State which assumptions must hold for the two droop predictions to agree.
+
+Preserve this derivation for A3.
+
+<details markdown="1">
+<summary>Derivation help: connect susceptibility to the heat-balance model</summary>
 
 **Hint.** First temporarily regard the loop as open, so that $u$ is an
 independent signed input rather than $K_p(T_{\mathrm{set}}-T)$. At steady state,
@@ -326,22 +367,13 @@ is therefore
 Relate this signed susceptibility to the heating or cooling magnitude slope
 from Module 4 before substituting the proportional-control law. The hint gives
 the physical relationship among $P_u$, $H$, and susceptibility; the remaining
-steps are yours.
+algebra is yours.
 
-1. At steady state, set $dT/dt=0$.
-2. Starting from the expanded P-only equation above, collect the terms that
-   contain $T$.
-3. Solve algebraically for the droop $T_{\mathrm{set}}-T$.
-4. Compare your result with the Part 4 equation and identify the relationship
-   among the appropriate directional susceptibility, $P_u$, and $H$.
-5. Check the units of that relationship.
-6. Explain physically why the thermal capacity $C$ affects the transient
-   response but does not appear in the steady-state droop.
-7. State which assumptions must hold for the two droop predictions to agree.
+To begin the closed-loop calculation, set $dT/dt=0$ in the P-only energy
+balance, collect the terms containing $T$, and solve for
+$T_{\mathrm{set}}-T$. Check that $P_u/H$ has the same units as susceptibility.
 
-Preserve this derivation for A3. It should make clear how the measured
-susceptibility in Part 4 is connected to the heat-transfer parameters in the
-one-lump model.
+</details>
 
 ### First-Order Expectation
 

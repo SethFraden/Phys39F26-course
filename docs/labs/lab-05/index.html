@@ -219,13 +219,18 @@ a simple model. PI control follows in Module 6.</p>
 <li>The Python GUI shows plausible temperature.</li>
 <li>Heat and cool directions have the correct sign.</li>
 <li>The power supply current limit is set by the instructor.</li>
-<li>The setpoint is between <strong>20 °C and 35 °C</strong> unless the instructor approves a
+<li>Start with a setpoint between <strong>30 °C and 35 °C</strong> unless the instructor approves a
    different range.</li>
 </ol>
 <p>Stop immediately if the temperature moves in the wrong direction, the GUI
 freezes, the PWM saturates unexpectedly, or sustained oscillations grow in
 amplitude.</p>
 <h2 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h2>
+<p>Symbols are listed in order of first appearance in the module's text and
+equations, excluding this table. Symbols introduced only in Figure 2 are
+included alongside its energy-balance quantities. Temperature differences have
+the same numerical value in °C and K. A PWM count is a command increment, not a
+unit of thermal power.</p>
 <table>
 <thead>
 <tr>
@@ -236,9 +241,9 @@ amplitude.</p>
 </thead>
 <tbody>
 <tr>
-<td><span class="arithmatex">\(T_{\mathrm{set}}\)</span></td>
-<td>Desired temperature</td>
-<td>°C</td>
+<td><span class="arithmatex">\(u=K_p e\)</span></td>
+<td>Signed PWM calculated by Python</td>
+<td>PWM counts</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(e=T_{\mathrm{set}}-T\)</span></td>
@@ -246,9 +251,19 @@ amplitude.</p>
 <td>°C</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(u=K_p e\)</span></td>
-<td>Signed PWM calculated by Python</td>
-<td>PWM counts</td>
+<td><span class="arithmatex">\(T_{\mathrm{set}}\)</span></td>
+<td>Desired temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T\)</span></td>
+<td>Measured temperature; the uniform lump temperature in the model</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(K_p\)</span></td>
+<td>Proportional gain</td>
+<td>PWM counts/°C</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(P=\lvert u\rvert\)</span></td>
@@ -256,12 +271,106 @@ amplitude.</p>
 <td>PWM counts</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(K_p\)</span></td>
-<td>Proportional gain</td>
-<td>PWM counts/°C</td>
+<td><span class="arithmatex">\(\chi_T\)</span></td>
+<td>Open-loop temperature susceptibility: steady-state temperature slope versus PWM magnitude at fixed direction, <span class="arithmatex">\(dT/dP\)</span></td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\chi_{T,h}\)</span></td>
+<td>Heating susceptibility; positive slope <span class="arithmatex">\(dT/dP\)</span></td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(e_0=T_{\mathrm{set}}-T_{\mathrm{amb}}\)</span></td>
+<td>Initial error when starting at room temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{amb}}\)</span></td>
+<td>Ambient (room) temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P_{\mathrm{required}}\)</span></td>
+<td>Estimated open-loop PWM magnitude needed for the desired temperature change</td>
+<td>PWM counts</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P_0=K_p\lvert e_0\rvert\)</span></td>
+<td>Predicted initial PWM magnitude before clamping</td>
+<td>PWM counts</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(C=dU/dT\approx mc_p\)</span></td>
+<td>Thermal capacity of the whole lump: energy required per degree of temperature rise</td>
+<td>J/K</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(U\)</span></td>
+<td>Stored thermal energy</td>
+<td>J</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m\)</span></td>
+<td>Mass of the lump</td>
+<td>kg</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(c_p\)</span></td>
+<td>Specific heat capacity (per unit mass, at constant pressure)</td>
+<td>J/(kg K)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td>Elapsed time; <span class="arithmatex">\(dU/dt\)</span> is the energy-storage rate and <span class="arithmatex">\(dT/dt\)</span> is the temperature-change rate</td>
+<td>s; rates in W and K/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P_u\)</span></td>
+<td>TEC thermal-power coefficient per signed PWM count; not the PWM magnitude <span class="arithmatex">\(P\)</span></td>
+<td>W/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H\)</span></td>
+<td>Total passive thermal conductance to the surroundings; its reciprocal <span class="arithmatex">\(1/H\)</span> is thermal resistance</td>
+<td>W/K; reciprocal in K/W</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Delta U\)</span>, <span class="arithmatex">\(\Delta T\)</span></td>
+<td>Changes in stored energy and temperature in Figure 2; <span class="arithmatex">\(\Delta T\approx\Delta U/C\)</span></td>
+<td>J, K respectively</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\chi_{T,u}\)</span></td>
+<td>Open-loop susceptibility versus signed PWM, <span class="arithmatex">\(dT/du=P_u/H\)</span> in the one-lump model</td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\chi_{T,c}\)</span></td>
+<td>Cooling slope <span class="arithmatex">\(dT/dP\)</span>, normally negative; <span class="arithmatex">\(\lvert\chi_{T,c}\rvert\)</span> is its positive magnitude</td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{ss}}\)</span></td>
+<td>Steady-state temperature under the chosen control conditions; generally not the setpoint</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\theta=T-T_{\mathrm{ss}}\)</span></td>
+<td>Temperature deviation from steady state; <span class="arithmatex">\(\theta(0)\)</span> is its initial value</td>
+<td>K</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\tau_{\mathrm{cl}}\)</span></td>
+<td>Closed-loop time constant for the one-lump P model, <span class="arithmatex">\(C/(H+P_uK_p)\)</span></td>
+<td>s</td>
 </tr>
 </tbody>
 </table>
+<p>In <span class="arithmatex">\(e^{-t/\tau_{\mathrm{cl}}}\)</span>, the exponential base <span class="arithmatex">\(e\)</span> is Euler's number
+(approximately 2.718), not the temperature error. The subscripts <span class="arithmatex">\(h\)</span>, <span class="arithmatex">\(c\)</span>,
+<span class="arithmatex">\(\mathrm{ss}\)</span>, and <span class="arithmatex">\(\mathrm{cl}\)</span> mean heating, cooling, steady state, and
+closed loop, respectively.</p>
 <p><strong>Saturation</strong> occurs when the requested PWM exceeds its allowed range.
 <strong>Instability</strong> means the response oscillates or diverges instead of settling.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
@@ -328,7 +437,7 @@ measure temperature, parse commands, drive the H-bridge, and enforce the
 independent software temperature limit developed in Module 4.</p>
 <p>The controller should:</p>
 <ol>
-<li>read the measured temperature only after averaging between 100 and 1000 raw
+<li>read the measured temperature only after averaging about 1000 raw
    thermistor-voltage measurements and converting the average voltage to
    temperature,</li>
 <li>calculate <span class="arithmatex">\(e=T_{\mathrm{set}}-T\)</span>,</li>
@@ -343,8 +452,8 @@ independent software temperature limit developed in Module 4.</p>
 <h2 id="part-2-sign-test-at-low-gain">Part 2: Sign Test At Low Gain<a class="headerlink" href="#part-2-sign-test-at-low-gain" title="Permanent link">&para;</a></h2>
 <p>Before trying to regulate temperature:</p>
 <ol>
-<li>Choose a setpoint slightly above room temperature.</li>
-<li>Use a very small <span class="arithmatex">\(K_p\)</span>.</li>
+<li>Choose a setpoint slightly above room temperature, e.g. between 30 °C and 35 °C.</li>
+<li>Use a  small <span class="arithmatex">\(K_p\)</span>. Think about the meaning of "small'. With respect to what? Hint: It's related to <span class="arithmatex">\(\chi_T\)</span>.</li>
 <li>Confirm that positive error produces heating.</li>
 <li>Choose a setpoint slightly below room temperature.</li>
 <li>Confirm that negative error produces cooling.</li>
@@ -474,7 +583,7 @@ a temperature change. The units of <span class="arithmatex">\(C\)</span> are J/�
 the energy needed to raise the lump's temperature by one degree.</p>
 <p>For P-only control, the one-lump energy balance is</p>
 <div class="arithmatex">\[
-C\frac{dT}{dt}
+\frac{dU}{dt} = C\frac{dT}{dt}
 =P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 \]</div>
 <p><a href="../../assets/module5_one_lump_energy_balance.svg"><img alt="Thermal capacity and P-controlled one-lump energy balance" src="../../assets/module5_one_lump_energy_balance.svg" /></a></p>
@@ -514,8 +623,17 @@ the Arduino still receives the positive magnitude <span class="arithmatex">\(P=-
 remains <span class="arithmatex">\(P_u/H\)</span> in both directions.</p>
 <h3 id="student-derivation-recover-the-droop-equation">Student Derivation: Recover The Droop Equation<a class="headerlink" href="#student-derivation-recover-the-droop-equation" title="Permanent link">&para;</a></h3>
 <p>Show that the dynamic one-lump model predicts the same steady-state droop as
-the experimental susceptibility model in Part 4. Work through these steps in
-your notes:</p>
+the experimental susceptibility model in Part 4. In your notes:</p>
+<ol>
+<li>Derive the steady-state droop from the one-lump energy balance and show that
+   it agrees with Part 4, using the appropriate heating or cooling susceptibility.</li>
+<li>Explain physically why the thermal capacity <span class="arithmatex">\(C\)</span> affects the transient
+   response but does not appear in the steady-state droop.</li>
+<li>State which assumptions must hold for the two droop predictions to agree.</li>
+</ol>
+<p>Preserve this derivation for A3.</p>
+<details>
+<summary>Derivation help: connect susceptibility to the heat-balance model</summary>
 <p><strong>Hint.</strong> First temporarily regard the loop as open, so that <span class="arithmatex">\(u\)</span> is an
 independent signed input rather than <span class="arithmatex">\(K_p(T_{\mathrm{set}}-T)\)</span>. At steady state,
 the one-lump model becomes</p>
@@ -536,22 +654,11 @@ is therefore</p>
 <p>Relate this signed susceptibility to the heating or cooling magnitude slope
 from Module 4 before substituting the proportional-control law. The hint gives
 the physical relationship among <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(H\)</span>, and susceptibility; the remaining
-steps are yours.</p>
-<ol>
-<li>At steady state, set <span class="arithmatex">\(dT/dt=0\)</span>.</li>
-<li>Starting from the expanded P-only equation above, collect the terms that
-   contain <span class="arithmatex">\(T\)</span>.</li>
-<li>Solve algebraically for the droop <span class="arithmatex">\(T_{\mathrm{set}}-T\)</span>.</li>
-<li>Compare your result with the Part 4 equation and identify the relationship
-   among the appropriate directional susceptibility, <span class="arithmatex">\(P_u\)</span>, and <span class="arithmatex">\(H\)</span>.</li>
-<li>Check the units of that relationship.</li>
-<li>Explain physically why the thermal capacity <span class="arithmatex">\(C\)</span> affects the transient
-   response but does not appear in the steady-state droop.</li>
-<li>State which assumptions must hold for the two droop predictions to agree.</li>
-</ol>
-<p>Preserve this derivation for A3. It should make clear how the measured
-susceptibility in Part 4 is connected to the heat-transfer parameters in the
-one-lump model.</p>
+algebra is yours.</p>
+<p>To begin the closed-loop calculation, set <span class="arithmatex">\(dT/dt=0\)</span> in the P-only energy
+balance, collect the terms containing <span class="arithmatex">\(T\)</span>, and solve for
+<span class="arithmatex">\(T_{\mathrm{set}}-T\)</span>. Check that <span class="arithmatex">\(P_u/H\)</span> has the same units as susceptibility.</p>
+</details>
 <h3 id="first-order-expectation">First-Order Expectation<a class="headerlink" href="#first-order-expectation" title="Permanent link">&para;</a></h3>
 <p>The algebraic model predicts droop but says nothing about time dependence. Let
 <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> denote the steady-state temperature predicted for the chosen

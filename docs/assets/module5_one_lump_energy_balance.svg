@@ -60,14 +60,11 @@
       }
 
       .st27 {
+        fill: none;
         stroke: #b53b3b;
       }
 
       .st27, .st28 {
-        fill: none;
-      }
-
-      .st27, .st29 {
         stroke-width: 8px;
       }
 
@@ -75,20 +72,8 @@
         font-size: 25px;
       }
 
-      .st28 {
-        stroke-width: 6px;
-      }
-
-      .st28, .st30 {
-        stroke: #6b7280;
-      }
-
-      .st31 {
+      .st29 {
         fill: #3976b8;
-      }
-
-      .st32 {
-        fill: #6b7280;
       }
 
       .st9, .st22 {
@@ -99,7 +84,7 @@
         font-size: 24px;
       }
 
-      .st33 {
+      .st30 {
         fill: #fff;
       }
 
@@ -107,11 +92,11 @@
         font-size: 18px;
       }
 
-      .st29 {
+      .st28 {
         stroke: #3976b8;
       }
 
-      .st29, .st34 {
+      .st28, .st31 {
         fill: #b53b3b;
       }
 
@@ -119,8 +104,9 @@
         font-size: 28px;
       }
 
-      .st30 {
+      .st32 {
         fill: #f3f4f6;
+        stroke: #6b7280;
         stroke-width: 3px;
       }
 
@@ -136,22 +122,22 @@
         font-size: 15px;
       }
 
-      .st35 {
+      .st33 {
         fill: #dbeafe;
         stroke: #1d4ed8;
         stroke-width: 4px;
       }
     </style>
   </defs>
-  <rect class="st33" width="1400" height="590"/>
+  <rect class="st30" width="1400" height="590"/>
   <rect class="st26" x="25" y="25" width="650" height="540" rx="8" ry="8"/>
   <rect class="st26" x="700" y="25" width="675" height="540" rx="8" ry="8"/>
   <text class="st5" transform="translate(55 70)"><tspan x="0" y="0">(a) Thermal capacity of one lump</tspan></text>
   <line class="st27" x1="80" y1="225" x2="214" y2="225"/>
-  <polygon class="st34" points="214 211 242 225 214 239 214 211"/>
+  <polygon class="st31" points="214 211 242 225 214 239 214 211"/>
   <text class="st18" transform="translate(73.48 198)"><tspan x="0" y="0">energy added</tspan></text>
   <text class="st6" transform="translate(129.68 260)"><tspan x="0" y="0">ΔU</tspan></text>
-  <rect class="st35" x="245" y="135" width="330" height="205" rx="16" ry="16"/>
+  <rect class="st33" x="245" y="135" width="330" height="205" rx="16" ry="16"/>
   <text class="st5" transform="translate(305.82 183)"><tspan x="0" y="0">one thermal lump</tspan></text>
   <g class="st8">
     <text class="st4" transform="translate(371.5 226)"><tspan x="0" y="0">mass </tspan></text>
@@ -174,8 +160,8 @@
   <text class="st3" transform="translate(143 512)"><tspan x="0" y="0">More stored energy means a higher temperature.</tspan></text>
   <text class="st5" transform="translate(730 70)"><tspan x="0" y="0">(b) P-controlled one-lump model</tspan></text>
   <line class="st27" x1="730" y1="270" x2="850" y2="270"/>
-  <polygon class="st34" points="850 256 878 270 850 284 850 256"/>
-  <polygon class="st31" points="749.4 223.5 721.4 237.5 749.4 251.5 749.4 223.5"/>
+  <polygon class="st31" points="850 256 878 270 850 284 850 256"/>
+  <polygon class="st29" points="749.4 223.5 721.4 237.5 749.4 251.5 749.4 223.5"/>
   <text class="st16" transform="translate(703.88 128)"><tspan x="0" y="0">signed TEC heat flow</tspan></text>
   <g>
     <text class="st10" transform="translate(744.26 160)"><tspan x="0" y="0">P</tspan></text>
@@ -187,7 +173,7 @@
     <text class="st23" transform="translate(824.07 160)"><tspan x="0" y="0" xml:space="preserve"> − T)</tspan></text>
   </g>
   <text class="st15" transform="translate(743.64 313)"><tspan x="0" y="0">heat (+) / cool (−)</tspan></text>
-  <rect class="st35" x="880" y="185" width="250" height="170" rx="16" ry="16"/>
+  <rect class="st33" x="880" y="185" width="250" height="170" rx="16" ry="16"/>
   <text class="st11" transform="translate(935.98 225)"><tspan x="0" y="0">TEC + block</tspan></text>
   <g class="st8">
     <text class="st4" transform="translate(935.92 263)"><tspan x="0" y="0">temperature </tspan></text>
@@ -198,16 +184,13 @@
     <text class="st6" transform="translate(1080.2 301)"><tspan x="0" y="0">C</tspan></text>
   </g>
   <text class="st10" transform="translate(899.95 337)"><tspan x="0" y="0">energy storage: C dT/dt</tspan></text>
-  <line class="st28" x1="1134" y1="270" x2="1220" y2="270"/>
-  <polygon class="st32" points="1153 257 1129 270 1153 283 1153 257"/>
-  <polygon class="st32" points="1201 257 1225 270 1201 283 1201 257"/>
   <text class="st17" transform="translate(1078.95 128)"><tspan x="0" y="0">passive heat exchange</tspan></text>
   <g>
     <text class="st7" transform="translate(1128.74 160)"><tspan x="0" y="0">H(T − T</tspan></text>
     <text class="st0" transform="translate(1193.65 163.8)"><tspan x="0" y="0">amb</tspan></text>
     <text class="st25" transform="translate(1218.94 160)"><tspan x="0" y="0">)</tspan></text>
   </g>
-  <rect class="st30" x="1222" y="210" width="130" height="120" rx="12" ry="12"/>
+  <rect class="st32" x="1222" y="210" width="130" height="120" rx="12" ry="12"/>
   <text class="st2" transform="translate(1225.78 255)"><tspan x="0" y="0">surroundings</tspan></text>
   <g class="st8">
     <text class="st12" transform="translate(1266.66 298)"><tspan x="0" y="0">T</tspan></text>
@@ -226,5 +209,9 @@
   </g>
   <text class="st20" transform="translate(755.9 462)"><tspan x="0" y="0">rate of stored-energy change = TEC heating/cooling − heat loss</tspan></text>
   <text class="st3" transform="translate(818.92 512)"><tspan x="0" y="0">Every term in the energy balance has units of watts.</tspan></text>
-  <line class="st29" x1="748.66" y1="237.5" x2="868.66" y2="237.5"/>
+  <line class="st28" x1="748.66" y1="237.5" x2="868.66" y2="237.5"/>
+  <line class="st27" x1="1137" y1="244.25" x2="1190.38" y2="244.25"/>
+  <polygon class="st31" points="1190.38 230.25 1218.38 244.25 1190.38 258.25 1190.38 230.25"/>
+  <polygon class="st29" points="1158.76 258.38 1130.76 272.38 1158.76 286.38 1158.76 258.38"/>
+  <line class="st28" x1="1158.01" y1="272.38" x2="1217.91" y2="272.38"/>
 </svg>

@@ -182,14 +182,14 @@ Use one analog input for the trim pot, for example `A1`. The analog input has
 the averaged trim-pot reading into a PWM output signal. PWM outputs have 8-bit
 resolution and therefore values from `0` to `255` are used to control them.
 
-Use a separate digital pin as a heat/cool input, for example pin `11`:
+Use a separate digital pin as a heat/cool or direction input, for example pin `11`:
 
-| Direction input | Mode | Arduino pin `9` | Arduino pin `10` |
+| Arduino pin `11` | Mode | Arduino pin `9` | Arduino pin `10` |
 | --- | --- | --- | --- |
 | `5V` | heat / clockwise | PWM | `0V` |
 | `0V` | cool / counterclockwise | `0V` | PWM |
 
-This is the logic of H-bridge method 2: the two H-bridge control inputs receive
+This is the logic of H-bridge method 2, highlighted in yellow in the [H-bridge hardware notes](../../hardware.md#h-bridge) note.  The two H-bridge control inputs receive
 either the PWM command or `0V`, depending on whether you want to heat or cool.
 In the motor demonstration in Module 2, **heat means clockwise** and **cool means
 counterclockwise**.
@@ -257,7 +257,7 @@ H-bridge outputs, not ground points.**
 6. Vary the PWM command over the full range. Use the tape flag to observe how
    motor speed changes, and observe the corresponding `M+` and `M-` waveforms
    on the oscilloscope. Switch between heat/clockwise and
-   cool/counterclockwise. Record the motor direction, relative speed, and what
+   cool/counterclockwise by moving the input to pin 11 from 5V to 0V. Record the motor direction, relative speed, and what
    changes on each H-bridge output.
 7. Return PWM to zero and turn off actuator power before removing the motor.
 8. **Show the instructor the scope output on the H-bridge and the operation of the motor.**

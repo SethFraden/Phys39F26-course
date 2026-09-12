@@ -31,7 +31,7 @@ By the end of this module, you should be able to:
 These are optional; Laplace transforms are not required in Module 5:
 
 - [Module 6](../lab-06/index.md): [droop](../lab-06/index.md#part-1-algebraic-droop-model)
-  and [first-order stability](../lab-06/index.md#part-6-why-the-first-order-model-may-not-oscillate)
+  and [one-lump stability](../lab-06/index.md#part-6-solve-the-p-controlled-one-lump-model)
 - Bechhoefer, [*Feedback for Physicists*](../../references/bechhoefer-feedback-for-physicists-2005.pdf),
   pp. 788-790 and 804-805
 - [Wikipedia: PID controller](https://en.wikipedia.org/wiki/PID_controller)

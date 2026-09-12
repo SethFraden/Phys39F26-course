@@ -5,10 +5,10 @@ starts from a dimensional energy balance:
 
     C*dT/dt = P_u*u - H*(T - T_ambient)
 
-Dividing by thermal capacitance C gives the time-constant form:
+The equivalent measured-parameter form is:
 
-    dT/dt = -(T - T_ambient)/tau + B*u
-    tau = C/H                 B = P_u/C
+    dT/dt = (T_ambient + chi_Tu*u - T)/tau
+    tau = C/H                 chi_Tu = P_u/H
 
 Here ``u`` is signed PWM. Positive PWM heats and negative PWM cools. The GUI
 compares two controllers under the same physical conditions:
@@ -157,8 +157,8 @@ def simulate(mode: str, config: ModelConfig) -> SimulationResult:
     )
 
 
-def open_loop_slope(config: ModelConfig) -> float:
-    """Return S = P_u/H, the steady temperature change per PWM count."""
+def open_loop_susceptibility(config: ModelConfig) -> float:
+    """Return chi_Tu = P_u/H, the temperature change per signed PWM count."""
 
     return config.tec_power_w_per_pwm / config.heat_loss_w_per_c
 
@@ -169,16 +169,10 @@ def thermal_time_constant(config: ModelConfig) -> float:
     return config.thermal_capacitance_j_per_c / config.heat_loss_w_per_c
 
 
-def normalized_tec_coefficient(config: ModelConfig) -> float:
-    """Return B = P_u/C in degrees Celsius per second per PWM count."""
-
-    return config.tec_power_w_per_pwm / config.thermal_capacitance_j_per_c
-
-
 def predicted_p_droop(config: ModelConfig) -> float:
     """Analytic unsaturated steady-state droop for proportional control."""
 
-    loop_gain = open_loop_slope(config) * config.kp_pwm_per_c
+    loop_gain = open_loop_susceptibility(config) * config.kp_pwm_per_c
     return (config.setpoint_c - config.ambient_c) / (1.0 + loop_gain)
 
 
@@ -427,8 +421,8 @@ class Module6App:
         self.figure.suptitle(
             r"Energy balance: $C\frac{dT}{dt}=P_u u-H(T-T_{amb})$"
             "\n"
-            r"Equivalent form: $\frac{dT}{dt}=-\frac{T-T_{amb}}{\tau}+Bu$, "
-            r"$\tau=\frac{C}{H}$, $B=\frac{P_u}{C}$"
+            r"Measured form: $\frac{dT}{dt}=\frac{T_{amb}+\chi_{T,u}u-T}{\tau}$, "
+            r"$\tau=\frac{C}{H}$, $\chi_{T,u}=\frac{P_u}{H}$"
             "\n"
             r"Controllers: $e=T_{set}-T$, $u_P=K_p e$, "
             r"$u_{PI}=K_p e+K_i\int e\,dt$"
@@ -445,7 +439,7 @@ class Module6App:
         p_result: SimulationResult,
         pi_result: SimulationResult,
     ) -> None:
-        slope = open_loop_slope(config)
+        susceptibility = open_loop_susceptibility(config)
         predicted = predicted_p_droop(config)
         damping_ratio = pi_damping_ratio(config)
         damping_value = "infinite" if math.isinf(damping_ratio) else f"{damping_ratio:.3f}"
@@ -453,9 +447,8 @@ class Module6App:
             "Model results\n"
             f"Heat-loss term = -H(T - Tamb)\n"
             f"Time constant tau = C/H = {thermal_time_constant(config):.3g} s\n"
-            f"TEC coefficient B = P_u/C = {normalized_tec_coefficient(config):.4g} °C/(s PWM)\n"
-            f"Open-loop slope S = P_u/H = B tau = {slope:.4g} °C/PWM\n"
-            f"Loop gain S Kp = {slope * config.kp_pwm_per_c:.3g}\n"
+            f"Susceptibility chi_T,u = P_u/H = {susceptibility:.4g} °C/PWM\n"
+            f"Loop gain chi_T,u Kp = {susceptibility * config.kp_pwm_per_c:.3g}\n"
             f"PI damping ratio zeta = {damping_value}\n"
             f"Linear prediction: {damping_description(damping_ratio)}\n"
             f"Predicted P droop = {predicted:.3f} °C\n"

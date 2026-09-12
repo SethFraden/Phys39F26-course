@@ -124,6 +124,14 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#vocabulary" class="nav-link">Vocabulary</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#terms" class="nav-link">Terms</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#symbols-used-in-part-1" class="nav-link">Symbols Used In Part 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#before-class" class="nav-link">Before Class</a>
@@ -144,17 +152,17 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-algebraic-droop-model" class="nav-link">Part 1: Algebraic Droop Model</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#student-instructions-code-the-steady-state-model" class="nav-link">Student Instructions: Code The Steady-State Model</a>
+            <li class="nav-item" data-bs-level="3"><a href="#guided-derivation-and-numerical-check" class="nav-link">Guided Derivation And Numerical Check</a>
               <ul class="nav flex-column">
               </ul>
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-first-order-thermal-model" class="nav-link">Part 2: First-Order Thermal Model</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-express-the-one-lump-model-using-measured-parameters" class="nav-link">Part 2: Express The One-Lump Model Using Measured Parameters</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-estimate-tau" class="nav-link">Part 3: Estimate tau</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-3-estimate-tau" class="nav-link">Part 3: Estimate \(\tau\)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -166,7 +174,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-6-why-the-first-order-model-may-not-oscillate" class="nav-link">Part 6: Why The First-Order Model May Not Oscillate</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-solve-the-p-controlled-one-lump-model" class="nav-link">Part 6: Solve The P-Controlled One-Lump Model</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -232,7 +240,7 @@ steady-state error but can become unstable. Module 6 builds simple models that
 explain those observations.</p>
 <p>The goal is not to become fluent in Laplace transforms. The goal is to connect
 thermal physics, feedback equations, and the data you measured from the TEC.</p>
-<p>You will begin with algebra, then write a first-order time-domain model, then
+<p>You will begin with algebra, then simulate the one-lump model in time, then
 extend the model just enough to understand why integral control is useful and
 why real feedback loops can oscillate.</p>
 <h2 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">&para;</a></h2>
@@ -256,30 +264,135 @@ action.</p>
 need the idea that a physical object has heat capacity, exchanges heat with its
 environment, and responds over a time scale.</p>
 <h2 id="vocabulary">Vocabulary<a class="headerlink" href="#vocabulary" title="Permanent link">&para;</a></h2>
+<h3 id="terms">Terms<a class="headerlink" href="#terms" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Thermal capacitance</strong>, <code>C</code>: how much heat is needed to change temperature.</li>
-<li><strong>Thermal resistance</strong>, <code>R</code>: how strongly the object is thermally connected
-  to its surroundings.</li>
-<li><strong>Heat-loss conductance</strong>, <code>H = 1/R</code>: heat-loss rate per kelvin above ambient,
-  in W/K.</li>
-<li><strong>TEC power coefficient</strong>, <code>P_u</code>: thermal power per signed PWM count, in
-  W/PWM.</li>
-<li><strong>Time constant</strong>, <code>tau = R*C</code>: the approximate response time of a first-order
-  thermal system.</li>
-<li><strong>Open-loop slope</strong>, <code>S</code>: steady-state temperature change per PWM command.</li>
-<li><strong>P control</strong>: command proportional to current error.</li>
-<li><strong>I control</strong>: command proportional to accumulated error.</li>
-<li><strong>Windup</strong>: integral term grows while the actuator is saturated.</li>
+<li><strong>Thermal capacitance:</strong> energy required to raise the lump's temperature by
+  one degree.</li>
+<li><strong>Thermal resistance:</strong> opposition to passive heat flow between the lump and
+  its surroundings.</li>
+<li><strong>Heat-loss conductance:</strong> the inverse of thermal resistance; passive heat
+  transfer per degree of temperature difference.</li>
+<li><strong>Time constant:</strong> characteristic time over which a first-order system
+  approaches a new temperature.</li>
+<li><strong>Open-loop temperature susceptibility:</strong> steady-state temperature change per
+  applied PWM command, with direction held fixed.</li>
+<li><strong>P control:</strong> command proportional to the current temperature error.</li>
+<li><strong>I control:</strong> command proportional to accumulated temperature error.</li>
+<li><strong>Windup:</strong> continued growth of the integral term while the actuator is
+  saturated.</li>
+<li><strong>Droop:</strong> nonzero steady-state temperature error in P-only control.</li>
 </ul>
+<h3 id="symbols-used-in-part-1">Symbols Used In Part 1<a class="headerlink" href="#symbols-used-in-part-1" title="Permanent link">&para;</a></h3>
+<p>Symbols appear below in the order they are first used in Part 1. A temperature
+difference has the same numerical value in K and °C.</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(C\)</span></td>
+<td>Thermal capacitance of one lump</td>
+<td>J/K or J/°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T\)</span></td>
+<td>Lump temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td>Time</td>
+<td>s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(dT/dt\)</span></td>
+<td>Rate of temperature change</td>
+<td>K/s or °C/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P_u\)</span></td>
+<td>Effective TEC thermal-power coefficient per signed PWM count</td>
+<td>W/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(u\)</span></td>
+<td>Signed PWM command: positive heats and negative cools</td>
+<td>PWM counts</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H\)</span></td>
+<td>Passive heat-loss conductance to the surroundings</td>
+<td>W/K or W/°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{amb}}\)</span></td>
+<td>Ambient (room) temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(U\)</span></td>
+<td>Thermal energy stored in the lump</td>
+<td>J</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\dot Q_{\mathrm{in}}\)</span></td>
+<td>Rate at which heat enters the lump</td>
+<td>W</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\dot Q_{\mathrm{out}}\)</span></td>
+<td>Rate at which heat leaves the lump</td>
+<td>W</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m\)</span></td>
+<td>Mass of the lump</td>
+<td>kg</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(c_p\)</span></td>
+<td>Specific heat capacity of the lump material</td>
+<td>J/(kg K)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\chi_{T,u}\)</span></td>
+<td>Open-loop temperature susceptibility: steady-state temperature change per signed PWM count</td>
+<td>°C/PWM count</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(K_p\)</span></td>
+<td>Proportional gain</td>
+<td>PWM counts/°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{set}}\)</span></td>
+<td>Requested temperature setpoint</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{droop}=T_{\mathrm{set}}-T\)</span></td>
+<td>Steady-state temperature error</td>
+<td>°C</td>
+</tr>
+</tbody>
+</table>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
-<p>Bring:</p>
+<p>Review your Module 4 and Module 5 results. Before class, make sure you can
+locate and open these existing files on your laptop:</p>
 <ul>
-<li>your Module 4 steady-state <code>T</code> versus PWM data,</li>
-<li>your Module 5 droop versus <code>Kp</code> data,</li>
-<li>one Module 5 strip chart trace at a stable gain,</li>
-<li>one Module 5 strip chart trace near oscillation,</li>
-<li>your current Python plotting/modeling environment.</li>
+<li>Module 4 steady-state temperature versus PWM data,</li>
+<li>Module 5 droop-versus-gain data,</li>
+<li>one Module 5 strip-chart trace at a stable gain,</li>
+<li>one Module 5 strip-chart trace near oscillation, if you observed one, and</li>
+<li>your current Python plotting or modeling environment.</li>
 </ul>
+<p>Do not create new figures, tables, or written work for this section. The files
+will be used during the in-class model comparison.</p>
 <h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -366,7 +479,9 @@ C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
 energy-conservation equation that predicts the time dependence of the lump's
 temperature, <span class="arithmatex">\(T(t)\)</span>. Heat is energy being transferred; temperature describes
 the thermal state of the lump.</p>
-<p>Begin with the First Law in rate form:</p>
+<p>Begin with the First Law in rate form; the change in the lump's energy with
+time is the difference between the rate of putting heat in and taking heat out
+of the lump:</p>
 <div class="arithmatex">\[
 \frac{dU}{dt}=\dot Q_{\mathrm{in}}-\dot Q_{\mathrm{out}}.
 \]</div>
@@ -401,92 +516,172 @@ the lump loses heat. If <span class="arithmatex">\(T&lt;T_{\mathrm{amb}}\)</span
 room transfers heat into the colder lump.</p>
 <p>The algebraic droop model below is the steady-state limit of this energy
 balance, where <span class="arithmatex">\(dT/dt=0\)</span>.</p>
-<h3 id="student-instructions-code-the-steady-state-model">Student Instructions: Code The Steady-State Model<a class="headerlink" href="#student-instructions-code-the-steady-state-model" title="Permanent link">&para;</a></h3>
-<p>Start by coding the steady-state open-loop relationship measured in Module 4:</p>
-<pre><code class="language-text">T = Tamb + S*u
-</code></pre>
-<p>where:</p>
-<ul>
-<li><code>T</code> is steady-state temperature,</li>
-<li><code>Tamb</code> is ambient temperature,</li>
-<li><code>S</code> is the open-loop slope in °C/PWM,</li>
-<li><code>u</code> is the signed PWM command.</li>
-</ul>
-<p>For P-only feedback:</p>
-<pre><code class="language-text">u = Kp*(Tset - T)
-</code></pre>
-<p>Combine the two equations:</p>
-<pre><code class="language-text">T = Tamb + S*Kp*(Tset - T)
-</code></pre>
-<p>Solve for the steady-state error:</p>
-<pre><code class="language-text">droop = Tset - T = (Tset - Tamb)/(1 + S*Kp)
-</code></pre>
-<p>Use your own values of <code>S</code>, <code>Tamb</code>, <code>Tset</code>, and <code>Kp</code> to calculate predicted
-droop. Compare the prediction with Module 5.</p>
-<h2 id="part-2-first-order-thermal-model">Part 2: First-Order Thermal Model<a class="headerlink" href="#part-2-first-order-thermal-model" title="Permanent link">&para;</a></h2>
-<p>Use a one-body thermal model:</p>
-<pre><code class="language-text">dT/dt = -(T - Tamb)/tau + B*u
-</code></pre>
-<p>Interpretation:</p>
-<ul>
-<li><code>-(T - Tamb)/tau</code> pulls the block back toward room temperature,</li>
-<li><code>B*u</code> is the heating or cooling rate caused by the TEC command,</li>
-<li><code>tau</code> is the thermal time constant.</li>
-</ul>
-<p>This model is deliberately simple. It treats the TEC/block/thermistor as one
-effective thermal object.</p>
-<h2 id="part-3-estimate-tau">Part 3: Estimate <code>tau</code><a class="headerlink" href="#part-3-estimate-tau" title="Permanent link">&para;</a></h2>
+<h3 id="guided-derivation-and-numerical-check">Guided Derivation And Numerical Check<a class="headerlink" href="#guided-derivation-and-numerical-check" title="Permanent link">&para;</a></h3>
+<p>The measured Module 4 open-loop relationship is</p>
+<div class="arithmatex">\[
+T=T_{\mathrm{amb}}+\chi_{T,u}u,
+\]</div>
+<p>where <span class="arithmatex">\(\chi_{T,u}=dT/du\)</span> is the open-loop susceptibility with respect to signed
+PWM. With the signed convention, <span class="arithmatex">\(\chi_{T,u}\)</span> is positive: positive <span class="arithmatex">\(u\)</span> heats
+and raises <span class="arithmatex">\(T\)</span>, while negative <span class="arithmatex">\(u\)</span> cools and lowers <span class="arithmatex">\(T\)</span>. P-only feedback supplies</p>
+<div class="arithmatex">\[
+u=K_p(T_{\mathrm{set}}-T).
+\]</div>
+<p>Substitute the controller law into the measured open-loop relationship:</p>
+<div class="arithmatex">\[
+T=T_{\mathrm{amb}}+\chi_{T,u}K_p(T_{\mathrm{set}}-T).
+\]</div>
+<p>At steady state, collect the terms containing <span class="arithmatex">\(T\)</span>:</p>
+<div class="arithmatex">\[
+(1+\chi_{T,u}K_p)T
+=T_{\mathrm{amb}}+\chi_{T,u}K_pT_{\mathrm{set}}.
+\]</div>
+<p>Subtract this result from <span class="arithmatex">\(T_{\mathrm{set}}\)</span> to obtain the droop:</p>
+<div class="arithmatex">\[
+\boxed{
+T_{\mathrm{set}}-T=
+\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi_{T,u}K_p}.
+}
+\]</div>
+<p>The product <span class="arithmatex">\(L=\chi_{T,u}K_p\)</span> is dimensionless. It is the loop gain for this
+steady-state model. Part 2 derives <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span> from the dimensional
+model.</p>
+<p>Using one of your Module 5 runs, use <span class="arithmatex">\(\chi_{T,u}\)</span>, <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>,
+<span class="arithmatex">\(T_{\mathrm{set}}\)</span>, and <span class="arithmatex">\(K_p\)</span> in the boxed equation to calculate the predicted
+settled temperature and droop. Compare the prediction with the measured Module
+5 droop, then state one physical reason they may differ.</p>
+<h2 id="part-2-express-the-one-lump-model-using-measured-parameters">Part 2: Express The One-Lump Model Using Measured Parameters<a class="headerlink" href="#part-2-express-the-one-lump-model-using-measured-parameters" title="Permanent link">&para;</a></h2>
+<p>Continue with the dimensional one-lump energy balance from Part 1:</p>
+<div class="arithmatex">\[
+C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
+\]</div>
+<p>This remains the physical foundation for the rest of Module 6. Divide by <span class="arithmatex">\(C\)</span>:</p>
+<div class="arithmatex">\[
+\frac{dT}{dt}
+=\frac{P_u}{C}u-\frac{H}{C}(T-T_{\mathrm{amb}}).
+\]</div>
+<p>At steady state, <span class="arithmatex">\(dT/dt=0\)</span>, so</p>
+<div class="arithmatex">\[
+T=T_{\mathrm{amb}}+\frac{P_u}{H}u.
+\]</div>
+<p>Comparison with the Module 4 measurement
+<span class="arithmatex">\(T=T_{\mathrm{amb}}+\chi_{T,u}u\)</span> identifies</p>
+<div class="arithmatex">\[
+\boxed{\chi_{T,u}=\frac{P_u}{H}}.
+\]</div>
+<p>For constant <span class="arithmatex">\(u\)</span>, define the steady-state temperature</p>
+<div class="arithmatex">\[
+T_{\mathrm{ss}}
+=T_{\mathrm{amb}}+\frac{P_u}{H}u
+=T_{\mathrm{amb}}+\chi_{T,u}u.
+\]</div>
+<p>Now define the displacement from that steady state:</p>
+<div class="arithmatex">\[
+\theta(t)=T(t)-T_{\mathrm{ss}}.
+\]</div>
+<p>Because <span class="arithmatex">\(u\)</span> and <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> are constant, substitution into the
+one-lump energy balance gives</p>
+<div class="arithmatex">\[
+C\frac{d\theta}{dt}=-H\theta,
+\]</div>
+<p>or</p>
+<div class="arithmatex">\[
+\frac{d\theta}{dt}=-\frac{H}{C}\theta.
+\]</div>
+<p>Its solution is</p>
+<div class="arithmatex">\[
+\theta(t)=\theta(0)e^{-(H/C)t}
+=\theta(0)e^{-t/\tau}.
+\]</div>
+<p>Comparison of the exponents identifies the open-loop thermal time constant:</p>
+<div class="arithmatex">\[
+\boxed{\tau=\frac{C}{H}}.
+\]</div>
+<p>The units confirm that this ratio is a time:</p>
+<div class="arithmatex">\[
+[\tau]=\frac{\mathrm{J/K}}{\mathrm{W/K}}
+=\frac{\mathrm{J}}{\mathrm{J/s}}=\mathrm{s}.
+\]</div>
+<p>Dimensional analysis identifies <span class="arithmatex">\(C/H\)</span> as the natural timescale; solving the
+energy balance shows that it is specifically the exponential time constant.</p>
+<p>Therefore <span class="arithmatex">\(P_u/C=\chi_{T,u}/\tau\)</span> and <span class="arithmatex">\(H/C=1/\tau\)</span>. The same dimensional
+energy balance can be written entirely in terms of the two measured parameters
+<span class="arithmatex">\(\chi_{T,u}\)</span> and <span class="arithmatex">\(\tau\)</span>:</p>
+<div class="arithmatex">\[
+\boxed{
+\frac{dT}{dt}
+=\frac{T_{\mathrm{amb}}+\chi_{T,u}u-T}{\tau}.
+}
+\]</div>
+<p>This is not a different model. It is the one-lump energy balance expressed in
+a form that can be simulated using your measured susceptibility and time
+constant. The quantity <span class="arithmatex">\(T_{\mathrm{amb}}+\chi_{T,u}u\)</span> is the steady temperature toward
+which the model moves for a constant command <span class="arithmatex">\(u\)</span>; <span class="arithmatex">\(\tau\)</span> determines how
+quickly it moves there.</p>
+<h2 id="part-3-estimate-tau">Part 3: Estimate <span class="arithmatex">\(\tau\)</span><a class="headerlink" href="#part-3-estimate-tau" title="Permanent link">&para;</a></h2>
 <p>Use a temperature step from Module 4 or Module 5.</p>
 <p>Use a trace in which every temperature value was calculated after averaging
 between 100 and 1000 raw thermistor-voltage measurements, as required in Modules
 2 through 5.</p>
 <p>One practical method:</p>
 <ol>
-<li>Identify the initial temperature, <code>T_initial</code>.</li>
-<li>Identify the approximate final temperature, <code>T_final</code>.</li>
-<li>Calculate 63 percent of the total change:</li>
-</ol>
-<pre><code class="language-text">T_63 = T_initial + 0.63*(T_final - T_initial)
-</code></pre>
-<ol>
-<li>Estimate <code>tau</code> as the time when the temperature first reaches <code>T_63</code>.</li>
+<li>Identify the initial temperature, <span class="arithmatex">\(T_{\mathrm{initial}}\)</span>.</li>
+<li>Identify the approximate final temperature, <span class="arithmatex">\(T_{\mathrm{final}}\)</span>.</li>
+<li>
+<p>Calculate 63 percent of the total change using
+   <span class="arithmatex">\(T_{63}=T_{\mathrm{initial}}
+   +0.63\left(T_{\mathrm{final}}-T_{\mathrm{initial}}\right)\)</span>.</p>
+</li>
+<li>
+<p>Estimate <span class="arithmatex">\(\tau\)</span> as the elapsed time when the temperature first reaches
+   <span class="arithmatex">\(T_{63}\)</span>.</p>
+</li>
 </ol>
 <p>Record how uncertain your estimate is. The trace may not be a perfect
-exponential.</p>
+exponential. In the dimensional model, this measurement determines the ratio
+<span class="arithmatex">\(C/H\)</span>; it does not separately determine <span class="arithmatex">\(C\)</span> and <span class="arithmatex">\(H\)</span>.</p>
 <h2 id="part-4-simulate-open-loop-response">Part 4: Simulate Open-Loop Response<a class="headerlink" href="#part-4-simulate-open-loop-response" title="Permanent link">&para;</a></h2>
-<p>Write a short Python simulation of:</p>
-<pre><code class="language-text">dT/dt = -(T - Tamb)/tau + B*u
-</code></pre>
-<p>Use Euler integration:</p>
-<pre><code class="language-text">T_next = T + dt * (-(T - Tamb)/tau + B*u)
-</code></pre>
-<p>Simulate a constant PWM command and compare the simulated curve with one of
-your measured open-loop traces.</p>
+<p>Write a short Python simulation of the dimensional one-lump balance using
+Euler integration:</p>
+<div class="arithmatex">\[
+T_{n+1}=T_n+\frac{\Delta t}{C}
+\left[P_u u_n-H(T_n-T_{\mathrm{amb}})\right].
+\]</div>
+<p>Because your experiment measures <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span> and <span class="arithmatex">\(\tau=C/H\)</span>, implement the
+equivalent measured-parameter update:</p>
+<div class="arithmatex">\[
+\boxed{
+T_{n+1}=T_n+\frac{\Delta t}{\tau}
+\left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
+}
+\]</div>
+<p>Simulate a constant signed PWM command and compare the simulated curve with one
+of your measured open-loop traces. State the values and units of <span class="arithmatex">\(\chi_{T,u}\)</span>, <span class="arithmatex">\(\tau\)</span>,
+<span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(u\)</span>, and <span class="arithmatex">\(\Delta t\)</span>. Choose <span class="arithmatex">\(\Delta t\)</span> much smaller than
+<span class="arithmatex">\(\tau\)</span> and verify that making it smaller does not appreciably change the
+result.</p>
 <h2 id="part-5-simulate-p-only-feedback">Part 5: Simulate P-Only Feedback<a class="headerlink" href="#part-5-simulate-p-only-feedback" title="Permanent link">&para;</a></h2>
-<p>Replace the constant command with:</p>
-<pre><code class="language-text">u = Kp*(Tset - T)
-</code></pre>
-<p>Clamp <code>u</code> to the allowed PWM range.</p>
-<p>Simulate several values of <code>Kp</code>. Plot:</p>
+<p>Continue using the same one-lump energy balance. Replace the constant command
+with</p>
+<div class="arithmatex">\[
+u_n=K_p(T_{\mathrm{set}}-T_n),
+\]</div>
+<p>then clamp <span class="arithmatex">\(u_n\)</span> to the allowed signed PWM range before applying the Euler
+update from Part 4.</p>
+<p>Simulate several values of <span class="arithmatex">\(K_p\)</span>. Plot:</p>
 <ul>
 <li>temperature versus time,</li>
 <li>PWM command versus time,</li>
-<li>final droop versus <code>Kp</code>.</li>
+<li>final droop versus <span class="arithmatex">\(K_p\)</span>.</li>
 </ul>
-<p>Compare with Module 5. The first-order model should capture some trends, but it
+<p>Compare with Module 5. The one-lump model should capture some trends, but it
 may not reproduce oscillations.</p>
-<h2 id="part-6-why-the-first-order-model-may-not-oscillate">Part 6: Why The First-Order Model May Not Oscillate<a class="headerlink" href="#part-6-why-the-first-order-model-may-not-oscillate" title="Permanent link">&para;</a></h2>
-<p>If your first-order model does not oscillate, that is useful. It means one
-thermal mass with instantaneous measurement and actuation is too simple.</p>
-<p>The dimensional one-lump model is</p>
-<div class="arithmatex">\[
-C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
-\]</div>
-<p>With P control,</p>
-<div class="arithmatex">\[
-u=K_p(T_{\mathrm{set}}-T),
-\]</div>
-<p>so</p>
+<h2 id="part-6-solve-the-p-controlled-one-lump-model">Part 6: Solve The P-Controlled One-Lump Model<a class="headerlink" href="#part-6-solve-the-p-controlled-one-lump-model" title="Permanent link">&para;</a></h2>
+<p>Now analyze the same dimensional one-lump model used throughout this module.
+The solution explains why its P-controlled response cannot oscillate. If the
+real apparatus oscillates, the difference identifies physics missing from the
+model.</p>
+<p>With P control, the energy balance is</p>
 <div class="arithmatex">\[
 C\frac{dT}{dt}
 =P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
@@ -504,6 +699,13 @@ T_{\mathrm{set}}-T_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
 {H+P_uK_p}.
 \]</div>
+<p>Divide numerator and denominator by <span class="arithmatex">\(H\)</span> and use <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span>:</p>
+<div class="arithmatex">\[
+T_{\mathrm{set}}-T_{\mathrm{ss}}
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi_{T,u}K_p}.
+\]</div>
+<p>This is the same droop equation derived from the measured open-loop relation
+in Part 1.</p>
 <p>Now define the displacement from steady state,</p>
 <div class="arithmatex">\[
 \theta(t)=T(t)-T_{\mathrm{ss}}.
@@ -535,6 +737,12 @@ T(t)=T_{\mathrm{ss}}
 +\left[T(0)-T_{\mathrm{ss}}\right]e^{-t/\tau_{\mathrm{cl}}},
 \qquad
 \tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
+\]</div>
+<p>Using <span class="arithmatex">\(\tau=C/H\)</span> and the dimensionless loop gain <span class="arithmatex">\(L=\chi_{T,u}K_p\)</span>,</p>
+<div class="arithmatex">\[
+\boxed{
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi_{T,u}K_p}=\frac{\tau}{1+L}.
+}
 \]</div>
 <p>To find the eigenvalue directly, try an exponential mode,</p>
 <div class="arithmatex">\[
@@ -570,11 +778,41 @@ state or time delay needed for oscillation.</p>
 <p>Choose one extension that you think is physically most important for the class
 apparatus.</p>
 <h2 id="part-7-add-integral-action-in-simulation">Part 7: Add Integral Action In Simulation<a class="headerlink" href="#part-7-add-integral-action-in-simulation" title="Permanent link">&para;</a></h2>
-<p>Integral control accumulates error:</p>
-<pre><code class="language-text">error_integral = error_integral + error*dt
-u = Kp*error + Ki*error_integral
-</code></pre>
-<p>Simulate PI control for a stable <code>Kp</code>.</p>
+<p>Keep the same dimensional one-lump energy balance. PI control changes only the
+command supplied to the TEC. Define the temperature error and its accumulated
+value as</p>
+<div class="arithmatex">\[
+e=T_{\mathrm{set}}-T,
+\qquad
+q(t)=q(0)+\int_0^t e(t')\,dt'.
+\]</div>
+<p>The PI command is</p>
+<div class="arithmatex">\[
+u=K_p e+K_iq,
+\]</div>
+<p>so the physical model remains</p>
+<div class="arithmatex">\[
+\boxed{
+C\frac{dT}{dt}
+=P_u\left[K_p(T_{\mathrm{set}}-T)+K_iq\right]
+-H(T-T_{\mathrm{amb}}),
+\qquad
+\frac{dq}{dt}=T_{\mathrm{set}}-T.
+}
+\]</div>
+<p>At each time step, calculate and clamp the command from the current state, then
+update both state variables:</p>
+<div class="arithmatex">\[
+u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_n,
+\]</div>
+<div class="arithmatex">\[
+T_{n+1}=T_n+\frac{\Delta t}{\tau}
+\left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
+\]</div>
+<div class="arithmatex">\[
+q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
+\]</div>
+<p>Simulate PI control for a stable <span class="arithmatex">\(K_p\)</span>.</p>
 <p>Compare P-only and PI simulations:</p>
 <ul>
 <li>final droop,</li>
@@ -585,12 +823,7 @@ u = Kp*error + Ki*error_integral
 <p>The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.</p>
 <h3 id="why-pi-can-be-underdamped">Why PI Can Be Underdamped<a class="headerlink" href="#why-pi-can-be-underdamped" title="Permanent link">&para;</a></h3>
-<p>First call the controller's accumulated error <span class="arithmatex">\(q\)</span>. It is the time integral of
-the error:</p>
-<div class="arithmatex">\[
-q(t)=q(0)+\int_0^t e(t')\,dt'.
-\]</div>
-<p>Therefore</p>
+<p>From the definitions above,</p>
 <div class="arithmatex">\[
 \frac{dq}{dt}=e,
 \qquad
@@ -701,7 +934,7 @@ root:</p>
 <pre><code class="language-bash">python python/Lab_6_first_order_p_pi_simulation.py
 </code></pre>
 <p>The supplied simulation displays the dimensional energy balance, the
-equivalent time-constant model, the P and PI controller equations, the
+equivalent measured-parameter form, the P and PI controller equations, the
 predicted P droop, and the PI damping ratio. Use it to check your reasoning,
 compare its predictions with your independently written model, and investigate
 parameter changes. Do not substitute its plots for comparisons with your own
@@ -750,12 +983,12 @@ pushing, and submitting the PDF.</p>
 <ul>
 <li>derivation of the P-control droop equation,</li>
 <li>concise responses to the <a href="../lab-05/#student-derivation-recover-the-droop-equation">three Module 5 interpretation questions</a>, integrated with that derivation and the droop data rather than repeated separately,</li>
-<li>estimate of open-loop slope <code>S</code>,</li>
+<li>estimate of open-loop temperature susceptibility <span class="arithmatex">\(\chi_{T,u}\)</span>,</li>
 <li>estimate of thermal time constant <code>tau</code>,</li>
 <li>open-loop simulation compared with one measured trace,</li>
 <li>P-only simulation compared with Module 5 droop data,</li>
 <li>PI simulation compared with P-only simulation,</li>
-<li>short explanation of why the first-order model does or does not oscillate,</li>
+<li>short explanation of why the one-lump model does or does not oscillate,</li>
 <li>windup thought-experiment answers,</li>
 <li>link to your GitHub modeling checkpoint.</li>
 </ul>

@@ -35,7 +35,7 @@ Before using feedback control:
 3. The Python GUI shows plausible temperature.
 4. Heat and cool directions have the correct sign.
 5. The power supply current limit is set by the instructor.
-6. The setpoint is between **20 °C and 35 °C** unless the instructor approves a
+6. Start with a setpoint between **30 °C and 35 °C** unless the instructor approves a
    different range.
 
 Stop immediately if the temperature moves in the wrong direction, the GUI
@@ -111,7 +111,7 @@ independent software temperature limit developed in Module 4.
 
 The controller should:
 
-1. read the measured temperature only after averaging between 100 and 1000 raw
+1. read the measured temperature only after averaging about 1000 raw
    thermistor-voltage measurements and converting the average voltage to
    temperature,
 2. calculate $e=T_{\mathrm{set}}-T$,
@@ -247,7 +247,7 @@ the energy needed to raise the lump's temperature by one degree.
 For P-only control, the one-lump energy balance is
 
 $$
-C\frac{dT}{dt}
+\frac{dU}{dt} = C\frac{dT}{dt}
 =P_uK_p(T_{\mathrm{set}}-T)-H(T-T_{\mathrm{amb}}).
 $$
 

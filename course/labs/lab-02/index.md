@@ -167,15 +167,24 @@ Module 2 stays inside the Arduino IDE. **Quickly show the instructor when the se
 
 ## Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction
 
-### 3A: Write The Trim-Pot And Direction Code
+### 3A: Build And Verify The Trim-Pot H-Bridge Controller
 
 In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.
 
-Build code with this signal path:
+Get a 100kOhm trimpot, wire it up and build code with this signal path:
 
 ```text
 trim-pot voltage -> analogRead average -> map to PWM -> analogWrite -> H-bridge input
 ```
+
+![The potentiometer wired to Arduino A1 and an SPDT direction switch wired to digital pin 11](../../assets/module2_pwm_direction_inputs.svg)
+
+*Figure 3. Wiring for the PWM and direction commands. The 100 kΩ potentiometer
+wiper connects to analog input `A1` and sets PWM magnitude. The center terminal
+of the SPDT switch connects to digital input pin `11`; the two switch positions
+connect pin `11` to Arduino `5V` for heat/clockwise or Arduino `GND` for
+cool/counterclockwise. Arduino PWM output pins `9` and `10` connect to the two
+H-bridge control inputs.*
 
 Use one analog input for the trim pot, for example `A1`. The analog input has
 10-bit resolution and therefore produces numbers from `0` to `1023`. Convert
@@ -189,6 +198,8 @@ Use a separate digital pin as a heat/cool or direction input, for example pin `1
 | `5V` | heat / clockwise | PWM | `0V` |
 | `0V` | cool / counterclockwise | `0V` | PWM |
 
+---
+
 This is the logic of H-bridge method 2, highlighted in yellow in the [H-bridge hardware notes](../../hardware.md#h-bridge) note.  The two H-bridge control inputs receive
 either the PWM command or `0V`, depending on whether you want to heat or cool.
 In the motor demonstration in Module 2, **heat means clockwise** and **cool means
@@ -198,10 +209,6 @@ the class board.
 
 Keep actuator power off and the TEC disconnected for this part. You are
 verifying the command signals, not driving a load yet.
-
-### 3B: Verify The H-Bridge Command Signals
-
-Do this with actuator power off and the TEC disconnected.
 
 Use the oscilloscope to inspect the Arduino pins that drive the H-bridge. On the
 class boards, the PWM pins are expected to be Arduino pins 9 and 10. Verify the
@@ -215,7 +222,9 @@ Check:
 - whether the PWM duty cycle matches the commanded value,
 - whether Arduino ground and oscilloscope ground are common.
 
-### 3C: Drive The DC Motor
+Show the working command signals to the instructor before connecting a load.
+
+### 3B: Connect And Drive The DC Motor
 
 Only do this after the instructor checks the H-bridge signals. The TEC must
 remain disconnected.

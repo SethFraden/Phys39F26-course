@@ -152,15 +152,11 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction" class="nav-link">Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#3a-write-the-trim-pot-and-direction-code" class="nav-link">3A: Write The Trim-Pot And Direction Code</a>
+            <li class="nav-item" data-bs-level="3"><a href="#3a-build-and-verify-the-trim-pot-h-bridge-controller" class="nav-link">3A: Build And Verify The Trim-Pot H-Bridge Controller</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#3b-verify-the-h-bridge-command-signals" class="nav-link">3B: Verify The H-Bridge Command Signals</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#3c-drive-the-dc-motor" class="nav-link">3C: Drive The DC Motor</a>
+            <li class="nav-item" data-bs-level="3"><a href="#3b-connect-and-drive-the-dc-motor" class="nav-link">3B: Connect And Drive The DC Motor</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -349,11 +345,18 @@ between your fingers or cool it with a slightly moistened finger.</p>
 </ul>
 <p>Module 2 stays inside the Arduino IDE. <strong>Quickly show the instructor when the serial plotter displays the temperature.</strong></p>
 <h2 id="part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction">Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction<a class="headerlink" href="#part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction" title="Permanent link">&para;</a></h2>
-<h3 id="3a-write-the-trim-pot-and-direction-code">3A: Write The Trim-Pot And Direction Code<a class="headerlink" href="#3a-write-the-trim-pot-and-direction-code" title="Permanent link">&para;</a></h3>
+<h3 id="3a-build-and-verify-the-trim-pot-h-bridge-controller">3A: Build And Verify The Trim-Pot H-Bridge Controller<a class="headerlink" href="#3a-build-and-verify-the-trim-pot-h-bridge-controller" title="Permanent link">&para;</a></h3>
 <p>In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.</p>
-<p>Build code with this signal path:</p>
+<p>Get a 100kOhm trimpot, wire it up and build code with this signal path:</p>
 <pre><code class="language-text">trim-pot voltage -&gt; analogRead average -&gt; map to PWM -&gt; analogWrite -&gt; H-bridge input
 </code></pre>
+<p><img alt="The potentiometer wired to Arduino A1 and an SPDT direction switch wired to digital pin 11" src="../../assets/module2_pwm_direction_inputs.svg" /></p>
+<p><em>Figure 3. Wiring for the PWM and direction commands. The 100 kΩ potentiometer
+wiper connects to analog input <code>A1</code> and sets PWM magnitude. The center terminal
+of the SPDT switch connects to digital input pin <code>11</code>; the two switch positions
+connect pin <code>11</code> to Arduino <code>5V</code> for heat/clockwise or Arduino <code>GND</code> for
+cool/counterclockwise. Arduino PWM output pins <code>9</code> and <code>10</code> connect to the two
+H-bridge control inputs.</em></p>
 <p>Use one analog input for the trim pot, for example <code>A1</code>. The analog input has
 10-bit resolution and therefore produces numbers from <code>0</code> to <code>1023</code>. Convert
 the averaged trim-pot reading into a PWM output signal. PWM outputs have 8-bit
@@ -383,6 +386,7 @@ resolution and therefore values from <code>0</code> to <code>255</code> are used
 </tr>
 </tbody>
 </table>
+<hr />
 <p>This is the logic of H-bridge method 2, highlighted in yellow in the <a href="../../hardware/#h-bridge">H-bridge hardware notes</a> note.  The two H-bridge control inputs receive
 either the PWM command or <code>0V</code>, depending on whether you want to heat or cool.
 In the motor demonstration in Module 2, <strong>heat means clockwise</strong> and <strong>cool means
@@ -391,8 +395,6 @@ Read the <a href="../../hardware/#h-bridge">H-bridge hardware notes</a> before w
 the class board.</p>
 <p>Keep actuator power off and the TEC disconnected for this part. You are
 verifying the command signals, not driving a load yet.</p>
-<h3 id="3b-verify-the-h-bridge-command-signals">3B: Verify The H-Bridge Command Signals<a class="headerlink" href="#3b-verify-the-h-bridge-command-signals" title="Permanent link">&para;</a></h3>
-<p>Do this with actuator power off and the TEC disconnected.</p>
 <p>Use the oscilloscope to inspect the Arduino pins that drive the H-bridge. On the
 class boards, the PWM pins are expected to be Arduino pins 9 and 10. Verify the
 actual board wiring before powering anything.</p>
@@ -404,7 +406,8 @@ actual board wiring before powering anything.</p>
 <li>whether the PWM duty cycle matches the commanded value,</li>
 <li>whether Arduino ground and oscilloscope ground are common.</li>
 </ul>
-<h3 id="3c-drive-the-dc-motor">3C: Drive The DC Motor<a class="headerlink" href="#3c-drive-the-dc-motor" title="Permanent link">&para;</a></h3>
+<p>Show the working command signals to the instructor before connecting a load.</p>
+<h3 id="3b-connect-and-drive-the-dc-motor">3B: Connect And Drive The DC Motor<a class="headerlink" href="#3b-connect-and-drive-the-dc-motor" title="Permanent link">&para;</a></h3>
 <p>Only do this after the instructor checks the H-bridge signals. The TEC must
 remain disconnected.</p>
 <p>Before connecting the TEC in a later module, use a small motor as the first visible

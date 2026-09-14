@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1500 650">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2, .st3, .st4, .st5, .st6, .st7 {
+        fill: none;
+      }
+
+      .st8 {
+        font-size: 12px;
+      }
+
+      .st8, .st9, .st10, .st11, .st12, .st13, .st14, .st15, .st16, .st17 {
+        isolation: isolate;
+      }
+
+      .st8, .st9, .st10, .st11, .st12, .st13, .st15, .st16, .st17 {
+        font-family: ArialMT, Arial;
+      }
+
+      .st8, .st14, .st18 {
+        fill: #fff;
+      }
+
+      .st19, .st20, .st21, .st22 {
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .st19, .st23 {
+        fill: #7c3aed;
+      }
+
+      .st9 {
+        font-size: 22px;
+      }
+
+      .st9, .st10, .st12, .st17 {
+        fill: #17233c;
+      }
+
+      .st10 {
+        font-size: 19px;
+      }
+
+      .st11 {
+        fill: #dcf7f9;
+      }
+
+      .st11, .st16 {
+        font-size: 17px;
+      }
+
+      .st1 {
+        stroke: #14805e;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2, .st3, .st4, .st6 {
+        stroke-width: 6px;
+      }
+
+      .st1, .st2, .st3, .st4, .st6, .st7 {
+        stroke-linecap: round;
+      }
+
+      .st2 {
+        stroke: #2457a6;
+      }
+
+      .st12 {
+        font-size: 20px;
+      }
+
+      .st24 {
+        fill: #137f8f;
+        stroke: #0c5260;
+      }
+
+      .st24, .st5 {
+        stroke-width: 5px;
+      }
+
+      .st25 {
+        fill: #f2f5f8;
+        stroke: #46566d;
+        stroke-width: 4px;
+      }
+
+      .st20, .st26 {
+        fill: #14805e;
+      }
+
+      .st13 {
+        fill: #27364d;
+        font-size: 18px;
+      }
+
+      .st3, .st7 {
+        stroke: #7c3aed;
+      }
+
+      .st14 {
+        font-family: Arial-BoldMT, Arial;
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .st15, .st16 {
+        fill: #4b5563;
+      }
+
+      .st15, .st17 {
+        font-size: 16px;
+      }
+
+      .st4 {
+        stroke: #252a31;
+      }
+
+      .st5 {
+        stroke: #27364d;
+      }
+
+      .st6 {
+        stroke: #d63a2f;
+      }
+
+      .st27 {
+        fill: #0d5f6b;
+      }
+
+      .st28 {
+        fill: #252a31;
+      }
+
+      .st29, .st22 {
+        fill: #d63a2f;
+      }
+
+      .st7 {
+        stroke-width: 7px;
+      }
+
+      .st21 {
+        fill: #2457a6;
+      }
+    </style>
+  </defs>
+  <rect class="st18" width="1500" height="650"/>
+  <text class="st9" transform="translate(588.28 48)"><tspan x="0" y="0">PWM magnitude and direction command wiring</tspan></text>
+  <line class="st6" x1="75" y1="105" x2="1350" y2="105"/>
+  <line class="st4" x1="75" y1="560" x2="1350" y2="560"/>
+  <text class="st12" transform="translate(85 90)"><tspan x="0" y="0">Arduino 5 V</tspan></text>
+  <text class="st12" transform="translate(85 595)"><tspan x="0" y="0">Arduino GND</tspan></text>
+  <text class="st17" transform="translate(314.53 150)"><tspan x="0" y="0">100 kΩ potentiometer</tspan></text>
+  <text class="st15" transform="translate(314.03 180.36)"><tspan x="0" y="0">sets PWM magnitude</tspan></text>
+  <line class="st6" x1="285" y1="105" x2="285" y2="200"/>
+  <path class="st5" d="M285,200l-14,16,28,18-28,18,28,18-28,18,28,18-28,18,28,18-14,16"/>
+  <line class="st4" x1="285" y1="358" x2="285" y2="560"/>
+  <path class="st0" d=""/>
+  <path class="st26" d="M215,250l60,30-60,30v-60Z"/>
+  <path class="st26" d="M263,280" marker-end="url(#arrow)"/>
+  <circle class="st26" cx="285" cy="280" r="7"/>
+  <path class="st1" d="M127,280h483"/>
+  <text class="st13" transform="translate(401.97 267)"><tspan x="0" y="0">wiper voltage</tspan></text>
+  <rect class="st24" x="610.68" y="77" width="390" height="500" rx="8" ry="8"/>
+  <text class="st14" transform="translate(714.87 140)"><tspan x="0" y="0">Arduino Uno</tspan></text>
+  <text class="st11" transform="translate(649.77 175)"><tspan x="0" y="0">reads commands and drives the H-bridge</tspan></text>
+  <circle class="st20" cx="610.68" cy="275" r="14"/>
+  <rect class="st27" x="625.88" y="246" width="42.88" height="58" rx="6" ry="6"/>
+  <text class="st8" transform="translate(636.35 282)"><tspan x="0" y="0">A1</tspan></text>
+  <text class="st15" transform="translate(402.02 300.42)"><tspan x="0" y="0">PWM setting</tspan></text>
+  <rect class="st27" x="871.68" y="209" width="84" height="50" rx="6" ry="6"/>
+  <text class="st8" transform="translate(899.75 241.14)"><tspan x="0" y="0">9: PWM</tspan></text>
+  <circle class="st22" cx="1000.68" cy="234" r="14"/>
+  <rect class="st27" x="871" y="283" width="84.68" height="50" rx="6" ry="6"/>
+  <text class="st8" transform="translate(895.42 313)"><tspan x="0" y="0">10: PWM</tspan></text>
+  <circle class="st21" cx="1000.68" cy="308" r="14"/>
+  <rect class="st27" x="867.16" y="464.77" width="92.36" height="58" rx="6" ry="6"/>
+  <text class="st8" transform="translate(876.21 500)"><tspan x="0" y="0">11: digitalRead</tspan></text>
+  <circle class="st19" cx="1000" cy="499.22" r="14"/>
+  <text class="st15" transform="translate(1009.2 459.06)"><tspan x="0" y="0">direction input</tspan></text>
+  <path class="st6" d="M996,233h119"/>
+  <path class="st2" d="M996,307h119"/>
+  <rect class="st25" x="1118" y="179" width="210.08" height="182" rx="8" ry="8"/>
+  <text class="st10" transform="translate(1203.6 222)"><tspan x="0" y="0">H-bridge</tspan></text>
+  <text class="st13" transform="translate(1133.23 241.14)"><tspan x="0" y="0">IN1</tspan></text>
+  <text class="st13" transform="translate(1133.23 309)"><tspan x="0" y="0">IN2</tspan></text>
+  <text class="st16" transform="translate(1182 275)"><tspan x="0" y="0">drives M+ and M−</tspan></text>
+  <text/>
+  <text class="st15" transform="translate(1130.75 451.32)"><tspan x="0" y="0">selects heat/cool </tspan><tspan x="0" y="19.2">or motor direction</tspan></text>
+  <path class="st6" d="M1350,105v360h0"/>
+  <path class="st4" d="M1350,560v-25h0"/>
+  <circle class="st29" cx="1350" cy="465" r="9"/>
+  <circle class="st28" cx="1350" cy="535" r="9"/>
+  <circle class="st23" cx="1220" cy="500" r="9"/>
+  <line class="st7" x1="1220" y1="500" x2="1335" y2="470"/>
+  <path class="st3" d="M1220,500h-140s-80,0-80,0"/>
+  <text class="st13" transform="translate(1359 485)"><tspan x="0" y="0">5 V</tspan></text>
+  <text class="st13" transform="translate(1365.12 526.22)"><tspan x="0" y="0">GND</tspan></text>
+  <text/>
+</svg>

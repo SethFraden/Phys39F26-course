@@ -372,21 +372,25 @@ output path:</p>
 A1 trim pot -&gt; ADC value -&gt; PWM command
 fixed direction -&gt; H-bridge -&gt; TEC
 </code></pre>
+<p><img alt="The potentiometer wired to Arduino A1, the direction input wired to pin 11, and PWM output pins 9 and 10 connected to the H-bridge" src="../../assets/module2_pwm_direction_inputs.svg" /></p>
+<p><em>Wiring for the manual PWM and direction commands. The potentiometer on <code>A1</code>
+sets PWM magnitude, pin <code>11</code> is the direction input which will be used in the second sketch,
+and pins <code>9</code> and <code>10</code> are the two Arduino PWM outputs to the H-bridge.</em></p>
 <p>For the first version, make pin <code>9</code> remain <code>LOW</code> and send the trim-pot PWM
-command to pin <code>10</code>. It does not matter whether this assignment initially
+command to pin <code>10</code>. If you have pin <code>11</code> wired up, connect it to 5V. It does not matter whether this assignment initially
 heats or cools the thermistor embedded in the TEC plate. Arduino pins <code>9</code> and
-<code>10</code> are logic-level H-bridge control signals; they are not ground and they are
-not the H-bridge power outputs <code>M+</code> and <code>M-</code>.</p>
+<code>10</code> are logic-level H-bridge control signals; they control the H-bridge power outputs <code>M+</code> and <code>M-</code>.</p>
 <p>Print one labeled line containing time, temperature, PWM, and the active
 Arduino PWM pin. For example:</p>
 <pre><code class="language-text">Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Active PWM pin: 10
 </code></pre>
 <p>Use Serial Monitor only; do not plot yet. After instructor approval, apply low
 power and determine whether the fixed command heats or cools.</p>
-<p>To reverse direction for a second test, set PWM to zero and swap only the two
-Arduino-to-H-bridge control leads connected to pins <code>9</code> and <code>10</code>. Then increase
-PWM and observe whether the heating/cooling function reverses. Do not swap TEC
-power leads (<code>M+</code>/<code>M-</code>) for this exercise.</p>
+<p>To reverse direction for a second test, leave the direction connection on pin
+<code>11</code> at 5V and swap only the two Arduino-to-H-bridge
+control leads connected to pins <code>9</code> and <code>10</code>. Observe whether the
+heating/cooling function reverses. Explain. Do not swap the TEC power leads
+(<code>M+</code>/<code>M-</code>) for this exercise.</p>
 <h2 id="part-3-second-manual-sketch-hardware-direction-input">Part 3: Second Manual Sketch - Hardware Direction Input<a class="headerlink" href="#part-3-second-manual-sketch-hardware-direction-input" title="Permanent link">&para;</a></h2>
 <p>Save the first working sketch, then make a second sketch that replaces the
 wire swap with a switch. Keep <code>A0</code> for temperature and <code>A1</code> for the trim-pot

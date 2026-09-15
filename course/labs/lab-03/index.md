@@ -120,11 +120,16 @@ A1 trim pot -> ADC value -> PWM command
 fixed direction -> H-bridge -> TEC
 ```
 
+![The potentiometer wired to Arduino A1, the direction input wired to pin 11, and PWM output pins 9 and 10 connected to the H-bridge](../../assets/module2_pwm_direction_inputs.svg)
+
+*Wiring for the manual PWM and direction commands. The potentiometer on `A1`
+sets PWM magnitude, pin `11` is the direction input which will be used in the second sketch,
+and pins `9` and `10` are the two Arduino PWM outputs to the H-bridge.*
+
 For the first version, make pin `9` remain `LOW` and send the trim-pot PWM
-command to pin `10`. It does not matter whether this assignment initially
+command to pin `10`. If you have pin `11` wired up, connect it to 5V. It does not matter whether this assignment initially
 heats or cools the thermistor embedded in the TEC plate. Arduino pins `9` and
-`10` are logic-level H-bridge control signals; they are not ground and they are
-not the H-bridge power outputs `M+` and `M-`.
+`10` are logic-level H-bridge control signals; they control the H-bridge power outputs `M+` and `M-`.
 
 Print one labeled line containing time, temperature, PWM, and the active
 Arduino PWM pin. For example:
@@ -136,10 +141,11 @@ Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Active PWM pin: 10
 Use Serial Monitor only; do not plot yet. After instructor approval, apply low
 power and determine whether the fixed command heats or cools.
 
-To reverse direction for a second test, set PWM to zero and swap only the two
-Arduino-to-H-bridge control leads connected to pins `9` and `10`. Then increase
-PWM and observe whether the heating/cooling function reverses. Do not swap TEC
-power leads (`M+`/`M-`) for this exercise.
+To reverse direction for a second test, leave the direction connection on pin
+`11` at 5V and swap only the two Arduino-to-H-bridge
+control leads connected to pins `9` and `10`. Observe whether the
+heating/cooling function reverses. Explain. Do not swap the TEC power leads
+(`M+`/`M-`) for this exercise.
 
 ## Part 3: Second Manual Sketch - Hardware Direction Input
 

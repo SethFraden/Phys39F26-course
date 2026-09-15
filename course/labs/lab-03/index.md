@@ -328,7 +328,6 @@ The new Arduino sketch should:
 - start with PWM `0`,
 - receive the commands defined in the Arduino-Python serial interface,
 - clamp PWM to the range `0` to `255`,
-- set PWM to zero after a malformed or unknown command,
 - keep printing the measurement line defined above.
 
 <details markdown="1">
@@ -342,7 +341,7 @@ and 10. Remove the A1 trim pot and pin 11 switch. Start with PWM zero and parse:
   SET PWM 45 DIR COOL
 
 Use my experimentally verified pin mapping for HEAT and COOL. Clamp numeric PWM
-to 0-255. A malformed or unknown command must set PWM to zero. Continue printing:
+to 0-255. Continue printing:
   Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
 
 Use Heat/Cool = 1 only for observed heating and 0 only for observed cooling.
@@ -352,9 +351,8 @@ Do not add feedback control. Comment the parser and safety behavior clearly.
 </details>
 
 Before pairing this sketch with Python, use Serial Monitor to send one valid
-command and one malformed command. Verify that the valid command produces the
-expected pin outputs and that the malformed command returns PWM to zero. Close
-Serial Monitor before starting Python.
+command and verify that it produces the expected pin outputs. Close Serial
+Monitor before starting Python.
 
 ## Part 7: Integrated Manual-Control Test
 
@@ -447,7 +445,7 @@ Save evidence while each capability is working. Your repository must contain:
 - both manual Arduino sketches and the final serial-command sketch,
 - the display-only and complete-control Python programs with screenshots,
 - a CSV data file with units in its column headings,
-- records of the zero-PWM startup and malformed-command tests,
+- records of the zero-PWM startup and serial-command test,
 - the `README.md` and `docs/module_notes/module_03_tec_gui.md`, including the AI
   use note and a paragraph distinguishing measurement, manual actuation, and
   feedback control.

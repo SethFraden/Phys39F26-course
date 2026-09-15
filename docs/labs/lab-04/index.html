@@ -498,10 +498,8 @@ support the submitted note.</p>
 <p>You may ask an AI coding assistant for help, but you must test and understand
 the result. After using AI, identify the lines that changed and explain how the
 safety limit works.</p>
-<details markdown="1">
+<details>
 <summary>Show a possible prompt</summary>
-
-
 <pre><code class="language-text">My Arduino sketch measures TEC temperature from a thermistor, receives PWM
 magnitude and heat/cool commands from a Python GUI, and drives an H-bridge using
 pins 9 and 10. Add a software temperature safety limit without removing the
@@ -512,8 +510,6 @@ temperatureLimitC as 60.0. Above that limit, set the commanded PWM to 0, write 0
 to both H-bridge PWM outputs, continue serial reporting, and report that safety
 shutdown is active. Keep the code simple and comment the new logic.
 </code></pre>
-
-
 </details></div>
             </div>
         </div>

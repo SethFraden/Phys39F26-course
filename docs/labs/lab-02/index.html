@@ -162,11 +162,7 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#collect-your-c2-evidence-during-class" class="nav-link">Collect Your C2 Evidence During Class</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#c2-evidence-record" class="nav-link">C2 Evidence Record</a>
+            <li class="nav-item" data-bs-level="2"><a href="#c2-evidence-and-submission" class="nav-link">C2 Evidence And Submission</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -193,7 +189,7 @@ test after the instrument passes the safety checks.</p>
 <p>The thermistor circuit is safe to build and test from Arduino USB power.</p>
 <p>The TEC remains disconnected throughout Module 2. External actuator power remains
 off until the H-bridge input signals have been checked with the oscilloscope.
-For the motor test, use low PWM only and stop immediately if the motor,
+For the motor test, stop immediately if the motor,
 H-bridge, or wiring becomes unexpectedly warm.</p>
 <p><strong>Oscilloscope ground warning:</strong> Connect every oscilloscope probe ground clip
 to Arduino <code>GND</code>. <strong>Never connect a scope ground clip to H-bridge output <code>M+</code>
@@ -203,13 +199,11 @@ through the oscilloscope can short the output and damage the apparatus.</p>
 
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Review your <a href="../lab-01/">Module 1 assignment</a> notes on <code>analogRead</code>,
-   averaging, PWM, and oscilloscope duty-cycle measurements.</li>
-<li>Review the <a href="../lab-01/">Module 1 assignment</a>, especially
-   AnalogReadSerial, averaging, and LED brightness, and review <a href="../../arduino/analog-digital/">Analog, ADC, And
-   PWM</a>
-   for voltage dividers, ADC counts, averaging, and PWM waveforms. The official
-   Arduino references for
+<li>Review your <a href="../lab-01/">Module 1 assignment</a> notes, especially
+   AnalogReadSerial, averaging, LED brightness, PWM, and oscilloscope
+   duty-cycle measurements. Also review <a href="../../arduino/analog-digital/">Analog, ADC, And
+   PWM</a> for voltage dividers, ADC counts,
+   averaging, and PWM waveforms. The official Arduino references for
    <a href="https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/">AnalogReadSerial</a>,
    <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/">analogRead</a>,
    <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/">analogWrite</a>,
@@ -244,7 +238,7 @@ through the oscilloscope can short the output and damage the apparatus.</p>
 </tr>
 <tr>
 <td>S4</td>
-<td>Complete the pre-class calculations, questions, and H-bridge prediction table</td>
+<td>Answer the four pre-class questions</td>
 <td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
@@ -269,8 +263,10 @@ software problem would push the work beyond four hours for a session, document
 the blocker and bring it to class.</p>
 <h2 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h2>
 <ol>
-<li>A 100 k<span class="arithmatex">\(\Omega\)</span> fixed resistor and a 100 k<span class="arithmatex">\(\Omega\)</span> thermistor form a voltage
-   divider, wired as described in Part 1: Thermistor Serial Data (below). What voltage do you expect at 15C, at 25C, and at 35C? You need the thermistor data sheet to answer.</li>
+<li>A 100 kΩ fixed resistor and a 100 kΩ thermistor form a voltage
+   divider, wired as described in Part 1: Thermistor Serial Data (below). What
+   voltage do you expect at 15 °C, at 25 °C, and at 35 °C? You need the
+   thermistor data sheet to answer.</li>
 <li>Why is a temperature reading more model-dependent than a voltage reading?</li>
 <li>Describe the H-bridge input signals you expect for each case: PWM = 0, low-power heat, and low-power cool. Which of the two Arduino pins should carry the PWM signal in each case, and what should the other direction pin do?</li>
 <li>What is one advantage of Arduino Serial Plotter compared with Arduino Serial Monitor?</li>
@@ -300,26 +296,31 @@ the blocker and bring it to class.</p>
 <p><img alt="Thermistor voltage divider wired to Arduino 5V, A0, and GND" src="../../assets/thermistor_voltage_divider_arduino.svg" /></p>
 <p><a href="../../assets/thermistor_voltage_divider_arduino.svg">Open the thermistor-divider diagram full size</a></p>
 <p>Write a sketch that prints human-readable measurements in Serial Monitor. A good output line looks like this:</p>
-<pre><code class="language-text">time = 1.50 s    average ADC = 511.8    voltage = 2.501 V    resistance = 100.23 kOhm    temperature = 24.9 C    samples = 100
+<pre><code class="language-text">time = 1.50 s    average ADC = 511.8    voltage = 2.501 V    resistance = 100.23 kΩ    temperature = 24.9 °C    samples = 1000
 </code></pre>
 <p>Every number should have a label and a unit where appropriate. The goal is for a person looking at Serial Monitor to understand the measurement without memorizing a column order.</p>
 <p>From this point forward in the course, every measured temperature must use the
-same acquisition sequence: take between <strong>100 and 1000</strong> raw voltage
-measurements with <code>analogRead(A0)</code>, average those measurements, convert the
-average ADC value to one average voltage, and only then calculate thermistor
-resistance and temperature. Do not calculate a temperature from each raw ADC
-measurement and then average the temperatures.</p>
+same acquisition sequence: take <strong>1000</strong> raw ADC readings with
+<code>analogRead(A0)</code>, average those readings, convert the average ADC value to one
+average voltage, and only then calculate thermistor resistance and temperature.
+Do not calculate a temperature from each raw ADC reading and then average the
+temperatures.</p>
+<p>Averaging 1000 readings reduces random measurement noise, but it also takes
+time and therefore acts as a low-pass filter: rapid changes can be smoothed or
+delayed. An Arduino Uno takes roughly 0.1 s to acquire 1000 analog readings, so
+the update remains fast enough for the slowly changing thermistor temperature
+in this module.</p>
 <p>Write your own sketch for this measurement. You may ask an AI agent for help, but do not simply upload code that you do not understand. You should be able to explain every calculation and every printed value.</p>
 <h3 id="what-your-sketch-should-do">What Your Sketch Should Do<a class="headerlink" href="#what-your-sketch-should-do" title="Permanent link">&para;</a></h3>
 <p>Include these functions in your sketch. Build and test them one at a time.</p>
 <ul>
-<li>Constants at the top describe the circuit and thermistor model: Arduino pin <code>A0</code>, the 5 V reference, the 100 kOhm fixed resistor, the 100 kOhm thermistor value at 25 C, the beta value, and a sample count between <code>100</code> and <code>1000</code>.</li>
-<li><code>averageAdcSamples()</code> reads <code>A0</code> between 100 and 1000 times and returns the average ADC value.</li>
+<li>Constants at the top describe the circuit and thermistor model: Arduino pin <code>A0</code>, the 5 V reference, the 100 kΩ fixed resistor, the 100 kΩ thermistor value at 25 °C, the beta value, and a sample count of <code>1000</code>.</li>
+<li><code>averageAdcSamples()</code> reads <code>A0</code> 1000 times and returns the average ADC value.</li>
 <li><code>adcToVoltage()</code> converts the average ADC value into an average voltage.</li>
 <li><code>voltageToResistance()</code> uses the voltage-divider equation to calculate the thermistor resistance.</li>
 <li><code>resistanceToCelsius()</code> uses the beta model to convert thermistor resistance into temperature.</li>
 <li><code>setup()</code> starts Serial Monitor at <code>9600</code> baud and prints a short heading.</li>
-<li><code>loop()</code> waits until it is time for a new report, averages 100 to 1000 raw readings from <code>A0</code>, then calculates voltage, resistance, and temperature in that order and prints one labeled line.</li>
+<li><code>loop()</code> waits until it is time for a new report, averages 1000 raw readings from <code>A0</code>, then calculates voltage, resistance, and temperature in that order and prints one labeled line.</li>
 <li><code>printHumanReadable()</code> controls the exact text you see in Serial Monitor. If you want the output to look different, this is the safest first place to edit.</li>
 </ul>
 <p>Hold the thermistor firmly between your index finger and thumb to heat it. Slightly moisten the thermistor to cool it. The reported temperature should move slowly and plausibly. If it jumps wildly, check the wiring, ground, and
@@ -347,13 +348,12 @@ between your fingers or cool it with a slightly moistened finger.</p>
 <h2 id="part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction">Part 3: Trim Pot PWM, H-Bridge Verification, And Motor Direction<a class="headerlink" href="#part-3-trim-pot-pwm-h-bridge-verification-and-motor-direction" title="Permanent link">&para;</a></h2>
 <h3 id="3a-build-and-verify-the-trim-pot-h-bridge-controller">3A: Build And Verify The Trim-Pot H-Bridge Controller<a class="headerlink" href="#3a-build-and-verify-the-trim-pot-h-bridge-controller" title="Permanent link">&para;</a></h3>
 <p>In Module 1, a trim pot produced a variable voltage and the Arduino converted that voltage to an ADC number. Now use the same idea as a manual control input.</p>
-<p>Get a 100kOhm trimpot, wire it up and build code with this signal path:</p>
+<p>Get a 100 kΩ trim pot, wire it up, and build code with this signal path:</p>
 <pre><code class="language-text">trim-pot voltage -&gt; analogRead average -&gt; map to PWM -&gt; analogWrite -&gt; H-bridge input
 </code></pre>
 <p><img alt="The potentiometer wired to Arduino A1 and an SPDT direction switch wired to digital pin 11" src="../../assets/module2_pwm_direction_inputs.svg" /></p>
 <p><em>Figure 3. Wiring for the PWM and direction commands. The 100 kΩ potentiometer
-wiper connects to analog input <code>A1</code> and sets PWM magnitude. The center terminal
-of the SPDT switch connects to digital input pin <code>11</code>; the two switch positions
+wiper connects to analog input <code>A1</code> and sets PWM magnitude.  Connect one end of a wire to digital input pin <code>11</code>. Use the other end to
 connect pin <code>11</code> to Arduino <code>5V</code> for heat/clockwise or Arduino <code>GND</code> for
 cool/counterclockwise. Arduino PWM output pins <code>9</code> and <code>10</code> connect to the two
 H-bridge control inputs.</em></p>
@@ -422,6 +422,36 @@ observe without immediately applying power to the thermal system.</p>
 <p><strong>Oscilloscope warning: Every scope ground clip must connect to Arduino
 <code>GND</code>. Never connect a scope ground clip to <code>M+</code> or <code>M-</code>; both are driven
 H-bridge outputs, not ground points.</strong></p>
+<p>Before measuring, predict the output waveforms. With each probe referenced to
+Arduino <code>GND</code>, expect the behavior below. For a conceptual explanation of how
+four switches reverse the voltage across a load, see the
+<a href="https://en.wikipedia.org/wiki/H-bridge">Wikipedia H-bridge article</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Pin <code>11</code></th>
+<th>Direction</th>
+<th>Expected <code>M+</code></th>
+<th>Expected <code>M-</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5V</code></td>
+<td>heat / clockwise</td>
+<td>PWM between approximately 0 V and the actuator-supply voltage</td>
+<td>approximately 0 V</td>
+</tr>
+<tr>
+<td><code>0V</code></td>
+<td>cool / counterclockwise</td>
+<td>approximately 0 V</td>
+<td>PWM between approximately 0 V and the actuator-supply voltage</td>
+</tr>
+</tbody>
+</table>
+<p>The measured levels and waveform edges may differ slightly from this idealized
+prediction when the motor is connected.</p>
 <ol>
 <li>Turn off the actuator power supply and confirm that the TEC and thermal
    switch are disconnected from the H-bridge output.</li>
@@ -433,65 +463,48 @@ H-bridge outputs, not ground points.</strong></p>
 <li>Securely attach a short piece of masking tape to the motor shaft so that it
    forms a visible flag perpendicular to the rotation axis. Make sure the flag
    can rotate freely without striking the wiring or apparatus.</li>
-<li>With actuator power still off, connect each oscilloscope probe ground clip
-   to Arduino <code>GND</code>. Put one probe tip on H-bridge output <code>M+</code> and a second
-   probe tip on <code>M-</code>. If only one oscilloscope channel is available, examine
-   the outputs one at a time while keeping the probe ground on Arduino <code>GND</code>.</li>
 <li>Set PWM to zero. Have the instructor check the wiring, oscilloscope ground
    connection, and current limit, and then turn on actuator power.</li>
 <li>Vary the PWM command over the full range. Use the tape flag to observe how
    motor speed changes, and observe the corresponding <code>M+</code> and <code>M-</code> waveforms
-   on the oscilloscope. Switch between heat/clockwise and
+   on the oscilloscope. Remember, scope ground is tied to Arduino <code>GND</code>. Switch between heat/clockwise and
    cool/counterclockwise by moving the input to pin 11 from 5V to 0V. Record the motor direction, relative speed, and what
    changes on each H-bridge output.</li>
-<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
 <li><strong>Show the instructor the scope output on the H-bridge and the operation of the motor.</strong></li>
+<li>Return PWM to zero and turn off actuator power before removing the motor.</li>
 </ol>
 <p>For the demonstration in Module 2, the heat command should turn the motor clockwise
 and the cool command should turn it counterclockwise. </p>
-<h2 id="collect-your-c2-evidence-during-class">Collect Your C2 Evidence During Class<a class="headerlink" href="#collect-your-c2-evidence-during-class" title="Permanent link">&para;</a></h2>
+<h2 id="c2-evidence-and-submission">C2 Evidence And Submission<a class="headerlink" href="#c2-evidence-and-submission" title="Permanent link">&para;</a></h2>
 <p>Module 2 produces most of the evidence for
 <a href="../../assessment/#c2-measurement-and-actuator-electronics"><code>C2</code>, Measurement And Actuator Electronics</a>.
 Do not plan to recreate oscilloscope measurements after the apparatus has been
-dismantled. Before leaving S4, save:</p>
+dismantled. Before leaving S4, save one concise module note containing:</p>
 <ul>
-<li>the labeled thermistor-divider diagram and constants,</li>
-<li>three representative human-readable serial lines,</li>
-<li>the Serial Plotter warming/cooling record,</li>
-<li>the completed heat/cool H-bridge signal table,</li>
-<li>oscilloscope evidence for both active PWM pins, including voltage, frequency,
-  and duty cycle,</li>
-<li>oscilloscope evidence for H-bridge outputs <code>M+</code> and <code>M-</code> during both motor
-  directions,</li>
-<li>the exact Arduino sketch used, and</li>
-<li>the motor direction and PWM speed observations.</li>
+<li>The labeled thermistor-divider diagram and thermistor constants.</li>
+<li>Three representative human-readable serial lines.</li>
+<li>The conversion chain from averaged ADC count to temperature.</li>
+<li>A Serial Plotter screenshot or sketch showing warming and cooling.</li>
+<li>A trim-pot-to-PWM code excerpt or signal-path explanation.</li>
+<li>The completed H-bridge signal table for heat/clockwise and
+  cool/counterclockwise commands.</li>
+<li>Oscilloscope evidence for both active Arduino PWM pins, including voltage,
+  frequency, and duty cycle.</li>
+<li>A short comparison of the <code>M+</code> and <code>M-</code> waveforms in both motor directions,
+  including where the probe ground clips were connected.</li>
+<li>A short record of motor direction and the observed PWM speed response.</li>
 </ul>
 <p>Put the evidence in <code>docs/module_notes/module_02_instrument_pieces.md</code> and put
 the authoritative sketch in a descriptively named folder under <code>arduino/</code>.
-Use links to code files rather than pasting a complete sketch into the note.
-Reserve no more than <strong>30 minutes after S4</strong> to label the saved evidence, update
-the note, commit, and push. The physical measurements themselves must be made
-in class.</p>
-<h2 id="c2-evidence-record">C2 Evidence Record<a class="headerlink" href="#c2-evidence-record" title="Permanent link">&para;</a></h2>
+Use links to code files rather than pasting a complete sketch into the note.</p>
 <p>There is no separate <code>A#</code> submission for Module 2. This note and its cited Git
 checkpoint are evidence for <code>C2</code>, demonstrated during S6 on Wednesday,
 September 16. One team member must submit the <code>C2 Team Checkoff</code> Moodle receipt
 by <strong>5:00 PM</strong>. Follow the <a href="../../assessment/#c2-measurement-and-actuator-electronics">C2 rubric and oral-question
 bank</a>.</p>
-<p>Keep a short module note containing:</p>
-<ul>
-<li>Thermistor divider circuit sketch.</li>
-<li>Three human-readable serial lines copied from the Part 1 Arduino output.</li>
-<li>The conversion chain from averaged ADC count to temperature.</li>
-<li>Thermistor constants used in your sketch.</li>
-<li>Serial Plotter screenshot or sketch of temperature versus serial read order.</li>
-<li>Trim-pot-to-PWM code excerpt or signal-path explanation.</li>
-<li>H-bridge signal table for heat/clockwise and cool/counterclockwise commands.</li>
-<li>A short comparison of the <code>M+</code> and <code>M-</code> oscilloscope waveforms in both
-  directions, stating where the probe ground clip was connected.</li>
-<li>A short motor-test note recording clockwise/counterclockwise direction and
-  the observed PWM speed response.</li>
-</ul></div>
+<p>Reserve no more than <strong>30 minutes after S4</strong> to label the saved evidence, update
+the note, commit, and push. The physical measurements themselves must be made
+in class.</p></div>
             </div>
         </div>
 

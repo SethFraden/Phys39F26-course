@@ -515,10 +515,8 @@ same human-readable information that you previously saw in Serial Monitor.</p>
 required for C3.</p>
 <p>After the code runs, identify the parts that read serial data, print and parse
 one line, store recent data, save the CSV file, and update the plot.</p>
-<details markdown="1">
+<details>
 <summary>Suggested AI prompt for Part 4</summary>
-
-
 <pre><code class="language-text">Write a simple display-only Python program using pyserial, PySide6, and
 pyqtgraph. Read lines in this exact format:
 Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
@@ -530,10 +528,7 @@ limits, and CSV filename. Save accepted values to CSV columns time_s,
 temperature_C, pwm, and heat_cool. Do not send commands. Keep the program
 readable for a Python beginner and comment its major sections.
 </code></pre>
-
-
 </details>
-
 <h2 id="part-5-add-python-manual-controls">Part 5: Add Python Manual Controls<a class="headerlink" href="#part-5-add-python-manual-controls" title="Permanent link">&para;</a></h2>
 <p>Modify the display-only Python strip chart into the course's complete manual
 control GUI. Add:</p>
@@ -552,10 +547,8 @@ the slider should move to that value. Clamp invalid PWM values to the range
 <p>When the controls change, send a command using the serial interface defined
 above. Keep the temperature plot and data logging from Part 4, and continue
 printing complete Arduino measurement lines in the VS Code terminal.</p>
-<details markdown="1">
+<details>
 <summary>Suggested AI prompt for Part 5</summary>
-
-
 <pre><code class="language-text">Modify my existing PySide6 and pyqtgraph display-only strip chart. Add a
 heat/cool switch, synchronized PWM slider and editable text box (0-255), live
 temperature/PWM/direction/time displays, and a PWM strip chart. Show heating
@@ -567,10 +560,7 @@ Keep the temperature plot, terminal output, and CSV logging. Clamp typed PWM
 values to 0-255. Do not implement feedback control. Comment the GUI widgets,
 serial command sending, and plot updates for a Python beginner.
 </code></pre>
-
-
 </details>
-
 <p>At this stage, the hardware-direction Arduino sketch will not obey these
 commands. That is expected. Part 5 builds the interface and defines the command
 format; Part 6 completes the matching Arduino program.</p>
@@ -590,10 +580,8 @@ trim pot and physical direction wire with commands from the Python GUI.</p>
 <li>set PWM to zero after a malformed or unknown command,</li>
 <li>keep printing the measurement line defined above.</li>
 </ul>
-<details markdown="1">
+<details>
 <summary>Suggested AI prompt for Part 6</summary>
-
-
 <pre><code class="language-text">Modify my manual trim-pot Arduino sketch so Python controls PWM and direction.
 Keep the averaged thermistor measurement on A0 and H-bridge inputs on pins 9
 and 10. Remove the A1 trim pot and pin 11 switch. Start with PWM zero and parse:
@@ -607,10 +595,7 @@ to 0-255. A malformed or unknown command must set PWM to zero. Continue printing
 Use Heat/Cool = 1 only for observed heating and 0 only for observed cooling.
 Do not add feedback control. Comment the parser and safety behavior clearly.
 </code></pre>
-
-
 </details>
-
 <p>Before pairing this sketch with Python, use Serial Monitor to send one valid
 command and one malformed command. Verify that the valid command produces the
 expected pin outputs and that the malformed command returns PWM to zero. Close

@@ -124,6 +124,9 @@ On the class board:
 - Only one PWM direction input should be active at a time.
 - Arduino ground and H-bridge logic ground must share a reference.
 
+[Read the Wikipedia H-bridge overview](https://en.wikipedia.org/wiki/H-bridge)
+for the basic switching principle and current-direction diagrams.
+
 [Open the H-bridge reference](references/bts7960-h-bridge.pdf)
 
 ### Laptop Software

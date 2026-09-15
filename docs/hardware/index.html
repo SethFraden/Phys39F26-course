@@ -275,6 +275,26 @@ thermistor</strong>. Use it with a 100 kOhm precision fixed resistor unless the
 voltage-divider design and firmware calibration are deliberately changed.</p>
 <p>Arduino measures the divider voltage. Software converts voltage to thermistor
 resistance and then converts resistance to temperature with the beta equation.</p>
+<p>The thermistor's factory leads are <strong>30 AWG</strong>. They are too thin to make
+reliable contact with a solderless breadboard. Use a thermistor prepared with
+<strong>22 AWG solid-wire breadboard ends</strong>; do not insert the original 30 AWG leads
+directly into the breadboard. Check the equipment box for a prepared sensor
+before beginning. If one is not present, solder a 22 AWG solid wire to each
+thermistor lead and insulate the joints separately with heat-shrink tubing.</p>
+<div class="thermistor-comparison">
+  <figure>
+    <img src="assets/thermistorB57861_Series.jpg" alt="Bare thermistor with thin 30 AWG factory leads" loading="lazy">
+    <figcaption>Bare thermistor with 30 AWG factory leads.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/thermistor%20w%2022G%20leads.png" alt="Thermistor prepared with solid 22 AWG breadboard ends" loading="lazy">
+    <figcaption>Prepared thermistor with solid 22 AWG breadboard ends.</figcaption>
+  </figure>
+</div>
+
+<p>The prepared example includes an optional stranded-wire extension between the
+thermistor and its solid breadboard ends. This intermediate extension is not
+required: 22 AWG solid wire may be soldered directly to the thermistor leads.</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Thermistor">Thermistor background</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation">Beta-parameter equation</a></li>

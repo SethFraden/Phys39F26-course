@@ -99,6 +99,41 @@ the blocker and bring it to class.
 
 ## Part 1: Thermistor Serial Data And Temperature Conversion
 
+### Prepare The Thermistor For The Breadboard
+
+The TDK/EPCOS thermistor has very thin **30 AWG** factory leads. These leads
+are too thin to make reliable contact with a solderless breadboard, which is
+designed for thicker solid wire. Do not plug the thermistor's 30 AWG leads
+directly into the breadboard.
+
+First check your small equipment box for a thermistor that has already been
+prepared with **22 AWG solid-wire breadboard ends**. If none is present, tell
+the instructor and prepare one before building the voltage divider:
+
+1. Solder a 22 AWG solid wire to each 30 AWG thermistor lead.
+2. Insulate each solder joint separately with heat-shrink tubing so the two
+   conductors cannot touch.
+3. Leave a short, straight 22 AWG solid-wire end exposed for insertion into
+   the breadboard.
+4. Gently tug-test and visually inspect both joints before use.
+
+<div class="thermistor-comparison">
+  <figure>
+    <img src="../../assets/thermistorB57861_Series.jpg" alt="Bare TDK/EPCOS B57861-series thermistor with thin 30 AWG factory leads" loading="lazy">
+    <figcaption>Bare thermistor: 30 AWG factory leads are unreliable in a breadboard.</figcaption>
+  </figure>
+  <figure>
+    <img src="../../assets/thermistor%20w%2022G%20leads.png" alt="Thermistor extended to solid 22 AWG breadboard leads" loading="lazy">
+    <figcaption>Prepared thermistor: solid 22 AWG ends make reliable breadboard connections.</figcaption>
+  </figure>
+</div>
+
+The photograph shows one acceptable assembly in which stranded extension wire
+was first soldered to the thermistor and solid wire was then added at the
+breadboard end. That intermediate stranded section is **not required**. It is
+also acceptable, and simpler, to solder 22 AWG solid wire directly to each
+thermistor lead and insulate the two joints.
+
 Wire the thermistor divider:
 
 - Arduino `5V` to fixed resistor.

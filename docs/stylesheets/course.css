@@ -68,6 +68,41 @@ img {
   height: auto;
 }
 
+.thermistor-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+  margin: 1rem 0;
+}
+
+.thermistor-comparison figure {
+  margin: 0;
+  text-align: center;
+}
+
+.thermistor-comparison img {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+}
+
+.thermistor-comparison figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  .thermistor-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .thermistor-comparison img {
+    height: 240px;
+  }
+}
+
 code {
   color: #5c1730;
   background: #f3f4f6;

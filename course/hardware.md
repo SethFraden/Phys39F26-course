@@ -66,6 +66,28 @@ voltage-divider design and firmware calibration are deliberately changed.
 Arduino measures the divider voltage. Software converts voltage to thermistor
 resistance and then converts resistance to temperature with the beta equation.
 
+The thermistor's factory leads are **30 AWG**. They are too thin to make
+reliable contact with a solderless breadboard. Use a thermistor prepared with
+**22 AWG solid-wire breadboard ends**; do not insert the original 30 AWG leads
+directly into the breadboard. Check the equipment box for a prepared sensor
+before beginning. If one is not present, solder a 22 AWG solid wire to each
+thermistor lead and insulate the joints separately with heat-shrink tubing.
+
+<div class="thermistor-comparison">
+  <figure>
+    <img src="assets/thermistorB57861_Series.jpg" alt="Bare thermistor with thin 30 AWG factory leads" loading="lazy">
+    <figcaption>Bare thermistor with 30 AWG factory leads.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/thermistor%20w%2022G%20leads.png" alt="Thermistor prepared with solid 22 AWG breadboard ends" loading="lazy">
+    <figcaption>Prepared thermistor with solid 22 AWG breadboard ends.</figcaption>
+  </figure>
+</div>
+
+The prepared example includes an optional stranded-wire extension between the
+thermistor and its solid breadboard ends. This intermediate extension is not
+required: 22 AWG solid wire may be soldered directly to the thermistor leads.
+
 - [Thermistor background](https://en.wikipedia.org/wiki/Thermistor)
 - [Beta-parameter equation](https://en.wikipedia.org/wiki/Thermistor#B_or_%CE%B2_parameter_equation)
 - [TDK/EPCOS B57861S0104F040V24 100 kOhm data sheet](references/epcos-b57861s0202f040-f2026.pdf)

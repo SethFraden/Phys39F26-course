@@ -140,6 +140,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-thermistor-serial-data-and-temperature-conversion" class="nav-link">Part 1: Thermistor Serial Data And Temperature Conversion</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#prepare-the-thermistor-for-the-breadboard" class="nav-link">Prepare The Thermistor For The Breadboard</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#what-your-sketch-should-do" class="nav-link">What Your Sketch Should Do</a>
               <ul class="nav flex-column">
               </ul>
@@ -290,6 +294,38 @@ the blocker and bring it to class.</p>
   H-bridge signals.</li>
 </ul>
 <h2 id="part-1-thermistor-serial-data-and-temperature-conversion">Part 1: Thermistor Serial Data And Temperature Conversion<a class="headerlink" href="#part-1-thermistor-serial-data-and-temperature-conversion" title="Permanent link">&para;</a></h2>
+<h3 id="prepare-the-thermistor-for-the-breadboard">Prepare The Thermistor For The Breadboard<a class="headerlink" href="#prepare-the-thermistor-for-the-breadboard" title="Permanent link">&para;</a></h3>
+<p>The TDK/EPCOS thermistor has very thin <strong>30 AWG</strong> factory leads. These leads
+are too thin to make reliable contact with a solderless breadboard, which is
+designed for thicker solid wire. Do not plug the thermistor's 30 AWG leads
+directly into the breadboard.</p>
+<p>First check your small equipment box for a thermistor that has already been
+prepared with <strong>22 AWG solid-wire breadboard ends</strong>. If none is present, tell
+the instructor and prepare one before building the voltage divider:</p>
+<ol>
+<li>Solder a 22 AWG solid wire to each 30 AWG thermistor lead.</li>
+<li>Insulate each solder joint separately with heat-shrink tubing so the two
+   conductors cannot touch.</li>
+<li>Leave a short, straight 22 AWG solid-wire end exposed for insertion into
+   the breadboard.</li>
+<li>Gently tug-test and visually inspect both joints before use.</li>
+</ol>
+<div class="thermistor-comparison">
+  <figure>
+    <img src="../../assets/thermistorB57861_Series.jpg" alt="Bare TDK/EPCOS B57861-series thermistor with thin 30 AWG factory leads" loading="lazy">
+    <figcaption>Bare thermistor: 30 AWG factory leads are unreliable in a breadboard.</figcaption>
+  </figure>
+  <figure>
+    <img src="../../assets/thermistor%20w%2022G%20leads.png" alt="Thermistor extended to solid 22 AWG breadboard leads" loading="lazy">
+    <figcaption>Prepared thermistor: solid 22 AWG ends make reliable breadboard connections.</figcaption>
+  </figure>
+</div>
+
+<p>The photograph shows one acceptable assembly in which stranded extension wire
+was first soldered to the thermistor and solid wire was then added at the
+breadboard end. That intermediate stranded section is <strong>not required</strong>. It is
+also acceptable, and simpler, to solder 22 AWG solid wire directly to each
+thermistor lead and insulate the two joints.</p>
 <p>Wire the thermistor divider:</p>
 <ul>
 <li>Arduino <code>5V</code> to fixed resistor.</li>

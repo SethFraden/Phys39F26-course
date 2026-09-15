@@ -4,7 +4,7 @@
 
 In Module 1 you used the Arduino for digital output, analog input, averaging, and LED PWM. In Module 2, you reuse those ideas to begin building a real instrument: thermistor temperature measurement, Arduino Serial Plotter output, and trim-pot-controlled PWM signals for the H-bridge.
 
-Module 2 is taught during **Session S4 on Wednesday, September 9**.
+Module 2 was taught during **Session S5 on Monday, September 14**.
 
 The actuator side also begins, but cautiously. You will verify H-bridge logic
 and PWM with the oscilloscope before connecting a DC motor. The TEC remains
@@ -62,12 +62,12 @@ through the oscilloscope can short the output and damage the apparatus.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S4 | Read this assignment and inspect the thermistor diagram | 30 minutes |
-| S4 | Arduino tutorial, hardware references, and thermistor data-sheet reading | 45 minutes |
-| S4 | Answer the four pre-class questions | 45 minutes |
-| S4 | Review and finish the thermistor/PWM sketches needed in class | 60 minutes |
-| S4 | Label, commit, and push the C2 evidence after class | 30 minutes |
-| S4 | **Total associated with S4** | **3 hours 30 minutes** |
+| S5 | Read this assignment and inspect the thermistor diagram | 30 minutes |
+| S5 | Arduino tutorial, hardware references, and thermistor data-sheet reading | 45 minutes |
+| S5 | Answer the four pre-class questions | 45 minutes |
+| S5 | Review and finish the thermistor/PWM sketches needed in class | 60 minutes |
+| S5 | Label, commit, and push the C2 evidence after class | 30 minutes |
+| S5 | **Total associated with S5** | **3 hours 30 minutes** |
 
 The time includes reading the assignment itself. If hardware access or a
 software problem would push the work beyond four hours for a session, document
@@ -300,7 +300,7 @@ and the cool command should turn it counterclockwise.
 Module 2 produces most of the evidence for
 [`C2`, Measurement And Actuator Electronics](../../assessment.md#c2-measurement-and-actuator-electronics).
 Do not plan to recreate oscilloscope measurements after the apparatus has been
-dismantled. Before leaving S4, save one concise module note containing:
+dismantled. Before leaving S5, save one concise module note containing:
 
 - The labeled thermistor-divider diagram and thermistor constants.
 - Three representative human-readable serial lines.
@@ -325,6 +325,6 @@ September 16. One team member must submit the `C2 Team Checkoff` Moodle receipt
 by **5:00 PM**. Follow the [C2 rubric and oral-question
 bank](../../assessment.md#c2-measurement-and-actuator-electronics).
 
-Reserve no more than **30 minutes after S4** to label the saved evidence, update
+Reserve no more than **30 minutes after S5** to label the saved evidence, update
 the note, commit, and push. The physical measurements themselves must be made
 in class.

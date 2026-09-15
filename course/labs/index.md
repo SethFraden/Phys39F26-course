@@ -22,6 +22,10 @@ due, how each assignment and milestone will be graded, and what to expect during
 oral checks. The calendar below shows the corresponding `A#`, `C#`, `P#`, and
 `F1` dates.
 
+**Pacing update:** Modules 1 and 2 required more class time than originally
+anticipated. Module 2 was held on September 14, and S5 combined the end of
+Module 2 with the beginning of Module 3.
+
 ## Course Modules
 
 | Module | Focus | Module Pages |
@@ -79,8 +83,8 @@ means required preparation with no separate grade.
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
 | 31 Aug<br>[S2](#session-2)<br>[Module 1](lab-01/index.md)<br>Begin A1 evidence | 1 | **2**<br>[S3](#session-3)<br>[Module 1](lab-01/index.md)<br>Complete A1 evidence | 3 | 4 | 5 | 6 |
-| **7**<br>No class | 8 | **9**<br>[S4](#session-4)<br>[Module 2](lab-02/index.md)<br>[**C1 checkoff**](../assessment.md#c1-development-environment-and-repository)<br>Individual text due 5:00 PM | 10 | 11 | 12 | 13 |
-| **14**<br>[S5](#session-5)<br>[Module 3](lab-03/index.md)<br>[**A1 due 5:00 PM**](lab-01/index.md#a1-module-1-evidence-note) | 15 | **16**<br>[S6](#session-6)<br>[Module 3](lab-03/index.md)<br>[**C2 checkoff**](../assessment.md#c2-measurement-and-actuator-electronics)<br>Receipt due 5:00 PM<br>**P1** | 17 | 18 | 19 | 20 |
+| **7**<br>No class | 8 | **9**<br>[S4](#session-4)<br>[Module 1](lab-01/index.md)<br>[**C1 checkoff**](../assessment.md#c1-development-environment-and-repository)<br>Individual text due 5:00 PM | 10 | 11 | 12 | 13 |
+| **14**<br>[S5](#session-5)<br>[Module 2](lab-02/index.md) / [Module 3](lab-03/index.md)<br>[**A1 due 5:00 PM**](lab-01/index.md#a1-module-1-evidence-note) | 15 | **16**<br>[S6](#session-6)<br>[Module 3](lab-03/index.md)<br>[**C2 checkoff**](../assessment.md#c2-measurement-and-actuator-electronics)<br>Receipt due 5:00 PM<br>**P1** | 17 | 18 | 19 | 20 |
 | **21**<br>No class | 22 | **23**<br>[S7](#session-7)<br>[Module 3](lab-03/index.md) / [Module 4](lab-04/index.md)<br>**C3 checkoff** | 24 | 25 | 26 | 27 |
 | **28**<br>[S8](#session-8)<br>[Module 4](lab-04/index.md)<br>**A2 due** | 29 | **30**<br>[S9](#session-9)<br>[Module 5](lab-05/index.md)<br>**Prep** |  |  |  |  |
 
@@ -119,8 +123,8 @@ time for every session.
 
 | Sessions | Planned outside-class time per session |
 | --- | --- |
-| S1, S2, S3, S4 | 1 h 30 min; 1 h 15 min; 1 h 30 min-2 h; 3 h 30 min |
-| S5, S6, S7, S8 | 2 h; 2 h 30 min; 3 h; 3 h 15 min |
+| S1, S2, S3, S4 | 1 h 30 min; 1 h 15 min; 1 h 30 min-2 h; 2 h |
+| S5, S6, S7, S8 | 3 h 30 min; 2 h 30 min; 3 h; 3 h 15 min |
 | S9, S10, S11, S12 | 3 h 15 min; 2 h 45 min; 3 h 30 min; 2 h 45 min |
 | S13, S14, S15, S16 | 3 h 30 min; 3 h 15 min; 3 h 30 min; 3 h 45 min |
 | S17, S18, S19, S20 | 3 h 45 min; 1 h 45 min; 2 h 45 min; 3 h 30 min |
@@ -137,8 +141,8 @@ document the current state and bring the problem to class.
 | <span id="meeting-1"></span><span id="session-1">S1</span> | 2026-08-26 | Wed | Upload and modify an Arduino sketch; identify the instrument and safety boundaries; create and commit to the course repository. | [GitHub Desktop, GitHub, VS Code, And AI](../git-vscode-ai-workflow.md) | `Prep`: setup completed in class | G1, G5, G12 |
 | <span id="meeting-2"></span><span id="session-2">S2</span> | 2026-08-31 | Mon | Upload and modify Arduino examples; measure digital timing; read potentiometer ADC values and relate the integer codes to voltage. | [Module 1: First Contact](lab-01/index.md) | In class: begin collecting `A1` evidence | G1, G2, G5 |
 | <span id="meeting-3"></span><span id="session-3">S3</span> | 2026-09-02 | Wed | Quantify ADC variation and the effect of averaging; measure acquisition time; use an averaged analog input to control LED PWM and verify the waveform. | [Module 1: First Contact](lab-01/index.md) | In class: complete and save all `A1` evidence | G1, G2, G5 |
-| <span id="meeting-4"></span><span id="session-4">S4</span> | 2026-09-09 | Wed | Build a thermistor divider and convert its voltage to temperature; predict and verify H-bridge PWM and direction signals; test motor direction and speed. | [Module 2: First Real Instrument Pieces](lab-02/index.md) | [**C1**](../assessment.md#c1-development-environment-and-repository) demonstrated during class; each student submits the text response by 5:00 PM; `Prep`: four Module 2 pre-class questions | G1-G6, G12, G14 |
-| <span id="meeting-5"></span><span id="session-5">S5</span> | 2026-09-14 | Mon | Produce safe low-power TEC heating and cooling; distinguish measurement, actuation, and feedback. | [Module 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) | [**A1**](lab-01/index.md#a1-module-1-evidence-note) due online at 5:00 PM | G1, G3-G6 |
+| <span id="meeting-4"></span><span id="session-4">S4</span> | 2026-09-09 | Wed | Complete Module 1 measurements and demonstrate understanding of the Arduino, ADC, averaging, PWM, oscilloscope, and repository workflow. | [Module 1: First Contact](lab-01/index.md) | [**C1**](../assessment.md#c1-development-environment-and-repository) demonstrated during class; each student submits the text response by 5:00 PM; `Prep`: four Module 2 pre-class questions for S5 | G1, G2, G5, G12 |
+| <span id="meeting-5"></span><span id="session-5">S5</span> | 2026-09-14 | Mon | Build and test thermistor measurement and H-bridge motor-control circuits; begin safe TEC heating and cooling. | [Module 2: First Real Instrument Pieces](lab-02/index.md) and [Module 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) | [**A1**](lab-01/index.md#a1-module-1-evidence-note) due online at 5:00 PM | G1-G7, G12, G14 |
 | <span id="meeting-6"></span><span id="session-6">S6</span> | 2026-09-16 | Wed | Parse real serial data; display and save temperature and PWM; set update interval, window, and axes. | [Module 3](lab-03/index.md) | [**C2**](../assessment.md#c2-measurement-and-actuator-electronics) demonstration; receipt due 5:00 PM; `P1` | G2, G7, G12 |
 | <span id="meeting-7"></span><span id="session-7">S7</span> | 2026-09-23 | Wed | Command heat/cool and PWM from Python; test software and hardware limits; save open-loop records. | [Module 3](lab-03/index.md) and [Module 4](lab-04/index.md) | [**C3**](../assessment.md#c3-tec-instrument-and-first-python-gui) demonstration; receipt 11:55 AM | G3, G6, G7, G12, G14 |
 | <span id="meeting-8"></span><span id="session-8">S8</span> | 2026-09-28 | Mon | Measure steady temperature versus PWM magnitude for each heat/cool direction and identify asymmetry, limits, and a steady-state criterion. | [Module 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | [**A2**](lab-04/index.md#a2-open-loop-tec-instrument-note) due 6:00 PM | G2, G3, G6, G7, G9 |

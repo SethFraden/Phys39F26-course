@@ -117,6 +117,11 @@ pins cannot directly power the TEC.
 The BTS7960-style H-bridge lets the low-power Arduino control the amount and
 direction of current from the external supply through the TEC. Use 18G wire to connect to the 12V power supply B+, B- and the TEC, M+, M-.
 
+**Never connect a motor or TEC directly to an Arduino PWM output.** Arduino
+pins `9` and `10` supply only low-current logic signals to the H-bridge. Connect
+the load to H-bridge outputs `M+` and `M-`, which receive power from the external
+12 V supply.
+
 On the class board:
 
 - Arduino pins `9` and `10` go to the two H-bridge PWM inputs.

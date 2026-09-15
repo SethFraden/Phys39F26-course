@@ -27,6 +27,11 @@ off until the H-bridge input signals have been checked with the oscilloscope.
 For the motor test, stop immediately if the motor,
 H-bridge, or wiring becomes unexpectedly warm.
 
+**Motor connection warning:** Never connect the motor directly to Arduino PWM
+pins `9` or `10`. These pins provide low-current logic commands to the H-bridge;
+they do not provide motor power. Connect the motor only to H-bridge outputs
+`M+` and `M-` as shown in the wiring diagram.
+
 **Oscilloscope ground warning:** Connect every oscilloscope probe ground clip
 to Arduino `GND`. **Never connect a scope ground clip to H-bridge output `M+`
 or `M-`.** The H-bridge drives both motor terminals; grounding either output
@@ -232,7 +237,9 @@ Show the working command signals to the instructor before connecting a load.
 ### 3B: Connect And Drive The DC Motor
 
 Only do this after the instructor checks the H-bridge signals. The TEC must
-remain disconnected.
+remain disconnected. **Do not connect either motor lead directly to an Arduino
+PWM pin.** Arduino pins `9` and `10` control the H-bridge; H-bridge outputs `M+`
+and `M-` power the motor.
 
 Before connecting the TEC in a later module, use a small motor as the first visible
 H-bridge load. The motor makes direction reversal and PWM speed control easy to

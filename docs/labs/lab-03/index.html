@@ -494,9 +494,10 @@ or the Python program can open it. They cannot use it at the same time. Close
 Serial Monitor and Serial Plotter completely before starting Python; later,
 close Python before reopening either Arduino serial window.</p>
 <p>Because Serial Monitor cannot remain open while Python runs, have the Python
-program print each complete received line in the VS Code terminal while it
-extracts and plots only temperature. The terminal output then provides the
-same human-readable information that you previously saw in Serial Monitor.</p>
+program extract time, temperature, PWM, and direction from each accepted line
+and print only those four values in the VS Code terminal. Do not echo the
+entire raw Arduino line. The plot should still show only temperature versus
+time.</p>
 <p>The program should let you set near the top of the file:</p>
 <ul>
 <li>the serial port and baud rate,</li>
@@ -508,17 +509,28 @@ same human-readable information that you previously saw in Serial Monitor.</p>
 <p>Save every accepted measurement to a CSV file with columns named
 <code>time_s</code>, <code>temperature_C</code>, <code>pwm</code>, and <code>heat_cool</code>. This is the raw data file
 required for C3.</p>
-<p>After the code runs, identify the parts that read serial data, print and parse
-one line, store recent data, save the CSV file, and update the plot.</p>
+<p>After the code runs, identify the parts that read serial data, parse one line,
+print the extracted fields, store recent data, save the CSV file, and update
+the plot.</p>
+<p>Use VS Code to write your Python script. First open the Arduino sketch in VS
+Code. The sketch should implement the standard measurement-line interface
+defined in Part 3. GitHub Copilot should inspect how your sketch actually emits
+that interface so it can write a matching parser; it should not invent a new
+serial protocol. Then give the GitHub Copilot agent the following prompt:</p>
 <details>
 <summary>Suggested AI prompt for Part 4</summary>
-<pre><code class="language-text">Write a simple display-only Python program using pyserial, PySide6, and
-pyqtgraph. Read lines in this exact format:
+<pre><code class="language-text">Inspect the Arduino sketch that is open. It should implement the standard
+measurement-line interface defined in Part 3. Use its actual serial-output
+format to write a matching parser; do not invent a new serial protocol.
+
+Write a simple display-only Python program using pyserial, PySide6, and
+pyqtgraph. Ignore malformed lines. Extract Arduino time, temperature, PWM, and
+direction. Do not echo the entire raw Arduino line. For each accepted line,
+print only the extracted values in this format:
 Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
 
-Echo every complete line in the terminal. Ignore malformed lines. Plot only
-temperature versus Arduino time in a rolling window. Near the top of the file,
-let me set the port, baud rate, window duration, update interval, temperature
+Plot only temperature versus Arduino time in a rolling window. Near the top of
+the file, let me set the serial port, baud rate, window duration, update interval, temperature
 limits, and CSV filename. Save accepted values to CSV columns time_s,
 temperature_C, pwm, and heat_cool. Do not send commands. Keep the program
 readable for a Python beginner and comment its major sections.

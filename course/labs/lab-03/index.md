@@ -9,9 +9,8 @@ instrument. This is still open-loop manual control, not feedback control.
 
 | Session | Principal result |
 | --- | --- |
-| S5 | Wire the TEC safely; write two manual Arduino sketches; identify heating and cooling; compare Arduino and H-bridge PWM signals. |
-| S6 | Write a display-only Python temperature strip chart and save labeled data. |
-| S7 | Add Python controls; write the matching serial-command Arduino sketch; complete the integrated test and C3 checkpoint. |
+| S6 | Complete Parts 1-4: wire the TEC safely; write two manual Arduino sketches; identify heating and cooling; compare Arduino and H-bridge PWM signals; begin the display-only Python temperature strip chart. |
+| S7 | Complete Parts 5-8: finish the display and data logging; add Python controls; write the matching serial-command Arduino sketch; complete the integrated test and C3 checkpoint. |
 
 ## Safety Boundary
 
@@ -44,9 +43,8 @@ disappears.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S5 | Read the assignment; review wiring and prior code; inspect the strip-chart structure | **2 hours** |
-| S6 | Develop the display-only GUI; update run instructions and questions | **2 hours 30 minutes** |
-| S7 | Develop and test GUI controls and serial-command code; organize C3 evidence | **3 hours** |
+| S6 | Read the assignment; review wiring and prior code; inspect and develop the display-only strip chart | **3 hours 30 minutes** |
+| S7 | Develop and test GUI controls and serial-command code; update run instructions; organize C3 evidence | **4 hours** |
 
 Stop when the planned time is exhausted. Preserve the current working state and
 bring a precise description of the blocker to class; do not trade away safety
@@ -233,9 +231,10 @@ Serial Monitor and Serial Plotter completely before starting Python; later,
 close Python before reopening either Arduino serial window.
 
 Because Serial Monitor cannot remain open while Python runs, have the Python
-program print each complete received line in the VS Code terminal while it
-extracts and plots only temperature. The terminal output then provides the
-same human-readable information that you previously saw in Serial Monitor.
+program extract time, temperature, PWM, and direction from each accepted line
+and print only those four values in the VS Code terminal. Do not echo the
+entire raw Arduino line. The plot should still show only temperature versus
+time.
 
 The program should let you set near the top of the file:
 
@@ -249,20 +248,32 @@ Save every accepted measurement to a CSV file with columns named
 `time_s`, `temperature_C`, `pwm`, and `heat_cool`. This is the raw data file
 required for C3.
 
-After the code runs, identify the parts that read serial data, print and parse
-one line, store recent data, save the CSV file, and update the plot.
+After the code runs, identify the parts that read serial data, parse one line,
+print the extracted fields, store recent data, save the CSV file, and update
+the plot.
+
+Use VS Code to write your Python script. First open the Arduino sketch in VS
+Code. The sketch should implement the standard measurement-line interface
+defined in Part 3. GitHub Copilot should inspect how your sketch actually emits
+that interface so it can write a matching parser; it should not invent a new
+serial protocol. Then give the GitHub Copilot agent the following prompt:
 
 <details markdown="1">
 <summary>Suggested AI prompt for Part 4</summary>
 
 ```text
+Inspect the Arduino sketch that is open. It should implement the standard
+measurement-line interface defined in Part 3. Use its actual serial-output
+format to write a matching parser; do not invent a new serial protocol.
+
 Write a simple display-only Python program using pyserial, PySide6, and
-pyqtgraph. Read lines in this exact format:
+pyqtgraph. Ignore malformed lines. Extract Arduino time, temperature, PWM, and
+direction. Do not echo the entire raw Arduino line. For each accepted line,
+print only the extracted values in this format:
 Temperature (C): 27.73, Time (s): 645.06, PWM: 120, Heat/Cool: 1
 
-Echo every complete line in the terminal. Ignore malformed lines. Plot only
-temperature versus Arduino time in a rolling window. Near the top of the file,
-let me set the port, baud rate, window duration, update interval, temperature
+Plot only temperature versus Arduino time in a rolling window. Near the top of
+the file, let me set the serial port, baud rate, window duration, update interval, temperature
 limits, and CSV filename. Save accepted values to CSV columns time_s,
 temperature_C, pwm, and heat_cool. Do not send commands. Keep the program
 readable for a Python beginner and comment its major sections.

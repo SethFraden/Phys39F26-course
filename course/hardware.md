@@ -95,9 +95,7 @@ required: 22 AWG solid wire may be soldered directly to the thermistor leads.
 
 ### Thermoelectric Cooler
 
-The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
-reverses which face heats and which face cools. The hot face must remain
-thermally coupled to the heat exchanger. Use 18G wire.
+The thermoelectric cooler, or TEC, is the thermal actuator. One side is in thermal contact with an object whose temperature is to be controlled, and the other side is connected to a heat reservoir. The TEC controls whether heat flows into or out of the object. Reversing the current direction reverses the direction of heat flow. The face opposite the object must remain thermally coupled to the heat exchanger. Use 18G wire.
 
 ![Thermoelectric cooler heat-flow diagram](assets/tec_cartoon.gif)
 
@@ -105,8 +103,8 @@ thermally coupled to the heat exchanger. Use 18G wire.
 - [Introduction to practical thermoelectrics](references/introduction-to-thermoelectrics.pdf)
 - [Thermoelectric-effect background](https://en.wikipedia.org/wiki/Thermoelectric_effect)
 
-The legacy model writes the heat carried by the TEC as a combination of the
-Peltier term, Joule heating, and ordinary thermal conduction:
+The heat carried by the TEC can be considered as having three terms, the
+Peltier term whose sign is set by the electrical current $I$, Joule heating, which goes as $I^2$, and ordinary thermal conduction:
 
 ![TEC heat-flow equation](assets/tec_heat_equation.gif)
 
@@ -114,10 +112,9 @@ Peltier term, Joule heating, and ordinary thermal conduction:
 
 ### Heat Exchanger
 
-The water-cooled heat exchanger carries waste heat away from the TEC. The F2023
-parts list identifies the class heat exchanger as an **ID-COOLING DASHFLOW**
-CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if
-its hot side is allowed to overheat.
+The heat pumped into or out of the TEC has to come from somewhere. We use a water-cooled heat exchanger to couple the heat pumped by the TEC to the room. The thermal capacitance of the room is much greater than that of the object we are trying to control. The F2023 parts list identifies the class heat exchanger as an **ID-COOLING DASHFLOW**
+CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if it is not coupled to a heat reservoir. See how the TEC operates when you turn off the heat pump. You will not be happy with the result.
+
 
 ![Phys 39 heat exchanger](assets/heat_exchanger.jpg)
 
@@ -158,9 +155,9 @@ for the basic switching principle and current-direction diagrams.
 
 ### Laptop Software
 
-The current course uses Python rather than MATLAB for new development. The
+We use Python for the GUI to control the Arduino. The
 laptop reads Arduino serial output, displays live plots, logs data, and later
-sends control commands.
+sends control commands. Coding is done using VS Code with a co-pilot agent.
 
 [Read about the course repository workflow](repository.md)
 

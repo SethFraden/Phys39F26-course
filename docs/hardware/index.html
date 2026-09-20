@@ -302,24 +302,20 @@ required: 22 AWG solid wire may be soldered directly to the thermistor leads.</p
 <li><a href="https://www.digikey.com/en/products?keywords=B57861S0104F040V24">TDK/EPCOS B57861S0104F040V24 supplier search</a></li>
 </ul>
 <h3 id="thermoelectric-cooler">Thermoelectric Cooler<a class="headerlink" href="#thermoelectric-cooler" title="Permanent link">&para;</a></h3>
-<p>The thermoelectric cooler, or TEC, is the thermal actuator. Reversing current
-reverses which face heats and which face cools. The hot face must remain
-thermally coupled to the heat exchanger. Use 18G wire.</p>
+<p>The thermoelectric cooler, or TEC, is the thermal actuator. One side is in thermal contact with an object whose temperature is to be controlled, and the other side is connected to a heat reservoir. The TEC controls whether heat flows into or out of the object. Reversing the current direction reverses the direction of heat flow. The face opposite the object must remain thermally coupled to the heat exchanger. Use 18G wire.</p>
 <p><img alt="Thermoelectric cooler heat-flow diagram" src="../assets/tec_cartoon.gif" /></p>
 <ul>
 <li><a href="../references/laird-tec-cp14-127-045.pdf">Laird TEC performance data</a></li>
 <li><a href="../references/introduction-to-thermoelectrics.pdf">Introduction to practical thermoelectrics</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Thermoelectric_effect">Thermoelectric-effect background</a></li>
 </ul>
-<p>The legacy model writes the heat carried by the TEC as a combination of the
-Peltier term, Joule heating, and ordinary thermal conduction:</p>
+<p>The heat carried by the TEC can be considered as having three terms, the
+Peltier term whose sign is set by the electrical current <span class="arithmatex">\(I\)</span>, Joule heating, which goes as <span class="arithmatex">\(I^2\)</span>, and ordinary thermal conduction:</p>
 <p><img alt="TEC heat-flow equation" src="../assets/tec_heat_equation.gif" /></p>
 <p><a href="../references/melcor-thermal-solutions.pdf">Melcor thermal-solutions reference</a></p>
 <h3 id="heat-exchanger">Heat Exchanger<a class="headerlink" href="#heat-exchanger" title="Permanent link">&para;</a></h3>
-<p>The water-cooled heat exchanger carries waste heat away from the TEC. The F2023
-parts list identifies the class heat exchanger as an <strong>ID-COOLING DASHFLOW</strong>
-CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if
-its hot side is allowed to overheat.</p>
+<p>The heat pumped into or out of the TEC has to come from somewhere. We use a water-cooled heat exchanger to couple the heat pumped by the TEC to the room. The thermal capacitance of the room is much greater than that of the object we are trying to control. The F2023 parts list identifies the class heat exchanger as an <strong>ID-COOLING DASHFLOW</strong>
+CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if it is not coupled to a heat reservoir. See how the TEC operates when you turn off the heat pump. You will not be happy with the result.</p>
 <p><img alt="Phys 39 heat exchanger" src="../assets/heat_exchanger.jpg" /></p>
 <ul>
 <li><a href="https://www.idcooling.com/product/detail?id=323&amp;name=DASHFLOW%20240%20BASIC%20WHITE">ID-COOLING DASHFLOW 240 BASIC WHITE product page</a></li>
@@ -352,9 +348,9 @@ the load to H-bridge outputs <code>M+</code> and <code>M-</code>, which receive 
 for the basic switching principle and current-direction diagrams.</p>
 <p><a href="../references/bts7960-h-bridge.pdf">Open the H-bridge reference</a></p>
 <h3 id="laptop-software">Laptop Software<a class="headerlink" href="#laptop-software" title="Permanent link">&para;</a></h3>
-<p>The current course uses Python rather than MATLAB for new development. The
+<p>We use Python for the GUI to control the Arduino. The
 laptop reads Arduino serial output, displays live plots, logs data, and later
-sends control commands.</p>
+sends control commands. Coding is done using VS Code with a co-pilot agent.</p>
 <p><a href="../repository/">Read about the course repository workflow</a></p>
 <h2 id="class-apparatus-photographs">Class Apparatus Photographs<a class="headerlink" href="#class-apparatus-photographs" title="Permanent link">&para;</a></h2>
 <p><img alt="Labeled Phys 39 apparatus, view A" src="../assets/tec_apparatus_a.svg" /></p>

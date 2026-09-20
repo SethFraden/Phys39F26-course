@@ -87,6 +87,10 @@ img {
   object-fit: contain;
 }
 
+.thermistor-comparison img.thermistor-prepared-rotated {
+  transform: rotate(90deg);
+}
+
 .thermistor-comparison figcaption {
   margin-top: 0.4rem;
   font-size: 0.9rem;

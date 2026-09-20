@@ -79,7 +79,7 @@ thermistor lead and insulate the joints separately with heat-shrink tubing.
     <figcaption>Bare thermistor with 30 AWG factory leads.</figcaption>
   </figure>
   <figure>
-    <img src="../assets/thermistor%20w%2022G%20leads.png" alt="Thermistor prepared with solid 22 AWG breadboard ends" loading="lazy">
+    <img class="thermistor-prepared-rotated" src="../assets/thermistor%20w%2022G%20leads.png" alt="Thermistor prepared with solid 22 AWG breadboard ends" loading="lazy">
     <figcaption>Prepared thermistor with solid 22 AWG breadboard ends.</figcaption>
   </figure>
 </div>

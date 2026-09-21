@@ -168,6 +168,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#c2-evidence-and-submission" class="nav-link">C2 Evidence And Submission</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#c2-oral-questions" class="nav-link">C2 Oral Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -546,7 +550,36 @@ by <strong>5:00 PM</strong>. Follow the <a href="../../assessment/#c2-measuremen
 bank</a>.</p>
 <p>Reserve no more than <strong>30 minutes after S5</strong> to label the saved evidence, update
 the note, commit, and push. The physical measurements themselves must be made
-in class.</p></div>
+in class.</p>
+<h3 id="c2-oral-questions">C2 Oral Questions<a class="headerlink" href="#c2-oral-questions" title="Permanent link">&para;</a></h3>
+<p>Use your apparatus and circuit sketches to prepare these questions. Label
+Arduino inputs and outputs and identify the sensor and actuator. Each student
+answers one primary question and, when useful, one brief follow-up; do not
+prepare a separate written answer to every question.</p>
+<ol>
+<li>How do you measure temperature with a thermistor? Explain qualitatively how
+   temperature-dependent resistance becomes a voltage and then a digital ADC
+   number. Draw the divider with <code>5V</code>, the fixed resistor, thermistor, <code>A0</code>,
+   and <code>GND</code>. Identify the thermistor as a sensor and <code>A0</code> as an Arduino input,
+   then derive the resistance-versus-divider-voltage equation.</li>
+<li>For our NTC thermistor, how does resistance change as temperature rises?
+   Explain the microscopic mechanism in terms of mobile charge carriers, and
+   contrast it with an ordinary metal resistor. For your divider orientation,
+   does warming raise or lower the voltage at <code>A0</code>, and why?</li>
+<li>How does turning the potentiometer change motor speed? Draw and trace the
+   path from its continuous voltage at <code>A1</code>, through ADC conversion and PWM
+   mapping, to outputs <code>9</code>/<code>10</code>, the H-bridge, and motor. Identify command
+   inputs and actuator outputs. Why is the potentiometer an input rather than
+   an actuator? What supplies the motor's power?</li>
+<li>Why does the motor rotate smoothly rather than visibly following every PWM
+   pulse? Explain the role of average applied voltage, motor inductance in
+   smoothing current, and mechanical inertia in smoothing speed. Does inertia
+   make the electrical PWM waveform itself continuous?</li>
+<li>For the two direction settings and zero output, what signals should appear
+   on the H-bridge PWM inputs? Point to a scope trace and explain its frequency,
+   duty cycle, high/low voltages, and physical meaning. Where must the scope
+   ground clips connect, and why?</li>
+</ol></div>
             </div>
         </div>
 

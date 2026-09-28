@@ -302,17 +302,91 @@ required: 22 AWG solid wire may be soldered directly to the thermistor leads.</p
 <li><a href="https://www.digikey.com/en/products?keywords=B57861S0104F040V24">TDK/EPCOS B57861S0104F040V24 supplier search</a></li>
 </ul>
 <h3 id="thermoelectric-cooler">Thermoelectric Cooler<a class="headerlink" href="#thermoelectric-cooler" title="Permanent link">&para;</a></h3>
-<p>The thermoelectric cooler, or TEC, is the thermal actuator. One side is in thermal contact with an object whose temperature is to be controlled, and the other side is connected to a heat reservoir. The TEC controls whether heat flows into or out of the object. Reversing the current direction reverses the direction of heat flow. The face opposite the object must remain thermally coupled to the heat exchanger. Use 18G wire.</p>
+<p>The <strong>thermoelectric cooler (TEC)</strong> is also commonly called a <strong>Peltier
+cooler</strong> or <strong>Peltier device</strong>; these names refer to the same component. It is
+named for French physicist Jean Charles Athanase Peltier, who discovered the
+<strong>Peltier effect</strong>: an electrical current through junctions between different
+materials carries heat from one junction to another. In this course,
+"TEC" and "Peltier" are used synonymously for the device.</p>
+<p>The TEC is the thermal actuator. One side is in thermal contact with an object
+whose temperature is to be controlled, e.g. cooled or heated, and the other
+side is connected to a heat reservoir (sink). The TEC controls whether heat
+flows into or out of the object. Reversing the current direction reverses the
+direction of heat flow. The face opposite the object must remain thermally
+coupled to the heat exchanger. Use 18G wire.</p>
+<p>A TEC contains alternating p-type and n-type semiconductor pellets. As charge
+carriers cross the junctions, they absorb energy from lattice vibrations
+(phonons) at one face and release it at the other, coupling electrical current
+to heat transport. In this limited sense, a TEC acts like a reversible
+heat-flow rectifier: the current polarity selects the direction in which heat
+is pumped. Reversing the current reverses the heat flow, while the magnitude of
+the Peltier heat is proportional to <span class="arithmatex">\(|I|\)</span> and is the same for equal currents in
+either direction in the ideal symmetric model.</p>
+<p><img alt="Two P-N thermoelectric couples connected in series" src="../assets/TEC%20in%20series.png" /></p>
+<p>The figure shows two P-N couples. The class uses a Laird TEC, CP14-127-045-L2-W4.5, that contains <strong>127 P-N couples</strong>, or <strong>254 semiconductor pellets</strong>, connected electrically in series and thermally in parallel. Combining many couples gives the module its substantial
+heat-pumping capacity.</p>
+<p>The semiconductor pellets are brittle, and the manufacturer specifies a
+maximum operating temperature of <strong>80 °C</strong>. Above 80 °C, the internal solder
+joints and bonding materials can degrade or fail, electrical and thermal
+contacts can be lost, and the module can be permanently damaged. Never tug on
+the TEC wires: doing so can break internal connections or pull the module
+assembly apart.</p>
 <p><img alt="Thermoelectric cooler heat-flow diagram" src="../assets/tec_cartoon.gif" /></p>
 <ul>
 <li><a href="../references/laird-tec-cp14-127-045.pdf">Laird TEC performance data</a></li>
 <li><a href="../references/introduction-to-thermoelectrics.pdf">Introduction to practical thermoelectrics</a></li>
+<li><a href="../references/melcor-thermal-solutions.pdf">Melcor thermal-solutions reference</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Thermoelectric_effect">Thermoelectric-effect background</a></li>
 </ul>
 <p>The heat carried by the TEC can be considered as having three terms, the
-Peltier term whose sign is set by the electrical current <span class="arithmatex">\(I\)</span>, Joule heating, which goes as <span class="arithmatex">\(I^2\)</span>, and ordinary thermal conduction:</p>
-<p><img alt="TEC heat-flow equation" src="../assets/tec_heat_equation.gif" /></p>
-<p><a href="../references/melcor-thermal-solutions.pdf">Melcor thermal-solutions reference</a></p>
+Peltier term whose sign is set by the electrical current <span class="arithmatex">\(I\)</span>, Joule heating,
+which goes as <span class="arithmatex">\(I^2\)</span>, and ordinary thermal conduction. For the face attached to
+the controlled object, define <span class="arithmatex">\(\dot Q_o&gt;0\)</span> as heat entering the object and
+<span class="arithmatex">\(I&gt;0\)</span> as the current direction that heats it. Then</p>
+<div class="arithmatex">\[
+\dot Q_o
+=S_M T_o I+\frac{1}{2}I^2R_M+K_M(T_r-T_o).
+\]</div>
+<p>The <strong>Peltier term</strong>, <span class="arithmatex">\(S_M T_oI\)</span>, is heat actively carried by the electrical
+current. It changes sign when the H-bridge reverses the current. Here <span class="arithmatex">\(S_M\)</span> is
+the effective Seebeck coefficient of the complete TEC in volts per kelvin and
+<span class="arithmatex">\(T_o\)</span> is the absolute temperature of the object face in kelvin.</p>
+<p>The <strong>Joule-heating term</strong>, <span class="arithmatex">\(\frac{1}{2}I^2R_M\)</span>, is the portion of the TEC's
+resistive heating assigned to the object face by the simple symmetric model.
+It is positive for either current direction. Here <span class="arithmatex">\(R_M\)</span> is the electrical
+resistance of the TEC in ohms.</p>
+<p>The <strong>thermal-conduction term</strong>, <span class="arithmatex">\(K_M(T_r-T_o)\)</span>, is passive heat flow through
+the TEC from the reservoir face at temperature <span class="arithmatex">\(T_r\)</span> toward the object face.
+It heats an object colder than the reservoir and cools an object hotter than
+the reservoir. Here <span class="arithmatex">\(K_M\)</span> is the TEC thermal conductance in watts per kelvin.</p>
+<p>With PWM, the temperature changes negligibly during one switching cycle, so
+the cycle-averaged heat rate is</p>
+<div class="arithmatex">\[
+\left\langle\dot Q_o\right\rangle
+=S_M T_o\langle I\rangle
++\frac{1}{2}R_M\left\langle I^2\right\rangle
++K_M(T_r-T_o).
+\]</div>
+<p>For ideal current pulses with duty cycle <span class="arithmatex">\(D\)</span> and on-state current magnitude
+<span class="arithmatex">\(I_{\mathrm{on}}\)</span>,</p>
+<div class="arithmatex">\[
+\langle I\rangle=\pm D I_{\mathrm{on}},
+\qquad
+\left\langle I^2\right\rangle=D I_{\mathrm{on}}^2.
+\]</div>
+<p>The sign selects heating or cooling. Notice that
+<span class="arithmatex">\(\langle I^2\rangle\ne\langle I\rangle^2\)</span>: PWM averages the Peltier and Joule
+terms differently.</p>
+<p>The Laird data sheet tabulates the module resistance, maximum current, maximum
+cold-side heat pumping at <span class="arithmatex">\(\Delta T=0\)</span>, and maximum temperature difference for
+the class TEC under specified operating conditions. Learning to locate those
+values, read their units, and identify the temperature and current conditions
+attached to them is part of A2; the values are therefore not reproduced here.
+Use the <a href="../references/laird-tec-cp14-127-045.pdf">Laird TEC performance data</a>
+directly.</p>
+<p>Joule heating assists the Peltier effect when the object is heated but opposes
+it when the object is cooled. Equal PWM magnitudes therefore need not produce
+equal heating and cooling temperature slopes.</p>
 <h3 id="heat-exchanger">Heat Exchanger<a class="headerlink" href="#heat-exchanger" title="Permanent link">&para;</a></h3>
 <p>The heat pumped into or out of the TEC has to come from somewhere. We use a water-cooled heat exchanger to couple the heat pumped by the TEC to the room. The thermal capacitance of the room is much greater than that of the object we are trying to control. The F2023 parts list identifies the class heat exchanger as an <strong>ID-COOLING DASHFLOW</strong>
 CPU liquid cooler with a 2x120 mm radiator. Power directly from the 12V power supply. The TEC cannot cool effectively if it is not coupled to a heat reservoir. See how the TEC operates when you turn off the heat pump. You will not be happy with the result.</p>

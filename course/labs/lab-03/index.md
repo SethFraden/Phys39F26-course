@@ -444,8 +444,8 @@ labeled file. It has no separate Moodle submission.
 After the experimental evidence is complete, reserve about **60 minutes** to check
 paths, finish captions, commit, push, and prepare the `C3 Team Checkoff` Moodle
 receipt. The receipt is due by **11:55 AM in S7** and must cite the exact pushed
-commit. Use the [C3 rubric and oral-question
-bank](../../assessment.md#c3-tec-instrument-and-first-python-gui).
+commit. Use the [C3 rubric](../../assessment.md#c3-tec-instrument-and-first-python-gui)
+and prepare the [C3 oral questions below](#c3-oral-questions).
 
 Save evidence while each capability is working. Your repository must contain:
 
@@ -471,6 +471,34 @@ To make the checkpoint:
 4. Push to GitHub and verify the folders, files, and latest commit online.
 5. Submit the `C3 Team Checkoff` receipt in Moodle with a link to the repository
    and the exact pushed commit.
+
+### C3 Oral Questions
+
+Use a labeled circuit sketch and the apparatus. Reuse your existing wiring
+record rather than creating another report. Each student answers one primary
+question and, when useful, one brief follow-up.
+
+1. Trace temperature information from the TEC plate through the thermistor,
+   divider voltage, Arduino `A0` and ADC, serial line, and Python display.
+   Identify the sensor, Arduino input, and digital representation of the
+   measured temperature.
+2. For the hardware-controlled sketch, trace the command from the
+   potentiometer on `A1` and direction input on pin `11`, through Arduino
+   PWM outputs `9`/`10` and the H-bridge, to the TEC. Then explain what replaces
+   those command inputs in the Python-controlled version. Label the
+   potentiometer and switch as command inputs, not actuators; the TEC is the
+   actuator that influences the physical temperature.
+3. How could a person use the displayed temperature to maintain a desired
+   temperature by adjusting PWM and direction? Identify the human feedback
+   path. If nobody adjusts the controls, does the instrument automatically
+   correct a temperature error? What measurement-to-command calculation would
+   be needed for automatic feedback?
+4. How do the PWM slider and text entry stay synchronized, and what command is
+   actually sent to the Arduino? How do you verify that the parser, plot, and
+   saved-data columns represent the same measured values?
+5. What should the software and hardware do after an invalid temperature,
+   broken serial connection, or over-temperature condition? Distinguish the
+   protections implemented now from those you would add later.
 
 ## Appendix: Prepare Missing 18 AWG Power And Thermal-Switch Leads
 

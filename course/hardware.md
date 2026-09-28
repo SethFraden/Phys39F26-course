@@ -95,20 +95,109 @@ required: 22 AWG solid wire may be soldered directly to the thermistor leads.
 
 ### Thermoelectric Cooler
 
-The thermoelectric cooler, or TEC, is the thermal actuator. One side is in thermal contact with an object whose temperature is to be controlled, and the other side is connected to a heat reservoir. The TEC controls whether heat flows into or out of the object. Reversing the current direction reverses the direction of heat flow. The face opposite the object must remain thermally coupled to the heat exchanger. Use 18G wire.
+The **thermoelectric cooler (TEC)** is also commonly called a **Peltier
+cooler** or **Peltier device**; these names refer to the same component. It is
+named for French physicist Jean Charles Athanase Peltier, who discovered the
+**Peltier effect**: an electrical current through junctions between different
+materials carries heat from one junction to another. In this course,
+"TEC" and "Peltier" are used synonymously for the device.
+
+The TEC is the thermal actuator. One side is in thermal contact with an object
+whose temperature is to be controlled, e.g. cooled or heated, and the other
+side is connected to a heat reservoir (sink). The TEC controls whether heat
+flows into or out of the object. Reversing the current direction reverses the
+direction of heat flow. The face opposite the object must remain thermally
+coupled to the heat exchanger. Use 18G wire.
+
+A TEC contains alternating p-type and n-type semiconductor pellets. As charge
+carriers cross the junctions, they absorb energy from lattice vibrations
+(phonons) at one face and release it at the other, coupling electrical current
+to heat transport. In this limited sense, a TEC acts like a reversible
+heat-flow rectifier: the current polarity selects the direction in which heat
+is pumped. Reversing the current reverses the heat flow, while the magnitude of
+the Peltier heat is proportional to $|I|$ and is the same for equal currents in
+either direction in the ideal symmetric model.
+
+![Two P-N thermoelectric couples connected in series](assets/TEC%20in%20series.png)
+
+The figure shows two P-N couples. The class uses a Laird TEC, CP14-127-045-L2-W4.5, that contains **127 P-N couples**, or **254 semiconductor pellets**, connected electrically in series and thermally in parallel. Combining many couples gives the module its substantial
+heat-pumping capacity.
+
+The semiconductor pellets are brittle, and the manufacturer specifies a
+maximum operating temperature of **80 °C**. Above 80 °C, the internal solder
+joints and bonding materials can degrade or fail, electrical and thermal
+contacts can be lost, and the module can be permanently damaged. Never tug on
+the TEC wires: doing so can break internal connections or pull the module
+assembly apart.
 
 ![Thermoelectric cooler heat-flow diagram](assets/tec_cartoon.gif)
 
 - [Laird TEC performance data](references/laird-tec-cp14-127-045.pdf)
 - [Introduction to practical thermoelectrics](references/introduction-to-thermoelectrics.pdf)
+- [Melcor thermal-solutions reference](references/melcor-thermal-solutions.pdf)
 - [Thermoelectric-effect background](https://en.wikipedia.org/wiki/Thermoelectric_effect)
 
 The heat carried by the TEC can be considered as having three terms, the
-Peltier term whose sign is set by the electrical current $I$, Joule heating, which goes as $I^2$, and ordinary thermal conduction:
+Peltier term whose sign is set by the electrical current $I$, Joule heating,
+which goes as $I^2$, and ordinary thermal conduction. For the face attached to
+the controlled object, define $\dot Q_o>0$ as heat entering the object and
+$I>0$ as the current direction that heats it. Then
 
-![TEC heat-flow equation](assets/tec_heat_equation.gif)
+\[
+\dot Q_o
+=S_M T_o I+\frac{1}{2}I^2R_M+K_M(T_r-T_o).
+\]
 
-[Melcor thermal-solutions reference](references/melcor-thermal-solutions.pdf)
+The **Peltier term**, $S_M T_oI$, is heat actively carried by the electrical
+current. It changes sign when the H-bridge reverses the current. Here $S_M$ is
+the effective Seebeck coefficient of the complete TEC in volts per kelvin and
+$T_o$ is the absolute temperature of the object face in kelvin.
+
+The **Joule-heating term**, $\frac{1}{2}I^2R_M$, is the portion of the TEC's
+resistive heating assigned to the object face by the simple symmetric model.
+It is positive for either current direction. Here $R_M$ is the electrical
+resistance of the TEC in ohms.
+
+The **thermal-conduction term**, $K_M(T_r-T_o)$, is passive heat flow through
+the TEC from the reservoir face at temperature $T_r$ toward the object face.
+It heats an object colder than the reservoir and cools an object hotter than
+the reservoir. Here $K_M$ is the TEC thermal conductance in watts per kelvin.
+
+With PWM, the temperature changes negligibly during one switching cycle, so
+the cycle-averaged heat rate is
+
+\[
+\left\langle\dot Q_o\right\rangle
+=S_M T_o\langle I\rangle
++\frac{1}{2}R_M\left\langle I^2\right\rangle
++K_M(T_r-T_o).
+\]
+
+For ideal current pulses with duty cycle $D$ and on-state current magnitude
+$I_{\mathrm{on}}$,
+
+\[
+\langle I\rangle=\pm D I_{\mathrm{on}},
+\qquad
+\left\langle I^2\right\rangle=D I_{\mathrm{on}}^2.
+\]
+
+The sign selects heating or cooling. Notice that
+$\langle I^2\rangle\ne\langle I\rangle^2$: PWM averages the Peltier and Joule
+terms differently.
+
+The Laird data sheet tabulates the module resistance, maximum current, maximum
+cold-side heat pumping at $\Delta T=0$, and maximum temperature difference for
+the class TEC under specified operating conditions. Learning to locate those
+values, read their units, and identify the temperature and current conditions
+attached to them is part of A2; the values are therefore not reproduced here.
+Use the [Laird TEC performance data](references/laird-tec-cp14-127-045.pdf)
+directly.
+
+Joule heating assists the Peltier effect when the object is heated but opposes
+it when the object is cooled. Equal PWM magnitudes therefore need not produce
+equal heating and cooling temperature slopes.
+
 
 ### Heat Exchanger
 

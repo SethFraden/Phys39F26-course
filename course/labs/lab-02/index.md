@@ -363,3 +363,33 @@ bank](../../assessment.md#c2-measurement-and-actuator-electronics).
 Reserve no more than **30 minutes after S5** to label the saved evidence, update
 the note, commit, and push. The physical measurements themselves must be made
 in class.
+
+### C2 Oral Questions
+
+Use your apparatus and circuit sketches to prepare these questions. Label
+Arduino inputs and outputs and identify the sensor and actuator. Each student
+answers one primary question and, when useful, one brief follow-up; do not
+prepare a separate written answer to every question.
+
+1. How do you measure temperature with a thermistor? Explain qualitatively how
+   temperature-dependent resistance becomes a voltage and then a digital ADC
+   number. Draw the divider with `5V`, the fixed resistor, thermistor, `A0`,
+   and `GND`. Identify the thermistor as a sensor and `A0` as an Arduino input,
+   then derive the resistance-versus-divider-voltage equation.
+2. For our NTC thermistor, how does resistance change as temperature rises?
+   Explain the microscopic mechanism in terms of mobile charge carriers, and
+   contrast it with an ordinary metal resistor. For your divider orientation,
+   does warming raise or lower the voltage at `A0`, and why?
+3. How does turning the potentiometer change motor speed? Draw and trace the
+   path from its continuous voltage at `A1`, through ADC conversion and PWM
+   mapping, to outputs `9`/`10`, the H-bridge, and motor. Identify command
+   inputs and actuator outputs. Why is the potentiometer an input rather than
+   an actuator? What supplies the motor's power?
+4. Why does the motor rotate smoothly rather than visibly following every PWM
+   pulse? Explain the role of average applied voltage, motor inductance in
+   smoothing current, and mechanical inertia in smoothing speed. Does inertia
+   make the electrical PWM waveform itself continuous?
+5. For the two direction settings and zero output, what signals should appear
+   on the H-bridge PWM inputs? Point to a scope trace and explain its frequency,
+   duty cycle, high/low voltages, and physical meaning. Where must the scope
+   ground clips connect, and why?

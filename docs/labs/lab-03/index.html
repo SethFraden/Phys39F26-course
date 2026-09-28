@@ -172,6 +172,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#c3-oral-questions" class="nav-link">C3 Oral Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#appendix-prepare-missing-18-awg-power-and-thermal-switch-leads" class="nav-link">Appendix: Prepare Missing 18 AWG Power And Thermal-Switch Leads</a>
@@ -675,8 +679,8 @@ labeled file. It has no separate Moodle submission.</p>
 <p>After the experimental evidence is complete, reserve about <strong>60 minutes</strong> to check
 paths, finish captions, commit, push, and prepare the <code>C3 Team Checkoff</code> Moodle
 receipt. The receipt is due by <strong>11:55 AM in S7</strong> and must cite the exact pushed
-commit. Use the <a href="../../assessment/#c3-tec-instrument-and-first-python-gui">C3 rubric and oral-question
-bank</a>.</p>
+commit. Use the <a href="../../assessment/#c3-tec-instrument-and-first-python-gui">C3 rubric</a>
+and prepare the <a href="#c3-oral-questions">C3 oral questions below</a>.</p>
 <p>Save evidence while each capability is working. Your repository must contain:</p>
 <ul>
 <li>the completed pre-power checklist and final wiring record,</li>
@@ -701,6 +705,33 @@ bank</a>.</p>
 <li>Push to GitHub and verify the folders, files, and latest commit online.</li>
 <li>Submit the <code>C3 Team Checkoff</code> receipt in Moodle with a link to the repository
    and the exact pushed commit.</li>
+</ol>
+<h3 id="c3-oral-questions">C3 Oral Questions<a class="headerlink" href="#c3-oral-questions" title="Permanent link">&para;</a></h3>
+<p>Use a labeled circuit sketch and the apparatus. Reuse your existing wiring
+record rather than creating another report. Each student answers one primary
+question and, when useful, one brief follow-up.</p>
+<ol>
+<li>Trace temperature information from the TEC plate through the thermistor,
+   divider voltage, Arduino <code>A0</code> and ADC, serial line, and Python display.
+   Identify the sensor, Arduino input, and digital representation of the
+   measured temperature.</li>
+<li>For the hardware-controlled sketch, trace the command from the
+   potentiometer on <code>A1</code> and direction input on pin <code>11</code>, through Arduino
+   PWM outputs <code>9</code>/<code>10</code> and the H-bridge, to the TEC. Then explain what replaces
+   those command inputs in the Python-controlled version. Label the
+   potentiometer and switch as command inputs, not actuators; the TEC is the
+   actuator that influences the physical temperature.</li>
+<li>How could a person use the displayed temperature to maintain a desired
+   temperature by adjusting PWM and direction? Identify the human feedback
+   path. If nobody adjusts the controls, does the instrument automatically
+   correct a temperature error? What measurement-to-command calculation would
+   be needed for automatic feedback?</li>
+<li>How do the PWM slider and text entry stay synchronized, and what command is
+   actually sent to the Arduino? How do you verify that the parser, plot, and
+   saved-data columns represent the same measured values?</li>
+<li>What should the software and hardware do after an invalid temperature,
+   broken serial connection, or over-temperature condition? Distinguish the
+   protections implemented now from those you would add later.</li>
 </ol>
 <h2 id="appendix-prepare-missing-18-awg-power-and-thermal-switch-leads">Appendix: Prepare Missing 18 AWG Power And Thermal-Switch Leads<a class="headerlink" href="#appendix-prepare-missing-18-awg-power-and-thermal-switch-leads" title="Permanent link">&para;</a></h2>
 <p>Most setups already have all six leads. Use this appendix only after the

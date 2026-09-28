@@ -152,6 +152,95 @@ code, plots, and repository state.
 | `P3` | S20, Mon. Nov. 9 | Completed Angstrom reading questions, a proposed drive period, and a prediction for amplitude decay and phase lag. |
 | `P4` | S22, Mon. Nov. 16 | A periodic dataset containing at least five settled cycles, sensor positions and units, acquisition metadata, and a base-temperature tracking check. |
 
+## How Written Assessments Are Graded
+
+The course uses five written assessments rather than a paper after every
+module. `A1` is a 5-point introductory evidence note. `A2`-`A5` are 10-point
+assessments with specific rubrics on their module pages. Intermediate notes,
+plots, code, and Git checkpoints receive feedback and support the oral
+checkoffs; they are not separate papers to grade.
+
+The 5-point table below is the A1 rubric; the A2-A5 pages use expanded 10-point
+rubrics.
+
+| Criterion | Points |
+| --- | ---: |
+| Required calculation, analysis, or documentation is complete and technically credible | 2 |
+| Requested data, figure, derivation, or other evidence is included | 1 |
+| Physical interpretation, units, and uncertainty or limitations are addressed where applicable | 1 |
+| Work is clear, reproducible from the linked `GC`, and submitted by the deadline | 1 |
+
+## A1: Module 1 Evidence Note
+
+**Due:** Monday, September 14, **5:00 PM**
+
+**Format:** 5-point team assignment; each student uploads the team PDF
+separately to Moodle.
+
+Document the Module 1 measurements and reasoning, including the exact Arduino
+code, serial and averaging evidence, oscilloscope evidence, dimensional
+measurements, and the pushed Git checkpoint. Use feedback from the earlier C1
+checkoff when completing the note.
+
+See [Module 1: A1 Module 1 Evidence Note](labs/lab-01/index.md#a1-module-1-evidence-note)
+for the complete instructions and rubric.
+
+## A2: TEC Heating And Cooling Analysis
+
+**Due:** Monday, October 5, **6:00 PM**
+
+**Format:** 10-point team assignment; each student uploads the same one-to-two-page
+team PDF separately to Moodle.
+
+Include the Part 4 heating and cooling graph, extract the relevant values and
+operating conditions from the Laird data sheet, and use them with the measured
+slopes to quantify the Peltier, Joule-heating, and passive-conduction
+contributions. No new Git checkpoint is required.
+
+See [Module 4: A2 TEC Heating And Cooling Analysis](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis)
+for the complete instructions and rubric.
+
+## A3: Feedback Data And Lumped-Model Memo
+
+**Due:** Wednesday, October 14, **6:00 PM**
+
+**Format:** 10-point team assignment; each student uploads the team PDF
+separately to Moodle.
+
+Present selected open-loop and P/PI evidence, droop and instability,
+dimensional one-lump analysis, comparable P/PI metrics, anti-windup, model
+limitations, code and data links, and the cited Git checkpoint.
+
+See [Module 6: A3 Feedback Data And Lumped-Model Memo](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
+for the complete instructions and rubric.
+
+## A4: Finite-Length And Small-Biot Guided Study
+
+**Due:** Wednesday, October 28, **9:05 AM**
+
+**Format:** 10-point individual assignment; each student submits independently
+written work to Moodle.
+
+Complete the governing-equation derivation, Lienhard Problems 4.12 and 4.20,
+finite and semi-infinite solutions, sensor-error analysis, and transverse Biot
+number calculation.
+
+See [Module 8: A4 Finite-Length And Small-Biot Guided Study](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study)
+for the complete instructions and rubric.
+
+## A5: Angstrom Derivation And Model-Validity Plan
+
+**Due:** Wednesday, November 11, **9:05 AM**
+
+**Format:** 10-point individual assignment; each student submits independently
+written work to Moodle.
+
+Develop the periodic relations for the Angstrom method, derive `kappa` and
+`nu`, specify the acquisition plan, and assess the radial-model approximation.
+
+See [Module 9: A5 Angstrom Derivation And Model-Validity Plan](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan)
+for the complete instructions and rubric.
+
 ## How Milestones Are Graded
 
 Each completion milestone is worth 10 points. Team members normally share the
@@ -192,17 +281,15 @@ are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-asses
 | Thermistor reports plausible calibrated temperature; H-bridge PWM and direction signals are correct and safely verified | 4 |
 | Wiring evidence and oscilloscope/measurement table are present | 2 |
 | Current Arduino code and documentation are pushed | 1 |
-| Individual explains divider conversion, PWM, and expected H-bridge inputs | 2 |
+| Individual explains the sensor/ADC measurement chain, PWM motor control, and input/output roles using a labeled circuit sketch | 2 |
 | Complete by the deadline | 1 |
 
 ### C2 Oral Questions
 
-1. Starting from the divider circuit, derive the equation used to convert the
-   measured voltage into thermistor resistance.
-2. For heating, cooling, and zero output, what signals should appear on the two
-   H-bridge PWM inputs?
-3. Point to an oscilloscope trace. What are its frequency, duty cycle, high and
-   low voltages, and physical meaning?
+Prepare the single authoritative question bank in
+[Module 2: C2 Oral Questions](labs/lab-02/index.md#c2-oral-questions).
+Each student explains one primary question and, when useful, one brief follow-up
+using the apparatus and their labeled circuit sketch.
 
 ## C3: TEC Instrument And First Python GUI
 
@@ -214,17 +301,15 @@ are in [Module 1: C1 In-Class Assessment](labs/lab-01/index.md#c1-in-class-asses
 | Protected TEC heats and cools under GUI command; Python displays and saves real serial data | 4 |
 | Open-loop heat and cool records include labels, units, and operating limits | 2 |
 | Arduino and Python versions used for the demonstration are pushed | 1 |
-| Individual explains serial parsing, GUI controls, and safety behavior | 2 |
+| Individual explains the TEC sensor/actuator paths, manual versus automatic feedback, serial parsing, GUI controls, and safety behavior | 2 |
 | Complete by the deadline | 1 |
 
 ### C3 Oral Questions
 
-1. Trace one temperature value from Arduino `analogRead()` through the serial
-   line to the Python plot.
-2. How do the PWM slider and text entry stay synchronized, and what value is
-   actually sent to the Arduino?
-3. What should the software and hardware do after an invalid temperature,
-   broken serial connection, or over-temperature condition?
+Prepare the single authoritative question bank in
+[Module 3: C3 Oral Questions](labs/lab-03/index.md#c3-oral-questions).
+Each student explains one primary question and, when useful, one brief follow-up
+using the apparatus and their labeled circuit sketch.
 
 ## C4: Feedback Controller And TEC Process Model
 
@@ -314,24 +399,6 @@ of `F1`.
    cross-sectional mean temperatures differ? Which one does a surface
    thermistor measure most directly?
 
-## Graded Assignment Rubric
-
-The course uses five written assessments rather than a paper after every
-module. `A1` is a 5-point introductory evidence note. `A2`-`A5` are 10-point
-assessments with specific rubrics on their module pages. Intermediate notes,
-plots, code, and Git checkpoints receive feedback and support the oral
-checkoffs; they are not separate papers to grade.
-
-The 5-point table below is the A1 rubric; the A2-A5 pages use expanded 10-point
-rubrics.
-
-| Criterion | Points |
-| --- | ---: |
-| Required calculation, analysis, or documentation is complete and technically credible | 2 |
-| Requested data, figure, derivation, or other evidence is included | 1 |
-| Physical interpretation, units, and uncertainty or limitations are addressed where applicable | 1 |
-| Work is clear, reproducible from the linked `GC`, and submitted by the deadline | 1 |
-
 ## Fixed Graded Due Dates And Definitions
 
 | Code | Due | What must be submitted: definition of done |
@@ -340,7 +407,7 @@ rubrics.
 | `A1` | Sept. 14, 5:00 PM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Each student submits `A1_Lastname_Lastname.pdf` to Moodle; teammates may upload the same PDF. Keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
 | `C2` | Sept. 16, during S6; receipt by 5:00 PM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#c2-evidence-and-submission), demonstrated using the C2 rubric above. |
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#c3-demonstration-and-evidence), demonstrated using the C3 rubric above. |
-| `A2` | Sept. 28, 6:00 PM | [**Open-loop TEC instrument note**](labs/lab-04/index.md#a2-open-loop-tec-instrument-note) (team): each student uploads the team PDF; teammates may upload the same file. Include the direction/PWM-magnitude table, heating/cooling traces, dimensional calibration graph, asymmetry and limits, safety evidence, code/data links, and `GC`. |
+| `A2` | Oct. 5, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
 | `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
 | `C4` | Oct. 21, during S15; receipt by 11:55 AM | [Feedback-controller and TEC-process-model milestone](labs/lab-07/index.md#c4-feedback-controller-and-tec-process-model), demonstrated using the C4 rubric above. |
 | `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |

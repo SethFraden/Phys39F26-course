@@ -27,11 +27,11 @@ system responds to commands.
 
 | Work | Planned time |
 | --- | ---: |
-| Read this assignment and review the safety boundary | 30 minutes |
-| Prepare the direction/PWM table, steady-state criterion, and data-file plan | 45 minutes |
-| Analyze the in-class runs and make the required graph | 120 minutes |
-| Write, check, commit, push, and submit A2 | 60 minutes |
-| **Total outside class associated with S8** | **3 hours 15 minutes** |
+| Read this assignment, review the safety boundary, and plan the data table | 30 minutes |
+| Make the calibration graph and extract its two slopes | 15 minutes |
+| Complete the guided A2 energy-balance analysis | 30 minutes |
+| Check and submit A2 | 15 minutes |
+| **Total outside class associated with S8** | **1 hour 30 minutes** |
 
 All physical runs and safety tests occur in class. If analysis reveals that a
 measurement must be repeated, identify it for the next supervised opportunity
@@ -132,8 +132,8 @@ Identify a maximum useful PWM magnitude for heating and another for cooling.
 The maxima may differ. They should span a useful temperature range without
 driving the apparatus outside **10 °C to 45 °C**.
 
-For each direction, use five PWM magnitudes: `0`, approximately 25%, 50%, and
-75% of that direction's maximum useful PWM, and the maximum useful PWM itself.
+For each direction, use five PWM magnitudes: 0%, approximately 25%, 50%, and
+75% and 100% of that direction's maximum useful PWM.
 Record the exact integer values that you actually use.
 
 ## Part 3: Measure Steady-State Temperature
@@ -161,7 +161,7 @@ cooling.
 
 ## Part 4: Plot Temperature Versus PWM
 
-Make a graph of steady-state temperature $T$ versus PWM magnitude. Plot the
+Make a graph of steady-state temperature $T$ versus signed PWM, in which negative PWM is for cooling and positive PWM is for heating. Plot the
 heating and cooling measurements as separate data sets: use red for heating and
 blue for cooling, matching the color convention in the strip chart.
 
@@ -173,7 +173,7 @@ You may use Python, a spreadsheet, or another tool. The graph should show:
 - units for temperature,
 - a caption or short note explaining how steady state was chosen.
 
-For each direction, estimate the **temperature susceptibility**
+For each direction, estimate the **temperature susceptibility**, e.g. the slope of the curves,
 
 \[
 \chi_T = \frac{dT}{d(\mathrm{PWM})}.
@@ -181,93 +181,216 @@ For each direction, estimate the **temperature susceptibility**
 
 It tells you how much the steady-state temperature changes for one PWM count
 while the heat/cool direction is held fixed. Its units are **°C per PWM count**.
-A simple estimate is:
+A simple finite-difference estimate is
 
-```text
-dT/dPWM = change in steady-state temperature / change in PWM
-```
+\[
+\chi_T \approx \frac{\Delta T}{\Delta(\mathrm{PWM})}.
+\]
 
 If the graph is not very linear, say so. The slope is still useful as a local
 or approximate measure of open-loop response.
 
-## Part 5: Explain Heating/Cooling Asymmetry
+## Part 5: Guided Heating/Cooling Energy-Balance Analysis
 
-Compare the magnitude of $\chi_T$ for heating and cooling.
+Complete the measurements and safety tests in class. At home, use the graph
+from Part 4 to complete the following guided analysis. No additional physical
+measurements are required.
 
-Write a short explanation of why the slopes may differ. Your explanation should
-refer to the physical apparatus, not only to the code. Useful ideas include:
+### 1. Measure The Two Slopes
 
-- the TEC moves heat in one direction while also producing Joule heat,
-- the heat exchanger transfers heat from the TEC to the room but is not an infinite heat sink,
-- the thermistor measures one location, not the entire thermal system,
-- thermal contact, heat capacity, and room-temperature boundary conditions
-  matter.
+From the approximately linear region of your graph, determine
 
-## Part 6: Assemble And Submit A2
+\[
+m_h=\frac{dT_h}{d(\mathrm{PWM})},
+\qquad
+m_c=\frac{dT_c}{d(\mathrm{PWM})},
+\qquad
+r=\frac{m_h}{|m_c|}.
+\]
 
-Complete all physical runs and safety tests during S7-S8. Fill the data table
-and write short observations while each run is fresh. Before shutting down or
-changing the apparatus, make sure you have the evidence needed for A2.
+Report both slopes with units of $^\circ\mathrm{C}$ per PWM count. State the
+PWM range used for each fit and note any visible curvature.
 
-### A2: Open-Loop TEC Instrument Note
+### 2. Use Steady-State Energy Balance
+
+Let $C$ be the thermal capacitance of the controlled object, $T_0$ its
+zero-PWM temperature, and $G$ the effective passive thermal conductance from
+the object to its surroundings. Write the simplified energy balance as
+
+\[
+C\frac{dT}{dt}=\dot Q_{\mathrm{TEC}}-G(T-T_0).
+\]
+
+At steady state, $dT/dt=0$. The individual heat flows are generally not zero;
+their sum is zero. Therefore,
+
+\[
+G(T-T_0)=\dot Q_{\mathrm{TEC}}.
+\]
+
+Before writing the TEC heat rate, derive how PWM averages current. During one
+PWM period $\tau$, let the current be $I$ for a time $D\tau$ and zero for the
+remaining $(1-D)\tau$, where $D$ is the duty cycle. Starting from
+
+\[
+\langle I\rangle=\frac{1}{\tau}\int_0^\tau I(t)\,dt,
+\qquad
+\langle I^2\rangle=\frac{1}{\tau}\int_0^\tau I^2(t)\,dt,
+\]
+
+show that
+
+\[
+\boxed{\langle I\rangle=DI},
+\qquad
+\boxed{\langle I^2\rangle=DI^2}.
+\]
+
+Explain why $\langle I^2\rangle$ is not generally equal to
+$\langle I\rangle^2$, and connect this distinction to your measured
+susceptibility. The Peltier term is proportional to $\langle I\rangle=DI$,
+and Joule heating is proportional to $\langle I^2\rangle=DI^2$. For fixed
+on-state current, both ideal contributions are therefore linear in $D$, giving
+an approximately constant susceptibility. If one incorrectly used
+$\langle I^2\rangle=\langle I\rangle^2=D^2I^2$, the predicted Joule term would
+be quadratic in duty cycle and the susceptibility would vary with $D$. Compare
+that prediction with the approximate linearity or curvature of your measured
+temperature-versus-PWM graph.
+
+Near room temperature, let the positive quantities $\dot Q_P$ and $\dot Q_J$
+be the Peltier and object-face Joule heat rates, in watts, when the PWM is fully
+on. With $D$ the dimensionless duty cycle, the cycle-averaged heat rates are
+$D\dot Q_P$ and $D\dot Q_J$. The Peltier term changes sign when current
+reverses, whereas Joule heating does not. Thus
+
+\[
+\dot Q_{\mathrm{TEC},h}=D(\dot Q_P+\dot Q_J),
+\qquad
+\dot Q_{\mathrm{TEC},c}=D(-\dot Q_P+\dot Q_J).
+\]
+
+Substitute each expression into the steady-state balance and solve for
+$T_h(D)-T_0$ and $T_c(D)-T_0$. Differentiate with respect to $D$ to show that
+
+\[
+\frac{dT_h}{dD}=\frac{\dot Q_P+\dot Q_J}{G},
+\qquad
+\left|\frac{dT_c}{dD}\right|=\frac{\dot Q_P-\dot Q_J}{G}.
+\]
+
+PWM count is proportional to $D$, so the conversion factor cancels from the
+ratio of the measured slopes. Show that
+
+\[
+\boxed{\frac{\dot Q_J}{\dot Q_P}=\frac{r-1}{r+1}}.
+\]
+
+Evaluate $\dot Q_J/\dot Q_P$ using your measured value of $r$. As an algebra
+check, if $r=2$, the result should be $\dot Q_J/\dot Q_P=1/3$.
+
+### 3. Find And Use The Laird Maximum-Current Data
+
+Open the [Laird CP14-127-045 data sheet](../../references/laird-tec-cp14-127-045.pdf).
+Manufacturer data sheets contain the information needed to design with a
+component, but they are written for many users and can be difficult to read.
+Part of this exercise is deciding which entries and operating conditions apply
+to the class TEC.
+
+Find the table or column for the class model at a hot-side temperature of
+$27\ ^\circ\mathrm{C}$. Locate and record all of the following, with units:
+
+- module resistance, $R_M$;
+- maximum current, $I_{\max}$;
+- maximum cold-side heat pumping at $\Delta T=0$, $Q_{c,\max}$; and
+- maximum temperature difference, $\Delta T_{\max}$.
+
+In one sentence each, explain what the quantity means and
+state the operating condition attached to it. Do not ask an AI system for the
+numbers before you have found them yourself. Afterward, you may give the data
+sheet and your interpretation to an AI system and ask it to check whether you
+selected the correct values and conditions.
+
+These are data-sheet maximum-current conditions. They are not necessarily the
+conditions in your apparatus when $D=1$: full duty means that the H-bridge is
+continuously on, while the actual current depends on the power-supply voltage
+and current limit, H-bridge voltage drop, wiring, and TEC resistance.
+
+At $\Delta T=0$ the passive conduction term is zero. The simple symmetric TEC
+model assigns half of the total Joule heat to each face, so calculate the
+object-face Joule heat rate at the data-sheet maximum current:
+
+\[
+\dot Q_{J,\max}=\frac12 I_{\max}^2R_M.
+\]
+
+Cooling at the object face is the Peltier heat pumping minus this Joule heat:
+
+\[
+Q_{c,\max}=\dot Q_{P,\max}-\dot Q_{J,\max}.
+\]
+
+All three quantities in this equation are heat-transfer rates in watts. Use
+this relation to find $\dot Q_{P,\max}$, and then calculate the data-sheet
+maximum-current prediction
+
+\[
+r_{\mathrm{Laird},\max}
+=\frac{\dot Q_{P,\max}+\dot Q_{J,\max}}
+{\dot Q_{P,\max}-\dot Q_{J,\max}}.
+\]
+
+### 4. Interpret The Comparison
+
+Compare $r_{\mathrm{Laird},\max}$ with your measured $r$. Do not assume that
+they should agree. State why $D=1$ does not necessarily imply
+$I=I_{\max}$. Also consider PWM rather than steady DC, finite temperature
+differences, passive heat paths, changing material properties, and fitting a
+slightly curved graph with one slope.
+
+Also answer: when the object is hotter than room temperature, which way does
+passive heat flow? What about when the object is colder? Explain why
+approximately symmetric passive conduction opposes both heating and cooling
+but does not by itself explain unequal slope magnitudes.
+
+## Part 6: Submit A2
+
+### A2: TEC Heating And Cooling Analysis
 
 - **Type:** team, 10 points
-- **Due:** Monday, September 28, at **6:00 PM**
+- **Due:** Monday, October 5, at **6:00 PM**
 - **Moodle file:** `A2_Lastname_Lastname.pdf`
 - **Moodle submission:** Each student uploads the team PDF separately;
   teammates may upload the same PDF
-- **Repository file:** `docs/assessments/a2_open_loop_tec.md`
+- **Repository file:** none required for this short analysis
 
-This early formal assessment establishes expectations for dimensional graphs,
-physical interpretation, reproducible code/data links, safety evidence, and a
-clear Git checkpoint. Reserve about **60 minutes** to finish the paper and
-submission after the in-class measurements and graph are complete.
+Submit a **one-to-two-page PDF** containing:
 
-Use `docs/module_notes/module_04_open_loop_tec.md` for the working note,
-`data/module_04/` for raw data, `docs/figures/module_04/` for figures, and
-`docs/assessments/a2_open_loop_tec.md` for the repository version of A2.
+1. your Part 4 graph, showing the heating and cooling measurements as separate
+   data sets with fitted lines over the ranges used;
+2. your measured heating and cooling slopes, their units, and their ratio $r$;
+3. the PWM average-current proof, the steady-state slope derivation, and its
+   numerical result;
+4. the cited Laird data-sheet values, your explanation of their meanings and
+   conditions, and the resulting calculation and predicted ratio;
+5. a comparison of the measured and data-sheet ratios;
+6. your answer about passive conduction; and
+7. a concise conclusion of approximately 100-150 words explaining what the
+   measurements imply about Peltier transport, Joule heating, and conduction.
 
-Submit a short instrument note containing:
-
-- a wiring diagram showing the 18 AWG high-current path and the thermal switch
-  in series with the TEC,
-- the power-supply and software safety settings,
-- the direction/PWM-magnitude table and the criterion you used to identify
-  steady state,
-- the retained raw time-series data and one labeled trace for each direction,
-- a dimensional graph of steady-state temperature versus PWM magnitude, with
-  separate red heating and blue cooling data,
-- the heating and cooling values of $\chi_T$ in °C per PWM count,
-- your explanation of heating/cooling asymmetry,
-- links to the exact Arduino safety-limit code and Python program used,
-- evidence that the safety test set both H-bridge outputs to zero while serial
-  reporting continued, and
-- a link to the GitHub commit or repository containing the organized Module 4 work.
-
-### GitHub Checkpoint
-
-Commit the organized work before submitting A2.
-
-```bash
-git status
-git add README.md arduino python docs data
-git commit -m "Measure open-loop TEC response and add safety limit"
-git push
-```
-
-Do not commit duplicate drafts or large accidental data files. Your repository
-should make it clear which Arduino sketch, Python program, data, and figures
-support the submitted note.
+Do not repeat the C2/C3 circuit sketches, apparatus descriptions,
+safety demonstration, or code documentation in A2. Retain the class data and
+working code for later modules, but no new Git checkpoint is required for this
+short assignment.
 
 ### A2 Rubric
 
 | Criterion | Points |
 | --- | ---: |
-| Direction/PWM-magnitude table, steady-state criterion, and retained raw data are complete | 2 |
-| Heating/cooling traces and dimensional steady-temperature plot are credible | 2 |
-| Asymmetry, susceptibility, saturation, and operating limits are interpreted physically | 2 |
-| Software and hardware safety behavior are demonstrated and explained | 2 |
-| PDF, code/data links, and cited Git checkpoint are clear and on time | 2 |
+| Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented | 2 |
+| PWM averaging proof, steady-state energy balance, and slope-ratio derivation are correct | 3 |
+| Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation | 2 |
+| Comparison and passive-conduction explanation show sound physical reasoning | 2 |
+| PDF is concise, legible, and complete | 1 |
 
 ## Appendix: Optional AI Prompt For The Safety Edit
 

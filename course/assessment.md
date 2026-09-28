@@ -321,7 +321,7 @@ using the apparatus and their labeled circuit sketch.
 | P and PI control operate safely; one- or two-lump model runs and is compared with data | 4 |
 | Droop, oscillation, and model-residual evidence support the conclusions | 2 |
 | Reproducible controller/model code and parameter record are pushed | 1 |
-| Individual explains droop, integral action, lag, and one model limitation | 2 |
+| Individual explains the assigned announced question about open-loop calibration, droop, integral action, lag, or a model limitation | 2 |
 | Complete by the deadline | 1 |
 
 ### C4 Oral Questions
@@ -330,6 +330,7 @@ Prepare the authoritative question banks in the modules where the concepts
 are developed. Each student answers one primary question and, when useful,
 a brief follow-up; this is not a requirement to answer every question at checkoff.
 
+- [Module 4: Open-loop TEC calibration](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration): independent safety protections, steady-state susceptibility, heating/cooling asymmetry, and data-sheet consistency.
 - [Module 5: P control](labs/lab-05/index.md#c4-oral-questions-p-control): physical origin of droop, susceptibility, dimensionless gain, and thermal capacity.
 - [Module 6: PI control](labs/lab-06/index.md#c4-oral-questions-pi-control): integral action and windup.
 - [Module 7: Process modeling](labs/lab-07/index.md#c4-oral-questions-process-modeling): physical lag and fitted parameters.

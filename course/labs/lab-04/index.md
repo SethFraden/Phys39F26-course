@@ -249,13 +249,13 @@ C\frac{dT}{dt}=\dot Q_{\mathrm{TEC}}-G(T-T_0).
 \]
 
 At steady state, $dT/dt=0$. The individual heat flows are generally not zero;
-their sum is zero. Therefore,
+their **sum is zero**. This is a general, model independent result. It is always true from the conservation of energy. Therefore,
 
 \[
 G(T-T_0)=\dot Q_{\mathrm{TEC}}.
 \]
 
-Before writing the TEC heat rate, derive how PWM averages current. During one
+Look at the above equation carefully. Enumerate all the terms and think about whether the heat is flowing into the object or out of the object for heating and cooling.  Before writing the TEC heat rate, derive how PWM averages current. During one
 PWM period $\tau$, let the current be $I$ for a time $D\tau$ and zero for the
 remaining $(1-D)\tau$, where $D$ is the duty cycle. Starting from
 
@@ -280,8 +280,10 @@ and Joule heating is proportional to $\langle I^2\rangle=DI^2$. For fixed
 on-state current, both ideal contributions are therefore linear in $D$, giving
 an approximately constant susceptibility. If one incorrectly used
 $\langle I^2\rangle=\langle I\rangle^2=D^2I^2$, the predicted Joule term would
-be quadratic in duty cycle and the susceptibility would vary with $D$. Compare
-that prediction with the approximate linearity or curvature of your measured
+be quadratic in duty cycle and the susceptibility would vary with $D$. Note that if we were not using PWM, but used a digital to analog converter that outputed a constant current whose amplitude could be linearly varied, then $\langle I^2\rangle=\langle I\rangle^2$.
+
+Compare
+the prediction for PWM control with the approximate linearity or curvature of your measured
 temperature-versus-PWM graph.
 
 Near room temperature, let the positive quantities $\dot Q_P$ and $\dot Q_J$
@@ -418,6 +420,26 @@ short assignment.
 | Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation | 2 |
 | Comparison and passive-conduction explanation show sound physical reasoning | 2 |
 | PDF is concise, legible, and complete | 1 |
+
+## C4 Oral Questions: Open-Loop TEC Calibration
+
+These questions carry the Module 4 learning objectives into the announced C4
+question bank. Prepare to answer one primary question and, when useful, one
+brief follow-up using your apparatus, graph, or the Laird data sheet.
+
+1. Explain how the software temperature limit and the hardware thermal switch
+   protect the TEC independently. How did you test the software limit without
+   intentionally heating the apparatus to its limit?
+2. Use your temperature-versus-signed-PWM graph to explain how you identified
+   steady state and obtained the heating and cooling susceptibilities. State
+   the units, fitting ranges, and any visible curvature.
+3. Why can the heating and cooling susceptibility magnitudes differ? Explain
+   what happens to the Peltier, Joule-heating, and passive-conduction terms when
+   the current direction reverses.
+4. Locate the required class-TEC specifications in the Laird data sheet and
+   explain their meanings and operating conditions. Is your measured slope
+   ratio consistent with the manufacturer data, and why does full duty cycle
+   not necessarily mean maximum current?
 
 ## Appendix: Optional AI Prompt For The Safety Edit
 

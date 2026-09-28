@@ -276,7 +276,8 @@ Plot only temperature versus Arduino time in a rolling window. Near the top of
 the file, let me set the serial port, baud rate, window duration, update interval, temperature
 limits, and CSV filename. Save accepted values to CSV columns time_s,
 temperature_C, pwm, and heat_cool. Do not send commands. Keep the program
-readable for a Python beginner and comment its major sections.
+readable for a Python beginner and comment its major sections. Use a light,
+preferably white, plot background so the data lines are easy to see.
 ```
 
 </details>
@@ -314,7 +315,8 @@ SET PWM 120 DIR HEAT
 SET PWM 45 DIR COOL
 
 Keep the temperature plot, terminal output, and CSV logging. Clamp typed PWM
-values to 0-255. Do not implement feedback control. Comment the GUI widgets,
+values to 0-255. Use a light, preferably white, background for both strip
+charts so the red and blue traces are easy to see. Do not implement feedback control. Comment the GUI widgets,
 serial command sending, and plot updates for a Python beginner.
 ```
 

@@ -87,8 +87,8 @@ the touch.
 
 ### Add And Verify The Software Temperature Limit
 
-Continue using the measurement sequence from Module 2: average between 100 and
-1000 raw thermistor-voltage measurements before calculating each temperature.
+Continue using the measurement sequence from Module 2: average 
+1000 raw thermistor-voltage measurements before calculating each temperature. Your data should update about once a second. If it is slower, something is wrong.
 This applies to the displayed temperature, recorded data, and software safety
 check.
 
@@ -104,9 +104,8 @@ Your code should:
 - continue printing serial data so the Python GUI shows what happened, and
 - report clearly in the serial output when the safety shutdown is active.
 
-Do not intentionally heat the apparatus to 60 °C. With TEC power off, temporarily
-set the software limit just below the measured room temperature and verify that
-the shutdown activates and both PWM outputs are set to zero. Then restore the
+Do not intentionally heat the apparatus to 60 °C. Set the software limit to about 30C and verify that
+the shutdown activates when you warm it up above that temperature and both PWM outputs are set to zero. Then restore the
 limit to 60 °C and show the result to the instructor.
 
 ### Start The TEC
@@ -114,14 +113,13 @@ limit to 60 °C and show the result to the instructor.
 After the wiring and software interlock are approved:
 
 1. Confirm again that PWM begins at `0` and the temperature is plausible.
-2. Enable the power supply using the instructor-approved voltage and current
-   limit.
+2. Enable the power supply.
 3. At low PWM, test both heat and cool and confirm that the temperature responds
    plausibly. In the strip chart, the PWM trace should be red during heating and
    blue during cooling.
 
 Record the Arduino sketch filename, Python filename, serial port, power-supply
-voltage, and power-supply current limit in your module notes.
+voltage, and power-supply current limit in your module notes. The latter values are written on the side of the power supply.
 
 ## Part 2: Choose Direction And PWM Values
 
@@ -130,25 +128,41 @@ The Arduino treats **PWM as an 8-bit nonnegative magnitude** and uses a separate
 measurement. The Python strip chart communicates the heat/cool bit visually by
 drawing the PWM trace red for heat and blue for cool.
 
-Begin with a cautious exploratory sweep in each direction. Start at low PWM and
-increase it gradually while watching the temperature and power-supply current.
-Identify a maximum useful PWM magnitude for heating and another for cooling.
-The maxima may differ. They should span a useful temperature range without
-driving the apparatus outside **10 °C to 45 °C**.
+Find one heating PWM value that produces **45 °C ± 2 °C at steady
+state**. Separately, find one cooling PWM value that
+produces **10 °C ± 1 °C at steady state**C.
+Those two endpoint values define the maximum useful PWM magnitude for heating
+and cooling, respectively. The two maxima will generally differ.
 
-For each direction, use five PWM magnitudes: 0%, approximately 25%, 50%, and
-75% and 100% of that direction's maximum useful PWM.
-Record the exact integer values that you actually use.
+
+
+For each direction, use five selected PWM magnitudes: 0%, approximately 25%,
+50%, 75%, and 100% of **that direction's own** maximum useful PWM. Thus the
+heating set should extend from 0 to the PWM that gives 45 °C ± 2 °C at
+steady state, while the cooling set should extend from 0 to the PWM that gives
+10 °C ± 1 °C at steady state. Record the exact integer values that you
+actually use.
+
+Measure the **steady-state** temperature vs. PWM in each direction. Start at low PWM, wait for the temperature trace to become nearly flat, and
+then increase PWM only as needed. The goal is **not** to test every PWM value
+from 0 to 255. The time dependence is exponential. Steady state can be considered as being achieved after waiting 2 or 3 time constants after changing the PWM. 
 
 ## Part 3: Measure Steady-State Temperature
 
-For each PWM value:
+Measure steady state only at the five selected heating values and the five
+selected cooling values from Part 2. Do **not** make a continuous 0–255 PWM
+sweep, and do not keep increasing heating PWM while the temperature is still
+climbing. Every recorded temperature in this part is a **steady-state**
+temperature.
+
+For each selected PWM value:
 
 1. Set heat/cool direction.
 2. Set PWM.
 3. Watch the temperature trace.
-4. Wait until the temperature changes slowly enough to call it steady for this
-   module.
+4. Wait until the temperature trace changes slowly enough to call it steady for
+   this module. Do not record a value while it is still visibly trending toward
+   the target temperature.
 5. Record the steady-state temperature.
 
 Use a table like this:
@@ -162,6 +176,35 @@ Use a table like this:
 
 Also save at least one temperature-versus-time trace for heating and one for
 cooling.
+
+At this point, modify the fixed temperature y-axis used in Module 3 so small
+steady-state drifts are visible. Give GitHub Copilot the following prompt:
+
+<details markdown="1">
+<summary>Suggested AI prompt: automatically scale the temperature axis</summary>
+
+```text
+Modify my existing PySide6 and pyqtgraph TEC strip-chart program. In Module 3,
+the temperature y-axis was fixed. For Module 4, replace that fixed y-axis with
+an automatically scaled temperature y-axis.
+
+After every accepted temperature measurement, find the minimum and maximum
+temperature among the samples currently visible in the rolling time window.
+Set the temperature y-axis to extend 1 °C below the minimum and 1 °C above the
+maximum. Always use at least a 6 °C total y-axis span; if the measured range is
+smaller, center that 6 °C span on the measured temperatures. Update the y-axis
+each time new data arrive, with no extra automatic padding.
+
+Do not autoscale the PWM axis. Preserve the rolling time axis, controls, serial
+communication, CSV logging, and red/blue PWM traces. Use a light, preferably
+white, plot background so small temperature slopes remain visible. Comment the
+new autoscaling code for a Python beginner.
+
+The goal is to give enough magnification to see slow temperature drift without
+making normal measurement noise dominate the display.
+```
+
+</details>
 
 ## Part 4: Plot Temperature Versus PWM
 

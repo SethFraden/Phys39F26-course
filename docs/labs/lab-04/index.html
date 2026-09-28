@@ -434,6 +434,25 @@ r=\frac{m_h}{|m_c|}.
 <p>Report both slopes with units of <span class="arithmatex">\(^\circ\mathrm{C}\)</span> per PWM count. State the
 PWM range used for each fit and note any visible curvature.</p>
 <h3 id="2-use-steady-state-energy-balance">2. Use Steady-State Energy Balance<a class="headerlink" href="#2-use-steady-state-energy-balance" title="Permanent link">&para;</a></h3>
+<p>Recall the full object-face TEC heat-flow equation from the
+<a href="../../hardware/#thermoelectric-cooler">Hardware discussion of the thermoelectric cooler</a>:</p>
+<div class="arithmatex">\[
+\left\langle\dot Q_o\right\rangle
+=S_M T_o\langle I\rangle
++\frac{1}{2}R_M\left\langle I^2\right\rangle
++K_M(T_r-T_o).
+\]</div>
+<p>The subscript <span class="arithmatex">\(o\)</span> denotes the <strong>object face</strong> of the TEC, which is attached to
+the controlled metal block; the subscript <span class="arithmatex">\(r\)</span> denotes the <strong>reservoir face</strong>,
+which is coupled to the heat exchanger. Thus <span class="arithmatex">\(T_o\)</span> and <span class="arithmatex">\(T_r\)</span> are the absolute
+temperatures of those two faces.</p>
+<p>The first term is Peltier transport, the second is the share of Joule heating
+delivered to the object face, and the third is passive conduction through the
+TEC. In the simplified model below, <span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span> represents the two
+current-dependent terms. The TEC conduction term and the apparatus's other
+passive heat leaks are combined into the effective conductance term
+<span class="arithmatex">\(-G(T-T_0)\)</span>. Do not count TEC conduction a second time inside
+<span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span>.</p>
 <p>Let <span class="arithmatex">\(C\)</span> be the thermal capacitance of the controlled object, <span class="arithmatex">\(T_0\)</span> its
 zero-PWM temperature, and <span class="arithmatex">\(G\)</span> the effective passive thermal conductance from
 the object to its surroundings. Write the simplified energy balance as</p>

@@ -213,6 +213,29 @@ PWM range used for each fit and note any visible curvature.
 
 ### 2. Use Steady-State Energy Balance
 
+Recall the full object-face TEC heat-flow equation from the
+[Hardware discussion of the thermoelectric cooler](../../hardware.md#thermoelectric-cooler):
+
+\[
+\left\langle\dot Q_o\right\rangle
+=S_M T_o\langle I\rangle
++\frac{1}{2}R_M\left\langle I^2\right\rangle
++K_M(T_r-T_o).
+\]
+
+The subscript $o$ denotes the **object face** of the TEC, which is attached to
+the controlled metal block; the subscript $r$ denotes the **reservoir face**,
+which is coupled to the heat exchanger. Thus $T_o$ and $T_r$ are the absolute
+temperatures of those two faces.
+
+The first term is Peltier transport, the second is the share of Joule heating
+delivered to the object face, and the third is passive conduction through the
+TEC. In the simplified model below, $\dot Q_{\mathrm{TEC}}$ represents the two
+current-dependent terms. The TEC conduction term and the apparatus's other
+passive heat leaks are combined into the effective conductance term
+$-G(T-T_0)$. Do not count TEC conduction a second time inside
+$\dot Q_{\mathrm{TEC}}$.
+
 Let $C$ be the thermal capacitance of the controlled object, $T_0$ its
 zero-PWM temperature, and $G$ the effective passive thermal conductance from
 the object to its surroundings. Write the simplified energy balance as

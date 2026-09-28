@@ -1,19 +1,23 @@
 # Module 4 Assignment: Open-Loop TEC Calibration And Software Safety
 
-## Module At A Glance
+## Purpose
 
-Module 4 turns the manually controlled TEC from Module 3 into a measured process. You
-will hold the TEC at several PWM settings, wait for the temperature to settle,
-and measure the steady-state relationship between PWM command and temperature.
+Turn the manually controlled TEC from Module 3 into a measured open-loop
+process. You will measure how its steady-state temperature responds to PWM,
+analyze why heating and cooling differ, and add a software temperature limit
+while retaining the independent hardware thermal switch.
 
-You will also add the first software safety interlock: the Arduino must disable
-the PWM command if the measured temperature exceeds a chosen limit. The hardware
-thermal switch remains the final protection, but your code should not rely on
-the hardware cutoff as the normal way to stop an unsafe run.
+## Learning Objectives
 
-This is still open-loop control. You are not asking the Arduino or Python to
-hit a target temperature automatically. You are measuring how the physical
-system responds to commands.
+By the end of this module, you should be able to:
+
+- operate the TEC safely using independent hardware and software protection;
+- measure the steady-state temperature response to signed PWM and determine
+  the heating and cooling susceptibilities;
+- explain unequal heating and cooling slopes using Peltier transport, Joule
+  heating, and passive conduction; and
+- extract relevant manufacturer specifications from a data sheet and evaluate
+  whether experimental measurements are consistent with them.
 
 ## Before Class
 

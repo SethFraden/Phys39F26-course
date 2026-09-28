@@ -110,7 +110,11 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#module-4-assignment-open-loop-tec-calibration-and-software-safety" class="nav-link">Module 4 Assignment: Open-Loop TEC Calibration And Software Safety</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#module-at-a-glance" class="nav-link">Module At A Glance</a>
+            <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -198,17 +202,22 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="module-4-assignment-open-loop-tec-calibration-and-software-safety">Module 4 Assignment: Open-Loop TEC Calibration And Software Safety<a class="headerlink" href="#module-4-assignment-open-loop-tec-calibration-and-software-safety" title="Permanent link">&para;</a></h1>
-<h2 id="module-at-a-glance">Module At A Glance<a class="headerlink" href="#module-at-a-glance" title="Permanent link">&para;</a></h2>
-<p>Module 4 turns the manually controlled TEC from Module 3 into a measured process. You
-will hold the TEC at several PWM settings, wait for the temperature to settle,
-and measure the steady-state relationship between PWM command and temperature.</p>
-<p>You will also add the first software safety interlock: the Arduino must disable
-the PWM command if the measured temperature exceeds a chosen limit. The hardware
-thermal switch remains the final protection, but your code should not rely on
-the hardware cutoff as the normal way to stop an unsafe run.</p>
-<p>This is still open-loop control. You are not asking the Arduino or Python to
-hit a target temperature automatically. You are measuring how the physical
-system responds to commands.</p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Turn the manually controlled TEC from Module 3 into a measured open-loop
+process. You will measure how its steady-state temperature responds to PWM,
+analyze why heating and cooling differ, and add a software temperature limit
+while retaining the independent hardware thermal switch.</p>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>By the end of this module, you should be able to:</p>
+<ul>
+<li>operate the TEC safely using independent hardware and software protection;</li>
+<li>measure the steady-state temperature response to signed PWM and determine
+  the heating and cooling susceptibilities;</li>
+<li>explain unequal heating and cooling slopes using Peltier transport, Joule
+  heating, and passive conduction; and</li>
+<li>extract relevant manufacturer specifications from a data sheet and evaluate
+  whether experimental measurements are consistent with them.</li>
+</ul>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Review your Module 3 Arduino sketch and Python GUI.</li>

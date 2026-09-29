@@ -338,13 +338,9 @@ voltage, and power-supply current limit in your module notes. The latter values 
 <strong>1-bit heat/cool value</strong> to select direction. Record both quantities for every
 measurement. The Python strip chart communicates the heat/cool bit visually by
 drawing the PWM trace red for heat and blue for cool.</p>
-<p>Begin with a cautious exploratory <strong>steady-state</strong> search in each direction.
-Start at low PWM, wait for the temperature trace to become nearly flat, and
-then increase PWM only as needed. The goal is <strong>not</strong> to test every PWM value
-from 0 to 255.</p>
 <p>Find one heating PWM value that produces <strong>45 °C ± 2 °C at steady
 state</strong>. Separately, find one cooling PWM value that
-produces <strong>10 °C ± 1 °C at steady state</strong>C.
+produces <strong>10 °C ± 1 °C at steady state</strong>.
 Those two endpoint values define the maximum useful PWM magnitude for heating
 and cooling, respectively. The two maxima will generally differ.</p>
 <p>For each direction, use five selected PWM magnitudes: 0%, approximately 25%,
@@ -355,20 +351,21 @@ steady state, while the cooling set should extend from 0 to the PWM that gives
 actually use.</p>
 <h2 id="part-3-measure-steady-state-temperature">Part 3: Measure Steady-State Temperature<a class="headerlink" href="#part-3-measure-steady-state-temperature" title="Permanent link">&para;</a></h2>
 <p>Measure steady state only at the five selected heating values and the five
-selected cooling values from Part 2. Do <strong>not</strong> make a continuous 0–255 PWM
-sweep, and do not keep increasing heating PWM while the temperature is still
-climbing. Every recorded temperature in this part is a <strong>steady-state</strong>
-temperature.</p>
-<p>For each selected PWM value:</p>
-<ol>
-<li>Set heat/cool direction.</li>
-<li>Set PWM.</li>
-<li>Watch the temperature trace.</li>
-<li>Wait until the temperature trace changes slowly enough to call it steady for
-   this module. Do not record a value while it is still visibly trending toward
-   the target temperature.</li>
-<li>Record the steady-state temperature.</li>
-</ol>
+selected cooling values from Part 2. Do not make a continuous 0–255 PWM
+sweep. In each direction, work through only the five chosen values, beginning
+at low PWM. After a sudden PWM change—for example, from 25% to 50%—the
+temperature approaches its new value approximately exponentially. It never
+becomes mathematically stationary: after one time constant it has completed
+about 63% of the change, after two it has completed about 86% (14% remains),
+and after three it has completed about 95% (5% remains).</p>
+<p>Use the following practical definition of steady state for this lab. Estimate the time constant
+from the response to a PWM step, wait about three time constants, and
+then watch the trace for one additional minute. Because the temperature trace
+has noise, do not expect a perfectly horizontal line. Call the temperature
+steady when its net drift over that minute is no larger than the ordinary
+short-term noise (the usual up-and-down wiggles) in the trace. If a clear
+upward or downward drift remains, wait longer. Every recorded temperature in
+this part is a <strong>steady-state</strong> temperature.</p>
 <p>Use a table like this:</p>
 <table>
 <thead>
@@ -456,13 +453,19 @@ blue for cooling, matching the color convention in the strip chart.</p>
 </ul>
 <p>For each direction, estimate the <strong>temperature susceptibility</strong>, e.g. the slope of the curves,</p>
 <div class="arithmatex">\[
-\chi_T = \frac{dT}{d(\mathrm{PWM})}.
+\chi_T = \frac{dT}{du},
+\qquad u=\text{signed PWM}.
 \]</div>
 <p>It tells you how much the steady-state temperature changes for one PWM count
 while the heat/cool direction is held fixed. Its units are <strong>°C per PWM count</strong>.
+Here <span class="arithmatex">\(u\)</span> is positive for heating and negative for cooling. Both slopes are
+positive: increasing <span class="arithmatex">\(u\)</span> raises the temperature on either branch. Moving
+farther into negative PWM lowers the temperature. The heating branch is
+typically steeper; a heating slope about twice the cooling slope is an
+experimental observation to investigate, not a required result.
 A simple finite-difference estimate is</p>
 <div class="arithmatex">\[
-\chi_T \approx \frac{\Delta T}{\Delta(\mathrm{PWM})}.
+\chi_T \approx \frac{\Delta T}{\Delta u}.
 \]</div>
 <p>If the graph is not very linear, say so. The slope is still useful as a local
 or approximate measure of open-loop response.</p>
@@ -473,11 +476,11 @@ measurements are required.</p>
 <h3 id="1-measure-the-two-slopes">1. Measure The Two Slopes<a class="headerlink" href="#1-measure-the-two-slopes" title="Permanent link">&para;</a></h3>
 <p>From the approximately linear region of your graph, determine</p>
 <div class="arithmatex">\[
-m_h=\frac{dT_h}{d(\mathrm{PWM})},
+m_h=\frac{dT_h}{du},
 \qquad
-m_c=\frac{dT_c}{d(\mathrm{PWM})},
+m_c=\frac{dT_c}{du},
 \qquad
-r=\frac{m_h}{|m_c|}.
+r=\frac{m_h}{m_c}.
 \]</div>
 <p>Report both slopes with units of <span class="arithmatex">\(^\circ\mathrm{C}\)</span> per PWM count. State the
 PWM range used for each fit and note any visible curvature.</p>
@@ -514,7 +517,9 @@ G(T-T_0)=\dot Q_{\mathrm{TEC}}.
 \]</div>
 <p>Look at the above equation carefully. Enumerate all the terms and think about whether the heat is flowing into the object or out of the object for heating and cooling.  Before writing the TEC heat rate, derive how PWM averages current. During one
 PWM period <span class="arithmatex">\(\tau\)</span>, let the current be <span class="arithmatex">\(I\)</span> for a time <span class="arithmatex">\(D\tau\)</span> and zero for the
-remaining <span class="arithmatex">\((1-D)\tau\)</span>, where <span class="arithmatex">\(D\)</span> is the duty cycle. Starting from</p>
+remaining <span class="arithmatex">\((1-D)\tau\)</span>, where <span class="arithmatex">\(D=|u|/255\)</span> is the nonnegative duty cycle
+and <span class="arithmatex">\(I\)</span> is the signed on-state current (positive for heating, negative for
+cooling). Starting from</p>
 <div class="arithmatex">\[
 \langle I\rangle=\frac{1}{\tau}\int_0^\tau I(t)\,dt,
 \qquad
@@ -541,21 +546,29 @@ temperature-versus-PWM graph.</p>
 be the Peltier and object-face Joule heat rates, in watts, when the PWM is fully
 on. With <span class="arithmatex">\(D\)</span> the dimensionless duty cycle, the cycle-averaged heat rates are
 <span class="arithmatex">\(D\dot Q_P\)</span> and <span class="arithmatex">\(D\dot Q_J\)</span>. The Peltier term changes sign when current
-reverses, whereas Joule heating does not. Thus</p>
+reverses, whereas Joule heating does not. Define the signed duty cycle
+<span class="arithmatex">\(d=u/255\)</span>, so <span class="arithmatex">\(D=|d|\)</span>. The combined expression is</p>
 <div class="arithmatex">\[
-\dot Q_{\mathrm{TEC},h}=D(\dot Q_P+\dot Q_J),
+\dot Q_{\mathrm{TEC}}=d\dot Q_P+|d|\dot Q_J.
+\]</div>
+<p>On the heating branch <span class="arithmatex">\(d&gt;0\)</span>; on the cooling branch <span class="arithmatex">\(d&lt;0\)</span>. Thus</p>
+<div class="arithmatex">\[
+\dot Q_{\mathrm{TEC},h}=d(\dot Q_P+\dot Q_J),
 \qquad
-\dot Q_{\mathrm{TEC},c}=D(-\dot Q_P+\dot Q_J).
+\dot Q_{\mathrm{TEC},c}=d(\dot Q_P-\dot Q_J).
 \]</div>
 <p>Substitute each expression into the steady-state balance and solve for
-<span class="arithmatex">\(T_h(D)-T_0\)</span> and <span class="arithmatex">\(T_c(D)-T_0\)</span>. Differentiate with respect to <span class="arithmatex">\(D\)</span> to show that</p>
+<span class="arithmatex">\(T_h(d)-T_0\)</span> and <span class="arithmatex">\(T_c(d)-T_0\)</span>. Differentiate with respect to the signed
+duty cycle <span class="arithmatex">\(d\)</span> to show that</p>
 <div class="arithmatex">\[
-\frac{dT_h}{dD}=\frac{\dot Q_P+\dot Q_J}{G},
+\frac{dT_h}{dd}=\frac{\dot Q_P+\dot Q_J}{G},
 \qquad
-\left|\frac{dT_c}{dD}\right|=\frac{\dot Q_P-\dot Q_J}{G}.
+\frac{dT_c}{dd}=\frac{\dot Q_P-\dot Q_J}{G}.
 \]</div>
-<p>PWM count is proportional to <span class="arithmatex">\(D\)</span>, so the conversion factor cancels from the
-ratio of the measured slopes. Show that</p>
+<p>Both derivatives are positive in the cooling regime <span class="arithmatex">\(\dot Q_P&gt;\dot Q_J\)</span>,
+and the heating derivative is larger. Since <span class="arithmatex">\(d=u/255\)</span>, each measured slope
+with respect to signed PWM includes a factor of <span class="arithmatex">\(1/255\)</span>, which cancels from
+their ratio <span class="arithmatex">\(r=m_h/m_c\)</span>. Show that</p>
 <div class="arithmatex">\[
 \boxed{\frac{\dot Q_J}{\dot Q_P}=\frac{r-1}{r+1}}.
 \]</div>

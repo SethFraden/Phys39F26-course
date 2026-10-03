@@ -32,6 +32,7 @@ from tkinter import messagebox, ttk
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.figure import Figure
 
 
 @dataclass(frozen=True)
@@ -238,7 +239,6 @@ class Module6App:
         self.defaults = ModelConfig()
         self.entries: dict[str, tk.StringVar] = {}
         self.anti_windup = tk.BooleanVar(value=self.defaults.anti_windup)
-        self.result_text = tk.StringVar()
 
         self._build_layout()
         self.run_model()
@@ -311,10 +311,19 @@ class Module6App:
 
         ttk.Label(
             controls,
-            textvariable=self.result_text,
-            justify=tk.LEFT,
-            wraplength=320,
-        ).grid(row=row, column=0, columnspan=3, sticky="nw")
+            text="Model Results",
+            font=("TkDefaultFont", 12, "bold"),
+        ).grid(row=row, column=0, columnspan=3, sticky="w", pady=(0, 4))
+        row += 1
+        self.result_figure = Figure(figsize=(3.2, 3.15), dpi=100)
+        self.result_figure.patch.set_alpha(0.0)
+        self.result_axis = self.result_figure.add_subplot(111)
+        self.result_axis.set_axis_off()
+        self.result_axis.patch.set_alpha(0.0)
+        self.result_canvas = FigureCanvasTkAgg(self.result_figure, master=controls)
+        self.result_canvas.get_tk_widget().grid(
+            row=row, column=0, columnspan=3, sticky="nsew"
+        )
         controls.columnconfigure(1, weight=1)
 
         self.figure, (self.ax_temperature, self.ax_error, self.ax_pwm) = plt.subplots(
@@ -433,6 +442,26 @@ class Module6App:
         )
         self.canvas.draw_idle()
 
+    def _show_result_lines(self, lines: list[str]) -> None:
+        """Render result notation with Matplotlib's math typography."""
+
+        self.result_axis.clear()
+        self.result_axis.set_axis_off()
+        self.result_axis.patch.set_alpha(0.0)
+        y_position = 0.99
+        for line in lines:
+            self.result_axis.text(
+                0.0,
+                y_position,
+                line,
+                transform=self.result_axis.transAxes,
+                ha="left",
+                va="top",
+                fontsize=9.5,
+            )
+            y_position -= 0.068
+        self.result_canvas.draw_idle()
+
     def _summarize(
         self,
         config: ModelConfig,
@@ -442,22 +471,21 @@ class Module6App:
         susceptibility = open_loop_susceptibility(config)
         predicted = predicted_p_droop(config)
         damping_ratio = pi_damping_ratio(config)
-        damping_value = "infinite" if math.isinf(damping_ratio) else f"{damping_ratio:.3f}"
-        self.result_text.set(
-            "Model results\n"
-            f"Heat-loss term = -H(T - Tamb)\n"
-            f"Time constant tau = C/H = {thermal_time_constant(config):.3g} s\n"
-            f"Susceptibility chi_T,u = P_u/H = {susceptibility:.4g} °C/PWM\n"
-            f"Loop gain chi_T,u Kp = {susceptibility * config.kp_pwm_per_c:.3g}\n"
-            f"PI damping ratio zeta = {damping_value}\n"
-            f"Linear prediction: {damping_description(damping_ratio)}\n"
-            f"Predicted P droop = {predicted:.3f} °C\n"
-            f"Simulated P droop = {p_result.final_droop_c:.3f} °C\n"
-            f"Simulated PI droop = {pi_result.final_droop_c:.3f} °C\n"
-            f"P saturated for {100 * p_result.saturation_fraction:.1f}% of samples\n"
-            f"PI saturated for {100 * pi_result.saturation_fraction:.1f}% of samples\n\n"
-            "The droop and damping formulas assume a linear, unsaturated model. "
-            "A disagreement can mean the run was too short or the PWM limit was reached."
+        damping_value = r"\infty" if math.isinf(damping_ratio) else f"{damping_ratio:.3f}"
+        self._show_result_lines(
+            [
+                rf"$\mathrm{{PI}}$ damping ratio $\zeta={damping_value}$",
+                f"Linear prediction: {damping_description(damping_ratio)}",
+                r"Heat-loss term $-H(T-T_{\mathrm{amb}})$",
+                rf"Time constant $\tau=C/H={thermal_time_constant(config):.3g}\,\mathrm{{s}}$",
+                rf"Susceptibility $\chi_{{T,u}}=P_u/H={susceptibility:.4g}\,{{}}^\circ\mathrm{{C}}/\mathrm{{PWM}}$",
+                rf"Loop gain $\chi_{{T,u}}K_p={susceptibility * config.kp_pwm_per_c:.3g}$",
+                rf"Predicted $\mathrm{{P}}$ droop $={predicted:.3f}\,{{}}^\circ\mathrm{{C}}$",
+                rf"Simulated $\mathrm{{P}}$ droop $={p_result.final_droop_c:.3f}\,{{}}^\circ\mathrm{{C}}$",
+                rf"Simulated $\mathrm{{PI}}$ droop $={pi_result.final_droop_c:.3f}\,{{}}^\circ\mathrm{{C}}$",
+                rf"$\mathrm{{P}}$ saturation $={100 * p_result.saturation_fraction:.1f}\%$",
+                rf"$\mathrm{{PI}}$ saturation $={100 * pi_result.saturation_fraction:.1f}\%$",
+            ]
         )
 
 

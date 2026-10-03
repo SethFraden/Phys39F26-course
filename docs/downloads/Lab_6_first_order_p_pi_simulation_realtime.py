@@ -1,4 +1,4 @@
-"""Interactive Module 6 model of proportional and PI temperature control.
+"""Real-time-display Module 6 model of P and PI temperature control.
 
 The program deliberately keeps the physical model small enough to inspect. It
 starts from a dimensional energy balance:
@@ -18,9 +18,11 @@ compares two controllers under the same physical conditions:
 
 Run from the Phys39F26 repository root:
 
-    .venv/bin/python python/Lab_6_first_order_p_pi_simulation.py
+    .venv/bin/python python/Lab_6_first_order_p_pi_simulation_realtime.py
 
 No Arduino is needed. This is a mathematical model, not a hardware controller.
+Each complete simulated run is drawn progressively over 10 seconds so the
+display develops like a live experiment.
 """
 
 from __future__ import annotations
@@ -28,6 +30,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 import math
 import tkinter as tk
+import time
 from tkinter import messagebox, ttk
 
 import matplotlib.pyplot as plt
@@ -213,8 +216,12 @@ def damping_description(damping_ratio: float) -> str:
     return "critically damped"
 
 
-class Module6App:
-    """A teaching interface built around the equations used in Module 6."""
+DISPLAY_DURATION_S = 10.0
+ANIMATION_FRAME_MS = 100
+
+
+class Module6RealtimeApp:
+    """A Module 6 interface that reveals each simulation over 10 seconds."""
 
     FIELD_SPECS = (
         ("Ambient temperature", "ambient_c", "°C"),
@@ -232,13 +239,15 @@ class Module6App:
 
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
-        self.root.title("Module 6: One-Lump P and PI Temperature Control")
+        self.root.title("Module 6: Real-Time-Display P and PI Simulation")
         self.root.geometry("1280x820")
         self.root.minsize(1050, 700)
 
         self.defaults = ModelConfig()
         self.entries: dict[str, tk.StringVar] = {}
         self.anti_windup = tk.BooleanVar(value=self.defaults.anti_windup)
+        self.animation_job: str | None = None
+        self.animation_started_at = 0.0
 
         self._build_layout()
         self.run_model()
@@ -279,9 +288,12 @@ class Module6App:
 
         button_bar = ttk.Frame(controls)
         button_bar.grid(row=row, column=0, columnspan=3, sticky="ew", pady=(8, 10))
-        ttk.Button(button_bar, text="Run simulation", command=self.run_model).pack(
-            side=tk.LEFT, fill=tk.X, expand=True
+        self.run_button = ttk.Button(
+            button_bar,
+            text="Run 10 s experiment",
+            command=self.run_model,
         )
+        self.run_button.pack(side=tk.LEFT, fill=tk.X, expand=True)
         ttk.Button(button_bar, text="Reset", command=self.reset_defaults).pack(
             side=tk.LEFT, padx=(6, 0)
         )
@@ -366,12 +378,14 @@ class Module6App:
         return config
 
     def reset_defaults(self) -> None:
+        self._cancel_animation()
         for _label, attribute, _units in self.FIELD_SPECS:
             self.entries[attribute].set(f"{getattr(self.defaults, attribute):g}")
         self.anti_windup.set(self.defaults.anti_windup)
         self.run_model()
 
     def run_model(self) -> None:
+        self._cancel_animation()
         try:
             config = self.read_config()
             p_result = simulate("p", config)
@@ -380,7 +394,47 @@ class Module6App:
             messagebox.showerror("Check the model parameters", str(error))
             return
 
-        self._draw(config, p_result, pi_result)
+        self._show_result_lines(
+            self._time_independent_result_lines(config)
+            + [
+                "Experiment running: the simulated time axis",
+                "is compressed into 10 seconds.",
+            ]
+        )
+        self.run_button.state(["disabled"])
+        self.animation_started_at = time.monotonic()
+        self._animate(config, p_result, pi_result)
+
+    def _cancel_animation(self) -> None:
+        if self.animation_job is not None:
+            self.root.after_cancel(self.animation_job)
+            self.animation_job = None
+        if hasattr(self, "run_button"):
+            self.run_button.state(["!disabled"])
+
+    def _animate(
+        self,
+        config: ModelConfig,
+        p_result: SimulationResult,
+        pi_result: SimulationResult,
+    ) -> None:
+        elapsed = time.monotonic() - self.animation_started_at
+        fraction = min(elapsed / DISPLAY_DURATION_S, 1.0)
+        end_index = max(1, math.ceil(fraction * len(p_result.time_s)))
+        self._draw(config, p_result, pi_result, end_index)
+
+        if fraction < 1.0:
+            self.animation_job = self.root.after(
+                ANIMATION_FRAME_MS,
+                self._animate,
+                config,
+                p_result,
+                pi_result,
+            )
+            return
+
+        self.animation_job = None
+        self.run_button.state(["!disabled"])
         self._summarize(config, p_result, pi_result)
 
     def _draw(
@@ -388,16 +442,23 @@ class Module6App:
         config: ModelConfig,
         p_result: SimulationResult,
         pi_result: SimulationResult,
+        end_index: int,
     ) -> None:
         for axis in (self.ax_temperature, self.ax_error, self.ax_pwm):
             axis.clear()
             axis.grid(True, alpha=0.25)
 
         self.ax_temperature.plot(
-            p_result.time_s, p_result.temperature_c, label="P", color="tab:blue"
+            p_result.time_s[:end_index],
+            p_result.temperature_c[:end_index],
+            label="P",
+            color="tab:blue",
         )
         self.ax_temperature.plot(
-            pi_result.time_s, pi_result.temperature_c, label="PI", color="tab:red"
+            pi_result.time_s[:end_index],
+            pi_result.temperature_c[:end_index],
+            label="PI",
+            color="tab:red",
         )
         self.ax_temperature.axhline(
             config.setpoint_c, color="black", linestyle="--", linewidth=1, label="setpoint"
@@ -407,18 +468,51 @@ class Module6App:
             loc="center right",
         )
 
-        self.ax_error.plot(p_result.time_s, p_result.error_c, color="tab:blue", label="P")
-        self.ax_error.plot(pi_result.time_s, pi_result.error_c, color="tab:red", label="PI")
+        self.ax_error.plot(
+            p_result.time_s[:end_index],
+            p_result.error_c[:end_index],
+            color="tab:blue",
+            label="P",
+        )
+        self.ax_error.plot(
+            pi_result.time_s[:end_index],
+            pi_result.error_c[:end_index],
+            color="tab:red",
+            label="PI",
+        )
         self.ax_error.axhline(0.0, color="black", linestyle="--", linewidth=1)
         self.ax_error.set_ylabel("Error (°C)")
 
-        self.ax_pwm.plot(p_result.time_s, p_result.signed_pwm, color="tab:blue", label="P")
-        self.ax_pwm.plot(pi_result.time_s, pi_result.signed_pwm, color="tab:red", label="PI")
+        self.ax_pwm.plot(
+            p_result.time_s[:end_index],
+            p_result.signed_pwm[:end_index],
+            color="tab:blue",
+            label="P",
+        )
+        self.ax_pwm.plot(
+            pi_result.time_s[:end_index],
+            pi_result.signed_pwm[:end_index],
+            color="tab:red",
+            label="PI",
+        )
         self.ax_pwm.axhline(0.0, color="black", linestyle="--", linewidth=1)
         self.ax_pwm.axhline(config.pwm_limit, color="gray", linestyle=":", linewidth=1)
         self.ax_pwm.axhline(-config.pwm_limit, color="gray", linestyle=":", linewidth=1)
         self.ax_pwm.set_ylabel("Signed PWM")
         self.ax_pwm.set_xlabel("Time (s)")
+
+        # Keep the ranges fixed while the curves grow, like a strip chart
+        # whose axes were selected before an experimental run began.
+        self.ax_pwm.set_xlim(0.0, config.duration_s)
+        self._set_fixed_limits(
+            self.ax_temperature,
+            p_result.temperature_c + pi_result.temperature_c + [config.setpoint_c],
+        )
+        self._set_fixed_limits(
+            self.ax_error,
+            p_result.error_c + pi_result.error_c + [0.0],
+        )
+        self.ax_pwm.set_ylim(-1.05 * config.pwm_limit, 1.05 * config.pwm_limit)
 
         # Stagger adjacent vertical labels so the long rotated text does not
         # crowd at the boundary between plots. The first and third labels share
@@ -462,25 +556,41 @@ class Module6App:
             y_position -= 0.068
         self.result_canvas.draw_idle()
 
+    @staticmethod
+    def _time_independent_result_lines(config: ModelConfig) -> list[str]:
+        """Return results fixed by the model parameters before integration."""
+
+        susceptibility = open_loop_susceptibility(config)
+        predicted = predicted_p_droop(config)
+        damping_ratio = pi_damping_ratio(config)
+        damping_value = r"\infty" if math.isinf(damping_ratio) else f"{damping_ratio:.3f}"
+        return [
+            rf"$\mathrm{{PI}}$ damping ratio $\zeta={damping_value}$",
+            f"Linear prediction: {damping_description(damping_ratio)}",
+            r"Heat-loss term $-H(T-T_{\mathrm{amb}})$",
+            rf"Time constant $\tau=C/H={thermal_time_constant(config):.3g}\,\mathrm{{s}}$",
+            rf"Susceptibility $\chi_{{T,u}}=P_u/H={susceptibility:.4g}\,{{}}^\circ\mathrm{{C}}/\mathrm{{PWM}}$",
+            rf"Loop gain $\chi_{{T,u}}K_p={susceptibility * config.kp_pwm_per_c:.3g}$",
+            rf"Predicted $\mathrm{{P}}$ droop $={predicted:.3f}\,{{}}^\circ\mathrm{{C}}$",
+        ]
+
+    @staticmethod
+    def _set_fixed_limits(axis, values: list[float]) -> None:
+        low = min(values)
+        high = max(values)
+        span = high - low
+        margin = 0.05 * span if span > 0.0 else 0.5
+        axis.set_ylim(low - margin, high + margin)
+
     def _summarize(
         self,
         config: ModelConfig,
         p_result: SimulationResult,
         pi_result: SimulationResult,
     ) -> None:
-        susceptibility = open_loop_susceptibility(config)
-        predicted = predicted_p_droop(config)
-        damping_ratio = pi_damping_ratio(config)
-        damping_value = r"\infty" if math.isinf(damping_ratio) else f"{damping_ratio:.3f}"
         self._show_result_lines(
-            [
-                rf"$\mathrm{{PI}}$ damping ratio $\zeta={damping_value}$",
-                f"Linear prediction: {damping_description(damping_ratio)}",
-                r"Heat-loss term $-H(T-T_{\mathrm{amb}})$",
-                rf"Time constant $\tau=C/H={thermal_time_constant(config):.3g}\,\mathrm{{s}}$",
-                rf"Susceptibility $\chi_{{T,u}}=P_u/H={susceptibility:.4g}\,{{}}^\circ\mathrm{{C}}/\mathrm{{PWM}}$",
-                rf"Loop gain $\chi_{{T,u}}K_p={susceptibility * config.kp_pwm_per_c:.3g}$",
-                rf"Predicted $\mathrm{{P}}$ droop $={predicted:.3f}\,{{}}^\circ\mathrm{{C}}$",
+            self._time_independent_result_lines(config)
+            + [
                 rf"Simulated $\mathrm{{P}}$ droop $={p_result.final_droop_c:.3f}\,{{}}^\circ\mathrm{{C}}$",
                 rf"Simulated $\mathrm{{PI}}$ droop $={pi_result.final_droop_c:.3f}\,{{}}^\circ\mathrm{{C}}$",
                 rf"$\mathrm{{P}}$ saturation $={100 * p_result.saturation_fraction:.1f}\%$",
@@ -491,7 +601,7 @@ class Module6App:
 
 def main() -> None:
     root = tk.Tk()
-    Module6App(root)
+    Module6RealtimeApp(root)
     root.mainloop()
 
 

@@ -109,15 +109,15 @@ will be used during the in-class model comparison.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S11 | Read this assignment and the selected heat-transfer material | 90 minutes |
-| S11 | Complete and check the guided one-lump derivation | 120 minutes |
-| S11 | **Total associated with S11** | **3 hours 30 minutes** |
-| S12 | Review PI control and windup; answer the preparation questions | 60 minutes |
-| S12 | Prepare or revise the P/PI simulation for in-class comparison | 105 minutes |
-| S12 | **Total associated with S12** | **2 hours 45 minutes** |
-| S13 | Analyze matched P/PI results | 90 minutes |
-| S13 | Write, check, commit, push, and submit A3 | 120 minutes |
-| S13 | **Total associated with S13** | **3 hours 30 minutes** |
+| S12 | Read this assignment and the selected heat-transfer material | 90 minutes |
+| S12 | Complete and check the guided one-lump derivation | 120 minutes |
+| S12 | **Total associated with S12** | **3 hours 30 minutes** |
+| S13 | Review PI control and windup; answer the preparation questions | 60 minutes |
+| S13 | Prepare or revise the P/PI simulation for in-class comparison | 105 minutes |
+| S13 | **Total associated with S13** | **2 hours 45 minutes** |
+| S14 | Analyze matched P/PI results | 90 minutes |
+| S14 | Write, check, commit, push, and prepare A3 | 120 minutes |
+| S14 | **Total associated with S14** | **3 hours 30 minutes** |
 
 Do not add optional reading until the required derivation and A3 evidence are
 complete and understood.
@@ -148,14 +148,8 @@ The dimensional one-lump model is
 C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
 \]
 
-This equation does not directly describe the time dependence of heat. It is an
-energy-conservation equation that predicts the time dependence of the lump's
-temperature, \(T(t)\). Heat is energy being transferred; temperature describes
-the thermal state of the lump.
-
-Begin with the First Law in rate form; the change in the lump's energy with
-time is the difference between the rate of putting heat in and taking heat out
-of the lump:
+This is the one-lump heat balance written in terms of the lump's temperature.
+It follows from the more general First Law in rate form:
 
 \[
 \frac{dU}{dt}=\dot Q_{\mathrm{in}}-\dot Q_{\mathrm{out}}.
@@ -779,7 +773,7 @@ git push
 
 Module 6 combines the most important Module 4-6 evidence into one purposeful
 team paper. The one-lump derivation is guided work used in the paper and in the
-C4 oral questions; it is not a separate document to grade.
+later oral-review questions; it is not a separate document to grade.
 
 For the in-class modeling work, save the parameter set, units, initial
 conditions, controller settings, saturation limits, exact command used to run
@@ -788,7 +782,7 @@ the comparison table while the simulations and experimental traces are open.
 
 ### A3: Feedback Data And Lumped-Model Memo
 
-- **Due:** Wednesday, October 14, at **6:00 PM**
+- **Due:** Wednesday, October 21, at **6:00 PM**
 - **Type:** team, 10 points
 - **Moodle file:** `A3_Lastname_Lastname.pdf`
 - **Moodle submission:** Each student uploads the team PDF separately;
@@ -826,13 +820,12 @@ Submit:
 | Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
 | PDF, code, data links, and cited Git checkpoint are clear and on time | 2 |
 
-### C4 Oral Questions: PI Control
+### Oral Review Questions: PI Control
 
-This is the authoritative PI-control question for C4:
+Use this PI-control question to check your understanding and prepare A3:
 
 1. Why can integral action remove droop, and what is integral windup?
 
-Also prepare the [Module 5 P-control questions](../lab-05/index.md#c4-oral-questions-p-control)
-and [Module 7 modeling questions](../lab-07/index.md#c4-oral-questions-process-modeling).
-The [C4 deadline and rubric](../../assessment.md#c4-feedback-controller-and-tec-process-model)
-remain on the Assessment page.
+Also prepare the [Module 5 P-control questions](../lab-05/index.md#oral-review-questions-p-control)
+and [Module 7 modeling questions](../lab-07/index.md#oral-review-questions-process-modeling).
+The [A3 deadline and rubric](#a3-feedback-data-and-lumped-model-memo) are above.

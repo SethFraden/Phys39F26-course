@@ -835,7 +835,7 @@ The quadratic formula gives both eigenvalues:
   oscillation.
 - An eigenvalue with a positive real part gives an unstable response.
 
-Its damping ratio is
+The damping ratio is a dimensionless number the transition from under- to over-damped:
 
 \[
 \boxed{
@@ -850,6 +850,110 @@ The linear PI response is underdamped when
 \qquad\Longleftrightarrow\qquad
 (H+P_uK_p)^2<4CP_uK_i.
 \]
+
+Increasing $C$ or $K_i$ increases the tendency to oscillate while increasing $H$ or $K_p$ dampens the system.
+
+<details class="note" markdown="1">
+<summary>Time constants for open-loop, P, and PI control</summary>
+
+The open-loop one-lump model has one time constant,
+
+\[
+\tau=\frac{C}{H}.
+\]
+
+P control changes the coefficient multiplying the temperature displacement
+but does not add a state variable. Its response is still a single
+exponential, with
+
+\[
+\boxed{
+\tau_P=\frac{C}{H+P_uK_p}
+=\frac{\tau}{1+\chi_{T,u}K_p}
+}.
+\]
+
+Thus P control makes the one-lump response faster as $K_p$ increases,
+although it retains steady-state droop.
+
+PI control adds the integral state, so it is a second-order system and
+generally does **not** have one time constant. Its two eigenvalues are
+$\lambda_+$ and $\lambda_-$, as derived above.
+
+**Overdamped PI control.** If both eigenvalues are real and negative, the
+response contains two exponentials. Their time constants are
+
+\[
+\tau_+=-\frac{1}{\lambda_+},
+\qquad
+\tau_-=-\frac{1}{\lambda_-}.
+\]
+
+The eigenvalue closer to zero gives the slow time constant and usually
+controls the final approach to the setpoint. The other gives the fast
+transient.
+
+**Underdamped PI control.** If the eigenvalues are complex, write
+
+\[
+\lambda_{\pm}=-\zeta\omega_n\pm i\omega_d,
+\qquad
+\omega_n=\sqrt{\frac{P_uK_i}{C}},
+\qquad
+\omega_d
+=\sqrt{
+\frac{P_uK_i}{C}
+-\left(\frac{H+P_uK_p}{2C}\right)^2
+}
+=\omega_n\sqrt{1-\zeta^2}.
+\]
+
+The oscillation envelope decays with time constant
+
+\[
+\boxed{
+\tau_{\mathrm{env}}
+=\frac{1}{\zeta\omega_n}
+=\frac{2C}{H+P_uK_p}
+=2\tau_P
+}.
+\]
+
+The oscillation frequency in hertz and the corresponding period are
+
+\[
+\boxed{
+f_{\mathrm{osc}}
+=\frac{\omega_d}{2\pi}
+=\frac{1}{2\pi}
+\sqrt{
+\frac{P_uK_i}{C}
+-\left(\frac{H+P_uK_p}{2C}\right)^2
+}
+},
+\qquad
+T_{\mathrm{osc}}=\frac{1}{f_{\mathrm{osc}}}
+=\frac{2\pi}{\omega_d}.
+\]
+
+The period and decay time are different quantities: $T_{\mathrm{osc}}$
+describes how rapidly the response oscillates, while
+$\tau_{\mathrm{env}}$ describes how rapidly those oscillations decay.
+
+**Critically damped PI control.** The two eigenvalues coincide. The
+characteristic decay time is
+
+\[
+\tau_{\mathrm{crit}}
+=\frac{1}{\omega_n}
+=\frac{2C}{H+P_uK_p}.
+\]
+
+Therefore, report one time constant for open-loop or P control. For PI
+control, report the two real time constants when overdamped, or report the
+decay-envelope time and oscillation period when underdamped.
+
+</details>
 
 Use the simulation to find one overdamped and one underdamped parameter set.
 For each case, record \(C\), \(H\), \(P_u\), \(K_p\), \(K_i\), the displayed

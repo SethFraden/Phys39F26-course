@@ -1006,7 +1006,7 @@ displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time 
   oscillation.</li>
 <li>An eigenvalue with a positive real part gives an unstable response.</li>
 </ul>
-<p>Its damping ratio is</p>
+<p>The damping ratio is a dimensionless number the transition from under- to over-damped:</p>
 <div class="arithmatex">\[
 \boxed{
 \zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
@@ -1018,6 +1018,89 @@ displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time 
 \qquad\Longleftrightarrow\qquad
 (H+P_uK_p)^2&lt;4CP_uK_i.
 \]</div>
+<p>Increasing <span class="arithmatex">\(C\)</span> or <span class="arithmatex">\(K_i\)</span> increases the tendency to oscillate while increasing <span class="arithmatex">\(H\)</span> or <span class="arithmatex">\(K_p\)</span> dampens the system.</p>
+<details class="note" markdown="1">
+<summary>Time constants for open-loop, P, and PI control</summary>
+
+<p>The open-loop one-lump model has one time constant,</p>
+<div class="arithmatex">\[
+\tau=\frac{C}{H}.
+\]</div>
+<p>P control changes the coefficient multiplying the temperature displacement
+but does not add a state variable. Its response is still a single
+exponential, with</p>
+<div class="arithmatex">\[
+\boxed{
+\tau_P=\frac{C}{H+P_uK_p}
+=\frac{\tau}{1+\chi_{T,u}K_p}
+}.
+\]</div>
+<p>Thus P control makes the one-lump response faster as <span class="arithmatex">\(K_p\)</span> increases,
+although it retains steady-state droop.</p>
+<p>PI control adds the integral state, so it is a second-order system and
+generally does <strong>not</strong> have one time constant. Its two eigenvalues are
+<span class="arithmatex">\(\lambda_+\)</span> and <span class="arithmatex">\(\lambda_-\)</span>, as derived above.</p>
+<p><strong>Overdamped PI control.</strong> If both eigenvalues are real and negative, the
+response contains two exponentials. Their time constants are</p>
+<div class="arithmatex">\[
+\tau_+=-\frac{1}{\lambda_+},
+\qquad
+\tau_-=-\frac{1}{\lambda_-}.
+\]</div>
+<p>The eigenvalue closer to zero gives the slow time constant and usually
+controls the final approach to the setpoint. The other gives the fast
+transient.</p>
+<p><strong>Underdamped PI control.</strong> If the eigenvalues are complex, write</p>
+<div class="arithmatex">\[
+\lambda_{\pm}=-\zeta\omega_n\pm i\omega_d,
+\qquad
+\omega_n=\sqrt{\frac{P_uK_i}{C}},
+\qquad
+\omega_d
+=\sqrt{
+\frac{P_uK_i}{C}
+-\left(\frac{H+P_uK_p}{2C}\right)^2
+}
+=\omega_n\sqrt{1-\zeta^2}.
+\]</div>
+<p>The oscillation envelope decays with time constant</p>
+<div class="arithmatex">\[
+\boxed{
+\tau_{\mathrm{env}}
+=\frac{1}{\zeta\omega_n}
+=\frac{2C}{H+P_uK_p}
+=2\tau_P
+}.
+\]</div>
+<p>The oscillation frequency in hertz and the corresponding period are</p>
+<div class="arithmatex">\[
+\boxed{
+f_{\mathrm{osc}}
+=\frac{\omega_d}{2\pi}
+=\frac{1}{2\pi}
+\sqrt{
+\frac{P_uK_i}{C}
+-\left(\frac{H+P_uK_p}{2C}\right)^2
+}
+},
+\qquad
+T_{\mathrm{osc}}=\frac{1}{f_{\mathrm{osc}}}
+=\frac{2\pi}{\omega_d}.
+\]</div>
+<p>The period and decay time are different quantities: <span class="arithmatex">\(T_{\mathrm{osc}}\)</span>
+describes how rapidly the response oscillates, while
+<span class="arithmatex">\(\tau_{\mathrm{env}}\)</span> describes how rapidly those oscillations decay.</p>
+<p><strong>Critically damped PI control.</strong> The two eigenvalues coincide. The
+characteristic decay time is</p>
+<div class="arithmatex">\[
+\tau_{\mathrm{crit}}
+=\frac{1}{\omega_n}
+=\frac{2C}{H+P_uK_p}.
+\]</div>
+<p>Therefore, report one time constant for open-loop or P control. For PI
+control, report the two real time constants when overdamped, or report the
+decay-envelope time and oscillation period when underdamped.</p>
+</details>
 <p>Use the simulation to find one overdamped and one underdamped parameter set.
 For each case, record <span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, the displayed
 value of <span class="arithmatex">\(\zeta\)</span>, and whether the temperature trace agrees with the

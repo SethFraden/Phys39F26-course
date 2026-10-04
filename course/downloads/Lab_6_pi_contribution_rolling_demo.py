@@ -1,4 +1,4 @@
-"""Rolling-window demonstration of P and I contributions to temperature control.
+"""Rolling-window demonstration of open-loop, P, and PI temperature control.
 
 The program starts with integral action disabled. The proportional contribution
 to the signed PWM command is
@@ -44,6 +44,7 @@ class ModelConfig:
     thermal_capacitance_j_per_c: float = 100.0
     heat_loss_w_per_c: float = 1.25
     tec_power_w_per_pwm: float = 0.15
+    open_loop_pwm: float = 100.0
     kp_pwm_per_c: float = 18.0
     ki_pwm_per_c_s: float = 0.08
     pwm_limit: float = 255.0
@@ -110,21 +111,28 @@ def damping_description(damping_ratio: float) -> str:
 def advance_model(
     state: ModelState,
     config: ModelConfig,
+    open_loop_enabled: bool,
     integral_enabled: bool,
 ) -> StepResult:
     """Advance the controller and one-lump energy balance by one Euler step."""
 
     error_c = config.setpoint_c - state.temperature_c
-    p_pwm = config.kp_pwm_per_c * error_c
-
-    if integral_enabled:
+    if open_loop_enabled:
+        p_pwm = 0.0
+        i_pwm = 0.0
+        candidate_integral = 0.0
+        raw_pwm = config.open_loop_pwm
+    elif integral_enabled:
+        p_pwm = config.kp_pwm_per_c * error_c
         candidate_integral = state.integral_error_c_s + error_c * config.dt_s
         i_pwm = config.ki_pwm_per_c_s * candidate_integral
+        raw_pwm = p_pwm + i_pwm
     else:
+        p_pwm = config.kp_pwm_per_c * error_c
         candidate_integral = 0.0
         i_pwm = 0.0
+        raw_pwm = p_pwm
 
-    raw_pwm = p_pwm + i_pwm
     applied_pwm = clamp(raw_pwm, -config.pwm_limit, config.pwm_limit)
     saturated = not math.isclose(raw_pwm, applied_pwm)
 
@@ -134,7 +142,8 @@ def advance_model(
         raw_pwm > config.pwm_limit and error_c > 0.0
     ) or (raw_pwm < -config.pwm_limit and error_c < 0.0)
     if (
-        integral_enabled
+        not open_loop_enabled
+        and integral_enabled
         and config.anti_windup
         and saturated
         and pushing_farther_into_saturation
@@ -169,7 +178,7 @@ def advance_model(
 
 
 class PIContributionDemo:
-    """Tk interface for switching integral action into a running P controller."""
+    """Tk interface for comparing open-loop, P, and PI control."""
 
     FIELD_SPECS = (
         ("Ambient temperature", "ambient_c", "°C"),
@@ -178,6 +187,7 @@ class PIContributionDemo:
         ("Thermal capacitance C", "thermal_capacitance_j_per_c", "J/K"),
         ("Heat-loss conductance H", "heat_loss_w_per_c", "W/K"),
         ("TEC coefficient P_u", "tec_power_w_per_pwm", "W/PWM"),
+        ("Open-loop command u", "open_loop_pwm", "PWM"),
         ("Proportional gain Kp", "kp_pwm_per_c", "PWM/°C"),
         ("Integral gain Ki", "ki_pwm_per_c_s", "PWM/(°C s)"),
         ("PWM limit", "pwm_limit", "PWM"),
@@ -188,7 +198,7 @@ class PIContributionDemo:
 
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
-        self.root.title("Module 6: P and I Contribution Demonstration")
+        self.root.title("Module 6: Open-Loop, P, and PI Demonstration")
         self.root.geometry("1320x850")
         self.root.minsize(1100, 720)
 
@@ -197,6 +207,7 @@ class PIContributionDemo:
         self.state = ModelState(0.0, self.defaults.initial_c)
         self.entries: dict[str, tk.StringVar] = {}
         self.anti_windup = tk.BooleanVar(value=self.defaults.anti_windup)
+        self.open_loop_enabled = False
         self.integral_enabled = False
         self.running = True
         self.after_job: str | None = None
@@ -238,7 +249,7 @@ class PIContributionDemo:
 
         ttk.Label(
             controls,
-            text="P and I contributions",
+            text="Open-loop, P, and PI control",
             font=("TkDefaultFont", 14, "bold"),
         ).grid(row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
 
@@ -247,9 +258,10 @@ class PIContributionDemo:
             variable = tk.StringVar(value=f"{getattr(self.defaults, attribute):g}")
             self.entries[attribute] = variable
             ttk.Label(controls, text=label).grid(row=row, column=0, sticky="w", pady=2)
-            ttk.Entry(controls, textvariable=variable, width=10).grid(
-                row=row, column=1, sticky="ew", padx=(8, 5)
-            )
+            entry = ttk.Entry(controls, textvariable=variable, width=10)
+            entry.grid(row=row, column=1, sticky="ew", padx=(8, 5))
+            entry.bind("<Return>", self._apply_parameter_edit)
+            entry.bind("<KP_Enter>", self._apply_parameter_edit)
             ttk.Label(controls, text=units).grid(row=row, column=2, sticky="w")
             row += 1
 
@@ -264,13 +276,18 @@ class PIContributionDemo:
         mode_buttons.grid(row=row, column=0, columnspan=3, sticky="ew")
         ttk.Button(
             mode_buttons,
-            text="Enable I from zero",
-            command=self._enable_integral_from_zero,
+            text="Open loop",
+            command=self._use_open_loop,
         ).pack(side=tk.LEFT, fill=tk.X, expand=True)
         ttk.Button(
             mode_buttons,
-            text="Zero and disable I",
+            text="P",
             command=self._zero_and_disable_integral,
+        ).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(6, 0))
+        ttk.Button(
+            mode_buttons,
+            text="PI",
+            command=self._enable_integral_from_zero,
         ).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(6, 0))
         row += 1
 
@@ -294,7 +311,7 @@ class PIContributionDemo:
         row += 1
         ttk.Label(
             controls,
-            text="Live controller contributions",
+            text="Live model and controller values",
             font=("TkDefaultFont", 12, "bold"),
         ).grid(row=row, column=0, columnspan=3, sticky="w", pady=(0, 5))
         row += 1
@@ -384,6 +401,7 @@ class PIContributionDemo:
 
         self.state = ModelState(0.0, self.config.initial_c)
         self._set_temperature_limits()
+        self.open_loop_enabled = False
         self.integral_enabled = False
         self.i_enabled_times.clear()
         self.times = [0.0]
@@ -439,21 +457,37 @@ class PIContributionDemo:
         self._update_counters()
         self._draw()
 
+    def _apply_parameter_edit(self, _event: tk.Event | None = None) -> str:
+        """Apply edited parameters on Return without restarting the model."""
+
+        try:
+            self.config = self._read_config()
+        except ValueError as error:
+            messagebox.showerror("Check the model parameters", str(error))
+            return "break"
+        self._set_temperature_limits()
+        self._refresh_current_controller_values()
+        self._update_counters()
+        self._draw()
+        return "break"
+
     def _refresh_current_controller_values(self) -> None:
         """Recalculate controller values without advancing model time."""
 
         error_c = self.config.setpoint_c - self.state.temperature_c
-        p_pwm = self.config.kp_pwm_per_c * error_c
-        i_pwm = (
-            self.config.ki_pwm_per_c_s * self.state.integral_error_c_s
-            if self.integral_enabled
-            else 0.0
-        )
-        applied_pwm = clamp(
-            p_pwm + i_pwm,
-            -self.config.pwm_limit,
-            self.config.pwm_limit,
-        )
+        if self.open_loop_enabled:
+            p_pwm = 0.0
+            i_pwm = 0.0
+            raw_pwm = self.config.open_loop_pwm
+        else:
+            p_pwm = self.config.kp_pwm_per_c * error_c
+            i_pwm = (
+                self.config.ki_pwm_per_c_s * self.state.integral_error_c_s
+                if self.integral_enabled
+                else 0.0
+            )
+            raw_pwm = p_pwm + i_pwm
+        applied_pwm = clamp(raw_pwm, -self.config.pwm_limit, self.config.pwm_limit)
         self.latest_result = StepResult(
             time_s=self.state.time_s,
             temperature_c=self.state.temperature_c,
@@ -461,7 +495,7 @@ class PIContributionDemo:
             p_pwm=p_pwm,
             i_pwm=i_pwm,
             applied_pwm=applied_pwm,
-            saturated=not math.isclose(p_pwm + i_pwm, applied_pwm),
+            saturated=not math.isclose(raw_pwm, applied_pwm),
         )
         if self.times:
             self.temperatures[-1] = self.state.temperature_c
@@ -471,6 +505,7 @@ class PIContributionDemo:
 
     def _enable_integral_from_zero(self) -> None:
         self.state.integral_error_c_s = 0.0
+        self.open_loop_enabled = False
         self.integral_enabled = True
         self.i_enabled_times.append(self.state.time_s)
         self._refresh_current_controller_values()
@@ -479,6 +514,15 @@ class PIContributionDemo:
 
     def _zero_and_disable_integral(self) -> None:
         self.state.integral_error_c_s = 0.0
+        self.open_loop_enabled = False
+        self.integral_enabled = False
+        self._refresh_current_controller_values()
+        self._update_counters()
+        self._draw()
+
+    def _use_open_loop(self) -> None:
+        self.state.integral_error_c_s = 0.0
+        self.open_loop_enabled = True
         self.integral_enabled = False
         self._refresh_current_controller_values()
         self._update_counters()
@@ -514,6 +558,7 @@ class PIContributionDemo:
                 self.latest_result = advance_model(
                     self.state,
                     self.config,
+                    self.open_loop_enabled,
                     self.integral_enabled,
                 )
                 self._record(self.latest_result)
@@ -549,11 +594,7 @@ class PIContributionDemo:
             return
         result = self.latest_result
         displayed_i = result.i_pwm if self.integral_enabled else 0.0
-        displayed_total = clamp(
-            result.p_pwm + displayed_i,
-            -self.config.pwm_limit,
-            self.config.pwm_limit,
-        )
+        displayed_total = result.applied_pwm
         self.p_counter.set(f"P contribution  u_P = {result.p_pwm:8.2f} PWM")
         self.i_counter.set(f"I contribution  u_I = {displayed_i:8.2f} PWM")
         self.error_counter.set(f"Error             e = {result.error_c:8.3f} °C")
@@ -579,7 +620,12 @@ class PIContributionDemo:
             f"Steady power   Q̇_ss = HΔT = {required_power_w:8.2f} W"
         )
         run_state = "Running" if self.running else "Paused"
-        mode = "PI active" if self.integral_enabled else "P only: I held at zero"
+        if self.open_loop_enabled:
+            mode = "Open loop: user-set u"
+        elif self.integral_enabled:
+            mode = "PI active"
+        else:
+            mode = "P only: I held at zero"
         saturation = " | PWM saturated" if abs(displayed_total) >= self.config.pwm_limit else ""
         self.status_text.set(run_state + " | " + mode + saturation)
 
@@ -694,6 +740,8 @@ class PIContributionDemo:
             rf"$\zeta=\frac{{H+P_uK_p}}{{2\sqrt{{CP_uK_i}}}}={damping_value}$"
         )
         self.right_equations.set_text(
+            rf"Open loop: $u=u_{{user}}={self.config.open_loop_pwm:.3g}\,\mathrm{{PWM}}$"
+            "\n"
             r"P control: $e=T_{set}-T$, $u_P=K_p e$"
             "\n"
             r"PI control: $u_{PI}=u_P+u_I=K_p e+K_i\int e\,dt$"

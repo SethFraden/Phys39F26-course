@@ -149,7 +149,7 @@ C\frac{dT}{dt}=P_u u-H(T-T_{\mathrm{amb}}).
 \]
 
 This is the one-lump heat balance written in terms of the lump's temperature.
-It follows from the more general First Law in rate form:
+It follows from the more general First Law in rate form. The change of energy in time is equal to the rate of heat into the lump minus the rate of heat out:
 
 \[
 \frac{dU}{dt}=\dot Q_{\mathrm{in}}-\dot Q_{\mathrm{out}}.
@@ -321,8 +321,143 @@ The units confirm that this ratio is a time:
 =\frac{\mathrm{J}}{\mathrm{J/s}}=\mathrm{s}.
 \]
 
-Dimensional analysis identifies $C/H$ as the natural timescale; solving the
-energy balance shows that it is specifically the exponential time constant.
+!!! note "Sidebar: From dimensional analysis to a dimensionless model"
+
+    This follows the progression in [Howard Stone, Sections 1.5.1-1.5.2:
+    characteristic time and rescaling a differential
+    equation](../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21).
+    Stone examines a model four related ways: inspect the dimensions, balance
+    the sizes of terms, solve the equation when possible, and then rescale it
+    so that only dimensionless variables and parameters remain.
+
+    **1. Inspect the dimensions.** For the unforced departure from steady state,
+
+    \[
+    C\frac{d\vartheta}{dt}=-H\vartheta,
+    \qquad \vartheta=T-T_{\mathrm{ss}},
+    \]
+
+    the parameters that contain time are $C$ and $H$. Their ratio has units of
+    time:
+
+    \[
+    \frac{C}{H}
+    =\frac{\mathrm{J/K}}{\mathrm{W/K}}
+    =\mathrm{s}.
+    \]
+
+    Dimensional analysis therefore identifies $C/H$ as the characteristic
+    time, but cannot by itself determine the complete function of time.
+
+    **2. Balance the sizes of the terms.** If a typical temperature departure
+    $\Delta T$ changes over a typical time $t_c$, then
+
+    \[
+    C\frac{\Delta T}{t_c}\sim H\Delta T.
+    \]
+
+    The temperature scale cancels because this equation is linear, leaving
+
+    \[
+    t_c\sim\frac{C}{H}.
+    \]
+
+    **3. Solve the equation.** Separation of variables gives
+
+    \[
+    \vartheta(t)=\vartheta(0)e^{-tH/C}.
+    \]
+
+    The solution supplies what dimensional reasoning alone cannot: the decay
+    is exponential, and its exact time constant is $\tau=C/H$.
+
+    **4. Nondimensionalize time and temperature.** Following Stone, choose the
+    initial departure as the temperature scale and define
+
+    \[
+    \Theta=\frac{\vartheta}{\vartheta(0)}
+    =\frac{T-T_{\mathrm{ss}}}{T(0)-T_{\mathrm{ss}}},
+    \qquad
+    \hat t=\frac{t}{\tau}.
+    \]
+
+    Substitution removes every dimensional parameter:
+
+    \[
+    \frac{d\Theta}{d\hat t}=-\Theta,
+    \qquad \Theta(0)=1,
+    \qquad \Theta=e^{-\hat t}.
+    \]
+
+    This is also the form used in [Lienhard and Lienhard, Section 5.2:
+    dimensional analysis of a lumped-capacity
+    system](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208).
+    They use
+
+    \[
+    \Theta=\frac{T-T_\infty}{T_i-T_\infty},
+    \qquad
+    \frac{t}{\mathcal{T}},
+    \qquad
+    \mathcal{T}=\frac{\rho cV}{hA}.
+    \]
+
+    In our notation, $C=\rho cV$, $H=hA$, and $T_\infty=T_{\mathrm{amb}}$,
+    so Lienhard's $\mathcal{T}$ is our $\tau=C/H$. See also [Lienhard and
+    Lienhard, Section 4.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=164)
+    for why temperature is nondimensionalized using a temperature
+    *difference*: the absolute temperature level is not significant in a
+    linear conduction problem.
+
+    **What changes when the TEC drives the system?** Choose a characteristic
+    command $u_0$ and a characteristic temperature change $\Delta T$, then
+    define
+
+    \[
+    \hat t=\frac{t}{\tau},\qquad
+    \hat T=\frac{T-T_{\mathrm{amb}}}{\Delta T},\qquad
+    \hat u=\frac{u}{u_0}.
+    \]
+
+    Substitution into the one-lump model gives
+
+    \[
+    \frac{d\hat T}{d\hat t}
+    =\Gamma\hat u-\hat T,
+    \qquad
+    \Gamma=\frac{\chi_{T,u}u_0}{\Delta T}.
+    \]
+
+    Thus the dimensional parameters enter through the single dimensionless
+    group $\Gamma$. Choosing $\Delta T=\chi_{T,u}u_0$, the steady temperature
+    change produced by $u_0$, makes $\Gamma=1$ and leaves
+
+    \[
+    \frac{d\hat T}{d\hat t}=\hat u-\hat T.
+    \]
+
+    Thus, for an open-loop step, the natural temperature scale is either the
+    measured step size or $\chi_{T,u}u_0$, its predicted steady-state value.
+    For setpoint control, use
+    $\Delta T=|T_{\mathrm{set}}-T_{\mathrm{amb}}|$. Absolute temperature is not
+    useful here because the model depends only on temperature differences.
+    Absolute kelvin temperature would become relevant for thermal radiation or
+    strongly temperature-dependent material properties.
+
+    Nondimensionalization is useful because it reveals which experiments are
+    dynamically equivalent. For P control, scaling by the setpoint offset gives
+
+    \[
+    \frac{d\hat T}{d\hat t}
+    =L(\hat T_{\mathrm{set}}-\hat T)-\hat T,
+    \qquad
+    L=\chi_{T,u}K_p,
+    \]
+
+    where $L$ is the dimensionless loop gain and
+    $\hat T_{\mathrm{set}}=+1$ for heating or $-1$ for cooling. The response
+    shape is therefore controlled by $L$, while $\tau$ restores the physical
+    time scale.
 
 Therefore $P_u/C=\chi_{T,u}/\tau$ and $H/C=1/\tau$. The same dimensional
 energy balance can be written entirely in terms of the two measured parameters
@@ -730,16 +865,17 @@ requested in Parts 4, 5, and 7. Do not begin with the supplied program, and do
 not submit the supplied program unchanged as your own work.
 
 After your own P and PI simulations run, download
-[the Module 6 P/PI lumped-model simulation](../../downloads/Lab_6_first_order_p_pi_simulation.py).
+[the progressive-display Module 6 P/PI lumped-model simulation](../../downloads/Lab_6_first_order_p_pi_simulation_realtime.py).
 Save it in your project repository as
-`python/Lab_6_first_order_p_pi_simulation.py`, then run it from the repository
+`python/Lab_6_first_order_p_pi_simulation_realtime.py`, then run it from the repository
 root:
 
 ```bash
-python python/Lab_6_first_order_p_pi_simulation.py
+python python/Lab_6_first_order_p_pi_simulation_realtime.py
 ```
 
-The supplied simulation displays the dimensional energy balance, the
+The supplied simulation progressively draws each complete run over 10 seconds
+and displays the dimensional energy balance, the
 equivalent measured-parameter form, the P and PI controller equations, the
 predicted P droop, and the PI damping ratio. Use it to check your reasoning,
 compare its predictions with your independently written model, and investigate

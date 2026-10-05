@@ -801,6 +801,109 @@ In matrix form,
 \end{pmatrix}.
 \]
 
+<details class="note" markdown="1">
+<summary>Sidebar: Solving a matrix ODE by diagonalization</summary>
+
+Write the two state variables as one vector,
+
+\[
+\mathbf{x}(t)=
+\begin{pmatrix}
+\theta(t)\\ z(t)
+\end{pmatrix},
+\qquad
+\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
+\]
+
+First look for one exponential mode,
+
+\[
+\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
+\]
+
+where the constant vector \(\mathbf{v}\) gives the relative amounts of
+temperature displacement and integral-state displacement in that mode.
+Substitution gives
+
+\[
+\lambda\mathbf{v}e^{\lambda t}
+=A\mathbf{v}e^{\lambda t},
+\]
+
+and cancellation of the nonzero exponential leaves
+
+\[
+(A-\lambda I)\mathbf{v}=0.
+\]
+
+We want a nonzero eigenvector \(\mathbf{v}\). A homogeneous matrix equation
+has a nonzero solution only when its matrix is singular, so
+
+\[
+\boxed{\det(A-\lambda I)=0}.
+\]
+
+This determinant equation therefore finds the values of \(\lambda\) for which
+exponential solutions are possible. For each eigenvalue, solving
+\((A-\lambda I)\mathbf{v}=0\) gives its eigenvector.
+
+If the two eigenvectors are independent, place them in the columns of
+
+\[
+V=\begin{pmatrix}\mathbf{v}_+&\mathbf{v}_-\end{pmatrix},
+\qquad
+\Lambda=
+\begin{pmatrix}
+\lambda_+&0\\0&\lambda_-
+\end{pmatrix}.
+\]
+
+The eigenvalue equations together say \(AV=V\Lambda\), or
+
+\[
+A=V\Lambda V^{-1}.
+\]
+
+Now change coordinates by writing \(\mathbf{x}=V\mathbf{y}\). The coupled
+matrix equation becomes
+
+\[
+\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
+\]
+
+Because \(\Lambda\) is diagonal, this is just two independent scalar
+equations:
+
+\[
+\frac{dy_+}{dt}=\lambda_+y_+,
+\qquad
+\frac{dy_-}{dt}=\lambda_-y_-.
+\]
+
+Their solutions are \(y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}\). Transforming back
+gives
+
+\[
+\boxed{
+\mathbf{x}(t)
+=V
+\begin{pmatrix}
+e^{\lambda_+t}&0\\0&e^{\lambda_-t}
+\end{pmatrix}
+V^{-1}\mathbf{x}(0)
+=e^{At}\mathbf{x}(0)
+}.
+\]
+
+Thus diagonalization reveals the matrix exponential as a combination of two
+ordinary exponential modes. If the eigenvalues are complex conjugates, those
+two modes combine to produce a real decaying oscillation. At critical damping,
+the repeated eigenvalue may provide only one eigenvector; the matrix
+exponential still exists, but its solution can also contain a term
+proportional to \(t e^{\lambda t}\).
+
+</details>
+
 The eigenvalues satisfy
 
 \[

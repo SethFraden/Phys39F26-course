@@ -977,6 +977,86 @@ displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time 
 \theta\\ z
 \end{pmatrix}.
 \]</div>
+<details class="note" markdown="1">
+<summary>Sidebar: Solving a matrix ODE by diagonalization</summary>
+
+<p>Write the two state variables as one vector,</p>
+<div class="arithmatex">\[
+\mathbf{x}(t)=
+\begin{pmatrix}
+\theta(t)\\ z(t)
+\end{pmatrix},
+\qquad
+\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
+\]</div>
+<p>First look for one exponential mode,</p>
+<div class="arithmatex">\[
+\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
+\]</div>
+<p>where the constant vector <span class="arithmatex">\(\mathbf{v}\)</span> gives the relative amounts of
+temperature displacement and integral-state displacement in that mode.
+Substitution gives</p>
+<div class="arithmatex">\[
+\lambda\mathbf{v}e^{\lambda t}
+=A\mathbf{v}e^{\lambda t},
+\]</div>
+<p>and cancellation of the nonzero exponential leaves</p>
+<div class="arithmatex">\[
+(A-\lambda I)\mathbf{v}=0.
+\]</div>
+<p>We want a nonzero eigenvector <span class="arithmatex">\(\mathbf{v}\)</span>. A homogeneous matrix equation
+has a nonzero solution only when its matrix is singular, so</p>
+<div class="arithmatex">\[
+\boxed{\det(A-\lambda I)=0}.
+\]</div>
+<p>This determinant equation therefore finds the values of <span class="arithmatex">\(\lambda\)</span> for which
+exponential solutions are possible. For each eigenvalue, solving
+<span class="arithmatex">\((A-\lambda I)\mathbf{v}=0\)</span> gives its eigenvector.</p>
+<p>If the two eigenvectors are independent, place them in the columns of</p>
+<div class="arithmatex">\[
+V=\begin{pmatrix}\mathbf{v}_+&amp;\mathbf{v}_-\end{pmatrix},
+\qquad
+\Lambda=
+\begin{pmatrix}
+\lambda_+&amp;0\\0&amp;\lambda_-
+\end{pmatrix}.
+\]</div>
+<p>The eigenvalue equations together say <span class="arithmatex">\(AV=V\Lambda\)</span>, or</p>
+<div class="arithmatex">\[
+A=V\Lambda V^{-1}.
+\]</div>
+<p>Now change coordinates by writing <span class="arithmatex">\(\mathbf{x}=V\mathbf{y}\)</span>. The coupled
+matrix equation becomes</p>
+<div class="arithmatex">\[
+\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
+\]</div>
+<p>Because <span class="arithmatex">\(\Lambda\)</span> is diagonal, this is just two independent scalar
+equations:</p>
+<div class="arithmatex">\[
+\frac{dy_+}{dt}=\lambda_+y_+,
+\qquad
+\frac{dy_-}{dt}=\lambda_-y_-.
+\]</div>
+<p>Their solutions are <span class="arithmatex">\(y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}\)</span>. Transforming back
+gives</p>
+<div class="arithmatex">\[
+\boxed{
+\mathbf{x}(t)
+=V
+\begin{pmatrix}
+e^{\lambda_+t}&amp;0\\0&amp;e^{\lambda_-t}
+\end{pmatrix}
+V^{-1}\mathbf{x}(0)
+=e^{At}\mathbf{x}(0)
+}.
+\]</div>
+<p>Thus diagonalization reveals the matrix exponential as a combination of two
+ordinary exponential modes. If the eigenvalues are complex conjugates, those
+two modes combine to produce a real decaying oscillation. At critical damping,
+the repeated eigenvalue may provide only one eigenvector; the matrix
+exponential still exists, but its solution can also contain a term
+proportional to <span class="arithmatex">\(t e^{\lambda t}\)</span>.</p>
+</details>
 <p>The eigenvalues satisfy</p>
 <div class="arithmatex">\[
 \det(A-\lambda I)=0.
@@ -1019,9 +1099,8 @@ displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time 
 (H+P_uK_p)^2&lt;4CP_uK_i.
 \]</div>
 <p>Increasing <span class="arithmatex">\(C\)</span> or <span class="arithmatex">\(K_i\)</span> increases the tendency to oscillate while increasing <span class="arithmatex">\(H\)</span> or <span class="arithmatex">\(K_p\)</span> dampens the system.</p>
-<details class="note" markdown="1">
+<details class="note">
 <summary>Time constants for open-loop, P, and PI control</summary>
-
 <p>The open-loop one-lump model has one time constant,</p>
 <div class="arithmatex">\[
 \tau=\frac{C}{H}.

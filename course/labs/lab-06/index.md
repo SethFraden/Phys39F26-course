@@ -32,11 +32,12 @@ action.
 
 Read selectively:
 
-1. Lienhard and Lienhard, *A Heat Transfer Textbook*.
-   - Section 1.3: read for energy-balance language and units.
-   - Chapter 4, especially Section 4.5: read for transient response and thermal
-     time constants.
-   - Official free textbook site: [A Heat Transfer Textbook](https://ahtt.mit.edu)
+1. Lienhard and Lienhard, [*A Heat Transfer Textbook*](https://ahtt.mit.edu/).
+
+    - Section 1.3: read for energy-balance language and units.
+    - Chapter 4, especially Section 4.5: read for transient response and thermal
+      time constants.
+
 2. Review your Module 4 and Module 5 data.
 3. Optional after class: [Bechhoefer, *Feedback for Physicists*,
    pp. 795-797](../../references/bechhoefer-feedback-for-physicists-2005.pdf),

@@ -122,7 +122,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget-for-s8" class="nav-link">Outside-Class Workload Budget For S8</a>
+            <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget-for-s8-s9" class="nav-link">Outside-Class Workload Budget For S8-S9</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -222,6 +222,13 @@ while retaining the independent hardware thermal switch.</p>
 <li>extract relevant manufacturer specifications from a data sheet and evaluate
   whether experimental measurements are consistent with them.</li>
 </ul>
+<div class="admonition important">
+<p class="admonition-title">C4 and A2 deadlines</p>
+<p>Complete the <strong>C4 open-loop TEC calibration checkoff in class on Monday,
+October 5 (S10)</strong>. The Moodle <code>C4 Team Checkoff</code> receipt is due by the end
+of class at <strong>11:55 AM</strong>. The separate A2 team PDF is due the same day at
+<strong>6:00 PM</strong>.</p>
+</div>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Review your Module 3 Arduino sketch and Python GUI.</li>
@@ -230,7 +237,7 @@ while retaining the independent hardware thermal switch.</p>
 <li>Read the <a href="../../hardware/#thermal-safety-switch">hardware page section on the thermal safety switch</a>.</li>
 <li>Read the <a href="../../hardware/#thermoelectric-cooler">hardware page section on the TEC</a>.</li>
 </ol>
-<h2 id="outside-class-workload-budget-for-s8">Outside-Class Workload Budget For S8<a class="headerlink" href="#outside-class-workload-budget-for-s8" title="Permanent link">&para;</a></h2>
+<h2 id="outside-class-workload-budget-for-s8-s9">Outside-Class Workload Budget For S8-S9<a class="headerlink" href="#outside-class-workload-budget-for-s8-s9" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -636,17 +643,40 @@ but does not by itself explain unequal slope magnitudes.</p>
 <li><strong>Repository file:</strong> none required for this short analysis</li>
 </ul>
 <p>Submit a <strong>one-to-two-page PDF</strong> containing:</p>
+<p>Use the following numbered headings so each result can be matched to the work
+in Parts 4 and 5. Show intermediate algebra, units, and substitutions clearly
+enough that another student could reproduce each numerical result.</p>
 <ol>
-<li>your Part 4 graph, showing the heating and cooling measurements as separate
-   data sets with fitted lines over the ranges used;</li>
-<li>your measured heating and cooling slopes, their units, and their ratio <span class="arithmatex">\(r\)</span>;</li>
-<li>the PWM average-current proof, the steady-state slope derivation, and its
-   numerical result;</li>
-<li>the cited Laird data-sheet values, your explanation of their meanings and
-   conditions, and the resulting calculation and predicted ratio;</li>
-<li>a comparison of the measured and data-sheet ratios;</li>
-<li>your answer about passive conduction; and</li>
-<li>a concise conclusion of approximately 100-150 words explaining what the
+<li><strong>Part 4: Graph and fits.</strong> Include your temperature-versus-signed-PWM
+   graph. Show heating and cooling as separate data sets, the fitted lines, and
+   the PWM ranges used for each fit. Label both axes and give units.</li>
+<li><strong>Part 5.1: Measured slopes.</strong> Report the heating slope <span class="arithmatex">\(m_h\)</span>, cooling-slope
+   magnitude <span class="arithmatex">\(m_c\)</span>, their units, and the measured ratio
+   <span class="arithmatex">\(r=m_h/m_c\)</span>. State whether either data set shows visible curvature and how
+   that affected your choice of fitting range.</li>
+<li><strong>Part 5.2: PWM and the slope-ratio model.</strong> Prove that PWM gives
+   <span class="arithmatex">\(\langle I\rangle=DI\)</span> and <span class="arithmatex">\(\langle I^2\rangle=DI^2\)</span>. Then use the
+   steady-state energy balance to derive the heating and cooling slopes and
+   show that
+   <span class="arithmatex">\(\dot Q_J/\dot Q_P=(r-1)/(r+1)\)</span>. Substitute your measured <span class="arithmatex">\(r\)</span> and report
+   the resulting numerical value of <span class="arithmatex">\(\dot Q_J/\dot Q_P\)</span>.</li>
+<li><strong>Part 5.3: Laird data-sheet calculation.</strong> Cite the data-sheet page or
+   table from which you obtained <span class="arithmatex">\(R_M\)</span>, <span class="arithmatex">\(I_{\max}\)</span>, <span class="arithmatex">\(Q_{c,\max}\)</span>, and
+   <span class="arithmatex">\(\Delta T_{\max}\)</span>. Give each value, its units, meaning, and stated operating
+   conditions. Calculate <span class="arithmatex">\(\dot Q_{J,\max}\)</span>, infer <span class="arithmatex">\(\dot Q_{P,\max}\)</span>, and then
+   calculate
+   <span class="arithmatex">\(r_{\mathrm{Laird},\max}=(\dot Q_{P,\max}+\dot Q_{J,\max})/
+   (\dot Q_{P,\max}-\dot Q_{J,\max})\)</span>. This is the heating-to-cooling slope
+   ratio predicted from those maximum-current data.</li>
+<li><strong>Part 5.4: Compare the ratios.</strong> Compare your measured <span class="arithmatex">\(r\)</span> with
+   <span class="arithmatex">\(r_{\mathrm{Laird},\max}\)</span>. Explain why agreement need not be exact,
+   including why duty cycle <span class="arithmatex">\(D=1\)</span> does not necessarily mean
+   <span class="arithmatex">\(I=I_{\max}\)</span>.</li>
+<li><strong>Part 5.4: Passive conduction.</strong> State the direction of passive heat flow
+   when the object is hotter than room temperature and when it is colder.
+   Explain why approximately symmetric passive conduction opposes both heating
+   and cooling but does not, by itself, explain unequal slope magnitudes.</li>
+<li><strong>Conclusion.</strong> In approximately 100-150 words, explain what your
    measurements imply about Peltier transport, Joule heating, and conduction.</li>
 </ol>
 <p>Do not repeat the C2/C3 circuit sketches, apparatus descriptions,
@@ -663,19 +693,19 @@ short assignment.</p>
 </thead>
 <tbody>
 <tr>
-<td>Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented</td>
+<td>Items 1-2: Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>PWM averaging proof, steady-state energy balance, and slope-ratio derivation are correct</td>
+<td>Item 3: PWM averaging proof, steady-state energy balance, slope-ratio derivation, and numerical result are correct</td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr>
-<td>Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation</td>
+<td>Item 4: Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>Comparison and passive-conduction explanation show sound physical reasoning</td>
+<td>Items 5-7: Comparison, passive-conduction explanation, and conclusion show sound physical reasoning</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
@@ -686,8 +716,10 @@ short assignment.</p>
 </table>
 <h2 id="c4-oral-questions-open-loop-tec-calibration">C4 Oral Questions: Open-Loop TEC Calibration<a class="headerlink" href="#c4-oral-questions-open-loop-tec-calibration" title="Permanent link">&para;</a></h2>
 <p>These questions carry the Module 4 learning objectives into the announced C4
-question bank. Prepare to answer one primary question and, when useful, one
-brief follow-up using your apparatus, graph, or the Laird data sheet.</p>
+checkoff during class on <strong>Monday, October 5 (S10)</strong>. Prepare to answer one
+primary question and, when useful, one brief follow-up using your apparatus,
+graph, or the Laird data sheet. One team member submits the Moodle
+<code>C4 Team Checkoff</code> receipt by <strong>11:55 AM</strong>.</p>
 <ol>
 <li>Explain how the software temperature limit and the hardware thermal switch
    protect the TEC independently. How did you test the software limit without

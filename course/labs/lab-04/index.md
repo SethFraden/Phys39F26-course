@@ -19,6 +19,12 @@ By the end of this module, you should be able to:
 - extract relevant manufacturer specifications from a data sheet and evaluate
   whether experimental measurements are consistent with them.
 
+!!! important "C4 and A2 deadlines"
+    Complete the **C4 open-loop TEC calibration checkoff in class on Monday,
+    October 5 (S10)**. The Moodle `C4 Team Checkoff` receipt is due by the end
+    of class at **11:55 AM**. The separate A2 team PDF is due the same day at
+    **6:00 PM**.
+
 ## Before Class
 
 1. Review your Module 3 Arduino sketch and Python GUI.
@@ -27,7 +33,7 @@ By the end of this module, you should be able to:
 4. Read the [hardware page section on the thermal safety switch](../../hardware.md#thermal-safety-switch).
 5. Read the [hardware page section on the TEC](../../hardware.md#thermoelectric-cooler).
 
-## Outside-Class Workload Budget For S8
+## Outside-Class Workload Budget For S8-S9
 
 | Work | Planned time |
 | --- | ---: |
@@ -453,16 +459,40 @@ but does not by itself explain unequal slope magnitudes.
 
 Submit a **one-to-two-page PDF** containing:
 
-1. your Part 4 graph, showing the heating and cooling measurements as separate
-   data sets with fitted lines over the ranges used;
-2. your measured heating and cooling slopes, their units, and their ratio $r$;
-3. the PWM average-current proof, the steady-state slope derivation, and its
-   numerical result;
-4. the cited Laird data-sheet values, your explanation of their meanings and
-   conditions, and the resulting calculation and predicted ratio;
-5. a comparison of the measured and data-sheet ratios;
-6. your answer about passive conduction; and
-7. a concise conclusion of approximately 100-150 words explaining what the
+Use the following numbered headings so each result can be matched to the work
+in Parts 4 and 5. Show intermediate algebra, units, and substitutions clearly
+enough that another student could reproduce each numerical result.
+
+1. **Part 4: Graph and fits.** Include your temperature-versus-signed-PWM
+   graph. Show heating and cooling as separate data sets, the fitted lines, and
+   the PWM ranges used for each fit. Label both axes and give units.
+2. **Part 5.1: Measured slopes.** Report the heating slope $m_h$, cooling-slope
+   magnitude $m_c$, their units, and the measured ratio
+   $r=m_h/m_c$. State whether either data set shows visible curvature and how
+   that affected your choice of fitting range.
+3. **Part 5.2: PWM and the slope-ratio model.** Prove that PWM gives
+   $\langle I\rangle=DI$ and $\langle I^2\rangle=DI^2$. Then use the
+   steady-state energy balance to derive the heating and cooling slopes and
+   show that
+   $\dot Q_J/\dot Q_P=(r-1)/(r+1)$. Substitute your measured $r$ and report
+   the resulting numerical value of $\dot Q_J/\dot Q_P$.
+4. **Part 5.3: Laird data-sheet calculation.** Cite the data-sheet page or
+   table from which you obtained $R_M$, $I_{\max}$, $Q_{c,\max}$, and
+   $\Delta T_{\max}$. Give each value, its units, meaning, and stated operating
+   conditions. Calculate $\dot Q_{J,\max}$, infer $\dot Q_{P,\max}$, and then
+   calculate
+   $r_{\mathrm{Laird},\max}=(\dot Q_{P,\max}+\dot Q_{J,\max})/
+   (\dot Q_{P,\max}-\dot Q_{J,\max})$. This is the heating-to-cooling slope
+   ratio predicted from those maximum-current data.
+5. **Part 5.4: Compare the ratios.** Compare your measured $r$ with
+   $r_{\mathrm{Laird},\max}$. Explain why agreement need not be exact,
+   including why duty cycle $D=1$ does not necessarily mean
+   $I=I_{\max}$.
+6. **Part 5.4: Passive conduction.** State the direction of passive heat flow
+   when the object is hotter than room temperature and when it is colder.
+   Explain why approximately symmetric passive conduction opposes both heating
+   and cooling but does not, by itself, explain unequal slope magnitudes.
+7. **Conclusion.** In approximately 100-150 words, explain what your
    measurements imply about Peltier transport, Joule heating, and conduction.
 
 Do not repeat the C2/C3 circuit sketches, apparatus descriptions,
@@ -474,17 +504,19 @@ short assignment.
 
 | Criterion | Points |
 | --- | ---: |
-| Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented | 2 |
-| PWM averaging proof, steady-state energy balance, and slope-ratio derivation are correct | 3 |
-| Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation | 2 |
-| Comparison and passive-conduction explanation show sound physical reasoning | 2 |
+| Items 1-2: Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented | 2 |
+| Item 3: PWM averaging proof, steady-state energy balance, slope-ratio derivation, and numerical result are correct | 3 |
+| Item 4: Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation | 2 |
+| Items 5-7: Comparison, passive-conduction explanation, and conclusion show sound physical reasoning | 2 |
 | PDF is concise, legible, and complete | 1 |
 
 ## C4 Oral Questions: Open-Loop TEC Calibration
 
 These questions carry the Module 4 learning objectives into the announced C4
-question bank. Prepare to answer one primary question and, when useful, one
-brief follow-up using your apparatus, graph, or the Laird data sheet.
+checkoff during class on **Monday, October 5 (S10)**. Prepare to answer one
+primary question and, when useful, one brief follow-up using your apparatus,
+graph, or the Laird data sheet. One team member submits the Moodle
+`C4 Team Checkoff` receipt by **11:55 AM**.
 
 1. Explain how the software temperature limit and the hardware thermal switch
    protect the TEC independently. How did you test the software limit without

@@ -187,7 +187,7 @@ for the complete instructions and rubric.
 
 ## A2: TEC Heating And Cooling Analysis
 
-**Due:** Monday, October 5, **6:00 PM**
+**Due:** Wednesday, October 7, **6:00 PM**
 
 **Format:** 10-point team assignment; each student uploads the same one-to-two-page
 team PDF separately to Moodle.
@@ -202,7 +202,7 @@ for the complete instructions and rubric.
 
 ## A3: Feedback Data And Lumped-Model Memo
 
-**Due:** Wednesday, October 14, **6:00 PM**
+**Due:** Wednesday, October 21, **6:00 PM**
 
 **Format:** 10-point team assignment; each student uploads the team PDF
 separately to Moodle.
@@ -311,29 +311,24 @@ Prepare the single authoritative question bank in
 Each student explains one primary question and, when useful, one brief follow-up
 using the apparatus and their labeled circuit sketch.
 
-## C4: Feedback Controller And TEC Process Model
+## C4: Open-Loop TEC Calibration And Software Safety
 
-**Due:** Demonstration during Session S15, Wednesday, October 21; Moodle
+**Due:** Demonstration during Session S10, Monday, October 5; Moodle
 `C4 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
 | --- | ---: |
-| P and PI control operate safely; one- or two-lump model runs and is compared with data | 4 |
-| Droop, oscillation, and model-residual evidence support the conclusions | 2 |
-| Reproducible controller/model code and parameter record are pushed | 1 |
-| Individual explains the assigned announced question about open-loop calibration, droop, integral action, lag, or a model limitation | 2 |
+| Independent hardware and software protections are present and demonstrated safely | 3 |
+| Credible steady-state heating and cooling data determine both signed-PWM susceptibilities | 2 |
+| Graph, data-sheet evidence, and physical interpretation address Peltier transport, Joule heating, and passive conduction | 2 |
+| Individual answers one announced Module 4 question and a brief follow-up | 2 |
 | Complete by the deadline | 1 |
 
 ### C4 Oral Questions
 
-Prepare the authoritative question banks in the modules where the concepts
-are developed. Each student answers one primary question and, when useful,
-a brief follow-up; this is not a requirement to answer every question at checkoff.
-
-- [Module 4: Open-loop TEC calibration](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration): independent safety protections, steady-state susceptibility, heating/cooling asymmetry, and data-sheet consistency.
-- [Module 5: P control](labs/lab-05/index.md#c4-oral-questions-p-control): physical origin of droop, susceptibility, dimensionless gain, and thermal capacity.
-- [Module 6: PI control](labs/lab-06/index.md#c4-oral-questions-pi-control): integral action and windup.
-- [Module 7: Process modeling](labs/lab-07/index.md#c4-oral-questions-process-modeling): physical lag and fitted parameters.
+Prepare the single authoritative question bank in
+[Module 4: C4 Oral Questions](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration).
+Each student answers one primary question and, when useful, one brief follow-up.
 
 ## C5: Rod Instrument And Data-Acquisition Chain
 
@@ -408,9 +403,9 @@ of `F1`.
 | `A1` | Sept. 14, 5:00 PM | **Module 1 evidence note (team):** complete the [Module 1 A1 instructions](labs/lab-01/index.md#a1-module-1-evidence-note). Each student submits `A1_Lastname_Lastname.pdf` to Moodle; teammates may upload the same PDF. Keep the Markdown note, exact code, serial/averaging evidence, oscilloscope evidence, and dimensional measurements in the repository; cite the pushed `GC`. Use feedback from the earlier `C1` checkoff when completing the note. |
 | `C2` | Sept. 16, during S6; receipt by 5:00 PM | [Measurement and actuator-electronics milestone](labs/lab-02/index.md#c2-evidence-and-submission), demonstrated using the C2 rubric above. |
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#c3-demonstration-and-evidence), demonstrated using the C3 rubric above. |
-| `A2` | Oct. 5, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
-| `A3` | Oct. 14, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
-| `C4` | Oct. 21, during S15; receipt by 11:55 AM | [Feedback-controller and TEC-process-model milestone](labs/lab-07/index.md#c4-feedback-controller-and-tec-process-model), demonstrated using the C4 rubric above. |
+| `A2` | Oct. 7, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
+| `C4` | Oct. 5, during S10; receipt by 11:55 AM | [Open-loop TEC calibration and software-safety milestone](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration), demonstrated using the C4 rubric above. |
+| `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and `GC`. |
 | `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Nov. 2, during S18; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
 | `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
@@ -437,8 +432,8 @@ The individual `F1` oral defense uses the announced questions in the
 | Arduino primitives and signals | G1, G2, G5, G12 | A1 oscilloscope measurements and modified sketches; C1 repository check |
 | First real instrument pieces | G1-G5 | Thermistor conversion, calibration evidence, H-bridge signal check, C2 |
 | Manual TEC and Python GUI | G6, G7, G12, G14 | Live serial display, saved data, GUI controls, C3 |
-| Open-loop TEC calibration | G3, G6, G7, G9 | PWM-magnitude calibration for each direction, heating/cooling comparison, Module 4 note |
+| Open-loop TEC calibration | G3, G6, G7, G9 | PWM-magnitude calibration for each direction, heating/cooling comparison, C4 |
 | P-only feedback control | G8, G9, G14 | Droop and instability evidence, controller implementation, oral explanation |
-| P/PI control and process modeling | G3, G8-G10, G13, G14 | P/PI comparison, lumped-model derivations, fits, residuals, C4 |
+| P/PI control and process modeling | G3, G8-G10, G13, G14 | P/PI comparison, lumped-model derivations, fits, residuals, A3 and P2 |
 | Thermal transport theory and rod instrument | G2-G4, G7, G11, G13-G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, C5 |
 | Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity `k`, side-loss `H`, C6, presentation |

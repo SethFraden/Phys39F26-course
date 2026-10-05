@@ -1071,23 +1071,25 @@ Your program must perform the Euler update itself and produce the comparisons
 requested in Parts 4, 5, and 7. Do not begin with the supplied program, and do
 not submit the supplied program unchanged as your own work.
 
-After your own P and PI simulations run, download
-[the progressive-display Module 6 P/PI lumped-model simulation](../../downloads/Lab_6_first_order_p_pi_simulation_realtime.py).
+After your own open-loop, P, and PI simulations run, download
+[the rolling-window Module 6 open-loop/P/PI simulation](../../downloads/Lab_6_pi_contribution_rolling_demo.py).
 Save it in your project repository as
-`python/Lab_6_first_order_p_pi_simulation_realtime.py`, then run it from the repository
+`python/Lab_6_pi_contribution_rolling_demo.py`, then run it from the repository
 root:
 
 ```bash
-python python/Lab_6_first_order_p_pi_simulation_realtime.py
+python python/Lab_6_pi_contribution_rolling_demo.py
 ```
 
-The supplied simulation progressively draws each complete run over 10 seconds
-and displays the dimensional energy balance, the
-equivalent measured-parameter form, the P and PI controller equations, the
-predicted P droop, and the PI damping ratio. Use it to check your reasoning,
-compare its predictions with your independently written model, and investigate
-parameter changes. Do not substitute its plots for comparisons with your own
-experimental data.
+The supplied simulation runs continuously in a rolling time window. Select
+open-loop, P, or PI control; pause and resume the run; and change model or
+controller parameters while watching the temperature and PWM histories. The
+display separates the proportional and integral contributions to PWM and shows
+the dimensional energy balance, controller equations, open-loop time constant,
+P droop prediction, required steady-state PWM, and PI damping ratio. Use it to
+check your reasoning, compare its predictions with your independently written
+model, and investigate parameter changes. Do not substitute its plots for
+comparisons with your own experimental data.
 
 ## Part 8: Windup Thought Experiment
 

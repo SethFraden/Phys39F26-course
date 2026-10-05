@@ -22,8 +22,8 @@ By the end of this module, you should be able to:
 !!! important "C4 and A2 deadlines"
     Complete the **C4 open-loop TEC calibration checkoff in class on Monday,
     October 5 (S10)**. The Moodle `C4 Team Checkoff` receipt is due by the end
-    of class at **11:55 AM**. The separate A2 team PDF is due the same day at
-    **6:00 PM**.
+    of class at **11:55 AM**. The separate A2 team PDF is due **Wednesday,
+    October 7, at 6:00 PM**.
 
 ## Before Class
 
@@ -482,7 +482,7 @@ but does not by itself explain unequal slope magnitudes.
 ### A2: TEC Heating And Cooling Analysis
 
 - **Type:** team, 10 points
-- **Due:** Monday, October 5, at **6:00 PM**
+- **Due:** Wednesday, October 7, at **6:00 PM**
 - **Moodle file:** `A2_Lastname_Lastname.pdf`
 - **Moodle submission:** Each student uploads the team PDF separately;
   teammates may upload the same PDF

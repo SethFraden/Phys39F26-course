@@ -176,11 +176,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#evidence-for-a3-and-c4" class="nav-link">Evidence For A3 And C4</a>
+            <li class="nav-item" data-bs-level="3"><a href="#evidence-for-a3-and-oral-review" class="nav-link">Evidence For A3 And Oral Review</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#c4-oral-questions-p-control" class="nav-link">C4 Oral Questions: P Control</a>
+            <li class="nav-item" data-bs-level="3"><a href="#oral-review-questions-p-control" class="nav-link">Oral Review Questions: P Control</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -210,7 +210,7 @@ e=T_{\mathrm{set}}-T, \qquad u=K_p e
 \]</div>
 <p>and <span class="arithmatex">\(K_p\)</span> a conversion constant. The sign of <span class="arithmatex">\(u\)</span> selects heat or cool; its magnitude becomes the nonnegative
 8-bit PWM value sent to the Arduino. The Arduino applies the command and retains
-independent shutdown authority. During S9-S10 you will verify the feedback sign,
+independent shutdown authority. During S10-S11 you will verify the feedback sign,
 measure droop versus gain, explore high-gain behavior, and compare the data with
 a simple model. PI control follows in Module 6.</p>
 <h3 id="key-learning-objectives">Key Learning Objectives<a class="headerlink" href="#key-learning-objectives" title="Permanent link">&para;</a></h3>
@@ -425,12 +425,12 @@ closed loop, respectively.</p>
 </thead>
 <tbody>
 <tr>
-<td>S9</td>
+<td>S10</td>
 <td>Read the assignment; answer the questions; review Module 4; prepare the controller and gain range</td>
 <td style="text-align: right;"><strong>2 hours 15 minutes</strong></td>
 </tr>
 <tr>
-<td>S10</td>
+<td>S11</td>
 <td>Prepare the data plan; analyze and label evidence; update the note; commit and push</td>
 <td style="text-align: right;"><strong>2 hours 30 minutes</strong></td>
 </tr>
@@ -469,6 +469,17 @@ sends the measurement back to Python to close the loop.</p>
 sends direction and PWM magnitude to the Arduino. The Arduino continues to
 measure temperature, parse commands, drive the H-bridge, and enforce the
 independent software temperature limit developed in Module 4.</p>
+<div class="admonition warning">
+<p class="admonition-title">Check AI-generated code for unrequested features</p>
+<p>AI coding assistants sometimes add plausible control features that were
+not requested. Before operating the TEC, verify that the controller uses a
+single fixed value of <span class="arithmatex">\(K_p\)</span> and calculates only
+<span class="arithmatex">\(u=K_p(T_{\mathrm{set}}-T)\)</span>. Do not use feed-forward, gain scheduling,
+adaptive or variable gain, or integral or derivative terms in this module.
+The output clamp and independent software safety shutdown must remain, but
+they are safety constraints rather than additions to the P-control law.
+Be prepared to identify the exact lines that calculate <span class="arithmatex">\(e\)</span> and <span class="arithmatex">\(u\)</span>.</p>
+</div>
 <p>The controller should:</p>
 <ol>
 <li>read the measured temperature only after averaging about 1000 raw
@@ -747,14 +758,11 @@ oscillation. If the apparatus oscillates, the one-lump model is missing
 important physics or implementation details. Discuss plausible causes such as
 thermal delay between the TEC and thermistor, another thermal mass, discrete
 sampling, sensor noise, or PWM saturation.</p>
-<h3 id="evidence-for-a3-and-c4">Evidence For A3 And C4<a class="headerlink" href="#evidence-for-a3-and-c4" title="Permanent link">&para;</a></h3>
-<h3 id="c4-oral-questions-p-control">C4 Oral Questions: P Control<a class="headerlink" href="#c4-oral-questions-p-control" title="Permanent link">&para;</a></h3>
-<p>This is the authoritative P-control question bank for C4. Prepare to answer
-one primary question and a brief follow-up individually. The
-<a href="../../assessment/#c4-feedback-controller-and-tec-process-model">C4 deadline and rubric</a>
-remain on the Assessment page; additional questions address
-<a href="../lab-06/#c4-oral-questions-pi-control">PI control in Module 6</a> and
-<a href="../lab-07/#c4-oral-questions-process-modeling">modeling in Module 7</a>.</p>
+<h3 id="evidence-for-a3-and-oral-review">Evidence For A3 And Oral Review<a class="headerlink" href="#evidence-for-a3-and-oral-review" title="Permanent link">&para;</a></h3>
+<h3 id="oral-review-questions-p-control">Oral Review Questions: P Control<a class="headerlink" href="#oral-review-questions-p-control" title="Permanent link">&para;</a></h3>
+<p>Use these questions to check your understanding and prepare the interpretation
+in A3. Prepare to answer one primary question and a brief follow-up
+individually during later oral review.</p>
 <ol>
 <li>The block reaches its setpoint above room temperature. Why will it not stay
    there under pure P-only control? What changes for a setpoint below ambient?</li>
@@ -767,7 +775,7 @@ remain on the Assessment page; additional questions address
 <h3 id="evidence-to-preserve">Evidence To Preserve<a class="headerlink" href="#evidence-to-preserve" title="Permanent link">&para;</a></h3>
 <p>Module 5 requires no separate paper. Its results support the later
 <a href="../lab-06/#a3-feedback-data-and-lumped-model-memo"><code>A3</code> feedback-and-model memo</a>
-and the C4 demonstration. During S9-S10, preserve:</p>
+and later oral review. During S10-S11, preserve:</p>
 <ul>
 <li>the low-gain feedback sign test,</li>
 <li>the chosen gain range and the calculation used to justify it,</li>

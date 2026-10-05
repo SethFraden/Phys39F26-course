@@ -24,7 +24,9 @@ oral checks. The calendar below shows the corresponding `A#`, `C#`, `P#`, and
 
 **Pacing update:** Modules 1 and 2 required more class time than originally
 anticipated. Module 2 was held on September 14, and S5 combined the end of
-Module 2 with the beginning of Module 3.
+Module 2 with the beginning of Module 3. Module 4 continues through S9 on
+September 30. The remaining TEC-control sequence has been shifted one session
+later, while the rod sequence and final December 2 endpoint remain unchanged.
 
 ## Course Modules
 
@@ -52,7 +54,7 @@ documentation in its repository, and have each student explain the work.
 | [**C1. Development environment and repository ready**](../assessment.md#c1-development-environment-and-repository) | Demonstration during S4, Wed. Sept. 9; individual text response by 5:00 PM | Arduino IDE, GitHub Desktop, and VS Code are working; the course repository is organized; an Arduino sketch runs; and a meaningful commit has been pushed. |
 | [**C2. Measurement and actuator electronics complete**](../assessment.md#c2-measurement-and-actuator-electronics) | Demonstration during S6, Wed. Sept. 16; receipt by 5:00 PM | The thermistor reports a plausible calibrated temperature; the H-bridge PWM and direction inputs have been verified with the oscilloscope; and the prepared actuator wiring is complete. |
 | [**C3. TEC instrument and first Python GUI complete**](../assessment.md#c3-tec-instrument-and-first-python-gui) | Demonstration during S7, Wed. Sept. 23; receipt by 11:55 AM | The TEC and thermal switch are wired safely; manual heat/cool and PWM work; Python displays and saves the serial data; and an open-loop temperature record has been made. |
-| [**C4. Feedback controller and TEC process model complete**](../assessment.md#c4-feedback-controller-and-tec-process-model) | Demonstration during S15, Wed. Oct. 21; receipt by 11:55 AM | P and PI control run safely; droop and oscillation data have been collected; the process model runs; and at least one model trace has been compared with experiment. |
+| [**C4. Open-loop TEC calibration and software safety complete**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) | Demonstration during S10, Mon. Oct. 5; receipt by 11:55 AM | Independent safety protections work; steady-state heating and cooling susceptibilities are measured; and the student can explain the asymmetry and data-sheet comparison. |
 | [**C5. Rod instrument and data-acquisition chain complete**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) | Demonstration during S18, Mon. Nov. 2; receipt by 11:55 AM | Rod thermistors are calibrated; sensor positions and wiring are documented; multichannel logging works; and baseline plus initial step-response data have been saved. |
 | [**C6. Final thermal-transport package complete**](../assessment.md#c6-final-thermal-transport-package) | Demonstration during S25, Mon. Nov. 30; receipt by 11:55 AM | Periodic rod data and reproducible analysis report `q`, `q_prime`, diffusivity `kappa`, aluminum conductivity `k`, loss rate `nu`, and side heat-transfer coefficient `H`, with units and uncertainty. |
 
@@ -86,16 +88,16 @@ means required preparation with no separate grade.
 | **7**<br>No class | 8 | **9**<br>[S4](#session-4)<br>[Module 1](lab-01/index.md)<br>[**C1 checkoff**](../assessment.md#c1-development-environment-and-repository)<br>Individual text due 5:00 PM | 10 | 11 | 12 | 13 |
 | **14**<br>[S5](#session-5)<br>[Module 2](lab-02/index.md) / [Module 3](lab-03/index.md)<br>[**A1 due 5:00 PM**](lab-01/index.md#a1-module-1-evidence-note) | 15 | **16**<br>[S6](#session-6)<br>[Module 3](lab-03/index.md)<br>[**C2 checkoff**](../assessment.md#c2-measurement-and-actuator-electronics)<br>Receipt due 5:00 PM<br>**P1** | 17 | 18 | 19 | 20 |
 | **21**<br>No class | 22 | **23**<br>[S7](#session-7)<br>[Module 3](lab-03/index.md) / [Module 4](lab-04/index.md)<br>**C3 checkoff** | 24 | 25 | 26 | 27 |
-| **28**<br>[S8](#session-8)<br>[Module 4](lab-04/index.md)<br>Begin A2 analysis | 29 | **30**<br>[S9](#session-9)<br>[Module 5](lab-05/index.md)<br>**Prep** |  |  |  |  |
+| **28**<br>[S8](#session-8)<br>[Module 4](lab-04/index.md)<br>Begin A2 analysis | 29 | **30**<br>[S9](#session-9)<br>[Module 4](lab-04/index.md)<br>Complete calibration |  |  |  |  |
 
 ### October 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| 28 Sep<br>[S8](#session-8)<br>[Module 4](lab-04/index.md) | 29 Sep | 30 Sep<br>[S9](#session-9)<br>[Module 5](lab-05/index.md) | 1 | 2 | 3 | 4 |
-| **5**<br>[S10](#session-10)<br>[Module 5](lab-05/index.md)<br>P-control record<br>[**A2 due 6:00 PM**](lab-04/index.md#a2-tec-heating-and-cooling-analysis) | 6 | **7**<br>[S11](#session-11)<br>[Module 6, Part I](lab-06/index.md)<br>Guided derivation | 8 | 9 | 10 | 11 |
-| **12**<br>No class | **13**<br>[S12](#session-12)<br>[Module 6, Part I](lab-06/index.md)<br>Brandeis Monday<br>**Prep** | **14**<br>[S13](#session-13)<br>[Module 6, Part I](lab-06/index.md)<br>**A3 due** | 15 | 16 | 17 | 18 |
-| **19**<br>[S14](#session-14)<br>[Module 6, Part II](lab-07/index.md)<br>**P2** | 20 | **21**<br>[S15](#session-15)<br>[Module 6, Part II](lab-07/index.md)<br>**C4 checkoff** | 22 | 23 | 24 | 25 |
+| 28 Sep<br>[S8](#session-8)<br>[Module 4](lab-04/index.md) | 29 Sep | 30 Sep<br>[S9](#session-9)<br>[Module 4](lab-04/index.md)<br>Complete calibration | 1 | 2 | 3 | 4 |
+| **5**<br>[S10](#session-10)<br>[Module 4](lab-04/index.md) / [Module 5](lab-05/index.md)<br>[**C4 checkoff**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) | 6 | **7**<br>[S11](#session-11)<br>[Module 5](lab-05/index.md)<br>P-control measurements<br>[**A2 due 6:00 PM**](lab-04/index.md#a2-tec-heating-and-cooling-analysis) | 8 | 9 | 10 | 11 |
+| **12**<br>No class | **13**<br>[S12](#session-12)<br>[Module 6, Part I](lab-06/index.md)<br>Brandeis Monday<br>Guided derivation | **14**<br>[S13](#session-13)<br>[Module 6, Part I](lab-06/index.md)<br>PI control | 15 | 16 | 17 | 18 |
+| **19**<br>[S14](#session-14)<br>[Module 6, Part I](lab-06/index.md) / [Part II](lab-07/index.md)<br>**P2** | 20 | **21**<br>[S15](#session-15)<br>[Module 6, Part II](lab-07/index.md)<br>**A3 due 6:00 PM** | 22 | 23 | 24 | 25 |
 | **26**<br>[S16](#session-16)<br>[Module 7, Part I](theory-bridge-chapter-1/index.md) / [Part III](lab-08/index.md)<br>**Prep** | 27 | **28**<br>[S17](#session-17)<br>[Module 7, Parts II-III](lab-08/index.md)<br>**A4 due** | 29 | 30 | 31 |  |
 
 ### November 2026
@@ -124,9 +126,9 @@ time for every session.
 | Sessions | Planned outside-class time per session |
 | --- | --- |
 | S1, S2, S3, S4 | 1 h 30 min; 1 h 15 min; 1 h 30 min-2 h; 2 h |
-| S5, S6, S7, S8 | 3 h 30 min; 2 h 30 min; 3 h; 3 h 15 min |
-| S9, S10, S11, S12 | 3 h 15 min; 2 h 45 min; 3 h 30 min; 2 h 45 min |
-| S13, S14, S15, S16 | 3 h 30 min; 3 h 15 min; 3 h 30 min; 3 h 45 min |
+| S5, S6, S7, S8 | 3 h 30 min; 2 h 30 min; 3 h; 1 h 30 min |
+| S9, S10, S11, S12 | 1 h 30 min; 2 h 15 min; 2 h 30 min; 3 h 30 min |
+| S13, S14, S15, S16 | 2 h 45 min; 3 h 30 min; 3 h 30 min; 3 h 45 min |
 | S17, S18, S19, S20 | 3 h 45 min; 1 h 45 min; 2 h 45 min; 3 h 30 min |
 | S21, S22, S23, S24 | 3 h 45 min; 1 h; 3 h; 3 h 45 min |
 | S25, S26 | 4 h; 4 h |
@@ -145,14 +147,14 @@ document the current state and bring the problem to class.
 | <span id="meeting-5"></span><span id="session-5">S5</span> | 2026-09-14 | Mon | Build and test thermistor measurement and H-bridge motor-control circuits; begin safe TEC heating and cooling. | [Module 2: First Real Instrument Pieces](lab-02/index.md) and [Module 3: Manual TEC Heat/Cool And First Python GUI](lab-03/index.md) | [**A1**](lab-01/index.md#a1-module-1-evidence-note) due online at 5:00 PM | G1-G7, G12, G14 |
 | <span id="meeting-6"></span><span id="session-6">S6</span> | 2026-09-16 | Wed | Parse real serial data; display and save temperature and PWM; set update interval, window, and axes. | [Module 3](lab-03/index.md) | [**C2**](../assessment.md#c2-measurement-and-actuator-electronics) demonstration; receipt due 5:00 PM; `P1` | G2, G7, G12 |
 | <span id="meeting-7"></span><span id="session-7">S7</span> | 2026-09-23 | Wed | Command heat/cool and PWM from Python; test software and hardware limits; save open-loop records. | [Module 3](lab-03/index.md) and [Module 4](lab-04/index.md) | [**C3**](../assessment.md#c3-tec-instrument-and-first-python-gui) demonstration; receipt 11:55 AM | G3, G6, G7, G12, G14 |
-| <span id="meeting-8"></span><span id="session-8">S8</span> | 2026-09-28 | Mon | Measure steady temperature versus PWM magnitude for each heat/cool direction and identify asymmetry, limits, and a steady-state criterion. | [Module 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Begin [**A2**](lab-04/index.md#a2-tec-heating-and-cooling-analysis); due Oct. 5 at 6:00 PM | G2, G3, G6, G7, G9 |
-| <span id="meeting-9"></span><span id="session-9">S9</span> | 2026-09-30 | Wed | Implement P control and explain why nonzero actuator power produces droop. | [Module 5: P-Only Temperature Control](lab-05/index.md) | `Prep`: P-control prediction | G7-G10 |
-| <span id="meeting-10"></span><span id="session-10">S10</span> | 2026-10-05 | Mon | Measure droop versus gain and characterize oscillation amplitude and frequency near instability. | [Module 5](lab-05/index.md) | [**A2**](lab-04/index.md#a2-tec-heating-and-cooling-analysis) due 6:00 PM; formative P-control record for A3/C4 | G3, G8, G9, G14 |
-| <span id="meeting-11"></span><span id="session-11">S11</span> | 2026-10-07 | Wed | Derive and fit a one-lump energy balance; interpret heat capacity, conductance, and time constant dimensionally. | [Module 6, Part I: P/PI Control And Lumped Modeling](lab-06/index.md) | Guided A3 derivation work | G9, G10, G13 |
-| <span id="meeting-12"></span><span id="session-12">S12</span> | 2026-10-13 | Tue | Explain how integral action removes droop; implement anti-windup; compare P and PI responses. | [Module 6, Part I](lab-06/index.md) | `Prep`: PI-control preparation | G8-G10, G13 |
-| <span id="meeting-13"></span><span id="session-13">S13</span> | 2026-10-14 | Wed | Use a two-lump model to explain thermal lag, overshoot, and gain-dependent oscillation. | [Module 6, Part I](lab-06/index.md) | [**A3**](lab-06/index.md#a3-feedback-data-and-lumped-model-memo) due 6:00 PM | G9, G10, G13, G14 |
-| <span id="meeting-14"></span><span id="session-14">S14</span> | 2026-10-19 | Mon | Fit one- and two-lump models and judge whether added complexity is supported by residuals. | [Module 6, Part II: TEC Process Model And Python Simulation](lab-07/index.md) | `P2` | G3, G7, G10, G12-G14 |
-| <span id="meeting-15"></span><span id="session-15">S15</span> | 2026-10-21 | Wed | Defend the TEC controller and model; explain why a rod requires `T(x,t)` rather than a lumped temperature. | [Module 6, Part II](lab-07/index.md) | [**C4**](../assessment.md#c4-feedback-controller-and-tec-process-model) demonstration; receipt 11:55 AM | G8-G14 |
+| <span id="meeting-8"></span><span id="session-8">S8</span> | 2026-09-28 | Mon | Measure steady temperature versus PWM magnitude for each heat/cool direction and identify asymmetry, limits, and a steady-state criterion. | [Module 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Begin [**A2**](lab-04/index.md#a2-tec-heating-and-cooling-analysis); due Oct. 7 at 6:00 PM | G2, G3, G6, G7, G9 |
+| <span id="meeting-9"></span><span id="session-9">S9</span> | 2026-09-30 | Wed | Complete the steady-state heating and cooling calibration, extract both susceptibilities, and preserve the evidence for C4 and A2. | [Module 4: Open-Loop TEC Calibration And Software Safety](lab-04/index.md) | Prepare [**C4**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) and complete the A2 analysis | G2, G3, G6, G7, G9 |
+| <span id="meeting-10"></span><span id="session-10">S10</span> | 2026-10-05 | Mon | Demonstrate Module 4 understanding, then implement P control and verify that the feedback sign is correct. | [Module 4](lab-04/index.md) and [Module 5: P-Only Temperature Control](lab-05/index.md) | [**C4**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) demonstrated during class; receipt 11:55 AM | G3, G6-G10, G14 |
+| <span id="meeting-11"></span><span id="session-11">S11</span> | 2026-10-07 | Wed | Measure droop versus gain and characterize oscillation amplitude and frequency near instability. | [Module 5](lab-05/index.md) | [**A2**](lab-04/index.md#a2-tec-heating-and-cooling-analysis) due 6:00 PM; preserve the P-control record for A3 | G3, G8, G9, G14 |
+| <span id="meeting-12"></span><span id="session-12">S12</span> | 2026-10-13 | Tue | Derive and fit a one-lump energy balance; interpret heat capacity, conductance, and time constant dimensionally. | [Module 6, Part I: P/PI Control And Lumped Modeling](lab-06/index.md) | Guided A3 derivation work | G9, G10, G13 |
+| <span id="meeting-13"></span><span id="session-13">S13</span> | 2026-10-14 | Wed | Explain how integral action removes droop; implement anti-windup; compare P and PI responses. | [Module 6, Part I](lab-06/index.md) | PI-control preparation and matched P/PI evidence | G8-G10, G13 |
+| <span id="meeting-14"></span><span id="session-14">S14</span> | 2026-10-19 | Mon | Use and fit one- and two-lump models to explain lag, overshoot, and gain-dependent oscillation. | [Module 6, Part I](lab-06/index.md) and [Part II](lab-07/index.md) | `P2`; assemble the A3 model comparison | G3, G7, G9, G10, G12-G14 |
+| <span id="meeting-15"></span><span id="session-15">S15</span> | 2026-10-21 | Wed | Judge whether added model complexity is supported by residuals and explain why a rod requires `T(x,t)` rather than a lumped temperature. | [Module 6, Part II](lab-07/index.md) | [**A3**](lab-06/index.md#a3-feedback-data-and-lumped-model-memo) due 6:00 PM | G3, G7-G10, G12-G14 |
 | <span id="meeting-16"></span><span id="session-16">S16</span> | 2026-10-26 | Mon | Lecture: solve the finite-length one-dimensional rod, obtain the semi-infinite limit, and introduce the transverse Biot number. | [Module 7, Part I: Thermal Transport Foundations](theory-bridge-chapter-1/index.md) and [Part III: Rod Instrument](lab-08/index.md) | `Prep`: Lienhard Chapter 1 and Section 4.5 | G11, G13, G14 |
 | <span id="meeting-17"></span><span id="session-17">S17</span> | 2026-10-28 | Wed | Quantify finite-length error and transverse Biot number; calibrate and map rod thermistors for `T(x,t)`. | [Module 7, Parts II-III: Rod Theory And Instrument](lab-08/index.md) | [**A4**](lab-08/index.md#a4-finite-length-and-small-biot-guided-study) due 9:05 AM | G2-G4, G11-G14 |
 | <span id="meeting-18"></span><span id="session-18">S18</span> | 2026-11-02 | Mon | Acquire baseline and step-response data; lecture on the axisymmetric radial model while the experiment runs. | [Module 7, Part III](lab-08/index.md) | [**C5**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) demonstration; receipt 11:55 AM | G3, G7, G9, G11-G13 |

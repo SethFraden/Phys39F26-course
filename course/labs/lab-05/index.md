@@ -11,7 +11,7 @@ e=T_{\mathrm{set}}-T, \qquad u=K_p e
 
 and $K_p$ a conversion constant. The sign of $u$ selects heat or cool; its magnitude becomes the nonnegative
 8-bit PWM value sent to the Arduino. The Arduino applies the command and retains
-independent shutdown authority. During S9-S10 you will verify the feedback sign,
+independent shutdown authority. During S10-S11 you will verify the feedback sign,
 measure droop versus gain, explore high-gain behavior, and compare the data with
 a simple model. PI control follows in Module 6.
 
@@ -116,8 +116,8 @@ closed loop, respectively.
 
 | Session | Required outside work | Total |
 | --- | --- | ---: |
-| S9 | Read the assignment; answer the questions; review Module 4; prepare the controller and gain range | **2 hours 15 minutes** |
-| S10 | Prepare the data plan; analyze and label evidence; update the note; commit and push | **2 hours 30 minutes** |
+| S10 | Read the assignment; answer the questions; review Module 4; prepare the controller and gain range | **2 hours 15 minutes** |
+| S11 | Prepare the data plan; analyze and label evidence; update the note; commit and push | **2 hours 30 minutes** |
 
 Optional background reading is not included in the required workload budget.
 
@@ -159,6 +159,16 @@ Add a P-only mode to your Python GUI. Python calculates the signed PWM and
 sends direction and PWM magnitude to the Arduino. The Arduino continues to
 measure temperature, parse commands, drive the H-bridge, and enforce the
 independent software temperature limit developed in Module 4.
+
+!!! warning "Check AI-generated code for unrequested features"
+    AI coding assistants sometimes add plausible control features that were
+    not requested. Before operating the TEC, verify that the controller uses a
+    single fixed value of $K_p$ and calculates only
+    $u=K_p(T_{\mathrm{set}}-T)$. Do not use feed-forward, gain scheduling,
+    adaptive or variable gain, or integral or derivative terms in this module.
+    The output clamp and independent software safety shutdown must remain, but
+    they are safety constraints rather than additions to the P-control law.
+    Be prepared to identify the exact lines that calculate $e$ and $u$.
 
 The controller should:
 
@@ -463,16 +473,13 @@ important physics or implementation details. Discuss plausible causes such as
 thermal delay between the TEC and thermistor, another thermal mass, discrete
 sampling, sensor noise, or PWM saturation.
 
-### Evidence For A3 And C4
+### Evidence For A3 And Oral Review
 
-### C4 Oral Questions: P Control
+### Oral Review Questions: P Control
 
-This is the authoritative P-control question bank for C4. Prepare to answer
-one primary question and a brief follow-up individually. The
-[C4 deadline and rubric](../../assessment.md#c4-feedback-controller-and-tec-process-model)
-remain on the Assessment page; additional questions address
-[PI control in Module 6](../lab-06/index.md#c4-oral-questions-pi-control) and
-[modeling in Module 7](../lab-07/index.md#c4-oral-questions-process-modeling).
+Use these questions to check your understanding and prepare the interpretation
+in A3. Prepare to answer one primary question and a brief follow-up
+individually during later oral review.
 
 1. The block reaches its setpoint above room temperature. Why will it not stay
    there under pure P-only control? What changes for a setpoint below ambient?
@@ -486,7 +493,7 @@ remain on the Assessment page; additional questions address
 
 Module 5 requires no separate paper. Its results support the later
 [`A3` feedback-and-model memo](../lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
-and the C4 demonstration. During S9-S10, preserve:
+and later oral review. During S10-S11, preserve:
 
 - the low-gain feedback sign test,
 - the chosen gain range and the calculation used to justify it,

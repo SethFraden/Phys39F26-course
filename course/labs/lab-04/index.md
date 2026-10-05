@@ -41,7 +41,7 @@ By the end of this module, you should be able to:
 | Make the calibration graph and extract its two slopes | 15 minutes |
 | Complete the guided A2 energy-balance analysis | 30 minutes |
 | Check and submit A2 | 15 minutes |
-| **Total outside class associated with S8** | **1 hour 30 minutes** |
+| **Total outside class associated with S8-S9** | **1 hour 30 minutes** |
 
 All physical runs and safety tests occur in class. If analysis reveals that a
 measurement must be repeated, identify it for the next supervised opportunity
@@ -151,38 +151,9 @@ actually use.
 
 ## Part 3: Measure Steady-State Temperature
 
-Measure steady state only at the five selected heating values and the five
-selected cooling values from Part 2. Do not make a continuous 0–255 PWM
-sweep. In each direction, work through only the five chosen values, beginning
-at low PWM. After a sudden PWM change—for example, from 25% to 50%—the
-temperature approaches its new value approximately exponentially. It never
-becomes mathematically stationary: after one time constant it has completed
-about 63% of the change, after two it has completed about 86% (14% remains),
-and after three it has completed about 95% (5% remains).
-
-Use the following practical definition of steady state for this lab. Estimate the time constant
-from the response to a PWM step, wait about three time constants, and
-then watch the trace for one additional minute. Because the temperature trace
-has noise, do not expect a perfectly horizontal line. Call the temperature
-steady when its net drift over that minute is no larger than the ordinary
-short-term noise (the usual up-and-down wiggles) in the trace. If a clear
-upward or downward drift remains, wait longer. Every recorded temperature in
-this part is a **steady-state** temperature.
-
-Use a table like this:
-
-| Direction | PWM | Start Temperature (°C) | Steady Temperature (°C) | Time Waited (s) | Notes |
-| --- | ---: | ---: | ---: | ---: | --- |
-| Heat | 0 |  |  |  |  |
-| Heat |  |  |  |  |  |
-| Cool | 0 |  |  |  |  |
-| Cool |  |  |  |  |  |
-
-Also save at least one temperature-versus-time trace for heating and one for
-cooling.
-
-At this point, modify the fixed temperature y-axis used in Module 3 so small
-steady-state drifts are visible. Give GitHub Copilot the following prompt:
+Before collecting the steady-state measurements, modify the fixed temperature
+y-axis used in Module 3 so small drifts are visible. Give GitHub Copilot the
+following prompt:
 
 <details markdown="1">
 <summary>Suggested AI prompt: automatically scale the temperature axis</summary>
@@ -209,6 +180,42 @@ making normal measurement noise dominate the display.
 ```
 
 </details>
+
+Measure steady state only at the five selected heating values and the five
+selected cooling values from Part 2. Do not make a continuous 0–255 PWM
+sweep. In each direction, work through only the five chosen values, beginning
+at low PWM. After a sudden PWM change—for example, from 25% to 50%—the
+temperature approaches its new value approximately exponentially. It never
+becomes mathematically stationary: after one time constant it has completed
+about 63% of the change, after two it has completed about 86% (14% remains),
+and after three it has completed about 95% (5% remains).
+
+Use the following practical definition of steady state for this lab. Estimate the time constant
+from the response to a PWM step, wait about three time constants, and
+then watch the trace for one additional minute. Because the temperature trace
+has noise, do not expect a perfectly horizontal line. Call the temperature
+steady when its net drift over that minute is no larger than the ordinary
+short-term noise (the usual up-and-down wiggles) in the trace. If a clear
+upward or downward drift remains, wait longer. Every recorded temperature in
+this part is a **steady-state** temperature.
+
+Use a table like this:
+
+| Direction | PWM | Start Temperature (°C) | Steady Temperature (°C) | Time Waited (s) | Notes |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Heat | 0 |  |  |  |  |
+| Heat |  |  |  |  |  |
+| Heat |  |  |  |  |  |
+| Heat |  |  |  |  |  |
+| Heat |  |  |  |  |  |
+| Cool | 0 |  |  |  |  |
+| Cool |  |  |  |  |  |
+| Cool |  |  |  |  |  |
+| Cool |  |  |  |  |  |
+| Cool |  |  |  |  |  |
+
+Also save at least one temperature-versus-time trace for heating and one for
+cooling.
 
 ## Part 4: Plot Temperature Versus PWM
 
@@ -280,39 +287,30 @@ Recall the full object-face TEC heat-flow equation from the
 +K_M(T_r-T_o).
 \]
 
-The subscript $o$ denotes the **object face** of the TEC, which is attached to
-the controlled metal block; the subscript $r$ denotes the **reservoir face**,
-which is coupled to the heat exchanger. Thus $T_o$ and $T_r$ are the absolute
-temperatures of those two faces.
-
-The first term is Peltier transport, the second is the share of Joule heating
-delivered to the object face, and the third is passive conduction through the
-TEC. In the simplified model below, $\dot Q_{\mathrm{TEC}}$ represents the two
-current-dependent terms. The TEC conduction term and the apparatus's other
-passive heat leaks are combined into the effective conductance term
-$-G(T-T_0)$. Do not count TEC conduction a second time inside
-$\dot Q_{\mathrm{TEC}}$.
-
-Let $C$ be the thermal capacitance of the controlled object, $T_0$ its
-zero-PWM temperature, and $G$ the effective passive thermal conductance from
-the object to its surroundings. Write the simplified energy balance as
+Here $o$ denotes the object face attached to the controlled block, and $r$
+denotes the reservoir face coupled to the heat exchanger. For this analysis,
+combine the TEC's passive conduction and all other passive heat leaks into one
+effective conductance $G$. The simplified object energy balance is
 
 \[
 C\frac{dT}{dt}=\dot Q_{\mathrm{TEC}}-G(T-T_0).
 \]
 
-At steady state, $dT/dt=0$. The individual heat flows are generally not zero;
-their **sum is zero**. This is a general, model independent result. It is always true from the conservation of energy. Therefore,
+At steady state, conservation of energy requires all heat rates into and out of
+the object to sum to zero. With the heat flows grouped into the two terms used
+in this simplified model, that requirement becomes
 
 \[
 G(T-T_0)=\dot Q_{\mathrm{TEC}}.
 \]
 
-Look at the above equation carefully. Enumerate all the terms and think about whether the heat is flowing into the object or out of the object for heating and cooling.  Before writing the TEC heat rate, derive how PWM averages current. During one
-PWM period $\tau$, let the current be $I$ for a time $D\tau$ and zero for the
-remaining $(1-D)\tau$, where $D=|u|/255$ is the nonnegative duty cycle
-and $I$ is the signed on-state current (positive for heating, negative for
-cooling). Starting from
+Complete the following three steps.
+
+**Step 1 — Interpret the steady-state balance.** Identify the heat flows
+represented by each term. For heating and cooling, state whether each heat
+flow is into or out of the object.
+
+**Step 2 — Average the PWM current.** Starting from
 
 \[
 \langle I\rangle=\frac{1}{\tau}\int_0^\tau I(t)\,dt,
@@ -328,41 +326,19 @@ show that
 \boxed{\langle I^2\rangle=DI^2}.
 \]
 
-Explain why $\langle I^2\rangle$ is not generally equal to
-$\langle I\rangle^2$, and connect this distinction to your measured
-susceptibility. The Peltier term is proportional to $\langle I\rangle=DI$,
-and Joule heating is proportional to $\langle I^2\rangle=DI^2$. For fixed
-on-state current, both ideal contributions are therefore linear in $D$, giving
-an approximately constant susceptibility. If one incorrectly used
-$\langle I^2\rangle=\langle I\rangle^2=D^2I^2$, the predicted Joule term would
-be quadratic in duty cycle and the susceptibility would vary with $D$. Note that if we were not using PWM, but used a digital to analog converter that outputed a constant current whose amplitude could be linearly varied, then $\langle I^2\rangle=\langle I\rangle^2$.
+Explain why $\langle I^2\rangle\ne\langle I\rangle^2$ for PWM and compare the
+predicted duty-cycle dependence with the linearity or curvature of your
+measured graph.
 
-Compare
-the prediction for PWM control with the approximate linearity or curvature of your measured
-temperature-versus-PWM graph.
-
-Near room temperature, let the positive quantities $\dot Q_P$ and $\dot Q_J$
-be the Peltier and object-face Joule heat rates, in watts, when the PWM is fully
-on. With $D$ the dimensionless duty cycle, the cycle-averaged heat rates are
-$D\dot Q_P$ and $D\dot Q_J$. The Peltier term changes sign when current
-reverses, whereas Joule heating does not. Define the signed duty cycle
-$d=u/255$, so $D=|d|$. The combined expression is
+**Step 3 — Derive the heating-to-cooling slope ratio.** Define signed duty
+cycle $d=u/255$, with $D=|d|$. Let the positive quantities $\dot Q_P$ and
+$\dot Q_J$ be the full-on Peltier and object-face Joule heat rates. Begin with
 
 \[
 \dot Q_{\mathrm{TEC}}=d\dot Q_P+|d|\dot Q_J.
 \]
 
-On the heating branch $d>0$; on the cooling branch $d<0$. Thus
-
-\[
-\dot Q_{\mathrm{TEC},h}=d(\dot Q_P+\dot Q_J),
-\qquad
-\dot Q_{\mathrm{TEC},c}=d(\dot Q_P-\dot Q_J).
-\]
-
-Substitute each expression into the steady-state balance and solve for
-$T_h(d)-T_0$ and $T_c(d)-T_0$. Differentiate with respect to the signed
-duty cycle $d$ to show that
+Derive the two branch slopes and show that
 
 \[
 \frac{dT_h}{dd}=\frac{\dot Q_P+\dot Q_J}{G},
@@ -379,8 +355,61 @@ their ratio $r=m_h/m_c$. Show that
 \boxed{\frac{\dot Q_J}{\dot Q_P}=\frac{r-1}{r+1}}.
 \]
 
-Evaluate $\dot Q_J/\dot Q_P$ using your measured value of $r$. As an algebra
-check, if $r=2$, the result should be $\dot Q_J/\dot Q_P=1/3$.
+Evaluate $\dot Q_J/\dot Q_P$ using your measured $r$. If $r=2$, your
+expression should give $\dot Q_J/\dot Q_P=1/3$.
+
+<details markdown="1">
+<summary>Show guidance: from the full TEC equation to the simplified balance</summary>
+
+The first term in the full TEC equation is Peltier transport, the second is the
+share of Joule heating delivered to the object face, and the third is passive
+conduction through the TEC. In the simplified model,
+$\dot Q_{\mathrm{TEC}}$ represents only the two current-dependent terms. The
+TEC conduction term and the apparatus's other passive heat leaks are included
+in $-G(T-T_0)$. Do not count TEC conduction again inside
+$\dot Q_{\mathrm{TEC}}$.
+
+Here $C$ is the thermal capacitance of the controlled object, and $T_0$ is its
+zero-PWM temperature. At steady state, the individual heat flows need not be
+zero; their sum is zero.
+
+</details>
+
+<details markdown="1">
+<summary>Show guidance: average the PWM current</summary>
+
+During one PWM period $\tau$, the current is the signed on-state value $I$ for
+$D\tau$ and zero for the remaining $(1-D)\tau$, where $D=|u|/255$. Insert
+these two time intervals into the integrals in step 2.
+
+The Peltier term is proportional to $\langle I\rangle=DI$, while Joule heating
+is proportional to $\langle I^2\rangle=DI^2$. For fixed on-state current, both
+are linear in $D$. If one incorrectly used
+$\langle I^2\rangle=\langle I\rangle^2=D^2I^2$, the predicted Joule term would
+be quadratic in duty cycle and the susceptibility would vary with $D$. For a
+continuously variable DC current rather than PWM,
+$\langle I^2\rangle=\langle I\rangle^2$.
+
+</details>
+
+<details markdown="1">
+<summary>Show guidance: derive the slope ratio</summary>
+
+The Peltier term changes sign when current reverses, whereas Joule heating does
+not. Therefore,
+
+\[
+\dot Q_{\mathrm{TEC},h}=d(\dot Q_P+\dot Q_J),
+\qquad
+\dot Q_{\mathrm{TEC},c}=d(\dot Q_P-\dot Q_J).
+\]
+
+Substitute each expression into the steady-state balance, solve for
+$T_h(d)-T_0$ and $T_c(d)-T_0$, and differentiate with respect to $d$. Since
+$d=u/255$, both slopes with respect to signed PWM contain the same factor of
+$1/255$, which cancels from $r=m_h/m_c$.
+
+</details>
 
 ### 3. Find And Use The Laird Maximum-Current Data
 
@@ -492,8 +521,6 @@ enough that another student could reproduce each numerical result.
    when the object is hotter than room temperature and when it is colder.
    Explain why approximately symmetric passive conduction opposes both heating
    and cooling but does not, by itself, explain unequal slope magnitudes.
-7. **Conclusion.** In approximately 100-150 words, explain what your
-   measurements imply about Peltier transport, Joule heating, and conduction.
 
 Do not repeat the C2/C3 circuit sketches, apparatus descriptions,
 safety demonstration, or code documentation in A2. Retain the class data and
@@ -507,7 +534,7 @@ short assignment.
 | Items 1-2: Part 4 graph, measured slopes, units, fitting ranges, and ratio are clearly presented | 2 |
 | Item 3: PWM averaging proof, steady-state energy balance, slope-ratio derivation, and numerical result are correct | 3 |
 | Item 4: Relevant Laird values and operating conditions are correctly located, cited, interpreted, and used in a dimensionally clear calculation | 2 |
-| Items 5-7: Comparison, passive-conduction explanation, and conclusion show sound physical reasoning | 2 |
+| Items 5-6: Comparison and passive-conduction explanation show sound physical reasoning | 2 |
 | PDF is concise, legible, and complete | 1 |
 
 ## C4 Oral Questions: Open-Loop TEC Calibration
@@ -547,7 +574,7 @@ magnitude and heat/cool commands from a Python GUI, and drives an H-bridge using
 pins 9 and 10. Add a software temperature safety limit without removing the
 existing measurement, serial reporting, or command parser.
 
-Average 100 to 1000 thermistor readings before calculating temperature. Define
+Average exactly 1000 thermistor readings before calculating temperature. Define
 temperatureLimitC as 60.0. Above that limit, set the commanded PWM to 0, write 0
 to both H-bridge PWM outputs, continue serial reporting, and report that safety
 shutdown is active. Keep the code simple and comment the new logic.

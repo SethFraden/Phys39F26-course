@@ -263,7 +263,7 @@ of class at <strong>11:55 AM</strong>. The separate A2 team PDF is due the same 
 <td style="text-align: right;">15 minutes</td>
 </tr>
 <tr>
-<td><strong>Total outside class associated with S8</strong></td>
+<td><strong>Total outside class associated with S8-S9</strong></td>
 <td style="text-align: right;"><strong>1 hour 30 minutes</strong></td>
 </tr>
 </tbody>
@@ -357,6 +357,31 @@ steady state, while the cooling set should extend from 0 to the PWM that gives
 10 °C ± 1 °C at steady state. Record the exact integer values that you
 actually use.</p>
 <h2 id="part-3-measure-steady-state-temperature">Part 3: Measure Steady-State Temperature<a class="headerlink" href="#part-3-measure-steady-state-temperature" title="Permanent link">&para;</a></h2>
+<p>Before collecting the steady-state measurements, modify the fixed temperature
+y-axis used in Module 3 so small drifts are visible. Give GitHub Copilot the
+following prompt:</p>
+<details>
+<summary>Suggested AI prompt: automatically scale the temperature axis</summary>
+<pre><code class="language-text">Modify my existing PySide6 and pyqtgraph TEC strip-chart program. In Module 3,
+the temperature y-axis was fixed. For Module 4, replace that fixed y-axis with
+an automatically scaled temperature y-axis.
+
+After every accepted temperature measurement, find the minimum and maximum
+temperature among the samples currently visible in the rolling time window.
+Set the temperature y-axis to extend 1 °C below the minimum and 1 °C above the
+maximum. Always use at least a 6 °C total y-axis span; if the measured range is
+smaller, center that 6 °C span on the measured temperatures. Update the y-axis
+each time new data arrive, with no extra automatic padding.
+
+Do not autoscale the PWM axis. Preserve the rolling time axis, controls, serial
+communication, CSV logging, and red/blue PWM traces. Use a light, preferably
+white, plot background so small temperature slopes remain visible. Comment the
+new autoscaling code for a Python beginner.
+
+The goal is to give enough magnification to see slow temperature drift without
+making normal measurement noise dominate the display.
+</code></pre>
+</details>
 <p>Measure steady state only at the five selected heating values and the five
 selected cooling values from Part 2. Do not make a continuous 0–255 PWM
 sweep. In each direction, work through only the five chosen values, beginning
@@ -403,8 +428,56 @@ this part is a <strong>steady-state</strong> temperature.</p>
 <td></td>
 </tr>
 <tr>
+<td>Heat</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Heat</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Heat</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
 <td>Cool</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Cool</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Cool</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Cool</td>
+<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
@@ -422,30 +495,6 @@ this part is a <strong>steady-state</strong> temperature.</p>
 </table>
 <p>Also save at least one temperature-versus-time trace for heating and one for
 cooling.</p>
-<p>At this point, modify the fixed temperature y-axis used in Module 3 so small
-steady-state drifts are visible. Give GitHub Copilot the following prompt:</p>
-<details>
-<summary>Suggested AI prompt: automatically scale the temperature axis</summary>
-<pre><code class="language-text">Modify my existing PySide6 and pyqtgraph TEC strip-chart program. In Module 3,
-the temperature y-axis was fixed. For Module 4, replace that fixed y-axis with
-an automatically scaled temperature y-axis.
-
-After every accepted temperature measurement, find the minimum and maximum
-temperature among the samples currently visible in the rolling time window.
-Set the temperature y-axis to extend 1 °C below the minimum and 1 °C above the
-maximum. Always use at least a 6 °C total y-axis span; if the measured range is
-smaller, center that 6 °C span on the measured temperatures. Update the y-axis
-each time new data arrive, with no extra automatic padding.
-
-Do not autoscale the PWM axis. Preserve the rolling time axis, controls, serial
-communication, CSV logging, and red/blue PWM traces. Use a light, preferably
-white, plot background so small temperature slopes remain visible. Comment the
-new autoscaling code for a Python beginner.
-
-The goal is to give enough magnification to see slow temperature drift without
-making normal measurement noise dominate the display.
-</code></pre>
-</details>
 <h2 id="part-4-plot-temperature-versus-pwm">Part 4: Plot Temperature Versus PWM<a class="headerlink" href="#part-4-plot-temperature-versus-pwm" title="Permanent link">&para;</a></h2>
 <p>Make a graph of steady-state temperature <span class="arithmatex">\(T\)</span> versus signed PWM, in which negative PWM is for cooling and positive PWM is for heating. Plot the
 heating and cooling measurements as separate data sets: use red for heating and
@@ -500,33 +549,24 @@ PWM range used for each fit and note any visible curvature.</p>
 +\frac{1}{2}R_M\left\langle I^2\right\rangle
 +K_M(T_r-T_o).
 \]</div>
-<p>The subscript <span class="arithmatex">\(o\)</span> denotes the <strong>object face</strong> of the TEC, which is attached to
-the controlled metal block; the subscript <span class="arithmatex">\(r\)</span> denotes the <strong>reservoir face</strong>,
-which is coupled to the heat exchanger. Thus <span class="arithmatex">\(T_o\)</span> and <span class="arithmatex">\(T_r\)</span> are the absolute
-temperatures of those two faces.</p>
-<p>The first term is Peltier transport, the second is the share of Joule heating
-delivered to the object face, and the third is passive conduction through the
-TEC. In the simplified model below, <span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span> represents the two
-current-dependent terms. The TEC conduction term and the apparatus's other
-passive heat leaks are combined into the effective conductance term
-<span class="arithmatex">\(-G(T-T_0)\)</span>. Do not count TEC conduction a second time inside
-<span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span>.</p>
-<p>Let <span class="arithmatex">\(C\)</span> be the thermal capacitance of the controlled object, <span class="arithmatex">\(T_0\)</span> its
-zero-PWM temperature, and <span class="arithmatex">\(G\)</span> the effective passive thermal conductance from
-the object to its surroundings. Write the simplified energy balance as</p>
+<p>Here <span class="arithmatex">\(o\)</span> denotes the object face attached to the controlled block, and <span class="arithmatex">\(r\)</span>
+denotes the reservoir face coupled to the heat exchanger. For this analysis,
+combine the TEC's passive conduction and all other passive heat leaks into one
+effective conductance <span class="arithmatex">\(G\)</span>. The simplified object energy balance is</p>
 <div class="arithmatex">\[
 C\frac{dT}{dt}=\dot Q_{\mathrm{TEC}}-G(T-T_0).
 \]</div>
-<p>At steady state, <span class="arithmatex">\(dT/dt=0\)</span>. The individual heat flows are generally not zero;
-their <strong>sum is zero</strong>. This is a general, model independent result. It is always true from the conservation of energy. Therefore,</p>
+<p>At steady state, conservation of energy requires all heat rates into and out of
+the object to sum to zero. With the heat flows grouped into the two terms used
+in this simplified model, that requirement becomes</p>
 <div class="arithmatex">\[
 G(T-T_0)=\dot Q_{\mathrm{TEC}}.
 \]</div>
-<p>Look at the above equation carefully. Enumerate all the terms and think about whether the heat is flowing into the object or out of the object for heating and cooling.  Before writing the TEC heat rate, derive how PWM averages current. During one
-PWM period <span class="arithmatex">\(\tau\)</span>, let the current be <span class="arithmatex">\(I\)</span> for a time <span class="arithmatex">\(D\tau\)</span> and zero for the
-remaining <span class="arithmatex">\((1-D)\tau\)</span>, where <span class="arithmatex">\(D=|u|/255\)</span> is the nonnegative duty cycle
-and <span class="arithmatex">\(I\)</span> is the signed on-state current (positive for heating, negative for
-cooling). Starting from</p>
+<p>Complete the following three steps.</p>
+<p><strong>Step 1 — Interpret the steady-state balance.</strong> Identify the heat flows
+represented by each term. For heating and cooling, state whether each heat
+flow is into or out of the object.</p>
+<p><strong>Step 2 — Average the PWM current.</strong> Starting from</p>
 <div class="arithmatex">\[
 \langle I\rangle=\frac{1}{\tau}\int_0^\tau I(t)\,dt,
 \qquad
@@ -538,35 +578,16 @@ cooling). Starting from</p>
 \qquad
 \boxed{\langle I^2\rangle=DI^2}.
 \]</div>
-<p>Explain why <span class="arithmatex">\(\langle I^2\rangle\)</span> is not generally equal to
-<span class="arithmatex">\(\langle I\rangle^2\)</span>, and connect this distinction to your measured
-susceptibility. The Peltier term is proportional to <span class="arithmatex">\(\langle I\rangle=DI\)</span>,
-and Joule heating is proportional to <span class="arithmatex">\(\langle I^2\rangle=DI^2\)</span>. For fixed
-on-state current, both ideal contributions are therefore linear in <span class="arithmatex">\(D\)</span>, giving
-an approximately constant susceptibility. If one incorrectly used
-<span class="arithmatex">\(\langle I^2\rangle=\langle I\rangle^2=D^2I^2\)</span>, the predicted Joule term would
-be quadratic in duty cycle and the susceptibility would vary with <span class="arithmatex">\(D\)</span>. Note that if we were not using PWM, but used a digital to analog converter that outputed a constant current whose amplitude could be linearly varied, then <span class="arithmatex">\(\langle I^2\rangle=\langle I\rangle^2\)</span>.</p>
-<p>Compare
-the prediction for PWM control with the approximate linearity or curvature of your measured
-temperature-versus-PWM graph.</p>
-<p>Near room temperature, let the positive quantities <span class="arithmatex">\(\dot Q_P\)</span> and <span class="arithmatex">\(\dot Q_J\)</span>
-be the Peltier and object-face Joule heat rates, in watts, when the PWM is fully
-on. With <span class="arithmatex">\(D\)</span> the dimensionless duty cycle, the cycle-averaged heat rates are
-<span class="arithmatex">\(D\dot Q_P\)</span> and <span class="arithmatex">\(D\dot Q_J\)</span>. The Peltier term changes sign when current
-reverses, whereas Joule heating does not. Define the signed duty cycle
-<span class="arithmatex">\(d=u/255\)</span>, so <span class="arithmatex">\(D=|d|\)</span>. The combined expression is</p>
+<p>Explain why <span class="arithmatex">\(\langle I^2\rangle\ne\langle I\rangle^2\)</span> for PWM and compare the
+predicted duty-cycle dependence with the linearity or curvature of your
+measured graph.</p>
+<p><strong>Step 3 — Derive the heating-to-cooling slope ratio.</strong> Define signed duty
+cycle <span class="arithmatex">\(d=u/255\)</span>, with <span class="arithmatex">\(D=|d|\)</span>. Let the positive quantities <span class="arithmatex">\(\dot Q_P\)</span> and
+<span class="arithmatex">\(\dot Q_J\)</span> be the full-on Peltier and object-face Joule heat rates. Begin with</p>
 <div class="arithmatex">\[
 \dot Q_{\mathrm{TEC}}=d\dot Q_P+|d|\dot Q_J.
 \]</div>
-<p>On the heating branch <span class="arithmatex">\(d&gt;0\)</span>; on the cooling branch <span class="arithmatex">\(d&lt;0\)</span>. Thus</p>
-<div class="arithmatex">\[
-\dot Q_{\mathrm{TEC},h}=d(\dot Q_P+\dot Q_J),
-\qquad
-\dot Q_{\mathrm{TEC},c}=d(\dot Q_P-\dot Q_J).
-\]</div>
-<p>Substitute each expression into the steady-state balance and solve for
-<span class="arithmatex">\(T_h(d)-T_0\)</span> and <span class="arithmatex">\(T_c(d)-T_0\)</span>. Differentiate with respect to the signed
-duty cycle <span class="arithmatex">\(d\)</span> to show that</p>
+<p>Derive the two branch slopes and show that</p>
 <div class="arithmatex">\[
 \frac{dT_h}{dd}=\frac{\dot Q_P+\dot Q_J}{G},
 \qquad
@@ -579,8 +600,48 @@ their ratio <span class="arithmatex">\(r=m_h/m_c\)</span>. Show that</p>
 <div class="arithmatex">\[
 \boxed{\frac{\dot Q_J}{\dot Q_P}=\frac{r-1}{r+1}}.
 \]</div>
-<p>Evaluate <span class="arithmatex">\(\dot Q_J/\dot Q_P\)</span> using your measured value of <span class="arithmatex">\(r\)</span>. As an algebra
-check, if <span class="arithmatex">\(r=2\)</span>, the result should be <span class="arithmatex">\(\dot Q_J/\dot Q_P=1/3\)</span>.</p>
+<p>Evaluate <span class="arithmatex">\(\dot Q_J/\dot Q_P\)</span> using your measured <span class="arithmatex">\(r\)</span>. If <span class="arithmatex">\(r=2\)</span>, your
+expression should give <span class="arithmatex">\(\dot Q_J/\dot Q_P=1/3\)</span>.</p>
+<details>
+<summary>Show guidance: from the full TEC equation to the simplified balance</summary>
+<p>The first term in the full TEC equation is Peltier transport, the second is the
+share of Joule heating delivered to the object face, and the third is passive
+conduction through the TEC. In the simplified model,
+<span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span> represents only the two current-dependent terms. The
+TEC conduction term and the apparatus's other passive heat leaks are included
+in <span class="arithmatex">\(-G(T-T_0)\)</span>. Do not count TEC conduction again inside
+<span class="arithmatex">\(\dot Q_{\mathrm{TEC}}\)</span>.</p>
+<p>Here <span class="arithmatex">\(C\)</span> is the thermal capacitance of the controlled object, and <span class="arithmatex">\(T_0\)</span> is its
+zero-PWM temperature. At steady state, the individual heat flows need not be
+zero; their sum is zero.</p>
+</details>
+<details>
+<summary>Show guidance: average the PWM current</summary>
+<p>During one PWM period <span class="arithmatex">\(\tau\)</span>, the current is the signed on-state value <span class="arithmatex">\(I\)</span> for
+<span class="arithmatex">\(D\tau\)</span> and zero for the remaining <span class="arithmatex">\((1-D)\tau\)</span>, where <span class="arithmatex">\(D=|u|/255\)</span>. Insert
+these two time intervals into the integrals in step 2.</p>
+<p>The Peltier term is proportional to <span class="arithmatex">\(\langle I\rangle=DI\)</span>, while Joule heating
+is proportional to <span class="arithmatex">\(\langle I^2\rangle=DI^2\)</span>. For fixed on-state current, both
+are linear in <span class="arithmatex">\(D\)</span>. If one incorrectly used
+<span class="arithmatex">\(\langle I^2\rangle=\langle I\rangle^2=D^2I^2\)</span>, the predicted Joule term would
+be quadratic in duty cycle and the susceptibility would vary with <span class="arithmatex">\(D\)</span>. For a
+continuously variable DC current rather than PWM,
+<span class="arithmatex">\(\langle I^2\rangle=\langle I\rangle^2\)</span>.</p>
+</details>
+<details>
+<summary>Show guidance: derive the slope ratio</summary>
+<p>The Peltier term changes sign when current reverses, whereas Joule heating does
+not. Therefore,</p>
+<div class="arithmatex">\[
+\dot Q_{\mathrm{TEC},h}=d(\dot Q_P+\dot Q_J),
+\qquad
+\dot Q_{\mathrm{TEC},c}=d(\dot Q_P-\dot Q_J).
+\]</div>
+<p>Substitute each expression into the steady-state balance, solve for
+<span class="arithmatex">\(T_h(d)-T_0\)</span> and <span class="arithmatex">\(T_c(d)-T_0\)</span>, and differentiate with respect to <span class="arithmatex">\(d\)</span>. Since
+<span class="arithmatex">\(d=u/255\)</span>, both slopes with respect to signed PWM contain the same factor of
+<span class="arithmatex">\(1/255\)</span>, which cancels from <span class="arithmatex">\(r=m_h/m_c\)</span>.</p>
+</details>
 <h3 id="3-find-and-use-the-laird-maximum-current-data">3. Find And Use The Laird Maximum-Current Data<a class="headerlink" href="#3-find-and-use-the-laird-maximum-current-data" title="Permanent link">&para;</a></h3>
 <p>Open the <a href="../../references/laird-tec-cp14-127-045.pdf">Laird CP14-127-045 data sheet</a>.
 Manufacturer data sheets contain the information needed to design with a
@@ -676,8 +737,6 @@ enough that another student could reproduce each numerical result.</p>
    when the object is hotter than room temperature and when it is colder.
    Explain why approximately symmetric passive conduction opposes both heating
    and cooling but does not, by itself, explain unequal slope magnitudes.</li>
-<li><strong>Conclusion.</strong> In approximately 100-150 words, explain what your
-   measurements imply about Peltier transport, Joule heating, and conduction.</li>
 </ol>
 <p>Do not repeat the C2/C3 circuit sketches, apparatus descriptions,
 safety demonstration, or code documentation in A2. Retain the class data and
@@ -705,7 +764,7 @@ short assignment.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>Items 5-7: Comparison, passive-conduction explanation, and conclusion show sound physical reasoning</td>
+<td>Items 5-6: Comparison and passive-conduction explanation show sound physical reasoning</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
@@ -746,7 +805,7 @@ magnitude and heat/cool commands from a Python GUI, and drives an H-bridge using
 pins 9 and 10. Add a software temperature safety limit without removing the
 existing measurement, serial reporting, or command parser.
 
-Average 100 to 1000 thermistor readings before calculating temperature. Define
+Average exactly 1000 thermistor readings before calculating temperature. Define
 temperatureLimitC as 60.0. Above that limit, set the commanded PWM to 0, write 0
 to both H-bridge PWM outputs, continue serial reporting, and report that safety
 shutdown is active. Keep the code simple and comment the new logic.

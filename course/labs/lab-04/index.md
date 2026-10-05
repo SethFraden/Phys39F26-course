@@ -214,14 +214,16 @@ Use a table like this:
 | Cool |  |  |  |  |  |
 | Cool |  |  |  |  |  |
 
-Also save at least one temperature-versus-time trace for heating and one for
-cooling.
+The strip chart is used to decide when each measurement has reached steady
+state. You do not need to save or submit separate heating and cooling
+temperature-versus-time plots.
 
 ## Part 4: Plot Temperature Versus PWM
 
-Make a graph of steady-state temperature $T$ versus signed PWM, in which negative PWM is for cooling and positive PWM is for heating. Plot the
-heating and cooling measurements as separate data sets: use red for heating and
-blue for cooling, matching the color convention in the strip chart.
+Make **one combined graph** of steady-state temperature $T$ versus signed PWM,
+in which negative PWM is cooling and positive PWM is heating. Show the heating
+and cooling measurements as two data sets on that same graph: use red for
+heating and blue for cooling, matching the color convention in the strip chart.
 
 You may use Python, a spreadsheet, or another tool. The graph should show:
 
@@ -492,9 +494,10 @@ Use the following numbered headings so each result can be matched to the work
 in Parts 4 and 5. Show intermediate algebra, units, and substitutions clearly
 enough that another student could reproduce each numerical result.
 
-1. **Part 4: Graph and fits.** Include your temperature-versus-signed-PWM
-   graph. Show heating and cooling as separate data sets, the fitted lines, and
-   the PWM ranges used for each fit. Label both axes and give units.
+1. **Part 4: Combined graph and fits.** Include one
+   temperature-versus-signed-PWM graph containing both the heating and cooling
+   data, their fitted lines, and the PWM ranges used for each fit. Label both
+   axes and give units.
 2. **Part 5.1: Measured slopes.** Report the heating slope $m_h$, cooling-slope
    magnitude $m_c$, their units, and the measured ratio
    $r=m_h/m_c$. State whether either data set shows visible curvature and how

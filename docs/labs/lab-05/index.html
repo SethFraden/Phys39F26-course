@@ -158,7 +158,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-5-explore-the-high-gain-response" class="nav-link">Part 5: Explore The High-Gain Response</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-compare-low-and-high-gain-transients" class="nav-link">Part 5: Compare Low- And High-Gain Transients</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -222,6 +222,9 @@ a simple model. PI control follows in Module 6.</p>
    environmental heat transfer per degree, rather than to thermal capacity.</li>
 <li>Decide whether gain is small or large using the <strong>dimensionless loop gain</strong>,
    and use it to predict the fraction of the temperature error that remains.</li>
+<li>Compare a low-gain response with no overshoot to a high-gain response with
+   overshoot, identify the latter as underdamped behavior, and preserve both
+   traces as evidence that the first-order one-lump model is inadequate.</li>
 </ol>
 <h2 id="optional-background-sources">Optional Background Sources<a class="headerlink" href="#optional-background-sources" title="Permanent link">&para;</a></h2>
 <p>These are optional; Laplace transforms are not required in Module 5:</p>
@@ -531,8 +534,7 @@ P_0=K_p|e_0|,
 <p>Select a sequence that starts with <span class="arithmatex">\(P_0\)</span> well below
 <span class="arithmatex">\(P_{\mathrm{required}}\)</span> and progresses toward values comparable to or larger
 than <span class="arithmatex">\(P_{\mathrm{required}}\)</span>, without beginning outside the 0-to-255 PWM
-range. Record your reasoning and have the instructor approve the range before
-running it.</p>
+range. Record your reasoning before running it.</p>
 <p>Use a table like this:</p>
 <table>
 <thead>
@@ -601,40 +603,76 @@ measured droop on the same graph.</p>
 of the initial error remains; for <span class="arithmatex">\(L=1\)</span>, half remains; and for <span class="arithmatex">\(L\gg1\)</span>, the
 fraction is approximately <span class="arithmatex">\(1/L\)</span>. The ratio is undefined for an ambient
 setpoint, where the ideal model needs no TEC heat flow.</p>
-<h2 id="part-5-explore-the-high-gain-response">Part 5: Explore The High-Gain Response<a class="headerlink" href="#part-5-explore-the-high-gain-response" title="Permanent link">&para;</a></h2>
-<p>Continue through your instructor-approved gain range. Do not assume that the
-apparatus must oscillate. For every retained gain, record the setpoint, mean or
-steady temperature, response shape, PWM behavior, and whether PWM saturates.</p>
-<p>If sustained oscillations appear, measure their amplitude, period, and
-frequency. State how you define amplitude. If they do not appear within the
-safe range, report the highest gain tested and describe how that response
-differs from the low-gain response.</p>
+<h2 id="part-5-compare-low-and-high-gain-transients">Part 5: Compare Low- And High-Gain Transients<a class="headerlink" href="#part-5-compare-low-and-high-gain-transients" title="Permanent link">&para;</a></h2>
+<p>Explore <span class="arithmatex">\(K_p\)</span> while keeping the independent software temperature limit active.
+For this experiment, define a <strong>low gain</strong> as a value of <span class="arithmatex">\(K_p\)</span> for which the
+temperature approaches its eventual steady temperature without overshoot, and
+define a <strong>high gain</strong> as a value for which the temperature overshoots its
+eventual steady temperature. The goal is to document how the shape of the
+transient changes as <span class="arithmatex">\(K_p\)</span> increases.</p>
+<p>At this point, use <strong>overshoot</strong> operationally: after a step begins, the
+temperature crosses the value toward which it eventually settles and then
+returns. A single overshoot is evidence of <strong>underdamped behavior</strong>. If the
+temperature crosses repeatedly while the deviations decrease, describe that
+additional behavior as <strong>ringing</strong>. The mathematical underdamped criterion will
+be developed in Module 6.</p>
+<p>Document one complete low-gain response and one complete high-gain response.
+For each response, either save a screenshot of the strip chart or save the
+time-versus-temperature data to a CSV file and subsequently plot it. Make sure
+the saved evidence shows the complete transient from the start of the step
+through the approach to steady state.</p>
+<p>On each trace, identify:</p>
+<ul>
+<li>the starting temperature and setpoint,</li>
+<li>the late-time mean or steady temperature <span class="arithmatex">\(T_{\mathrm{ss}}\)</span>,</li>
+<li>the first peak temperature and its time,</li>
+<li>the overshoot relative to <span class="arithmatex">\(T_{\mathrm{ss}}\)</span>,</li>
+<li>any later crossings or decaying peaks,</li>
+<li>the signed PWM and any interval of saturation, and</li>
+<li>the value and units of <span class="arithmatex">\(K_p\)</span>.</li>
+</ul>
 <table>
 <thead>
 <tr>
+<th>Response</th>
 <th style="text-align: right;"><span class="arithmatex">\(K_p\)</span> (PWM/°C)</th>
-<th>Settles?</th>
-<th style="text-align: right;">Mean Temperature (°C)</th>
-<th style="text-align: right;">Amplitude (°C)</th>
-<th style="text-align: right;">Period (s)</th>
-<th style="text-align: right;">Frequency (Hz)</th>
+<th style="text-align: right;"><span class="arithmatex">\(T_{\mathrm{ss}}\)</span> (°C)</th>
+<th style="text-align: right;">First peak (°C)</th>
+<th style="text-align: right;">Overshoot (°C)</th>
+<th style="text-align: right;">Time to first peak (s)</th>
+<th>Later crossings or ringing?</th>
 <th>Saturation?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>Low gain: no overshoot</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td></td>
+<td></td>
+</tr>
+<tr>
+<td>High gain: overshoot</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>Do not let oscillations grow without supervision. Stop control and set PWM to
-zero if the run becomes unsafe.</p>
+<p>Keep both traces for Module 6. There you will derive the one-lump prediction
+<span class="arithmatex">\(T-T_{\mathrm{ss}}\propto e^{-t/\tau_{\mathrm{cl}}}\)</span>. That exponential must
+approach <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> monotonically: it cannot overshoot, ring, or be
+underdamped. A measured overshoot will therefore be direct evidence that the
+one-lump model is inadequate and that an additional thermal state, such as a
+second lump, is needed.</p>
 <h2 id="part-6-interpret-and-preserve-the-results">Part 6: Interpret And Preserve The Results<a class="headerlink" href="#part-6-interpret-and-preserve-the-results" title="Permanent link">&para;</a></h2>
 <h3 id="thermal-capacity-and-the-one-lump-model">Thermal Capacity And The One-Lump Model<a class="headerlink" href="#thermal-capacity-and-the-one-lump-model" title="Permanent link">&para;</a></h3>
 <p>To describe time dependence, first treat the TEC, block, and thermistor as one
@@ -753,11 +791,13 @@ because of droop. For the one-lump model developed fully in
 <div class="arithmatex">\[
 \theta(t)=\theta(0)e^{-t/\tau_{\mathrm{cl}}}.
 \]</div>
-<p>This response approaches the steady state exponentially and cannot sustain an
-oscillation. If the apparatus oscillates, the one-lump model is missing
-important physics or implementation details. Discuss plausible causes such as
-thermal delay between the TEC and thermistor, another thermal mass, discrete
-sampling, sensor noise, or PWM saturation.</p>
+<p>This response approaches the steady state monotonically. It cannot cross the
+steady-state value, overshoot, ring, or oscillate. Compare that prediction with
+the high-gain trace saved in Part 5. Any clear overshoot shows that the
+one-lump model is missing important physics or implementation details. Discuss
+plausible causes such as thermal delay between the TEC and thermistor, another
+thermal mass, discrete sampling, sensor noise, or PWM saturation. This mismatch
+will motivate the two-lump model in Module 6.</p>
 <h3 id="evidence-for-a3-and-oral-review">Evidence For A3 And Oral Review<a class="headerlink" href="#evidence-for-a3-and-oral-review" title="Permanent link">&para;</a></h3>
 <h3 id="oral-review-questions-p-control">Oral Review Questions: P Control<a class="headerlink" href="#oral-review-questions-p-control" title="Permanent link">&para;</a></h3>
 <p>Use these questions to check your understanding and prepare the interpretation
@@ -782,9 +822,11 @@ and later oral review. During S10-S11, preserve:</p>
 <li>dimensional droop and high-gain response tables,</li>
 <li>measured and predicted droop on one graph,</li>
 <li>the derivation connecting the Part 4 droop equation to the one-lump model of Part 6,</li>
-<li>representative low- and high-gain strip-chart traces,</li>
+<li>representative low-gain and annotated high-gain strip-chart traces, including
+  the first overshoot when it can be observed safely,</li>
 <li>the exact Python controller, Arduino sketch, and raw-data filenames, and</li>
-<li>a brief explanation of droop and of why oscillations did or did not appear.</li>
+<li>a brief explanation of droop and of why overshoot or ringing is inconsistent
+  with the one-lump exponential response.</li>
 </ul>
 <p>Keep the note in <code>docs/module_notes/module_05_p_control.md</code>, data in
 <code>data/module_05/</code>, and figures in <code>docs/figures/module_05/</code>. Calculate droop and

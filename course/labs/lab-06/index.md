@@ -114,9 +114,9 @@ will be used during the in-class model comparison.
 | S12 | Complete and check the guided one-lump derivation | 120 minutes |
 | S12 | **Total associated with S12** | **3 hours 30 minutes** |
 | S13 | Review PI control and windup; answer the preparation questions | 60 minutes |
-| S13 | Explore and document P/PI behavior with the prepared v3 simulation | 105 minutes |
+| S13 | Explore PI behavior in v3 and prepare the physical-controller change | 105 minutes |
 | S13 | **Total associated with S13** | **2 hours 45 minutes** |
-| S14 | Analyze matched P/PI results | 90 minutes |
+| S14 | Analyze matched physical P/PI results and select gains | 90 minutes |
 | S14 | Write, check, commit, push, and prepare A3 | 120 minutes |
 | S14 | **Total associated with S14** | **3 hours 30 minutes** |
 
@@ -139,6 +139,8 @@ complete and understood.
 - Explore P-only feedback in the simulation.
 - Compare simulated droop with measured droop.
 - Compare P and PI control in the simulation.
+- Implement PI control on the physical TEC with anti-windup.
+- Tune $K_p$ and $K_i$ and compare matched experimental P and PI responses.
 - Explain why integral action reduces droop and why windup is a problem.
 
 ## Part 1: Algebraic Droop Model
@@ -757,6 +759,45 @@ Compare P-only and PI simulations:
 The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.
 
+### October 14: Implement PI Control On The Physical TEC
+
+Use your working Module 5 P controller as the starting point. Do not replace
+the Arduino's independent temperature shutdown or the existing signed-PWM
+clamp. Add only the integral state and anti-windup needed for PI control:
+
+\[
+q_{n+1}=q_n+e_n\Delta t,
+\qquad
+u_n=K_pe_n+K_iq_n.
+\]
+
+Calculate $\Delta t$ from the actual elapsed time between accepted temperature
+measurements. Display and save $e$, $u_P=K_pe$, $u_I=K_iq$, the requested
+command, and the applied command. Provide a control that sets $q=0$ before a
+new comparison.
+
+Use **conditional integration** for anti-windup: if the requested command is
+already beyond the PWM limit and the current error would drive it farther into
+saturation, do not update $q$ on that step. The output clamp and independent
+Arduino safety shutdown remain active even when anti-windup is working.
+
+Before applying actuator power, show the instructor the lines that calculate
+$e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
+
+1. Use the same safe setpoint and a stable $K_p$ from Module 5.
+2. Set $K_i=0$, zero the integral state, and record a P-only baseline.
+3. Set PWM to zero before changing controller mode or resetting the integral.
+4. Choose a small positive $K_i$ after exploring it in v3. Zero the integral
+   state, enable PI, and record the response from comparable initial conditions.
+5. Confirm that $u_I$ grows while a persistent error remains and that the
+   steady error becomes smaller than in the P-only run.
+6. Stop and set PWM to zero if the temperature moves in the wrong direction,
+   the display freezes, saturation persists unexpectedly, or oscillations grow.
+
+Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
+temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
+continues on October 19 in [Module 6, Part II](../lab-07/index.md#october-19-tune-the-physical-pi-controller).
+
 ### Why PI Can Be Underdamped
 
 From the definitions above,
@@ -1114,10 +1155,11 @@ Answer:
 
 ## Part 9: Modeling-Evidence Checkpoint
 
-Save and commit a short Markdown record of your v3 investigation. Include the
-v3 filename, the exact run command, model and controller settings, prediction
-calculations, the open-loop comparison, the P/PI comparison, and the plots or
-screenshots used as evidence.
+Save and commit a short Markdown record of your investigation. Include the v3
+filename, the exact run command, model and controller settings, prediction
+calculations, the open-loop comparison, the simulated P/PI comparison, the
+physical P/PI controller settings, and the plots or screenshots used as
+evidence.
 
 ```bash
 git status
@@ -1162,7 +1204,9 @@ Submit:
 - estimate of thermal time constant `tau`,
 - v3 open-loop result compared with one measured trace,
 - v3 P-control result compared with Module 5 droop data,
-- matched v3 PI and P-control results,
+- matched experimental P and PI responses with $K_p$, $K_i$, transient
+  metrics, and anti-windup setting,
+- the v3 result used to choose or interpret the experimental gains,
 - short explanation of why the one-lump model does or does not oscillate,
 - windup thought-experiment answers,
 - link to your GitHub modeling checkpoint.
@@ -1173,7 +1217,7 @@ Submit:
 | --- | ---: |
 | P-control droop and instability evidence is quantitative and reproducible | 2 |
 | One-lump energy balance, steady state, time constant, parameters, and units are correct; interpretation explains why droop is needed, susceptibility as $P_u/H$, and dimensionless gain | 2 |
-| P and PI cases use comparable conditions and quantitative transient metrics | 2 |
+| Physical P and PI cases use comparable conditions, documented gains, and quantitative transient metrics | 2 |
 | Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
 | PDF, model settings, data links, and cited Git checkpoint are clear and on time | 2 |
 
@@ -1182,6 +1226,8 @@ Submit:
 Use this PI-control question to check your understanding and prepare A3:
 
 1. Why can integral action remove droop, and what is integral windup?
+2. How did changing $K_p$ and $K_i$ affect rise time, overshoot, settling time,
+   steady-state error, and saturation in the physical apparatus?
 
 Also prepare the [Module 5 P-control questions](../lab-05/index.md#oral-review-questions-p-control)
 and [Module 7 modeling questions](../lab-07/index.md#oral-review-questions-process-modeling).

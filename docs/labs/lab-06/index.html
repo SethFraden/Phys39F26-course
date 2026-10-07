@@ -180,6 +180,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-7-add-integral-action-in-simulation" class="nav-link">Part 7: Add Integral Action In Simulation</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#october-14-implement-pi-control-on-the-physical-tec" class="nav-link">October 14: Implement PI Control On The Physical TEC</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#why-pi-can-be-underdamped" class="nav-link">Why PI Can Be Underdamped</a>
               <ul class="nav flex-column">
               </ul>
@@ -430,7 +434,7 @@ will be used during the in-class model comparison.</p>
 </tr>
 <tr>
 <td>S13</td>
-<td>Explore and document P/PI behavior with the prepared v3 simulation</td>
+<td>Explore PI behavior in v3 and prepare the physical-controller change</td>
 <td style="text-align: right;">105 minutes</td>
 </tr>
 <tr>
@@ -440,7 +444,7 @@ will be used during the in-class model comparison.</p>
 </tr>
 <tr>
 <td>S14</td>
-<td>Analyze matched P/PI results</td>
+<td>Analyze matched physical P/PI results and select gains</td>
 <td style="text-align: right;">90 minutes</td>
 </tr>
 <tr>
@@ -473,6 +477,8 @@ complete and understood.</p>
 <li>Explore P-only feedback in the simulation.</li>
 <li>Compare simulated droop with measured droop.</li>
 <li>Compare P and PI control in the simulation.</li>
+<li>Implement PI control on the physical TEC with anti-windup.</li>
+<li>Tune <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> and compare matched experimental P and PI responses.</li>
 <li>Explain why integral action reduces droop and why windup is a problem.</li>
 </ul>
 <h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
@@ -944,6 +950,39 @@ the setpoint.</p>
 </ul>
 <p>The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.</p>
+<h3 id="october-14-implement-pi-control-on-the-physical-tec">October 14: Implement PI Control On The Physical TEC<a class="headerlink" href="#october-14-implement-pi-control-on-the-physical-tec" title="Permanent link">&para;</a></h3>
+<p>Use your working Module 5 P controller as the starting point. Do not replace
+the Arduino's independent temperature shutdown or the existing signed-PWM
+clamp. Add only the integral state and anti-windup needed for PI control:</p>
+<div class="arithmatex">\[
+q_{n+1}=q_n+e_n\Delta t,
+\qquad
+u_n=K_pe_n+K_iq_n.
+\]</div>
+<p>Calculate <span class="arithmatex">\(\Delta t\)</span> from the actual elapsed time between accepted temperature
+measurements. Display and save <span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(u_P=K_pe\)</span>, <span class="arithmatex">\(u_I=K_iq\)</span>, the requested
+command, and the applied command. Provide a control that sets <span class="arithmatex">\(q=0\)</span> before a
+new comparison.</p>
+<p>Use <strong>conditional integration</strong> for anti-windup: if the requested command is
+already beyond the PWM limit and the current error would drive it farther into
+saturation, do not update <span class="arithmatex">\(q\)</span> on that step. The output clamp and independent
+Arduino safety shutdown remain active even when anti-windup is working.</p>
+<p>Before applying actuator power, show the instructor the lines that calculate
+<span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the clamped command. Then:</p>
+<ol>
+<li>Use the same safe setpoint and a stable <span class="arithmatex">\(K_p\)</span> from Module 5.</li>
+<li>Set <span class="arithmatex">\(K_i=0\)</span>, zero the integral state, and record a P-only baseline.</li>
+<li>Set PWM to zero before changing controller mode or resetting the integral.</li>
+<li>Choose a small positive <span class="arithmatex">\(K_i\)</span> after exploring it in v3. Zero the integral
+   state, enable PI, and record the response from comparable initial conditions.</li>
+<li>Confirm that <span class="arithmatex">\(u_I\)</span> grows while a persistent error remains and that the
+   steady error becomes smaller than in the P-only run.</li>
+<li>Stop and set PWM to zero if the temperature moves in the wrong direction,
+   the display freezes, saturation persists unexpectedly, or oscillations grow.</li>
+</ol>
+<p>Preserve both traces and the exact <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, setpoint, starting
+temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
+continues on October 19 in <a href="../lab-07/#october-19-tune-the-physical-pi-controller">Module 6, Part II</a>.</p>
 <h3 id="why-pi-can-be-underdamped">Why PI Can Be Underdamped<a class="headerlink" href="#why-pi-can-be-underdamped" title="Permanent link">&para;</a></h3>
 <p>From the definitions above,</p>
 <div class="arithmatex">\[
@@ -1228,10 +1267,11 @@ hardware can supply. The PWM saturates, but the integral error may keep growing.
 <li>How could software prevent or reduce windup?</li>
 </ol>
 <h2 id="part-9-modeling-evidence-checkpoint">Part 9: Modeling-Evidence Checkpoint<a class="headerlink" href="#part-9-modeling-evidence-checkpoint" title="Permanent link">&para;</a></h2>
-<p>Save and commit a short Markdown record of your v3 investigation. Include the
-v3 filename, the exact run command, model and controller settings, prediction
-calculations, the open-loop comparison, the P/PI comparison, and the plots or
-screenshots used as evidence.</p>
+<p>Save and commit a short Markdown record of your investigation. Include the v3
+filename, the exact run command, model and controller settings, prediction
+calculations, the open-loop comparison, the simulated P/PI comparison, the
+physical P/PI controller settings, and the plots or screenshots used as
+evidence.</p>
 <pre><code class="language-bash">git status
 git add README.md docs data python/Lab_6_7_modeling_tec_v3.py
 git commit -m &quot;Analyze open-loop P and PI temperature control&quot;
@@ -1268,7 +1308,9 @@ pushing, and submitting the PDF.</p>
 <li>estimate of thermal time constant <code>tau</code>,</li>
 <li>v3 open-loop result compared with one measured trace,</li>
 <li>v3 P-control result compared with Module 5 droop data,</li>
-<li>matched v3 PI and P-control results,</li>
+<li>matched experimental P and PI responses with <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, transient
+  metrics, and anti-windup setting,</li>
+<li>the v3 result used to choose or interpret the experimental gains,</li>
 <li>short explanation of why the one-lump model does or does not oscillate,</li>
 <li>windup thought-experiment answers,</li>
 <li>link to your GitHub modeling checkpoint.</li>
@@ -1291,7 +1333,7 @@ pushing, and submitting the PDF.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>P and PI cases use comparable conditions and quantitative transient metrics</td>
+<td>Physical P and PI cases use comparable conditions, documented gains, and quantitative transient metrics</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
@@ -1308,6 +1350,8 @@ pushing, and submitting the PDF.</p>
 <p>Use this PI-control question to check your understanding and prepare A3:</p>
 <ol>
 <li>Why can integral action remove droop, and what is integral windup?</li>
+<li>How did changing <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> affect rise time, overshoot, settling time,
+   steady-state error, and saturation in the physical apparatus?</li>
 </ol>
 <p>Also prepare the <a href="../lab-05/#oral-review-questions-p-control">Module 5 P-control questions</a>
 and <a href="../lab-07/#oral-review-questions-process-modeling">Module 7 modeling questions</a>.

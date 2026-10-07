@@ -428,7 +428,7 @@ code, plots, and repository state.</p>
 <tr>
 <td><code>P2</code></td>
 <td>S14, Mon. Oct. 19</td>
-<td>The modeling program runs, imports an experimental trace, produces at least one fitted curve, and displays residuals.</td>
+<td>The physical PI controller runs with independent safety shutdown and anti-windup; the live display shows error, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and applied PWM; the team shows one matched P/PI comparison and its gain-tuning table.</td>
 </tr>
 <tr>
 <td><code>P3</code></td>
@@ -500,9 +500,10 @@ for the complete instructions and rubric.</p>
 <p><strong>Due:</strong> Wednesday, October 21, <strong>6:00 PM</strong></p>
 <p><strong>Format:</strong> 10-point team assignment; each student uploads the team PDF
 separately to Moodle.</p>
-<p>Present selected open-loop and P/PI evidence, droop and instability,
-dimensional one-lump analysis, comparable P/PI metrics, anti-windup, model
-limitations, code and data links, and the cited Git checkpoint.</p>
+<p>Present selected open-loop and physical P/PI evidence, droop and instability,
+dimensional one-lump analysis, comparable experimental P/PI metrics,
+anti-windup, the v3 result used to interpret the gains, model limitations, code
+and data links, and the cited Git checkpoint.</p>
 <p>See <a href="../labs/lab-06/#a3-feedback-data-and-lumped-model-memo">Module 6: A3 Feedback Data And Lumped-Model Memo</a>
 for the complete instructions and rubric.</p>
 <h2 id="a4-finite-length-and-small-biot-guided-study">A4: Finite-Length And Small-Biot Guided Study<a class="headerlink" href="#a4-finite-length-and-small-biot-guided-study" title="Permanent link">&para;</a></h2>
@@ -804,7 +805,7 @@ of <code>F1</code>.</p>
 <tr>
 <td><code>A3</code></td>
 <td>Oct. 21, 6:00 PM</td>
-<td><a href="../labs/lab-06/#a3-feedback-data-and-lumped-model-memo"><strong>Feedback data and lumped-model memo</strong></a> (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and P/PI evidence, droop and instability, dimensional one-lump derivation, comparable P/PI metrics, anti-windup, model limits, code/data links, and <code>GC</code>.</td>
+<td><a href="../labs/lab-06/#a3-feedback-data-and-lumped-model-memo"><strong>Feedback data and lumped-model memo</strong></a> (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting v3 result, model limits, code/data links, and <code>GC</code>.</td>
 </tr>
 <tr>
 <td><code>A4</code></td>
@@ -904,7 +905,7 @@ of <code>F1</code>.</p>
 <tr>
 <td>P/PI control and process modeling</td>
 <td>G3, G8-G10, G13, G14</td>
-<td>P/PI comparison, lumped-model derivations, fits, residuals, A3 and P2</td>
+<td>Physical P/PI implementation and gain tuning, lumped-model derivations and simulation, A3 and P2</td>
 </tr>
 <tr>
 <td>Thermal transport theory and rod instrument</td>

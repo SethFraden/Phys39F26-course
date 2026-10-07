@@ -10,9 +10,9 @@ the one-lump model, while Part II compares the one- and two-lump models.
 
 ### Purpose
 
-This part follows the first Module 6 modeling work, after you have built enough of the instrument to
-measure temperature, drive the TEC, and see feedback behavior. The goal is to
-connect three things:
+This part follows the first Module 6 modeling work and the initial physical PI
+implementation. Begin by tuning $K_p$ and $K_i$ on the apparatus, then connect
+three things:
 
 1. the physical TEC/block/thermistor system,
 2. the feedback-control equations,
@@ -44,24 +44,22 @@ Before class, spend your time in this order:
 - **15-20 min**: Copy and annotate the three model equations; complete Theory
   Assignment 1 and begin Theory Assignment 2 if time permits.
 
-During class, the approximate schedule for one 170-minute meeting is:
+During class on October 19, the approximate schedule for one 170-minute meeting is:
 
-1. **0-20 min**: Opening discussion and board work on
+1. **0-15 min**: Safety check, define the gain-tuning metrics, and inspect the
+   physical PI controller.
+2. **15-75 min**: Tune $K_p$ and $K_i$ on the TEC; preserve one satisfactory
+   response and one poor but safe response.
+3. **75-95 min**: Opening discussion and board work on
    [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
    Problems 1.3 and 1.8.
-2. **20-40 min**: Connect the board work to the model equations in Module 6 and the
+4. **95-115 min**: Connect the board work to the model equations in Module 6 and the
    one-lump/two-lump diagram.
-3. **40-60 min**: Run the manual model and identify the physical meaning of each
-   term and control.
-4. **60-85 min**: Run the one-lumped-temperature proportional model and measure droop
-   as `Kp` changes.
-5. **85-115 min**: Run the two-lumped-temperature thermal-mass model and find cases
-   with lag, overshoot, or oscillation.
-6. **115-140 min**: Complete Theory Assignment 2 in groups and connect the
+5. **115-140 min**: Compare one- and two-lump responses and connect thermal lag
+   to the experimental tuning observations.
+6. **140-160 min**: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.
-7. **140-160 min**: Trace one parameter through the equations and numerical
-   algorithm, then confirm its predicted effect in the simulation.
-8. **160-170 min**: Wrap up: what the model explains, what it leaves out, and
+7. **160-170 min**: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.
 
 ### Outside-Class Workload Budget
@@ -70,7 +68,7 @@ During class, the approximate schedule for one 170-minute meeting is:
 | --- | --- | ---: |
 | S14 | Read this assignment and the assigned Lienhard Chapter 1 material | 90 minutes |
 | S14 | Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5 | 60 minutes |
-| S14 | Install/run the model and annotate the equations | 45 minutes |
+| S14 | Prepare the PI tuning table; run v3 and annotate the equations | 45 minutes |
 | S14 | **Total associated with S14** | **3 hours 15 minutes** |
 | S15 | Complete the model comparisons and A3 evidence | 120 minutes |
 | S15 | Complete the theory-bridge questions used in the oral discussion | 60 minutes |
@@ -459,12 +457,54 @@ Write short answers before class.
 You will:
 
 - run the [Python simulation GUI](#how-to-run-the-python-gui),
+- tune $K_p$ and $K_i$ on the physical TEC,
+- compare matched physical P and PI responses,
 - identify the physical meaning of each control,
 - reproduce droop in proportional control,
 - produce overshoot or oscillation by increasing gain or lag,
 - compare the one-temperature model to the two-temperature model,
 - trace one controlled parameter through the equations and numerical algorithm,
 - explain what this model teaches you about the real TEC experiment.
+
+### October 19: Tune The Physical PI Controller
+
+Continue with the controller implemented in [Module 6, Part
+I](../lab-06/index.md#october-14-implement-pi-control-on-the-physical-tec).
+Keep the setpoint, PWM limit, apparatus, thermistor placement, and starting
+temperature as similar as practical between trials. Change **one gain at a
+time**.
+
+1. Begin with the stable $K_p$ used for the October 14 P-only baseline and a
+   small positive $K_i$ explored in v3.
+2. Zero the integral state before each run. Set PWM to zero before changing
+   controller mode or resetting the integral.
+3. Adjust $K_i$ to reduce steady-state error without unacceptable overshoot or
+   prolonged saturation.
+4. If the response is too slow, adjust $K_p$ modestly and repeat the $K_i$
+   search. Do not change both gains between consecutive trials.
+5. Preserve one gain pair that gives an acceptable response and one poor but
+   safe gain pair that clearly shows a tradeoff such as slow correction,
+   overshoot, ringing, or saturation.
+6. Repeat a P-only run with the selected $K_p$ under matched conditions so the
+   final comparison isolates the effect of the integral term.
+
+For every retained run, record:
+
+| Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Rise time (s) | Overshoot (°C) | Settling time (s) | Final error (°C) | Saturation? | Notes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| P |  | 0 |  |  |  |  |  |  |
+| PI, acceptable |  |  |  |  |  |  |  |  |
+| PI, poor but safe |  |  |  |  |  |  |  |  |
+
+Define the rise-time and settling-time criteria you use. Explain why the
+selected pair is a good compromise for this apparatus; there is no single
+universally best pair. Your record must show the measured temperature,
+setpoint, total applied PWM, $u_P$, $u_I$, and error versus time.
+
+Before applying power, verify the independent Arduino temperature shutdown and
+have the instructor approve the proposed gain range. Stop and set PWM to zero
+if the temperature moves in the wrong direction, the display freezes,
+saturation persists unexpectedly, or oscillations grow.
 
 ### Part 1: One-Lump Open-Loop Model
 
@@ -619,9 +659,9 @@ Answer:
 
 ### Preserve The Model Evidence
 
-Before leaving S15, save the copied equations, completed theory assignments,
-parameter tables, screenshots, algorithm-tracing explanation, and exact run
-command. Keep the team record in
+Before leaving S15, save the physical PI tuning table and traces, copied
+equations, completed theory assignments, parameter tables, screenshots,
+algorithm-tracing explanation, and exact run command. Keep the team record in
 `docs/module_notes/module_07_process_model.md` and preserve the prepared v3
 program in your repository.
 

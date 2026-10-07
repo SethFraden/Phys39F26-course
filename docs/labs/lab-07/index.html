@@ -164,6 +164,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#october-19-tune-the-physical-pi-controller" class="nav-link">October 19: Tune The Physical PI Controller</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#part-1-one-lump-open-loop-model" class="nav-link">Part 1: One-Lump Open-Loop Model</a>
               <ul class="nav flex-column">
               </ul>
@@ -229,9 +233,9 @@ Both parts use the same prepared
 the one-lump model, while Part II compares the one- and two-lump models.</p>
 <h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
-<p>This part follows the first Module 6 modeling work, after you have built enough of the instrument to
-measure temperature, drive the TEC, and see feedback behavior. The goal is to
-connect three things:</p>
+<p>This part follows the first Module 6 modeling work and the initial physical PI
+implementation. Begin by tuning <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> on the apparatus, then connect
+three things:</p>
 <ol>
 <li>the physical TEC/block/thermistor system,</li>
 <li>the feedback-control equations,</li>
@@ -258,23 +262,21 @@ lag between where heat enters and where temperature is measured.</p>
 <li><strong>15-20 min</strong>: Copy and annotate the three model equations; complete Theory
   Assignment 1 and begin Theory Assignment 2 if time permits.</li>
 </ul>
-<p>During class, the approximate schedule for one 170-minute meeting is:</p>
+<p>During class on October 19, the approximate schedule for one 170-minute meeting is:</p>
 <ol>
-<li><strong>0-20 min</strong>: Opening discussion and board work on
+<li><strong>0-15 min</strong>: Safety check, define the gain-tuning metrics, and inspect the
+   physical PI controller.</li>
+<li><strong>15-75 min</strong>: Tune <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> on the TEC; preserve one satisfactory
+   response and one poor but safe response.</li>
+<li><strong>75-95 min</strong>: Opening discussion and board work on
    <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
    Problems 1.3 and 1.8.</li>
-<li><strong>20-40 min</strong>: Connect the board work to the model equations in Module 6 and the
+<li><strong>95-115 min</strong>: Connect the board work to the model equations in Module 6 and the
    one-lump/two-lump diagram.</li>
-<li><strong>40-60 min</strong>: Run the manual model and identify the physical meaning of each
-   term and control.</li>
-<li><strong>60-85 min</strong>: Run the one-lumped-temperature proportional model and measure droop
-   as <code>Kp</code> changes.</li>
-<li><strong>85-115 min</strong>: Run the two-lumped-temperature thermal-mass model and find cases
-   with lag, overshoot, or oscillation.</li>
-<li><strong>115-140 min</strong>: Complete Theory Assignment 2 in groups and connect the
+<li><strong>115-140 min</strong>: Compare one- and two-lump responses and connect thermal lag
+   to the experimental tuning observations.</li>
+<li><strong>140-160 min</strong>: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.</li>
-<li><strong>140-160 min</strong>: Trace one parameter through the equations and numerical
-   algorithm, then confirm its predicted effect in the simulation.</li>
 <li><strong>160-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.</li>
 </ol>
@@ -300,7 +302,7 @@ lag between where heat enters and where temperature is measured.</p>
 </tr>
 <tr>
 <td>S14</td>
-<td>Install/run the model and annotate the equations</td>
+<td>Prepare the PI tuning table; run v3 and annotate the equations</td>
 <td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
@@ -628,6 +630,8 @@ python Lab_6_7_modeling_tec_v3.py
 <p>You will:</p>
 <ul>
 <li>run the <a href="#how-to-run-the-python-gui">Python simulation GUI</a>,</li>
+<li>tune <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> on the physical TEC,</li>
+<li>compare matched physical P and PI responses,</li>
 <li>identify the physical meaning of each control,</li>
 <li>reproduce droop in proportional control,</li>
 <li>produce overshoot or oscillation by increasing gain or lag,</li>
@@ -635,6 +639,86 @@ python Lab_6_7_modeling_tec_v3.py
 <li>trace one controlled parameter through the equations and numerical algorithm,</li>
 <li>explain what this model teaches you about the real TEC experiment.</li>
 </ul>
+<h3 id="october-19-tune-the-physical-pi-controller">October 19: Tune The Physical PI Controller<a class="headerlink" href="#october-19-tune-the-physical-pi-controller" title="Permanent link">&para;</a></h3>
+<p>Continue with the controller implemented in <a href="../lab-06/#october-14-implement-pi-control-on-the-physical-tec">Module 6, Part
+I</a>.
+Keep the setpoint, PWM limit, apparatus, thermistor placement, and starting
+temperature as similar as practical between trials. Change <strong>one gain at a
+time</strong>.</p>
+<ol>
+<li>Begin with the stable <span class="arithmatex">\(K_p\)</span> used for the October 14 P-only baseline and a
+   small positive <span class="arithmatex">\(K_i\)</span> explored in v3.</li>
+<li>Zero the integral state before each run. Set PWM to zero before changing
+   controller mode or resetting the integral.</li>
+<li>Adjust <span class="arithmatex">\(K_i\)</span> to reduce steady-state error without unacceptable overshoot or
+   prolonged saturation.</li>
+<li>If the response is too slow, adjust <span class="arithmatex">\(K_p\)</span> modestly and repeat the <span class="arithmatex">\(K_i\)</span>
+   search. Do not change both gains between consecutive trials.</li>
+<li>Preserve one gain pair that gives an acceptable response and one poor but
+   safe gain pair that clearly shows a tradeoff such as slow correction,
+   overshoot, ringing, or saturation.</li>
+<li>Repeat a P-only run with the selected <span class="arithmatex">\(K_p\)</span> under matched conditions so the
+   final comparison isolates the effect of the integral term.</li>
+</ol>
+<p>For every retained run, record:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th style="text-align: right;"><span class="arithmatex">\(K_p\)</span> (PWM/°C)</th>
+<th style="text-align: right;"><span class="arithmatex">\(K_i\)</span> (PWM/(°C s))</th>
+<th style="text-align: right;">Rise time (s)</th>
+<th style="text-align: right;">Overshoot (°C)</th>
+<th style="text-align: right;">Settling time (s)</th>
+<th style="text-align: right;">Final error (°C)</th>
+<th>Saturation?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PI, acceptable</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PI, poor but safe</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Define the rise-time and settling-time criteria you use. Explain why the
+selected pair is a good compromise for this apparatus; there is no single
+universally best pair. Your record must show the measured temperature,
+setpoint, total applied PWM, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and error versus time.</p>
+<p>Before applying power, verify the independent Arduino temperature shutdown and
+have the instructor approve the proposed gain range. Stop and set PWM to zero
+if the temperature moves in the wrong direction, the display freezes,
+saturation persists unexpectedly, or oscillations grow.</p>
 <h3 id="part-1-one-lump-open-loop-model">Part 1: One-Lump Open-Loop Model<a class="headerlink" href="#part-1-one-lump-open-loop-model" title="Permanent link">&para;</a></h3>
 <p>Set the physical model to <code>one_lump</code> and the controller to <code>open_loop</code>.</p>
 <ol>
@@ -828,9 +912,9 @@ phase lags with distance
 </ul>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="preserve-the-model-evidence">Preserve The Model Evidence<a class="headerlink" href="#preserve-the-model-evidence" title="Permanent link">&para;</a></h3>
-<p>Before leaving S15, save the copied equations, completed theory assignments,
-parameter tables, screenshots, algorithm-tracing explanation, and exact run
-command. Keep the team record in
+<p>Before leaving S15, save the physical PI tuning table and traces, copied
+equations, completed theory assignments, parameter tables, screenshots,
+algorithm-tracing explanation, and exact run command. Keep the team record in
 <code>docs/module_notes/module_07_process_model.md</code> and preserve the prepared v3
 program in your repository.</p>
 <h3 id="oral-review-questions-process-modeling">Oral Review Questions: Process Modeling<a class="headerlink" href="#oral-review-questions-process-modeling" title="Permanent link">&para;</a></h3>

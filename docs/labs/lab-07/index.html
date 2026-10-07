@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Module 6, Part II: TEC Process Model And Python Simulation - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 6, Part II: TEC Process Model And The v3 Simulation - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#module-6-part-ii-tec-process-model-and-python-simulation" class="nav-link">Module 6, Part II: TEC Process Model And Python Simulation</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-6-part-ii-tec-process-model-and-the-v3-simulation" class="nav-link">Module 6, Part II: TEC Process Model And The v3 Simulation</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#introductory-material" class="nav-link">Introductory Material</a>
               <ul class="nav flex-column">
@@ -132,7 +132,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#model-equations" class="nav-link">Model Equations</a>
+            <li class="nav-item" data-bs-level="3"><a href="#model-equations-and-numerical-algorithm" class="nav-link">Model Equations And Numerical Algorithm</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -164,7 +164,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-1-manual-model" class="nav-link">Part 1: Manual Model</a>
+            <li class="nav-item" data-bs-level="3"><a href="#part-1-one-lump-open-loop-model" class="nav-link">Part 1: One-Lump Open-Loop Model</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -184,7 +184,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-6-make-one-model-code-modification" class="nav-link">Part 6: Make One Model-Code Modification</a>
+            <li class="nav-item" data-bs-level="3"><a href="#part-6-trace-one-parameter-through-the-algorithm" class="nav-link">Part 6: Trace One Parameter Through The Algorithm</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -196,27 +196,15 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#preserve-the-p2-and-c4-evidence" class="nav-link">Preserve The P2 And C4 Evidence</a>
+            <li class="nav-item" data-bs-level="3"><a href="#preserve-the-model-evidence" class="nav-link">Preserve The Model Evidence</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#c4-feedback-controller-and-tec-process-model" class="nav-link">C4: Feedback Controller And TEC Process Model</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#c4-evidence-record" class="nav-link">C4 Evidence Record</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#c4-oral-questions-process-modeling" class="nav-link">C4 Oral Questions: Process Modeling</a>
+            <li class="nav-item" data-bs-level="3"><a href="#oral-review-questions-process-modeling" class="nav-link">Oral Review Questions: Process Modeling</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-bs-level="3"><a href="#model-evidence-record" class="nav-link">Model Evidence Record</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#optional-extension" class="nav-link">Optional Extension</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -233,9 +221,12 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="module-6-part-ii-tec-process-model-and-python-simulation">Module 6, Part II: TEC Process Model And Python Simulation<a class="headerlink" href="#module-6-part-ii-tec-process-model-and-python-simulation" title="Permanent link">&para;</a></h1>
+<h1 id="module-6-part-ii-tec-process-model-and-the-v3-simulation">Module 6, Part II: TEC Process Model And The v3 Simulation<a class="headerlink" href="#module-6-part-ii-tec-process-model-and-the-v3-simulation" title="Permanent link">&para;</a></h1>
 <p>This is the second part of Module 6. Complete
-<a href="../lab-06/">Part I: P/PI Control And Lumped Modeling</a> first.</p>
+<a href="../lab-06/">Part I: P/PI Control And Lumped Modeling</a> first.
+Both parts use the same prepared
+<a href="../../downloads/Lab_6_7_modeling_tec_v3.py">v3 simulation</a>: Part I emphasizes
+the one-lump model, while Part II compares the one- and two-lump models.</p>
 <h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
 <p>This part follows the first Module 6 modeling work, after you have built enough of the instrument to
@@ -282,8 +273,8 @@ lag between where heat enters and where temperature is measured.</p>
    with lag, overshoot, or oscillation.</li>
 <li><strong>115-140 min</strong>: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.</li>
-<li><strong>140-160 min</strong>: Make one small code modification and confirm that it changes
-   something visible or understandable.</li>
+<li><strong>140-160 min</strong>: Trace one parameter through the equations and numerical
+   algorithm, then confirm its predicted effect in the simulation.</li>
 <li><strong>160-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.</li>
 </ol>
@@ -319,7 +310,7 @@ lag between where heat enters and where temperature is measured.</p>
 </tr>
 <tr>
 <td>S15</td>
-<td>Complete the model comparisons, code modification, and C4 evidence</td>
+<td>Complete the model comparisons and A3 evidence</td>
 <td style="text-align: right;">120 minutes</td>
 </tr>
 <tr>
@@ -329,7 +320,7 @@ lag between where heat enters and where temperature is measured.</p>
 </tr>
 <tr>
 <td>S15</td>
-<td>Commit, push, and prepare the C4 receipt</td>
+<td>Commit, push, and prepare the A3 submission</td>
 <td style="text-align: right;">30 minutes</td>
 </tr>
 <tr>
@@ -357,82 +348,81 @@ budget and should be attempted only after required work is complete.</p>
   measured temperature response.</li>
 <li><strong>Droop</strong>: steady-state error in proportional-only control.</li>
 <li><strong>Saturation</strong>: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.</li>
-<li><strong>Residual</strong>: measured data minus model prediction.</li>
 </ul>
-<h3 id="model-equations">Model Equations<a class="headerlink" href="#model-equations" title="Permanent link">&para;</a></h3>
-<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> shows three models.</p>
-<h4 id="manual-control">Manual Control<a class="headerlink" href="#manual-control" title="Permanent link">&para;</a></h4>
-<pre><code class="language-text">C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-</code></pre>
-<p>All these equations describe the change of heat with time. The units of this equation are Watts - energy/time. Check that each term has these units. Here <code>T</code> is the TEC/block temperature in °C, <code>T_room</code> is room temperature in °C,
-<code>Tm</code> is the measured temperature in °C, <code>C</code> is the heat capacity of the lump in
-J/°C, <code>G_room</code> is the thermal conductance to the room in W/°C, <code>Q_max</code> is the
-approximate rate of heat flow supplied by the TEC at full PWM in W, <code>PWM</code> is an Arduino
-PWM command from 0 to 255, and <code>HC</code> is <code>+1</code> for heat or <code>-1</code> for cool. The first
-term represents heat transfer between the block and the room. The second term
-represents the heat transferred to the block by the TEC.</p>
-<p>An equivalent form, after dividing by <code>C</code>, is:</p>
-<pre><code class="language-text">dT/dt = k_room*(T_room - T) + beta_tec*(PWM/255)*HC
-</code></pre>
-<p>where <code>k_room = G_room/C</code> has units of 1/s and <code>beta_tec = Q_max/C</code> has units of
-°C/s.</p>
-<h4 id="proportional-control">Proportional Control<a class="headerlink" href="#proportional-control" title="Permanent link">&para;</a></h4>
-<pre><code class="language-text">error = T_set - T
-PWM = min(Kp*abs(error), 255)
-HC = sign(error)
-C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-</code></pre>
-<p>This model turns the temperature error into a PWM command. The larger <code>Kp</code> is,
-the more strongly the controller reacts to error. If <code>error</code> is measured in °C,
-then <code>Kp</code> has units of PWM counts per °C. The <code>min(...)</code> function represents
-actuator saturation: the Arduino cannot command a PWM value larger than 255.</p>
+<h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
+<p>The <a href="#how-to-run-the-python-gui">v3 Python GUI</a> separates the physical model
+from the controller. Select either a one-lump or two-lump process, then select
+open-loop, P, or PI control.</p>
+<h4 id="one-lump-physical-model">One-Lump Physical Model<a class="headerlink" href="#one-lump-physical-model" title="Permanent link">&para;</a></h4>
+<p>The one-lump model treats the TEC and measured block as one temperature:</p>
 <div class="arithmatex">\[
-\begin{aligned}
-\mathrm{PWM} &amp;= \min\left(K_p\left|T_{\mathrm{set}}-T\right|,255\right),\\
-\mathrm{HC} &amp;= \operatorname{sign}\left(T_{\mathrm{set}}-T\right).
-\end{aligned}
+C=C_T+C_m,
+\qquad
+C\frac{dT}{dt}=P_u(u)u-H(T-T_{\mathrm{amb}}).
 \]</div>
-<h4 id="proportional-control-with-measured-thermal-mass">Proportional Control With Measured Thermal Mass<a class="headerlink" href="#proportional-control-with-measured-thermal-mass" title="Permanent link">&para;</a></h4>
-<pre><code class="language-text">error = T_set - Tm
-PWM = min(Kp*abs(error), 255)
-HC = sign(error)
-C1 dT/dt  = Q_max*(PWM/255)*HC - G12*(T - Tm)
-C2 dTm/dt = G12*(T - Tm) - Gm*(Tm - T_room)
-</code></pre>
-<p>This is the most important model for today. The controller responds to <code>Tm</code>, the
-measured thermistor/block temperature, but the TEC-side temperature <code>T</code> can move
-first. This lag can produce overshoot and oscillation. Here <code>C1</code> and <code>C2</code> are
-heat capacities in J/°C, <code>G12</code> is the thermal conductance between the TEC-side
-lump and the measured lump in W/°C, and <code>Gm</code> is the conductance from the measured
-lump to room air in W/°C.</p>
-<p>After dividing by the heat capacities, the coupling terms become rate constants:</p>
-<pre><code class="language-text">dT/dt  = beta_tec*(PWM/255)*HC - k12*(T - Tm)
-dTm/dt = k21*(T - Tm) - km*(Tm - T_room)
-</code></pre>
-<p>where <code>beta_tec = Q_max/C1</code>, <code>k12 = G12/C1</code>, <code>k21 = G12/C2</code>, and <code>km = Gm/C2</code>.
-All of these rate constants have units of 1/s, except <code>beta_tec</code>, which has
-units of °C/s.</p>
-<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> uses a compact teaching version of
-this two-lump idea:</p>
-<pre><code class="language-text">error = T_set - Tm
-PWM = min(Kp*abs(error), 255)
-dT/dt = h*(T_room - T) + Kp_eff*(T_set - Tm)
-dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
-</code></pre>
-<p>Here <code>Kp_eff</code> is the proportional gain used in the local linear model. When the
-PWM command saturates at 255, the full simulation uses the saturated PWM value
-instead of the unsaturated linear term.</p>
-<p>Abbreviated stability theory: near equilibrium, before PWM saturation, let
-<code>m = mass^-1</code>. The linearized two-lump model has characteristic equation:</p>
-<pre><code class="language-text">s^2 + alpha*s + beta = 0
-alpha = m + 2*h
-beta = h*(m + h) + m*Kp_eff
-</code></pre>
-<p>The response is underdamped when <code>D = alpha^2 - 4*beta</code> is negative. For
-positive <code>m</code>, this reduces to <code>Kp_eff &gt; m/4</code>. The heat-loss term <code>h</code> makes the
-real part of the roots more negative, so it damps the oscillation even though it
-cancels out of this simple complex-root threshold. The full derivation is in
-<a href="../../analysis/two_lump_stability_analysis.pdf">two_lump_stability_analysis.pdf</a>.</p>
+<p>Every term has units of watts. The TEC coefficient is piecewise: the program
+uses <span class="arithmatex">\(P_{u,h}\)</span> for a positive heating command and <span class="arithmatex">\(P_{u,c}\)</span> for a negative
+cooling command. Their ratio is</p>
+<div class="arithmatex">\[
+r=\frac{P_{u,h}}{P_{u,c}}=\frac{\chi_h}{\chi_c}.
+\]</div>
+<h4 id="two-lump-physical-model">Two-Lump Physical Model<a class="headerlink" href="#two-lump-physical-model" title="Permanent link">&para;</a></h4>
+<p>The two-lump model separates the TEC-side temperature <span class="arithmatex">\(T\)</span> from the measured
+temperature <span class="arithmatex">\(T_m\)</span>:</p>
+<div class="arithmatex">\[
+C_T\frac{dT}{dt}=P_u(u)u-G(T-T_m),
+\]</div>
+<div class="arithmatex">\[
+C_m\frac{dT_m}{dt}=G(T-T_m)-H(T_m-T_{\mathrm{amb}}).
+\]</div>
+<p>Here <span class="arithmatex">\(C_T\)</span> and <span class="arithmatex">\(C_m\)</span> are thermal capacitances, <span class="arithmatex">\(G\)</span> couples the two lumps, and
+<span class="arithmatex">\(H\)</span> describes passive heat transfer from the measured lump to the room. The
+controller responds to <span class="arithmatex">\(T_m\)</span>, but <span class="arithmatex">\(T\)</span> can move first. That lag can produce
+overshoot or oscillation.</p>
+<h4 id="controller-choices">Controller Choices<a class="headerlink" href="#controller-choices" title="Permanent link">&para;</a></h4>
+<p>The measured temperature is <span class="arithmatex">\(T\)</span> for the one-lump model and <span class="arithmatex">\(T_m\)</span> for the
+two-lump model. Define</p>
+<div class="arithmatex">\[
+e=T_{\mathrm{set}}-T_{\mathrm{meas}}.
+\]</div>
+<p>The three controller choices are</p>
+<div class="arithmatex">\[
+u=u_{\mathrm{user}}\quad\text{(open loop)},
+\]</div>
+<div class="arithmatex">\[
+u=K_pe\quad\text{(P control)},
+\]</div>
+<div class="arithmatex">\[
+u=K_pe+K_i\int e\,dt=u_P+u_I\quad\text{(PI control)}.
+\]</div>
+<p>The signed command is clamped to the PWM limit. If the anti-windup option is
+enabled, the program prevents the integral state from continuing to grow when
+the actuator is saturated in the same direction as the error.</p>
+<h4 id="what-the-algorithm-does-at-each-time-step">What The Algorithm Does At Each Time Step<a class="headerlink" href="#what-the-algorithm-does-at-each-time-step" title="Permanent link">&para;</a></h4>
+<p>The supplied program performs the numerical work, but you should understand
+its sequence:</p>
+<ol>
+<li>Read the model's measured temperature, <span class="arithmatex">\(T\)</span> or <span class="arithmatex">\(T_m\)</span>.</li>
+<li>Calculate the error and the requested open-loop, P, or PI command.</li>
+<li>Clamp the command to the signed PWM limit.</li>
+<li>Select <span class="arithmatex">\(P_{u,h}\)</span> or <span class="arithmatex">\(P_{u,c}\)</span> from the sign of the applied command.</li>
+<li>Evaluate the heat-balance derivatives.</li>
+<li>Advance <span class="arithmatex">\(T\)</span> and, for the two-lump model, <span class="arithmatex">\(T_m\)</span> by one Euler step.</li>
+<li>Update the integral state when PI control is active and anti-windup permits
+   the update.</li>
+</ol>
+<p>For example, the first two-lump Euler updates are</p>
+<div class="arithmatex">\[
+T_{n+1}=T_n+\frac{\Delta t}{C_T}
+\left[P_u(u_n)u_n-G(T_n-T_{m,n})\right],
+\]</div>
+<div class="arithmatex">\[
+T_{m,n+1}=T_{m,n}+\frac{\Delta t}{C_m}
+\left[G(T_n-T_{m,n})-H(T_{m,n}-T_{\mathrm{amb}})\right].
+\]</div>
+<p>You are not required to write this code. Your task is to connect each
+algorithmic step to the heat balance, make predictions, and test them with
+controlled parameter changes.</p>
 <p><a id="lumped-model-figure"></a></p>
 <p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
 <p><em>Course-specific lumped-model diagram.</em></p>
@@ -536,25 +526,25 @@ folder on your own computer.</p>
 cd ~/phys39-lab7
 </code></pre>
 <p>Download this file into that folder:
-<a href="../../python/Lab_6_7_modeling_tec_v2.py">Lab_6_7_modeling_tec_v2.py</a>.</p>
+<a href="../../downloads/Lab_6_7_modeling_tec_v3.py">Lab_6_7_modeling_tec_v3.py</a>.</p>
 <p>Set up Python the first time you use this folder:</p>
 <pre><code class="language-bash">python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install matplotlib
 </code></pre>
 <p>Run the non-interactive demo:</p>
-<pre><code class="language-bash">python Lab_6_7_modeling_tec_v2.py --demo
+<pre><code class="language-bash">python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
 </code></pre>
 <p>This saves a plot in the same folder:</p>
-<pre><code class="language-text">Lab_6_7_modeling_tec_v2_demo.png
+<pre><code class="language-text">Lab_6_7_modeling_tec_v3_demo.png
 </code></pre>
 <p>Then run the desktop GUI:</p>
-<pre><code class="language-bash">python Lab_6_7_modeling_tec_v2.py
+<pre><code class="language-bash">python Lab_6_7_modeling_tec_v3.py
 </code></pre>
 <p>After the first setup, start from this folder and run:</p>
 <pre><code class="language-bash">cd ~/phys39-lab7
 source .venv/bin/activate
-python Lab_6_7_modeling_tec_v2.py
+python Lab_6_7_modeling_tec_v3.py
 </code></pre>
 <h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
 <ol>
@@ -595,28 +585,28 @@ python Lab_6_7_modeling_tec_v2.py
      temperature you think it reads.</p>
 </li>
 <li>
-<p>Open the <a href="../../python/Lab_6_7_modeling_tec_v2.py">Python simulation GUI code</a>:</p>
+<p>Open the <a href="../../downloads/Lab_6_7_modeling_tec_v3.py">prepared v3 Python simulation</a>:</p>
 </li>
 </ol>
 <p><code>text
-   python/Lab_6_7_modeling_tec_v2.py</code></p>
+   Lab_6_7_modeling_tec_v3.py</code></p>
 <ol>
 <li>Run the non-interactive demo:</li>
 </ol>
 <p><code>bash
-   python Lab_6_7_modeling_tec_v2.py --demo</code></p>
+   python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png</code></p>
 <ol>
 <li>Look at the generated plot:</li>
 </ol>
 <p><code>text
-   Lab_6_7_modeling_tec_v2_demo.png</code></p>
+   Lab_6_7_modeling_tec_v3_demo.png</code></p>
 <p>The bottom of the PNG and the terminal output list the model parameters used
    to make the plot. Record those values so the plot is reproducible.</p>
 <ol>
 <li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
 </ol>
 <p><code>bash
-   python Lab_6_7_modeling_tec_v2.py</code></p>
+   python Lab_6_7_modeling_tec_v3.py</code></p>
 <ol>
 <li>In your notebook, copy the three model equations and label the meaning of
    each variable.</li>
@@ -625,7 +615,7 @@ python Lab_6_7_modeling_tec_v2.py
 <h3 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h3>
 <p>Write short answers before class.</p>
 <ol>
-<li>In the manual model, what happens if <code>PWM = 0</code>?</li>
+<li>In open-loop mode, what happens if the signed PWM command is zero?</li>
 <li>In proportional control, why does the PWM become small when the measured
    temperature gets close to the setpoint?</li>
 <li>Why can proportional-only control leave a steady-state error?</li>
@@ -642,17 +632,16 @@ python Lab_6_7_modeling_tec_v2.py
 <li>reproduce droop in proportional control,</li>
 <li>produce overshoot or oscillation by increasing gain or lag,</li>
 <li>compare the one-temperature model to the two-temperature model,</li>
-<li>make one small model-code modification,</li>
+<li>trace one controlled parameter through the equations and numerical algorithm,</li>
 <li>explain what this model teaches you about the real TEC experiment.</li>
 </ul>
-<h3 id="part-1-manual-model">Part 1: Manual Model<a class="headerlink" href="#part-1-manual-model" title="Permanent link">&para;</a></h3>
-<p>Set the GUI to <code>manual</code>.</p>
+<h3 id="part-1-one-lump-open-loop-model">Part 1: One-Lump Open-Loop Model<a class="headerlink" href="#part-1-one-lump-open-loop-model" title="Permanent link">&para;</a></h3>
+<p>Set the physical model to <code>one_lump</code> and the controller to <code>open_loop</code>.</p>
 <ol>
-<li>Turn TEC power off. Run the model. Confirm that the temperature relaxes
-   toward room temperature.</li>
-<li>Turn TEC power on.</li>
-<li>Set <code>HC</code> to heat and try several PWM values.</li>
-<li>Set <code>HC</code> to cool and try several PWM values.</li>
+<li>Set the signed PWM command to zero. Run the model and confirm that the
+   temperature relaxes toward room temperature.</li>
+<li>Enter a positive signed PWM command and try several values.</li>
+<li>Enter a negative signed PWM command and try several values.</li>
 <li>Record what changes in the temperature plot and the PWM plot.</li>
 </ol>
 <p>Answer:</p>
@@ -662,7 +651,7 @@ python Lab_6_7_modeling_tec_v2.py
 <li>Why is this not feedback control?</li>
 </ul>
 <h3 id="part-2-one-temperature-proportional-model">Part 2: One-Temperature Proportional Model<a class="headerlink" href="#part-2-one-temperature-proportional-model" title="Permanent link">&para;</a></h3>
-<p>Set the GUI to <code>proportional</code>.</p>
+<p>Set the physical model to <code>one_lump</code> and the controller to <code>p</code>.</p>
 <ol>
 <li>Set <code>T_set</code> above room temperature.</li>
 <li>Set a small <code>Kp</code>.</li>
@@ -720,11 +709,11 @@ python Lab_6_7_modeling_tec_v2.py
 <li>What happens when PWM saturates?</li>
 </ul>
 <h3 id="part-3-two-temperature-thermal-mass-model">Part 3: Two-Temperature Thermal-Mass Model<a class="headerlink" href="#part-3-two-temperature-thermal-mass-model" title="Permanent link">&para;</a></h3>
-<p>Set the GUI to <code>mass</code>.</p>
+<p>Set the physical model to <code>two_lump</code> and the controller to <code>p</code>.</p>
 <ol>
 <li>Use the same setpoint as Part 2.</li>
 <li>Start with moderate <code>Kp</code>.</li>
-<li>Change the lag/coupling rate constant, such as <code>k21</code>.</li>
+<li>Change the coupling conductance <span class="arithmatex">\(G\)</span> or one thermal capacitance.</li>
 <li>Watch the difference between <code>T</code> and <code>Tm</code>.</li>
 <li>Find a case where the model overshoots.</li>
 <li>Find a case where the model oscillates or nearly oscillates.</li>
@@ -735,7 +724,7 @@ python Lab_6_7_modeling_tec_v2.py
 <tr>
 <th>Trial</th>
 <th><code>Kp</code></th>
-<th>lag/coupling rate constant</th>
+<th><span class="arithmatex">\(G\)</span>, <span class="arithmatex">\(C_T\)</span>, or <span class="arithmatex">\(C_m\)</span></th>
 <th>overshoot?</th>
 <th>oscillation?</th>
 <th>qualitative behavior</th>
@@ -804,21 +793,19 @@ output = Kp*error + Ki*integral
    change?</li>
 <li>Why is this still a lumped model rather than a full heat-equation model?</li>
 </ol>
-<h3 id="part-6-make-one-model-code-modification">Part 6: Make One Model-Code Modification<a class="headerlink" href="#part-6-make-one-model-code-modification" title="Permanent link">&para;</a></h3>
-<p>Open:</p>
-<pre><code class="language-text">python/Lab_6_7_modeling_tec_v2.py
-</code></pre>
-<p>Choose one small modification:</p>
-<ul>
-<li>Change the default setpoint.</li>
-<li>Change the default <code>Kp</code>.</li>
-<li>Add a displayed label for the current error.</li>
-<li>Add a horizontal setpoint line to the GUI plots.</li>
-<li>Add a new output column to the demo data if you choose to save data.</li>
-<li>Add a short comment explaining one model equation.</li>
-</ul>
-<p>Do not rewrite the whole GUI. The goal is to connect one line of code to one
-visible model behavior.</p>
+<h3 id="part-6-trace-one-parameter-through-the-algorithm">Part 6: Trace One Parameter Through The Algorithm<a class="headerlink" href="#part-6-trace-one-parameter-through-the-algorithm" title="Permanent link">&para;</a></h3>
+<p>Choose one parameter: <span class="arithmatex">\(C_T\)</span>, <span class="arithmatex">\(C_m\)</span>, <span class="arithmatex">\(G\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(K_p\)</span>, or <span class="arithmatex">\(K_i\)</span>.</p>
+<ol>
+<li>Identify every model or controller equation containing that parameter.</li>
+<li>Predict how increasing it will affect the temperature trace, command, error,
+   or lag.</li>
+<li>Pause the simulation, change only that parameter, and resume.</li>
+<li>Compare the observed change with your prediction.</li>
+<li>Explain where the parameter enters the Euler-update sequence described
+   above.</li>
+</ol>
+<p>The goal is to understand how the prepared algorithm represents the physics
+and controller, not to modify its source code.</p>
 <h3 id="part-7-bridge-to-the-long-rod">Part 7: Bridge To The Long Rod<a class="headerlink" href="#part-7-bridge-to-the-long-rod" title="Permanent link">&para;</a></h3>
 <p>The TEC-only model has no spatial coordinate. The later long-rod experiment
 will require a model in which temperature depends on both position and time.</p>
@@ -840,50 +827,38 @@ phase lags with distance
   temperature?</li>
 </ul>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
-<h3 id="preserve-the-p2-and-c4-evidence">Preserve The P2 And C4 Evidence<a class="headerlink" href="#preserve-the-p2-and-c4-evidence" title="Permanent link">&para;</a></h3>
-<p>During S14, <code>P2</code> checks that the model runs, imports an experimental trace,
-produces at least one fitted curve, and displays residuals. Before leaving S15,
-save the copied equations, completed theory assignments, parameter tables,
-screenshots, code modification, exact run command, and one model-versus-data
-comparison. Keep the team record in
-<code>docs/module_notes/module_07_process_model.md</code> and authoritative model code
-under <code>python/models/</code>.</p>
-<h3 id="c4-feedback-controller-and-tec-process-model">C4: Feedback Controller And TEC Process Model<a class="headerlink" href="#c4-feedback-controller-and-tec-process-model" title="Permanent link">&para;</a></h3>
-<p>Demonstrate <code>C4</code> during S15. One team member submits the <code>C4 Team Checkoff</code>
-Moodle receipt by <strong>11:55 AM</strong>, citing the pushed commit and paths to the
-controller, model, data, figures, parameter record, and README. Prepare the
-<a href="../../assessment/#c4-feedback-controller-and-tec-process-model">C4 oral questions</a>.</p>
-<h3 id="c4-evidence-record">C4 Evidence Record<a class="headerlink" href="#c4-evidence-record" title="Permanent link">&para;</a></h3>
-<h3 id="c4-oral-questions-process-modeling">C4 Oral Questions: Process Modeling<a class="headerlink" href="#c4-oral-questions-process-modeling" title="Permanent link">&para;</a></h3>
-<p>This is the authoritative modeling question bank for C4:</p>
+<h3 id="preserve-the-model-evidence">Preserve The Model Evidence<a class="headerlink" href="#preserve-the-model-evidence" title="Permanent link">&para;</a></h3>
+<p>Before leaving S15, save the copied equations, completed theory assignments,
+parameter tables, screenshots, algorithm-tracing explanation, and exact run
+command. Keep the team record in
+<code>docs/module_notes/module_07_process_model.md</code> and preserve the prepared v3
+program in your repository.</p>
+<h3 id="oral-review-questions-process-modeling">Oral Review Questions: Process Modeling<a class="headerlink" href="#oral-review-questions-process-modeling" title="Permanent link">&para;</a></h3>
+<p>Use this modeling question bank to check your understanding and prepare A3:</p>
 <ol>
 <li>Which physical lag in the apparatus can produce overshoot or oscillation as
    gain increases?</li>
-<li>Identify one fitted model parameter, give its units, and explain how the
-   data constrain it.</li>
+<li>Identify one model parameter, give its units, and explain its physical
+   effect on the simulated response.</li>
 </ol>
-<p>Also prepare the <a href="../lab-05/#c4-oral-questions-p-control">Module 5 P-control questions</a>
-and <a href="../lab-06/#c4-oral-questions-pi-control">Module 6 PI-control question</a>.</p>
+<p>Also prepare the <a href="../lab-05/#oral-review-questions-p-control">Module 5 P-control questions</a>
+and <a href="../lab-06/#oral-review-questions-pi-control">Module 6 PI-control question</a>.</p>
 <h3 id="model-evidence-record">Model Evidence Record<a class="headerlink" href="#model-evidence-record" title="Permanent link">&para;</a></h3>
 <p>Keep a short module note containing:</p>
 <ul>
 <li>Your copied and labeled model equations.</li>
 <li>Theory Assignment 1.</li>
 <li>Theory Assignment 2.</li>
-<li>Manual-model observations.</li>
+<li>Open-loop observations.</li>
 <li>Proportional-control droop table.</li>
 <li>Thermal-mass overshoot/oscillation table.</li>
 <li>Screenshot of the <a href="#how-to-run-the-python-gui">Python GUI</a>.</li>
-<li>A short description of your code modification.</li>
+<li>Your parameter prediction and algorithm-tracing explanation.</li>
 <li>A paragraph answering:</li>
 </ul>
 <p><code>text
   What did the model explain well, and what would it fail to explain about the
   real TEC hardware?</code></p>
-<h3 id="optional-extension">Optional Extension<a class="headerlink" href="#optional-extension" title="Permanent link">&para;</a></h3>
-<p>Use data from a real TEC step response. Adjust model parameters until the
-simulated trace roughly overlays the measured trace. Do not worry about a
-perfect fit. Report which part of the curve the model explains poorly.</p>
 <h2 id="instructor-notes">Instructor Notes<a class="headerlink" href="#instructor-notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>This module is a consolidation point after manual control and P/PI control.</li>

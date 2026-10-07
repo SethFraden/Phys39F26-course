@@ -1,7 +1,10 @@
-# Module 6, Part II: TEC Process Model And Python Simulation
+# Module 6, Part II: TEC Process Model And The v3 Simulation
 
 This is the second part of Module 6. Complete
 [Part I: P/PI Control And Lumped Modeling](../lab-06/index.md) first.
+Both parts use the same prepared
+[v3 simulation](../../downloads/Lab_6_7_modeling_tec_v3.py): Part I emphasizes
+the one-lump model, while Part II compares the one- and two-lump models.
 
 ## Introductory Material
 
@@ -56,8 +59,8 @@ During class, the approximate schedule for one 170-minute meeting is:
    with lag, overshoot, or oscillation.
 6. **115-140 min**: Complete Theory Assignment 2 in groups and connect the
    two-lump equations to thermistor placement.
-7. **140-160 min**: Make one small code modification and confirm that it changes
-   something visible or understandable.
+7. **140-160 min**: Trace one parameter through the equations and numerical
+   algorithm, then confirm its predicted effect in the simulation.
 8. **160-170 min**: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.
 
@@ -69,7 +72,7 @@ During class, the approximate schedule for one 170-minute meeting is:
 | S14 | Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5 | 60 minutes |
 | S14 | Install/run the model and annotate the equations | 45 minutes |
 | S14 | **Total associated with S14** | **3 hours 15 minutes** |
-| S15 | Complete the model comparisons, code modification, and A3 evidence | 120 minutes |
+| S15 | Complete the model comparisons and A3 evidence | 120 minutes |
 | S15 | Complete the theory-bridge questions used in the oral discussion | 60 minutes |
 | S15 | Commit, push, and prepare the A3 submission | 30 minutes |
 | S15 | **Total associated with S15** | **3 hours 30 minutes** |
@@ -93,112 +96,105 @@ budget and should be attempted only after required work is complete.
   measured temperature response.
 - **Droop**: steady-state error in proportional-only control.
 - **Saturation**: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.
-- **Residual**: measured data minus model prediction.
 
-### Model Equations
+### Model Equations And Numerical Algorithm
 
-The [Python GUI](#how-to-run-the-python-gui) shows three models.
+The [v3 Python GUI](#how-to-run-the-python-gui) separates the physical model
+from the controller. Select either a one-lump or two-lump process, then select
+open-loop, P, or PI control.
 
-#### Manual Control
+#### One-Lump Physical Model
 
-```text
-C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-```
-
-All these equations describe the change of heat with time. The units of this equation are Watts - energy/time. Check that each term has these units. Here `T` is the TEC/block temperature in °C, `T_room` is room temperature in °C,
-`Tm` is the measured temperature in °C, `C` is the heat capacity of the lump in
-J/°C, `G_room` is the thermal conductance to the room in W/°C, `Q_max` is the
-approximate rate of heat flow supplied by the TEC at full PWM in W, `PWM` is an Arduino
-PWM command from 0 to 255, and `HC` is `+1` for heat or `-1` for cool. The first
-term represents heat transfer between the block and the room. The second term
-represents the heat transferred to the block by the TEC.
-
-An equivalent form, after dividing by `C`, is:
-
-```text
-dT/dt = k_room*(T_room - T) + beta_tec*(PWM/255)*HC
-```
-
-where `k_room = G_room/C` has units of 1/s and `beta_tec = Q_max/C` has units of
-°C/s.
-
-#### Proportional Control
-
-```text
-error = T_set - T
-PWM = min(Kp*abs(error), 255)
-HC = sign(error)
-C dT/dt = G_room*(T_room - T) + Q_max*(PWM/255)*HC
-```
-
-This model turns the temperature error into a PWM command. The larger `Kp` is,
-the more strongly the controller reacts to error. If `error` is measured in °C,
-then `Kp` has units of PWM counts per °C. The `min(...)` function represents
-actuator saturation: the Arduino cannot command a PWM value larger than 255.
+The one-lump model treats the TEC and measured block as one temperature:
 
 \[
-\begin{aligned}
-\mathrm{PWM} &= \min\left(K_p\left|T_{\mathrm{set}}-T\right|,255\right),\\
-\mathrm{HC} &= \operatorname{sign}\left(T_{\mathrm{set}}-T\right).
-\end{aligned}
+C=C_T+C_m,
+\qquad
+C\frac{dT}{dt}=P_u(u)u-H(T-T_{\mathrm{amb}}).
 \]
 
-#### Proportional Control With Measured Thermal Mass
+Every term has units of watts. The TEC coefficient is piecewise: the program
+uses $P_{u,h}$ for a positive heating command and $P_{u,c}$ for a negative
+cooling command. Their ratio is
 
-```text
-error = T_set - Tm
-PWM = min(Kp*abs(error), 255)
-HC = sign(error)
-C1 dT/dt  = Q_max*(PWM/255)*HC - G12*(T - Tm)
-C2 dTm/dt = G12*(T - Tm) - Gm*(Tm - T_room)
-```
+\[
+r=\frac{P_{u,h}}{P_{u,c}}=\frac{\chi_h}{\chi_c}.
+\]
 
-This is the most important model for today. The controller responds to `Tm`, the
-measured thermistor/block temperature, but the TEC-side temperature `T` can move
-first. This lag can produce overshoot and oscillation. Here `C1` and `C2` are
-heat capacities in J/°C, `G12` is the thermal conductance between the TEC-side
-lump and the measured lump in W/°C, and `Gm` is the conductance from the measured
-lump to room air in W/°C.
+#### Two-Lump Physical Model
 
-After dividing by the heat capacities, the coupling terms become rate constants:
+The two-lump model separates the TEC-side temperature $T$ from the measured
+temperature $T_m$:
 
-```text
-dT/dt  = beta_tec*(PWM/255)*HC - k12*(T - Tm)
-dTm/dt = k21*(T - Tm) - km*(Tm - T_room)
-```
+\[
+C_T\frac{dT}{dt}=P_u(u)u-G(T-T_m),
+\]
 
-where `beta_tec = Q_max/C1`, `k12 = G12/C1`, `k21 = G12/C2`, and `km = Gm/C2`.
-All of these rate constants have units of 1/s, except `beta_tec`, which has
-units of °C/s.
+\[
+C_m\frac{dT_m}{dt}=G(T-T_m)-H(T_m-T_{\mathrm{amb}}).
+\]
 
-The [Python GUI](#how-to-run-the-python-gui) uses a compact teaching version of
-this two-lump idea:
+Here $C_T$ and $C_m$ are thermal capacitances, $G$ couples the two lumps, and
+$H$ describes passive heat transfer from the measured lump to the room. The
+controller responds to $T_m$, but $T$ can move first. That lag can produce
+overshoot or oscillation.
 
-```text
-error = T_set - Tm
-PWM = min(Kp*abs(error), 255)
-dT/dt = h*(T_room - T) + Kp_eff*(T_set - Tm)
-dTm/dt = mass^-1*(T - Tm) + h*(T_room - Tm)
-```
+#### Controller Choices
 
-Here `Kp_eff` is the proportional gain used in the local linear model. When the
-PWM command saturates at 255, the full simulation uses the saturated PWM value
-instead of the unsaturated linear term.
+The measured temperature is $T$ for the one-lump model and $T_m$ for the
+two-lump model. Define
 
-Abbreviated stability theory: near equilibrium, before PWM saturation, let
-`m = mass^-1`. The linearized two-lump model has characteristic equation:
+\[
+e=T_{\mathrm{set}}-T_{\mathrm{meas}}.
+\]
 
-```text
-s^2 + alpha*s + beta = 0
-alpha = m + 2*h
-beta = h*(m + h) + m*Kp_eff
-```
+The three controller choices are
 
-The response is underdamped when `D = alpha^2 - 4*beta` is negative. For
-positive `m`, this reduces to `Kp_eff > m/4`. The heat-loss term `h` makes the
-real part of the roots more negative, so it damps the oscillation even though it
-cancels out of this simple complex-root threshold. The full derivation is in
-[two_lump_stability_analysis.pdf](../../analysis/two_lump_stability_analysis.pdf).
+\[
+u=u_{\mathrm{user}}\quad\text{(open loop)},
+\]
+
+\[
+u=K_pe\quad\text{(P control)},
+\]
+
+\[
+u=K_pe+K_i\int e\,dt=u_P+u_I\quad\text{(PI control)}.
+\]
+
+The signed command is clamped to the PWM limit. If the anti-windup option is
+enabled, the program prevents the integral state from continuing to grow when
+the actuator is saturated in the same direction as the error.
+
+#### What The Algorithm Does At Each Time Step
+
+The supplied program performs the numerical work, but you should understand
+its sequence:
+
+1. Read the model's measured temperature, $T$ or $T_m$.
+2. Calculate the error and the requested open-loop, P, or PI command.
+3. Clamp the command to the signed PWM limit.
+4. Select $P_{u,h}$ or $P_{u,c}$ from the sign of the applied command.
+5. Evaluate the heat-balance derivatives.
+6. Advance $T$ and, for the two-lump model, $T_m$ by one Euler step.
+7. Update the integral state when PI control is active and anti-windup permits
+   the update.
+
+For example, the first two-lump Euler updates are
+
+\[
+T_{n+1}=T_n+\frac{\Delta t}{C_T}
+\left[P_u(u_n)u_n-G(T_n-T_{m,n})\right],
+\]
+
+\[
+T_{m,n+1}=T_{m,n}+\frac{\Delta t}{C_m}
+\left[G(T_n-T_{m,n})-H(T_{m,n}-T_{\mathrm{amb}})\right].
+\]
+
+You are not required to write this code. Your task is to connect each
+algorithmic step to the heat balance, make predictions, and test them with
+controlled parameter changes.
 
 <a id="lumped-model-figure"></a>
 
@@ -347,7 +343,7 @@ cd ~/phys39-lab7
 ```
 
 Download this file into that folder:
-[Lab_6_7_modeling_tec_v2.py](../../python/Lab_6_7_modeling_tec_v2.py).
+[Lab_6_7_modeling_tec_v3.py](../../downloads/Lab_6_7_modeling_tec_v3.py).
 
 Set up Python the first time you use this folder:
 
@@ -360,19 +356,19 @@ python -m pip install matplotlib
 Run the non-interactive demo:
 
 ```bash
-python Lab_6_7_modeling_tec_v2.py --demo
+python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
 ```
 
 This saves a plot in the same folder:
 
 ```text
-Lab_6_7_modeling_tec_v2_demo.png
+Lab_6_7_modeling_tec_v3_demo.png
 ```
 
 Then run the desktop GUI:
 
 ```bash
-python Lab_6_7_modeling_tec_v2.py
+python Lab_6_7_modeling_tec_v3.py
 ```
 
 After the first setup, start from this folder and run:
@@ -380,7 +376,7 @@ After the first setup, start from this folder and run:
 ```bash
 cd ~/phys39-lab7
 source .venv/bin/activate
-python Lab_6_7_modeling_tec_v2.py
+python Lab_6_7_modeling_tec_v3.py
 ```
 
 ### Before Class
@@ -413,22 +409,22 @@ python Lab_6_7_modeling_tec_v2.py
      is a good reminder that a temperature sensor does not always read the
      temperature you think it reads.
 
-4. Open the [Python simulation GUI code](../../python/Lab_6_7_modeling_tec_v2.py):
+4. Open the [prepared v3 Python simulation](../../downloads/Lab_6_7_modeling_tec_v3.py):
 
    ```text
-   python/Lab_6_7_modeling_tec_v2.py
+   Lab_6_7_modeling_tec_v3.py
    ```
 
 5. Run the non-interactive demo:
 
    ```bash
-   python Lab_6_7_modeling_tec_v2.py --demo
+   python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
    ```
 
 6. Look at the generated plot:
 
    ```text
-   Lab_6_7_modeling_tec_v2_demo.png
+   Lab_6_7_modeling_tec_v3_demo.png
    ```
 
    The bottom of the PNG and the terminal output list the model parameters used
@@ -437,7 +433,7 @@ python Lab_6_7_modeling_tec_v2.py
 7. Run the [Python GUI](#how-to-run-the-python-gui):
 
    ```bash
-   python Lab_6_7_modeling_tec_v2.py
+   python Lab_6_7_modeling_tec_v3.py
    ```
 
 8. In your notebook, copy the three model equations and label the meaning of
@@ -448,7 +444,7 @@ python Lab_6_7_modeling_tec_v2.py
 
 Write short answers before class.
 
-1. In the manual model, what happens if `PWM = 0`?
+1. In open-loop mode, what happens if the signed PWM command is zero?
 2. In proportional control, why does the PWM become small when the measured
    temperature gets close to the setpoint?
 3. Why can proportional-only control leave a steady-state error?
@@ -467,19 +463,18 @@ You will:
 - reproduce droop in proportional control,
 - produce overshoot or oscillation by increasing gain or lag,
 - compare the one-temperature model to the two-temperature model,
-- make one small model-code modification,
+- trace one controlled parameter through the equations and numerical algorithm,
 - explain what this model teaches you about the real TEC experiment.
 
-### Part 1: Manual Model
+### Part 1: One-Lump Open-Loop Model
 
-Set the GUI to `manual`.
+Set the physical model to `one_lump` and the controller to `open_loop`.
 
-1. Turn TEC power off. Run the model. Confirm that the temperature relaxes
-   toward room temperature.
-2. Turn TEC power on.
-3. Set `HC` to heat and try several PWM values.
-4. Set `HC` to cool and try several PWM values.
-5. Record what changes in the temperature plot and the PWM plot.
+1. Set the signed PWM command to zero. Run the model and confirm that the
+   temperature relaxes toward room temperature.
+2. Enter a positive signed PWM command and try several values.
+3. Enter a negative signed PWM command and try several values.
+4. Record what changes in the temperature plot and the PWM plot.
 
 Answer:
 
@@ -489,7 +484,7 @@ Answer:
 
 ### Part 2: One-Temperature Proportional Model
 
-Set the GUI to `proportional`.
+Set the physical model to `one_lump` and the controller to `p`.
 
 1. Set `T_set` above room temperature.
 2. Set a small `Kp`.
@@ -513,18 +508,18 @@ Answer:
 
 ### Part 3: Two-Temperature Thermal-Mass Model
 
-Set the GUI to `mass`.
+Set the physical model to `two_lump` and the controller to `p`.
 
 1. Use the same setpoint as Part 2.
 2. Start with moderate `Kp`.
-3. Change the lag/coupling rate constant, such as `k21`.
+3. Change the coupling conductance $G$ or one thermal capacitance.
 4. Watch the difference between `T` and `Tm`.
 5. Find a case where the model overshoots.
 6. Find a case where the model oscillates or nearly oscillates.
 
 Make a table:
 
-| Trial | `Kp` | lag/coupling rate constant | overshoot? | oscillation? | qualitative behavior |
+| Trial | `Kp` | $G$, $C_T$, or $C_m$ | overshoot? | oscillation? | qualitative behavior |
 | --- | --- | --- | --- | --- | --- |
 | 1 |  |  |  |  |  |
 | 2 |  |  |  |  |  |
@@ -577,25 +572,20 @@ Finish Theory Assignment 2. Then answer:
    change?
 4. Why is this still a lumped model rather than a full heat-equation model?
 
-### Part 6: Make One Model-Code Modification
+### Part 6: Trace One Parameter Through The Algorithm
 
-Open:
+Choose one parameter: $C_T$, $C_m$, $G$, $H$, $K_p$, or $K_i$.
 
-```text
-python/Lab_6_7_modeling_tec_v2.py
-```
+1. Identify every model or controller equation containing that parameter.
+2. Predict how increasing it will affect the temperature trace, command, error,
+   or lag.
+3. Pause the simulation, change only that parameter, and resume.
+4. Compare the observed change with your prediction.
+5. Explain where the parameter enters the Euler-update sequence described
+   above.
 
-Choose one small modification:
-
-- Change the default setpoint.
-- Change the default `Kp`.
-- Add a displayed label for the current error.
-- Add a horizontal setpoint line to the GUI plots.
-- Add a new output column to the demo data if you choose to save data.
-- Add a short comment explaining one model equation.
-
-Do not rewrite the whole GUI. The goal is to connect one line of code to one
-visible model behavior.
+The goal is to understand how the prepared algorithm represents the physics
+and controller, not to modify its source code.
 
 ### Part 7: Bridge To The Long Rod
 
@@ -627,15 +617,13 @@ Answer:
 
 ## Post-Class Assignment
 
-### Preserve The P2 And Model Evidence
+### Preserve The Model Evidence
 
-During S14, `P2` checks that the model runs, imports an experimental trace,
-produces at least one fitted curve, and displays residuals. Before leaving S15,
-save the copied equations, completed theory assignments, parameter tables,
-screenshots, code modification, exact run command, and one model-versus-data
-comparison. Keep the team record in
-`docs/module_notes/module_07_process_model.md` and authoritative model code
-under `python/models/`.
+Before leaving S15, save the copied equations, completed theory assignments,
+parameter tables, screenshots, algorithm-tracing explanation, and exact run
+command. Keep the team record in
+`docs/module_notes/module_07_process_model.md` and preserve the prepared v3
+program in your repository.
 
 ### Oral Review Questions: Process Modeling
 
@@ -643,8 +631,8 @@ Use this modeling question bank to check your understanding and prepare A3:
 
 1. Which physical lag in the apparatus can produce overshoot or oscillation as
    gain increases?
-2. Identify one fitted model parameter, give its units, and explain how the
-   data constrain it.
+2. Identify one model parameter, give its units, and explain its physical
+   effect on the simulated response.
 
 Also prepare the [Module 5 P-control questions](../lab-05/index.md#oral-review-questions-p-control)
 and [Module 6 PI-control question](../lab-06/index.md#oral-review-questions-pi-control).
@@ -656,24 +644,17 @@ Keep a short module note containing:
 - Your copied and labeled model equations.
 - Theory Assignment 1.
 - Theory Assignment 2.
-- Manual-model observations.
+- Open-loop observations.
 - Proportional-control droop table.
 - Thermal-mass overshoot/oscillation table.
 - Screenshot of the [Python GUI](#how-to-run-the-python-gui).
-- A short description of your code modification.
+- Your parameter prediction and algorithm-tracing explanation.
 - A paragraph answering:
 
   ```text
   What did the model explain well, and what would it fail to explain about the
   real TEC hardware?
   ```
-
-
-### Optional Extension
-
-Use data from a real TEC step response. Adjust model parameters until the
-simulated trace roughly overlays the measured trace. Do not worry about a
-perfect fit. Report which part of the curve the model explains poorly.
 
 ## Instructor Notes
 

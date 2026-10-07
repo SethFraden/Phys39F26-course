@@ -184,7 +184,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#instructor-verification-and-exploration-tool" class="nav-link">Instructor Verification And Exploration Tool</a>
+            <li class="nav-item" data-bs-level="3"><a href="#using-the-prepared-v3-simulation" class="nav-link">Using The Prepared v3 Simulation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -194,7 +194,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-9-modeling-checkpoint" class="nav-link">Part 9: Modeling Checkpoint</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-9-modeling-evidence-checkpoint" class="nav-link">Part 9: Modeling-Evidence Checkpoint</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -230,9 +230,9 @@
 <ol>
 <li><strong>Part I (this page):</strong> develop one-lump P and PI models and connect them to
    the Module 5 measurements.</li>
-<li><a href="../lab-07/"><strong>Part II: TEC Process Model And Python Simulation</strong></a>:
+<li><a href="../lab-07/"><strong>Part II: TEC Process Model And The v3 Simulation</strong></a>:
    extend the model, compare one- and two-lump descriptions, and test the model
-   in Python.</li>
+   with the same prepared v3 simulation.</li>
 </ol>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Module 6 slows down the theory. Module 5 showed that proportional feedback reduces
@@ -430,7 +430,7 @@ will be used during the in-class model comparison.</p>
 </tr>
 <tr>
 <td>S13</td>
-<td>Prepare or revise the P/PI simulation for in-class comparison</td>
+<td>Explore and document P/PI behavior with the prepared v3 simulation</td>
 <td style="text-align: right;">105 minutes</td>
 </tr>
 <tr>
@@ -467,12 +467,12 @@ complete and understood.</p>
 <h2 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Derive the algebraic P-control droop model.</li>
-<li>Fit or estimate an open-loop thermal slope from Module 4.</li>
-<li>Fit or estimate a time constant from a temperature step.</li>
+<li>Estimate an open-loop thermal slope from Module 4.</li>
+<li>Estimate a time constant from a temperature step.</li>
 <li>Simulate a first-order TEC/block model.</li>
-<li>Add P-only feedback to the simulation.</li>
+<li>Explore P-only feedback in the simulation.</li>
 <li>Compare simulated droop with measured droop.</li>
-<li>Add a simple PI controller in simulation.</li>
+<li>Compare P and PI control in the simulation.</li>
 <li>Explain why integral action reduces droop and why windup is a problem.</li>
 </ul>
 <h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
@@ -748,38 +748,50 @@ between 100 and 1000 raw thermistor-voltage measurements, as required in Modules
 exponential. In the dimensional model, this measurement determines the ratio
 <span class="arithmatex">\(C/H\)</span>; it does not separately determine <span class="arithmatex">\(C\)</span> and <span class="arithmatex">\(H\)</span>.</p>
 <h2 id="part-4-simulate-open-loop-response">Part 4: Simulate Open-Loop Response<a class="headerlink" href="#part-4-simulate-open-loop-response" title="Permanent link">&para;</a></h2>
-<p>Write a short Python simulation of the dimensional one-lump balance using
-Euler integration:</p>
+<p>Download <a href="../../downloads/Lab_6_7_modeling_tec_v3.py">the prepared Module 6/7 v3 TEC
+simulation</a>. Save it in your
+project repository as <code>python/Lab_6_7_modeling_tec_v3.py</code>, then run it from the
+repository root:</p>
+<pre><code class="language-bash">python python/Lab_6_7_modeling_tec_v3.py
+</code></pre>
+<p>For Module 6, select the <strong>one-lump</strong> physical model. The program performs an
+Euler integration of the dimensional energy balance:</p>
 <div class="arithmatex">\[
 T_{n+1}=T_n+\frac{\Delta t}{C}
 \left[P_u u_n-H(T_n-T_{\mathrm{amb}})\right].
 \]</div>
-<p>Because your experiment measures <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span> and <span class="arithmatex">\(\tau=C/H\)</span>, implement the
-equivalent measured-parameter update:</p>
+<p>Because your experiment measures <span class="arithmatex">\(\chi_{T,u}=P_u/H\)</span> and <span class="arithmatex">\(\tau=C/H\)</span>, the
+equivalent measured-parameter update is</p>
 <div class="arithmatex">\[
 \boxed{
 T_{n+1}=T_n+\frac{\Delta t}{\tau}
 \left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
 }
 \]</div>
-<p>Simulate a constant signed PWM command and compare the simulated curve with one
-of your measured open-loop traces. State the values and units of <span class="arithmatex">\(\chi_{T,u}\)</span>, <span class="arithmatex">\(\tau\)</span>,
+<p>Use your measured heating and cooling susceptibilities in the simulation. For
+any chosen <span class="arithmatex">\(H\)</span>, set <span class="arithmatex">\(P_{u,c}=H\chi_c\)</span>, set
+<span class="arithmatex">\(r=\chi_h/\chi_c\)</span>, and set the total one-lump capacitance
+<span class="arithmatex">\(C_T+C_m=H\tau\)</span>. Before running, use the steady-state equation to predict the
+final temperature for one heating command and one cooling command.</p>
+<p>Run both commands and compare the simulated curves with measured open-loop
+traces. Record the values and units of <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>,
 <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(u\)</span>, and <span class="arithmatex">\(\Delta t\)</span>. Choose <span class="arithmatex">\(\Delta t\)</span> much smaller than
 <span class="arithmatex">\(\tau\)</span> and verify that making it smaller does not appreciably change the
-result.</p>
+result. Explain any important difference between the model and the apparatus.</p>
 <h2 id="part-5-simulate-p-only-feedback">Part 5: Simulate P-Only Feedback<a class="headerlink" href="#part-5-simulate-p-only-feedback" title="Permanent link">&para;</a></h2>
-<p>Continue using the same one-lump energy balance. Replace the constant command
-with</p>
+<p>Continue with the same one-lump parameters in v3. Select <strong>P</strong> control, which
+replaces the constant command with</p>
 <div class="arithmatex">\[
 u_n=K_p(T_{\mathrm{set}}-T_n),
 \]</div>
-<p>then clamp <span class="arithmatex">\(u_n\)</span> to the allowed signed PWM range before applying the Euler
-update from Part 4.</p>
-<p>Simulate several values of <span class="arithmatex">\(K_p\)</span>. Plot:</p>
+<p>The program clamps <span class="arithmatex">\(u_n\)</span> to the allowed signed PWM range before applying the
+Euler update from Part 4.</p>
+<p>Before each run, predict the droop and closed-loop time constant from the
+equations in Parts 1 and 6. Simulate several values of <span class="arithmatex">\(K_p\)</span>. Record or capture:</p>
 <ul>
 <li>temperature versus time,</li>
 <li>PWM command versus time,</li>
-<li>final droop versus <span class="arithmatex">\(K_p\)</span>.</li>
+<li>final droop versus <span class="arithmatex">\(K_p\)</span>; use the recorded values to make one droop plot.</li>
 </ul>
 <p>Compare with Module 5. The one-lump model should capture some trends, but it
 may not reproduce oscillations.</p>
@@ -907,8 +919,8 @@ C\frac{dT}{dt}
 \frac{dq}{dt}=T_{\mathrm{set}}-T.
 }
 \]</div>
-<p>At each time step, calculate and clamp the command from the current state, then
-update both state variables:</p>
+<p>The v3 simulation calculates and clamps the command from the current state,
+then updates both state variables according to</p>
 <div class="arithmatex">\[
 u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_n,
 \]</div>
@@ -919,7 +931,10 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 <div class="arithmatex">\[
 q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
 \]</div>
-<p>Simulate PI control for a stable <span class="arithmatex">\(K_p\)</span>.</p>
+<p>Select <strong>PI</strong> in v3 and begin with a stable <span class="arithmatex">\(K_p\)</span>. Use <strong>Zero integral</strong> to
+clear the controller memory before a comparison. Watch the displayed values of
+<span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the applied command while the temperature approaches
+the setpoint.</p>
 <p>Compare P-only and PI simulations:</p>
 <ul>
 <li>final droop,</li>
@@ -982,9 +997,8 @@ displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time 
 \theta\\ z
 \end{pmatrix}.
 \]</div>
-<details class="note" markdown="1">
+<details class="note">
 <summary>Sidebar: Solving a matrix ODE by diagonalization</summary>
-
 <p>Write the two state variables as one vector,</p>
 <div class="arithmatex">\[
 \mathbf{x}(t)=
@@ -1190,27 +1204,19 @@ For each case, record <span class="arithmatex">\(C\)</span>, <span class="arithm
 value of <span class="arithmatex">\(\zeta\)</span>, and whether the temperature trace agrees with the
 prediction. The formula applies only while the model is linear and the PWM is
 not saturated.</p>
-<h3 id="instructor-verification-and-exploration-tool">Instructor Verification And Exploration Tool<a class="headerlink" href="#instructor-verification-and-exploration-tool" title="Permanent link">&para;</a></h3>
-<p><strong>First implement your own one-lump model for open-loop, P, and PI control.</strong>
-Your program must perform the Euler update itself and produce the comparisons
-requested in Parts 4, 5, and 7. Do not begin with the supplied program, and do
-not submit the supplied program unchanged as your own work.</p>
-<p>After your own open-loop, P, and PI simulations run, download
-<a href="../../downloads/Lab_6_pi_contribution_rolling_demo.py">the rolling-window Module 6 open-loop/P/PI simulation</a>.
-Save it in your project repository as
-<code>python/Lab_6_pi_contribution_rolling_demo.py</code>, then run it from the repository
-root:</p>
-<pre><code class="language-bash">python python/Lab_6_pi_contribution_rolling_demo.py
-</code></pre>
-<p>The supplied simulation runs continuously in a rolling time window. Select
-open-loop, P, or PI control; pause and resume the run; and change model or
-controller parameters while watching the temperature and PWM histories. The
-display separates the proportional and integral contributions to PWM and shows
-the dimensional energy balance, controller equations, open-loop time constant,
-P droop prediction, required steady-state PWM, and PI damping ratio. Use it to
-check your reasoning, compare its predictions with your independently written
-model, and investigate parameter changes. Do not substitute its plots for
-comparisons with your own experimental data.</p>
+<h3 id="using-the-prepared-v3-simulation">Using The Prepared v3 Simulation<a class="headerlink" href="#using-the-prepared-v3-simulation" title="Permanent link">&para;</a></h3>
+<p>The v3 simulation is the modeling tool for Parts 4, 5, and 7. It runs
+continuously in a rolling time window, and its sliders change physical and
+controller parameters while the simulation runs. The display separates the
+proportional and integral PWM contributions and shows the dimensional energy
+balance, controller equations, heating and cooling susceptibilities, time
+constants, P droop prediction, required steady-state command and power, and PI
+damping ratio. The <strong>two-lump</strong> option supports the process-model extension in
+Module 6, Part II.</p>
+<p>Your work is to predict behavior from the equations, choose controlled
+parameter comparisons, record quantitative results, and explain the physics
+and control. The prepared program supplies the numerical integration; it does
+not replace comparison with your experimental data.</p>
 <h2 id="part-8-windup-thought-experiment">Part 8: Windup Thought Experiment<a class="headerlink" href="#part-8-windup-thought-experiment" title="Permanent link">&para;</a></h2>
 <p>Suppose the setpoint is far away and the controller demands more PWM than the
 hardware can supply. The PWM saturates, but the integral error may keep growing.</p>
@@ -1221,11 +1227,14 @@ hardware can supply. The PWM saturates, but the integral error may keep growing.
 <li>Why might this cause overshoot?</li>
 <li>How could software prevent or reduce windup?</li>
 </ol>
-<h2 id="part-9-modeling-checkpoint">Part 9: Modeling Checkpoint<a class="headerlink" href="#part-9-modeling-checkpoint" title="Permanent link">&para;</a></h2>
-<p>Commit your modeling notebook or Python script.</p>
+<h2 id="part-9-modeling-evidence-checkpoint">Part 9: Modeling-Evidence Checkpoint<a class="headerlink" href="#part-9-modeling-evidence-checkpoint" title="Permanent link">&para;</a></h2>
+<p>Save and commit a short Markdown record of your v3 investigation. Include the
+v3 filename, the exact run command, model and controller settings, prediction
+calculations, the open-loop comparison, the P/PI comparison, and the plots or
+screenshots used as evidence.</p>
 <pre><code class="language-bash">git status
-git add README.md python docs data
-git commit -m &quot;Model P and PI temperature control&quot;
+git add README.md docs data python/Lab_6_7_modeling_tec_v3.py
+git commit -m &quot;Analyze open-loop P and PI temperature control&quot;
 git push
 </code></pre>
 <h2 id="complete-and-preserve-the-a3-work">Complete And Preserve The A3 Work<a class="headerlink" href="#complete-and-preserve-the-a3-work" title="Permanent link">&para;</a></h2>
@@ -1234,8 +1243,8 @@ team paper. The one-lump derivation is guided work used in the paper and in the
 later oral-review questions; it is not a separate document to grade.</p>
 <p>For the in-class modeling work, save the parameter set, units, initial
 conditions, controller settings, saturation limits, exact command used to run
-the model, open-loop comparison, matched P/PI plots, and residuals. Complete
-the comparison table while the simulations and experimental traces are open.</p>
+the model, open-loop observations, and matched P/PI plots. Complete the
+comparison table while the simulation is open.</p>
 <h3 id="a3-feedback-data-and-lumped-model-memo">A3: Feedback Data And Lumped-Model Memo<a class="headerlink" href="#a3-feedback-data-and-lumped-model-memo" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Due:</strong> Wednesday, October 21, at <strong>6:00 PM</strong></li>
@@ -1257,9 +1266,9 @@ pushing, and submitting the PDF.</p>
 <li>concise responses to the <a href="../lab-05/#student-derivation-recover-the-droop-equation">three Module 5 interpretation questions</a>, integrated with that derivation and the droop data rather than repeated separately,</li>
 <li>estimate of open-loop temperature susceptibility <span class="arithmatex">\(\chi_{T,u}\)</span>,</li>
 <li>estimate of thermal time constant <code>tau</code>,</li>
-<li>open-loop simulation compared with one measured trace,</li>
-<li>P-only simulation compared with Module 5 droop data,</li>
-<li>PI simulation compared with P-only simulation,</li>
+<li>v3 open-loop result compared with one measured trace,</li>
+<li>v3 P-control result compared with Module 5 droop data,</li>
+<li>matched v3 PI and P-control results,</li>
 <li>short explanation of why the one-lump model does or does not oscillate,</li>
 <li>windup thought-experiment answers,</li>
 <li>link to your GitHub modeling checkpoint.</li>
@@ -1290,7 +1299,7 @@ pushing, and submitting the PDF.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>PDF, code, data links, and cited Git checkpoint are clear and on time</td>
+<td>PDF, model settings, data links, and cited Git checkpoint are clear and on time</td>
 <td style="text-align: right;">2</td>
 </tr>
 </tbody>

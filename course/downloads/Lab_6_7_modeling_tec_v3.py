@@ -506,12 +506,12 @@ class ModelingTECv3Gui:
         (r"R_M", "TEC module resistance", "tec_resistance_ohm", "Ω", 0.1, 5.0, 0.05),
         (r"C", "Total thermal capacitance", "total_capacitance_j_per_c", "J/K", 5.0, 500.0, 5.0),
         (r"C_T/C", "TEC capacitance fraction", "tec_capacitance_fraction", "dimensionless", 0.05, 0.95, 0.05),
-        (r"G", "Thermal coupling", "coupling_w_per_c", "W/K", 0.1, 10.0, 0.1),
+        (r"G", "Thermal coupling", "coupling_w_per_c", "W/K", 0.1, 100.0, 1.0),
         (r"H", "Heat-loss conductance", "heat_loss_w_per_c", "W/K", 0.1, 10.0, 0.05),
         (r"P_{u,c}", "Cooling TEC coefficient", "tec_power_w_per_pwm", "W/PWM", 0.01, 0.5, 0.01),
         (r"r", "Heating/cooling ratio", "heating_to_cooling_ratio", "dimensionless", 0.25, 4.0, 0.05),
         (r"u_{\mathrm{user}}", "Open-loop command", "open_loop_pwm", "PWM", -255.0, 255.0, 1.0),
-        (r"K_p", "Proportional gain", "kp_pwm_per_c", "PWM/°C", 0.0, 100.0, 1.0),
+        (r"K_p", "Proportional gain", "kp_pwm_per_c", "PWM/°C", 0.0, 250.0, 1.0),
         (r"K_i", "Integral gain", "ki_pwm_per_c_s", "PWM/(°C s)", 0.0, 5.0, 0.02),
         (r"u_{\max}", "PWM limit", "pwm_limit", "PWM", 1.0, 255.0, 1.0),
         (r"\Delta t", "Euler time step", "dt_s", "s", 0.01, 2.0, 0.01),
@@ -552,6 +552,7 @@ class ModelingTECv3Gui:
         self.controller_mode = tk.StringVar(value="p")
         self.parameter_source = tk.StringVar(value="measured")
         self.anti_windup = tk.BooleanVar(value=self.defaults.anti_windup)
+        self.mass_temperature_only = tk.BooleanVar(value=False)
         self.entries: dict[str, tk.DoubleVar] = {}
         self.field_widgets: dict[str, tuple[tk.Widget, ...]] = {}
         self.running = False
@@ -607,6 +608,17 @@ class ModelingTECv3Gui:
         )
         process_box.grid(row=row, column=1, columnspan=2, sticky="ew")
         process_box.bind("<<ComboboxSelected>>", self._change_process)
+        row += 1
+
+        self.mass_only_button = ttk.Checkbutton(
+            controls,
+            text="Plot measured mass T_m only",
+            variable=self.mass_temperature_only,
+            command=self._draw,
+        )
+        self.mass_only_button.grid(
+            row=row, column=0, columnspan=3, sticky="w", pady=(2, 4)
+        )
         row += 1
 
         ttk.Label(controls, text="Controller").grid(row=row, column=0, sticky="w")
@@ -1048,13 +1060,14 @@ class ModelingTECv3Gui:
                 label=r"$T$",
             )
         else:
-            self.ax_temperature.plot(
-                self.times,
-                self.tec_temperatures,
-                color="tab:red",
-                linewidth=1.8,
-                label=r"TEC-side $T$",
-            )
+            if not self.mass_temperature_only.get():
+                self.ax_temperature.plot(
+                    self.times,
+                    self.tec_temperatures,
+                    color="tab:red",
+                    linewidth=1.8,
+                    label=r"TEC-side $T$",
+                )
             self.ax_temperature.plot(
                 self.times,
                 self.measured_temperatures,
@@ -1125,13 +1138,16 @@ class ModelingTECv3Gui:
 
         visible_temperatures = [
             value
-            for time_s, value in zip(self.times, self.tec_temperatures)
-            if time_s >= left
-        ] + [
-            value
             for time_s, value in zip(self.times, self.measured_temperatures)
             if time_s >= left
-        ] + [self.config.ambient_c, target_temperature]
+        ]
+        if process == "one_lump" or not self.mass_temperature_only.get():
+            visible_temperatures.extend(
+                value
+                for time_s, value in zip(self.times, self.tec_temperatures)
+                if time_s >= left
+            )
+        visible_temperatures.extend((self.config.ambient_c, target_temperature))
         low_t = min(visible_temperatures)
         high_t = max(visible_temperatures)
         margin_t = max(1.0, 0.1 * (high_t - low_t))
@@ -1298,6 +1314,9 @@ class ModelingTECv3Gui:
         enabled["setpoint_c"] = controller != "open_loop"
         enabled["kp_pwm_per_c"] = controller in {"p", "pi"}
         enabled["ki_pwm_per_c_s"] = controller == "pi"
+        self.mass_only_button.configure(
+            state="normal" if process == "two_lump" else "disabled"
+        )
         for attribute, widgets in self.field_widgets.items():
             state = "normal" if enabled[attribute] else "disabled"
             for widget in widgets:

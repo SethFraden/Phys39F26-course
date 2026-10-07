@@ -1064,6 +1064,36 @@ underdamped for the physical apparatus. The simulation is not expected to
 reproduce the exact number of experimental oscillations. Use it to identify
 how adding a second thermal state permits overshoot and ringing, and how the
 response changes as <span class="arithmatex">\(K_p\)</span> increases.</p>
+<p>Next, verify how each two-lump parameter changes overshoot. Begin from
+<span class="arithmatex">\(K_p=120\)</span> PWM/°C, <span class="arithmatex">\(G=25\)</span> W/K, and <span class="arithmatex">\(C_T/C=0.25\)</span>. Change only one quantity at a
+time and reset before each run:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter change</th>
+<th>Predicted effect on overshoot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Increase <span class="arithmatex">\(K_p\)</span> from 120 to 150 PWM/°C</td>
+<td>increase</td>
+</tr>
+<tr>
+<td>Decrease <span class="arithmatex">\(G\)</span> from 25 to 15 W/K</td>
+<td>increase because the measured lump responds with greater thermal lag</td>
+</tr>
+<tr>
+<td>Increase <span class="arithmatex">\(C_T/C\)</span> from 0.25 toward 0.50</td>
+<td>increase as the two thermal capacitances become more comparable</td>
+</tr>
+</tbody>
+</table>
+<p>For each comparison, measure <span class="arithmatex">\(T_{m,\max}-T_{\mathrm{ss}}\)</span> and record whether
+the PWM saturates. State whether the simulation confirms each prediction.
+Then reverse one of the changes and verify that the overshoot decreases. Keep
+<span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, and <span class="arithmatex">\(\tau\)</span> fixed: they represent the measured apparatus,
+whereas this comparison probes the internal two-lump structure.</p>
 <p>Compare the one-lump and two-lump models at the same value of <span class="arithmatex">\(K_p\)</span>. Explain
 why the one-lump temperature cannot overshoot, while the measured temperature
 of the two-lump model can continue rising after the controller has begun to

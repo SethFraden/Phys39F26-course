@@ -829,6 +829,22 @@ reproduce the exact number of experimental oscillations. Use it to identify
 how adding a second thermal state permits overshoot and ringing, and how the
 response changes as $K_p$ increases.
 
+Next, verify how each two-lump parameter changes overshoot. Begin from
+$K_p=120$ PWM/°C, $G=25$ W/K, and $C_T/C=0.25$. Change only one quantity at a
+time and reset before each run:
+
+| Parameter change | Predicted effect on overshoot |
+| --- | --- |
+| Increase $K_p$ from 120 to 150 PWM/°C | increase |
+| Decrease $G$ from 25 to 15 W/K | increase because the measured lump responds with greater thermal lag |
+| Increase $C_T/C$ from 0.25 toward 0.50 | increase as the two thermal capacitances become more comparable |
+
+For each comparison, measure $T_{m,\max}-T_{\mathrm{ss}}$ and record whether
+the PWM saturates. State whether the simulation confirms each prediction.
+Then reverse one of the changes and verify that the overshoot decreases. Keep
+$\chi_c$, $\chi_h$, and $\tau$ fixed: they represent the measured apparatus,
+whereas this comparison probes the internal two-lump structure.
+
 Compare the one-lump and two-lump models at the same value of $K_p$. Explain
 why the one-lump temperature cannot overshoot, while the measured temperature
 of the two-lump model can continue rising after the controller has begun to

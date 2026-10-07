@@ -69,9 +69,9 @@ During class, the approximate schedule for one 170-minute meeting is:
 | S14 | Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5 | 60 minutes |
 | S14 | Install/run the model and annotate the equations | 45 minutes |
 | S14 | **Total associated with S14** | **3 hours 15 minutes** |
-| S15 | Complete the model comparisons, code modification, and C4 evidence | 120 minutes |
+| S15 | Complete the model comparisons, code modification, and A3 evidence | 120 minutes |
 | S15 | Complete the theory-bridge questions used in the oral discussion | 60 minutes |
-| S15 | Commit, push, and prepare the C4 receipt | 30 minutes |
+| S15 | Commit, push, and prepare the A3 submission | 30 minutes |
 | S15 | **Total associated with S15** | **3 hours 30 minutes** |
 
 The Chapter 1 time is for reading with equations and physical interpretation,
@@ -627,7 +627,7 @@ Answer:
 
 ## Post-Class Assignment
 
-### Preserve The P2 And C4 Evidence
+### Preserve The P2 And Model Evidence
 
 During S14, `P2` checks that the model runs, imports an experimental trace,
 produces at least one fitted curve, and displays residuals. Before leaving S15,
@@ -637,26 +637,17 @@ comparison. Keep the team record in
 `docs/module_notes/module_07_process_model.md` and authoritative model code
 under `python/models/`.
 
-### C4: Feedback Controller And TEC Process Model
+### Oral Review Questions: Process Modeling
 
-Demonstrate `C4` during S15. One team member submits the `C4 Team Checkoff`
-Moodle receipt by **11:55 AM**, citing the pushed commit and paths to the
-controller, model, data, figures, parameter record, and README. Prepare the
-[C4 oral questions](../../assessment.md#c4-feedback-controller-and-tec-process-model).
-
-### C4 Evidence Record
-
-### C4 Oral Questions: Process Modeling
-
-This is the authoritative modeling question bank for C4:
+Use this modeling question bank to check your understanding and prepare A3:
 
 1. Which physical lag in the apparatus can produce overshoot or oscillation as
    gain increases?
 2. Identify one fitted model parameter, give its units, and explain how the
    data constrain it.
 
-Also prepare the [Module 5 P-control questions](../lab-05/index.md#c4-oral-questions-p-control)
-and [Module 6 PI-control question](../lab-06/index.md#c4-oral-questions-pi-control).
+Also prepare the [Module 5 P-control questions](../lab-05/index.md#oral-review-questions-p-control)
+and [Module 6 PI-control question](../lab-06/index.md#oral-review-questions-pi-control).
 
 ### Model Evidence Record
 

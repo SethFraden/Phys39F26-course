@@ -812,14 +812,22 @@ from the same initial temperature. Compare these three proportional gains:
 | ---: | --- |
 | 50 | monotonic approach with no overshoot |
 | 100 | near the onset of overshoot |
+| 120 | experimental reference: highly underdamped |
 | 150 | clearly visible overshoot |
 
 For each run, save or plot measured temperature $T_m$ versus time and record
 $T_{\mathrm{ss}}$, the largest value of $T_m$, the overshoot
-$T_{m,\max}-T_{\mathrm{ss}}$, and whether the PWM saturates. Then vary $K_p$
-between 50 and 150 to estimate where visible overshoot first appears. In this
+$T_{m,\max}-T_{\mathrm{ss}}$, the qualitative response shape, and whether the
+PWM saturates. Then vary $K_p$ between 50 and 150 to estimate where visible
+overshoot first appears. In this
 exercise, call a response **low gain** when it has no overshoot and **high
 gain** when it does.
+
+The experimental observation at $K_p=120$ establishes that this gain is highly
+underdamped for the physical apparatus. The simulation is not expected to
+reproduce the exact number of experimental oscillations. Use it to identify
+how adding a second thermal state permits overshoot and ringing, and how the
+response changes as $K_p$ increases.
 
 Compare the one-lump and two-lump models at the same value of $K_p$. Explain
 why the one-lump temperature cannot overshoot, while the measured temperature

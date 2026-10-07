@@ -1043,6 +1043,10 @@ from the same initial temperature. Compare these three proportional gains:</p>
 <td>near the onset of overshoot</td>
 </tr>
 <tr>
+<td style="text-align: right;">120</td>
+<td>experimental reference: highly underdamped</td>
+</tr>
+<tr>
 <td style="text-align: right;">150</td>
 <td>clearly visible overshoot</td>
 </tr>
@@ -1050,10 +1054,16 @@ from the same initial temperature. Compare these three proportional gains:</p>
 </table>
 <p>For each run, save or plot measured temperature <span class="arithmatex">\(T_m\)</span> versus time and record
 <span class="arithmatex">\(T_{\mathrm{ss}}\)</span>, the largest value of <span class="arithmatex">\(T_m\)</span>, the overshoot
-<span class="arithmatex">\(T_{m,\max}-T_{\mathrm{ss}}\)</span>, and whether the PWM saturates. Then vary <span class="arithmatex">\(K_p\)</span>
-between 50 and 150 to estimate where visible overshoot first appears. In this
+<span class="arithmatex">\(T_{m,\max}-T_{\mathrm{ss}}\)</span>, the qualitative response shape, and whether the
+PWM saturates. Then vary <span class="arithmatex">\(K_p\)</span> between 50 and 150 to estimate where visible
+overshoot first appears. In this
 exercise, call a response <strong>low gain</strong> when it has no overshoot and <strong>high
 gain</strong> when it does.</p>
+<p>The experimental observation at <span class="arithmatex">\(K_p=120\)</span> establishes that this gain is highly
+underdamped for the physical apparatus. The simulation is not expected to
+reproduce the exact number of experimental oscillations. Use it to identify
+how adding a second thermal state permits overshoot and ringing, and how the
+response changes as <span class="arithmatex">\(K_p\)</span> increases.</p>
 <p>Compare the one-lump and two-lump models at the same value of <span class="arithmatex">\(K_p\)</span>. Explain
 why the one-lump temperature cannot overshoot, while the measured temperature
 of the two-lump model can continue rising after the controller has begun to

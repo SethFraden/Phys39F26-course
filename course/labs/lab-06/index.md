@@ -100,7 +100,8 @@ locate and open these existing files on your laptop:
 - Module 4 steady-state temperature versus PWM data,
 - Module 5 droop-versus-gain data,
 - one Module 5 strip-chart trace at a stable gain,
-- one Module 5 strip-chart trace near oscillation, if you observed one, and
+- one Module 5 high-gain strip-chart trace showing overshoot or ringing; if no
+  overshoot was safely observed, bring the highest-gain trace, and
 - your current Python plotting or modeling environment.
 
 Do not create new figures, tables, or written work for this section. The files
@@ -541,8 +542,45 @@ $C$, $P_{u,c}$, and $r$ independently for a modeling study. Before running,
 use the steady-state equation to predict the final temperature for one heating
 command and one cooling command.
 
-Run both commands and compare the simulated curves with measured open-loop
-traces. Record the values and units of $\chi_c$, $\chi_h$, $\tau$,
+### Guided v3 Exercise: Open Loop And Thermal Mass
+
+Work in pairs. Select **one_lump**, **measured**, and **open_loop**. Use the
+current v3 defaults
+
+\[
+T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
+\qquad
+\chi_c=0.23\ ^\circ\mathrm{C/PWM},
+\qquad
+\chi_h=0.46\ ^\circ\mathrm{C/PWM},
+\qquad
+r=2.
+\]
+
+Before each run, predict the steady-state temperature from
+$T_{\mathrm{ss}}=T_{\mathrm{amb}}+\chi u$:
+
+| Command | Predicted $T_{\mathrm{ss}}$ |
+| ---: | ---: |
+| $u=+25$ PWM | $33.5\ ^\circ\mathrm{C}$ |
+| $u=-25$ PWM | $16.25\ ^\circ\mathrm{C}$ |
+| $u=-50$ PWM | $10.5\ ^\circ\mathrm{C}$ |
+
+Run each case and answer:
+
+1. Why do $+25$ PWM and $-25$ PWM produce unequal temperature changes?
+2. Which displayed quantities reveal $\chi_h$, $\chi_c$, and their ratio?
+
+Next, keep one open-loop command fixed and note the displayed value of $C$.
+Select **direct constants**, double $C$, and leave $H$, $P_{u,c}$, and $r$
+unchanged. Predict both the steady temperature and the response time before
+resuming. Confirm that the steady temperature is unchanged while
+$\tau=C/H$ doubles. Explain why thermal mass changes the transient but not the
+steady-state energy balance. Return to **measured** before continuing.
+
+After the guided exercise, choose one heating command and one cooling command
+that match your experimental runs. Compare the simulated curves with measured
+open-loop traces. Record the values and units of $\chi_c$, $\chi_h$, $\tau$,
 $T_{\mathrm{amb}}$, $u$, and $\Delta t$. Choose $\Delta t$ much smaller than
 $\tau$ and verify that making it smaller does not appreciably change the
 result. Explain any important difference between the model and the apparatus.
@@ -558,6 +596,37 @@ u_n=K_p(T_{\mathrm{set}}-T_n),
 
 The program clamps $u_n$ to the allowed signed PWM range before applying the
 Euler update from Part 4.
+
+### Guided v3 Exercise: P Control And Droop
+
+Return to **measured**, select **p**, and set
+
+\[
+T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
+\qquad
+K_p=10\ \mathrm{PWM}/^\circ\mathrm{C}.
+\]
+
+With the default $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, predict
+
+\[
+L_h=\chi_hK_p=4.6,
+\]
+
+\[
+T_{\mathrm{set}}-T_{\mathrm{ss}}
+=\frac{30-22}{1+4.6}
+\approx1.43\ ^\circ\mathrm{C},
+\qquad
+T_{\mathrm{ss}}\approx28.57\ ^\circ\mathrm{C}.
+\]
+
+Run the simulation, compare the displayed droop with the prediction, and then
+increase $K_p$. Answer:
+
+1. Does the droop vanish or merely become smaller?
+2. Which dimensionless number determines whether the gain is small or large?
+3. What happens when the required command reaches the PWM limit?
 
 Before each run, predict the droop and closed-loop time constant from the
 equations in Parts 1 and 6. Simulate several values of $K_p$. Record or capture:
@@ -689,6 +758,13 @@ the steady state, overshoot, or oscillate. Increasing \(K_p\) decreases both
 droop and \(\tau_{\mathrm{cl}}\); it does not create the additional dynamical
 state or time delay needed for oscillation.
 
+Return to the high-gain trace saved in Module 5. Mark the late-time value
+$T_{\mathrm{ss}}$ and the first overshoot. If the measured temperature crosses
+$T_{\mathrm{ss}}$, its behavior is incompatible with this one-lump solution.
+State the contradiction directly: the model predicts a monotonic exponential,
+whereas the apparatus shows an underdamped transient. This is evidence that the
+model is inadequate, not that the exponential solution is wrong.
+
 Discuss what you would need to add:
 
 - a time delay,
@@ -701,6 +777,55 @@ Discuss what you would need to add:
 
 Choose one extension that you think is physically most important for the class
 apparatus.
+
+### Guided v3 Exercise: From No Overshoot To Overshoot
+
+Now test the two-lump explanation directly. In v3, select **two_lump**,
+**measured**, and **p**. Keep the experimental-scale defaults
+
+\[
+T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
+\qquad
+T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
+\qquad
+\chi_c=0.23\ ^\circ\mathrm{C/PWM},
+\qquad
+\chi_h=0.46\ ^\circ\mathrm{C/PWM},
+\qquad
+\tau=80\ \mathrm{s},
+\]
+
+Use two-lump parameters chosen to be close to the apparatus and to place the
+onset of overshoot near the experimental value of $K_p\approx100$
+PWM/°C:
+
+\[
+\frac{C_T}{C}=0.25,
+\qquad
+G=25\ \mathrm{W/K}.
+\]
+
+Set $K_i=0$. Reset the experiment before every run so that each response begins
+from the same initial temperature. Compare these three proportional gains:
+
+| $K_p$ (PWM/°C) | Expected behavior to check |
+| ---: | --- |
+| 50 | monotonic approach with no overshoot |
+| 100 | near the onset of overshoot |
+| 150 | clearly visible overshoot |
+
+For each run, save or plot measured temperature $T_m$ versus time and record
+$T_{\mathrm{ss}}$, the largest value of $T_m$, the overshoot
+$T_{m,\max}-T_{\mathrm{ss}}$, and whether the PWM saturates. Then vary $K_p$
+between 50 and 150 to estimate where visible overshoot first appears. In this
+exercise, call a response **low gain** when it has no overshoot and **high
+gain** when it does.
+
+Compare the one-lump and two-lump models at the same value of $K_p$. Explain
+why the one-lump temperature cannot overshoot, while the measured temperature
+of the two-lump model can continue rising after the controller has begun to
+reduce the TEC command. Connect this thermal lag to the low- and high-gain
+traces you recorded from the apparatus in Module 5.
 
 ## Part 7: Add Integral Action In Simulation
 
@@ -762,6 +887,21 @@ Compare P-only and PI simulations:
 
 The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.
+
+### Guided v3 Exercise: Watch The Integral Contribution
+
+Begin from the P-control case after it has developed visible droop. Select
+**pi**, press **Zero integral**, and resume. Watch $e$, $u_P$, $u_I$, and the
+applied command $u$ while the temperature approaches the setpoint. Answer:
+
+1. While $e>0$, why does $u_I$ continue to grow?
+2. As $T$ reaches the setpoint, why does $u_P$ approach zero?
+3. Why can $u_I$ remain nonzero when $e=0$?
+4. After steady state, press **Zero integral** again. Why does the temperature
+   initially move away from the setpoint?
+
+The steady integral contribution replaces the nonzero proportional error that
+was required to provide the steady command under P-only control.
 
 ### October 14: Implement PI Control On The Physical TEC
 
@@ -1131,7 +1271,7 @@ not saturated.
 
 ### Using The Prepared v3 Simulation
 
-The v3 simulation is the modeling tool for Parts 4, 5, and 7. It runs
+The v3 simulation is the modeling tool for Parts 4 through 7. It runs
 continuously in a rolling time window, and its sliders change physical and
 controller parameters while the simulation runs. The display separates the
 proportional and integral PWM contributions and shows the dimensional energy

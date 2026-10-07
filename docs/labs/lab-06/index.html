@@ -774,11 +774,15 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 \left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
 }
 \]</div>
-<p>Use your measured heating and cooling susceptibilities in the simulation. For
-any chosen <span class="arithmatex">\(H\)</span>, set <span class="arithmatex">\(P_{u,c}=H\chi_c\)</span>, set
-<span class="arithmatex">\(r=\chi_h/\chi_c\)</span>, and set the total one-lump capacitance
-<span class="arithmatex">\(C_T+C_m=H\tau\)</span>. Before running, use the steady-state equation to predict the
-final temperature for one heating command and one cooling command.</p>
+<p>Select <strong>measured</strong> under <strong>Physical parameters</strong>. Enter your measured
+<span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, and <span class="arithmatex">\(\tau\)</span>, the on-state voltage measured across the TEC,
+and the TEC module resistance from the datasheet. The voltage control is
+limited to the apparatus maximum of <span class="arithmatex">\(10\ \mathrm{V}\)</span>. The program uses these
+measurements to calculate <span class="arithmatex">\(r\)</span>, <span class="arithmatex">\(P_{u,c}\)</span>, <span class="arithmatex">\(H\)</span>, and the total one-lump
+capacitance <span class="arithmatex">\(C\)</span>. Select <strong>direct constants</strong> only when you want to enter <span class="arithmatex">\(H\)</span>,
+<span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(P_{u,c}\)</span>, and <span class="arithmatex">\(r\)</span> independently for a modeling study. Before running,
+use the steady-state equation to predict the final temperature for one heating
+command and one cooling command.</p>
 <p>Run both commands and compare the simulated curves with measured open-loop
 traces. Record the values and units of <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>,
 <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(u\)</span>, and <span class="arithmatex">\(\Delta t\)</span>. Choose <span class="arithmatex">\(\Delta t\)</span> much smaller than

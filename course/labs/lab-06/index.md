@@ -531,11 +531,15 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 }
 \]
 
-Use your measured heating and cooling susceptibilities in the simulation. For
-any chosen $H$, set $P_{u,c}=H\chi_c$, set
-$r=\chi_h/\chi_c$, and set the total one-lump capacitance
-$C_T+C_m=H\tau$. Before running, use the steady-state equation to predict the
-final temperature for one heating command and one cooling command.
+Select **measured** under **Physical parameters**. Enter your measured
+$\chi_c$, $\chi_h$, and $\tau$, the on-state voltage measured across the TEC,
+and the TEC module resistance from the datasheet. The voltage control is
+limited to the apparatus maximum of $10\ \mathrm{V}$. The program uses these
+measurements to calculate $r$, $P_{u,c}$, $H$, and the total one-lump
+capacitance $C$. Select **direct constants** only when you want to enter $H$,
+$C$, $P_{u,c}$, and $r$ independently for a modeling study. Before running,
+use the steady-state equation to predict the final temperature for one heating
+command and one cooling command.
 
 Run both commands and compare the simulated curves with measured open-loop
 traces. Record the values and units of $\chi_c$, $\chi_h$, $\tau$,

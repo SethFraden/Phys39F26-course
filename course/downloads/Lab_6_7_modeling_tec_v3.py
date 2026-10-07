@@ -49,6 +49,7 @@ from tkinter import messagebox, ttk
 
 
 UPDATE_INTERVAL_MS = 50
+MAX_TEC_VOLTAGE_V = 10.0
 
 
 @dataclass(frozen=True)
@@ -58,12 +59,17 @@ class ModelConfig:
     ambient_c: float = 22.0
     initial_c: float = 22.0
     setpoint_c: float = 30.0
-    tec_capacitance_j_per_c: float = 35.0
-    measured_capacitance_j_per_c: float = 65.0
+    total_capacitance_j_per_c: float = 90.93492469451549
+    tec_capacitance_fraction: float = 0.35
     coupling_w_per_c: float = 2.0
-    heat_loss_w_per_c: float = 1.25
-    tec_power_w_per_pwm: float = 0.15
+    heat_loss_w_per_c: float = 1.1366865586814436
+    tec_power_w_per_pwm: float = 0.261437908496732
     heating_to_cooling_ratio: float = 2.0
+    measured_cooling_chi_c_per_pwm: float = 0.23
+    measured_heating_chi_c_per_pwm: float = 0.46
+    measured_tau_s: float = 80.0
+    tec_voltage_v: float = 10.0
+    tec_resistance_ohm: float = 1.50
     open_loop_pwm: float = 100.0
     kp_pwm_per_c: float = 18.0
     ki_pwm_per_c_s: float = 0.08
@@ -75,7 +81,69 @@ class ModelConfig:
 
     @property
     def one_lump_capacitance_j_per_c(self) -> float:
-        return self.tec_capacitance_j_per_c + self.measured_capacitance_j_per_c
+        return self.total_capacitance_j_per_c
+
+    @property
+    def tec_capacitance_j_per_c(self) -> float:
+        return self.tec_capacitance_fraction * self.total_capacitance_j_per_c
+
+    @property
+    def measured_capacitance_j_per_c(self) -> float:
+        return (1.0 - self.tec_capacitance_fraction) * self.total_capacitance_j_per_c
+
+
+@dataclass(frozen=True)
+class DerivedConstants:
+    """One-lump constants inferred from measured susceptibility and time scale."""
+
+    total_capacitance_j_per_c: float
+    heat_loss_w_per_c: float
+    cooling_power_w_per_pwm: float
+    heating_to_cooling_ratio: float
+
+
+def constants_from_measurements(
+    cooling_chi_c_per_pwm: float,
+    heating_chi_c_per_pwm: float,
+    tau_s: float,
+    tec_voltage_v: float,
+    tec_resistance_ohm: float,
+    full_scale_pwm: float = 255.0,
+) -> DerivedConstants:
+    """Infer C, H, P_u,c, and r using the simplified TEC heat balance.
+
+    The voltage is the on-state voltage across the TEC. Joule heating at the
+    object face is V^2/(2R). Heating/cooling asymmetry separates that term
+    from the reversible Peltier term.
+    """
+
+    if cooling_chi_c_per_pwm <= 0.0:
+        raise ValueError("Measured cooling susceptibility chi_c must be positive.")
+    if heating_chi_c_per_pwm <= cooling_chi_c_per_pwm:
+        raise ValueError(
+            "Measured heating susceptibility chi_h must be greater than chi_c "
+            "for this simplified TEC inversion."
+        )
+    if tau_s <= 0.0:
+        raise ValueError("Measured time constant tau must be positive.")
+    if not 0.0 < tec_voltage_v <= MAX_TEC_VOLTAGE_V:
+        raise ValueError(f"TEC voltage must be between 0 and {MAX_TEC_VOLTAGE_V:g} V.")
+    if tec_resistance_ohm <= 0.0:
+        raise ValueError("TEC resistance must be positive.")
+
+    ratio = heating_chi_c_per_pwm / cooling_chi_c_per_pwm
+    joule_power_w = tec_voltage_v**2 / (2.0 * tec_resistance_ohm)
+    peltier_power_w = joule_power_w * (ratio + 1.0) / (ratio - 1.0)
+    cooling_power_w = peltier_power_w - joule_power_w
+    cooling_power_w_per_pwm = cooling_power_w / full_scale_pwm
+    heat_loss_w_per_c = cooling_power_w_per_pwm / cooling_chi_c_per_pwm
+    total_capacitance_j_per_c = heat_loss_w_per_c * tau_s
+    return DerivedConstants(
+        total_capacitance_j_per_c=total_capacitance_j_per_c,
+        heat_loss_w_per_c=heat_loss_w_per_c,
+        cooling_power_w_per_pwm=cooling_power_w_per_pwm,
+        heating_to_cooling_ratio=ratio,
+    )
 
 
 @dataclass
@@ -309,8 +377,7 @@ def damping_description(value: float) -> str:
 
 def validate_config(config: ModelConfig) -> None:
     positive = {
-        "TEC capacitance C_T": config.tec_capacitance_j_per_c,
-        "measured capacitance C_m": config.measured_capacitance_j_per_c,
+        "total capacitance C": config.total_capacitance_j_per_c,
         "coupling G": config.coupling_w_per_c,
         "heat-loss conductance H": config.heat_loss_w_per_c,
         "PWM limit": config.pwm_limit,
@@ -321,6 +388,8 @@ def validate_config(config: ModelConfig) -> None:
     for label, value in positive.items():
         if value <= 0.0:
             raise ValueError(f"{label} must be positive.")
+    if not 0.0 < config.tec_capacitance_fraction < 1.0:
+        raise ValueError("The TEC capacitance fraction C_T/C must be between 0 and 1.")
     if config.tec_power_w_per_pwm < 0.0:
         raise ValueError("TEC coefficient P_u cannot be negative.")
     if config.heating_to_cooling_ratio <= 0.0:
@@ -408,8 +477,13 @@ class ModelingTECv3Gui:
         (r"T_{\mathrm{amb}}", "Ambient temperature", "ambient_c", "°C", -10.0, 60.0, 0.5),
         (r"T_0", "Initial temperature", "initial_c", "°C", -10.0, 60.0, 0.5),
         (r"T_{\mathrm{set}}", "Setpoint", "setpoint_c", "°C", -10.0, 60.0, 0.5),
-        (r"C_T", "TEC capacitance", "tec_capacitance_j_per_c", "J/K", 5.0, 250.0, 5.0),
-        (r"C_m", "Measured capacitance", "measured_capacitance_j_per_c", "J/K", 5.0, 250.0, 5.0),
+        (r"\chi_c", "Measured cooling susceptibility", "measured_cooling_chi_c_per_pwm", "°C/PWM", 0.01, 0.50, 0.005),
+        (r"\chi_h", "Measured heating susceptibility", "measured_heating_chi_c_per_pwm", "°C/PWM", 0.01, 0.75, 0.005),
+        (r"\tau", "Measured time constant", "measured_tau_s", "s", 5.0, 500.0, 5.0),
+        (r"V_{\mathrm{TEC}}", "On-state voltage across TEC", "tec_voltage_v", "V", 0.1, MAX_TEC_VOLTAGE_V, 0.1),
+        (r"R_M", "TEC module resistance", "tec_resistance_ohm", "Ω", 0.1, 5.0, 0.05),
+        (r"C", "Total thermal capacitance", "total_capacitance_j_per_c", "J/K", 5.0, 500.0, 5.0),
+        (r"C_T/C", "TEC capacitance fraction", "tec_capacitance_fraction", "dimensionless", 0.05, 0.95, 0.05),
         (r"G", "Thermal coupling", "coupling_w_per_c", "W/K", 0.1, 10.0, 0.1),
         (r"H", "Heat-loss conductance", "heat_loss_w_per_c", "W/K", 0.1, 10.0, 0.05),
         (r"P_{u,c}", "Cooling TEC coefficient", "tec_power_w_per_pwm", "W/PWM", 0.01, 0.5, 0.01),
@@ -454,10 +528,12 @@ class ModelingTECv3Gui:
         self.config = self.defaults
         self.process_mode = tk.StringVar(value="one_lump")
         self.controller_mode = tk.StringVar(value="p")
+        self.parameter_source = tk.StringVar(value="measured")
         self.anti_windup = tk.BooleanVar(value=self.defaults.anti_windup)
         self.entries: dict[str, tk.DoubleVar] = {}
         self.field_widgets: dict[str, tuple[tk.Widget, ...]] = {}
         self.running = False
+        self.syncing_derived_fields = False
         self.after_job: str | None = None
 
         self.live_temperature = tk.StringVar()
@@ -521,6 +597,18 @@ class ModelingTECv3Gui:
         )
         controller_box.grid(row=row, column=1, columnspan=2, sticky="ew")
         controller_box.bind("<<ComboboxSelected>>", self._change_controller)
+        row += 1
+
+        ttk.Label(controls, text="Physical parameters").grid(row=row, column=0, sticky="w")
+        parameter_box = ttk.Combobox(
+            controls,
+            textvariable=self.parameter_source,
+            values=("measured", "direct constants"),
+            state="readonly",
+            width=15,
+        )
+        parameter_box.grid(row=row, column=1, columnspan=2, sticky="ew")
+        parameter_box.bind("<<ComboboxSelected>>", self._change_parameter_source)
         row += 1
 
         for symbol, label, attribute, units, low, high, resolution in self.FIELD_SPECS:
@@ -651,6 +739,8 @@ class ModelingTECv3Gui:
                     value_frame,
                     text=description,
                     font=("TkDefaultFont", 12, "bold"),
+                    width=17,
+                    anchor="w",
                 ).pack(side=tk.LEFT)
                 symbol_image = self._live_symbol_image(symbol)
                 symbol_widget = ttk.Label(value_frame, image=symbol_image)
@@ -660,6 +750,8 @@ class ModelingTECv3Gui:
                     value_frame,
                     textvariable=variable,
                     font=("TkFixedFont", 13, "bold"),
+                    width=29,
+                    anchor="w",
                 ).pack(side=tk.LEFT)
             live_values.columnconfigure(column, weight=1)
         row += 1
@@ -735,8 +827,41 @@ class ModelingTECv3Gui:
         }
         values["anti_windup"] = self.anti_windup.get()
         config = replace(self.defaults, **values)
+        if self.parameter_source.get() == "measured":
+            derived = constants_from_measurements(
+                config.measured_cooling_chi_c_per_pwm,
+                config.measured_heating_chi_c_per_pwm,
+                config.measured_tau_s,
+                config.tec_voltage_v,
+                config.tec_resistance_ohm,
+            )
+            config = replace(
+                config,
+                total_capacitance_j_per_c=derived.total_capacitance_j_per_c,
+                heat_loss_w_per_c=derived.heat_loss_w_per_c,
+                tec_power_w_per_pwm=derived.cooling_power_w_per_pwm,
+                heating_to_cooling_ratio=derived.heating_to_cooling_ratio,
+            )
+            self._show_derived_constants(config)
         validate_config(config)
         return config
+
+    def _show_derived_constants(self, config: ModelConfig) -> None:
+        """Keep the locked direct-constant fields synchronized with measurements."""
+
+        if self.syncing_derived_fields:
+            return
+        self.syncing_derived_fields = True
+        try:
+            for attribute in (
+                "total_capacitance_j_per_c",
+                "heat_loss_w_per_c",
+                "tec_power_w_per_pwm",
+                "heating_to_cooling_ratio",
+            ):
+                self.entries[attribute].set(getattr(config, attribute))
+        finally:
+            self.syncing_derived_fields = False
 
     def _reset_experiment(self) -> None:
         try:
@@ -786,6 +911,11 @@ class ModelingTECv3Gui:
         self.latest = self._current_result()
         self._draw()
 
+    def _change_parameter_source(self, _event=None) -> None:
+        """Switch between measured inputs and independently entered constants."""
+
+        self._on_parameter_edit()
+
     def _zero_integral(self) -> None:
         """Clear controller memory without resetting time or temperature."""
 
@@ -796,6 +926,8 @@ class ModelingTECv3Gui:
     def _on_parameter_edit(self, *_trace_arguments: str) -> None:
         """Apply valid slider and entry changes without restarting the model."""
 
+        if self.syncing_derived_fields:
+            return
         try:
             self.config = self._read_config()
         except (ValueError, tk.TclError):
@@ -1049,10 +1181,10 @@ class ModelingTECv3Gui:
         if process == "one_lump":
             self._set_live_symbol("temperature", r"T")
             self._set_live_symbol("time_scale", r"\tau_{\mathrm{OL}},\ \tau_P")
-            self.live_temperature.set(f"= {self.state.tec_temperature_c:7.3f} °C")
+            self.live_temperature.set(f"= {self.state.tec_temperature_c:7.2f} °C")
             self.live_time_scale.set(
-                f"= {one_lump_time_constant(self.config):.1f}; "
-                f"{predicted_p_time_constant(self.config):.1f} s"
+                f"= {one_lump_time_constant(self.config):.2f}; "
+                f"{predicted_p_time_constant(self.config):.2f} s"
             )
         else:
             tau_fast, tau_slow = two_lump_time_constants(self.config)
@@ -1061,13 +1193,13 @@ class ModelingTECv3Gui:
                 "time_scale", r"\tau_{\mathrm{fast}},\ \tau_{\mathrm{slow}}"
             )
             self.live_temperature.set(
-                f"= {self.state.tec_temperature_c:6.2f}; "
-                f"{current_measured:6.2f} °C"
+                f"= {self.state.tec_temperature_c:7.2f}; "
+                f"{current_measured:7.2f} °C"
             )
             self.live_time_scale.set(
-                f"= {tau_fast:5.1f}; {tau_slow:5.1f} s"
+                f"= {tau_fast:7.2f}; {tau_slow:7.2f} s"
             )
-        self.live_error.set(f"= {self.latest.error_c:8.3f} °C")
+        self.live_error.set(f"= {self.latest.error_c:8.2f} °C")
         self.live_p.set(f"= {self.latest.p_pwm:8.2f} PWM")
         self.live_i.set(f"= {self.latest.i_pwm:8.2f} PWM")
         saturation = " (saturated)" if self.latest.saturated else ""
@@ -1075,7 +1207,7 @@ class ModelingTECv3Gui:
             f"= {self.latest.applied_pwm:8.2f} PWM{saturation}"
         )
         self.live_susceptibility.set(
-            f"= {cooling_chi:.3f}; {heating_chi:.3f} °C/PWM"
+            f"= {cooling_chi:.2f}; {heating_chi:.2f} °C/PWM"
         )
         delta_t = self.config.setpoint_c - self.config.ambient_c
         if susceptibility > 0.0:
@@ -1088,15 +1220,16 @@ class ModelingTECv3Gui:
         required_power = self.config.heat_loss_w_per_c * delta_t
         self.live_required_power.set(f"= HΔT = {required_power:7.2f} W")
         self.live_p_prediction.set(
-            f"= {predicted_p_droop(self.config):7.3f} °C"
+            f"= {predicted_p_droop(self.config):7.2f} °C"
         )
-        zeta_display = "∞" if math.isinf(zeta) else f"{zeta:.3f}"
+        zeta_display = "∞" if math.isinf(zeta) else f"{zeta:.2f}"
         self.live_damping.set(
             f"= {zeta_display} ({damping_description(zeta)})"
         )
         run_state = "Running" if self.running else "Paused"
         self.live_status.set(
-            f"{run_state} | {process.replace('_', ' ')} | {controller.replace('_', ' ')}"
+            f"{run_state} | {process.replace('_', ' ')} | "
+            f"{controller.replace('_', ' ')} | {self.parameter_source.get()}"
         )
         self.canvas.draw_idle()
 
@@ -1105,10 +1238,26 @@ class ModelingTECv3Gui:
 
         process = self.process_mode.get()
         controller = self.controller_mode.get()
+        measured_parameters = self.parameter_source.get() == "measured"
         enabled = {
             attribute: True for attribute in self.field_widgets
         }
         enabled["coupling_w_per_c"] = process == "two_lump"
+        for attribute in (
+            "measured_cooling_chi_c_per_pwm",
+            "measured_heating_chi_c_per_pwm",
+            "measured_tau_s",
+            "tec_voltage_v",
+            "tec_resistance_ohm",
+        ):
+            enabled[attribute] = measured_parameters
+        for attribute in (
+            "total_capacitance_j_per_c",
+            "heat_loss_w_per_c",
+            "tec_power_w_per_pwm",
+            "heating_to_cooling_ratio",
+        ):
+            enabled[attribute] = not measured_parameters
         enabled["open_loop_pwm"] = controller == "open_loop"
         enabled["kp_pwm_per_c"] = controller in {"p", "pi"}
         enabled["ki_pwm_per_c_s"] = controller == "pi"

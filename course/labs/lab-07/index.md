@@ -1,9 +1,9 @@
-# Module 6, Part II: TEC Process Model And The v3 Simulation
+# Module 6, Part II: TEC Process Model And The Simulation
 
 This is the second part of Module 6. Complete
 [Part I: P/PI Control And Lumped Modeling](../lab-06/index.md) first.
 Both parts use the same prepared
-[v3 simulation](../../downloads/Lab_6_7_modeling_tec_v3.py): Part I emphasizes
+[simulation](../../downloads/Lab_6_7_modeling_tec.py): Part I emphasizes
 the one-lump model, while Part II compares the one- and two-lump models.
 
 ## Introductory Material
@@ -68,7 +68,7 @@ During class on October 19, the approximate schedule for one 170-minute meeting 
 | --- | --- | ---: |
 | S14 | Read this assignment and the assigned Lienhard Chapter 1 material | 90 minutes |
 | S14 | Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5 | 60 minutes |
-| S14 | Prepare the PI tuning table; run v3 and annotate the equations | 45 minutes |
+| S14 | Prepare the PI tuning table; run the simulation and annotate the equations | 45 minutes |
 | S14 | **Total associated with S14** | **3 hours 15 minutes** |
 | S15 | Complete the model comparisons and A3 evidence | 120 minutes |
 | S15 | Complete the theory-bridge questions used in the oral discussion | 60 minutes |
@@ -97,7 +97,7 @@ budget and should be attempted only after required work is complete.
 
 ### Model Equations And Numerical Algorithm
 
-The [v3 Python GUI](#how-to-run-the-python-gui) separates the physical model
+The [Python GUI](#how-to-run-the-python-gui) separates the physical model
 from the controller. Select either a one-lump or two-lump process, then select
 open-loop, P, or PI control.
 
@@ -341,7 +341,7 @@ cd ~/phys39-lab7
 ```
 
 Download this file into that folder:
-[Lab_6_7_modeling_tec_v3.py](../../downloads/Lab_6_7_modeling_tec_v3.py).
+[Lab_6_7_modeling_tec.py](../../downloads/Lab_6_7_modeling_tec.py).
 
 Set up Python the first time you use this folder:
 
@@ -354,19 +354,19 @@ python -m pip install matplotlib
 Run the non-interactive demo:
 
 ```bash
-python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
+python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png
 ```
 
 This saves a plot in the same folder:
 
 ```text
-Lab_6_7_modeling_tec_v3_demo.png
+Lab_6_7_modeling_tec_demo.png
 ```
 
 Then run the desktop GUI:
 
 ```bash
-python Lab_6_7_modeling_tec_v3.py
+python Lab_6_7_modeling_tec.py
 ```
 
 After the first setup, start from this folder and run:
@@ -374,7 +374,7 @@ After the first setup, start from this folder and run:
 ```bash
 cd ~/phys39-lab7
 source .venv/bin/activate
-python Lab_6_7_modeling_tec_v3.py
+python Lab_6_7_modeling_tec.py
 ```
 
 ### Before Class
@@ -407,22 +407,22 @@ python Lab_6_7_modeling_tec_v3.py
      is a good reminder that a temperature sensor does not always read the
      temperature you think it reads.
 
-4. Open the [prepared v3 Python simulation](../../downloads/Lab_6_7_modeling_tec_v3.py):
+4. Open the [prepared Python simulation](../../downloads/Lab_6_7_modeling_tec.py):
 
    ```text
-   Lab_6_7_modeling_tec_v3.py
+   Lab_6_7_modeling_tec.py
    ```
 
 5. Run the non-interactive demo:
 
    ```bash
-   python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
+   python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png
    ```
 
 6. Look at the generated plot:
 
    ```text
-   Lab_6_7_modeling_tec_v3_demo.png
+   Lab_6_7_modeling_tec_demo.png
    ```
 
    The bottom of the PNG and the terminal output list the model parameters used
@@ -431,7 +431,7 @@ python Lab_6_7_modeling_tec_v3.py
 7. Run the [Python GUI](#how-to-run-the-python-gui):
 
    ```bash
-   python Lab_6_7_modeling_tec_v3.py
+   python Lab_6_7_modeling_tec.py
    ```
 
 8. In your notebook, copy the three model equations and label the meaning of
@@ -469,36 +469,33 @@ You will:
 ### October 19: Tune The Physical PI Controller
 
 Continue with the controller implemented in [Module 6, Part
-I](../lab-06/index.md#october-14-implement-pi-control-on-the-physical-tec).
+I](../lab-06/index.md#part-8-october-14-implement-pi-control-on-the-physical-tec).
 Keep the setpoint, PWM limit, apparatus, thermistor placement, and starting
 temperature as similar as practical between trials. Change **one gain at a
 time**.
 
-1. Begin with the stable $K_p$ used for the October 14 P-only baseline and a
-   small positive $K_i$ explored in v3.
-2. Zero the integral state before each run. Set PWM to zero before changing
-   controller mode or resetting the integral.
-3. Adjust $K_i$ to reduce steady-state error without unacceptable overshoot or
-   prolonged saturation.
-4. If the response is too slow, adjust $K_p$ modestly and repeat the $K_i$
-   search. Do not change both gains between consecutive trials.
-5. Preserve one gain pair that gives an acceptable response and one poor but
-   safe gain pair that clearly shows a tradeoff such as slow correction,
-   overshoot, ringing, or saturation.
-6. Repeat a P-only run with the selected $K_p$ under matched conditions so the
-   final comparison isolates the effect of the integral term.
+Follow the [required six-run experimental
+protocol](../lab-06/index.md#required-six-run-experimental-protocol). Use three
+values of $K_p$ with $K_i=0$, then hold the intermediate $K_p$ fixed while
+using three values of $K_i$. Include the same upward and downward setpoint
+steps in every run. Zero the integral state before each run, and set PWM to
+zero before changing controller mode or resetting the integral.
 
 For every retained run, record:
 
-| Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Rise time (s) | Overshoot (°C) | Settling time (s) | Final error (°C) | Saturation? | Notes |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| P |  | 0 |  |  |  |  |  |  |
-| PI, acceptable |  |  |  |  |  |  |  |  |
-| PI, poor but safe |  |  |  |  |  |  |  |  |
+| Run | Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Upward-step metrics | Downward-step metrics | Saturation? | Notes |
+| ---: | --- | ---: | ---: | --- | --- | --- | --- |
+| 1 | P, low $K_p$ |  | 0 |  |  |  |  |
+| 2 | P, intermediate $K_p$ |  | 0 |  |  |  |  |
+| 3 | P, high $K_p$ |  | 0 |  |  |  |  |
+| 4 | PI, low $K_i$ |  |  |  |  |  |  |
+| 5 | PI, intermediate $K_i$ |  |  |  |  |  |  |
+| 6 | PI, high $K_i$ |  |  |  |  |  |  |
 
 Define the rise-time and settling-time criteria you use. Explain why the
-selected pair is a good compromise for this apparatus; there is no single
-universally best pair. Your record must show the measured temperature,
+Run 5 is your candidate final gain pair, but revise that choice if the evidence
+supports another pair; there is no single universally best pair. Your record
+must show the measured temperature,
 setpoint, total applied PWM, $u_P$, $u_I$, and error versus time.
 
 Before applying power, verify the independent Arduino temperature shutdown and
@@ -524,7 +521,7 @@ Answer:
 
 ### Part 2: One-Temperature Proportional Model
 
-Set the physical model to `one_lump` and the controller to `p`.
+Set the physical model to `one_lump` and the controller to **P**.
 
 1. Set `T_set` above room temperature.
 2. Set a small `Kp`.
@@ -548,7 +545,7 @@ Answer:
 
 ### Part 3: Two-Temperature Thermal-Mass Model
 
-Set the physical model to `two_lump` and the controller to `p`.
+Set the physical model to `two_lump` and the controller to **P**.
 
 1. Use the same setpoint as Part 2.
 2. Start with moderate `Kp`.
@@ -662,7 +659,7 @@ Answer:
 Before leaving S15, save the physical PI tuning table and traces, copied
 equations, completed theory assignments, parameter tables, screenshots,
 algorithm-tracing explanation, and exact run command. Keep the team record in
-`docs/module_notes/module_07_process_model.md` and preserve the prepared v3
+`docs/module_notes/module_07_process_model.md` and preserve the prepared simulation
 program in your repository.
 
 ### Oral Review Questions: Process Modeling

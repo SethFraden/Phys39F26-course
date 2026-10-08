@@ -3,23 +3,44 @@
 Module 6 has two linked parts:
 
 1. **Part I (this page):** develop one-lump P and PI models and connect them to
-   the Module 5 measurements.
-2. [**Part II: TEC Process Model And The v3 Simulation**](../lab-07/index.md):
+   the Module 4 and Module 5 measurements.
+2. [**Part II: TEC Process Model And Simulation**](../lab-07/index.md):
    extend the model, compare one- and two-lump descriptions, and test the model
-   with the same prepared v3 simulation.
+   with the same prepared simulation.
 
 ## Purpose
 
-Module 6 slows down the theory. Module 5 showed that proportional feedback reduces
-steady-state error but can become unstable. Module 6 builds simple models that
-explain those observations.
+Module 5 showed that proportional feedback reduces steady-state error but can
+overshoot, ring, and oscillate. Module 6 develops the theory needed to
+distinguish what a one-lump model explains from behavior that requires
+additional thermal dynamics.
 
-The goal is not to become fluent in Laplace transforms. The goal is to connect
-thermal physics, feedback equations, and the data you measured from the TEC.
+The goal is to connect thermal physics, feedback equations, and the data you measured from the TEC.
 
 You will begin with algebra, then simulate the one-lump model in time, then
 extend the model just enough to understand why integral control is useful and
 why real feedback loops can oscillate.
+
+## Learning Objectives
+
+By the end of Module 6, Parts I and II, you should be able to:
+
+- derive and interpret the one-lump energy balance, open-loop susceptibility,
+  thermal time constant, and P-control droop;
+- use the prepared simulation to compare open-loop, P, and PI control;
+- connect the model parameters and predictions to measured values of
+  susceptibility, time constant, droop, and transient response;
+- explain why the one-lump P-control model cannot overshoot and use measured
+  overshoot to identify the need for additional thermal dynamics;
+- implement PI control on the physical TEC, including integral reset and
+  anti-windup;
+- characterize how changing $K_p$ and $K_i$ affects both the process output
+  (measured temperature) and process input (signed PWM) for P and PI control;
+- quantify step responses in both directions using rise time, percent
+  overshoot, settling time, steady-state error, and oscillation period when
+  applicable; and
+- select and justify $K_p$ and $K_i$ using those measurements and actuator
+  saturation.
 
 ## Theme
 
@@ -51,26 +72,32 @@ environment, and responds over a time scale.
 
 ### Terms
 
-- **Thermal capacitance:** energy required to raise the lump's temperature by
-  one degree.
+- **Thermal capacitance (thermal mass):** energy required to raise the lump's
+  temperature by one degree. In this module, *thermal mass* is an informal
+  synonym for thermal capacitance.
 - **Thermal resistance:** opposition to passive heat flow between the lump and
   its surroundings.
 - **Heat-loss conductance:** the inverse of thermal resistance; passive heat
   transfer per degree of temperature difference.
-- **Time constant:** characteristic time over which a first-order system
-  approaches a new temperature.
+- **Time constant:** characteristic decay time. A first-order system has one
+  time constant; a higher-order system can have more than one decay time.
 - **Open-loop temperature susceptibility:** steady-state temperature change per
   applied PWM command, with direction held fixed.
 - **P control:** command proportional to the current temperature error.
-- **I control:** command proportional to accumulated temperature error.
+- **PI control:** command equal to the sum of a proportional term and a term
+  proportional to accumulated temperature error.
 - **Windup:** continued growth of the integral term while the actuator is
   saturated.
 - **Droop:** nonzero steady-state temperature error in P-only control.
 
-### Symbols Used In Part 1
+### Symbols Used In Module 6, Part I
 
-Symbols appear below in the order they are first used in Part 1. A temperature
-difference has the same numerical value in K and °C.
+A temperature difference has the same numerical value in K and °C. Earlier
+modules wrote the generic open-loop susceptibility as $\chi_{T,u}$. For
+concision, this module writes it as $\chi$ and uses $\chi_h$ and $\chi_c$ when
+the heating and cooling values must be distinguished. Similarly, $P_u$ means
+the coefficient for the active direction; $P_{u,h}$ and $P_{u,c}$ distinguish
+heating from cooling.
 
 | Symbol | Meaning | Units |
 | --- | --- | --- |
@@ -87,10 +114,20 @@ difference has the same numerical value in K and °C.
 | $\dot Q_{\mathrm{out}}$ | Rate at which heat leaves the lump | W |
 | $m$ | Mass of the lump | kg |
 | $c_p$ | Specific heat capacity of the lump material | J/(kg K) |
-| $\chi_{T,u}$ | Open-loop temperature susceptibility: steady-state temperature change per signed PWM count | °C/PWM count |
+| $\chi$ | Open-loop temperature susceptibility for the active direction | °C/PWM count |
+| $\chi_h$, $\chi_c$ | Heating and cooling susceptibilities | °C/PWM count |
+| $r=\chi_h/\chi_c$ | Ratio of heating to cooling susceptibility | dimensionless |
+| $\tau=C/H$ | Open-loop thermal time constant | s |
 | $K_p$ | Proportional gain | PWM counts/°C |
+| $K_i$ | Integral gain | PWM counts/(°C s) |
 | $T_{\mathrm{set}}$ | Requested temperature setpoint | °C |
-| $\mathrm{droop}=T_{\mathrm{set}}-T$ | Steady-state temperature error | °C |
+| $e=T_{\mathrm{set}}-T$ | Temperature error | °C |
+| $q=\int e\,dt$ | Accumulated temperature error | °C s |
+| $u_P=K_pe$, $u_I=K_iq$ | Proportional and integral contributions to the PWM command | PWM counts |
+| $\mathrm{droop}=T_{\mathrm{set}}-T_{\mathrm{ss}}$ | Steady-state temperature error | °C |
+| $\theta$, $z$ | Temperature and integral-state displacements from steady state | °C, °C s |
+| $\lambda$ | Eigenvalue governing exponential growth or decay | 1/s |
+| $\zeta$ | PI damping ratio | dimensionless |
 
 ## Before Class
 
@@ -115,7 +152,7 @@ will be used during the in-class model comparison.
 | S12 | Complete and check the guided one-lump derivation | 120 minutes |
 | S12 | **Total associated with S12** | **3 hours 30 minutes** |
 | S13 | Review PI control and windup; answer the preparation questions | 60 minutes |
-| S13 | Explore PI behavior in v3 and prepare the physical-controller change | 105 minutes |
+| S13 | Explore PI behavior in the simulation and prepare the physical-controller change | 105 minutes |
 | S13 | **Total associated with S13** | **2 hours 45 minutes** |
 | S14 | Analyze matched physical P/PI results and select gains | 90 minutes |
 | S14 | Write, check, commit, push, and prepare A3 | 120 minutes |
@@ -131,7 +168,7 @@ complete and understood.
 3. What evidence from your data suggests a thermal time constant?
 4. Why does the algebraic droop model not predict oscillation?
 
-## What You Will Do
+## What You Will Do Across Parts I And II
 
 - Derive the algebraic P-control droop model.
 - Estimate an open-loop thermal slope from Module 4.
@@ -208,11 +245,11 @@ balance, where \(dT/dt=0\).
 The measured Module 4 open-loop relationship is
 
 \[
-T=T_{\mathrm{amb}}+\chi_{T,u}u,
+T=T_{\mathrm{amb}}+\chi u,
 \]
 
-where $\chi_{T,u}=dT/du$ is the open-loop susceptibility with respect to signed
-PWM. With the signed convention, $\chi_{T,u}$ is positive: positive $u$ heats
+where $\chi=dT/du$ is the open-loop susceptibility with respect to signed
+PWM. With the signed convention, $\chi$ is positive: positive $u$ heats
 and raises $T$, while negative $u$ cools and lowers $T$. P-only feedback supplies
 
 \[
@@ -222,14 +259,14 @@ u=K_p(T_{\mathrm{set}}-T).
 Substitute the controller law into the measured open-loop relationship:
 
 \[
-T=T_{\mathrm{amb}}+\chi_{T,u}K_p(T_{\mathrm{set}}-T).
+T=T_{\mathrm{amb}}+\chi K_p(T_{\mathrm{set}}-T).
 \]
 
 At steady state, collect the terms containing $T$:
 
 \[
-(1+\chi_{T,u}K_p)T
-=T_{\mathrm{amb}}+\chi_{T,u}K_pT_{\mathrm{set}}.
+(1+\chi K_p)T
+=T_{\mathrm{amb}}+\chi K_pT_{\mathrm{set}}.
 \]
 
 Subtract this result from $T_{\mathrm{set}}$ to obtain the droop:
@@ -237,15 +274,15 @@ Subtract this result from $T_{\mathrm{set}}$ to obtain the droop:
 \[
 \boxed{
 T_{\mathrm{set}}-T=
-\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi_{T,u}K_p}.
+\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p}.
 }
 \]
 
-The product $L=\chi_{T,u}K_p$ is dimensionless. It is the loop gain for this
-steady-state model. Part 2 derives $\chi_{T,u}=P_u/H$ from the dimensional
+The product $L=\chi K_p$ is dimensionless. It is the loop gain for this
+steady-state model. Part 2 derives $\chi=P_u/H$ from the dimensional
 model.
 
-Using one of your Module 5 runs, use $\chi_{T,u}$, $T_{\mathrm{amb}}$,
+Using one of your Module 5 runs, use $\chi$, $T_{\mathrm{amb}}$,
 $T_{\mathrm{set}}$, and $K_p$ in the boxed equation to calculate the predicted
 settled temperature and droop. Compare the prediction with the measured Module
 5 droop, then state one physical reason they may differ.
@@ -272,10 +309,10 @@ T=T_{\mathrm{amb}}+\frac{P_u}{H}u.
 \]
 
 Comparison with the Module 4 measurement
-$T=T_{\mathrm{amb}}+\chi_{T,u}u$ identifies
+$T=T_{\mathrm{amb}}+\chi u$ identifies
 
 \[
-\boxed{\chi_{T,u}=\frac{P_u}{H}}.
+\boxed{\chi=\frac{P_u}{H}}.
 \]
 
 For constant $u$, define the steady-state temperature
@@ -283,7 +320,7 @@ For constant $u$, define the steady-state temperature
 \[
 T_{\mathrm{ss}}
 =T_{\mathrm{amb}}+\frac{P_u}{H}u
-=T_{\mathrm{amb}}+\chi_{T,u}u.
+=T_{\mathrm{amb}}+\chi u.
 \]
 
 Now define the displacement from that steady state:
@@ -325,158 +362,187 @@ The units confirm that this ratio is a time:
 =\frac{\mathrm{J}}{\mathrm{J/s}}=\mathrm{s}.
 \]
 
-!!! note "Sidebar: From dimensional analysis to a dimensionless model"
+<details class="note" markdown="1">
+<summary>Sidebar: From dimensional analysis to a dimensionless model</summary>
 
-    This follows the progression in [Howard Stone, Sections 1.5.1-1.5.2:
-    characteristic time and rescaling a differential
-    equation](../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21).
-    Stone examines a model four related ways: inspect the dimensions, balance
-    the sizes of terms, solve the equation when possible, and then rescale it
-    so that only dimensionless variables and parameters remain.
+This follows the progression in [Howard Stone, Sections 1.5.1-1.5.2:
+characteristic time and rescaling a differential
+equation](../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21).
+Stone examines a model four related ways: inspect the dimensions, balance
+the sizes of terms, solve the equation when possible, and then rescale it
+so that only dimensionless variables and parameters remain.
 
-    **1. Inspect the dimensions.** For the unforced departure from steady state,
+**1. Inspect the dimensions.** For the unforced departure from steady state,
 
-    \[
-    C\frac{d\vartheta}{dt}=-H\vartheta,
-    \qquad \vartheta=T-T_{\mathrm{ss}},
-    \]
+\[
+C\frac{d\vartheta}{dt}=-H\vartheta,
+\qquad \vartheta=T-T_{\mathrm{ss}},
+\]
 
-    the parameters that contain time are $C$ and $H$. Their ratio has units of
-    time:
+the parameters that contain time are $C$ and $H$. Their ratio has units of
+time:
 
-    \[
-    \frac{C}{H}
-    =\frac{\mathrm{J/K}}{\mathrm{W/K}}
-    =\mathrm{s}.
-    \]
+\[
+\frac{C}{H}
+=\frac{\mathrm{J/K}}{\mathrm{W/K}}
+=\mathrm{s}.
+\]
 
-    Dimensional analysis therefore identifies $C/H$ as the characteristic
-    time, but cannot by itself determine the complete function of time.
+Dimensional analysis therefore identifies $C/H$ as the characteristic
+time, but cannot by itself determine the complete function of time.
 
-    **2. Balance the sizes of the terms.** If a typical temperature departure
-    $\Delta T$ changes over a typical time $t_c$, then
+**2. Balance the sizes of the terms.** If a typical temperature departure
+$\Delta T$ changes over a typical time $t_c$, then
 
-    \[
-    C\frac{\Delta T}{t_c}\sim H\Delta T.
-    \]
+\[
+C\frac{\Delta T}{t_c}\sim H\Delta T.
+\]
 
-    The temperature scale cancels because this equation is linear, leaving
+The temperature scale cancels because this equation is linear, leaving
 
-    \[
-    t_c\sim\frac{C}{H}.
-    \]
+\[
+t_c\sim\frac{C}{H}.
+\]
 
-    **3. Solve the equation.** Separation of variables gives
+**3. Solve the equation.** Separation of variables gives
 
-    \[
-    \vartheta(t)=\vartheta(0)e^{-tH/C}.
-    \]
+\[
+\vartheta(t)=\vartheta(0)e^{-tH/C}.
+\]
 
-    The solution supplies what dimensional reasoning alone cannot: the decay
-    is exponential, and its exact time constant is $\tau=C/H$.
+The solution supplies what dimensional reasoning alone cannot: the decay
+is exponential, and its exact time constant is $\tau=C/H$.
 
-    **4. Nondimensionalize time and temperature.** Following Stone, choose the
-    initial departure as the temperature scale and define
+**4. Nondimensionalize time and temperature.** Following Stone, choose the
+initial departure as the temperature scale and define
 
-    \[
-    \Theta=\frac{\vartheta}{\vartheta(0)}
-    =\frac{T-T_{\mathrm{ss}}}{T(0)-T_{\mathrm{ss}}},
-    \qquad
-    \hat t=\frac{t}{\tau}.
-    \]
+\[
+\Theta=\frac{\vartheta}{\vartheta(0)}
+=\frac{T-T_{\mathrm{ss}}}{T(0)-T_{\mathrm{ss}}},
+\qquad
+\hat t=\frac{t}{\tau}.
+\]
 
-    Substitution removes every dimensional parameter:
+Substitution removes every dimensional parameter:
 
-    \[
-    \frac{d\Theta}{d\hat t}=-\Theta,
-    \qquad \Theta(0)=1,
-    \qquad \Theta=e^{-\hat t}.
-    \]
+\[
+\frac{d\Theta}{d\hat t}=-\Theta,
+\qquad \Theta(0)=1,
+\qquad \Theta=e^{-\hat t}.
+\]
 
-    This is also the form used in [Lienhard and Lienhard, Section 5.2:
-    dimensional analysis of a lumped-capacity
-    system](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208).
-    They use
+This is also the form used in [Lienhard and Lienhard, Section 5.2:
+dimensional analysis of a lumped-capacity
+system](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208).
+They use
 
-    \[
-    \Theta=\frac{T-T_\infty}{T_i-T_\infty},
-    \qquad
-    \frac{t}{\mathcal{T}},
-    \qquad
-    \mathcal{T}=\frac{\rho cV}{hA}.
-    \]
+\[
+\Theta=\frac{T-T_\infty}{T_i-T_\infty},
+\qquad
+\frac{t}{\mathcal{T}},
+\qquad
+\mathcal{T}=\frac{\rho cV}{hA}.
+\]
 
-    In our notation, $C=\rho cV$, $H=hA$, and $T_\infty=T_{\mathrm{amb}}$,
-    so Lienhard's $\mathcal{T}$ is our $\tau=C/H$. See also [Lienhard and
-    Lienhard, Section 4.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=164)
-    for why temperature is nondimensionalized using a temperature
-    *difference*: the absolute temperature level is not significant in a
-    linear conduction problem.
+In our notation, $C=\rho cV$, $H=hA$, and $T_\infty=T_{\mathrm{amb}}$,
+so Lienhard's $\mathcal{T}$ is our $\tau=C/H$. See also [Lienhard and
+Lienhard, Section 4.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=164)
+for why temperature is nondimensionalized using a temperature
+*difference*: the absolute temperature level is not significant in a
+linear conduction problem.
 
-    **What changes when the TEC drives the system?** Choose a characteristic
-    command $u_0$ and a characteristic temperature change $\Delta T$, then
-    define
+**What changes when the TEC drives the system?** Choose a characteristic
+command $u_0$ and a characteristic temperature change $\Delta T$, then
+define
 
-    \[
-    \hat t=\frac{t}{\tau},\qquad
-    \hat T=\frac{T-T_{\mathrm{amb}}}{\Delta T},\qquad
-    \hat u=\frac{u}{u_0}.
-    \]
+\[
+\hat t=\frac{t}{\tau},\qquad
+\hat T=\frac{T-T_{\mathrm{amb}}}{\Delta T},\qquad
+\hat u=\frac{u}{u_0}.
+\]
 
-    Substitution into the one-lump model gives
+Substitution into the one-lump model gives
 
-    \[
-    \frac{d\hat T}{d\hat t}
-    =\Gamma\hat u-\hat T,
-    \qquad
-    \Gamma=\frac{\chi_{T,u}u_0}{\Delta T}.
-    \]
+\[
+\frac{d\hat T}{d\hat t}
+=\Gamma\hat u-\hat T,
+\qquad
+\Gamma=\frac{\chi u_0}{\Delta T}.
+\]
 
-    Thus the dimensional parameters enter through the single dimensionless
-    group $\Gamma$. Choosing $\Delta T=\chi_{T,u}u_0$, the steady temperature
-    change produced by $u_0$, makes $\Gamma=1$ and leaves
+Thus the dimensional parameters enter through the single dimensionless
+group $\Gamma$. Choosing $\Delta T=\chi u_0$, the steady temperature
+change produced by $u_0$, makes $\Gamma=1$ and leaves
 
-    \[
-    \frac{d\hat T}{d\hat t}=\hat u-\hat T.
-    \]
+\[
+\frac{d\hat T}{d\hat t}=\hat u-\hat T.
+\]
 
-    Thus, for an open-loop step, the natural temperature scale is either the
-    measured step size or $\chi_{T,u}u_0$, its predicted steady-state value.
-    For setpoint control, use
-    $\Delta T=|T_{\mathrm{set}}-T_{\mathrm{amb}}|$. Absolute temperature is not
-    useful here because the model depends only on temperature differences.
-    Absolute kelvin temperature would become relevant for thermal radiation or
-    strongly temperature-dependent material properties.
+Thus, for an open-loop step, the natural temperature scale is either the
+measured step size or $\chi u_0$, its predicted steady-state value.
+For setpoint control, use
+$\Delta T=|T_{\mathrm{set}}-T_{\mathrm{amb}}|$. Absolute temperature is not
+useful here because the model depends only on temperature differences.
+Absolute kelvin temperature would become relevant for thermal radiation or
+strongly temperature-dependent material properties.
 
-    Nondimensionalization is useful because it reveals which experiments are
-    dynamically equivalent. For P control, scaling by the setpoint offset gives
+Nondimensionalization is useful because it reveals which experiments are
+dynamically equivalent. For P control, scaling by the setpoint offset gives
 
-    \[
-    \frac{d\hat T}{d\hat t}
-    =L(\hat T_{\mathrm{set}}-\hat T)-\hat T,
-    \qquad
-    L=\chi_{T,u}K_p,
-    \]
+\[
+\frac{d\hat T}{d\hat t}
+=L(\hat T_{\mathrm{set}}-\hat T)-\hat T,
+\qquad
+L=\chi K_p,
+\]
 
-    where $L$ is the dimensionless loop gain and
-    $\hat T_{\mathrm{set}}=+1$ for heating or $-1$ for cooling. The response
-    shape is therefore controlled by $L$, while $\tau$ restores the physical
-    time scale.
+where $L$ is the dimensionless loop gain and
+$\hat T_{\mathrm{set}}=+1$ for heating or $-1$ for cooling. The response
+shape is therefore controlled by $L$, while $\tau$ restores the physical
+time scale.
 
-Therefore $P_u/C=\chi_{T,u}/\tau$ and $H/C=1/\tau$. The same dimensional
-energy balance can be written entirely in terms of the two measured parameters
-$\chi_{T,u}$ and $\tau$:
+</details>
+
+The two measured quantities are the thermal time constant and the open-loop
+susceptibility:
+
+\[
+\boxed{\tau=\frac{C}{H}},
+\qquad
+\boxed{\chi=\frac{P_u}{H}}.
+\]
+
+These two measured quantities determine the two parameter ratios that govern
+the dynamics:
+
+\[
+\boxed{\frac{H}{C}=\frac{1}{\tau}},
+\qquad
+\boxed{\frac{P_u}{C}
+=\frac{P_u/H}{C/H}
+=\frac{\chi}{\tau}}.
+\]
+
+Module 4 provides the heating and cooling susceptibilities, and a temperature
+step from Module 4 or Module 5 provides $\tau$. Use the susceptibility for the
+corresponding direction. Therefore, once
+$T_{\mathrm{amb}}$ and the command $u$ are specified, the model has **no free
+parameters**. Its transient temperature prediction can be compared directly
+with the measurement rather than fitted to it.
+
+The same dimensional energy balance can therefore be written entirely in
+terms of $\chi$ and $\tau$:
 
 \[
 \boxed{
 \frac{dT}{dt}
-=\frac{T_{\mathrm{amb}}+\chi_{T,u}u-T}{\tau}.
+=\frac{T_{\mathrm{amb}}+\chi u-T}{\tau}.
 }
 \]
 
 This is not a different model. It is the one-lump energy balance expressed in
 a form that can be simulated using your measured susceptibility and time
-constant. The quantity $T_{\mathrm{amb}}+\chi_{T,u}u$ is the steady temperature toward
+constant. The quantity $T_{\mathrm{amb}}+\chi u$ is the steady temperature toward
 which the model moves for a constant command $u$; $\tau$ determines how
 quickly it moves there.
 
@@ -484,9 +550,9 @@ quickly it moves there.
 
 Use a temperature step from Module 4 or Module 5.
 
-Use a trace in which every temperature value was calculated after averaging
-between 100 and 1000 raw thermistor-voltage measurements, as required in Modules
-2 through 5.
+Use a trace in which every temperature value was calculated by averaging
+exactly 1,000 raw thermistor-voltage measurements, as required in Modules 2
+through 5.
 
 One practical method:
 
@@ -505,13 +571,13 @@ $C/H$; it does not separately determine $C$ and $H$.
 
 ## Part 4: Simulate Open-Loop Response
 
-Download [the prepared Module 6/7 v3 TEC
-simulation](../../downloads/Lab_6_7_modeling_tec_v3.py). Save it in your
-project repository as `python/Lab_6_7_modeling_tec_v3.py`, then run it from the
+Download [the prepared Module 6/7 TEC
+simulation](../../downloads/Lab_6_7_modeling_tec.py). Save it in your
+project repository as `python/Lab_6_7_modeling_tec.py`, then run it from the
 repository root:
 
 ```bash
-python python/Lab_6_7_modeling_tec_v3.py
+python python/Lab_6_7_modeling_tec.py
 ```
 
 For Module 6, select the **one-lump** physical model. The program performs an
@@ -522,30 +588,30 @@ T_{n+1}=T_n+\frac{\Delta t}{C}
 \left[P_u u_n-H(T_n-T_{\mathrm{amb}})\right].
 \]
 
-Because your experiment measures $\chi_{T,u}=P_u/H$ and $\tau=C/H$, the
+Because your experiment measures $\chi=P_u/H$ and $\tau=C/H$, the
 equivalent measured-parameter update is
 
 \[
 \boxed{
 T_{n+1}=T_n+\frac{\Delta t}{\tau}
-\left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
+\left(T_{\mathrm{amb}}+\chi u_n-T_n\right).
 }
 \]
 
 Select **measured** under **Physical parameters**. Enter your measured
 $\chi_c$, $\chi_h$, and $\tau$, the on-state voltage measured across the TEC,
 and the TEC module resistance from the datasheet. The voltage control is
-limited to the apparatus maximum of $10\ \mathrm{V}$. The program uses these
+limited to the apparatus maximum of $12\ \mathrm{V}$. The program uses these
 measurements to calculate $r$, $P_{u,c}$, $H$, and the total one-lump
 capacitance $C$. Select **direct constants** only when you want to enter $H$,
 $C$, $P_{u,c}$, and $r$ independently for a modeling study. Before running,
 use the steady-state equation to predict the final temperature for one heating
 command and one cooling command.
 
-### Guided v3 Exercise: Open Loop And Thermal Mass
+### Guided Simulation Exercise: Open Loop And Thermal Mass
 
 Work in pairs. Select **one_lump**, **measured**, and **open_loop**. Use the
-current v3 defaults
+current simulation defaults
 
 \[
 T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
@@ -587,19 +653,19 @@ result. Explain any important difference between the model and the apparatus.
 
 ## Part 5: Simulate P-Only Feedback
 
-Continue with the same one-lump parameters in v3. Select **P** control, which
-replaces the constant command with
+Continue with the same one-lump parameters in the simulation. Select **P**
+control, which replaces the constant command with
 
 \[
-u_n=K_p(T_{\mathrm{set}}-T_n),
+u_n=K_p(T_{\mathrm{set}}-T_n).
 \]
 
 The program clamps $u_n$ to the allowed signed PWM range before applying the
 Euler update from Part 4.
 
-### Guided v3 Exercise: P Control And Droop
+### Guided Simulation Exercise: P Control And Droop
 
-Return to **measured**, select **p**, and set
+Return to **measured**, select **P**, and set
 
 \[
 T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
@@ -645,7 +711,7 @@ The solution explains why its P-controlled response cannot oscillate. If the
 real apparatus oscillates, the difference identifies physics missing from the
 model.
 
-With P control, the energy balance is
+Substituting the P-control law into the energy balance gives
 
 \[
 C\frac{dT}{dt}
@@ -653,31 +719,14 @@ C\frac{dT}{dt}
 -(H+P_uK_p)T.
 \]
 
-First find the steady-state temperature by setting \(dT/dt=0\):
+Setting \(dT/dt=0\) recovers the steady-state result from Part 1:
 
 \[
-T_{\mathrm{ss}}
-=\frac{P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}}
-{H+P_uK_p}.
-\]
-
-The remaining error from the setpoint is the P-control droop:
-
-\[
+\boxed{
 T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}
-{H+P_uK_p}.
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p}.
+}
 \]
-
-Divide numerator and denominator by $H$ and use $\chi_{T,u}=P_u/H$:
-
-\[
-T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi_{T,u}K_p}.
-\]
-
-This is the same droop equation derived from the measured open-loop relation
-in Part 1.
 
 Now define the displacement from steady state,
 
@@ -722,13 +771,36 @@ T(t)=T_{\mathrm{ss}}
 \tau_{\mathrm{cl}}=\frac{C}{H+P_uK_p}.
 \]
 
-Using $\tau=C/H$ and the dimensionless loop gain $L=\chi_{T,u}K_p$,
+Using $\tau=C/H$ and the dimensionless loop gain $L=\chi K_p$,
 
 \[
 \boxed{
-\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi_{T,u}K_p}=\frac{\tau}{1+L}.
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}=\frac{\tau}{1+L}.
 }
 \]
+
+!!! important "Increasing gain has two effects"
+
+    Increasing $K_p$ does two things at the same time:
+
+    1. **It decreases droop.**
+
+        \[
+        T_{\mathrm{set}}-T_{\mathrm{ss}}
+        =\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p}.
+        \]
+
+    2. **It speeds up the response** by decreasing the closed-loop time
+       constant.
+
+        \[
+        \tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
+        \]
+
+    Thus, in this unsaturated one-lump model, both droop and response time are
+    reduced by the same factor, $1+\chi K_p$. Larger gain moves the
+    temperature closer to the setpoint and makes it approach its steady value
+    more quickly.
 
 To find the eigenvalue directly, try an exponential mode,
 
@@ -765,23 +837,15 @@ State the contradiction directly: the model predicts a monotonic exponential,
 whereas the apparatus shows an underdamped transient. This is evidence that the
 model is inadequate, not that the exponential solution is wrong.
 
-Discuss what you would need to add:
+The one-lump model is missing thermal lag between where the TEC applies heat
+and where the thermistor measures temperature. The simplest extension is a
+second thermal mass coupled to the measured block. Part II develops that model
+in detail.
 
-- a time delay,
-- two thermal masses,
-- sensor lag,
-- actuator lag,
-- discrete controller update time,
-- PWM saturation,
-- measurement noise.
+### Guided Simulation Exercise: From No Overshoot To Overshoot
 
-Choose one extension that you think is physically most important for the class
-apparatus.
-
-### Guided v3 Exercise: From No Overshoot To Overshoot
-
-Now test the two-lump explanation directly. In v3, select **two_lump**,
-**measured**, and **p**. Keep the experimental-scale defaults
+Preview the two-lump explanation before studying it systematically in Part II.
+In the simulation, select **two_lump**, **measured**, and **P**. Use
 
 \[
 T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
@@ -795,9 +859,7 @@ T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
 \tau=80\ \mathrm{s},
 \]
 
-Use two-lump parameters chosen to be close to the apparatus and to place the
-onset of overshoot near the experimental value of $K_p\approx100$
-PWM/°C:
+and the experimental-scale two-lump parameters
 
 \[
 \frac{C_T}{C}=0.25,
@@ -805,51 +867,15 @@ PWM/°C:
 G=25\ \mathrm{W/K}.
 \]
 
-Set $K_i=0$. Reset the experiment before every run so that each response begins
-from the same initial temperature. Compare these three proportional gains:
+Set $K_i=0$. Reset before each run and compare $K_p=50$ PWM/°C, which should
+approach monotonically, with $K_p=120$ PWM/°C, near the experimentally observed
+underdamped regime. Compare the measured temperature $T_m$ with the one-lump
+temperature at the same gain. Explain why $T_m$ can continue rising after the
+controller begins reducing the TEC command.
 
-| $K_p$ (PWM/°C) | Expected behavior to check |
-| ---: | --- |
-| 50 | monotonic approach with no overshoot |
-| 100 | near the onset of overshoot |
-| 120 | experimental reference: highly underdamped |
-| 150 | clearly visible overshoot |
-
-For each run, save or plot measured temperature $T_m$ versus time and record
-$T_{\mathrm{ss}}$, the largest value of $T_m$, the overshoot
-$T_{m,\max}-T_{\mathrm{ss}}$, the qualitative response shape, and whether the
-PWM saturates. Then vary $K_p$ between 50 and 150 to estimate where visible
-overshoot first appears. In this
-exercise, call a response **low gain** when it has no overshoot and **high
-gain** when it does.
-
-The experimental observation at $K_p=120$ establishes that this gain is highly
-underdamped for the physical apparatus. The simulation is not expected to
-reproduce the exact number of experimental oscillations. Use it to identify
-how adding a second thermal state permits overshoot and ringing, and how the
-response changes as $K_p$ increases.
-
-Next, verify how each two-lump parameter changes overshoot. Begin from
-$K_p=120$ PWM/°C, $G=25$ W/K, and $C_T/C=0.25$. Change only one quantity at a
-time and reset before each run:
-
-| Parameter change | Predicted effect on overshoot |
-| --- | --- |
-| Increase $K_p$ from 120 to 150 PWM/°C | increase |
-| Decrease $G$ from 25 to 15 W/K | increase because the measured lump responds with greater thermal lag |
-| Increase $C_T/C$ from 0.25 toward 0.50 | increase as the two thermal capacitances become more comparable |
-
-For each comparison, measure $T_{m,\max}-T_{\mathrm{ss}}$ and record whether
-the PWM saturates. State whether the simulation confirms each prediction.
-Then reverse one of the changes and verify that the overshoot decreases. Keep
-$\chi_c$, $\chi_h$, and $\tau$ fixed: they represent the measured apparatus,
-whereas this comparison probes the internal two-lump structure.
-
-Compare the one-lump and two-lump models at the same value of $K_p$. Explain
-why the one-lump temperature cannot overshoot, while the measured temperature
-of the two-lump model can continue rising after the controller has begun to
-reduce the TEC command. Connect this thermal lag to the low- and high-gain
-traces you recorded from the apparatus in Module 5.
+This brief comparison establishes that an additional thermal state can permit
+overshoot. Carry out the systematic variation of $K_p$, $G$, $C_T$, and $C_m$
+in [Module 6, Part II](../lab-07/index.md#part-3-two-temperature-thermal-mass-model).
 
 ## Part 7: Add Integral Action In Simulation
 
@@ -881,7 +907,7 @@ C\frac{dT}{dt}
 }
 \]
 
-The v3 simulation calculates and clamps the command from the current state,
+The simulation calculates and clamps the command from the current state,
 then updates both state variables according to
 
 \[
@@ -890,14 +916,14 @@ u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_n,
 
 \[
 T_{n+1}=T_n+\frac{\Delta t}{\tau}
-\left(T_{\mathrm{amb}}+\chi_{T,u}u_n-T_n\right).
+\left(T_{\mathrm{amb}}+\chi u_n-T_n\right).
 \]
 
 \[
 q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
 \]
 
-Select **PI** in v3 and begin with a stable $K_p$. Use **Zero integral** to
+Select **PI** in the simulation and begin with a stable $K_p$. Use **Zero integral** to
 clear the controller memory before a comparison. Watch the displayed values of
 $e$, $u_P$, $u_I$, and the applied command while the temperature approaches
 the setpoint.
@@ -912,10 +938,10 @@ Compare P-only and PI simulations:
 The main point is that integral action can reduce steady-state error, but it can
 also create overshoot and windup.
 
-### Guided v3 Exercise: Watch The Integral Contribution
+### Guided Simulation Exercise: Watch The Integral Contribution
 
 Begin from the P-control case after it has developed visible droop. Select
-**pi**, press **Zero integral**, and resume. Watch $e$, $u_P$, $u_I$, and the
+**PI**, press **Zero integral**, and resume. Watch $e$, $u_P$, $u_I$, and the
 applied command $u$ while the temperature approaches the setpoint. Answer:
 
 1. While $e>0$, why does $u_I$ continue to grow?
@@ -927,46 +953,16 @@ applied command $u$ while the temperature approaches the setpoint. Answer:
 The steady integral contribution replaces the nonzero proportional error that
 was required to provide the steady command under P-only control.
 
-### October 14: Implement PI Control On The Physical TEC
-
-Use your working Module 5 P controller as the starting point. Do not replace
-the Arduino's independent temperature shutdown or the existing signed-PWM
-clamp. Add only the integral state and anti-windup needed for PI control:
-
-\[
-q_{n+1}=q_n+e_n\Delta t,
-\qquad
-u_n=K_pe_n+K_iq_n.
-\]
-
-Calculate $\Delta t$ from the actual elapsed time between accepted temperature
-measurements. Display and save $e$, $u_P=K_pe$, $u_I=K_iq$, the requested
-command, and the applied command. Provide a control that sets $q=0$ before a
-new comparison.
-
-Use **conditional integration** for anti-windup: if the requested command is
-already beyond the PWM limit and the current error would drive it farther into
-saturation, do not update $q$ on that step. The output clamp and independent
-Arduino safety shutdown remain active even when anti-windup is working.
-
-Before applying actuator power, show the instructor the lines that calculate
-$e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
-
-1. Use the same safe setpoint and a stable $K_p$ from Module 5.
-2. Set $K_i=0$, zero the integral state, and record a P-only baseline.
-3. Set PWM to zero before changing controller mode or resetting the integral.
-4. Choose a small positive $K_i$ after exploring it in v3. Zero the integral
-   state, enable PI, and record the response from comparable initial conditions.
-5. Confirm that $u_I$ grows while a persistent error remains and that the
-   steady error becomes smaller than in the P-only run.
-6. Stop and set PWM to zero if the temperature moves in the wrong direction,
-   the display freezes, saturation persists unexpectedly, or oscillations grow.
-
-Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
-temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
-continues on October 19 in [Module 6, Part II](../lab-07/index.md#october-19-tune-the-physical-pi-controller).
-
 ### Why PI Can Be Underdamped
+
+PI control adds the accumulated error as a second state variable. Unlike the
+one-state P model, a two-state PI model can therefore have a pair of complex
+eigenvalues and an underdamped response. The optional derivation below is
+included for mathematical culture, curiosity, and completeness; it is not an
+A3 assessment requirement.
+
+<details class="note" markdown="1">
+<summary>Optional advanced derivation: PI eigenvalues, damping ratio, and time scales</summary>
 
 From the definitions above,
 
@@ -1201,7 +1197,7 @@ exponential, with
 \[
 \boxed{
 \tau_P=\frac{C}{H+P_uK_p}
-=\frac{\tau}{1+\chi_{T,u}K_p}
+=\frac{\tau}{1+\chi K_p}
 }.
 \]
 
@@ -1287,15 +1283,18 @@ decay-envelope time and oscillation period when underdamped.
 
 </details>
 
-Use the simulation to find one overdamped and one underdamped parameter set.
+**Optional exploration.** Use the simulation to find one overdamped and one
+underdamped parameter set.
 For each case, record \(C\), \(H\), \(P_u\), \(K_p\), \(K_i\), the displayed
 value of \(\zeta\), and whether the temperature trace agrees with the
 prediction. The formula applies only while the model is linear and the PWM is
 not saturated.
 
-### Using The Prepared v3 Simulation
+</details>
 
-The v3 simulation is the modeling tool for Parts 4 through 7. It runs
+### Using The Prepared Simulation
+
+The simulation is the modeling tool for Parts 4 through 7. It runs
 continuously in a rolling time window, and its sliders change physical and
 controller parameters while the simulation runs. The display separates the
 proportional and integral PWM contributions and shows the dimensional energy
@@ -1309,7 +1308,46 @@ parameter comparisons, record quantitative results, and explain the physics
 and control. The prepared program supplies the numerical integration; it does
 not replace comparison with your experimental data.
 
-## Part 8: Windup Thought Experiment
+## Part 8: October 14, Implement PI Control On The Physical TEC
+
+Use your working Module 5 P controller as the starting point. Do not replace
+the Arduino's independent temperature shutdown or the existing signed-PWM
+clamp. Add only the integral state and anti-windup needed for PI control:
+
+\[
+q_{n+1}=q_n+e_n\Delta t,
+\qquad
+u_n=K_pe_n+K_iq_n.
+\]
+
+Calculate $\Delta t$ from the actual elapsed time between accepted temperature
+measurements. Display and save $e$, $u_P=K_pe$, $u_I=K_iq$, the requested
+command, and the applied command. Provide a control that sets $q=0$ before a
+new comparison.
+
+Use **conditional integration** for anti-windup: if the requested command is
+already beyond the PWM limit and the current error would drive it farther into
+saturation, do not update $q$ on that step. The output clamp and independent
+Arduino safety shutdown remain active even when anti-windup is working.
+
+Before applying actuator power, show the instructor the lines that calculate
+$e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
+
+1. Use the same safe setpoint and a stable $K_p$ from Module 5.
+2. Set $K_i=0$, zero the integral state, and record a P-only baseline.
+3. Set PWM to zero before changing controller mode or resetting the integral.
+4. Choose a small positive $K_i$ after exploring it in the simulation. Zero the integral
+   state, enable PI, and record the response from comparable initial conditions.
+5. Confirm that $u_I$ grows while a persistent error remains and that the
+   steady error becomes smaller than in the P-only run.
+6. Stop and set PWM to zero if the temperature moves in the wrong direction,
+   the display freezes, saturation persists unexpectedly, or oscillations grow.
+
+Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
+temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
+continues on October 19 in [Module 6, Part II](../lab-07/index.md#october-19-tune-the-physical-pi-controller).
+
+## Part 9: Windup Thought Experiment
 
 Suppose the setpoint is far away and the controller demands more PWM than the
 hardware can supply. The PWM saturates, but the integral error may keep growing.
@@ -1321,33 +1359,20 @@ Answer:
 3. Why might this cause overshoot?
 4. How could software prevent or reduce windup?
 
-## Part 9: Modeling-Evidence Checkpoint
+## Part 10: A3 Modeling-Evidence Checkpoint
 
-Save and commit a short Markdown record of your investigation. Include the v3
-filename, the exact run command, model and controller settings, prediction
-calculations, the open-loop comparison, the simulated P/PI comparison, the
-physical P/PI controller settings, and the plots or screenshots used as
-evidence.
+Before closing the simulation or dismantling the apparatus, save the settings,
+data, plots, and calculations needed for A3. Commit the simulation and your
+Markdown record so the analysis is reproducible.
 
 ```bash
 git status
-git add README.md docs data python/Lab_6_7_modeling_tec_v3.py
+git add README.md docs data python/Lab_6_7_modeling_tec.py
 git commit -m "Analyze open-loop P and PI temperature control"
 git push
 ```
 
-## Complete And Preserve The A3 Work
-
-Module 6 combines the most important Module 4-6 evidence into one purposeful
-team paper. The one-lump derivation is guided work used in the paper and in the
-later oral-review questions; it is not a separate document to grade.
-
-For the in-class modeling work, save the parameter set, units, initial
-conditions, controller settings, saturation limits, exact command used to run
-the model, open-loop observations, and matched P/PI plots. Complete the
-comparison table while the simulation is open.
-
-### A3: Feedback Data And Lumped-Model Memo
+## A3: Feedback Data And Lumped-Model Memo
 
 - **Due:** Wednesday, October 21, at **6:00 PM**
 - **Type:** team, 10 points
@@ -1360,34 +1385,116 @@ comparison table while the simulation is open.
 
 The final A3 assembly consists of selecting the already completed comparison
 plots and table, writing the short interpretation, checking paths, committing,
-pushing, and submitting the PDF.
+pushing, and submitting the PDF. The one-lump derivation is part of this paper,
+not a separate graded document.
 
-## What To Submit
+### Required Six-Run Experimental Protocol
 
-Submit:
+Use one apparatus, one PWM limit, and the same two temperature setpoints for
+all six retained runs. Each run must contain an upward setpoint step and a
+downward setpoint step so that heating and cooling are compared under matched
+conditions. Begin each step from a settled or clearly documented initial
+temperature.
 
-- derivation of the P-control droop equation,
-- concise responses to the [three Module 5 interpretation questions](../lab-05/index.md#student-derivation-recover-the-droop-equation), integrated with that derivation and the droop data rather than repeated separately,
-- estimate of open-loop temperature susceptibility $\chi_{T,u}$,
-- estimate of thermal time constant `tau`,
-- v3 open-loop result compared with one measured trace,
-- v3 P-control result compared with Module 5 droop data,
-- matched experimental P and PI responses with $K_p$, $K_i$, transient
-  metrics, and anti-windup setting,
-- the v3 result used to choose or interpret the experimental gains,
-- short explanation of why the one-lump model does or does not oscillate,
-- windup thought-experiment answers,
-- link to your GitHub modeling checkpoint.
+| Run | Controller | Gain choice | Purpose |
+| ---: | --- | --- | --- |
+| 1 | P | Low $K_p$ | No overshoot; relatively slow response or large droop |
+| 2 | P | Intermediate $K_p$ | Best P-only compromise |
+| 3 | P | High $K_p$ | Clear overshoot or ringing |
+| 4 | PI | Run 2 $K_p$; low $K_i$ | Slow integral correction |
+| 5 | PI | Run 2 $K_p$; intermediate $K_i$ | Best PI compromise |
+| 6 | PI | Run 2 $K_p$; high $K_i$ | Excess overshoot, ringing, or saturation |
+
+For P runs, set $K_i=0$. For PI runs, hold $K_p$ fixed at the Run 2 value and
+change only $K_i$. Reset the integral state before every run. Preserve time
+series for measured temperature, setpoint, signed applied PWM, $u_P$, $u_I$,
+and error. Record the actual gains, initial temperatures, PWM limit, sample
+interval, and anti-windup setting. The Arduino temperature shutdown and PWM
+clamp remain active for every run.
+
+Use these same six runs for A3 Questions 5 and 6; no second set of experiments
+is required.
+
+### A3 Questions
+
+Answer the following questions concisely. Support each answer with equations,
+measured values, or plots where requested.
+
+1. **Open-loop model and measured parameters.** Starting from the dimensional
+   one-lump energy balance, show that
+   $\tau=C/H$ and $\chi=P_u/H$. Use your measured $\tau$ and heating or cooling
+   $\chi$ to write the corresponding model with no free parameters. Compare
+   one simulated open-loop response with one measured response: what agrees,
+   and what does not?
+
+2. **P control, droop, and response speed.** Derive the P-control droop,
+   \(T_{\mathrm{set}}-T_{\mathrm{ss}}
+   =(T_{\mathrm{set}}-T_{\mathrm{amb}})/(1+\chi K_p)\), and the closed-loop
+   time constant, \(\tau_{\mathrm{cl}}=\tau/(1+\chi K_p)\). Explain why
+   increasing $K_p$ both decreases droop and speeds up the
+   response. Identify the dimensionless loop gain and compare the predicted
+   trends with your Module 5 measurements.
+
+3. **Overshoot and model limits.** Explain mathematically why the one-lump
+   P-control model cannot overshoot or oscillate. Present your low- and
+   high-gain experimental evidence. How does the two-lump simulation explain
+   behavior that the one-lump model cannot reproduce?
+
+4. **Integral action and windup.** Use $u=u_P+u_I=K_pe+K_iq$ and
+   $dq/dt=e$ to explain how integral action removes droop. Explain integral
+   windup, describe your anti-windup rule, and state what happens when the
+   integral state is reset after PI control has reached steady state.
+
+5. **P And PI Gain Characterization.** Use the six-run protocol to show how
+   changing $K_p$ and $K_i$ changes the response. For each gain, plot the
+   process output (measured temperature) and process input (signed applied
+   PWM). From the Arduino's perspective, the thermistor measurement is an
+   input and PWM is an output; the terminology is reversed here because the
+   PWM enters the physical process and temperature leaves it. Arrange the
+   plots so that the P and PI trends can be compared with the reference below.
+
+    ![Responses to step changes for proportional and PI control](../../assets/controller_gain_response_reference.png)
+
+    *Reference responses for (a) proportional control and (b) PI control. In
+    this course, the input $u$ is the signed PWM command applied to the TEC, and
+    the output $y$ is the measured temperature.*
+
+6. **Step-Response Characterization.** From the upward and downward steps in
+   the same six runs, report rise time, percent overshoot, settling time, and
+   steady-state error. When oscillations occur, also report their period.
+   Define the thresholds you use for rise time and settling time, then compare
+   heating with cooling and explain the most important gain-dependent trends.
+   For additional background, see [LabVIEW guidance on PID response
+   metrics](https://www.ni.com/docs/en-US/bundle/labview/page/using-pid-on-fpga-targets.html).
+
+    ![Rise time, percent overshoot, settling time, and steady-state error](../../assets/step_response_metrics.gif)
+
+    *Step-response attributes: rise time, percent overshoot, settling time, and steady-state error.*
+
+7. **Gain selection and the theory-simulation-measurement connection.** Explain
+   how the simulation informed your experimental choices of $K_p$ and $K_i$.
+   Identify one agreement and one disagreement among theory, simulation, and
+   measurement. Justify your final gains and identify one physical effect that
+   a better model should include.
+
+### What To Submit
+
+Submit one PDF containing concise responses to all seven questions, the
+six-run comparison table and plots, and links to the underlying data, analysis
+code, and GitHub modeling checkpoint. Integrate the [Module 5 interpretation
+questions](../lab-05/index.md#student-derivation-recover-the-droop-equation)
+into A3 Questions 2 and 3, and integrate the windup thought experiment into
+Question 4 rather than repeating either set separately.
 
 ### A3 Rubric
 
 | Criterion | Points |
 | --- | ---: |
-| P-control droop and instability evidence is quantitative and reproducible | 2 |
-| One-lump energy balance, steady state, time constant, parameters, and units are correct; interpretation explains why droop is needed, susceptibility as $P_u/H$, and dimensionless gain | 2 |
-| Physical P and PI cases use comparable conditions, documented gains, and quantitative transient metrics | 2 |
-| Integral action, anti-windup, thermal lag, and a model limitation are explained | 2 |
-| PDF, model settings, data links, and cited Git checkpoint are clear and on time | 2 |
+| One-lump energy balance, $\chi=P_u/H$, $\tau=C/H$, units, and the no-free-parameter open-loop comparison are correct | 2 |
+| P-control droop, response speed, dimensionless gain, and overshoot or underdamped-response evidence are explained quantitatively | 2 |
+| All six P and PI runs use matched conditions, documented gains, and reproducible temperature and PWM records | 2 |
+| Heating and cooling steps are quantified using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable | 2 |
+| Integral action, anti-windup, final gain selection, and agreements and limitations among theory, simulation, and measurement are justified | 2 |
 
 ### Oral Review Questions: PI Control
 

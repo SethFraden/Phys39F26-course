@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Module 6, Part II: TEC Process Model And The v3 Simulation - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 6, Part II: TEC Process Model And The Simulation - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#module-6-part-ii-tec-process-model-and-the-v3-simulation" class="nav-link">Module 6, Part II: TEC Process Model And The v3 Simulation</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-6-part-ii-tec-process-model-and-the-simulation" class="nav-link">Module 6, Part II: TEC Process Model And The Simulation</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#introductory-material" class="nav-link">Introductory Material</a>
               <ul class="nav flex-column">
@@ -225,11 +225,11 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="module-6-part-ii-tec-process-model-and-the-v3-simulation">Module 6, Part II: TEC Process Model And The v3 Simulation<a class="headerlink" href="#module-6-part-ii-tec-process-model-and-the-v3-simulation" title="Permanent link">&para;</a></h1>
+<h1 id="module-6-part-ii-tec-process-model-and-the-simulation">Module 6, Part II: TEC Process Model And The Simulation<a class="headerlink" href="#module-6-part-ii-tec-process-model-and-the-simulation" title="Permanent link">&para;</a></h1>
 <p>This is the second part of Module 6. Complete
 <a href="../lab-06/">Part I: P/PI Control And Lumped Modeling</a> first.
 Both parts use the same prepared
-<a href="../../downloads/Lab_6_7_modeling_tec_v3.py">v3 simulation</a>: Part I emphasizes
+<a href="../../downloads/Lab_6_7_modeling_tec.py">simulation</a>: Part I emphasizes
 the one-lump model, while Part II compares the one- and two-lump models.</p>
 <h2 id="introductory-material">Introductory Material<a class="headerlink" href="#introductory-material" title="Permanent link">&para;</a></h2>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
@@ -302,7 +302,7 @@ lag between where heat enters and where temperature is measured.</p>
 </tr>
 <tr>
 <td>S14</td>
-<td>Prepare the PI tuning table; run v3 and annotate the equations</td>
+<td>Prepare the PI tuning table; run the simulation and annotate the equations</td>
 <td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
@@ -352,7 +352,7 @@ budget and should be attempted only after required work is complete.</p>
 <li><strong>Saturation</strong>: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.</li>
 </ul>
 <h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
-<p>The <a href="#how-to-run-the-python-gui">v3 Python GUI</a> separates the physical model
+<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> separates the physical model
 from the controller. Select either a one-lump or two-lump process, then select
 open-loop, P, or PI control.</p>
 <h4 id="one-lump-physical-model">One-Lump Physical Model<a class="headerlink" href="#one-lump-physical-model" title="Permanent link">&para;</a></h4>
@@ -528,25 +528,25 @@ folder on your own computer.</p>
 cd ~/phys39-lab7
 </code></pre>
 <p>Download this file into that folder:
-<a href="../../downloads/Lab_6_7_modeling_tec_v3.py">Lab_6_7_modeling_tec_v3.py</a>.</p>
+<a href="../../downloads/Lab_6_7_modeling_tec.py">Lab_6_7_modeling_tec.py</a>.</p>
 <p>Set up Python the first time you use this folder:</p>
 <pre><code class="language-bash">python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install matplotlib
 </code></pre>
 <p>Run the non-interactive demo:</p>
-<pre><code class="language-bash">python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png
+<pre><code class="language-bash">python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png
 </code></pre>
 <p>This saves a plot in the same folder:</p>
-<pre><code class="language-text">Lab_6_7_modeling_tec_v3_demo.png
+<pre><code class="language-text">Lab_6_7_modeling_tec_demo.png
 </code></pre>
 <p>Then run the desktop GUI:</p>
-<pre><code class="language-bash">python Lab_6_7_modeling_tec_v3.py
+<pre><code class="language-bash">python Lab_6_7_modeling_tec.py
 </code></pre>
 <p>After the first setup, start from this folder and run:</p>
 <pre><code class="language-bash">cd ~/phys39-lab7
 source .venv/bin/activate
-python Lab_6_7_modeling_tec_v3.py
+python Lab_6_7_modeling_tec.py
 </code></pre>
 <h3 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h3>
 <ol>
@@ -587,28 +587,28 @@ python Lab_6_7_modeling_tec_v3.py
      temperature you think it reads.</p>
 </li>
 <li>
-<p>Open the <a href="../../downloads/Lab_6_7_modeling_tec_v3.py">prepared v3 Python simulation</a>:</p>
+<p>Open the <a href="../../downloads/Lab_6_7_modeling_tec.py">prepared Python simulation</a>:</p>
 </li>
 </ol>
 <p><code>text
-   Lab_6_7_modeling_tec_v3.py</code></p>
+   Lab_6_7_modeling_tec.py</code></p>
 <ol>
 <li>Run the non-interactive demo:</li>
 </ol>
 <p><code>bash
-   python Lab_6_7_modeling_tec_v3.py --demo --output Lab_6_7_modeling_tec_v3_demo.png</code></p>
+   python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png</code></p>
 <ol>
 <li>Look at the generated plot:</li>
 </ol>
 <p><code>text
-   Lab_6_7_modeling_tec_v3_demo.png</code></p>
+   Lab_6_7_modeling_tec_demo.png</code></p>
 <p>The bottom of the PNG and the terminal output list the model parameters used
    to make the plot. Record those values so the plot is reproducible.</p>
 <ol>
 <li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
 </ol>
 <p><code>bash
-   python Lab_6_7_modeling_tec_v3.py</code></p>
+   python Lab_6_7_modeling_tec.py</code></p>
 <ol>
 <li>In your notebook, copy the three model equations and label the meaning of
    each variable.</li>
@@ -640,80 +640,98 @@ python Lab_6_7_modeling_tec_v3.py
 <li>explain what this model teaches you about the real TEC experiment.</li>
 </ul>
 <h3 id="october-19-tune-the-physical-pi-controller">October 19: Tune The Physical PI Controller<a class="headerlink" href="#october-19-tune-the-physical-pi-controller" title="Permanent link">&para;</a></h3>
-<p>Continue with the controller implemented in <a href="../lab-06/#october-14-implement-pi-control-on-the-physical-tec">Module 6, Part
+<p>Continue with the controller implemented in <a href="../lab-06/#part-8-october-14-implement-pi-control-on-the-physical-tec">Module 6, Part
 I</a>.
 Keep the setpoint, PWM limit, apparatus, thermistor placement, and starting
 temperature as similar as practical between trials. Change <strong>one gain at a
 time</strong>.</p>
-<ol>
-<li>Begin with the stable <span class="arithmatex">\(K_p\)</span> used for the October 14 P-only baseline and a
-   small positive <span class="arithmatex">\(K_i\)</span> explored in v3.</li>
-<li>Zero the integral state before each run. Set PWM to zero before changing
-   controller mode or resetting the integral.</li>
-<li>Adjust <span class="arithmatex">\(K_i\)</span> to reduce steady-state error without unacceptable overshoot or
-   prolonged saturation.</li>
-<li>If the response is too slow, adjust <span class="arithmatex">\(K_p\)</span> modestly and repeat the <span class="arithmatex">\(K_i\)</span>
-   search. Do not change both gains between consecutive trials.</li>
-<li>Preserve one gain pair that gives an acceptable response and one poor but
-   safe gain pair that clearly shows a tradeoff such as slow correction,
-   overshoot, ringing, or saturation.</li>
-<li>Repeat a P-only run with the selected <span class="arithmatex">\(K_p\)</span> under matched conditions so the
-   final comparison isolates the effect of the integral term.</li>
-</ol>
+<p>Follow the <a href="../lab-06/#required-six-run-experimental-protocol">required six-run experimental
+protocol</a>. Use three
+values of <span class="arithmatex">\(K_p\)</span> with <span class="arithmatex">\(K_i=0\)</span>, then hold the intermediate <span class="arithmatex">\(K_p\)</span> fixed while
+using three values of <span class="arithmatex">\(K_i\)</span>. Include the same upward and downward setpoint
+steps in every run. Zero the integral state before each run, and set PWM to
+zero before changing controller mode or resetting the integral.</p>
 <p>For every retained run, record:</p>
 <table>
 <thead>
 <tr>
+<th style="text-align: right;">Run</th>
 <th>Mode</th>
 <th style="text-align: right;"><span class="arithmatex">\(K_p\)</span> (PWM/°C)</th>
 <th style="text-align: right;"><span class="arithmatex">\(K_i\)</span> (PWM/(°C s))</th>
-<th style="text-align: right;">Rise time (s)</th>
-<th style="text-align: right;">Overshoot (°C)</th>
-<th style="text-align: right;">Settling time (s)</th>
-<th style="text-align: right;">Final error (°C)</th>
+<th>Upward-step metrics</th>
+<th>Downward-step metrics</th>
 <th>Saturation?</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P</td>
+<td style="text-align: right;">1</td>
+<td>P, low <span class="arithmatex">\(K_p\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>PI, acceptable</td>
+<td style="text-align: right;">2</td>
+<td>P, intermediate <span class="arithmatex">\(K_p\)</span></td>
 <td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
+<td style="text-align: right;">0</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>PI, poor but safe</td>
+<td style="text-align: right;">3</td>
+<td>P, high <span class="arithmatex">\(K_p\)</span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>PI, low <span class="arithmatex">\(K_i\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>PI, intermediate <span class="arithmatex">\(K_i\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>PI, high <span class="arithmatex">\(K_i\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p>Define the rise-time and settling-time criteria you use. Explain why the
-selected pair is a good compromise for this apparatus; there is no single
-universally best pair. Your record must show the measured temperature,
+Run 5 is your candidate final gain pair, but revise that choice if the evidence
+supports another pair; there is no single universally best pair. Your record
+must show the measured temperature,
 setpoint, total applied PWM, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and error versus time.</p>
 <p>Before applying power, verify the independent Arduino temperature shutdown and
 have the instructor approve the proposed gain range. Stop and set PWM to zero
@@ -735,7 +753,7 @@ saturation persists unexpectedly, or oscillations grow.</p>
 <li>Why is this not feedback control?</li>
 </ul>
 <h3 id="part-2-one-temperature-proportional-model">Part 2: One-Temperature Proportional Model<a class="headerlink" href="#part-2-one-temperature-proportional-model" title="Permanent link">&para;</a></h3>
-<p>Set the physical model to <code>one_lump</code> and the controller to <code>p</code>.</p>
+<p>Set the physical model to <code>one_lump</code> and the controller to <strong>P</strong>.</p>
 <ol>
 <li>Set <code>T_set</code> above room temperature.</li>
 <li>Set a small <code>Kp</code>.</li>
@@ -793,7 +811,7 @@ saturation persists unexpectedly, or oscillations grow.</p>
 <li>What happens when PWM saturates?</li>
 </ul>
 <h3 id="part-3-two-temperature-thermal-mass-model">Part 3: Two-Temperature Thermal-Mass Model<a class="headerlink" href="#part-3-two-temperature-thermal-mass-model" title="Permanent link">&para;</a></h3>
-<p>Set the physical model to <code>two_lump</code> and the controller to <code>p</code>.</p>
+<p>Set the physical model to <code>two_lump</code> and the controller to <strong>P</strong>.</p>
 <ol>
 <li>Use the same setpoint as Part 2.</li>
 <li>Start with moderate <code>Kp</code>.</li>
@@ -915,7 +933,7 @@ phase lags with distance
 <p>Before leaving S15, save the physical PI tuning table and traces, copied
 equations, completed theory assignments, parameter tables, screenshots,
 algorithm-tracing explanation, and exact run command. Keep the team record in
-<code>docs/module_notes/module_07_process_model.md</code> and preserve the prepared v3
+<code>docs/module_notes/module_07_process_model.md</code> and preserve the prepared simulation
 program in your repository.</p>
 <h3 id="oral-review-questions-process-modeling">Oral Review Questions: Process Modeling<a class="headerlink" href="#oral-review-questions-process-modeling" title="Permanent link">&para;</a></h3>
 <p>Use this modeling question bank to check your understanding and prepare A3:</p>

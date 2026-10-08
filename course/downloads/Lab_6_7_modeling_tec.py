@@ -25,11 +25,11 @@ cooling.  Their ratio r = P_u,h/P_u,c = chi_h/chi_c defaults to 2.
 
 Run the desktop GUI from the Phys39F26 repository root:
 
-    .venv/bin/python python/Lab_6_7_modeling_tec_v3.py
+    .venv/bin/python python/Lab_6_7_modeling_tec.py
 
 Run a non-interactive two-lump demonstration and save a PNG:
 
-    .venv/bin/python python/Lab_6_7_modeling_tec_v3.py --demo
+    .venv/bin/python python/Lab_6_7_modeling_tec.py --demo
 
 No Arduino is needed. This is a mathematical model, not a hardware controller.
 """
@@ -49,7 +49,7 @@ from tkinter import messagebox, ttk
 
 
 UPDATE_INTERVAL_MS = 50
-MAX_TEC_VOLTAGE_V = 10.0
+MAX_TEC_VOLTAGE_V = 12.0
 
 
 @dataclass(frozen=True)
@@ -68,7 +68,7 @@ class ModelConfig:
     measured_cooling_chi_c_per_pwm: float = 0.23
     measured_heating_chi_c_per_pwm: float = 0.46
     measured_tau_s: float = 80.0
-    tec_voltage_v: float = 10.0
+    tec_voltage_v: float = 12.0
     tec_resistance_ohm: float = 1.50
     open_loop_pwm: float = 100.0
     kp_pwm_per_c: float = 18.0
@@ -480,7 +480,7 @@ def run_demo(output: Path) -> None:
     for axis in axes:
         axis.grid(True, alpha=0.25)
 
-    figure.suptitle("Module 6 Part II v3: dimensional two-lump PI model")
+    figure.suptitle("Module 6 Part II: dimensional two-lump PI model")
     figure.tight_layout(rect=(0, 0, 1, 0.97))
     output.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(output, dpi=160)
@@ -492,7 +492,7 @@ def run_demo(output: Path) -> None:
     )
 
 
-class ModelingTECv3Gui:
+class ModelingTECGui:
     """Rolling-window GUI for consistent one- and two-lump TEC models."""
 
     FIELD_SPECS = (
@@ -542,7 +542,7 @@ class ModelingTECv3Gui:
         self.live_symbol_widgets: dict[str, ttk.Label] = {}
         self.live_symbol_cache: dict[str, tk.PhotoImage] = {}
         self.root = root
-        self.root.title("Module 6 Part II v3: Consistent TEC Models")
+        self.root.title("Module 6 Part II: Consistent TEC Models")
         self.root.geometry("1540x940")
         self.root.minsize(1260, 800)
 
@@ -1337,7 +1337,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("python/Lab_6_7_modeling_tec_v3_demo.png"),
+        default=Path("python/Lab_6_7_modeling_tec_demo.png"),
         help="output path used with --demo",
     )
     args = parser.parse_args()
@@ -1346,7 +1346,7 @@ def main() -> None:
         return
 
     root = tk.Tk()
-    ModelingTECv3Gui(root)
+    ModelingTECGui(root)
     root.mainloop()
 
 

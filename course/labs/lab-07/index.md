@@ -483,19 +483,21 @@ zero before changing controller mode or resetting the integral.
 
 For every retained run, record:
 
-| Run | Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Upward-step metrics | Downward-step metrics | Saturation? | Notes |
-| ---: | --- | ---: | ---: | --- | --- | --- | --- |
-| 1 | P, low $K_p$ |  | 0 |  |  |  |  |
-| 2 | P, intermediate $K_p$ |  | 0 |  |  |  |  |
-| 3 | P, high $K_p$ |  | 0 |  |  |  |  |
-| 4 | PI, low $K_i$ |  |  |  |  |  |  |
-| 5 | PI, intermediate $K_i$ |  |  |  |  |  |  |
-| 6 | PI, high $K_i$ |  |  |  |  |  |  |
+| Run | Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Up/down traces saved? | Saturation? | Notes |
+| ---: | --- | ---: | ---: | --- | --- | --- |
+| 1 | P, low $K_p$ |  | 0 |  |  |  |
+| 2 | P, intermediate $K_p$ |  | 0 |  |  |  |
+| 3 | P, high $K_p$ |  | 0 |  |  |  |
+| 4 | PI, low $K_i$ |  |  |  |  |  |
+| 5 | PI, intermediate $K_i$ |  |  |  |  |  |
+| 6 | PI, high $K_i$ |  |  |  |  |  |
 
-Define the rise-time and settling-time criteria you use. Explain why the
-Run 5 is your candidate final gain pair, but revise that choice if the evidence
-supports another pair; there is no single universally best pair. Your record
-must show the measured temperature,
+For detailed step-response analysis, calculate rise time, percent overshoot,
+settling time, steady-state error, and oscillation period when applicable only
+for Run 3 and Run 6, in both directions. Define the rise-time and settling-time
+criteria you use. Run 5 is your candidate final gain pair, but revise that
+choice if the evidence supports another pair; there is no single universally
+best pair. Your record must show the measured temperature,
 setpoint, total applied PWM, $u_P$, $u_I$, and error versus time.
 
 Before applying power, verify the independent Arduino temperature shutdown and

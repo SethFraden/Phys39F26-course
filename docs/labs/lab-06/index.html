@@ -1659,11 +1659,12 @@ this course, the input <span class="arithmatex">\(u\)</span> is the signed PWM c
 the output <span class="arithmatex">\(y\)</span> is the measured temperature.</em></p>
 </li>
 <li>
-<p><strong>Step-Response Characterization.</strong> From the upward and downward steps in
-   the same six runs, report rise time, percent overshoot, settling time, and
-   steady-state error. When oscillations occur, also report their period.
-   Define the thresholds you use for rise time and settling time, then compare
-   heating with cooling and explain the most important gain-dependent trends.
+<p><strong>Step-Response Characterization.</strong> Analyze only the largest-gain P and PI
+   cases: Run 3, with the largest <span class="arithmatex">\(K_p\)</span>, and Run 6, with the largest <span class="arithmatex">\(K_i\)</span>.
+   For the upward and downward steps in those two runs, report rise time,
+   percent overshoot, settling time, and steady-state error. When oscillations
+   occur, also report their period. Define the thresholds you use for rise time
+   and settling time, then compare heating with cooling and P with PI control.
    For additional background, see <a href="https://www.ni.com/docs/en-US/bundle/labview/page/using-pid-on-fpga-targets.html">LabVIEW guidance on PID response
    metrics</a>.</p>
 <p><img alt="Rise time, percent overshoot, settling time, and steady-state error" src="../../assets/step_response_metrics.gif" /></p>
@@ -1706,7 +1707,7 @@ Question 4 rather than repeating either set separately.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>Heating and cooling steps are quantified using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable</td>
+<td>The largest-gain P and PI runs are quantified in both directions using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>

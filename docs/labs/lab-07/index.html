@@ -659,8 +659,7 @@ zero before changing controller mode or resetting the integral.</p>
 <th>Mode</th>
 <th style="text-align: right;"><span class="arithmatex">\(K_p\)</span> (PWM/°C)</th>
 <th style="text-align: right;"><span class="arithmatex">\(K_i\)</span> (PWM/(°C s))</th>
-<th>Upward-step metrics</th>
-<th>Downward-step metrics</th>
+<th>Up/down traces saved?</th>
 <th>Saturation?</th>
 <th>Notes</th>
 </tr>
@@ -674,14 +673,12 @@ zero before changing controller mode or resetting the integral.</p>
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
 <td style="text-align: right;">2</td>
 <td>P, intermediate <span class="arithmatex">\(K_p\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;">0</td>
-<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -694,14 +691,12 @@ zero before changing controller mode or resetting the integral.</p>
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
 <td style="text-align: right;">4</td>
 <td>PI, low <span class="arithmatex">\(K_i\)</span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -714,7 +709,6 @@ zero before changing controller mode or resetting the integral.</p>
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
 <td style="text-align: right;">6</td>
@@ -724,14 +718,15 @@ zero before changing controller mode or resetting the integral.</p>
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
-<p>Define the rise-time and settling-time criteria you use. Explain why the
-Run 5 is your candidate final gain pair, but revise that choice if the evidence
-supports another pair; there is no single universally best pair. Your record
-must show the measured temperature,
+<p>For detailed step-response analysis, calculate rise time, percent overshoot,
+settling time, steady-state error, and oscillation period when applicable only
+for Run 3 and Run 6, in both directions. Define the rise-time and settling-time
+criteria you use. Run 5 is your candidate final gain pair, but revise that
+choice if the evidence supports another pair; there is no single universally
+best pair. Your record must show the measured temperature,
 setpoint, total applied PWM, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and error versus time.</p>
 <p>Before applying power, verify the independent Arduino temperature shutdown and
 have the instructor approve the proposed gain range. Stop and set PWM to zero

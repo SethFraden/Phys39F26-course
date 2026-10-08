@@ -1459,11 +1459,12 @@ measured values, or plots where requested.
     this course, the input $u$ is the signed PWM command applied to the TEC, and
     the output $y$ is the measured temperature.*
 
-6. **Step-Response Characterization.** From the upward and downward steps in
-   the same six runs, report rise time, percent overshoot, settling time, and
-   steady-state error. When oscillations occur, also report their period.
-   Define the thresholds you use for rise time and settling time, then compare
-   heating with cooling and explain the most important gain-dependent trends.
+6. **Step-Response Characterization.** Analyze only the largest-gain P and PI
+   cases: Run 3, with the largest $K_p$, and Run 6, with the largest $K_i$.
+   For the upward and downward steps in those two runs, report rise time,
+   percent overshoot, settling time, and steady-state error. When oscillations
+   occur, also report their period. Define the thresholds you use for rise time
+   and settling time, then compare heating with cooling and P with PI control.
    For additional background, see [LabVIEW guidance on PID response
    metrics](https://www.ni.com/docs/en-US/bundle/labview/page/using-pid-on-fpga-targets.html).
 
@@ -1493,7 +1494,7 @@ Question 4 rather than repeating either set separately.
 | One-lump energy balance, $\chi=P_u/H$, $\tau=C/H$, units, and the no-free-parameter open-loop comparison are correct | 2 |
 | P-control droop, response speed, dimensionless gain, and overshoot or underdamped-response evidence are explained quantitatively | 2 |
 | All six P and PI runs use matched conditions, documented gains, and reproducible temperature and PWM records | 2 |
-| Heating and cooling steps are quantified using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable | 2 |
+| The largest-gain P and PI runs are quantified in both directions using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable | 2 |
 | Integral action, anti-windup, final gain selection, and agreements and limitations among theory, simulation, and measurement are justified | 2 |
 
 ### Oral Review Questions: PI Control

@@ -542,7 +542,7 @@ class ModelingTECGui:
         self.live_symbol_widgets: dict[str, ttk.Label] = {}
         self.live_symbol_cache: dict[str, tk.PhotoImage] = {}
         self.root = root
-        self.root.title("Module 6 Part II: Consistent TEC Models")
+        self.root.title("Module 6: TEC Control Models")
         self.root.geometry("1540x940")
         self.root.minsize(1260, 800)
 

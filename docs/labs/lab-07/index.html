@@ -116,6 +116,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#class-theme" class="nav-link">Class Theme</a>
               <ul class="nav flex-column">
               </ul>
@@ -244,6 +248,25 @@ three things:</p>
 </ol>
 <p>This module is not about perfect prediction. It is about learning how a simple
 model can explain droop, overshoot, lag, and the onset of instability.</p>
+<h3 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h3>
+<p>By the end of Module 6, Part II, you should be able to:</p>
+<ul>
+<li>write and interpret the coupled energy balances for the TEC-side and
+  measured-block thermal masses;</li>
+<li>show how two coupled first-order temperature equations produce one
+  second-order equation for the measured temperature;</li>
+<li>use the two-lump model to explain phase lag, overshoot, and underdamped
+  behavior that the one-lump model cannot reproduce;</li>
+<li>predict and verify how <span class="arithmatex">\(K_p\)</span>, the coupling conductance, and the two thermal
+  capacitances affect the simulated transient;</li>
+<li>characterize matched physical P and PI responses using rise time,
+  overshoot, settling time, steady-state error, and oscillation period; and</li>
+<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by connecting theory, simulation, and
+  measurement while accounting for actuator saturation.</li>
+</ul>
+<p>These objectives are assessed through Theory Assignment 2, the Part 3 and
+Part 6 simulation records, the six-run physical protocol, and A3 Questions
+3 and 5–7.</p>
 <h3 id="class-theme">Class Theme<a class="headerlink" href="#class-theme" title="Permanent link">&para;</a></h3>
 <p><strong>Model The Process Before You Trust The Controller</strong></p>
 <p>The "process" is the part of the feedback loop that the controller is trying to
@@ -344,8 +367,12 @@ budget and should be attempted only after required work is complete.</p>
 <li><strong>Heat</strong>: energy transferred because of a temperature difference. Heat is not
   the same thing as temperature; temperature tells how hot something is, while
   heat is energy moving into or out of the system.</li>
-<li><strong>Lumped model</strong>: a model that treats an extended object as if it the entire object is at the same temperature. The lump can be viewed as a point object of finite thermal mass. See the <a href="#lumped-model-figure">one-lump/two-lump figure</a>.</li>
-<li><strong>Thermal mass</strong>: is synomonous with heat capacity. A larger thermal mass changes temperature more slowly.</li>
+<li><strong>Lumped model</strong>: a model that treats an extended object as if the entire
+  object were at the same temperature. The lump can be viewed as a point
+  object of finite thermal mass. See the <a href="#lumped-model-figure">one-lump/two-lump
+  figure</a>.</li>
+<li><strong>Thermal mass</strong>: a synonym for heat capacity. A larger thermal mass changes
+  temperature more slowly.</li>
 <li><strong>Thermal lag</strong>: delay between changing the actuator and observing the
   measured temperature response.</li>
 <li><strong>Droop</strong>: steady-state error in proportional-only control.</li>
@@ -381,6 +408,55 @@ C_m\frac{dT_m}{dt}=G(T-T_m)-H(T_m-T_{\mathrm{amb}}).
 <span class="arithmatex">\(H\)</span> describes passive heat transfer from the measured lump to the room. The
 controller responds to <span class="arithmatex">\(T_m\)</span>, but <span class="arithmatex">\(T\)</span> can move first. That lag can produce
 overshoot or oscillation.</p>
+<h4 id="from-two-first-order-equations-to-one-second-order-equation">From Two First-Order Equations To One Second-Order Equation<a class="headerlink" href="#from-two-first-order-equations-to-one-second-order-equation" title="Permanent link">&para;</a></h4>
+<p>Consider one heating or cooling direction so that <span class="arithmatex">\(P_u\)</span> is constant, assume
+the PWM is not saturated, and use P control:</p>
+<div class="arithmatex">\[
+u=K_p(T_{\mathrm{set}}-T_m).
+\]</div>
+<p>Let <span class="arithmatex">\(\theta_T\)</span> and <span class="arithmatex">\(\theta_m\)</span> be deviations of <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(T_m\)</span> from their
+steady-state values. The constant steady-state terms cancel, leaving</p>
+<div class="arithmatex">\[
+C_T\dot\theta_T=-G\theta_T+(G-P_uK_p)\theta_m,
+\]</div>
+<div class="arithmatex">\[
+C_m\dot\theta_m=G\theta_T-(G+H)\theta_m.
+\]</div>
+<p>The second equation gives the hidden TEC-side temperature in terms of the
+measured temperature and its rate of change:</p>
+<div class="arithmatex">\[
+G\theta_T=C_m\dot\theta_m+(G+H)\theta_m.
+\]</div>
+<p>Differentiate the second equation, use the first equation to replace
+<span class="arithmatex">\(\dot\theta_T\)</span>, and then use the expression above to replace <span class="arithmatex">\(\theta_T\)</span>. The
+result is one second-order differential equation for the measured temperature:</p>
+<div class="arithmatex">\[
+\boxed{
+C_TC_m\ddot\theta_m+
+\left[C_T(G+H)+C_mG\right]\dot\theta_m+
+G(H+P_uK_p)\theta_m=0.
+}
+\]</div>
+<p>Thus two coupled first-order equations for two stored-energy states are
+equivalent to one second-order equation for <span class="arithmatex">\(T_m\)</span>. Substituting
+<span class="arithmatex">\(\theta_m\propto e^{st}\)</span> gives</p>
+<div class="arithmatex">\[
+C_TC_m s^2+
+\left[C_T(G+H)+C_mG\right]s+
+G(H+P_uK_p)=0.
+\]</div>
+<p>Depending on the parameters, the two eigenvalues can be real or a complex
+conjugate pair. Complex eigenvalues produce an underdamped transient even
+though the apparatus contains no mechanical momentum.</p>
+<p>At steady state, both temperature derivatives are zero, so</p>
+<div class="arithmatex">\[
+P_u u=G(T-T_m)=H(T_m-T_{\mathrm{amb}}).
+\]</div>
+<p>The internal conductance <span class="arithmatex">\(G\)</span> sets the temperature difference between the two
+lumps, but it cancels from the overall balance
+<span class="arithmatex">\(P_u u=H(T_m-T_{\mathrm{amb}})\)</span>. This is the quantitative reason the one-lump
+model can predict the final measured temperature and P-control droop even when
+it fails to predict the high-gain transient.</p>
 <h4 id="controller-choices">Controller Choices<a class="headerlink" href="#controller-choices" title="Permanent link">&para;</a></h4>
 <p>The measured temperature is <span class="arithmatex">\(T\)</span> for the one-lump model and <span class="arithmatex">\(T_m\)</span> for the
 two-lump model. Define</p>
@@ -438,32 +514,32 @@ rod, where temperature depends on position.</p>
 <pre><code class="language-text">rate of change of thermal energy = heat added by TEC - heat lost to room
 </code></pre>
 <p>Use:</p>
-<pre><code class="language-text">C dT/dt = Q_tec - G*(T - T_room)
+<pre><code class="language-text">C dT/dt = Q_tec - H*(T - T_amb)
 </code></pre>
 <p>where:</p>
 <ul>
 <li><code>C</code> is the heat capacity of the object in J/°C,</li>
-<li><code>G</code> is the thermal conductance to the room in W/°C,</li>
+<li><code>H</code> is the thermal conductance to the room in W/°C,</li>
 <li><code>Q_tec</code> is the heat flow supplied by the TEC in W,</li>
 <li><code>T</code> is the object's temperature in °C,</li>
-<li><code>T_room</code> is the room temperature in °C.</li>
+<li><code>T_amb</code> is the ambient room temperature in °C.</li>
 </ul>
 <p>Divide by <code>C</code>:</p>
-<pre><code class="language-text">dT/dt = -(T - T_room)/tau + A*signed_PWM
+<pre><code class="language-text">dT/dt = -(T - T_amb)/tau + A*signed_PWM
 </code></pre>
 <p>where:</p>
-<pre><code class="language-text">tau = C/G
+<pre><code class="language-text">tau = C/H
 </code></pre>
 <p>and <code>A</code> is the conversion between signed PWM and heating/cooling rate. The time
 constant <code>tau</code> has units of seconds. If <code>signed_PWM</code> is an Arduino PWM count
 between -255 and +255, then <code>A</code> has units of °C/(s PWM count).</p>
 <p>Do this before class:</p>
 <ol>
-<li>Show the algebra that converts <code>C dT/dt = Q_tec - G*(T - T_room)</code> into the
+<li>Show the algebra that converts <code>C dT/dt = Q_tec - H*(T - T_amb)</code> into the
    simplified model above.</li>
 <li>Explain in words what <code>tau</code> means.</li>
 <li>Predict what happens when <code>tau</code> is large.</li>
-<li>Predict what happens when <code>G</code> is large.</li>
+<li>Predict what happens when <code>H</code> is large.</li>
 <li>Find the steady-state temperature for a constant <code>signed_PWM</code>.</li>
 </ol>
 <h4 id="theory-assignment-2-two-lumped-temperatures">Theory Assignment 2: Two Lumped Temperatures<a class="headerlink" href="#theory-assignment-2-two-lumped-temperatures" title="Permanent link">&para;</a></h4>
@@ -473,13 +549,13 @@ the actuator-side temperature. The next model separates them:</p>
 Tm = measured thermistor/block temperature
 </code></pre>
 <p>A simple two-temperature model is:</p>
-<pre><code class="language-text">C1 dT/dt  = Q_tec - G12*(T - Tm)
-C2 dTm/dt = G12*(T - Tm) - Gm*(Tm - T_room)
+<pre><code class="language-text">C_T dT/dt  = Q_tec - G*(T - Tm)
+C_m dTm/dt = G*(T - Tm) - H*(Tm - T_amb)
 </code></pre>
-<p>Here <code>C1</code> and <code>C2</code> are heat capacities in J/°C, <code>G12</code> and <code>Gm</code> are thermal
-conductances in W/°C, and each term has units of W. The left side is a rate of
-thermal-energy change. The right side is the sum of heat flows into and out of
-each lump.</p>
+<p>Here <code>C_T</code> and <code>C_m</code> are heat capacities in J/°C, <code>G</code> is the conductance
+between the two lumps, and <code>H</code> is the conductance from the measured lump to
+the room. Each term has units of W. The left side is a rate of thermal-energy
+change. The right side is the sum of heat flows into and out of each lump.</p>
 <p>Do this before class:</p>
 <ol>
 <li>Identify which term transfers heat from the TEC side to the measured
@@ -490,10 +566,12 @@ each lump.</p>
 <li>Compare this model to the simplified rate-constant form:</li>
 </ol>
 <p><code>text
-   dTm/dt = k21*(T - Tm) - km*(Tm - T_room)</code></p>
+   dTm/dt = k21*(T - Tm) - km*(Tm - T_amb)</code></p>
 <h4 id="later-in-the-course-differential-equations-in-space">Later In The Course: Differential Equations In Space<a class="headerlink" href="#later-in-the-course-differential-equations-in-space" title="Permanent link">&para;</a></h4>
 <p>The long-rod experiment cannot be described by a single temperature. It will
-need a temperature field. In its simplest form as a long, thin rod, temperature depends only on lonngitudinal position and is independent of radius.</p>
+need a temperature field. In its simplest form as a long, thin rod,
+temperature depends only on longitudinal position and is independent of
+radius.</p>
 <div class="arithmatex">\[
 T = T(x,t)
 \]</div>
@@ -807,13 +885,31 @@ saturation persists unexpectedly, or oscillations grow.</p>
 </ul>
 <h3 id="part-3-two-temperature-thermal-mass-model">Part 3: Two-Temperature Thermal-Mass Model<a class="headerlink" href="#part-3-two-temperature-thermal-mass-model" title="Permanent link">&para;</a></h3>
 <p>Set the physical model to <code>two_lump</code> and the controller to <strong>P</strong>.</p>
+<p>Begin with the measured-parameter defaults</p>
+<div class="arithmatex">\[
+T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
+\qquad
+T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
+\qquad
+\chi_c=0.23\ ^\circ\mathrm{C/PWM},
+\qquad
+\chi_h=0.46\ ^\circ\mathrm{C/PWM},
+\qquad
+\tau=80\ \mathrm{s}.
+\]</div>
+<p>Set <span class="arithmatex">\(K_i=0\)</span>, reset before every comparison, and follow this sequence:</p>
 <ol>
-<li>Use the same setpoint as Part 2.</li>
-<li>Start with moderate <code>Kp</code>.</li>
-<li>Change the coupling conductance <span class="arithmatex">\(G\)</span> or one thermal capacitance.</li>
-<li>Watch the difference between <code>T</code> and <code>Tm</code>.</li>
-<li>Find a case where the model overshoots.</li>
-<li>Find a case where the model oscillates or nearly oscillates.</li>
+<li>Compare <code>one_lump</code> and <code>two_lump</code> at <span class="arithmatex">\(K_p=50\)</span> PWM/°C.</li>
+<li>Repeat at <span class="arithmatex">\(K_p=120\)</span> PWM/°C, close to the experimentally observed
+   underdamped regime.</li>
+<li>In <code>two_lump</code>, watch the difference between the TEC-side temperature <span class="arithmatex">\(T\)</span>
+   and measured temperature <span class="arithmatex">\(T_m\)</span> as the controller changes the command.</li>
+<li>Hold <span class="arithmatex">\(K_p\)</span> fixed and vary <span class="arithmatex">\(G\)</span> above and below its starting value. Predict
+   how the lag will change before each run.</li>
+<li>Return <span class="arithmatex">\(G\)</span> to its starting value. Vary only one thermal capacitance at a
+   time and compare the result with your prediction.</li>
+<li>Identify a transition from no overshoot to overshoot. If oscillations
+   appear, record their period and whether they decay or grow.</li>
 </ol>
 <p>Make a table:</p>
 <table>

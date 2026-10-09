@@ -23,31 +23,24 @@ why real feedback loops can oscillate.
 
 ## Learning Objectives
 
-By the end of Module 6, Parts I and II, you should be able to:
+By the end of Module 6, Part I, you should be able to:
 
 - derive and interpret the one-lump energy balance, open-loop susceptibility,
   thermal time constant, and P-control droop;
 - use the prepared simulation to compare open-loop, P, and PI control;
 - connect the model parameters and predictions to measured values of
   susceptibility, time constant, droop, and transient response;
-- explain why the one-lump P-control model cannot overshoot and use measured
-  overshoot to identify the need for additional thermal dynamics;
+- explain why the one-lump P-control model can predict steady-state droop yet
+  cannot reproduce measured high-gain overshoot;
+- explain qualitatively how internal thermal storage and transport create
+  phase lag and motivate a two-lump model;
 - implement PI control on the physical TEC, including integral reset and
   anti-windup;
-- characterize how changing $K_p$ and $K_i$ affects both the process output
-  (measured temperature) and process input (signed PWM) for P and PI control;
-- quantify step responses in both directions using rise time, percent
-  overshoot, settling time, steady-state error, and oscillation period when
-  applicable; and
-- select and justify $K_p$ and $K_i$ using those measurements and actuator
-  saturation.
+- collect the P and PI evidence needed for the quantitative gain study in Part
+  II and A3.
 
-## Theme
-
-**Time-Domain Models For P And PI Control**
-
-Droop, time constants, numerical simulation, and the first model of integral
-action.
+These objectives are assessed through the guided simulation checks, the
+physical PI demonstration in Part 8, and A3 Questions 1–4.
 
 ## Reading
 
@@ -128,6 +121,7 @@ heating from cooling.
 | $\theta$, $z$ | Temperature and integral-state displacements from steady state | °C, °C s |
 | $\lambda$ | Eigenvalue governing exponential growth or decay | 1/s |
 | $\zeta$ | PI damping ratio | dimensionless |
+| $T_m$ | Temperature of the measured block in the two-lump model | °C |
 
 ## Before Class
 
@@ -168,18 +162,17 @@ complete and understood.
 3. What evidence from your data suggests a thermal time constant?
 4. Why does the algebraic droop model not predict oscillation?
 
-## What You Will Do Across Parts I And II
+## Part I Roadmap
 
-- Derive the algebraic P-control droop model.
-- Estimate an open-loop thermal slope from Module 4.
-- Estimate a time constant from a temperature step.
-- Simulate a first-order TEC/block model.
-- Explore P-only feedback in the simulation.
-- Compare simulated droop with measured droop.
-- Compare P and PI control in the simulation.
-- Implement PI control on the physical TEC with anti-windup.
-- Tune $K_p$ and $K_i$ and compare matched experimental P and PI responses.
-- Explain why integral action reduces droop and why windup is a problem.
+1. Derive the one-lump steady-state droop and transient response using the
+   susceptibility and time constant measured earlier.
+2. Compare open-loop and P-control predictions with experiment.
+3. Use the model's failure at high gain to motivate thermal phase lag and a
+   qualitative two-lump description.
+4. Explore PI control in simulation, then implement integral action and
+   anti-windup on the physical TEC.
+5. Preserve the evidence needed for the quantitative gain study in Part II
+   and A3.
 
 ## Part 1: Algebraic Droop Model
 
@@ -569,6 +562,23 @@ Record how uncertain your estimate is. The trace may not be a perfect
 exponential. In the dimensional model, this measurement determines the ratio
 $C/H$; it does not separately determine $C$ and $H$.
 
+### Using The Prepared Simulation
+
+The simulation is the modeling tool for Parts 4 through 7. It runs
+continuously in a rolling time window, and its sliders change physical and
+controller parameters while the simulation runs. The display separates the
+proportional and integral PWM contributions and shows the dimensional energy
+balance, controller equations, heating and cooling susceptibilities, time
+constants, P droop prediction, required steady-state command and power, and PI
+damping ratio.
+
+Your work is to predict behavior from the equations, choose controlled
+parameter comparisons, record quantitative results, and explain the physics
+and control. The prepared program supplies the numerical integration; it does
+not replace comparison with your experimental data. Its **two-lump** option is
+previewed qualitatively in Part 6 and developed quantitatively in [Module 6,
+Part II](../lab-07/index.md).
+
 ## Part 4: Simulate Open-Loop Response
 
 Download [the prepared Module 6/7 TEC
@@ -580,7 +590,7 @@ repository root:
 python python/Lab_6_7_modeling_tec.py
 ```
 
-For Module 6, select the **one-lump** physical model. The program performs an
+For Module 6, select `one_lump` as the physical model. The program performs an
 Euler integration of the dimensional energy balance:
 
 \[
@@ -598,19 +608,24 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 }
 \]
 
-Select **measured** under **Physical parameters**. Enter your measured
+Select `measured` under **Physical parameters**. Enter your measured
 $\chi_c$, $\chi_h$, and $\tau$, the on-state voltage measured across the TEC,
 and the TEC module resistance from the datasheet. The voltage control is
 limited to the apparatus maximum of $12\ \mathrm{V}$. The program uses these
 measurements to calculate $r$, $P_{u,c}$, $H$, and the total one-lump
-capacitance $C$. Select **direct constants** only when you want to enter $H$,
+capacitance $C$. Select `direct constants` only when you want to enter $H$,
 $C$, $P_{u,c}$, and $r$ independently for a modeling study. Before running,
 use the steady-state equation to predict the final temperature for one heating
 command and one cooling command.
 
+The reduced temperature equation requires only $\chi_h$, $\chi_c$, and $\tau$.
+The voltage and resistance are additionally needed when the program separates
+the Peltier and Joule contributions and displays the corresponding dimensional
+values of $P_u$, $H$, and $C$.
+
 ### Guided Simulation Exercise: Open Loop And Thermal Mass
 
-Work in pairs. Select **one_lump**, **measured**, and **open_loop**. Use the
+Work in pairs. Select `one_lump`, `measured`, and `open_loop`. Use the
 current simulation defaults
 
 \[
@@ -638,11 +653,11 @@ Run each case and answer:
 2. Which displayed quantities reveal $\chi_h$, $\chi_c$, and their ratio?
 
 Next, keep one open-loop command fixed and note the displayed value of $C$.
-Select **direct constants**, double $C$, and leave $H$, $P_{u,c}$, and $r$
+Select `direct constants`, double $C$, and leave $H$, $P_{u,c}$, and $r$
 unchanged. Predict both the steady temperature and the response time before
 resuming. Confirm that the steady temperature is unchanged while
 $\tau=C/H$ doubles. Explain why thermal mass changes the transient but not the
-steady-state energy balance. Return to **measured** before continuing.
+steady-state energy balance. Return to `measured` before continuing.
 
 After the guided exercise, choose one heating command and one cooling command
 that match your experimental runs. Compare the simulated curves with measured
@@ -653,8 +668,8 @@ result. Explain any important difference between the model and the apparatus.
 
 ## Part 5: Simulate P-Only Feedback
 
-Continue with the same one-lump parameters in the simulation. Select **P**
-control, which replaces the constant command with
+Continue with the same one-lump parameters in the simulation. Select `p` (P
+control), which replaces the constant command with
 
 \[
 u_n=K_p(T_{\mathrm{set}}-T_n).
@@ -665,7 +680,7 @@ Euler update from Part 4.
 
 ### Guided Simulation Exercise: P Control And Droop
 
-Return to **measured**, select **P**, and set
+Return to `measured`, select `p`, and set
 
 \[
 T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
@@ -838,44 +853,133 @@ whereas the apparatus shows an underdamped transient. This is evidence that the
 model is inadequate, not that the exponential solution is wrong.
 
 The one-lump model is missing thermal lag between where the TEC applies heat
-and where the thermistor measures temperature. The simplest extension is a
-second thermal mass coupled to the measured block. Part II develops that model
-in detail.
+and where the thermistor measures temperature. The simplest extension is to
+represent these locations as two coupled thermal masses. This **two-lump
+model** is introduced below and developed systematically in Part II.
+
+<details class="note" markdown="1">
+<summary>Why a Thermal Control System Can Oscillate Without Mechanical Inertia</summary>
+
+**Begin with the familiar mass and spring.** A damped mechanical oscillator
+obeys
+
+\[
+m\ddot x+b\dot x+kx=0.
+\]
+
+Its two state variables are position $x$ and velocity $\dot x$. Ignoring
+damping for the moment, the spring force is zero when the mass passes through
+$x=0$, but the velocity is largest there. Kinetic energy carries the mass past
+equilibrium. This is mechanical inertia: zero restoring force does not imply
+zero velocity.
+
+**A one-lump thermal model cannot coast.** Its P-controlled displacement obeys
+
+\[
+C\frac{d\theta}{dt}=-(H+P_uK_p)\theta.
+\]
+
+Temperature is its only state variable. If the net heat flow becomes zero,
+then $dT/dt=0$ immediately. The temperature cannot coast through equilibrium,
+so the model produces one monotonic exponential and cannot overshoot.
+
+**The apparatus contains a hidden thermal state.** The simplest improvement is
+a **two-lump thermal model**. One lump represents the region near the TEC,
+where heat is applied. The other represents the block and thermistor, where
+temperature is measured. Each lump stores thermal energy, and heat takes time
+to move between them.
+
+With P control, $u=K_p(T_{\mathrm{set}}-T_m)$, where $T_m$ is the measured
+temperature. Suppose $T_m$ reaches the setpoint and the controller reduces its
+command. The TEC-side region can still be hotter than the measured block, so
+stored energy continues flowing toward the thermistor and $T_m$ continues
+rising. The temperature overshoots not because it has mechanical momentum,
+but because the measured temperature does not reveal all the thermal energy
+already stored elsewhere in the apparatus.
+
+The qualitative correspondence is
+
+| Mass-spring oscillator | Thermal control system |
+| --- | --- |
+| measured position $x$ | measured temperature $T_m$ |
+| hidden velocity $\dot x$ | hidden TEC-side temperature $T$ |
+| kinetic energy carries the mass past equilibrium | stored heat continues flowing after $T_m$ reaches the setpoint |
+| mechanical inertia supplies the second state | thermal storage and transport supply the second state |
+
+**The phase-lag interpretation.** The thermistor reports the effect of a TEC
+command only after heat has propagated to the measured block. The controller
+therefore acts partly on old information. As gain increases, this lag can make
+the correction arrive too late, after which the controller overcorrects in the
+opposite direction.
+
+This qualitative model explains why the real apparatus can overshoot even
+though the one-lump model cannot. [Module 6, Part II introduces the coupled
+two-lump equations, shows why they form a second-order system, and explores
+their behavior
+quantitatively.](../lab-07/index.md#from-two-first-order-equations-to-one-second-order-equation)
+
+</details>
+
+<details class="note" markdown="1">
+<summary>Why Does The One-Lump Model Predict Droop But Not The High-Gain Transient?</summary>
+
+The steady-state prediction works well because it follows from a nearly
+model-independent thermodynamic statement:
+
+\[
+\text{energy entering per unit time}
+=\text{energy leaving per unit time}.
+\]
+
+At steady state, no part of the apparatus continues to accumulate thermal
+energy. The detailed route taken by heat inside the apparatus no longer
+affects the overall requirement that TEC heating or cooling balance heat
+exchange with the room. This is why the one-lump energy balance and droop
+equation derived above can describe the final measured temperature accurately
+even though the apparatus is not truly at one uniform temperature.
+
+Transient behavior asks a different question: **where is energy stored while
+the temperature is changing, and how long does it take to reach the
+thermistor?** The one-lump model assumes that the TEC, block, and thermistor
+share one temperature. In the apparatus, energy can accumulate near the TEC
+before reaching the measured block. At high gain, the controller can respond
+and overcorrect before that stored energy becomes visible to the thermistor,
+producing overshoot and ringing.
+
+Thus the simple model predicts the final balance accurately while failing to
+predict the path taken to reach it:
+
+- **Steady state:** governed primarily by energy conservation, so energy in
+  equals energy out.
+- **Transient response:** governed by internal thermal storage and transport,
+  so the locations and time scales of energy storage matter.
+
+</details>
 
 ### Guided Simulation Exercise: From No Overshoot To Overshoot
 
 Preview the two-lump explanation before studying it systematically in Part II.
-In the simulation, select **two_lump**, **measured**, and **P**. Use
+In the simulation, select `one_lump`, `measured`, and `p`. Use
 
 \[
 T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
 \qquad
 T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
 \qquad
-\chi_c=0.23\ ^\circ\mathrm{C/PWM},
-\qquad
-\chi_h=0.46\ ^\circ\mathrm{C/PWM},
-\qquad
-\tau=80\ \mathrm{s},
+K_p=120\ \mathrm{PWM}/^\circ\mathrm{C}.
 \]
 
-and the experimental-scale two-lump parameters
+Set $K_i=0$, reset, and observe that the one-lump temperature approaches its
+steady value without overshoot. Change only the physical model to `two_lump`,
+reset, and repeat. Compare the measured temperature $T_m$ in the two-lump
+simulation with the one-lump temperature at the same gain.
 
-\[
-\frac{C_T}{C}=0.25,
-\qquad
-G=25\ \mathrm{W/K}.
-\]
-
-Set $K_i=0$. Reset before each run and compare $K_p=50$ PWM/°C, which should
-approach monotonically, with $K_p=120$ PWM/°C, near the experimentally observed
-underdamped regime. Compare the measured temperature $T_m$ with the one-lump
-temperature at the same gain. Explain why $T_m$ can continue rising after the
-controller begins reducing the TEC command.
+Explain qualitatively why $T_m$ can continue rising after the controller
+begins reducing the TEC command. Do not tune the two-lump parameters here.
 
 This brief comparison establishes that an additional thermal state can permit
-overshoot. Carry out the systematic variation of $K_p$, $G$, $C_T$, and $C_m$
-in [Module 6, Part II](../lab-07/index.md#part-3-two-temperature-thermal-mass-model).
+overshoot. The coupled equations and systematic parameter study belong to
+[Module 6, Part II](../lab-07/index.md#two-lump-physical-model).
 
 ## Part 7: Add Integral Action In Simulation
 
@@ -923,7 +1027,7 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
 \]
 
-Select **PI** in the simulation and begin with a stable $K_p$. Use **Zero integral** to
+Select `pi` in the simulation and begin with a stable $K_p$. Use **Zero integral** to
 clear the controller memory before a comparison. Watch the displayed values of
 $e$, $u_P$, $u_I$, and the applied command while the temperature approaches
 the setpoint.
@@ -941,7 +1045,7 @@ also create overshoot and windup.
 ### Guided Simulation Exercise: Watch The Integral Contribution
 
 Begin from the P-control case after it has developed visible droop. Select
-**PI**, press **Zero integral**, and resume. Watch $e$, $u_P$, $u_I$, and the
+`pi`, press **Zero integral**, and resume. Watch $e$, $u_P$, $u_I$, and the
 applied command $u$ while the temperature approaches the setpoint. Answer:
 
 1. While $e>0$, why does $u_I$ continue to grow?
@@ -1163,7 +1267,8 @@ The quadratic formula gives both eigenvalues:
   oscillation.
 - An eigenvalue with a positive real part gives an unstable response.
 
-The damping ratio is a dimensionless number the transition from under- to over-damped:
+The damping ratio is a dimensionless number that identifies the transition
+from underdamped to overdamped behavior:
 
 \[
 \boxed{
@@ -1292,22 +1397,6 @@ not saturated.
 
 </details>
 
-### Using The Prepared Simulation
-
-The simulation is the modeling tool for Parts 4 through 7. It runs
-continuously in a rolling time window, and its sliders change physical and
-controller parameters while the simulation runs. The display separates the
-proportional and integral PWM contributions and shows the dimensional energy
-balance, controller equations, heating and cooling susceptibilities, time
-constants, P droop prediction, required steady-state command and power, and PI
-damping ratio. The **two-lump** option supports the process-model extension in
-Module 6, Part II.
-
-Your work is to predict behavior from the equations, choose controlled
-parameter comparisons, record quantitative results, and explain the physics
-and control. The prepared program supplies the numerical integration; it does
-not replace comparison with your experimental data.
-
 ## Part 8: October 14, Implement PI Control On The Physical TEC
 
 Use your working Module 5 P controller as the starting point. Do not replace
@@ -1346,6 +1435,10 @@ $e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
 Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
 temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
 continues on October 19 in [Module 6, Part II](../lab-07/index.md#october-19-tune-the-physical-pi-controller).
+These two preliminary traces establish that the controller works; they do not
+replace the required six-run study. In Part II, retain three P runs at
+different $K_p$ values and three PI runs at fixed $K_p$ and different $K_i$
+values for A3.
 
 ## Part 9: Windup Thought Experiment
 
@@ -1437,8 +1530,9 @@ measured values, or plots where requested.
 
 3. **Overshoot and model limits.** Explain mathematically why the one-lump
    P-control model cannot overshoot or oscillate. Present your low- and
-   high-gain experimental evidence. How does the two-lump simulation explain
-   behavior that the one-lump model cannot reproduce?
+   high-gain experimental evidence. Using the quantitative model and
+   simulation developed in Part II, explain how the two-lump description
+   reproduces behavior that the one-lump model cannot.
 
 4. **Integral action and windup.** Use $u=u_P+u_I=K_pe+K_iq$ and
    $dq/dt=e$ to explain how integral action removes droop. Explain integral

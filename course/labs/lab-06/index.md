@@ -81,6 +81,8 @@ environment, and responds over a time scale.
   proportional to accumulated temperature error.
 - **Windup:** continued growth of the integral term while the actuator is
   saturated.
+- **Anti-windup:** a software rule that prevents or reverses inappropriate
+  growth of the integral term while the actuator is saturated.
 - **Droop:** nonzero steady-state temperature error in P-only control.
 
 ### Symbols Used In Module 6, Part I
@@ -1057,6 +1059,53 @@ applied command $u$ while the temperature approaches the setpoint. Answer:
 The steady integral contribution replaces the nonzero proportional error that
 was required to provide the steady command under P-only control.
 
+<a id="why-integral-windup-occurs"></a>
+
+<details class="note" markdown="1">
+<summary>Why Integral Windup Occurs</summary>
+
+The PI controller first calculates a **requested command**,
+
+\[
+u_{\mathrm{req}}=K_pe+K_iq,
+\qquad
+q_{n+1}=q_n+e_n\Delta t.
+\]
+
+The actuator can apply only a limited command, so the program clamps that
+request:
+
+\[
+u_{\mathrm{applied}}
+=\operatorname{clamp}(u_{\mathrm{req}},-u_{\max},u_{\max}).
+\]
+
+Suppose a large positive error requests more than $u_{\max}$. The applied PWM
+cannot increase further, but ordinary integration keeps adding the positive
+error to $q$. The extra integral contribution has no immediate effect on the
+TEC because the actuator is already saturated. It is stored in the controller
+instead.
+
+When the temperature later approaches the setpoint, the error and proportional
+contribution become small, but the accumulated integral contribution can
+remain large. The controller therefore continues driving the TEC through the
+setpoint. It may take a long time for error of the opposite sign to unwind the
+stored integral, producing excessive overshoot and slow recovery.
+
+The anti-windup rule used here is **conditional integration**:
+
+- if the command is saturated and the current error would push it farther into
+  saturation, hold $q$ fixed;
+- otherwise, update $q$, including when the error helps bring the command out
+  of saturation.
+
+The PWM clamp, anti-windup rule, and **Zero integral** control have different
+jobs. The clamp protects the actuator, anti-windup controls the growth of the
+controller's memory during normal operation, and **Zero integral** deliberately
+clears that memory before a new comparison.
+
+</details>
+
 ### Why PI Can Be Underdamped
 
 PI control adds the accumulated error as a second state variable. Unlike the
@@ -1401,7 +1450,8 @@ not saturated.
 
 Use your working Module 5 P controller as the starting point. Do not replace
 the Arduino's independent temperature shutdown or the existing signed-PWM
-clamp. Add only the integral state and anti-windup needed for PI control:
+clamp. Implement the integral state and the [conditional-integration rule
+introduced above](#why-integral-windup-occurs):
 
 \[
 q_{n+1}=q_n+e_n\Delta t,
@@ -1440,17 +1490,20 @@ replace the required six-run study. In Part II, retain three P runs at
 different $K_p$ values and three PI runs at fixed $K_p$ and different $K_i$
 values for A3.
 
-## Part 9: Windup Thought Experiment
+## Part 9: Check Your Understanding Of Windup
 
-Suppose the setpoint is far away and the controller demands more PWM than the
-hardware can supply. The PWM saturates, but the integral error may keep growing.
+Suppose the setpoint is far away and the requested PWM exceeds the actuator
+limit.
 
 Answer:
 
 1. What happens to the integral term while PWM is saturated?
 2. What happens after the temperature finally approaches the setpoint?
 3. Why might this cause overshoot?
-4. How could software prevent or reduce windup?
+4. Under conditional integration, when should $q$ be held fixed and when
+   should it be allowed to change?
+5. Explain the different purposes of the PWM clamp, anti-windup, and **Zero
+   integral** control.
 
 ## Part 10: A3 Modeling-Evidence Checkpoint
 

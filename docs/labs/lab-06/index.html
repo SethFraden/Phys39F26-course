@@ -210,7 +210,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-9-windup-thought-experiment" class="nav-link">Part 9: Windup Thought Experiment</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-9-check-your-understanding-of-windup" class="nav-link">Part 9: Check Your Understanding Of Windup</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -326,6 +326,8 @@ environment, and responds over a time scale.</p>
   proportional to accumulated temperature error.</li>
 <li><strong>Windup:</strong> continued growth of the integral term while the actuator is
   saturated.</li>
+<li><strong>Anti-windup:</strong> a software rule that prevents or reverses inappropriate
+  growth of the integral term while the actuator is saturated.</li>
 <li><strong>Droop:</strong> nonzero steady-state temperature error in P-only control.</li>
 </ul>
 <h3 id="symbols-used-in-module-6-part-i">Symbols Used In Module 6, Part I<a class="headerlink" href="#symbols-used-in-module-6-part-i" title="Permanent link">&para;</a></h3>
@@ -1304,6 +1306,43 @@ applied command <span class="arithmatex">\(u\)</span> while the temperature appr
 </ol>
 <p>The steady integral contribution replaces the nonzero proportional error that
 was required to provide the steady command under P-only control.</p>
+<p><a id="why-integral-windup-occurs"></a></p>
+<details class="note">
+<summary>Why Integral Windup Occurs</summary>
+<p>The PI controller first calculates a <strong>requested command</strong>,</p>
+<div class="arithmatex">\[
+u_{\mathrm{req}}=K_pe+K_iq,
+\qquad
+q_{n+1}=q_n+e_n\Delta t.
+\]</div>
+<p>The actuator can apply only a limited command, so the program clamps that
+request:</p>
+<div class="arithmatex">\[
+u_{\mathrm{applied}}
+=\operatorname{clamp}(u_{\mathrm{req}},-u_{\max},u_{\max}).
+\]</div>
+<p>Suppose a large positive error requests more than <span class="arithmatex">\(u_{\max}\)</span>. The applied PWM
+cannot increase further, but ordinary integration keeps adding the positive
+error to <span class="arithmatex">\(q\)</span>. The extra integral contribution has no immediate effect on the
+TEC because the actuator is already saturated. It is stored in the controller
+instead.</p>
+<p>When the temperature later approaches the setpoint, the error and proportional
+contribution become small, but the accumulated integral contribution can
+remain large. The controller therefore continues driving the TEC through the
+setpoint. It may take a long time for error of the opposite sign to unwind the
+stored integral, producing excessive overshoot and slow recovery.</p>
+<p>The anti-windup rule used here is <strong>conditional integration</strong>:</p>
+<ul>
+<li>if the command is saturated and the current error would push it farther into
+  saturation, hold <span class="arithmatex">\(q\)</span> fixed;</li>
+<li>otherwise, update <span class="arithmatex">\(q\)</span>, including when the error helps bring the command out
+  of saturation.</li>
+</ul>
+<p>The PWM clamp, anti-windup rule, and <strong>Zero integral</strong> control have different
+jobs. The clamp protects the actuator, anti-windup controls the growth of the
+controller's memory during normal operation, and <strong>Zero integral</strong> deliberately
+clears that memory before a new comparison.</p>
+</details>
 <h3 id="why-pi-can-be-underdamped">Why PI Can Be Underdamped<a class="headerlink" href="#why-pi-can-be-underdamped" title="Permanent link">&para;</a></h3>
 <p>PI control adds the accumulated error as a second state variable. Unlike the
 one-state P model, a two-state PI model can therefore have a pair of complex
@@ -1577,7 +1616,8 @@ not saturated.</p>
 <h2 id="part-8-october-14-implement-pi-control-on-the-physical-tec">Part 8: October 14, Implement PI Control On The Physical TEC<a class="headerlink" href="#part-8-october-14-implement-pi-control-on-the-physical-tec" title="Permanent link">&para;</a></h2>
 <p>Use your working Module 5 P controller as the starting point. Do not replace
 the Arduino's independent temperature shutdown or the existing signed-PWM
-clamp. Add only the integral state and anti-windup needed for PI control:</p>
+clamp. Implement the integral state and the <a href="#why-integral-windup-occurs">conditional-integration rule
+introduced above</a>:</p>
 <div class="arithmatex">\[
 q_{n+1}=q_n+e_n\Delta t,
 \qquad
@@ -1611,15 +1651,18 @@ These two preliminary traces establish that the controller works; they do not
 replace the required six-run study. In Part II, retain three P runs at
 different <span class="arithmatex">\(K_p\)</span> values and three PI runs at fixed <span class="arithmatex">\(K_p\)</span> and different <span class="arithmatex">\(K_i\)</span>
 values for A3.</p>
-<h2 id="part-9-windup-thought-experiment">Part 9: Windup Thought Experiment<a class="headerlink" href="#part-9-windup-thought-experiment" title="Permanent link">&para;</a></h2>
-<p>Suppose the setpoint is far away and the controller demands more PWM than the
-hardware can supply. The PWM saturates, but the integral error may keep growing.</p>
+<h2 id="part-9-check-your-understanding-of-windup">Part 9: Check Your Understanding Of Windup<a class="headerlink" href="#part-9-check-your-understanding-of-windup" title="Permanent link">&para;</a></h2>
+<p>Suppose the setpoint is far away and the requested PWM exceeds the actuator
+limit.</p>
 <p>Answer:</p>
 <ol>
 <li>What happens to the integral term while PWM is saturated?</li>
 <li>What happens after the temperature finally approaches the setpoint?</li>
 <li>Why might this cause overshoot?</li>
-<li>How could software prevent or reduce windup?</li>
+<li>Under conditional integration, when should <span class="arithmatex">\(q\)</span> be held fixed and when
+   should it be allowed to change?</li>
+<li>Explain the different purposes of the PWM clamp, anti-windup, and <strong>Zero
+   integral</strong> control.</li>
 </ol>
 <h2 id="part-10-a3-modeling-evidence-checkpoint">Part 10: A3 Modeling-Evidence Checkpoint<a class="headerlink" href="#part-10-a3-modeling-evidence-checkpoint" title="Permanent link">&para;</a></h2>
 <p>Before closing the simulation or dismantling the apparatus, save the settings,

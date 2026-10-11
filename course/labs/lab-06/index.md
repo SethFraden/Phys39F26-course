@@ -36,11 +36,11 @@ By the end of Module 6, Part I, you should be able to:
   phase lag and motivate a two-lump model;
 - implement PI control on the physical TEC, including integral reset and
   anti-windup;
-- collect the P and PI evidence needed for the quantitative gain study in Part
-  II and A3.
+- complete a controlled six-run P and PI gain study and preserve the evidence
+  for interpretation in Part II and A3.
 
 These objectives are assessed through the guided simulation checks, the
-physical PI demonstration in Part 8, and A3 Questions 1–4.
+physical PI implementation and six-run study in Part 8, and A3 Questions 1–7.
 
 ## Reading
 
@@ -150,7 +150,7 @@ will be used during the in-class model comparison.
 | S13 | Review PI control and windup; answer the preparation questions | 60 minutes |
 | S13 | Explore PI behavior in the simulation and prepare the physical-controller change | 105 minutes |
 | S13 | **Total associated with S13** | **2 hours 45 minutes** |
-| S14 | Analyze matched physical P/PI results and select gains | 90 minutes |
+| S14 | Complete and analyze the six-run physical P/PI study and select gains | 90 minutes |
 | S14 | Write, check, commit, push, and prepare A3 | 120 minutes |
 | S14 | **Total associated with S14** | **3 hours 30 minutes** |
 
@@ -173,8 +173,8 @@ complete and understood.
    qualitative two-lump description.
 4. Explore PI control in simulation, then implement integral action and
    anti-windup on the physical TEC.
-5. Preserve the evidence needed for the quantitative gain study in Part II
-   and A3.
+5. Complete the quantitative P/PI gain study and preserve the evidence needed
+   for interpretation in Part II and A3.
 
 ## Part 1: Algebraic Droop Model
 
@@ -1013,20 +1013,24 @@ C\frac{dT}{dt}
 }
 \]
 
-The simulation calculates and clamps the command from the current state,
-then updates both state variables according to
+The simulation first updates the integral state,
 
 \[
-u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_n,
+q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t,
 \]
+
+then calculates and clamps the command using the accepted value of
+$q_{n+1}$,
+
+\[
+u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_{n+1},
+\]
+
+and finally advances the temperature:
 
 \[
 T_{n+1}=T_n+\frac{\Delta t}{\tau}
 \left(T_{\mathrm{amb}}+\chi u_n-T_n\right).
-\]
-
-\[
-q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
 \]
 
 Select `pi` in the simulation and begin with a stable $K_p$. Use **Zero integral** to
@@ -1456,7 +1460,7 @@ introduced above](#why-integral-windup-occurs):
 \[
 q_{n+1}=q_n+e_n\Delta t,
 \qquad
-u_n=K_pe_n+K_iq_n.
+u_n=K_pe_n+K_iq_{n+1}.
 \]
 
 Calculate $\Delta t$ from the actual elapsed time between accepted temperature
@@ -1483,12 +1487,13 @@ $e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
    the display freezes, saturation persists unexpectedly, or oscillations grow.
 
 Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
-temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
-continues on October 19 in [Module 6, Part II](../lab-07/index.md#october-19-tune-the-physical-pi-controller).
-These two preliminary traces establish that the controller works; they do not
-replace the required six-run study. In Part II, retain three P runs at
-different $K_p$ values and three PI runs at fixed $K_p$ and different $K_i$
-values for A3.
+temperature, PWM limit, sample interval, and anti-windup setting. These two
+preliminary traces establish that the controller works; they do not replace
+the [required six-run study](#required-six-run-experimental-protocol). Complete
+that study before beginning Part II. Before the study, verify the independent
+Arduino temperature shutdown and show the instructor your proposed gain
+range. Retain three P runs at different $K_p$ values and three PI runs at fixed
+$K_p$ and different $K_i$ values for A3.
 
 ## Part 9: Check Your Understanding Of Windup
 
@@ -1592,7 +1597,7 @@ measured values, or plots where requested.
    windup, describe your anti-windup rule, and state what happens when the
    integral state is reset after PI control has reached steady state.
 
-5. **P And PI Gain Characterization.** Use the six-run protocol to show how
+5. <span id="a3-question-5"></span>**P And PI Gain Characterization.** Use the six-run protocol to show how
    changing $K_p$ and $K_i$ changes the response. For each gain, plot the
    process output (measured temperature) and process input (signed applied
    PWM). From the Arduino's perspective, the thermistor measurement is an

@@ -3,7 +3,7 @@
 This is the second part of Module 6. Complete
 [Part I: P/PI Control And Lumped Modeling](../lab-06/index.md) first.
 Both parts use the same prepared
-[simulation](../../downloads/Lab_6_7_modeling_tec.py): Part I emphasizes
+[simulation](#how-to-run-the-python-gui): Part I emphasizes
 the one-lump model, while Part II compares the one- and two-lump models.
 
 ## Introductory Material
@@ -11,16 +11,19 @@ the one-lump model, while Part II compares the one- and two-lump models.
 ### Purpose
 
 This part follows the first Module 6 modeling work and the initial physical PI
-implementation. Begin by tuning $K_p$ and $K_i$ on the apparatus, then connect
-three things:
+implementation. Before beginning Part II, complete the physical $K_p$ and
+$K_i$ study and generate the comparison plots required by [Module 6, Part I,
+A3 Question 5](../lab-06/index.md#a3-question-5). Part II connects three
+things:
 
 1. the physical TEC/block/thermistor system,
 2. the feedback-control equations,
 3. a [Python simulation GUI](#how-to-run-the-python-gui) that lets you change
    model parameters and watch the predicted temperature response.
 
-This module is not about perfect prediction. It is about learning how a simple
-model can explain droop, overshoot, lag, and the onset of instability.
+This module is not about perfect quantitative prediction. It is about learning
+how a simple model can qualitatively or semi-quantitatively explain droop,
+overshoot, lag, and the onset of instability.
 
 ### Learning Objectives
 
@@ -36,50 +39,52 @@ By the end of Module 6, Part II, you should be able to:
   capacitances affect the simulated transient;
 - characterize matched physical P and PI responses using rise time,
   overshoot, settling time, steady-state error, and oscillation period; and
-- select and justify $K_p$ and $K_i$ by connecting theory, simulation, and
-  measurement while accounting for actuator saturation.
+- apply and justify a controlled protocol for selecting $K_p$ and $K_i$ by
+  connecting theory, simulation, and measurement.
 
-These objectives are assessed through Theory Assignment 2, the Part 3 and
-Part 6 simulation records, the six-run physical protocol, and A3 Questions
-3 and 5–7.
+These objectives are assessed through the two-lump derivation and theory
+assignment, the Part 3 and Part 6 simulation records, the completed six-run
+physical protocol from Part I, and A3 Questions 3 and 5–7.
 
 ### Class Theme
 
-**Model The Process Before You Trust The Controller**
+**Use Models To Explain Measurements**
 
-The "process" is the part of the feedback loop that the controller is trying to
-control: the TEC, aluminum block, thermistor, heat loss to the room, and thermal
-lag between where heat enters and where temperature is measured.
+In control theory, the **process** is the physical cause-and-effect system that
+turns the controller output into a measured response. Here, the PWM command
+changes the heat transported by the TEC; thermal capacitances store energy;
+thermal conductances move heat through the aluminum block and to the room; and
+the thermistor measures the resulting temperature. This chain from PWM command
+to measured temperature is the process we are modeling.
 
 ### At A Glance
 
 Before class, spend your time in this order:
 
-- **45-60 min**: Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
+- **35-45 min**: Read [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
   Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
   resistance, heat capacity, and [lumped models](#lumped-model-figure). Read through p. 28. Skip most of the last section on radiation.
-- **30-45 min**: Prepare Problems 1.3 and 1.8 for possible board work.
-- **10-15 min**: Skim Examples 1.1, 1.2, and 1.5 for worked-modeling patterns.
+- **20-30 min**: Prepare Problem 1.3 for possible board work and use Problem
+  1.8 as a quick review of the one-lump model already developed in Part I.
 - **15-20 min**: Run the [Python demo and GUI](#how-to-run-the-python-gui)
   once so class time can focus on interpretation instead of setup.
-- **15-20 min**: Copy and annotate the three model equations; complete Theory
-  Assignment 1 and begin Theory Assignment 2 if time permits.
+- **20 min**: Annotate the two-lump equations and review your completed
+  physical P/PI plots from Part I.
 
 During class on October 19, the approximate schedule for one 170-minute meeting is:
 
-1. **0-15 min**: Safety check, define the gain-tuning metrics, and inspect the
-   physical PI controller.
-2. **15-75 min**: Tune $K_p$ and $K_i$ on the TEC; preserve one satisfactory
-   response and one poor but safe response.
-3. **75-95 min**: Opening discussion and board work on
+1. **0-15 min**: Inspect the completed P/PI plots and state what the one-lump
+   model explains and fails to explain.
+2. **15-35 min**: Opening discussion and board work on
    [Lienhard](../../references/lienhard-heat-transfer-textbook-v6.pdf)
-   Problems 1.3 and 1.8.
-4. **95-115 min**: Connect the board work to the model equations in Module 6 and the
-   one-lump/two-lump diagram.
-5. **115-140 min**: Compare one- and two-lump responses and connect thermal lag
-   to the experimental tuning observations.
-6. **140-160 min**: Complete Theory Assignment 2 in groups and connect the
-   two-lump equations to thermistor placement.
+   Problem 1.3 and the one-lump review in Problem 1.8.
+3. **35-70 min**: Develop the coupled two-lump balances and reduce them to a
+   second-order equation for the measured temperature.
+4. **70-110 min**: Compare one- and two-lump responses and connect thermal lag
+   to the experimental plots.
+5. **110-140 min**: Vary one parameter at a time and interpret the results
+   using the equations.
+6. **140-160 min**: Complete the two-lump theory assignment in groups.
 7. **160-170 min**: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.
 
@@ -87,13 +92,13 @@ During class on October 19, the approximate schedule for one 170-minute meeting 
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S14 | Read this assignment and the assigned Lienhard Chapter 1 material | 90 minutes |
-| S14 | Prepare Problems 1.3 and 1.8 and inspect Examples 1.1, 1.2, and 1.5 | 60 minutes |
-| S14 | Prepare the PI tuning table; run the simulation and annotate the equations | 45 minutes |
-| S14 | **Total associated with S14** | **3 hours 15 minutes** |
+| S14 | Read this assignment and the selected Lienhard Chapter 1 material | 45 minutes |
+| S14 | Prepare Problem 1.3 and review Problem 1.8 | 30 minutes |
+| S14 | Run the simulation, annotate the two-lump equations, and organize the completed P/PI plots | 40 minutes |
+| S14 | **Total associated with S14** | **1 hour 55 minutes** |
 | S15 | Complete the model comparisons and A3 evidence | 120 minutes |
-| S15 | Complete the theory-bridge questions used in the oral discussion | 60 minutes |
-| S15 | Commit, push, and prepare the A3 submission | 30 minutes |
+| S15 | Complete the two-lump theory assignment | 45 minutes |
+| S15 | Commit, push, and prepare the A3 submission | 45 minutes |
 | S15 | **Total associated with S15** | **3 hours 30 minutes** |
 
 The Chapter 1 time is for reading with equations and physical interpretation,
@@ -128,7 +133,36 @@ open-loop, P, or PI control.
 
 #### One-Lump Physical Model
 
-The one-lump model treats the TEC and measured block as one temperature:
+<details class="note" markdown="1">
+<summary><strong>Symbols Used In Module 6, Part II</strong></summary>
+
+| Symbol | Meaning | Units |
+| --- | --- | --- |
+| $T$ | One-lump temperature, or TEC-side temperature in the two-lump model | $^\circ$C |
+| $T_m$ | Measured-block temperature in the two-lump model | $^\circ$C |
+| $T_{\mathrm{amb}}$ | Ambient room temperature | $^\circ$C |
+| $T_{\mathrm{set}}$ | Controller setpoint | $^\circ$C |
+| $C$ | One-lump thermal capacitance, $C=C_T+C_m$ | J/K |
+| $C_T$ | TEC-side thermal capacitance | J/K |
+| $C_m$ | Measured-block thermal capacitance | J/K |
+| $G$ | Passive thermal conductance between the two lumps | W/K |
+| $H$ | Passive thermal conductance from the measured lump to the room | W/K |
+| $u$ | Signed PWM command | PWM counts |
+| $P_u$ | TEC thermal-power coefficient for the active direction | W/PWM count |
+| $P_{u,h}$, $P_{u,c}$ | Heating and cooling thermal-power coefficients | W/PWM count |
+| $\chi_h$, $\chi_c$ | Heating and cooling susceptibilities | $^\circ$C/PWM count |
+| $r=\chi_h/\chi_c$ | Heating-to-cooling susceptibility ratio | dimensionless |
+| $e=T_{\mathrm{set}}-T_{\mathrm{meas}}$ | Temperature error | $^\circ$C |
+| $K_p$ | Proportional gain | PWM counts/$^\circ$C |
+| $K_i$ | Integral gain | PWM counts/($^\circ$C s) |
+| $\Delta t$ | Numerical time step | s |
+| $\theta_T$, $\theta_m$ | Deviations from the steady-state temperatures | $^\circ$C |
+
+</details>
+
+The one-lump model treats the TEC-side region and the measured block as one
+temperature. If their separate thermal capacitances are $C_T$ and $C_m$, the
+combined thermal capacitance is
 
 \[
 C=C_T+C_m,
@@ -157,10 +191,17 @@ C_T\frac{dT}{dt}=P_u(u)u-G(T-T_m),
 C_m\frac{dT_m}{dt}=G(T-T_m)-H(T_m-T_{\mathrm{amb}}).
 \]
 
-Here $C_T$ and $C_m$ are thermal capacitances, $G$ couples the two lumps, and
-$H$ describes passive heat transfer from the measured lump to the room. The
-controller responds to $T_m$, but $T$ can move first. That lag can produce
-overshoot or oscillation.
+Here $C_T$ and $C_m$ are thermal capacitances. The conductance $G$ couples the
+two lumps through the passive heat flow $G(T-T_m)$. The same heat that leaves
+the TEC-side lump enters the measured lump, so this term appears with opposite
+signs in the two equations. We simplify the apparatus by giving the TEC-side
+lump no separate path to the room; all heat loss to the room is represented by
+$H(T_m-T_{\mathrm{amb}})$ in the measured-lump equation.
+
+The controller responds to $T_m$, but $T$ and $T_m$ do not change at the same
+time. Which temperature changes first if someone opens a window and
+$T_{\mathrm{amb}}$ suddenly decreases? Which changes first if
+$T_{\mathrm{set}}$ changes? This lag can produce overshoot or oscillation.
 
 #### From Two First-Order Equations To One Second-Order Equation
 
@@ -256,17 +297,22 @@ the actuator is saturated in the same direction as the error.
 
 #### What The Algorithm Does At Each Time Step
 
-The supplied program performs the numerical work, but you should understand
-its sequence:
+The simulation described in [How To Run The Python
+GUI](#how-to-run-the-python-gui) performs the numerical work, but you should
+understand its sequence:
 
-1. Read the model's measured temperature, $T$ or $T_m$.
-2. Calculate the error and the requested open-loop, P, or PI command.
-3. Clamp the command to the signed PWM limit.
-4. Select $P_{u,h}$ or $P_{u,c}$ from the sign of the applied command.
-5. Evaluate the heat-balance derivatives.
-6. Advance $T$ and, for the two-lump model, $T_m$ by one Euler step.
-7. Update the integral state when PI control is active and anti-windup permits
-   the update.
+1. Read the model's measured temperature, $T_n$ or $T_{m,n}$.
+2. Calculate the error $e_n$.
+3. For PI control, propose the integral update
+   $q_{n+1}=q_n+e_n\Delta t$. Accept it unless anti-windup prevents the
+   update; otherwise use $q_{n+1}=q_n$.
+4. Calculate the requested command for the selected controller:
+   $u_n=u_{\mathrm{user}}$ for open-loop control, $u_n=K_pe_n$ for P control,
+   or $u_n=K_pe_n+K_iq_{n+1}$ for PI control.
+5. Clamp $u_n$ to the signed PWM limit.
+6. Select $P_{u,h}$ or $P_{u,c}$ from the sign of the applied command.
+7. Evaluate the heat-balance derivatives and advance $T$ and, for the
+   two-lump model, $T_m$ by one Euler step.
 
 For example, the first two-lump Euler updates are
 
@@ -280,9 +326,10 @@ T_{m,n+1}=T_{m,n}+\frac{\Delta t}{C_m}
 \left[G(T_n-T_{m,n})-H(T_{m,n}-T_{\mathrm{amb}})\right].
 \]
 
-You are not required to write this code. Your task is to connect each
-algorithmic step to the heat balance, make predictions, and test them with
-controlled parameter changes.
+You are not required to write this code. Use it to develop physical intuition:
+vary one model, parameter, or initial condition at a time; predict the result;
+observe the response; and interpret it using the heat balances and controller
+equations.
 
 <a id="lumped-model-figure"></a>
 
@@ -297,54 +344,14 @@ that one object, such as the TEC/block assembly, can be described by one
 temperature. This is an approximation. It is useful before we move to the long
 rod, where temperature depends on position.
 
-#### Theory Assignment 1: One Lumped Temperature
+#### One-Lump Results Carried Forward From Part I
 
-Start from an energy balance:
+In [Module 6, Part I](../lab-06/index.md#part-2-express-the-one-lump-model-using-measured-parameters),
+you derived the one-lump energy balance, expressed it using the measured
+$\chi$ and $\tau$, and found its steady-state temperature. Use those results
+here; do not repeat that assignment.
 
-```text
-rate of change of thermal energy = heat added by TEC - heat lost to room
-```
-
-Use:
-
-```text
-C dT/dt = Q_tec - H*(T - T_amb)
-```
-
-where:
-
-- `C` is the heat capacity of the object in J/°C,
-- `H` is the thermal conductance to the room in W/°C,
-- `Q_tec` is the heat flow supplied by the TEC in W,
-- `T` is the object's temperature in °C,
-- `T_amb` is the ambient room temperature in °C.
-
-Divide by `C`:
-
-```text
-dT/dt = -(T - T_amb)/tau + A*signed_PWM
-```
-
-where:
-
-```text
-tau = C/H
-```
-
-and `A` is the conversion between signed PWM and heating/cooling rate. The time
-constant `tau` has units of seconds. If `signed_PWM` is an Arduino PWM count
-between -255 and +255, then `A` has units of °C/(s PWM count).
-
-Do this before class:
-
-1. Show the algebra that converts `C dT/dt = Q_tec - H*(T - T_amb)` into the
-   simplified model above.
-2. Explain in words what `tau` means.
-3. Predict what happens when `tau` is large.
-4. Predict what happens when `H` is large.
-5. Find the steady-state temperature for a constant `signed_PWM`.
-
-#### Theory Assignment 2: Two Lumped Temperatures
+#### Two-Lump Theory Assignment
 
 The one-temperature model assumes that the measured temperature instantly equals
 the actuator-side temperature. The next model separates them:
@@ -373,13 +380,25 @@ Do this before class:
 2. Identify which term describes heat loss from the measured block to room air.
 3. Explain why `Tm` can lag behind `T`.
 4. Explain why a controller that uses `Tm` may react too late.
-5. Compare this model to the simplified rate-constant form:
-
-   ```text
-   dTm/dt = k21*(T - Tm) - km*(Tm - T_amb)
-   ```
+5. Starting from the two coupled first-order equations, reproduce the
+   elimination that gives the second-order equation for $T_m$. In particular,
+   show how the measured-lump equation gives
+   $G\theta_T=C_m\dot\theta_m+(G+H)\theta_m$, and use it to eliminate
+   $\theta_T$.
+6. Divide the measured-lump equation by $C_m$ and compare it term by term with
+   the rate-constant form
+   $dT_m/dt=k_{21}(T-T_m)-k_m(T_m-T_{\mathrm{amb}})$. Identify
+   $k_{21}=G/C_m$ and $k_m=H/C_m$, give their units, and explain how increasing
+   each one changes the equilibration between the lumps or the relaxation
+   toward room temperature.
 
 #### Later In The Course: Differential Equations In Space
+
+The two-lump model is a crude spatial approximation. It replaces an extended
+apparatus with two internally uniform regions connected by a thermal
+conductance. It distinguishes a region near the TEC from a region near the
+thermistor, but it contains no continuous distance, temperature gradient, or
+spatial coordinate.
 
 The long-rod experiment cannot be described by a single temperature. It will
 need a temperature field. In its simplest form as a long, thin rod,
@@ -499,7 +518,8 @@ python Lab_6_7_modeling_tec.py
      is a good reminder that a temperature sensor does not always read the
      temperature you think it reads.
 
-4. Open the [prepared Python simulation](../../downloads/Lab_6_7_modeling_tec.py):
+4. Follow [How To Run The Python GUI](#how-to-run-the-python-gui) to download
+   and open the prepared simulation:
 
    ```text
    Lab_6_7_modeling_tec.py
@@ -526,9 +546,9 @@ python Lab_6_7_modeling_tec.py
    python Lab_6_7_modeling_tec.py
    ```
 
-8. In your notebook, copy the three model equations and label the meaning of
+8. In your notebook, copy the two-lump model equations and label the meaning of
    each variable.
-9. Complete Theory Assignment 1. Begin Theory Assignment 2 if you have time.
+9. Begin the [Two-Lump Theory Assignment](#two-lump-theory-assignment).
 
 ### Pre-Class Questions
 
@@ -537,8 +557,8 @@ Write short answers before class.
 1. In open-loop mode, what happens if the signed PWM command is zero?
 2. In proportional control, why does the PWM become small when the measured
    temperature gets close to the setpoint?
-3. Why can proportional-only control leave a steady-state error?
-4. In the thermal-mass model, why might `T` and `Tm` be different?
+3. Why must proportional-only control leave a steady-state error?
+4. In the two-lump thermal-mass model, why might `T` and `Tm` be different?
 5. Which parameter in the model most directly changes the amount of thermal
    lag?
 
@@ -549,53 +569,13 @@ Write short answers before class.
 You will:
 
 - run the [Python simulation GUI](#how-to-run-the-python-gui),
-- tune $K_p$ and $K_i$ on the physical TEC,
-- compare matched physical P and PI responses,
+- interpret the matched physical P and PI responses completed in Part I,
 - identify the physical meaning of each control,
 - reproduce droop in proportional control,
 - produce overshoot or oscillation by increasing gain or lag,
 - compare the one-temperature model to the two-temperature model,
 - trace one controlled parameter through the equations and numerical algorithm,
 - explain what this model teaches you about the real TEC experiment.
-
-### October 19: Tune The Physical PI Controller
-
-Continue with the controller implemented in [Module 6, Part
-I](../lab-06/index.md#part-8-october-14-implement-pi-control-on-the-physical-tec).
-Keep the setpoint, PWM limit, apparatus, thermistor placement, and starting
-temperature as similar as practical between trials. Change **one gain at a
-time**.
-
-Follow the [required six-run experimental
-protocol](../lab-06/index.md#required-six-run-experimental-protocol). Use three
-values of $K_p$ with $K_i=0$, then hold the intermediate $K_p$ fixed while
-using three values of $K_i$. Include the same upward and downward setpoint
-steps in every run. Zero the integral state before each run, and set PWM to
-zero before changing controller mode or resetting the integral.
-
-For every retained run, record:
-
-| Run | Mode | $K_p$ (PWM/°C) | $K_i$ (PWM/(°C s)) | Up/down traces saved? | Saturation? | Notes |
-| ---: | --- | ---: | ---: | --- | --- | --- |
-| 1 | P, low $K_p$ |  | 0 |  |  |  |
-| 2 | P, intermediate $K_p$ |  | 0 |  |  |  |
-| 3 | P, high $K_p$ |  | 0 |  |  |  |
-| 4 | PI, low $K_i$ |  |  |  |  |  |
-| 5 | PI, intermediate $K_i$ |  |  |  |  |  |
-| 6 | PI, high $K_i$ |  |  |  |  |  |
-
-For detailed step-response analysis, calculate rise time, percent overshoot,
-settling time, steady-state error, and oscillation period when applicable only
-for Run 3 and Run 6, in both directions. Define the rise-time and settling-time
-criteria you use. Run 5 is your candidate final gain pair, but revise that
-choice if the evidence supports another pair; there is no single universally
-best pair. Your record must show the measured temperature,
-setpoint, total applied PWM, $u_P$, $u_I$, and error versus time.
-
-Before applying power, verify the independent Arduino temperature shutdown and
-have the instructor approve the proposed gain range. Stop and set PWM to zero
-if the temperature moves in the wrong direction, the display freezes,
-saturation persists unexpectedly, or oscillations grow.
 
 ### Part 1: One-Lump Open-Loop Model
 
@@ -637,51 +617,86 @@ Answer:
 - Does increasing `Kp` eliminate droop completely?
 - What happens when PWM saturates?
 
-### Part 3: Two-Temperature Thermal-Mass Model
+### Part 3: Reproduce The Goldilocks P And PI Trends
 
-Set the physical model to `two_lump` and the controller to **P**.
+**The purpose of this exercise is to build an explicit match between experiment
+and theory.** A successful comparison does more than produce similar-looking
+curves: it identifies which terms and parameters in the model control the
+features measured in the experiment, including rise time, droop, overshoot,
+and the number and decay of oscillations.
 
-Begin with the measured-parameter defaults
+Set the physical model to `two_lump`. Enter your measured values of
+$T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$, and $\tau$, and use the same
+setpoints, PWM limit, and starting conditions as in your six physical runs.
+Your numerical gains may differ from those used by other teams.
 
-\[
-T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
-\qquad
-T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
-\qquad
-\chi_c=0.23\ ^\circ\mathrm{C/PWM},
-\qquad
-\chi_h=0.46\ ^\circ\mathrm{C/PWM},
-\qquad
-\tau=80\ \mathrm{s}.
-\]
+The measurements determine the one-lump behavior but do not uniquely determine
+the internal two-lump parameters $G$ and $C_T/C$. Use the simulation to find
+**one shared set** of these physical parameters that qualitatively reproduces
+your experimental progression. Do not choose different physical parameters
+for each gain.
 
-Set $K_i=0$, reset before every comparison, and follow this sequence:
+1. Set $K_i=0$. Run your experimental low, medium, and high $K_p$ values,
+   resetting the simulation before each run. Look for the same progression as
+   in your P-only Goldilocks plots: slow response and larger droop, a useful
+   compromise, and clear overshoot or ringing.
+2. If the progression does not resemble your measurements, vary only $G$ or
+   $C_T/C$, predict the effect, and repeat all three P runs. Continue until one
+   set of physical parameters gives a reasonable qualitative comparison.
+3. Keep those physical parameters fixed. Select `pi`, hold $K_p$ at the value
+   used for your three experimental PI runs, and simulate your low, medium,
+   and high $K_i$ values. Reset the integral before each run.
+4. Look for the PI progression in your Goldilocks plots: slow removal of
+   steady-state error, a useful compromise, and excessive overshoot, ringing,
+   or saturation.
+5. Starting from your shared model, vary one parameter at a time. Determine
+   which parameters most strongly change rise time, P-control droop,
+   overshoot, and the number and decay of oscillations. Return each parameter
+   to the shared value before testing the next one. Test $K_p$, $K_i$, $G$,
+   and $C_T/C$ explicitly. You may also perturb $\tau$ or $\chi$ to understand
+   sensitivity, but restore their measured values for the final comparison.
+6. Save all six simulated responses using the same organization and labels as
+   your six experimental plots.
 
-1. Compare `one_lump` and `two_lump` at $K_p=50$ PWM/°C.
-2. Repeat at $K_p=120$ PWM/°C, close to the experimentally observed
-   underdamped regime.
-3. In `two_lump`, watch the difference between the TEC-side temperature $T$
-   and measured temperature $T_m$ as the controller changes the command.
-4. Hold $K_p$ fixed and vary $G$ above and below its starting value. Predict
-   how the lag will change before each run.
-5. Return $G$ to its starting value. Vary only one thermal capacitance at a
-   time and compare the result with your prediction.
-6. Identify a transition from no overshoot to overshoot. If oscillations
-   appear, record their period and whether they decay or grow.
+Record the single physical parameter set used for all six simulations:
 
-Make a table:
+| $\chi_c$ | $\chi_h$ | $\tau$ | $G$ | $C_T/C$ | Setpoints | PWM limit |
+| ---: | ---: | ---: | ---: | ---: | --- | ---: |
+|  |  |  |  |  |  |  |
 
-| Trial | `Kp` | $G$, $C_T$, or $C_m$ | overshoot? | oscillation? | qualitative behavior |
-| --- | --- | --- | --- | --- | --- |
-| 1 |  |  |  |  |  |
-| 2 |  |  |  |  |  |
-| 3 |  |  |  |  |  |
+Then compare the six conditions:
+
+| Condition | Controller | $K_p$ | $K_i$ | Experimental behavior | Simulated behavior | Agreement or mismatch |
+| --- | --- | ---: | ---: | --- | --- | --- |
+| P low | P |  | 0 |  |  |  |
+| P medium | P |  | 0 |  |  |  |
+| P high | P |  | 0 |  |  |  |
+| PI low | PI |  |  |  |  |  |
+| PI medium | PI |  |  |  |  |  |
+| PI high | PI |  |  |  |  |  |
+
+Summarize the parameter-to-behavior correspondence:
+
+| Observed behavior | Parameter varied | Predicted change | Simulated change | Experimental evidence |
+| --- | --- | --- | --- | --- |
+| Rise time |  |  |  |  |
+| P-control droop |  |  |  |  |
+| Overshoot |  |  |  |  |
+| Number and decay of oscillations |  |  |  |  |
 
 Answer:
 
-- Which temperature does the controller use to calculate error?
-- Why does measuring the delayed temperature make high gain dangerous?
-- What does this suggest about placing a thermistor far from the TEC?
+- Which parameters most strongly controlled rise time, P-control droop,
+  overshoot, and the number and decay of oscillations? Explain each connection
+  using the model equations.
+- How did changing $G$ or $C_T/C$ affect lag, overshoot, and ringing?
+- Which temperature does the controller use to calculate error, and why does
+  that delayed measurement make high gain dangerous?
+- Which trends in the six experimental plots did one shared two-lump model
+  reproduce successfully?
+- What important disagreement remains between simulation and experiment?
+- Why would changing the physical model parameters separately for every gain
+  weaken the comparison?
 
 ### Part 4: Connect The Model To PI Feedback
 
@@ -714,9 +729,10 @@ In your notebook:
 3. Explain why the integral term should reduce droop.
 4. Explain why integral control can overshoot if the actuator saturates.
 
-### Part 5: Complete The Two-Temperature Theory Assignment
+### Part 5: Complete The Two-Lump Theory Assignment
 
-Finish Theory Assignment 2. Then answer:
+Finish the [Two-Lump Theory Assignment](#two-lump-theory-assignment). Then
+answer:
 
 1. Which model variable is closest to what the thermistor measures?
 2. Which model variable is closest to where the TEC applies heat?
@@ -771,9 +787,9 @@ Answer:
 
 ### Preserve The Model Evidence
 
-Before leaving S15, save the physical PI tuning table and traces, copied
-equations, completed theory assignments, parameter tables, screenshots,
-algorithm-tracing explanation, and exact run command. Keep the team record in
+Before leaving S15, save the physical PI tuning table and traces from Part I,
+copied equations, completed two-lump theory assignment, parameter tables,
+screenshots, algorithm-tracing explanation, and exact run command. Keep the team record in
 `docs/module_notes/module_07_process_model.md` and preserve the prepared simulation
 program in your repository.
 
@@ -794,8 +810,8 @@ and [Module 6 PI-control question](../lab-06/index.md#oral-review-questions-pi-c
 Keep a short module note containing:
 
 - Your copied and labeled model equations.
-- Theory Assignment 1.
-- Theory Assignment 2.
+- Your one-lump results carried forward from Part I.
+- The Two-Lump Theory Assignment.
 - Open-loop observations.
 - Proportional-control droop table.
 - Thermal-mass overshoot/oscillation table.

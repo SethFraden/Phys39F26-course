@@ -281,11 +281,11 @@ why real feedback loops can oscillate.</p>
   phase lag and motivate a two-lump model;</li>
 <li>implement PI control on the physical TEC, including integral reset and
   anti-windup;</li>
-<li>collect the P and PI evidence needed for the quantitative gain study in Part
-  II and A3.</li>
+<li>complete a controlled six-run P and PI gain study and preserve the evidence
+  for interpretation in Part II and A3.</li>
 </ul>
 <p>These objectives are assessed through the guided simulation checks, the
-physical PI demonstration in Part 8, and A3 Questions 1–4.</p>
+physical PI implementation and six-run study in Part 8, and A3 Questions 1–7.</p>
 <h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
 <p>Read selectively:</p>
 <ol>
@@ -543,7 +543,7 @@ will be used during the in-class model comparison.</p>
 </tr>
 <tr>
 <td>S14</td>
-<td>Analyze matched physical P/PI results and select gains</td>
+<td>Complete and analyze the six-run physical P/PI study and select gains</td>
 <td style="text-align: right;">90 minutes</td>
 </tr>
 <tr>
@@ -576,8 +576,8 @@ complete and understood.</p>
    qualitative two-lump description.</li>
 <li>Explore PI control in simulation, then implement integral action and
    anti-windup on the physical TEC.</li>
-<li>Preserve the evidence needed for the quantitative gain study in Part II
-   and A3.</li>
+<li>Complete the quantitative P/PI gain study and preserve the evidence needed
+   for interpretation in Part II and A3.</li>
 </ol>
 <h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
 <p>The dimensional one-lump model is</p>
@@ -1268,17 +1268,19 @@ C\frac{dT}{dt}
 \frac{dq}{dt}=T_{\mathrm{set}}-T.
 }
 \]</div>
-<p>The simulation calculates and clamps the command from the current state,
-then updates both state variables according to</p>
+<p>The simulation first updates the integral state,</p>
 <div class="arithmatex">\[
-u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_n,
+q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t,
 \]</div>
+<p>then calculates and clamps the command using the accepted value of
+<span class="arithmatex">\(q_{n+1}\)</span>,</p>
+<div class="arithmatex">\[
+u_n=K_p(T_{\mathrm{set}}-T_n)+K_iq_{n+1},
+\]</div>
+<p>and finally advances the temperature:</p>
 <div class="arithmatex">\[
 T_{n+1}=T_n+\frac{\Delta t}{\tau}
 \left(T_{\mathrm{amb}}+\chi u_n-T_n\right).
-\]</div>
-<div class="arithmatex">\[
-q_{n+1}=q_n+(T_{\mathrm{set}}-T_n)\Delta t.
 \]</div>
 <p>Select <code>pi</code> in the simulation and begin with a stable <span class="arithmatex">\(K_p\)</span>. Use <strong>Zero integral</strong> to
 clear the controller memory before a comparison. Watch the displayed values of
@@ -1621,7 +1623,7 @@ introduced above</a>:</p>
 <div class="arithmatex">\[
 q_{n+1}=q_n+e_n\Delta t,
 \qquad
-u_n=K_pe_n+K_iq_n.
+u_n=K_pe_n+K_iq_{n+1}.
 \]</div>
 <p>Calculate <span class="arithmatex">\(\Delta t\)</span> from the actual elapsed time between accepted temperature
 measurements. Display and save <span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(u_P=K_pe\)</span>, <span class="arithmatex">\(u_I=K_iq\)</span>, the requested
@@ -1645,12 +1647,13 @@ Arduino safety shutdown remain active even when anti-windup is working.</p>
    the display freezes, saturation persists unexpectedly, or oscillations grow.</li>
 </ol>
 <p>Preserve both traces and the exact <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, setpoint, starting
-temperature, PWM limit, sample interval, and anti-windup setting. Gain tuning
-continues on October 19 in <a href="../lab-07/#october-19-tune-the-physical-pi-controller">Module 6, Part II</a>.
-These two preliminary traces establish that the controller works; they do not
-replace the required six-run study. In Part II, retain three P runs at
-different <span class="arithmatex">\(K_p\)</span> values and three PI runs at fixed <span class="arithmatex">\(K_p\)</span> and different <span class="arithmatex">\(K_i\)</span>
-values for A3.</p>
+temperature, PWM limit, sample interval, and anti-windup setting. These two
+preliminary traces establish that the controller works; they do not replace
+the <a href="#required-six-run-experimental-protocol">required six-run study</a>. Complete
+that study before beginning Part II. Before the study, verify the independent
+Arduino temperature shutdown and show the instructor your proposed gain
+range. Retain three P runs at different <span class="arithmatex">\(K_p\)</span> values and three PI runs at fixed
+<span class="arithmatex">\(K_p\)</span> and different <span class="arithmatex">\(K_i\)</span> values for A3.</p>
 <h2 id="part-9-check-your-understanding-of-windup">Part 9: Check Your Understanding Of Windup<a class="headerlink" href="#part-9-check-your-understanding-of-windup" title="Permanent link">&para;</a></h2>
 <p>Suppose the setpoint is far away and the requested PWM exceeds the actuator
 limit.</p>
@@ -1785,7 +1788,7 @@ measured values, or plots where requested.</p>
    integral state is reset after PI control has reached steady state.</p>
 </li>
 <li>
-<p><strong>P And PI Gain Characterization.</strong> Use the six-run protocol to show how
+<p><span id="a3-question-5"></span><strong>P And PI Gain Characterization.</strong> Use the six-run protocol to show how
    changing <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> changes the response. For each gain, plot the
    process output (measured temperature) and process input (signed applied
    PWM). From the Arduino's perspective, the thermistor measurement is an

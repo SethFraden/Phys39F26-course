@@ -1182,13 +1182,31 @@ class ModelingTECGui:
             if controller == "open_loop"
             else open_loop_susceptibility(self.config)
         )
+        if controller == "open_loop":
+            thermal_input = r"P_u(u)u_{user}"
+            controller_lines = (
+                rf"$u=u_{{user}}={self.config.open_loop_pwm:.3g}\,\mathrm{{PWM}}$",
+            )
+        elif controller == "p":
+            thermal_input = r"P_u(u)K_p e"
+            controller_lines = (
+                r"$e=T_{set}-T_{meas}$",
+                r"$u=K_p e$",
+            )
+        else:
+            thermal_input = r"P_u(u)\left(K_p e+K_i\int e\,dt\right)"
+            controller_lines = (
+                r"$e=T_{set}-T_{meas}$",
+                r"$u=K_p e+K_i\int e\,dt$",
+            )
+
         if process == "one_lump":
             self.left_equations.set_text(
                 r"$\bf{Thermal\ model}$"
                 "\n"
                 r"$C=C_T+C_m$"
                 "\n"
-                r"$C\frac{dT}{dt}=P_u(u)u-H(T-T_{amb})$"
+                rf"$C\frac{{dT}}{{dt}}={thermal_input}-H(T-T_{{amb}})$"
                 "\n"
                 rf"$\chi_c=\frac{{P_{{u,c}}}}{{H}}={cooling_chi:.3g},\quad"
                 rf"\chi_h=\frac{{P_{{u,h}}}}{{H}}={heating_chi:.3g}\,^\circ\mathrm{{C/PWM}}$"
@@ -1203,7 +1221,7 @@ class ModelingTECGui:
             self.left_equations.set_text(
                 r"$\bf{Thermal\ model}$"
                 "\n"
-                r"$C_T\frac{dT}{dt}=P_u(u)u-G(T-T_m)$"
+                rf"$C_T\frac{{dT}}{{dt}}={thermal_input}-G(T-T_m)$"
                 "\n"
                 r"$C_m\frac{dT_m}{dt}=G(T-T_m)-H(T_m-T_{amb})$"
                 "\n"
@@ -1217,17 +1235,12 @@ class ModelingTECGui:
 
         zeta = one_lump_pi_damping_ratio(self.config)
         zeta_text = r"\infty" if math.isinf(zeta) else f"{zeta:.3f}"
-        self.right_equations.set_text(
-            r"$\bf{Controller}$"
-            "\n"
-            rf"Open loop: $u=u_{{user}}={self.config.open_loop_pwm:.3g}\,\mathrm{{PWM}}$"
-            "\n"
-            r"P control: $e=T_{set}-T_{meas}$, $u_P=K_p e$"
-            "\n"
-            r"PI control: $u=u_P+u_I=K_p e+K_i\int e\,dt$"
-            "\n"
-            rf"One-lump PI: $\zeta={zeta_text}$ ({damping_description(zeta)})"
-        )
+        right_lines = [r"$\bf{Selected\ controller}$", "", "", *controller_lines]
+        if controller == "pi":
+            right_lines.append(
+                rf"One-lump PI: $\zeta={zeta_text}$ ({damping_description(zeta)})"
+            )
+        self.right_equations.set_text("\n".join(right_lines))
 
         current_measured = measured_temperature(self.state, process)
         if process == "one_lump":

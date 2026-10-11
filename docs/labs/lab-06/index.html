@@ -170,31 +170,23 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-4-simulate-open-loop-response" class="nav-link">Part 4: Simulate Open-Loop Response</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-4-simulate-open-loop-and-p-control" class="nav-link">Part 4: Simulate Open-Loop And P Control</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="3"><a href="#guided-simulation-exercise-open-loop-and-thermal-mass" class="nav-link">Guided Simulation Exercise: Open Loop And Thermal Mass</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-5-simulate-p-only-feedback" class="nav-link">Part 5: Simulate P-Only Feedback</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#guided-simulation-exercise-p-control-and-droop" class="nav-link">Guided Simulation Exercise: P Control And Droop</a>
+            <li class="nav-item" data-bs-level="3"><a href="#continue-with-p-control" class="nav-link">Continue With P Control</a>
               <ul class="nav flex-column">
               </ul>
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-6-solve-the-p-controlled-one-lump-model" class="nav-link">Part 6: Solve The P-Controlled One-Lump Model</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#guided-simulation-exercise-from-no-overshoot-to-overshoot" class="nav-link">Guided Simulation Exercise: From No Overshoot To Overshoot</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-5-explain-the-one-lump-p-transient-and-its-limit" class="nav-link">Part 5: Explain The One-Lump P Transient And Its Limit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-7-add-integral-action-in-simulation" class="nav-link">Part 7: Add Integral Action In Simulation</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-6-add-integral-action-in-simulation" class="nav-link">Part 6: Add Integral Action In Simulation</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="3"><a href="#guided-simulation-exercise-watch-the-integral-contribution" class="nav-link">Guided Simulation Exercise: Watch The Integral Contribution</a>
               <ul class="nav flex-column">
@@ -206,24 +198,20 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-8-october-14-implement-pi-control-on-the-physical-tec" class="nav-link">Part 8: October 14, Implement PI Control On The Physical TEC</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-7-implement-pi-control-and-collect-the-experimental-goldilocks-plots" class="nav-link">Part 7: Implement PI Control And Collect The Experimental Goldilocks Plots</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#experimental-goldilocks-study" class="nav-link">Experimental Goldilocks Study</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-9-check-your-understanding-of-windup" class="nav-link">Part 9: Check Your Understanding Of Windup</a>
+            <li class="nav-item" data-bs-level="3"><a href="#preserve-your-evidence" class="nav-link">Preserve Your Evidence</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-10-a3-modeling-evidence-checkpoint" class="nav-link">Part 10: A3 Modeling-Evidence Checkpoint</a>
-              <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#a3-feedback-data-and-lumped-model-memo" class="nav-link">A3: Feedback Data And Lumped-Model Memo</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#required-six-run-experimental-protocol" class="nav-link">Required Six-Run Experimental Protocol</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-bs-level="3"><a href="#a3-questions" class="nav-link">A3 Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -281,11 +269,13 @@ why real feedback loops can oscillate.</p>
   phase lag and motivate a two-lump model;</li>
 <li>implement PI control on the physical TEC, including integral reset and
   anti-windup;</li>
-<li>complete a controlled six-run P and PI gain study and preserve the evidence
-  for interpretation in Part II and A3.</li>
+<li>generate six experimental Goldilocks plots that show low-, medium-, and
+  high-gain P and PI behavior, then use them to connect controller settings to
+  droop, rise time, overshoot, and oscillation.</li>
 </ul>
-<p>These objectives are assessed through the guided simulation checks, the
-physical PI implementation and six-run study in Part 8, and A3 Questions 1–7.</p>
+<p>The Goldilocks plots are the principal way you achieve these objectives. They
+are assessed through the physical six-run study, the six matched simulation
+plots in Part II, and A3 Questions 1–5.</p>
 <h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
 <p>Read selectively:</p>
 <ol>
@@ -513,48 +503,38 @@ will be used during the in-class model comparison.</p>
 <tbody>
 <tr>
 <td>S12</td>
-<td>Read this assignment and the selected heat-transfer material</td>
-<td style="text-align: right;">90 minutes</td>
-</tr>
-<tr>
-<td>S12</td>
-<td>Complete and check the guided one-lump derivation</td>
-<td style="text-align: right;">120 minutes</td>
+<td>Read the selected material and complete the one-lump derivation</td>
+<td style="text-align: right;">150 minutes</td>
 </tr>
 <tr>
 <td>S12</td>
 <td><strong>Total associated with S12</strong></td>
-<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+<td style="text-align: right;"><strong>2 hours 30 minutes</strong></td>
 </tr>
 <tr>
 <td>S13</td>
-<td>Review PI control and windup; answer the preparation questions</td>
-<td style="text-align: right;">60 minutes</td>
-</tr>
-<tr>
-<td>S13</td>
-<td>Explore PI behavior in the simulation and prepare the physical-controller change</td>
-<td style="text-align: right;">105 minutes</td>
+<td>Explore open-loop, P, and PI behavior in the simulation and prepare the physical controller</td>
+<td style="text-align: right;">120 minutes</td>
 </tr>
 <tr>
 <td>S13</td>
 <td><strong>Total associated with S13</strong></td>
-<td style="text-align: right;"><strong>2 hours 45 minutes</strong></td>
+<td style="text-align: right;"><strong>2 hours</strong></td>
 </tr>
 <tr>
 <td>S14</td>
-<td>Complete and analyze the six-run physical P/PI study and select gains</td>
+<td>Complete the six-run experimental Goldilocks study</td>
+<td style="text-align: right;">150 minutes</td>
+</tr>
+<tr>
+<td>S14</td>
+<td>Organize plots and begin A3</td>
 <td style="text-align: right;">90 minutes</td>
 </tr>
 <tr>
 <td>S14</td>
-<td>Write, check, commit, push, and prepare A3</td>
-<td style="text-align: right;">120 minutes</td>
-</tr>
-<tr>
-<td>S14</td>
 <td><strong>Total associated with S14</strong></td>
-<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+<td style="text-align: right;"><strong>4 hours</strong></td>
 </tr>
 </tbody>
 </table>
@@ -576,8 +556,8 @@ complete and understood.</p>
    qualitative two-lump description.</li>
 <li>Explore PI control in simulation, then implement integral action and
    anti-windup on the physical TEC.</li>
-<li>Complete the quantitative P/PI gain study and preserve the evidence needed
-   for interpretation in Part II and A3.</li>
+<li>Generate the six experimental Goldilocks plots that anchor the comparison
+   with simulation and the A3 analysis.</li>
 </ol>
 <h2 id="part-1-algebraic-droop-model">Part 1: Algebraic Droop Model<a class="headerlink" href="#part-1-algebraic-droop-model" title="Permanent link">&para;</a></h2>
 <p>The dimensional one-lump model is</p>
@@ -707,114 +687,26 @@ C\frac{d\theta}{dt}=-H\theta,
 =\frac{\mathrm{J}}{\mathrm{J/s}}=\mathrm{s}.
 \]</div>
 <details class="note" markdown="1">
-<summary>Sidebar: From dimensional analysis to a dimensionless model</summary>
+<summary>Sidebar: Dimensionless form</summary>
 
-<p>This follows the progression in <a href="../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21">Howard Stone, Sections 1.5.1-1.5.2:
-characteristic time and rescaling a differential
-equation</a>.
-Stone examines a model four related ways: inspect the dimensions, balance
-the sizes of terms, solve the equation when possible, and then rescale it
-so that only dimensionless variables and parameters remain.</p>
-<p><strong>1. Inspect the dimensions.</strong> For the unforced departure from steady state,</p>
+<p>The ratios <span class="arithmatex">\(\tau=C/H\)</span> and <span class="arithmatex">\(\chi=P_u/H\)</span> are the measured combinations that
+govern the one-lump model. Define</p>
 <div class="arithmatex">\[
-C\frac{d\vartheta}{dt}=-H\vartheta,
-\qquad \vartheta=T-T_{\mathrm{ss}},
-\]</div>
-<p>the parameters that contain time are <span class="arithmatex">\(C\)</span> and <span class="arithmatex">\(H\)</span>. Their ratio has units of
-time:</p>
-<div class="arithmatex">\[
-\frac{C}{H}
-=\frac{\mathrm{J/K}}{\mathrm{W/K}}
-=\mathrm{s}.
-\]</div>
-<p>Dimensional analysis therefore identifies <span class="arithmatex">\(C/H\)</span> as the characteristic
-time, but cannot by itself determine the complete function of time.</p>
-<p><strong>2. Balance the sizes of the terms.</strong> If a typical temperature departure
-<span class="arithmatex">\(\Delta T\)</span> changes over a typical time <span class="arithmatex">\(t_c\)</span>, then</p>
-<div class="arithmatex">\[
-C\frac{\Delta T}{t_c}\sim H\Delta T.
-\]</div>
-<p>The temperature scale cancels because this equation is linear, leaving</p>
-<div class="arithmatex">\[
-t_c\sim\frac{C}{H}.
-\]</div>
-<p><strong>3. Solve the equation.</strong> Separation of variables gives</p>
-<div class="arithmatex">\[
-\vartheta(t)=\vartheta(0)e^{-tH/C}.
-\]</div>
-<p>The solution supplies what dimensional reasoning alone cannot: the decay
-is exponential, and its exact time constant is <span class="arithmatex">\(\tau=C/H\)</span>.</p>
-<p><strong>4. Nondimensionalize time and temperature.</strong> Following Stone, choose the
-initial departure as the temperature scale and define</p>
-<div class="arithmatex">\[
-\Theta=\frac{\vartheta}{\vartheta(0)}
-=\frac{T-T_{\mathrm{ss}}}{T(0)-T_{\mathrm{ss}}},
+\hat t=\frac{t}{\tau},
 \qquad
-\hat t=\frac{t}{\tau}.
-\]</div>
-<p>Substitution removes every dimensional parameter:</p>
-<div class="arithmatex">\[
-\frac{d\Theta}{d\hat t}=-\Theta,
-\qquad \Theta(0)=1,
-\qquad \Theta=e^{-\hat t}.
-\]</div>
-<p>This is also the form used in <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208">Lienhard and Lienhard, Section 5.2:
-dimensional analysis of a lumped-capacity
-system</a>.
-They use</p>
-<div class="arithmatex">\[
-\Theta=\frac{T-T_\infty}{T_i-T_\infty},
+\hat T=\frac{T-T_{\mathrm{amb}}}{\chi u_0},
 \qquad
-\frac{t}{\mathcal{T}},
-\qquad
-\mathcal{T}=\frac{\rho cV}{hA}.
-\]</div>
-<p>In our notation, <span class="arithmatex">\(C=\rho cV\)</span>, <span class="arithmatex">\(H=hA\)</span>, and <span class="arithmatex">\(T_\infty=T_{\mathrm{amb}}\)</span>,
-so Lienhard's <span class="arithmatex">\(\mathcal{T}\)</span> is our <span class="arithmatex">\(\tau=C/H\)</span>. See also <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=164">Lienhard and
-Lienhard, Section 4.3</a>
-for why temperature is nondimensionalized using a temperature
-<em>difference</em>: the absolute temperature level is not significant in a
-linear conduction problem.</p>
-<p><strong>What changes when the TEC drives the system?</strong> Choose a characteristic
-command <span class="arithmatex">\(u_0\)</span> and a characteristic temperature change <span class="arithmatex">\(\Delta T\)</span>, then
-define</p>
-<div class="arithmatex">\[
-\hat t=\frac{t}{\tau},\qquad
-\hat T=\frac{T-T_{\mathrm{amb}}}{\Delta T},\qquad
 \hat u=\frac{u}{u_0}.
 \]</div>
-<p>Substitution into the one-lump model gives</p>
-<div class="arithmatex">\[
-\frac{d\hat T}{d\hat t}
-=\Gamma\hat u-\hat T,
-\qquad
-\Gamma=\frac{\chi u_0}{\Delta T}.
-\]</div>
-<p>Thus the dimensional parameters enter through the single dimensionless
-group <span class="arithmatex">\(\Gamma\)</span>. Choosing <span class="arithmatex">\(\Delta T=\chi u_0\)</span>, the steady temperature
-change produced by <span class="arithmatex">\(u_0\)</span>, makes <span class="arithmatex">\(\Gamma=1\)</span> and leaves</p>
+<p>The open-loop model becomes</p>
 <div class="arithmatex">\[
 \frac{d\hat T}{d\hat t}=\hat u-\hat T.
 \]</div>
-<p>Thus, for an open-loop step, the natural temperature scale is either the
-measured step size or <span class="arithmatex">\(\chi u_0\)</span>, its predicted steady-state value.
-For setpoint control, use
-<span class="arithmatex">\(\Delta T=|T_{\mathrm{set}}-T_{\mathrm{amb}}|\)</span>. Absolute temperature is not
-useful here because the model depends only on temperature differences.
-Absolute kelvin temperature would become relevant for thermal radiation or
-strongly temperature-dependent material properties.</p>
-<p>Nondimensionalization is useful because it reveals which experiments are
-dynamically equivalent. For P control, scaling by the setpoint offset gives</p>
-<div class="arithmatex">\[
-\frac{d\hat T}{d\hat t}
-=L(\hat T_{\mathrm{set}}-\hat T)-\hat T,
-\qquad
-L=\chi K_p,
-\]</div>
-<p>where <span class="arithmatex">\(L\)</span> is the dimensionless loop gain and
-<span class="arithmatex">\(\hat T_{\mathrm{set}}=+1\)</span> for heating or <span class="arithmatex">\(-1\)</span> for cooling. The response
-shape is therefore controlled by <span class="arithmatex">\(L\)</span>, while <span class="arithmatex">\(\tau\)</span> restores the physical
-time scale.</p>
+<p>This shows that <span class="arithmatex">\(\tau\)</span> supplies the time scale and <span class="arithmatex">\(\chi u_0\)</span> supplies the
+temperature scale. For P control, the dimensionless loop gain is
+<span class="arithmatex">\(L=\chi K_p\)</span>. See <a href="../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21">Stone, Sections 1.5.1-1.5.2</a>
+and <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208">Lienhard, Section 5.2</a>
+for fuller treatments.</p>
 </details>
 <p>The two measured quantities are the thermal time constant and the open-loop
 susceptibility:</p>
@@ -885,9 +777,9 @@ damping ratio.</p>
 parameter comparisons, record quantitative results, and explain the physics
 and control. The prepared program supplies the numerical integration; it does
 not replace comparison with your experimental data. Its <strong>two-lump</strong> option is
-previewed qualitatively in Part 6 and developed quantitatively in <a href="../lab-07/">Module 6,
+motivated qualitatively in Part 5 and developed quantitatively in <a href="../lab-07/">Module 6,
 Part II</a>.</p>
-<h2 id="part-4-simulate-open-loop-response">Part 4: Simulate Open-Loop Response<a class="headerlink" href="#part-4-simulate-open-loop-response" title="Permanent link">&para;</a></h2>
+<h2 id="part-4-simulate-open-loop-and-p-control">Part 4: Simulate Open-Loop And P Control<a class="headerlink" href="#part-4-simulate-open-loop-and-p-control" title="Permanent link">&para;</a></h2>
 <p>Download <a href="../../downloads/Lab_6_7_modeling_tec.py">the prepared Module 6/7 TEC
 simulation</a>. Save it in your
 project repository as <code>python/Lab_6_7_modeling_tec.py</code>, then run it from the
@@ -974,49 +866,24 @@ open-loop traces. Record the values and units of <span class="arithmatex">\(\chi
 <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(u\)</span>, and <span class="arithmatex">\(\Delta t\)</span>. Choose <span class="arithmatex">\(\Delta t\)</span> much smaller than
 <span class="arithmatex">\(\tau\)</span> and verify that making it smaller does not appreciably change the
 result. Explain any important difference between the model and the apparatus.</p>
-<h2 id="part-5-simulate-p-only-feedback">Part 5: Simulate P-Only Feedback<a class="headerlink" href="#part-5-simulate-p-only-feedback" title="Permanent link">&para;</a></h2>
-<p>Continue with the same one-lump parameters in the simulation. Select <code>p</code> (P
-control), which replaces the constant command with</p>
+<h3 id="continue-with-p-control">Continue With P Control<a class="headerlink" href="#continue-with-p-control" title="Permanent link">&para;</a></h3>
+<p>Keep the same measured one-lump parameters and select <code>p</code>. The command is</p>
 <div class="arithmatex">\[
 u_n=K_p(T_{\mathrm{set}}-T_n).
 \]</div>
-<p>The program clamps <span class="arithmatex">\(u_n\)</span> to the allowed signed PWM range before applying the
-Euler update from Part 4.</p>
-<h3 id="guided-simulation-exercise-p-control-and-droop">Guided Simulation Exercise: P Control And Droop<a class="headerlink" href="#guided-simulation-exercise-p-control-and-droop" title="Permanent link">&para;</a></h3>
-<p>Return to <code>measured</code>, select <code>p</code>, and set</p>
-<div class="arithmatex">\[
-T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
-\qquad
-K_p=10\ \mathrm{PWM}/^\circ\mathrm{C}.
-\]</div>
-<p>With the default <span class="arithmatex">\(\chi_h=0.46\ ^\circ\mathrm{C/PWM}\)</span>, predict</p>
-<div class="arithmatex">\[
-L_h=\chi_hK_p=4.6,
-\]</div>
+<p>Use one gain from your Module 5 experiment and one larger gain. Before each
+run, predict the steady-state droop and closed-loop time constant from</p>
 <div class="arithmatex">\[
 T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{30-22}{1+4.6}
-\approx1.43\ ^\circ\mathrm{C},
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
 \qquad
-T_{\mathrm{ss}}\approx28.57\ ^\circ\mathrm{C}.
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
 \]</div>
-<p>Run the simulation, compare the displayed droop with the prediction, and then
-increase <span class="arithmatex">\(K_p\)</span>. Answer:</p>
-<ol>
-<li>Does the droop vanish or merely become smaller?</li>
-<li>Which dimensionless number determines whether the gain is small or large?</li>
-<li>What happens when the required command reaches the PWM limit?</li>
-</ol>
-<p>Before each run, predict the droop and closed-loop time constant from the
-equations in Parts 1 and 6. Simulate several values of <span class="arithmatex">\(K_p\)</span>. Record or capture:</p>
-<ul>
-<li>temperature versus time,</li>
-<li>PWM command versus time,</li>
-<li>final droop versus <span class="arithmatex">\(K_p\)</span>; use the recorded values to make one droop plot.</li>
-</ul>
-<p>Compare with Module 5. The one-lump model should capture some trends, but it
-may not reproduce oscillations.</p>
-<h2 id="part-6-solve-the-p-controlled-one-lump-model">Part 6: Solve The P-Controlled One-Lump Model<a class="headerlink" href="#part-6-solve-the-p-controlled-one-lump-model" title="Permanent link">&para;</a></h2>
+<p>Confirm that increasing <span class="arithmatex">\(K_p\)</span> decreases both droop and response time. Record
+only the settings and whether the predictions agree; do not make a second
+P-control data table. The six experimental Goldilocks plots later in this
+lesson provide the assessed gain comparison.</p>
+<h2 id="part-5-explain-the-one-lump-p-transient-and-its-limit">Part 5: Explain The One-Lump P Transient And Its Limit<a class="headerlink" href="#part-5-explain-the-one-lump-p-transient-and-its-limit" title="Permanent link">&para;</a></h2>
 <p>Now analyze the same dimensional one-lump model used throughout this module.
 The solution explains why its P-controlled response cannot oscillate. If the
 real apparatus oscillates, the difference identifies physics missing from the
@@ -1026,13 +893,6 @@ model.</p>
 C\frac{dT}{dt}
 =P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
 -(H+P_uK_p)T.
-\]</div>
-<p>Setting <span class="arithmatex">\(dT/dt=0\)</span> recovers the steady-state result from Part 1:</p>
-<div class="arithmatex">\[
-\boxed{
-T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p}.
-}
 \]</div>
 <p>Now define the displacement from steady state,</p>
 <div class="arithmatex">\[
@@ -1196,56 +1056,13 @@ two-lump equations, shows why they form a second-order system, and explores
 their behavior
 quantitatively.</a></p>
 </details>
-<details class="note">
-<summary>Why Does The One-Lump Model Predict Droop But Not The High-Gain Transient?</summary>
-<p>The steady-state prediction works well because it follows from a nearly
-model-independent thermodynamic statement:</p>
-<div class="arithmatex">\[
-\text{energy entering per unit time}
-=\text{energy leaving per unit time}.
-\]</div>
-<p>At steady state, no part of the apparatus continues to accumulate thermal
-energy. The detailed route taken by heat inside the apparatus no longer
-affects the overall requirement that TEC heating or cooling balance heat
-exchange with the room. This is why the one-lump energy balance and droop
-equation derived above can describe the final measured temperature accurately
-even though the apparatus is not truly at one uniform temperature.</p>
-<p>Transient behavior asks a different question: <strong>where is energy stored while
-the temperature is changing, and how long does it take to reach the
-thermistor?</strong> The one-lump model assumes that the TEC, block, and thermistor
-share one temperature. In the apparatus, energy can accumulate near the TEC
-before reaching the measured block. At high gain, the controller can respond
-and overcorrect before that stored energy becomes visible to the thermistor,
-producing overshoot and ringing.</p>
-<p>Thus the simple model predicts the final balance accurately while failing to
-predict the path taken to reach it:</p>
-<ul>
-<li><strong>Steady state:</strong> governed primarily by energy conservation, so energy in
-  equals energy out.</li>
-<li><strong>Transient response:</strong> governed by internal thermal storage and transport,
-  so the locations and time scales of energy storage matter.</li>
-</ul>
-</details>
-<h3 id="guided-simulation-exercise-from-no-overshoot-to-overshoot">Guided Simulation Exercise: From No Overshoot To Overshoot<a class="headerlink" href="#guided-simulation-exercise-from-no-overshoot-to-overshoot" title="Permanent link">&para;</a></h3>
-<p>Preview the two-lump explanation before studying it systematically in Part II.
-In the simulation, select <code>one_lump</code>, <code>measured</code>, and <code>p</code>. Use</p>
-<div class="arithmatex">\[
-T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
-\qquad
-T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
-\qquad
-K_p=120\ \mathrm{PWM}/^\circ\mathrm{C}.
-\]</div>
-<p>Set <span class="arithmatex">\(K_i=0\)</span>, reset, and observe that the one-lump temperature approaches its
-steady value without overshoot. Change only the physical model to <code>two_lump</code>,
-reset, and repeat. Compare the measured temperature <span class="arithmatex">\(T_m\)</span> in the two-lump
-simulation with the one-lump temperature at the same gain.</p>
-<p>Explain qualitatively why <span class="arithmatex">\(T_m\)</span> can continue rising after the controller
-begins reducing the TEC command. Do not tune the two-lump parameters here.</p>
-<p>This brief comparison establishes that an additional thermal state can permit
-overshoot. The coupled equations and systematic parameter study belong to
-<a href="../lab-07/#two-lump-physical-model">Module 6, Part II</a>.</p>
-<h2 id="part-7-add-integral-action-in-simulation">Part 7: Add Integral Action In Simulation<a class="headerlink" href="#part-7-add-integral-action-in-simulation" title="Permanent link">&para;</a></h2>
+<p>The one-lump model predicts the final temperature well because steady state is
+governed by the nearly model-independent requirement that energy entering per
+unit time equals energy leaving per unit time. It fails at high gain because
+transient behavior also depends on where energy is stored and how long it takes
+to reach the thermistor. The qualitative two-lump explanation is developed in
+the sidebar above; its equations and parameter study are the focus of Part II.</p>
+<h2 id="part-6-add-integral-action-in-simulation">Part 6: Add Integral Action In Simulation<a class="headerlink" href="#part-6-add-integral-action-in-simulation" title="Permanent link">&para;</a></h2>
 <p>Keep the same dimensional one-lump energy balance. PI control changes only the
 command supplied to the TEC. Define the temperature error and its accumulated
 value as</p>
@@ -1346,276 +1163,19 @@ controller's memory during normal operation, and <strong>Zero integral</strong> 
 clears that memory before a new comparison.</p>
 </details>
 <h3 id="why-pi-can-be-underdamped">Why PI Can Be Underdamped<a class="headerlink" href="#why-pi-can-be-underdamped" title="Permanent link">&para;</a></h3>
-<p>PI control adds the accumulated error as a second state variable. Unlike the
-one-state P model, a two-state PI model can therefore have a pair of complex
-eigenvalues and an underdamped response. The optional derivation below is
-included for mathematical culture, curiosity, and completeness; it is not an
-A3 assessment requirement.</p>
-<details class="note">
-<summary>Optional advanced derivation: PI eigenvalues, damping ratio, and time scales</summary>
-<p>From the definitions above,</p>
+<p>PI control adds the accumulated error as a second state variable. The
+one-lump P model has only one state and therefore produces one monotonic
+exponential; the one-lump PI model has two coupled states and can overshoot or
+oscillate. For the unsaturated linear model, the temperature and integral-state
+displacements obey a second-order characteristic equation,</p>
 <div class="arithmatex">\[
-\frac{dq}{dt}=e,
-\qquad
-u=K_p e+K_i q,
-\qquad
-e=T_{\mathrm{set}}-T.
+\lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]</div>
-<p>For an unsaturated PI controller at steady state, the temperature reaches the
-setpoint and the integral term supplies the PWM needed to balance heat loss:</p>
-<div class="arithmatex">\[
-T_{\mathrm{ss}}=T_{\mathrm{set}},
-\qquad
-q_{\mathrm{ss}}
-=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
-\]</div>
-<p>Now define the <strong>two state variables as displacements from steady state</strong>:</p>
-<div class="arithmatex">\[
-\boxed{
-\theta(t)=T(t)-T_{\mathrm{set}}
-},
-\qquad
-\boxed{
-z(t)=q(t)-q_{\mathrm{ss}}
-}.
-\]</div>
-<p>Thus <span class="arithmatex">\(\theta\)</span> is the temperature displacement and <span class="arithmatex">\(z\)</span> is the integral-state
-displacement. Because <span class="arithmatex">\(e=-\theta\)</span>, their time derivatives obey</p>
-<div class="arithmatex">\[
-\frac{d\theta}{dt}
-=-\frac{H+P_uK_p}{C}\theta
-+\frac{P_uK_i}{C}z,
-\qquad
-\frac{dz}{dt}=-\theta.
-\]</div>
-<p>In matrix form,</p>
-<div class="arithmatex">\[
-\frac{d}{dt}
-\begin{pmatrix}
-\theta\\ z
-\end{pmatrix}
-=
-\underbrace{
-\begin{pmatrix}
--\dfrac{H+P_uK_p}{C} &amp; \dfrac{P_uK_i}{C}\\
--1 &amp; 0
-\end{pmatrix}
-}_{A}
-\begin{pmatrix}
-\theta\\ z
-\end{pmatrix}.
-\]</div>
-<details class="note">
-<summary>Sidebar: Solving a matrix ODE by diagonalization</summary>
-<p>Write the two state variables as one vector,</p>
-<div class="arithmatex">\[
-\mathbf{x}(t)=
-\begin{pmatrix}
-\theta(t)\\ z(t)
-\end{pmatrix},
-\qquad
-\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
-\]</div>
-<p>First look for one exponential mode,</p>
-<div class="arithmatex">\[
-\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
-\]</div>
-<p>where the constant vector <span class="arithmatex">\(\mathbf{v}\)</span> gives the relative amounts of
-temperature displacement and integral-state displacement in that mode.
-Substitution gives</p>
-<div class="arithmatex">\[
-\lambda\mathbf{v}e^{\lambda t}
-=A\mathbf{v}e^{\lambda t},
-\]</div>
-<p>and cancellation of the nonzero exponential leaves</p>
-<div class="arithmatex">\[
-(A-\lambda I)\mathbf{v}=0.
-\]</div>
-<p>We want a nonzero eigenvector <span class="arithmatex">\(\mathbf{v}\)</span>. A homogeneous matrix equation
-has a nonzero solution only when its matrix is singular, so</p>
-<div class="arithmatex">\[
-\boxed{\det(A-\lambda I)=0}.
-\]</div>
-<p>This determinant equation therefore finds the values of <span class="arithmatex">\(\lambda\)</span> for which
-exponential solutions are possible. For each eigenvalue, solving
-<span class="arithmatex">\((A-\lambda I)\mathbf{v}=0\)</span> gives its eigenvector.</p>
-<p>If the two eigenvectors are independent, place them in the columns of</p>
-<div class="arithmatex">\[
-V=\begin{pmatrix}\mathbf{v}_+&amp;\mathbf{v}_-\end{pmatrix},
-\qquad
-\Lambda=
-\begin{pmatrix}
-\lambda_+&amp;0\\0&amp;\lambda_-
-\end{pmatrix}.
-\]</div>
-<p>The eigenvalue equations together say <span class="arithmatex">\(AV=V\Lambda\)</span>, or</p>
-<div class="arithmatex">\[
-A=V\Lambda V^{-1}.
-\]</div>
-<p>Now change coordinates by writing <span class="arithmatex">\(\mathbf{x}=V\mathbf{y}\)</span>. The coupled
-matrix equation becomes</p>
-<div class="arithmatex">\[
-\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
-\]</div>
-<p>Because <span class="arithmatex">\(\Lambda\)</span> is diagonal, this is just two independent scalar
-equations:</p>
-<div class="arithmatex">\[
-\frac{dy_+}{dt}=\lambda_+y_+,
-\qquad
-\frac{dy_-}{dt}=\lambda_-y_-.
-\]</div>
-<p>Their solutions are <span class="arithmatex">\(y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}\)</span>. Transforming back
-gives</p>
-<div class="arithmatex">\[
-\boxed{
-\mathbf{x}(t)
-=V
-\begin{pmatrix}
-e^{\lambda_+t}&amp;0\\0&amp;e^{\lambda_-t}
-\end{pmatrix}
-V^{-1}\mathbf{x}(0)
-=e^{At}\mathbf{x}(0)
-}.
-\]</div>
-<p>Thus diagonalization reveals the matrix exponential as a combination of two
-ordinary exponential modes. If the eigenvalues are complex conjugates, those
-two modes combine to produce a real decaying oscillation. At critical damping,
-the repeated eigenvalue may provide only one eigenvector; the matrix
-exponential still exists, but its solution can also contain a term
-proportional to <span class="arithmatex">\(t e^{\lambda t}\)</span>.</p>
-</details>
-<p>The eigenvalues satisfy</p>
-<div class="arithmatex">\[
-\det(A-\lambda I)=0.
-\]</div>
-<p>Evaluating this determinant gives the characteristic equation</p>
-<div class="arithmatex">\[
-\lambda^2
-+\frac{H+P_uK_p}{C}\lambda
-+\frac{P_uK_i}{C}=0.
-\]</div>
-<p>The quadratic formula gives both eigenvalues:</p>
-<div class="arithmatex">\[
-\boxed{
-\lambda_{\pm}
-=-\frac{H+P_uK_p}{2C}
-\pm
-\sqrt{
-\left(\frac{H+P_uK_p}{2C}\right)^2
--\frac{P_uK_i}{C}
-}
-}.
-\]</div>
-<ul>
-<li>Two negative real eigenvalues give an overdamped response.</li>
-<li>One repeated negative eigenvalue gives critical damping.</li>
-<li>A complex-conjugate pair with negative real parts gives an underdamped
-  oscillation.</li>
-<li>An eigenvalue with a positive real part gives an unstable response.</li>
-</ul>
-<p>The damping ratio is a dimensionless number that identifies the transition
-from underdamped to overdamped behavior:</p>
-<div class="arithmatex">\[
-\boxed{
-\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
-}.
-\]</div>
-<p>The linear PI response is underdamped when</p>
-<div class="arithmatex">\[
-\zeta&lt;1
-\qquad\Longleftrightarrow\qquad
-(H+P_uK_p)^2&lt;4CP_uK_i.
-\]</div>
-<p>Increasing <span class="arithmatex">\(C\)</span> or <span class="arithmatex">\(K_i\)</span> increases the tendency to oscillate while increasing <span class="arithmatex">\(H\)</span> or <span class="arithmatex">\(K_p\)</span> dampens the system.</p>
-<details class="note">
-<summary>Time constants for open-loop, P, and PI control</summary>
-<p>The open-loop one-lump model has one time constant,</p>
-<div class="arithmatex">\[
-\tau=\frac{C}{H}.
-\]</div>
-<p>P control changes the coefficient multiplying the temperature displacement
-but does not add a state variable. Its response is still a single
-exponential, with</p>
-<div class="arithmatex">\[
-\boxed{
-\tau_P=\frac{C}{H+P_uK_p}
-=\frac{\tau}{1+\chi K_p}
-}.
-\]</div>
-<p>Thus P control makes the one-lump response faster as <span class="arithmatex">\(K_p\)</span> increases,
-although it retains steady-state droop.</p>
-<p>PI control adds the integral state, so it is a second-order system and
-generally does <strong>not</strong> have one time constant. Its two eigenvalues are
-<span class="arithmatex">\(\lambda_+\)</span> and <span class="arithmatex">\(\lambda_-\)</span>, as derived above.</p>
-<p><strong>Overdamped PI control.</strong> If both eigenvalues are real and negative, the
-response contains two exponentials. Their time constants are</p>
-<div class="arithmatex">\[
-\tau_+=-\frac{1}{\lambda_+},
-\qquad
-\tau_-=-\frac{1}{\lambda_-}.
-\]</div>
-<p>The eigenvalue closer to zero gives the slow time constant and usually
-controls the final approach to the setpoint. The other gives the fast
-transient.</p>
-<p><strong>Underdamped PI control.</strong> If the eigenvalues are complex, write</p>
-<div class="arithmatex">\[
-\lambda_{\pm}=-\zeta\omega_n\pm i\omega_d,
-\qquad
-\omega_n=\sqrt{\frac{P_uK_i}{C}},
-\qquad
-\omega_d
-=\sqrt{
-\frac{P_uK_i}{C}
--\left(\frac{H+P_uK_p}{2C}\right)^2
-}
-=\omega_n\sqrt{1-\zeta^2}.
-\]</div>
-<p>The oscillation envelope decays with time constant</p>
-<div class="arithmatex">\[
-\boxed{
-\tau_{\mathrm{env}}
-=\frac{1}{\zeta\omega_n}
-=\frac{2C}{H+P_uK_p}
-=2\tau_P
-}.
-\]</div>
-<p>The oscillation frequency in hertz and the corresponding period are</p>
-<div class="arithmatex">\[
-\boxed{
-f_{\mathrm{osc}}
-=\frac{\omega_d}{2\pi}
-=\frac{1}{2\pi}
-\sqrt{
-\frac{P_uK_i}{C}
--\left(\frac{H+P_uK_p}{2C}\right)^2
-}
-},
-\qquad
-T_{\mathrm{osc}}=\frac{1}{f_{\mathrm{osc}}}
-=\frac{2\pi}{\omega_d}.
-\]</div>
-<p>The period and decay time are different quantities: <span class="arithmatex">\(T_{\mathrm{osc}}\)</span>
-describes how rapidly the response oscillates, while
-<span class="arithmatex">\(\tau_{\mathrm{env}}\)</span> describes how rapidly those oscillations decay.</p>
-<p><strong>Critically damped PI control.</strong> The two eigenvalues coincide. The
-characteristic decay time is</p>
-<div class="arithmatex">\[
-\tau_{\mathrm{crit}}
-=\frac{1}{\omega_n}
-=\frac{2C}{H+P_uK_p}.
-\]</div>
-<p>Therefore, report one time constant for open-loop or P control. For PI
-control, report the two real time constants when overdamped, or report the
-decay-envelope time and oscillation period when underdamped.</p>
-</details>
-<p><strong>Optional exploration.</strong> Use the simulation to find one overdamped and one
-underdamped parameter set.
-For each case, record <span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, the displayed
-value of <span class="arithmatex">\(\zeta\)</span>, and whether the temperature trace agrees with the
-prediction. The formula applies only while the model is linear and the PWM is
-not saturated.</p>
-</details>
-<h2 id="part-8-october-14-implement-pi-control-on-the-physical-tec">Part 8: October 14, Implement PI Control On The Physical TEC<a class="headerlink" href="#part-8-october-14-implement-pi-control-on-the-physical-tec" title="Permanent link">&para;</a></h2>
+<p>Real negative roots give a nonoscillatory response, while a complex-conjugate
+pair gives a decaying oscillation. This result is included for interpretation,
+not as a required A3 derivation. Use the simulation to observe how <span class="arithmatex">\(K_p\)</span> and
+<span class="arithmatex">\(K_i\)</span> change the response.</p>
+<h2 id="part-7-implement-pi-control-and-collect-the-experimental-goldilocks-plots">Part 7: Implement PI Control And Collect The Experimental Goldilocks Plots<a class="headerlink" href="#part-7-implement-pi-control-and-collect-the-experimental-goldilocks-plots" title="Permanent link">&para;</a></h2>
 <p>Use your working Module 5 P controller as the starting point. Do not replace
 the Arduino's independent temperature shutdown or the existing signed-PWM
 clamp. Implement the integral state and the <a href="#why-integral-windup-occurs">conditional-integration rule
@@ -1648,50 +1208,9 @@ Arduino safety shutdown remain active even when anti-windup is working.</p>
 </ol>
 <p>Preserve both traces and the exact <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, setpoint, starting
 temperature, PWM limit, sample interval, and anti-windup setting. These two
-preliminary traces establish that the controller works; they do not replace
-the <a href="#required-six-run-experimental-protocol">required six-run study</a>. Complete
-that study before beginning Part II. Before the study, verify the independent
-Arduino temperature shutdown and show the instructor your proposed gain
-range. Retain three P runs at different <span class="arithmatex">\(K_p\)</span> values and three PI runs at fixed
-<span class="arithmatex">\(K_p\)</span> and different <span class="arithmatex">\(K_i\)</span> values for A3.</p>
-<h2 id="part-9-check-your-understanding-of-windup">Part 9: Check Your Understanding Of Windup<a class="headerlink" href="#part-9-check-your-understanding-of-windup" title="Permanent link">&para;</a></h2>
-<p>Suppose the setpoint is far away and the requested PWM exceeds the actuator
-limit.</p>
-<p>Answer:</p>
-<ol>
-<li>What happens to the integral term while PWM is saturated?</li>
-<li>What happens after the temperature finally approaches the setpoint?</li>
-<li>Why might this cause overshoot?</li>
-<li>Under conditional integration, when should <span class="arithmatex">\(q\)</span> be held fixed and when
-   should it be allowed to change?</li>
-<li>Explain the different purposes of the PWM clamp, anti-windup, and <strong>Zero
-   integral</strong> control.</li>
-</ol>
-<h2 id="part-10-a3-modeling-evidence-checkpoint">Part 10: A3 Modeling-Evidence Checkpoint<a class="headerlink" href="#part-10-a3-modeling-evidence-checkpoint" title="Permanent link">&para;</a></h2>
-<p>Before closing the simulation or dismantling the apparatus, save the settings,
-data, plots, and calculations needed for A3. Commit the simulation and your
-Markdown record so the analysis is reproducible.</p>
-<pre><code class="language-bash">git status
-git add README.md docs data python/Lab_6_7_modeling_tec.py
-git commit -m &quot;Analyze open-loop P and PI temperature control&quot;
-git push
-</code></pre>
-<h2 id="a3-feedback-data-and-lumped-model-memo">A3: Feedback Data And Lumped-Model Memo<a class="headerlink" href="#a3-feedback-data-and-lumped-model-memo" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Due:</strong> Wednesday, October 21, at <strong>6:00 PM</strong></li>
-<li><strong>Type:</strong> team, 10 points</li>
-<li><strong>Moodle file:</strong> <code>A3_Lastname_Lastname.pdf</code></li>
-<li><strong>Moodle submission:</strong> Each student uploads the team PDF separately;
-  teammates may upload the same PDF</li>
-<li><strong>Repository file:</strong> <code>docs/assessments/a3_feedback_model.md</code></li>
-<li><strong>Analysis and submission target:</strong> about <strong>2 hours</strong> after the in-class analysis is
-  complete</li>
-</ul>
-<p>The final A3 assembly consists of selecting the already completed comparison
-plots and table, writing the short interpretation, checking paths, committing,
-pushing, and submitting the PDF. The one-lump derivation is part of this paper,
-not a separate graded document.</p>
-<h3 id="required-six-run-experimental-protocol">Required Six-Run Experimental Protocol<a class="headerlink" href="#required-six-run-experimental-protocol" title="Permanent link">&para;</a></h3>
+preliminary traces establish that the controller works. Now complete the
+Goldilocks study below before beginning Part II.</p>
+<h3 id="experimental-goldilocks-study">Experimental Goldilocks Study<a class="headerlink" href="#experimental-goldilocks-study" title="Permanent link">&para;</a></h3>
 <p>Use one apparatus, one PWM limit, and the same two temperature setpoints for
 all six retained runs. Each run must contain an upward setpoint step and a
 downward setpoint step so that heating and cooling are compared under matched
@@ -1751,81 +1270,99 @@ series for measured temperature, setpoint, signed applied PWM, <span class="arit
 and error. Record the actual gains, initial temperatures, PWM limit, sample
 interval, and anti-windup setting. The Arduino temperature shutdown and PWM
 clamp remain active for every run.</p>
-<p>Use these same six runs for A3 Questions 5 and 6; no second set of experiments
-is required.</p>
+<p>Make and label the <strong>six experimental Goldilocks plots</strong> during this lesson.
+Part II asks you to make the six corresponding simulation plots and compare
+them under matched conditions.</p>
+<h3 id="preserve-your-evidence">Preserve Your Evidence<a class="headerlink" href="#preserve-your-evidence" title="Permanent link">&para;</a></h3>
+<p>Before closing the simulation or dismantling the apparatus, save the settings,
+data, plots, and calculations needed for A3. Commit the simulation and your
+Markdown record so the analysis is reproducible.</p>
+<pre><code class="language-bash">git status
+git add README.md docs data python/Lab_6_7_modeling_tec.py
+git commit -m &quot;Analyze open-loop P and PI temperature control&quot;
+git push
+</code></pre>
+<h2 id="a3-feedback-data-and-lumped-model-memo">A3: Feedback Data And Lumped-Model Memo<a class="headerlink" href="#a3-feedback-data-and-lumped-model-memo" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Due:</strong> Wednesday, October 21, at <strong>6:00 PM</strong></li>
+<li><strong>Type:</strong> team, 10 points</li>
+<li><strong>Moodle file:</strong> <code>A3_Lastname_Lastname.pdf</code></li>
+<li><strong>Moodle submission:</strong> Each student uploads the team PDF separately;
+  teammates may upload the same PDF</li>
+<li><strong>Repository file:</strong> <code>docs/assessments/a3_feedback_model.md</code></li>
+<li><strong>Analysis and submission target:</strong> about <strong>2 hours</strong> after the in-class analysis is
+  complete</li>
+</ul>
+<p>The final A3 assembly consists of selecting the already completed comparison
+plots and table, writing the short interpretation, checking paths, committing,
+pushing, and submitting the PDF. The one-lump derivation is part of this paper,
+not a separate graded document.</p>
+<p>Use the six experimental Goldilocks plots produced in Part 7 and the six
+corresponding simulation plots produced in Part II. No additional runs are
+required for A3.</p>
 <h3 id="a3-questions">A3 Questions<a class="headerlink" href="#a3-questions" title="Permanent link">&para;</a></h3>
 <p>Answer the following questions concisely. Support each answer with equations,
 measured values, or plots where requested.</p>
-<ol>
-<li>
-<p><strong>Open-loop model and measured parameters.</strong> Starting from the dimensional
-   one-lump energy balance, show that
-   <span class="arithmatex">\(\tau=C/H\)</span> and <span class="arithmatex">\(\chi=P_u/H\)</span>. Use your measured <span class="arithmatex">\(\tau\)</span> and heating or cooling
-   <span class="arithmatex">\(\chi\)</span> to write the corresponding model with no free parameters. Compare
-   one simulated open-loop response with one measured response: what agrees,
-   and what does not?</p>
-</li>
-<li>
-<p><strong>P control, droop, and response speed.</strong> Derive the P-control droop,
-   <span class="arithmatex">\(T_{\mathrm{set}}-T_{\mathrm{ss}}
-   =(T_{\mathrm{set}}-T_{\mathrm{amb}})/(1+\chi K_p)\)</span>, and the closed-loop
-   time constant, <span class="arithmatex">\(\tau_{\mathrm{cl}}=\tau/(1+\chi K_p)\)</span>. Explain why
-   increasing <span class="arithmatex">\(K_p\)</span> both decreases droop and speeds up the
-   response. Identify the dimensionless loop gain and compare the predicted
-   trends with your Module 5 measurements.</p>
-</li>
-<li>
-<p><strong>Overshoot and model limits.</strong> Explain mathematically why the one-lump
-   P-control model cannot overshoot or oscillate. Present your low- and
-   high-gain experimental evidence. Using the quantitative model and
-   simulation developed in Part II, explain how the two-lump description
-   reproduces behavior that the one-lump model cannot.</p>
-</li>
-<li>
-<p><strong>Integral action and windup.</strong> Use <span class="arithmatex">\(u=u_P+u_I=K_pe+K_iq\)</span> and
-   <span class="arithmatex">\(dq/dt=e\)</span> to explain how integral action removes droop. Explain integral
-   windup, describe your anti-windup rule, and state what happens when the
-   integral state is reset after PI control has reached steady state.</p>
-</li>
-<li>
-<p><span id="a3-question-5"></span><strong>P And PI Gain Characterization.</strong> Use the six-run protocol to show how
-   changing <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> changes the response. For each gain, plot the
-   process output (measured temperature) and process input (signed applied
-   PWM). From the Arduino's perspective, the thermistor measurement is an
-   input and PWM is an output; the terminology is reversed here because the
-   PWM enters the physical process and temperature leaves it. Arrange the
-   plots so that the P and PI trends can be compared with the reference below.</p>
+<h4 id="1-one-lump-model-and-p-control-predictions">1. One-Lump Model And P-Control Predictions<a class="headerlink" href="#1-one-lump-model-and-p-control-predictions" title="Permanent link">&para;</a></h4>
+<p>Starting from the dimensional one-lump energy balance, show that <span class="arithmatex">\(\tau=C/H\)</span>
+and <span class="arithmatex">\(\chi=P_u/H\)</span>, then write the model using your measured <span class="arithmatex">\(\tau\)</span> and <span class="arithmatex">\(\chi\)</span>.
+Derive the P-control droop,</p>
+<div class="arithmatex">\[
+T_{\mathrm{set}}-T_{\mathrm{ss}}
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
+\]</div>
+<p>and the closed-loop time constant,</p>
+<div class="arithmatex">\[
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
+\]</div>
+<p>Explain why increasing <span class="arithmatex">\(K_p\)</span> both decreases droop and speeds up the response.
+Identify the dimensionless loop gain. Compare one representative open-loop or
+P-control prediction with measurement and state what agrees.</p>
+<p><span id="a3-question-2"></span></p>
+<h4 id="2-experimental-goldilocks-plots-and-step-response-metrics">2. Experimental Goldilocks Plots And Step-Response Metrics<a class="headerlink" href="#2-experimental-goldilocks-plots-and-step-response-metrics" title="Permanent link">&para;</a></h4>
+<p>Present six experimental plots: low-, medium-, and high-gain P responses
+followed by low-, medium-, and high-gain PI responses. For each plot, show the
+process output (measured temperature) and process input (signed applied PWM).</p>
+<p>Analyze the largest-gain P and PI cases quantitatively. For both upward and
+downward steps, report rise time, percent overshoot, settling time,
+steady-state error, and oscillation period when applicable. Define the
+thresholds used for rise and settling times.</p>
 <p><img alt="Responses to step changes for proportional and PI control" src="../../assets/controller_gain_response_reference.png" /></p>
-<p><em>Reference responses for (a) proportional control and (b) PI control. In
-this course, the input <span class="arithmatex">\(u\)</span> is the signed PWM command applied to the TEC, and
-the output <span class="arithmatex">\(y\)</span> is the measured temperature.</em></p>
-</li>
-<li>
-<p><strong>Step-Response Characterization.</strong> Analyze only the largest-gain P and PI
-   cases: Run 3, with the largest <span class="arithmatex">\(K_p\)</span>, and Run 6, with the largest <span class="arithmatex">\(K_i\)</span>.
-   For the upward and downward steps in those two runs, report rise time,
-   percent overshoot, settling time, and steady-state error. When oscillations
-   occur, also report their period. Define the thresholds you use for rise time
-   and settling time, then compare heating with cooling and P with PI control.
-   For additional background, see <a href="https://www.ni.com/docs/en-US/bundle/labview/page/using-pid-on-fpga-targets.html">LabVIEW guidance on PID response
-   metrics</a>.</p>
+<p><em>Reference responses for (a) proportional control and (b) PI control. In this
+course, the input <span class="arithmatex">\(u\)</span> is the signed PWM command applied to the TEC, and the
+output <span class="arithmatex">\(y\)</span> is the measured temperature.</em></p>
 <p><img alt="Rise time, percent overshoot, settling time, and steady-state error" src="../../assets/step_response_metrics.gif" /></p>
-<p><em>Step-response attributes: rise time, percent overshoot, settling time, and steady-state error.</em></p>
-</li>
-<li>
-<p><strong>Gain selection and the theory-simulation-measurement connection.</strong> Explain
-   how the simulation informed your experimental choices of <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span>.
-   Identify one agreement and one disagreement among theory, simulation, and
-   measurement. Justify your final gains and identify one physical effect that
-   a better model should include.</p>
-</li>
-</ol>
+<p><em>Step-response attributes: rise time, percent overshoot, settling time, and
+steady-state error.</em></p>
+<p><span id="a3-question-3"></span></p>
+<h4 id="3-simulation-goldilocks-plots-and-experiment-theory-comparison">3. Simulation Goldilocks Plots And Experiment-Theory Comparison<a class="headerlink" href="#3-simulation-goldilocks-plots-and-experiment-theory-comparison" title="Permanent link">&para;</a></h4>
+<p>Present six simulation plots corresponding to the six experimental plots in
+Question 2. Every simulation must use the <strong>same physical parameters</strong>
+<span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>, <span class="arithmatex">\(G\)</span>, <span class="arithmatex">\(C_T/C\)</span>, TEC voltage, TEC resistance,
+setpoints, starting conditions, and PWM limit because all six experiments use
+the same apparatus. Change only controller mode, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(K_i\)</span> as required
+by the six-run protocol. Use the two-lump equations to explain which parameters
+primarily control rise time, P-control droop, overshoot, and the number and
+decay of oscillations. Identify one important agreement and one important
+disagreement between simulation and experiment.</p>
+<h4 id="4-integral-action-and-windup">4. Integral Action And Windup<a class="headerlink" href="#4-integral-action-and-windup" title="Permanent link">&para;</a></h4>
+<p>Use <span class="arithmatex">\(u=u_P+u_I=K_pe+K_iq\)</span> and <span class="arithmatex">\(dq/dt=e\)</span> to explain how integral action removes
+droop. Explain integral windup, describe your anti-windup rule, and state what
+happens when the integral state is reset after PI control has reached steady
+state.</p>
+<h4 id="5-model-limits-and-gain-selection">5. Model Limits And Gain Selection<a class="headerlink" href="#5-model-limits-and-gain-selection" title="Permanent link">&para;</a></h4>
+<p>Explain mathematically why the one-lump P-control model cannot overshoot. Use
+the two-lump equations and your twelve Goldilocks plots to explain how internal
+thermal lag produces behavior absent from the one-lump model. Justify your
+final <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> and name one physical effect that a better model should
+include.</p>
 <h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
-<p>Submit one PDF containing concise responses to all seven questions, the
-six-run comparison table and plots, and links to the underlying data, analysis
+<p>Submit one PDF containing concise responses to all five questions, the six
+experimental and six simulated Goldilocks plots, the comparison tables, and
+links to the underlying data, analysis
 code, and GitHub modeling checkpoint. Integrate the <a href="../lab-05/#student-derivation-recover-the-droop-equation">Module 5 interpretation
 questions</a>
-into A3 Questions 2 and 3, and integrate the windup thought experiment into
+into A3 Questions 1 and 5, and integrate the windup thought experiment into
 Question 4 rather than repeating either set separately.</p>
 <h3 id="a3-rubric">A3 Rubric<a class="headerlink" href="#a3-rubric" title="Permanent link">&para;</a></h3>
 <table>
@@ -1837,23 +1374,23 @@ Question 4 rather than repeating either set separately.</p>
 </thead>
 <tbody>
 <tr>
-<td>One-lump energy balance, <span class="arithmatex">\(\chi=P_u/H\)</span>, <span class="arithmatex">\(\tau=C/H\)</span>, units, and the no-free-parameter open-loop comparison are correct</td>
+<td>One-lump energy balance, measured parameters, P-control droop, response speed, and dimensionless gain are correct</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>P-control droop, response speed, dimensionless gain, and overshoot or underdamped-response evidence are explained quantitatively</td>
+<td>Six experimental Goldilocks plots use matched conditions, and the largest-gain P and PI runs are quantified in both directions</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>All six P and PI runs use matched conditions, documented gains, and reproducible temperature and PWM records</td>
+<td>Six simulation Goldilocks plots use one common set of physical parameters and are compared with experiment</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>The largest-gain P and PI runs are quantified in both directions using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable</td>
+<td>Integral action, reset, windup, and anti-windup are explained using the controller equations</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>Integral action, anti-windup, final gain selection, and agreements and limitations among theory, simulation, and measurement are justified</td>
+<td>The two-lump explanation, parameter-behavior connections, model comparison, and final gain choice are justified</td>
 <td style="text-align: right;">2</td>
 </tr>
 </tbody>

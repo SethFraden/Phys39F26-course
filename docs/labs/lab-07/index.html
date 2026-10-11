@@ -168,31 +168,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-1-one-lump-open-loop-model" class="nav-link">Part 1: One-Lump Open-Loop Model</a>
+            <li class="nav-item" data-bs-level="3"><a href="#part-1-match-the-goldilocks-p-and-pi-trends" class="nav-link">Part 1: Match The Goldilocks P And PI Trends</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-2-one-temperature-proportional-model" class="nav-link">Part 2: One-Temperature Proportional Model</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-3-reproduce-the-goldilocks-p-and-pi-trends" class="nav-link">Part 3: Reproduce The Goldilocks P And PI Trends</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-4-connect-the-model-to-pi-feedback" class="nav-link">Part 4: Connect The Model To PI Feedback</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-5-complete-the-two-lump-theory-assignment" class="nav-link">Part 5: Complete The Two-Lump Theory Assignment</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-6-trace-one-parameter-through-the-algorithm" class="nav-link">Part 6: Trace One Parameter Through The Algorithm</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-7-bridge-to-the-long-rod" class="nav-link">Part 7: Bridge To The Long Rod</a>
+            <li class="nav-item" data-bs-level="3"><a href="#part-2-interpret-the-match" class="nav-link">Part 2: Interpret The Match</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -200,15 +180,11 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#post-class-assignment" class="nav-link">Post-Class Assignment</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#preserve-the-model-evidence" class="nav-link">Preserve The Model Evidence</a>
+            <li class="nav-item" data-bs-level="3"><a href="#preserve-the-a3-evidence" class="nav-link">Preserve The A3 Evidence</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-bs-level="3"><a href="#oral-review-questions-process-modeling" class="nav-link">Oral Review Questions: Process Modeling</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#model-evidence-record" class="nav-link">Model Evidence Record</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -235,8 +211,8 @@ the one-lump model, while Part II compares the one- and two-lump models.</p>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
 <p>This part follows the first Module 6 modeling work and the initial physical PI
 implementation. Before beginning Part II, complete the physical <span class="arithmatex">\(K_p\)</span> and
-<span class="arithmatex">\(K_i\)</span> study and generate the comparison plots required by <a href="../lab-06/#a3-question-5">Module 6, Part I,
-A3 Question 5</a>. Part II connects three
+<span class="arithmatex">\(K_i\)</span> study and generate the comparison plots required by <a href="../lab-06/#a3-question-3">Module 6, Part I,
+A3 Question 3</a>. Part II connects three
 things:</p>
 <ol>
 <li>the physical TEC/block/thermistor system,</li>
@@ -259,13 +235,15 @@ overshoot, lag, and the onset of instability.</p>
 <li>predict and verify how <span class="arithmatex">\(K_p\)</span>, the coupling conductance, and the two thermal
   capacitances affect the simulated transient;</li>
 <li>characterize matched physical P and PI responses using rise time,
-  overshoot, settling time, steady-state error, and oscillation period; and</li>
-<li>apply and justify a controlled protocol for selecting <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by
-  connecting theory, simulation, and measurement.</li>
+  overshoot, settling time, steady-state error, and oscillation period;</li>
+<li>generate six simulation Goldilocks plots using one shared set of physical
+  parameters and compare them with the six experimental Goldilocks plots; and</li>
+<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by connecting theory, simulation, and
+  measurement.</li>
 </ul>
-<p>These objectives are assessed through the two-lump derivation and theory
-assignment, the Part 3 and Part 6 simulation records, the completed six-run
-physical protocol from Part I, and A3 Questions 3 and 5–7.</p>
+<p>The twelve measured and simulated Goldilocks plots are the principal way you
+achieve these objectives. They are assessed together with the two-lump
+derivation in A3 Questions 3 and 5.</p>
 <h3 id="class-theme">Class Theme<a class="headerlink" href="#class-theme" title="Permanent link">&para;</a></h3>
 <p><strong>Use Models To Explain Measurements</strong></p>
 <p>In control theory, the <strong>process</strong> is the physical cause-and-effect system that
@@ -277,31 +255,28 @@ to measured temperature is the process we are modeling.</p>
 <h3 id="at-a-glance">At A Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
 <p>Before class, spend your time in this order:</p>
 <ul>
-<li><strong>35-45 min</strong>: Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
-  Chapter 1 with emphasis on energy balance, heat flux, conduction, thermal
-  resistance, heat capacity, and <a href="#lumped-model-figure">lumped models</a>. Read through p. 28. Skip most of the last section on radiation.</li>
-<li><strong>20-30 min</strong>: Prepare Problem 1.3 for possible board work and use Problem
-  1.8 as a quick review of the one-lump model already developed in Part I.</li>
-<li><strong>15-20 min</strong>: Run the <a href="#how-to-run-the-python-gui">Python demo and GUI</a>
-  once so class time can focus on interpretation instead of setup.</li>
-<li><strong>20 min</strong>: Annotate the two-lump equations and review your completed
+<li><strong>25-30 min</strong>: Read the selected sections of
+  <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a> and
+  prepare Problem 1.8 as a one-lump review.</li>
+<li><strong>15-20 min</strong>: Open the <a href="#how-to-run-the-python-gui">Python GUI</a> and confirm
+  that it runs.</li>
+<li><strong>20 min</strong>: Annotate the two-lump equations and organize your completed
   physical P/PI plots from Part I.</li>
 </ul>
 <p>During class on October 19, the approximate schedule for one 170-minute meeting is:</p>
 <ol>
 <li><strong>0-15 min</strong>: Inspect the completed P/PI plots and state what the one-lump
    model explains and fails to explain.</li>
-<li><strong>15-35 min</strong>: Opening discussion and board work on
+<li><strong>15-35 min</strong>: Review the one-lump energy balance with
    <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>
-   Problem 1.3 and the one-lump review in Problem 1.8.</li>
-<li><strong>35-70 min</strong>: Develop the coupled two-lump balances and reduce them to a
+   Problem 1.8.</li>
+<li><strong>35-75 min</strong>: Develop the coupled two-lump balances and reduce them to a
    second-order equation for the measured temperature.</li>
-<li><strong>70-110 min</strong>: Compare one- and two-lump responses and connect thermal lag
+<li><strong>75-120 min</strong>: Compare one- and two-lump responses and connect thermal lag
    to the experimental plots.</li>
-<li><strong>110-140 min</strong>: Vary one parameter at a time and interpret the results
+<li><strong>120-155 min</strong>: Vary one parameter at a time and interpret the results
    using the equations.</li>
-<li><strong>140-160 min</strong>: Complete the two-lump theory assignment in groups.</li>
-<li><strong>160-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
+<li><strong>155-170 min</strong>: Wrap up: what the model explains, what it leaves out, and
    why the long-rod experiment will require a spatial model.</li>
 </ol>
 <h3 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h3>
@@ -316,33 +291,23 @@ to measured temperature is the process we are modeling.</p>
 <tbody>
 <tr>
 <td>S14</td>
-<td>Read this assignment and the selected Lienhard Chapter 1 material</td>
-<td style="text-align: right;">45 minutes</td>
-</tr>
-<tr>
-<td>S14</td>
-<td>Prepare Problem 1.3 and review Problem 1.8</td>
+<td>Read the selected Lienhard material and prepare Problem 1.8</td>
 <td style="text-align: right;">30 minutes</td>
 </tr>
 <tr>
 <td>S14</td>
-<td>Run the simulation, annotate the two-lump equations, and organize the completed P/PI plots</td>
+<td>Open the simulation, annotate the two-lump equations, and organize the completed P/PI plots</td>
 <td style="text-align: right;">40 minutes</td>
 </tr>
 <tr>
 <td>S14</td>
 <td><strong>Total associated with S14</strong></td>
-<td style="text-align: right;"><strong>1 hour 55 minutes</strong></td>
+<td style="text-align: right;"><strong>1 hour 10 minutes</strong></td>
 </tr>
 <tr>
 <td>S15</td>
-<td>Complete the model comparisons and A3 evidence</td>
+<td>Complete the matched model comparison and A3 evidence</td>
 <td style="text-align: right;">120 minutes</td>
-</tr>
-<tr>
-<td>S15</td>
-<td>Complete the two-lump theory assignment</td>
-<td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
 <td>S15</td>
@@ -352,7 +317,7 @@ to measured temperature is the process we are modeling.</p>
 <tr>
 <td>S15</td>
 <td><strong>Total associated with S15</strong></td>
-<td style="text-align: right;"><strong>3 hours 30 minutes</strong></td>
+<td style="text-align: right;"><strong>2 hours 45 minutes</strong></td>
 </tr>
 </tbody>
 </table>
@@ -639,12 +604,12 @@ you derived the one-lump energy balance, expressed it using the measured
 <span class="arithmatex">\(\chi\)</span> and <span class="arithmatex">\(\tau\)</span>, and found its steady-state temperature. Use those results
 here; do not repeat that assignment.</p>
 <h4 id="two-lump-theory-assignment">Two-Lump Theory Assignment<a class="headerlink" href="#two-lump-theory-assignment" title="Permanent link">&para;</a></h4>
-<p>The one-temperature model assumes that the measured temperature instantly equals
+<p>The one-lump model assumes that the measured temperature instantly equals
 the actuator-side temperature. The next model separates them:</p>
 <pre><code class="language-text">T  = actuator-side TEC/block temperature
 Tm = measured thermistor/block temperature
 </code></pre>
-<p>A simple two-temperature model is:</p>
+<p>A simple two-lump model is:</p>
 <pre><code class="language-text">C_T dT/dt  = Q_tec - G*(T - Tm)
 C_m dTm/dt = G*(T - Tm) - H*(Tm - T_amb)
 </code></pre>
@@ -652,18 +617,13 @@ C_m dTm/dt = G*(T - Tm) - H*(Tm - T_amb)
 between the two lumps, and <code>H</code> is the conductance from the measured lump to
 the room. Each term has units of W. The left side is a rate of thermal-energy
 change. The right side is the sum of heat flows into and out of each lump.</p>
-<p>Do this before class:</p>
+<p>Use these questions to annotate the equations before class:</p>
 <ol>
 <li>Identify which term transfers heat from the TEC side to the measured
    thermistor/block side.</li>
 <li>Identify which term describes heat loss from the measured block to room air.</li>
 <li>Explain why <code>Tm</code> can lag behind <code>T</code>.</li>
 <li>Explain why a controller that uses <code>Tm</code> may react too late.</li>
-<li>Starting from the two coupled first-order equations, reproduce the
-   elimination that gives the second-order equation for <span class="arithmatex">\(T_m\)</span>. In particular,
-   show how the measured-lump equation gives
-   <span class="arithmatex">\(G\theta_T=C_m\dot\theta_m+(G+H)\theta_m\)</span>, and use it to eliminate
-   <span class="arithmatex">\(\theta_T\)</span>.</li>
 <li>Divide the measured-lump equation by <span class="arithmatex">\(C_m\)</span> and compare it term by term with
    the rate-constant form
    <span class="arithmatex">\(dT_m/dt=k_{21}(T-T_m)-k_m(T_m-T_{\mathrm{amb}})\)</span>. Identify
@@ -671,27 +631,25 @@ change. The right side is the sum of heat flows into and out of each lump.</p>
    each one changes the equilibration between the lumps or the relaxation
    toward room temperature.</li>
 </ol>
-<h4 id="later-in-the-course-differential-equations-in-space">Later In The Course: Differential Equations In Space<a class="headerlink" href="#later-in-the-course-differential-equations-in-space" title="Permanent link">&para;</a></h4>
+<details class="note">
+<summary>Looking Ahead: From Lumps To A Temperature Field</summary>
 <p>The two-lump model is a crude spatial approximation. It replaces an extended
 apparatus with two internally uniform regions connected by a thermal
 conductance. It distinguishes a region near the TEC from a region near the
 thermistor, but it contains no continuous distance, temperature gradient, or
 spatial coordinate.</p>
-<p>The long-rod experiment cannot be described by a single temperature. It will
-need a temperature field. In its simplest form as a long, thin rod,
-temperature depends only on longitudinal position and is independent of
-radius.</p>
+<p>The long-rod experiment cannot be described by a single temperature. It needs
+a temperature field that depends on longitudinal position and time:</p>
 <div class="arithmatex">\[
 T = T(x,t)
 \]</div>
-<p>For the rod we will move toward diffusion equations of the form:</p>
+<p>For the rod we will move toward equations of the form</p>
 <div class="arithmatex">\[
 \frac{\partial T}{\partial t}
 =
 \alpha \frac{\partial^2 T}{\partial x^2}
 \]</div>
-<p>and, for a rod exchanging heat with the room from its sides, a term that pulls the rod toward room
-temperature:</p>
+<p>with an additional term that represents heat loss from the sides to the room:</p>
 <div class="arithmatex">\[
 \frac{\partial T}{\partial t}
 =
@@ -701,10 +659,9 @@ temperature:</p>
 \]</div>
 <p>In these equations, <code>alpha</code> is the thermal diffusivity in m²/s and <code>beta</code> is a
 side-loss rate constant in 1/s.</p>
-<p>You do not need to solve these equations in Module 6. For now, your job is to
-understand how conservation of energy produces the simple lumped equations. The
-spatial differential equations come later, when we measure temperature along the
-long metal cylinder.</p>
+<p>You do not need to solve these equations or submit written answers about them
+in Module 6. They are included to show where the lumped-model sequence leads.</p>
+</details>
 <h2 id="pre-class-assignment">Pre-Class Assignment<a class="headerlink" href="#pre-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="how-to-run-the-python-gui">How To Run The Python GUI<a class="headerlink" href="#how-to-run-the-python-gui" title="Permanent link">&para;</a></h3>
 <p>Clicking the Python source-code link opens or downloads the <code>.py</code> file. It does
@@ -721,12 +678,6 @@ cd ~/phys39-lab7
 source .venv/bin/activate
 python -m pip install matplotlib
 </code></pre>
-<p>Run the non-interactive demo:</p>
-<pre><code class="language-bash">python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png
-</code></pre>
-<p>This saves a plot in the same folder:</p>
-<pre><code class="language-text">Lab_6_7_modeling_tec_demo.png
-</code></pre>
 <p>Then run the desktop GUI:</p>
 <pre><code class="language-bash">python Lab_6_7_modeling_tec.py
 </code></pre>
@@ -739,39 +690,10 @@ python Lab_6_7_modeling_tec.py
 <ol>
 <li>
 <p>Read <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard</a>,
-   <strong>Chapter 1: Introduction</strong>. Focus on the parts that connect directly to
-   this module: conservation of energy, heat flux, conduction, thermal resistance,
-   heat capacity, and lumped thermal models. Read through p. 28. Skip most of the last section on radiation.</p>
-</li>
-<li>
-<p>Prepare to work selected Chapter 1 problems at the board. You may be randomly
-   selected to present one of these:</p>
-</li>
-<li>
-<p><strong>Problem 1.3</strong>: heat flux through a slab. This reinforces Fourier's law,
-     units, and the meaning of a temperature gradient.</p>
-</li>
-<li><strong>Problem 1.8</strong>: cooling of a copper sphere in an air stream. This is the
-     cleanest Chapter 1 example of a one-lump first-order temperature model.</li>
-</ol>
-<p>For each problem, be ready to identify the physical system, write the heat
-   balance or heat-flow law, check units, and explain what approximation makes
-   the problem solvable.</p>
-<ol>
-<li>
-<p>Pay special attention to these Chapter 1 examples:</p>
-</li>
-<li>
-<p><strong>Example 1.1</strong>: conduction through a slab. This is the cleanest worked
-     example of Fourier's law and heat flux.</p>
-</li>
-<li><strong>Example 1.2</strong>: a copper slab protected by stainless steel. This is useful
-     because the same steady heat flow passes through multiple layers, like
-     thermal resistances in series.</li>
-<li>
-<p><strong>Example 1.5</strong>: a thermocouple affected by convection and radiation. This
-     is a good reminder that a temperature sensor does not always read the
-     temperature you think it reads.</p>
+   <strong>Chapter 1: Introduction</strong>, selectively. Focus on conservation of energy,
+   thermal resistance, heat capacity, and lumped models. Prepare <strong>Problem
+   1.8</strong> for possible board work: identify the physical system, write the heat
+   balance, check units, and state the lumped-model approximation.</p>
 </li>
 <li>
 <p>Follow <a href="#how-to-run-the-python-gui">How To Run The Python GUI</a> to download
@@ -781,18 +703,6 @@ python Lab_6_7_modeling_tec.py
 <p><code>text
    Lab_6_7_modeling_tec.py</code></p>
 <ol>
-<li>Run the non-interactive demo:</li>
-</ol>
-<p><code>bash
-   python Lab_6_7_modeling_tec.py --demo --output Lab_6_7_modeling_tec_demo.png</code></p>
-<ol>
-<li>Look at the generated plot:</li>
-</ol>
-<p><code>text
-   Lab_6_7_modeling_tec_demo.png</code></p>
-<p>The bottom of the PNG and the terminal output list the model parameters used
-   to make the plot. Record those values so the plot is reproducible.</p>
-<ol>
 <li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
 </ol>
 <p><code>bash
@@ -800,16 +710,14 @@ python Lab_6_7_modeling_tec.py
 <ol>
 <li>In your notebook, copy the two-lump model equations and label the meaning of
    each variable.</li>
-<li>Begin the <a href="#two-lump-theory-assignment">Two-Lump Theory Assignment</a>.</li>
+<li>Answer the five prompts in the <a href="#two-lump-theory-assignment">Two-Lump Theory
+   Assignment</a>.</li>
 </ol>
 <h3 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h3>
 <p>Write short answers before class.</p>
 <ol>
-<li>In open-loop mode, what happens if the signed PWM command is zero?</li>
-<li>In proportional control, why does the PWM become small when the measured
-   temperature gets close to the setpoint?</li>
-<li>Why must proportional-only control leave a steady-state error?</li>
-<li>In the two-lump thermal-mass model, why might <code>T</code> and <code>Tm</code> be different?</li>
+<li>In the two-lump model, why might <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(T_m\)</span> be different?</li>
+<li>Which temperature does the controller measure?</li>
 <li>Which parameter in the model most directly changes the amount of thermal
    lag?</li>
 </ol>
@@ -819,87 +727,17 @@ python Lab_6_7_modeling_tec.py
 <ul>
 <li>run the <a href="#how-to-run-the-python-gui">Python simulation GUI</a>,</li>
 <li>interpret the matched physical P and PI responses completed in Part I,</li>
-<li>identify the physical meaning of each control,</li>
-<li>reproduce droop in proportional control,</li>
-<li>produce overshoot or oscillation by increasing gain or lag,</li>
-<li>compare the one-temperature model to the two-temperature model,</li>
-<li>trace one controlled parameter through the equations and numerical algorithm,</li>
+<li>compare the one-lump and two-lump models,</li>
+<li>reproduce the measured progression from low to high P and PI gains,</li>
+<li>connect each important response feature to a model parameter and its Euler
+  update,</li>
 <li>explain what this model teaches you about the real TEC experiment.</li>
 </ul>
-<h3 id="part-1-one-lump-open-loop-model">Part 1: One-Lump Open-Loop Model<a class="headerlink" href="#part-1-one-lump-open-loop-model" title="Permanent link">&para;</a></h3>
-<p>Set the physical model to <code>one_lump</code> and the controller to <code>open_loop</code>.</p>
-<ol>
-<li>Set the signed PWM command to zero. Run the model and confirm that the
-   temperature relaxes toward room temperature.</li>
-<li>Enter a positive signed PWM command and try several values.</li>
-<li>Enter a negative signed PWM command and try several values.</li>
-<li>Record what changes in the temperature plot and the PWM plot.</li>
-</ol>
-<p>Answer:</p>
-<ul>
-<li>What term in the equation represents heat exchange with the room?</li>
-<li>What term represents the TEC actuator?</li>
-<li>Why is this not feedback control?</li>
-</ul>
-<h3 id="part-2-one-temperature-proportional-model">Part 2: One-Temperature Proportional Model<a class="headerlink" href="#part-2-one-temperature-proportional-model" title="Permanent link">&para;</a></h3>
-<p>Set the physical model to <code>one_lump</code> and the controller to <strong>P</strong>.</p>
-<ol>
-<li>Set <code>T_set</code> above room temperature.</li>
-<li>Set a small <code>Kp</code>.</li>
-<li>Run until the trace settles.</li>
-<li>Record the final temperature, setpoint, error, and approximate PWM.</li>
-<li>Increase <code>Kp</code> and repeat.</li>
-</ol>
-<p>Make a table:</p>
-<table>
-<thead>
-<tr>
-<th>Trial</th>
-<th><code>T_set</code></th>
-<th><code>Kp</code></th>
-<th>final <code>T</code></th>
-<th>final error</th>
-<th>final PWM</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Answer:</p>
-<ul>
-<li>Does increasing <code>Kp</code> reduce droop?</li>
-<li>Does increasing <code>Kp</code> eliminate droop completely?</li>
-<li>What happens when PWM saturates?</li>
-</ul>
-<h3 id="part-3-reproduce-the-goldilocks-p-and-pi-trends">Part 3: Reproduce The Goldilocks P And PI Trends<a class="headerlink" href="#part-3-reproduce-the-goldilocks-p-and-pi-trends" title="Permanent link">&para;</a></h3>
+<p>Before beginning the comparison, make one quick simulation check: reproduce
+one familiar open-loop result and one familiar P-control droop result from
+Part I. This confirms your measured parameters and simulation settings. Do not
+make another table or written analysis for this check.</p>
+<h3 id="part-1-match-the-goldilocks-p-and-pi-trends">Part 1: Match The Goldilocks P And PI Trends<a class="headerlink" href="#part-1-match-the-goldilocks-p-and-pi-trends" title="Permanent link">&para;</a></h3>
 <p><strong>The purpose of this exercise is to build an explicit match between experiment
 and theory.</strong> A successful comparison does more than produce similar-looking
 curves: it identifies which terms and parameters in the model control the
@@ -913,7 +751,11 @@ Your numerical gains may differ from those used by other teams.</p>
 the internal two-lump parameters <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(C_T/C\)</span>. Use the simulation to find
 <strong>one shared set</strong> of these physical parameters that qualitatively reproduces
 your experimental progression. Do not choose different physical parameters
-for each gain.</p>
+for each gain. The experiments all use the same apparatus, so all six
+simulations must likewise use the same <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>, <span class="arithmatex">\(G\)</span>,
+<span class="arithmatex">\(C_T/C\)</span>, TEC voltage, TEC resistance, setpoints, starting conditions, and PWM
+limit. Change only controller mode, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(K_i\)</span> according to the six-run
+protocol.</p>
 <ol>
 <li>Set <span class="arithmatex">\(K_i=0\)</span>. Run your experimental low, medium, and high <span class="arithmatex">\(K_p\)</span> values,
    resetting the simulation before each run. Look for the same progression as
@@ -934,8 +776,8 @@ for each gain.</p>
    to the shared value before testing the next one. Test <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, <span class="arithmatex">\(G\)</span>,
    and <span class="arithmatex">\(C_T/C\)</span> explicitly. You may also perturb <span class="arithmatex">\(\tau\)</span> or <span class="arithmatex">\(\chi\)</span> to understand
    sensitivity, but restore their measured values for the final comparison.</li>
-<li>Save all six simulated responses using the same organization and labels as
-   your six experimental plots.</li>
+<li>Make and label the <strong>six simulation Goldilocks plots</strong> using the same
+   organization, axes, and labels as the six experimental Goldilocks plots.</li>
 </ol>
 <p>Record the single physical parameter set used for all six simulations:</p>
 <table>
@@ -946,12 +788,16 @@ for each gain.</p>
 <th style="text-align: right;"><span class="arithmatex">\(\tau\)</span></th>
 <th style="text-align: right;"><span class="arithmatex">\(G\)</span></th>
 <th style="text-align: right;"><span class="arithmatex">\(C_T/C\)</span></th>
+<th style="text-align: right;">TEC voltage</th>
+<th style="text-align: right;">TEC resistance</th>
 <th>Setpoints</th>
 <th style="text-align: right;">PWM limit</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
@@ -1038,6 +884,7 @@ for each gain.</p>
 <tr>
 <th>Observed behavior</th>
 <th>Parameter varied</th>
+<th>Where it enters the equation or update</th>
 <th>Predicted change</th>
 <th>Simulated change</th>
 <th>Experimental evidence</th>
@@ -1050,9 +897,11 @@ for each gain.</p>
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>P-control droop</td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -1064,9 +913,11 @@ for each gain.</p>
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Number and decay of oscillations</td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -1088,77 +939,26 @@ for each gain.</p>
 <li>Why would changing the physical model parameters separately for every gain
   weaken the comparison?</li>
 </ul>
-<h3 id="part-4-connect-the-model-to-pi-feedback">Part 4: Connect The Model To PI Feedback<a class="headerlink" href="#part-4-connect-the-model-to-pi-feedback" title="Permanent link">&para;</a></h3>
-<p>The same feedback structure can be written in compact mathematical form:</p>
-<pre><code class="language-text">error = setpoint - measured temperature
-controller output = proportional part + integral part
-process turns controller output into a new temperature
-</code></pre>
-<p>For proportional-only control:</p>
-<pre><code class="language-text">output = Kp * error
-</code></pre>
-<p>For PI control:</p>
-<pre><code class="language-text">integral = integral + error*dt
-output = Kp*error + Ki*integral
-</code></pre>
-<p>In your notebook:</p>
+<h3 id="part-2-interpret-the-match">Part 2: Interpret The Match<a class="headerlink" href="#part-2-interpret-the-match" title="Permanent link">&para;</a></h3>
+<p>Use the equations, six-run comparison, and parameter table to prepare A3. Your
+interpretation must make four connections:</p>
 <ol>
-<li>Draw the feedback loop: setpoint, error, controller, process, measured
-   temperature.</li>
-<li>Identify where the Python model calculates each part.</li>
-<li>Explain why the integral term should reduce droop.</li>
-<li>Explain why integral control can overshoot if the actuator saturates.</li>
+<li>Identify the internal heat flow that makes <span class="arithmatex">\(T_m\)</span> lag behind <span class="arithmatex">\(T\)</span>.</li>
+<li>Explain why that lag permits overshoot even though the one-lump P model is
+   monotonic.</li>
+<li>Explain which parameters primarily changed rise time, droop, overshoot, and
+   oscillation decay in your controlled comparisons.</li>
+<li>State one important agreement and one important disagreement between the
+   shared two-lump simulation and the physical apparatus.</li>
 </ol>
-<h3 id="part-5-complete-the-two-lump-theory-assignment">Part 5: Complete The Two-Lump Theory Assignment<a class="headerlink" href="#part-5-complete-the-two-lump-theory-assignment" title="Permanent link">&para;</a></h3>
-<p>Finish the <a href="#two-lump-theory-assignment">Two-Lump Theory Assignment</a>. Then
-answer:</p>
-<ol>
-<li>Which model variable is closest to what the thermistor measures?</li>
-<li>Which model variable is closest to where the TEC applies heat?</li>
-<li>If the thermistor is moved farther from the TEC, which model parameter should
-   change?</li>
-<li>Why is this still a lumped model rather than a full heat-equation model?</li>
-</ol>
-<h3 id="part-6-trace-one-parameter-through-the-algorithm">Part 6: Trace One Parameter Through The Algorithm<a class="headerlink" href="#part-6-trace-one-parameter-through-the-algorithm" title="Permanent link">&para;</a></h3>
-<p>Choose one parameter: <span class="arithmatex">\(C_T\)</span>, <span class="arithmatex">\(C_m\)</span>, <span class="arithmatex">\(G\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(K_p\)</span>, or <span class="arithmatex">\(K_i\)</span>.</p>
-<ol>
-<li>Identify every model or controller equation containing that parameter.</li>
-<li>Predict how increasing it will affect the temperature trace, command, error,
-   or lag.</li>
-<li>Pause the simulation, change only that parameter, and resume.</li>
-<li>Compare the observed change with your prediction.</li>
-<li>Explain where the parameter enters the Euler-update sequence described
-   above.</li>
-</ol>
-<p>The goal is to understand how the prepared algorithm represents the physics
-and controller, not to modify its source code.</p>
-<h3 id="part-7-bridge-to-the-long-rod">Part 7: Bridge To The Long Rod<a class="headerlink" href="#part-7-bridge-to-the-long-rod" title="Permanent link">&para;</a></h3>
-<p>The TEC-only model has no spatial coordinate. The later long-rod experiment
-will require a model in which temperature depends on both position and time.</p>
-<p>The stationary fin model adds space:</p>
-<pre><code class="language-text">temperature depends on x
-heat conducts along the rod
-heat leaks from the side of the rod to room air
-</code></pre>
-<p>The oscillating fin model adds time-periodic boundary forcing:</p>
-<pre><code class="language-text">base temperature oscillates
-amplitude decays with distance
-phase lags with distance
-</code></pre>
-<p>Answer:</p>
-<ul>
-<li>What is missing from the TEC-only model that the rod model must include?</li>
-<li>Why will the rod experiment need more than one thermistor?</li>
-<li>Why are amplitude and phase more useful than just maximum and minimum
-  temperature?</li>
-</ul>
+<p>Do not write a second report for Part II. These results become the model-limit
+and experiment-theory sections of A3.</p>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
-<h3 id="preserve-the-model-evidence">Preserve The Model Evidence<a class="headerlink" href="#preserve-the-model-evidence" title="Permanent link">&para;</a></h3>
-<p>Before leaving S15, save the physical PI tuning table and traces from Part I,
-copied equations, completed two-lump theory assignment, parameter tables,
-screenshots, algorithm-tracing explanation, and exact run command. Keep the team record in
-<code>docs/module_notes/module_07_process_model.md</code> and preserve the prepared simulation
-program in your repository.</p>
+<h3 id="preserve-the-a3-evidence">Preserve The A3 Evidence<a class="headerlink" href="#preserve-the-a3-evidence" title="Permanent link">&para;</a></h3>
+<p>Before leaving S15, save the shared model settings, six simulation comparisons,
+parameter-to-behavior table, exact run command, and links to the experimental
+data. Preserve the prepared simulation in your repository. These are A3
+working materials, not a separate submission.</p>
 <h3 id="oral-review-questions-process-modeling">Oral Review Questions: Process Modeling<a class="headerlink" href="#oral-review-questions-process-modeling" title="Permanent link">&para;</a></h3>
 <p>Use this modeling question bank to check your understanding and prepare A3:</p>
 <ol>
@@ -1169,22 +969,6 @@ program in your repository.</p>
 </ol>
 <p>Also prepare the <a href="../lab-05/#oral-review-questions-p-control">Module 5 P-control questions</a>
 and <a href="../lab-06/#oral-review-questions-pi-control">Module 6 PI-control question</a>.</p>
-<h3 id="model-evidence-record">Model Evidence Record<a class="headerlink" href="#model-evidence-record" title="Permanent link">&para;</a></h3>
-<p>Keep a short module note containing:</p>
-<ul>
-<li>Your copied and labeled model equations.</li>
-<li>Your one-lump results carried forward from Part I.</li>
-<li>The Two-Lump Theory Assignment.</li>
-<li>Open-loop observations.</li>
-<li>Proportional-control droop table.</li>
-<li>Thermal-mass overshoot/oscillation table.</li>
-<li>Screenshot of the <a href="#how-to-run-the-python-gui">Python GUI</a>.</li>
-<li>Your parameter prediction and algorithm-tracing explanation.</li>
-<li>A paragraph answering:</li>
-</ul>
-<p><code>text
-  What did the model explain well, and what would it fail to explain about the
-  real TEC hardware?</code></p>
 <h2 id="instructor-notes">Instructor Notes<a class="headerlink" href="#instructor-notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>This module is a consolidation point after manual control and P/PI control.</li>

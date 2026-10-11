@@ -36,11 +36,13 @@ By the end of Module 6, Part I, you should be able to:
   phase lag and motivate a two-lump model;
 - implement PI control on the physical TEC, including integral reset and
   anti-windup;
-- complete a controlled six-run P and PI gain study and preserve the evidence
-  for interpretation in Part II and A3.
+- generate six experimental Goldilocks plots that show low-, medium-, and
+  high-gain P and PI behavior, then use them to connect controller settings to
+  droop, rise time, overshoot, and oscillation.
 
-These objectives are assessed through the guided simulation checks, the
-physical PI implementation and six-run study in Part 8, and A3 Questions 1–7.
+The Goldilocks plots are the principal way you achieve these objectives. They
+are assessed through the physical six-run study, the six matched simulation
+plots in Part II, and A3 Questions 1–5.
 
 ## Reading
 
@@ -144,15 +146,13 @@ will be used during the in-class model comparison.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S12 | Read this assignment and the selected heat-transfer material | 90 minutes |
-| S12 | Complete and check the guided one-lump derivation | 120 minutes |
-| S12 | **Total associated with S12** | **3 hours 30 minutes** |
-| S13 | Review PI control and windup; answer the preparation questions | 60 minutes |
-| S13 | Explore PI behavior in the simulation and prepare the physical-controller change | 105 minutes |
-| S13 | **Total associated with S13** | **2 hours 45 minutes** |
-| S14 | Complete and analyze the six-run physical P/PI study and select gains | 90 minutes |
-| S14 | Write, check, commit, push, and prepare A3 | 120 minutes |
-| S14 | **Total associated with S14** | **3 hours 30 minutes** |
+| S12 | Read the selected material and complete the one-lump derivation | 150 minutes |
+| S12 | **Total associated with S12** | **2 hours 30 minutes** |
+| S13 | Explore open-loop, P, and PI behavior in the simulation and prepare the physical controller | 120 minutes |
+| S13 | **Total associated with S13** | **2 hours** |
+| S14 | Complete the six-run experimental Goldilocks study | 150 minutes |
+| S14 | Organize plots and begin A3 | 90 minutes |
+| S14 | **Total associated with S14** | **4 hours** |
 
 Do not add optional reading until the required derivation and A3 evidence are
 complete and understood.
@@ -173,8 +173,8 @@ complete and understood.
    qualitative two-lump description.
 4. Explore PI control in simulation, then implement integral action and
    anti-windup on the physical TEC.
-5. Complete the quantitative P/PI gain study and preserve the evidence needed
-   for interpretation in Part II and A3.
+5. Generate the six experimental Goldilocks plots that anchor the comparison
+   with simulation and the A3 analysis.
 
 ## Part 1: Algebraic Droop Model
 
@@ -358,143 +358,30 @@ The units confirm that this ratio is a time:
 \]
 
 <details class="note" markdown="1">
-<summary>Sidebar: From dimensional analysis to a dimensionless model</summary>
+<summary>Sidebar: Dimensionless form</summary>
 
-This follows the progression in [Howard Stone, Sections 1.5.1-1.5.2:
-characteristic time and rescaling a differential
-equation](../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21).
-Stone examines a model four related ways: inspect the dimensions, balance
-the sizes of terms, solve the equation when possible, and then rescale it
-so that only dimensionless variables and parameters remain.
-
-**1. Inspect the dimensions.** For the unforced departure from steady state,
+The ratios $\tau=C/H$ and $\chi=P_u/H$ are the measured combinations that
+govern the one-lump model. Define
 
 \[
-C\frac{d\vartheta}{dt}=-H\vartheta,
-\qquad \vartheta=T-T_{\mathrm{ss}},
-\]
-
-the parameters that contain time are $C$ and $H$. Their ratio has units of
-time:
-
-\[
-\frac{C}{H}
-=\frac{\mathrm{J/K}}{\mathrm{W/K}}
-=\mathrm{s}.
-\]
-
-Dimensional analysis therefore identifies $C/H$ as the characteristic
-time, but cannot by itself determine the complete function of time.
-
-**2. Balance the sizes of the terms.** If a typical temperature departure
-$\Delta T$ changes over a typical time $t_c$, then
-
-\[
-C\frac{\Delta T}{t_c}\sim H\Delta T.
-\]
-
-The temperature scale cancels because this equation is linear, leaving
-
-\[
-t_c\sim\frac{C}{H}.
-\]
-
-**3. Solve the equation.** Separation of variables gives
-
-\[
-\vartheta(t)=\vartheta(0)e^{-tH/C}.
-\]
-
-The solution supplies what dimensional reasoning alone cannot: the decay
-is exponential, and its exact time constant is $\tau=C/H$.
-
-**4. Nondimensionalize time and temperature.** Following Stone, choose the
-initial departure as the temperature scale and define
-
-\[
-\Theta=\frac{\vartheta}{\vartheta(0)}
-=\frac{T-T_{\mathrm{ss}}}{T(0)-T_{\mathrm{ss}}},
+\hat t=\frac{t}{\tau},
 \qquad
-\hat t=\frac{t}{\tau}.
-\]
-
-Substitution removes every dimensional parameter:
-
-\[
-\frac{d\Theta}{d\hat t}=-\Theta,
-\qquad \Theta(0)=1,
-\qquad \Theta=e^{-\hat t}.
-\]
-
-This is also the form used in [Lienhard and Lienhard, Section 5.2:
-dimensional analysis of a lumped-capacity
-system](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208).
-They use
-
-\[
-\Theta=\frac{T-T_\infty}{T_i-T_\infty},
+\hat T=\frac{T-T_{\mathrm{amb}}}{\chi u_0},
 \qquad
-\frac{t}{\mathcal{T}},
-\qquad
-\mathcal{T}=\frac{\rho cV}{hA}.
-\]
-
-In our notation, $C=\rho cV$, $H=hA$, and $T_\infty=T_{\mathrm{amb}}$,
-so Lienhard's $\mathcal{T}$ is our $\tau=C/H$. See also [Lienhard and
-Lienhard, Section 4.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=164)
-for why temperature is nondimensionalized using a temperature
-*difference*: the absolute temperature level is not significant in a
-linear conduction problem.
-
-**What changes when the TEC drives the system?** Choose a characteristic
-command $u_0$ and a characteristic temperature change $\Delta T$, then
-define
-
-\[
-\hat t=\frac{t}{\tau},\qquad
-\hat T=\frac{T-T_{\mathrm{amb}}}{\Delta T},\qquad
 \hat u=\frac{u}{u_0}.
 \]
 
-Substitution into the one-lump model gives
-
-\[
-\frac{d\hat T}{d\hat t}
-=\Gamma\hat u-\hat T,
-\qquad
-\Gamma=\frac{\chi u_0}{\Delta T}.
-\]
-
-Thus the dimensional parameters enter through the single dimensionless
-group $\Gamma$. Choosing $\Delta T=\chi u_0$, the steady temperature
-change produced by $u_0$, makes $\Gamma=1$ and leaves
+The open-loop model becomes
 
 \[
 \frac{d\hat T}{d\hat t}=\hat u-\hat T.
 \]
 
-Thus, for an open-loop step, the natural temperature scale is either the
-measured step size or $\chi u_0$, its predicted steady-state value.
-For setpoint control, use
-$\Delta T=|T_{\mathrm{set}}-T_{\mathrm{amb}}|$. Absolute temperature is not
-useful here because the model depends only on temperature differences.
-Absolute kelvin temperature would become relevant for thermal radiation or
-strongly temperature-dependent material properties.
-
-Nondimensionalization is useful because it reveals which experiments are
-dynamically equivalent. For P control, scaling by the setpoint offset gives
-
-\[
-\frac{d\hat T}{d\hat t}
-=L(\hat T_{\mathrm{set}}-\hat T)-\hat T,
-\qquad
-L=\chi K_p,
-\]
-
-where $L$ is the dimensionless loop gain and
-$\hat T_{\mathrm{set}}=+1$ for heating or $-1$ for cooling. The response
-shape is therefore controlled by $L$, while $\tau$ restores the physical
-time scale.
+This shows that $\tau$ supplies the time scale and $\chi u_0$ supplies the
+temperature scale. For P control, the dimensionless loop gain is
+$L=\chi K_p$. See [Stone, Sections 1.5.1-1.5.2](../../references/stone-dimensional-analysis-size-and-scale.pdf#page=21)
+and [Lienhard, Section 5.2](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=208)
+for fuller treatments.
 
 </details>
 
@@ -578,10 +465,10 @@ Your work is to predict behavior from the equations, choose controlled
 parameter comparisons, record quantitative results, and explain the physics
 and control. The prepared program supplies the numerical integration; it does
 not replace comparison with your experimental data. Its **two-lump** option is
-previewed qualitatively in Part 6 and developed quantitatively in [Module 6,
+motivated qualitatively in Part 5 and developed quantitatively in [Module 6,
 Part II](../lab-07/index.md).
 
-## Part 4: Simulate Open-Loop Response
+## Part 4: Simulate Open-Loop And P Control
 
 Download [the prepared Module 6/7 TEC
 simulation](../../downloads/Lab_6_7_modeling_tec.py). Save it in your
@@ -668,60 +555,30 @@ $T_{\mathrm{amb}}$, $u$, and $\Delta t$. Choose $\Delta t$ much smaller than
 $\tau$ and verify that making it smaller does not appreciably change the
 result. Explain any important difference between the model and the apparatus.
 
-## Part 5: Simulate P-Only Feedback
+### Continue With P Control
 
-Continue with the same one-lump parameters in the simulation. Select `p` (P
-control), which replaces the constant command with
+Keep the same measured one-lump parameters and select `p`. The command is
 
 \[
 u_n=K_p(T_{\mathrm{set}}-T_n).
 \]
 
-The program clamps $u_n$ to the allowed signed PWM range before applying the
-Euler update from Part 4.
-
-### Guided Simulation Exercise: P Control And Droop
-
-Return to `measured`, select `p`, and set
-
-\[
-T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
-\qquad
-K_p=10\ \mathrm{PWM}/^\circ\mathrm{C}.
-\]
-
-With the default $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, predict
-
-\[
-L_h=\chi_hK_p=4.6,
-\]
+Use one gain from your Module 5 experiment and one larger gain. Before each
+run, predict the steady-state droop and closed-loop time constant from
 
 \[
 T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{30-22}{1+4.6}
-\approx1.43\ ^\circ\mathrm{C},
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
 \qquad
-T_{\mathrm{ss}}\approx28.57\ ^\circ\mathrm{C}.
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
 \]
 
-Run the simulation, compare the displayed droop with the prediction, and then
-increase $K_p$. Answer:
+Confirm that increasing $K_p$ decreases both droop and response time. Record
+only the settings and whether the predictions agree; do not make a second
+P-control data table. The six experimental Goldilocks plots later in this
+lesson provide the assessed gain comparison.
 
-1. Does the droop vanish or merely become smaller?
-2. Which dimensionless number determines whether the gain is small or large?
-3. What happens when the required command reaches the PWM limit?
-
-Before each run, predict the droop and closed-loop time constant from the
-equations in Parts 1 and 6. Simulate several values of $K_p$. Record or capture:
-
-- temperature versus time,
-- PWM command versus time,
-- final droop versus $K_p$; use the recorded values to make one droop plot.
-
-Compare with Module 5. The one-lump model should capture some trends, but it
-may not reproduce oscillations.
-
-## Part 6: Solve The P-Controlled One-Lump Model
+## Part 5: Explain The One-Lump P Transient And Its Limit
 
 Now analyze the same dimensional one-lump model used throughout this module.
 The solution explains why its P-controlled response cannot oscillate. If the
@@ -734,15 +591,6 @@ Substituting the P-control law into the energy balance gives
 C\frac{dT}{dt}
 =P_uK_pT_{\mathrm{set}}+HT_{\mathrm{amb}}
 -(H+P_uK_p)T.
-\]
-
-Setting \(dT/dt=0\) recovers the steady-state result from Part 1:
-
-\[
-\boxed{
-T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p}.
-}
 \]
 
 Now define the displacement from steady state,
@@ -922,68 +770,14 @@ quantitatively.](../lab-07/index.md#from-two-first-order-equations-to-one-second
 
 </details>
 
-<details class="note" markdown="1">
-<summary>Why Does The One-Lump Model Predict Droop But Not The High-Gain Transient?</summary>
+The one-lump model predicts the final temperature well because steady state is
+governed by the nearly model-independent requirement that energy entering per
+unit time equals energy leaving per unit time. It fails at high gain because
+transient behavior also depends on where energy is stored and how long it takes
+to reach the thermistor. The qualitative two-lump explanation is developed in
+the sidebar above; its equations and parameter study are the focus of Part II.
 
-The steady-state prediction works well because it follows from a nearly
-model-independent thermodynamic statement:
-
-\[
-\text{energy entering per unit time}
-=\text{energy leaving per unit time}.
-\]
-
-At steady state, no part of the apparatus continues to accumulate thermal
-energy. The detailed route taken by heat inside the apparatus no longer
-affects the overall requirement that TEC heating or cooling balance heat
-exchange with the room. This is why the one-lump energy balance and droop
-equation derived above can describe the final measured temperature accurately
-even though the apparatus is not truly at one uniform temperature.
-
-Transient behavior asks a different question: **where is energy stored while
-the temperature is changing, and how long does it take to reach the
-thermistor?** The one-lump model assumes that the TEC, block, and thermistor
-share one temperature. In the apparatus, energy can accumulate near the TEC
-before reaching the measured block. At high gain, the controller can respond
-and overcorrect before that stored energy becomes visible to the thermistor,
-producing overshoot and ringing.
-
-Thus the simple model predicts the final balance accurately while failing to
-predict the path taken to reach it:
-
-- **Steady state:** governed primarily by energy conservation, so energy in
-  equals energy out.
-- **Transient response:** governed by internal thermal storage and transport,
-  so the locations and time scales of energy storage matter.
-
-</details>
-
-### Guided Simulation Exercise: From No Overshoot To Overshoot
-
-Preview the two-lump explanation before studying it systematically in Part II.
-In the simulation, select `one_lump`, `measured`, and `p`. Use
-
-\[
-T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
-\qquad
-T_{\mathrm{set}}=30\ ^\circ\mathrm{C},
-\qquad
-K_p=120\ \mathrm{PWM}/^\circ\mathrm{C}.
-\]
-
-Set $K_i=0$, reset, and observe that the one-lump temperature approaches its
-steady value without overshoot. Change only the physical model to `two_lump`,
-reset, and repeat. Compare the measured temperature $T_m$ in the two-lump
-simulation with the one-lump temperature at the same gain.
-
-Explain qualitatively why $T_m$ can continue rising after the controller
-begins reducing the TEC command. Do not tune the two-lump parameters here.
-
-This brief comparison establishes that an additional thermal state can permit
-overshoot. The coupled equations and systematic parameter study belong to
-[Module 6, Part II](../lab-07/index.md#two-lump-physical-model).
-
-## Part 7: Add Integral Action In Simulation
+## Part 6: Add Integral Action In Simulation
 
 Keep the same dimensional one-lump energy balance. PI control changes only the
 command supplied to the TEC. Define the temperature error and its accumulated
@@ -1112,345 +906,22 @@ clears that memory before a new comparison.
 
 ### Why PI Can Be Underdamped
 
-PI control adds the accumulated error as a second state variable. Unlike the
-one-state P model, a two-state PI model can therefore have a pair of complex
-eigenvalues and an underdamped response. The optional derivation below is
-included for mathematical culture, curiosity, and completeness; it is not an
-A3 assessment requirement.
-
-<details class="note" markdown="1">
-<summary>Optional advanced derivation: PI eigenvalues, damping ratio, and time scales</summary>
-
-From the definitions above,
+PI control adds the accumulated error as a second state variable. The
+one-lump P model has only one state and therefore produces one monotonic
+exponential; the one-lump PI model has two coupled states and can overshoot or
+oscillate. For the unsaturated linear model, the temperature and integral-state
+displacements obey a second-order characteristic equation,
 
 \[
-\frac{dq}{dt}=e,
-\qquad
-u=K_p e+K_i q,
-\qquad
-e=T_{\mathrm{set}}-T.
+\lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]
 
-For an unsaturated PI controller at steady state, the temperature reaches the
-setpoint and the integral term supplies the PWM needed to balance heat loss:
-
-\[
-T_{\mathrm{ss}}=T_{\mathrm{set}},
-\qquad
-q_{\mathrm{ss}}
-=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
-\]
-
-Now define the **two state variables as displacements from steady state**:
-
-\[
-\boxed{
-\theta(t)=T(t)-T_{\mathrm{set}}
-},
-\qquad
-\boxed{
-z(t)=q(t)-q_{\mathrm{ss}}
-}.
-\]
-
-Thus \(\theta\) is the temperature displacement and \(z\) is the integral-state
-displacement. Because \(e=-\theta\), their time derivatives obey
-
-\[
-\frac{d\theta}{dt}
-=-\frac{H+P_uK_p}{C}\theta
-+\frac{P_uK_i}{C}z,
-\qquad
-\frac{dz}{dt}=-\theta.
-\]
-
-In matrix form,
-
-\[
-\frac{d}{dt}
-\begin{pmatrix}
-\theta\\ z
-\end{pmatrix}
-=
-\underbrace{
-\begin{pmatrix}
--\dfrac{H+P_uK_p}{C} & \dfrac{P_uK_i}{C}\\
--1 & 0
-\end{pmatrix}
-}_{A}
-\begin{pmatrix}
-\theta\\ z
-\end{pmatrix}.
-\]
-
-<details class="note" markdown="1">
-<summary>Sidebar: Solving a matrix ODE by diagonalization</summary>
-
-Write the two state variables as one vector,
-
-\[
-\mathbf{x}(t)=
-\begin{pmatrix}
-\theta(t)\\ z(t)
-\end{pmatrix},
-\qquad
-\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
-\]
-
-First look for one exponential mode,
-
-\[
-\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
-\]
-
-where the constant vector \(\mathbf{v}\) gives the relative amounts of
-temperature displacement and integral-state displacement in that mode.
-Substitution gives
-
-\[
-\lambda\mathbf{v}e^{\lambda t}
-=A\mathbf{v}e^{\lambda t},
-\]
-
-and cancellation of the nonzero exponential leaves
-
-\[
-(A-\lambda I)\mathbf{v}=0.
-\]
-
-We want a nonzero eigenvector \(\mathbf{v}\). A homogeneous matrix equation
-has a nonzero solution only when its matrix is singular, so
-
-\[
-\boxed{\det(A-\lambda I)=0}.
-\]
-
-This determinant equation therefore finds the values of \(\lambda\) for which
-exponential solutions are possible. For each eigenvalue, solving
-\((A-\lambda I)\mathbf{v}=0\) gives its eigenvector.
-
-If the two eigenvectors are independent, place them in the columns of
-
-\[
-V=\begin{pmatrix}\mathbf{v}_+&\mathbf{v}_-\end{pmatrix},
-\qquad
-\Lambda=
-\begin{pmatrix}
-\lambda_+&0\\0&\lambda_-
-\end{pmatrix}.
-\]
-
-The eigenvalue equations together say \(AV=V\Lambda\), or
-
-\[
-A=V\Lambda V^{-1}.
-\]
-
-Now change coordinates by writing \(\mathbf{x}=V\mathbf{y}\). The coupled
-matrix equation becomes
-
-\[
-\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
-\]
-
-Because \(\Lambda\) is diagonal, this is just two independent scalar
-equations:
-
-\[
-\frac{dy_+}{dt}=\lambda_+y_+,
-\qquad
-\frac{dy_-}{dt}=\lambda_-y_-.
-\]
-
-Their solutions are \(y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}\). Transforming back
-gives
-
-\[
-\boxed{
-\mathbf{x}(t)
-=V
-\begin{pmatrix}
-e^{\lambda_+t}&0\\0&e^{\lambda_-t}
-\end{pmatrix}
-V^{-1}\mathbf{x}(0)
-=e^{At}\mathbf{x}(0)
-}.
-\]
-
-Thus diagonalization reveals the matrix exponential as a combination of two
-ordinary exponential modes. If the eigenvalues are complex conjugates, those
-two modes combine to produce a real decaying oscillation. At critical damping,
-the repeated eigenvalue may provide only one eigenvector; the matrix
-exponential still exists, but its solution can also contain a term
-proportional to \(t e^{\lambda t}\).
-
-</details>
-
-The eigenvalues satisfy
-
-\[
-\det(A-\lambda I)=0.
-\]
-
-Evaluating this determinant gives the characteristic equation
-
-\[
-\lambda^2
-+\frac{H+P_uK_p}{C}\lambda
-+\frac{P_uK_i}{C}=0.
-\]
-
-The quadratic formula gives both eigenvalues:
-
-\[
-\boxed{
-\lambda_{\pm}
-=-\frac{H+P_uK_p}{2C}
-\pm
-\sqrt{
-\left(\frac{H+P_uK_p}{2C}\right)^2
--\frac{P_uK_i}{C}
-}
-}.
-\]
-
-- Two negative real eigenvalues give an overdamped response.
-- One repeated negative eigenvalue gives critical damping.
-- A complex-conjugate pair with negative real parts gives an underdamped
-  oscillation.
-- An eigenvalue with a positive real part gives an unstable response.
-
-The damping ratio is a dimensionless number that identifies the transition
-from underdamped to overdamped behavior:
-
-\[
-\boxed{
-\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
-}.
-\]
-
-The linear PI response is underdamped when
-
-\[
-\zeta<1
-\qquad\Longleftrightarrow\qquad
-(H+P_uK_p)^2<4CP_uK_i.
-\]
-
-Increasing $C$ or $K_i$ increases the tendency to oscillate while increasing $H$ or $K_p$ dampens the system.
-
-<details class="note" markdown="1">
-<summary>Time constants for open-loop, P, and PI control</summary>
-
-The open-loop one-lump model has one time constant,
-
-\[
-\tau=\frac{C}{H}.
-\]
-
-P control changes the coefficient multiplying the temperature displacement
-but does not add a state variable. Its response is still a single
-exponential, with
-
-\[
-\boxed{
-\tau_P=\frac{C}{H+P_uK_p}
-=\frac{\tau}{1+\chi K_p}
-}.
-\]
-
-Thus P control makes the one-lump response faster as $K_p$ increases,
-although it retains steady-state droop.
-
-PI control adds the integral state, so it is a second-order system and
-generally does **not** have one time constant. Its two eigenvalues are
-$\lambda_+$ and $\lambda_-$, as derived above.
-
-**Overdamped PI control.** If both eigenvalues are real and negative, the
-response contains two exponentials. Their time constants are
-
-\[
-\tau_+=-\frac{1}{\lambda_+},
-\qquad
-\tau_-=-\frac{1}{\lambda_-}.
-\]
-
-The eigenvalue closer to zero gives the slow time constant and usually
-controls the final approach to the setpoint. The other gives the fast
-transient.
-
-**Underdamped PI control.** If the eigenvalues are complex, write
-
-\[
-\lambda_{\pm}=-\zeta\omega_n\pm i\omega_d,
-\qquad
-\omega_n=\sqrt{\frac{P_uK_i}{C}},
-\qquad
-\omega_d
-=\sqrt{
-\frac{P_uK_i}{C}
--\left(\frac{H+P_uK_p}{2C}\right)^2
-}
-=\omega_n\sqrt{1-\zeta^2}.
-\]
-
-The oscillation envelope decays with time constant
-
-\[
-\boxed{
-\tau_{\mathrm{env}}
-=\frac{1}{\zeta\omega_n}
-=\frac{2C}{H+P_uK_p}
-=2\tau_P
-}.
-\]
-
-The oscillation frequency in hertz and the corresponding period are
-
-\[
-\boxed{
-f_{\mathrm{osc}}
-=\frac{\omega_d}{2\pi}
-=\frac{1}{2\pi}
-\sqrt{
-\frac{P_uK_i}{C}
--\left(\frac{H+P_uK_p}{2C}\right)^2
-}
-},
-\qquad
-T_{\mathrm{osc}}=\frac{1}{f_{\mathrm{osc}}}
-=\frac{2\pi}{\omega_d}.
-\]
-
-The period and decay time are different quantities: $T_{\mathrm{osc}}$
-describes how rapidly the response oscillates, while
-$\tau_{\mathrm{env}}$ describes how rapidly those oscillations decay.
-
-**Critically damped PI control.** The two eigenvalues coincide. The
-characteristic decay time is
-
-\[
-\tau_{\mathrm{crit}}
-=\frac{1}{\omega_n}
-=\frac{2C}{H+P_uK_p}.
-\]
-
-Therefore, report one time constant for open-loop or P control. For PI
-control, report the two real time constants when overdamped, or report the
-decay-envelope time and oscillation period when underdamped.
-
-</details>
-
-**Optional exploration.** Use the simulation to find one overdamped and one
-underdamped parameter set.
-For each case, record \(C\), \(H\), \(P_u\), \(K_p\), \(K_i\), the displayed
-value of \(\zeta\), and whether the temperature trace agrees with the
-prediction. The formula applies only while the model is linear and the PWM is
-not saturated.
-
-</details>
-
-## Part 8: October 14, Implement PI Control On The Physical TEC
+Real negative roots give a nonoscillatory response, while a complex-conjugate
+pair gives a decaying oscillation. This result is included for interpretation,
+not as a required A3 derivation. Use the simulation to observe how $K_p$ and
+$K_i$ change the response.
+
+## Part 7: Implement PI Control And Collect The Experimental Goldilocks Plots
 
 Use your working Module 5 P controller as the starting point. Do not replace
 the Arduino's independent temperature shutdown or the existing signed-PWM
@@ -1488,29 +959,38 @@ $e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
 
 Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
 temperature, PWM limit, sample interval, and anti-windup setting. These two
-preliminary traces establish that the controller works; they do not replace
-the [required six-run study](#required-six-run-experimental-protocol). Complete
-that study before beginning Part II. Before the study, verify the independent
-Arduino temperature shutdown and show the instructor your proposed gain
-range. Retain three P runs at different $K_p$ values and three PI runs at fixed
-$K_p$ and different $K_i$ values for A3.
+preliminary traces establish that the controller works. Now complete the
+Goldilocks study below before beginning Part II.
 
-## Part 9: Check Your Understanding Of Windup
+### Experimental Goldilocks Study
 
-Suppose the setpoint is far away and the requested PWM exceeds the actuator
-limit.
+Use one apparatus, one PWM limit, and the same two temperature setpoints for
+all six retained runs. Each run must contain an upward setpoint step and a
+downward setpoint step so that heating and cooling are compared under matched
+conditions. Begin each step from a settled or clearly documented initial
+temperature.
 
-Answer:
+| Run | Controller | Gain choice | Purpose |
+| ---: | --- | --- | --- |
+| 1 | P | Low $K_p$ | No overshoot; relatively slow response or large droop |
+| 2 | P | Intermediate $K_p$ | Best P-only compromise |
+| 3 | P | High $K_p$ | Clear overshoot or ringing |
+| 4 | PI | Run 2 $K_p$; low $K_i$ | Slow integral correction |
+| 5 | PI | Run 2 $K_p$; intermediate $K_i$ | Best PI compromise |
+| 6 | PI | Run 2 $K_p$; high $K_i$ | Excess overshoot, ringing, or saturation |
 
-1. What happens to the integral term while PWM is saturated?
-2. What happens after the temperature finally approaches the setpoint?
-3. Why might this cause overshoot?
-4. Under conditional integration, when should $q$ be held fixed and when
-   should it be allowed to change?
-5. Explain the different purposes of the PWM clamp, anti-windup, and **Zero
-   integral** control.
+For P runs, set $K_i=0$. For PI runs, hold $K_p$ fixed at the Run 2 value and
+change only $K_i$. Reset the integral state before every run. Preserve time
+series for measured temperature, setpoint, signed applied PWM, $u_P$, $u_I$,
+and error. Record the actual gains, initial temperatures, PWM limit, sample
+interval, and anti-windup setting. The Arduino temperature shutdown and PWM
+clamp remain active for every run.
 
-## Part 10: A3 Modeling-Evidence Checkpoint
+Make and label the **six experimental Goldilocks plots** during this lesson.
+Part II asks you to make the six corresponding simulation plots and compare
+them under matched conditions.
+
+### Preserve Your Evidence
 
 Before closing the simulation or dismantling the apparatus, save the settings,
 data, plots, and calculations needed for A3. Commit the simulation and your
@@ -1539,115 +1019,108 @@ plots and table, writing the short interpretation, checking paths, committing,
 pushing, and submitting the PDF. The one-lump derivation is part of this paper,
 not a separate graded document.
 
-### Required Six-Run Experimental Protocol
-
-Use one apparatus, one PWM limit, and the same two temperature setpoints for
-all six retained runs. Each run must contain an upward setpoint step and a
-downward setpoint step so that heating and cooling are compared under matched
-conditions. Begin each step from a settled or clearly documented initial
-temperature.
-
-| Run | Controller | Gain choice | Purpose |
-| ---: | --- | --- | --- |
-| 1 | P | Low $K_p$ | No overshoot; relatively slow response or large droop |
-| 2 | P | Intermediate $K_p$ | Best P-only compromise |
-| 3 | P | High $K_p$ | Clear overshoot or ringing |
-| 4 | PI | Run 2 $K_p$; low $K_i$ | Slow integral correction |
-| 5 | PI | Run 2 $K_p$; intermediate $K_i$ | Best PI compromise |
-| 6 | PI | Run 2 $K_p$; high $K_i$ | Excess overshoot, ringing, or saturation |
-
-For P runs, set $K_i=0$. For PI runs, hold $K_p$ fixed at the Run 2 value and
-change only $K_i$. Reset the integral state before every run. Preserve time
-series for measured temperature, setpoint, signed applied PWM, $u_P$, $u_I$,
-and error. Record the actual gains, initial temperatures, PWM limit, sample
-interval, and anti-windup setting. The Arduino temperature shutdown and PWM
-clamp remain active for every run.
-
-Use these same six runs for A3 Questions 5 and 6; no second set of experiments
-is required.
+Use the six experimental Goldilocks plots produced in Part 7 and the six
+corresponding simulation plots produced in Part II. No additional runs are
+required for A3.
 
 ### A3 Questions
 
 Answer the following questions concisely. Support each answer with equations,
 measured values, or plots where requested.
 
-1. **Open-loop model and measured parameters.** Starting from the dimensional
-   one-lump energy balance, show that
-   $\tau=C/H$ and $\chi=P_u/H$. Use your measured $\tau$ and heating or cooling
-   $\chi$ to write the corresponding model with no free parameters. Compare
-   one simulated open-loop response with one measured response: what agrees,
-   and what does not?
+#### 1. One-Lump Model And P-Control Predictions
 
-2. **P control, droop, and response speed.** Derive the P-control droop,
-   \(T_{\mathrm{set}}-T_{\mathrm{ss}}
-   =(T_{\mathrm{set}}-T_{\mathrm{amb}})/(1+\chi K_p)\), and the closed-loop
-   time constant, \(\tau_{\mathrm{cl}}=\tau/(1+\chi K_p)\). Explain why
-   increasing $K_p$ both decreases droop and speeds up the
-   response. Identify the dimensionless loop gain and compare the predicted
-   trends with your Module 5 measurements.
+Starting from the dimensional one-lump energy balance, show that $\tau=C/H$
+and $\chi=P_u/H$, then write the model using your measured $\tau$ and $\chi$.
+Derive the P-control droop,
 
-3. **Overshoot and model limits.** Explain mathematically why the one-lump
-   P-control model cannot overshoot or oscillate. Present your low- and
-   high-gain experimental evidence. Using the quantitative model and
-   simulation developed in Part II, explain how the two-lump description
-   reproduces behavior that the one-lump model cannot.
+\[
+T_{\mathrm{set}}-T_{\mathrm{ss}}
+=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
+\]
 
-4. **Integral action and windup.** Use $u=u_P+u_I=K_pe+K_iq$ and
-   $dq/dt=e$ to explain how integral action removes droop. Explain integral
-   windup, describe your anti-windup rule, and state what happens when the
-   integral state is reset after PI control has reached steady state.
+and the closed-loop time constant,
 
-5. <span id="a3-question-5"></span>**P And PI Gain Characterization.** Use the six-run protocol to show how
-   changing $K_p$ and $K_i$ changes the response. For each gain, plot the
-   process output (measured temperature) and process input (signed applied
-   PWM). From the Arduino's perspective, the thermistor measurement is an
-   input and PWM is an output; the terminology is reversed here because the
-   PWM enters the physical process and temperature leaves it. Arrange the
-   plots so that the P and PI trends can be compared with the reference below.
+\[
+\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
+\]
 
-    ![Responses to step changes for proportional and PI control](../../assets/controller_gain_response_reference.png)
+Explain why increasing $K_p$ both decreases droop and speeds up the response.
+Identify the dimensionless loop gain. Compare one representative open-loop or
+P-control prediction with measurement and state what agrees.
 
-    *Reference responses for (a) proportional control and (b) PI control. In
-    this course, the input $u$ is the signed PWM command applied to the TEC, and
-    the output $y$ is the measured temperature.*
+<span id="a3-question-2"></span>
 
-6. **Step-Response Characterization.** Analyze only the largest-gain P and PI
-   cases: Run 3, with the largest $K_p$, and Run 6, with the largest $K_i$.
-   For the upward and downward steps in those two runs, report rise time,
-   percent overshoot, settling time, and steady-state error. When oscillations
-   occur, also report their period. Define the thresholds you use for rise time
-   and settling time, then compare heating with cooling and P with PI control.
-   For additional background, see [LabVIEW guidance on PID response
-   metrics](https://www.ni.com/docs/en-US/bundle/labview/page/using-pid-on-fpga-targets.html).
+#### 2. Experimental Goldilocks Plots And Step-Response Metrics
 
-    ![Rise time, percent overshoot, settling time, and steady-state error](../../assets/step_response_metrics.gif)
+Present six experimental plots: low-, medium-, and high-gain P responses
+followed by low-, medium-, and high-gain PI responses. For each plot, show the
+process output (measured temperature) and process input (signed applied PWM).
 
-    *Step-response attributes: rise time, percent overshoot, settling time, and steady-state error.*
+Analyze the largest-gain P and PI cases quantitatively. For both upward and
+downward steps, report rise time, percent overshoot, settling time,
+steady-state error, and oscillation period when applicable. Define the
+thresholds used for rise and settling times.
 
-7. **Gain selection and the theory-simulation-measurement connection.** Explain
-   how the simulation informed your experimental choices of $K_p$ and $K_i$.
-   Identify one agreement and one disagreement among theory, simulation, and
-   measurement. Justify your final gains and identify one physical effect that
-   a better model should include.
+![Responses to step changes for proportional and PI control](../../assets/controller_gain_response_reference.png)
+
+*Reference responses for (a) proportional control and (b) PI control. In this
+course, the input $u$ is the signed PWM command applied to the TEC, and the
+output $y$ is the measured temperature.*
+
+![Rise time, percent overshoot, settling time, and steady-state error](../../assets/step_response_metrics.gif)
+
+*Step-response attributes: rise time, percent overshoot, settling time, and
+steady-state error.*
+
+<span id="a3-question-3"></span>
+
+#### 3. Simulation Goldilocks Plots And Experiment-Theory Comparison
+
+Present six simulation plots corresponding to the six experimental plots in
+Question 2. Every simulation must use the **same physical parameters**
+$\chi_c$, $\chi_h$, $\tau$, $G$, $C_T/C$, TEC voltage, TEC resistance,
+setpoints, starting conditions, and PWM limit because all six experiments use
+the same apparatus. Change only controller mode, $K_p$, and $K_i$ as required
+by the six-run protocol. Use the two-lump equations to explain which parameters
+primarily control rise time, P-control droop, overshoot, and the number and
+decay of oscillations. Identify one important agreement and one important
+disagreement between simulation and experiment.
+
+#### 4. Integral Action And Windup
+
+Use $u=u_P+u_I=K_pe+K_iq$ and $dq/dt=e$ to explain how integral action removes
+droop. Explain integral windup, describe your anti-windup rule, and state what
+happens when the integral state is reset after PI control has reached steady
+state.
+
+#### 5. Model Limits And Gain Selection
+
+Explain mathematically why the one-lump P-control model cannot overshoot. Use
+the two-lump equations and your twelve Goldilocks plots to explain how internal
+thermal lag produces behavior absent from the one-lump model. Justify your
+final $K_p$ and $K_i$ and name one physical effect that a better model should
+include.
 
 ### What To Submit
 
-Submit one PDF containing concise responses to all seven questions, the
-six-run comparison table and plots, and links to the underlying data, analysis
+Submit one PDF containing concise responses to all five questions, the six
+experimental and six simulated Goldilocks plots, the comparison tables, and
+links to the underlying data, analysis
 code, and GitHub modeling checkpoint. Integrate the [Module 5 interpretation
 questions](../lab-05/index.md#student-derivation-recover-the-droop-equation)
-into A3 Questions 2 and 3, and integrate the windup thought experiment into
+into A3 Questions 1 and 5, and integrate the windup thought experiment into
 Question 4 rather than repeating either set separately.
 
 ### A3 Rubric
 
 | Criterion | Points |
 | --- | ---: |
-| One-lump energy balance, $\chi=P_u/H$, $\tau=C/H$, units, and the no-free-parameter open-loop comparison are correct | 2 |
-| P-control droop, response speed, dimensionless gain, and overshoot or underdamped-response evidence are explained quantitatively | 2 |
-| All six P and PI runs use matched conditions, documented gains, and reproducible temperature and PWM records | 2 |
-| The largest-gain P and PI runs are quantified in both directions using defined rise time, overshoot, settling time, steady-state error, and oscillation period when applicable | 2 |
-| Integral action, anti-windup, final gain selection, and agreements and limitations among theory, simulation, and measurement are justified | 2 |
+| One-lump energy balance, measured parameters, P-control droop, response speed, and dimensionless gain are correct | 2 |
+| Six experimental Goldilocks plots use matched conditions, and the largest-gain P and PI runs are quantified in both directions | 2 |
+| Six simulation Goldilocks plots use one common set of physical parameters and are compared with experiment | 2 |
+| Integral action, reset, windup, and anti-windup are explained using the controller equations | 2 |
+| The two-lump explanation, parameter-behavior connections, model comparison, and final gain choice are justified | 2 |
 
 ### Oral Review Questions: PI Control
 

@@ -44,7 +44,7 @@ By the end of Module 6, Part II, you should be able to:
 - select and justify $K_p$ and $K_i$ by connecting theory, simulation, and
   measurement.
 
-The twelve measured and simulated Goldilocks plots are the principal way you
+The six measured and six simulated Goldilocks plots are the principal way you
 achieve these objectives. They are assessed together with the two-lump
 derivation in A3 Questions 3 and 5.
 

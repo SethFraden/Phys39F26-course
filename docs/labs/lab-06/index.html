@@ -309,6 +309,8 @@ environment, and responds over a time scale.</p>
   transfer per degree of temperature difference.</li>
 <li><strong>Time constant:</strong> characteristic decay time. A first-order system has one
   time constant; a higher-order system can have more than one decay time.</li>
+<li><strong>Command:</strong> the controller output <span class="arithmatex">\(u\)</span>, expressed here as a signed PWM value.
+  For example, a command of <span class="arithmatex">\(+25\)</span> PWM means set <span class="arithmatex">\(u=+25\)</span> PWM.</li>
 <li><strong>Open-loop temperature susceptibility:</strong> steady-state temperature change per
   applied PWM command, with direction held fixed.</li>
 <li><strong>P control:</strong> command proportional to the current temperature error.</li>
@@ -1173,10 +1175,58 @@ displacements obey a second-order characteristic equation,</p>
 <div class="arithmatex">\[
 \lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]</div>
-<p>Real negative roots give a nonoscillatory response, while a complex-conjugate
-pair gives a decaying oscillation. This result is included for interpretation,
-not as a required A3 derivation. Use the simulation to observe how <span class="arithmatex">\(K_p\)</span> and
-<span class="arithmatex">\(K_i\)</span> change the response.</p>
+<p>Compare this equation with the standard second-order form</p>
+<div class="arithmatex">\[
+\lambda^2+2\zeta\omega_n\lambda+\omega_n^2=0.
+\]</div>
+<p>The natural angular frequency and damping ratio are therefore</p>
+<div class="arithmatex">\[
+\omega_n=\sqrt{\frac{P_uK_i}{C}},
+\qquad
+\boxed{
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
+}.
+\]</div>
+<p>The dimensionless damping ratio <span class="arithmatex">\(\zeta\)</span> identifies the transition:</p>
+<ul>
+<li><span class="arithmatex">\(\zeta&gt;1\)</span>: overdamped, with two real negative roots;</li>
+<li><span class="arithmatex">\(\zeta=1\)</span>: critically damped; and</li>
+<li><span class="arithmatex">\(\zeta&lt;1\)</span>: underdamped, with a complex-conjugate pair and a decaying
+  oscillation.</li>
+</ul>
+<p>For the underdamped one-lump PI model, the temperature approaches steady state
+as a decaying sinusoid,</p>
+<div class="arithmatex">\[
+\boxed{
+T(t)-T_{\mathrm{ss}}
+=A e^{-\zeta\omega_n t}\cos(\omega_d t-\phi)
+},
+\qquad
+\omega_d=\omega_n\sqrt{1-\zeta^2}.
+\]</div>
+<p>The exponential envelope has decay time</p>
+<div class="arithmatex">\[
+\tau_{\mathrm{decay}}=\frac{1}{\zeta\omega_n},
+\]</div>
+<p>and the oscillation period is</p>
+<div class="arithmatex">\[
+T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
+\]</div>
+<p>The dimensionless quality factor is</p>
+<div class="arithmatex">\[
+\boxed{
+Q=\frac{1}{2\zeta}
+=\frac{\sqrt{CP_uK_i}}{H+P_uK_p}
+}.
+\]</div>
+<p>Thus <span class="arithmatex">\(Q&lt;1/2\)</span> is overdamped, <span class="arithmatex">\(Q=1/2\)</span> is critically damped, and <span class="arithmatex">\(Q&gt;1/2\)</span>
+is underdamped. Larger <span class="arithmatex">\(Q\)</span> means more slowly decaying oscillations.</p>
+<p>Within this ideal unsaturated one-lump PI model, increasing <span class="arithmatex">\(K_i\)</span> decreases
+<span class="arithmatex">\(\zeta\)</span> and makes oscillation more likely, while increasing <span class="arithmatex">\(K_p\)</span> increases
+<span class="arithmatex">\(\zeta\)</span>. The simulation displays this <strong>one-lump PI damping ratio</strong>. It is not
+the damping ratio of the full two-lump model developed in Part II.</p>
+<p>This result is included for interpretation, not as a required A3 derivation.
+Use the simulation to observe how <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> change the response.</p>
 <h2 id="part-7-implement-pi-control-and-collect-the-experimental-goldilocks-plots">Part 7: Implement PI Control And Collect The Experimental Goldilocks Plots<a class="headerlink" href="#part-7-implement-pi-control-and-collect-the-experimental-goldilocks-plots" title="Permanent link">&para;</a></h2>
 <p>Use your working Module 5 P controller as the starting point. Do not replace
 the Arduino's independent temperature shutdown or the existing signed-PWM
@@ -1360,11 +1410,17 @@ by the six-run protocol. Use the two-lump equations to explain which parameters
 primarily control rise time, P-control droop, overshoot, and the number and
 decay of oscillations. Identify one important agreement and one important
 disagreement between simulation and experiment.</p>
-<h4 id="4-integral-action-and-windup">4. Integral Action And Windup<a class="headerlink" href="#4-integral-action-and-windup" title="Permanent link">&para;</a></h4>
-<p>Use <span class="arithmatex">\(u=u_P+u_I=K_pe+K_iq\)</span> and <span class="arithmatex">\(dq/dt=e\)</span> to explain how integral action removes
-droop. Explain integral windup, describe your anti-windup rule, and state what
-happens when the integral state is reset after PI control has reached steady
-state.</p>
+<h4 id="4-pi-steady-state-assumptions-and-windup">4. PI Steady State, Assumptions, And Windup<a class="headerlink" href="#4-pi-steady-state-assumptions-and-windup" title="Permanent link">&para;</a></h4>
+<p><strong>Part 1: Ideal PI steady state.</strong> Assume ideal PI behavior and
+<span class="arithmatex">\(T_{\mathrm{set}}=55\ ^\circ\mathrm{C}\)</span>. What is the steady-state temperature
+<span class="arithmatex">\(T_{\mathrm{ss}}\)</span>? Use <span class="arithmatex">\(u=u_P+u_I=K_pe+K_iq\)</span> and <span class="arithmatex">\(dq/dt=e\)</span> to justify your
+answer and explain how integral action removes droop.</p>
+<p><strong>Part 2: Conditions for the ideal result.</strong> What assumptions must hold for
+the result in Part 1 to be reached? Address closed-loop stability, the
+available PWM range, actuator saturation, continued integral action, and
+temperature measurement. Explain integral windup, describe your anti-windup
+rule, and state what happens when the integral state is reset after PI control
+has reached steady state.</p>
 <h4 id="5-model-limits-and-gain-selection">5. Model Limits And Gain Selection<a class="headerlink" href="#5-model-limits-and-gain-selection" title="Permanent link">&para;</a></h4>
 <p><strong>To be answered after completing Part II.</strong></p>
 <p>Explain mathematically why the one-lump P-control model cannot overshoot. Use

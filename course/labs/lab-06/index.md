@@ -76,6 +76,8 @@ environment, and responds over a time scale.
   transfer per degree of temperature difference.
 - **Time constant:** characteristic decay time. A first-order system has one
   time constant; a higher-order system can have more than one decay time.
+- **Command:** the controller output $u$, expressed here as a signed PWM value.
+  For example, a command of $+25$ PWM means set $u=+25$ PWM.
 - **Open-loop temperature susceptibility:** steady-state temperature change per
   applied PWM command, with direction held fixed.
 - **P control:** command proportional to the current temperature error.
@@ -920,10 +922,72 @@ displacements obey a second-order characteristic equation,
 \lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]
 
-Real negative roots give a nonoscillatory response, while a complex-conjugate
-pair gives a decaying oscillation. This result is included for interpretation,
-not as a required A3 derivation. Use the simulation to observe how $K_p$ and
-$K_i$ change the response.
+Compare this equation with the standard second-order form
+
+\[
+\lambda^2+2\zeta\omega_n\lambda+\omega_n^2=0.
+\]
+
+The natural angular frequency and damping ratio are therefore
+
+\[
+\omega_n=\sqrt{\frac{P_uK_i}{C}},
+\qquad
+\boxed{
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}
+}.
+\]
+
+The dimensionless damping ratio $\zeta$ identifies the transition:
+
+- $\zeta>1$: overdamped, with two real negative roots;
+- $\zeta=1$: critically damped; and
+- $\zeta<1$: underdamped, with a complex-conjugate pair and a decaying
+  oscillation.
+
+For the underdamped one-lump PI model, the temperature approaches steady state
+as a decaying sinusoid,
+
+\[
+\boxed{
+T(t)-T_{\mathrm{ss}}
+=A e^{-\zeta\omega_n t}\cos(\omega_d t-\phi)
+},
+\qquad
+\omega_d=\omega_n\sqrt{1-\zeta^2}.
+\]
+
+The exponential envelope has decay time
+
+\[
+\tau_{\mathrm{decay}}=\frac{1}{\zeta\omega_n},
+\]
+
+and the oscillation period is
+
+\[
+T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
+\]
+
+The dimensionless quality factor is
+
+\[
+\boxed{
+Q=\frac{1}{2\zeta}
+=\frac{\sqrt{CP_uK_i}}{H+P_uK_p}
+}.
+\]
+
+Thus $Q<1/2$ is overdamped, $Q=1/2$ is critically damped, and $Q>1/2$
+is underdamped. Larger $Q$ means more slowly decaying oscillations.
+
+Within this ideal unsaturated one-lump PI model, increasing $K_i$ decreases
+$\zeta$ and makes oscillation more likely, while increasing $K_p$ increases
+$\zeta$. The simulation displays this **one-lump PI damping ratio**. It is not
+the damping ratio of the full two-lump model developed in Part II.
+
+This result is included for interpretation, not as a required A3 derivation.
+Use the simulation to observe how $K_p$ and $K_i$ change the response.
 
 ## Part 7: Implement PI Control And Collect The Experimental Goldilocks Plots
 
@@ -1108,12 +1172,19 @@ primarily control rise time, P-control droop, overshoot, and the number and
 decay of oscillations. Identify one important agreement and one important
 disagreement between simulation and experiment.
 
-#### 4. Integral Action And Windup
+#### 4. PI Steady State, Assumptions, And Windup
 
-Use $u=u_P+u_I=K_pe+K_iq$ and $dq/dt=e$ to explain how integral action removes
-droop. Explain integral windup, describe your anti-windup rule, and state what
-happens when the integral state is reset after PI control has reached steady
-state.
+**Part 1: Ideal PI steady state.** Assume ideal PI behavior and
+$T_{\mathrm{set}}=55\ ^\circ\mathrm{C}$. What is the steady-state temperature
+$T_{\mathrm{ss}}$? Use $u=u_P+u_I=K_pe+K_iq$ and $dq/dt=e$ to justify your
+answer and explain how integral action removes droop.
+
+**Part 2: Conditions for the ideal result.** What assumptions must hold for
+the result in Part 1 to be reached? Address closed-loop stability, the
+available PWM range, actuator saturation, continued integral action, and
+temperature measurement. Explain integral windup, describe your anti-windup
+rule, and state what happens when the integral state is reset after PI control
+has reached steady state.
 
 #### 5. Model Limits And Gain Selection
 

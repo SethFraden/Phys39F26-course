@@ -1324,17 +1324,22 @@ Identify the dimensionless loop gain. Compare one representative open-loop or
 P-control prediction with measurement and state what agrees.</p>
 <p><span id="a3-question-2"></span></p>
 <h4 id="2-experimental-goldilocks-plots-and-step-response-metrics">2. Experimental Goldilocks Plots And Step-Response Metrics<a class="headerlink" href="#2-experimental-goldilocks-plots-and-step-response-metrics" title="Permanent link">&para;</a></h4>
+<p><strong>Part 1: Experimental Goldilocks plots.</strong></p>
 <p>Present six experimental plots: low-, medium-, and high-gain P responses
 followed by low-, medium-, and high-gain PI responses. For each plot, show the
-process output (measured temperature) and process input (signed applied PWM).</p>
-<p>Analyze the largest-gain P and PI cases quantitatively. For both upward and
-downward steps, report rise time, percent overshoot, settling time,
-steady-state error, and oscillation period when applicable. Define the
-thresholds used for rise and settling times.</p>
+process output (measured temperature) and process input (signed applied PWM).
+The four curves in the reference figure below correspond to this part: the
+input <span class="arithmatex">\(u\)</span> and output <span class="arithmatex">\(y\)</span> for P control, and the input <span class="arithmatex">\(u\)</span> and output <span class="arithmatex">\(y\)</span> for PI
+control.</p>
 <p><img alt="Responses to step changes for proportional and PI control" src="../../assets/controller_gain_response_reference.png" /></p>
 <p><em>Reference responses for (a) proportional control and (b) PI control. In this
 course, the input <span class="arithmatex">\(u\)</span> is the signed PWM command applied to the TEC, and the
 output <span class="arithmatex">\(y\)</span> is the measured temperature.</em></p>
+<p><strong>Part 2: Step-response metrics.</strong></p>
+<p>Analyze the largest-gain P and PI cases quantitatively. For both upward and
+downward steps, report rise time, percent overshoot, settling time,
+steady-state error, and oscillation period when applicable. Define the
+thresholds used for rise and settling times.</p>
 <p><img alt="Rise time, percent overshoot, settling time, and steady-state error" src="../../assets/step_response_metrics.gif" /></p>
 <p><em>Step-response attributes: rise time, percent overshoot, settling time, and
 steady-state error.</em></p>

@@ -1059,20 +1059,27 @@ P-control prediction with measurement and state what agrees.
 
 #### 2. Experimental Goldilocks Plots And Step-Response Metrics
 
+**Part 1: Experimental Goldilocks plots.**
+
 Present six experimental plots: low-, medium-, and high-gain P responses
 followed by low-, medium-, and high-gain PI responses. For each plot, show the
 process output (measured temperature) and process input (signed applied PWM).
-
-Analyze the largest-gain P and PI cases quantitatively. For both upward and
-downward steps, report rise time, percent overshoot, settling time,
-steady-state error, and oscillation period when applicable. Define the
-thresholds used for rise and settling times.
+The four curves in the reference figure below correspond to this part: the
+input $u$ and output $y$ for P control, and the input $u$ and output $y$ for PI
+control.
 
 ![Responses to step changes for proportional and PI control](../../assets/controller_gain_response_reference.png)
 
 *Reference responses for (a) proportional control and (b) PI control. In this
 course, the input $u$ is the signed PWM command applied to the TEC, and the
 output $y$ is the measured temperature.*
+
+**Part 2: Step-response metrics.**
+
+Analyze the largest-gain P and PI cases quantitatively. For both upward and
+downward steps, report rise time, percent overshoot, settling time,
+steady-state error, and oscillation period when applicable. Define the
+thresholds used for rise and settling times.
 
 ![Rise time, percent overshoot, settling time, and steady-state error](../../assets/step_response_metrics.gif)
 

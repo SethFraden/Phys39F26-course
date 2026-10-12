@@ -12,8 +12,8 @@ the one-lump model, while Part II compares the one- and two-lump models.
 
 This part follows the first Module 6 modeling work and the initial physical PI
 implementation. Before beginning Part II, complete the physical $K_p$ and
-$K_i$ study and generate the comparison plots required by [Module 6, Part I,
-A3 Question 3](../lab-06/index.md#a3-question-3). Part II connects three
+$K_i$ study and generate the six experimental plots required by [Module 6,
+Part I, A3 Question 2](../lab-06/index.md#a3-question-2). Part II connects three
 things:
 
 1. the physical TEC/block/thermistor system,
@@ -25,6 +25,18 @@ This module is not about perfect quantitative prediction. It is about learning
 how a simple model can qualitatively or semi-quantitatively explain droop,
 overshoot, lag, and the onset of instability.
 
+### How A3 Is Divided Between Parts I And II
+
+| Complete after | A3 questions | Work completed in that part |
+| --- | --- | --- |
+| [**Part I**](../lab-06/index.md#a3-feedback-data-and-lumped-model-memo) | **Questions 1, 2, and 4** | Derive the one-lump predictions; present the six experimental Goldilocks plots and step-response metrics; analyze PI steady state, windup, and anti-windup. |
+| **Part II (this page)** | **Questions 3 and 5** | Produce the six two-lump simulation Goldilocks plots; compare simulation with experiment; explain the model limits and justify the selected gains. |
+
+Part II does not replace or repeat the experimental analysis in Question 2.
+It supplies the simulation and model interpretation required for [Question
+3](../lab-06/index.md#a3-question-3) and [Question
+5](../lab-06/index.md#5-model-limits-and-gain-selection).
+
 ### Learning Objectives
 
 By the end of Module 6, Part II, you should be able to:
@@ -35,8 +47,8 @@ By the end of Module 6, Part II, you should be able to:
   second-order equation for the measured temperature;
 - use the two-lump model to explain phase lag, overshoot, and underdamped
   behavior that the one-lump model cannot reproduce;
-- predict and verify how $K_p$, the coupling conductance, and the two thermal
-  capacitances affect the simulated transient;
+- predict and verify which controller and physical parameters increase or
+  suppress oscillation in the one- and two-lump models;
 - characterize matched physical P and PI responses using rise time,
   overshoot, settling time, steady-state error, and oscillation period;
 - generate six simulation Goldilocks plots using one shared set of physical
@@ -115,11 +127,8 @@ budget and should be attempted only after required work is complete.
   object were at the same temperature. The lump can be viewed as a point
   object of finite thermal mass. See the [one-lump/two-lump
   figure](#lumped-model-figure).
-- **Thermal mass**: a synonym for heat capacity. A larger thermal mass changes
-  temperature more slowly.
 - **Thermal lag**: delay between changing the actuator and observing the
   measured temperature response.
-- **Droop**: steady-state error in proportional-only control.
 - **Saturation**: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.
 
 ### Model Equations And Numerical Algorithm
@@ -157,19 +166,17 @@ open-loop, P, or PI control.
 
 </details>
 
-The one-lump model treats the TEC-side region and the measured block as one
-temperature. If their separate thermal capacitances are $C_T$ and $C_m$, the
-combined thermal capacitance is
+Part I developed the [one-lump energy balance and its measured-parameter
+form](../lab-06/index.md#part-2-express-the-one-lump-model-using-measured-parameters).
+Carry those results forward rather than deriving them again. For comparison
+with the two-lump model, the one-lump capacitance is the sum
 
 \[
 C=C_T+C_m,
-\qquad
-C\frac{dT}{dt}=P_u(u)u-H(T-T_{\mathrm{amb}}).
 \]
 
-Every term has units of watts. The TEC coefficient is piecewise: the program
-uses $P_{u,h}$ for a positive heating command and $P_{u,c}$ for a negative
-cooling command. Their ratio is
+and the simulation continues to use $P_{u,h}$ for heating and $P_{u,c}$ for
+cooling, with
 
 \[
 r=\frac{P_{u,h}}{P_{u,c}}=\frac{\chi_h}{\chi_c}.
@@ -350,27 +357,8 @@ here; do not repeat that assignment.
 
 #### Two-Lump Theory Assignment
 
-The one-lump model assumes that the measured temperature instantly equals
-the actuator-side temperature. The next model separates them:
-
-```text
-T  = actuator-side TEC/block temperature
-Tm = measured thermistor/block temperature
-```
-
-A simple two-lump model is:
-
-```text
-C_T dT/dt  = Q_tec - G*(T - Tm)
-C_m dTm/dt = G*(T - Tm) - H*(Tm - T_amb)
-```
-
-Here `C_T` and `C_m` are heat capacities in J/°C, `G` is the conductance
-between the two lumps, and `H` is the conductance from the measured lump to
-the room. Each term has units of W. The left side is a rate of thermal-energy
-change. The right side is the sum of heat flows into and out of each lump.
-
-Use these questions to annotate the equations before class:
+Use the [two-lump equations and their definitions](#two-lump-physical-model)
+above to answer these required pre-class questions:
 
 1. Identify which term transfers heat from the TEC side to the measured
    thermistor/block side.
@@ -474,32 +462,12 @@ python Lab_6_7_modeling_tec.py
    1.8** for possible board work: identify the physical system, write the heat
    balance, check units, and state the lumped-model approximation.
 
-2. Follow [How To Run The Python GUI](#how-to-run-the-python-gui) to download
-   and open the prepared simulation:
-
-   ```text
-   Lab_6_7_modeling_tec.py
-   ```
-
-3. Run the [Python GUI](#how-to-run-the-python-gui):
-
-   ```bash
-   python Lab_6_7_modeling_tec.py
-   ```
-
-4. In your notebook, copy the two-lump model equations and label the meaning of
+2. Complete [How To Run The Python GUI](#how-to-run-the-python-gui) and
+   confirm that the simulation opens.
+3. In your notebook, copy the two-lump model equations and label the meaning of
    each variable.
-5. Answer the five prompts in the [Two-Lump Theory
+4. Answer the five prompts in the [Two-Lump Theory
    Assignment](#two-lump-theory-assignment).
-
-### Pre-Class Questions
-
-Write short answers before class.
-
-1. In the two-lump model, why might $T$ and $T_m$ be different?
-2. Which temperature does the controller measure?
-3. Which parameter in the model most directly changes the amount of thermal
-   lag?
 
 ## In-Class Assignment
 
@@ -515,63 +483,85 @@ You will:
   update,
 - explain what this model teaches you about the real TEC experiment.
 
-Before beginning the comparison, make one quick simulation check: reproduce
-one familiar open-loop result and one familiar P-control droop result from
-Part I. This confirms your measured parameters and simulation settings. Do not
-make another table or written analysis for this check.
+Before beginning the comparison, load the measured parameters and saved
+one-lump results from Part I. Confirm that the displayed susceptibility, time
+constant, and P-control droop prediction match those saved values. Rerun a
+one-lump case only if this settings check fails.
 
-### Part 1: Match The Goldilocks P And PI Trends
+<span id="guided-simulation-exercise-what-increases-or-suppresses-oscillation"></span>
+
+### Part 1: Guided Goldilocks Simulation And Oscillation Study
 
 **The purpose of this exercise is to build an explicit match between experiment
-and theory.** A successful comparison does more than produce similar-looking
-curves: it identifies which terms and parameters in the model control the
-features measured in the experiment, including rise time, droop, overshoot,
-and the number and decay of oscillations.
+and theory.** It is the simulation counterpart to [A3 Question 2, Part
+2](../lab-06/index.md#a3-question-2), where you measured rise time, percent
+overshoot, settling time, steady-state error, and oscillation period. Here you
+will determine which model parameters increase or suppress those same response
+features, then produce the six simulation plots required by A3 Question 3.
 
-Set the physical model to `two_lump`. Enter your measured values of
-$T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$, and $\tau$, and use the same
-setpoints, PWM limit, and starting conditions as in your six physical runs.
-Your numerical gains may differ from those used by other teams.
+Use the same setpoint, initial temperature, PWM limit, and physical parameters
+for every controlled comparison. Reset the simulation before each run and vary
+only the named parameter.
+
+#### Carry Forward The One-Lump Results
+
+Do not repeat the Part I one-lump P gain study. Use its result as the baseline:
+increasing $K_p$ reduces droop and response time, but this one-state P model
+remains monotonic.
+
+For one-lump PI control, use
+
+\[
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}.
+\]
+
+Make three brief controlled comparisons:
+
+1. Hold $K_p$ fixed and increase $K_i$.
+2. Hold $K_i$ fixed and increase $K_p$.
+3. Using `direct constants`, increase $C$ while holding $H$, $P_u$, $K_p$, and
+   $K_i$ fixed.
+
+For each comparison, predict the change in $\zeta$, then verify whether the
+change increases or suppresses overshoot and ringing. Return to the measured
+physical parameters before continuing. These are exploratory comparisons, not
+additional Goldilocks plots.
+
+#### Make The Six Two-Lump Goldilocks Plots
+
+Select `two_lump`. Enter your measured $T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$,
+and $\tau$, and use the setpoints, PWM limit, starting conditions, TEC voltage,
+and TEC resistance from the six physical runs. Your numerical gains may differ
+from those used by other teams.
 
 The measurements determine the one-lump behavior but do not uniquely determine
-the internal two-lump parameters $G$ and $C_T/C$. Use the simulation to find
-**one shared set** of these physical parameters that qualitatively reproduces
-your experimental progression. Do not choose different physical parameters
-for each gain. The experiments all use the same apparatus, so all six
-simulations must likewise use the same $\chi_c$, $\chi_h$, $\tau$, $G$,
-$C_T/C$, TEC voltage, TEC resistance, setpoints, starting conditions, and PWM
-limit. Change only controller mode, $K_p$, and $K_i$ according to the six-run
-protocol.
+the internal parameters $G$ and $C_T/C$. Find **one shared set** of these
+parameters that qualitatively reproduces the experimental progression. The
+apparatus did not change between runs, so do not choose different physical
+parameters for different gains.
 
-1. Set $K_i=0$. Run your experimental low, medium, and high $K_p$ values,
-   resetting the simulation before each run. Look for the same progression as
-   in your P-only Goldilocks plots: slow response and larger droop, a useful
-   compromise, and clear overshoot or ringing.
-2. If the progression does not resemble your measurements, vary only $G$ or
-   $C_T/C$, predict the effect, and repeat all three P runs. Continue until one
-   set of physical parameters gives a reasonable qualitative comparison.
-3. Keep those physical parameters fixed. Select `pi`, hold $K_p$ at the value
-   used for your three experimental PI runs, and simulate your low, medium,
-   and high $K_i$ values. Reset the integral before each run.
-4. Look for the PI progression in your Goldilocks plots: slow removal of
-   steady-state error, a useful compromise, and excessive overshoot, ringing,
-   or saturation.
-5. Starting from your shared model, vary one parameter at a time. Determine
-   which parameters most strongly change rise time, P-control droop,
-   overshoot, and the number and decay of oscillations. Return each parameter
-   to the shared value before testing the next one. Test $K_p$, $K_i$, $G$,
-   and $C_T/C$ explicitly. You may also perturb $\tau$ or $\chi$ to understand
-   sensitivity, but restore their measured values for the final comparison.
-6. Make and label the **six simulation Goldilocks plots** using the same
-   organization, axes, and labels as the six experimental Goldilocks plots.
+1. With $K_i=0$, simulate the experimental low, medium, and high $K_p$ values.
+   Look for the progression from slow response and larger droop, through a
+   useful compromise, to overshoot or ringing. Plot only the mass temperature
+   when the TEC-side temperature obscures the measured response.
+2. Near the transition to overshoot, test both a smaller and a larger $G$,
+   returning to the shared value between tests. Repeat for $C_T/C$. Predict
+   each result and determine which direction increases thermal lag and which
+   suppresses overshoot or ringing. Do not assume either dependence remains
+   monotonic over every possible value.
+3. Restore the shared physical parameters. Select `pi`, hold $K_p$ at the
+   value used for all three experimental PI runs, and simulate the low,
+   medium, and high $K_i$ values. Reset the integral before every run.
+4. Make and label the **six simulation Goldilocks plots** using the same
+   organization, axes, and labels as the six experimental plots.
 
-Record the single physical parameter set used for all six simulations:
+Record the one physical parameter set used for all six simulations:
 
 | $\chi_c$ | $\chi_h$ | $\tau$ | $G$ | $C_T/C$ | TEC voltage | TEC resistance | Setpoints | PWM limit |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
 |  |  |  |  |  |  |  |  |  |
 
-Then compare the six conditions:
+Compare the six matched conditions:
 
 | Condition | Controller | $K_p$ | $K_i$ | Experimental behavior | Simulated behavior | Agreement or mismatch |
 | --- | --- | ---: | ---: | --- | --- | --- |
@@ -582,44 +572,22 @@ Then compare the six conditions:
 | PI medium | PI |  |  |  |  |  |
 | PI high | PI |  |  |  |  |  |
 
-Summarize the parameter-to-behavior correspondence:
+Use one table to summarize the parameter trends observed in both the brief
+one-lump comparisons and the two-lump study:
 
-| Observed behavior | Parameter varied | Where it enters the equation or update | Predicted change | Simulated change | Experimental evidence |
+| Model and controller | Parameter changed | Held fixed | Change that increased oscillation | Change that suppressed oscillation | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| Rise time |  |  |  |  |  |
-| P-control droop |  |  |  |  |  |
-| Overshoot |  |  |  |  |  |
-| Number and decay of oscillations |  |  |  |  |  |
+| One-lump P | $K_p$ | Physical parameters | None observed | Not applicable: response remained monotonic | Part I result |
+| One-lump PI | $K_i$, then $K_p$, then $C$ | All other parameters |  |  |  |
+| Two-lump P | $K_p$, then $G$, then $C_T/C$ | All other parameters |  |  |  |
+| Two-lump PI | $K_i$ | $K_p$ and physical parameters |  |  |  |
 
-Answer:
-
-- Which parameters most strongly controlled rise time, P-control droop,
-  overshoot, and the number and decay of oscillations? Explain each connection
-  using the model equations.
-- How did changing $G$ or $C_T/C$ affect lag, overshoot, and ringing?
-- Which temperature does the controller use to calculate error, and why does
-  that delayed measurement make high gain dangerous?
-- Which trends in the six experimental plots did one shared two-lump model
-  reproduce successfully?
-- What important disagreement remains between simulation and experiment?
-- Why would changing the physical model parameters separately for every gain
-  weaken the comparison?
-
-### Part 2: Interpret The Match
-
-Use the equations, six-run comparison, and parameter table to prepare A3. Your
-interpretation must make four connections:
-
-1. Identify the internal heat flow that makes $T_m$ lag behind $T$.
-2. Explain why that lag permits overshoot even though the one-lump P model is
-   monotonic.
-3. Explain which parameters primarily changed rise time, droop, overshoot, and
-   oscillation decay in your controlled comparisons.
-4. State one important agreement and one important disagreement between the
-   shared two-lump simulation and the physical apparatus.
-
-Do not write a second report for Part II. These results become the model-limit
-and experiment-theory sections of A3.
+Use these two tables and the twelve Goldilocks plots directly in A3 Questions
+3 and 5. Explain why one-lump P control cannot oscillate, identify the heat
+flow that makes $T_m$ lag behind $T$, connect the parameter changes to rise
+time, droop, overshoot, and oscillation decay, and state one important
+agreement and disagreement between simulation and experiment. Do not write a
+separate Part II report.
 
 ## Post-Class Assignment
 

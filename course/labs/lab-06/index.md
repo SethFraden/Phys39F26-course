@@ -570,14 +570,9 @@ u_n=K_p(T_{\mathrm{set}}-T_n).
 \]
 
 Use one gain from your Module 5 experiment and one larger gain. Before each
-run, predict the steady-state droop and closed-loop time constant from
-
-\[
-T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
-\qquad
-\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
-\]
+run, predict the steady-state droop from the [Part 1
+result](#guided-derivation-and-numerical-check) and the closed-loop time
+constant from the [Part 5 result](#part-5-explain-the-one-lump-p-transient-and-its-limit).
 
 Confirm that increasing $K_p$ decreases both droop and response time. Record
 only the settings and whether the predictions agree; do not make a second
@@ -776,12 +771,9 @@ quantitatively.](../lab-07/index.md#from-two-first-order-equations-to-one-second
 
 </details>
 
-The one-lump model predicts the final temperature well because steady state is
-governed by the nearly model-independent requirement that energy entering per
-unit time equals energy leaving per unit time. It fails at high gain because
-transient behavior also depends on where energy is stored and how long it takes
-to reach the thermistor. The qualitative two-lump explanation is developed in
-the sidebar above; its equations and parameter study are the focus of Part II.
+Thus the nearly model-independent steady-state energy balance can succeed even
+when the one-lump transient model fails. Part II develops and tests the
+two-lump explanation quantitatively.
 
 ## Part 6: Add Integral Action In Simulation
 
@@ -837,16 +829,6 @@ Select `pi` in the simulation and begin with a stable $K_p$. Use **Zero integral
 clear the controller memory before a comparison. Watch the displayed values of
 $e$, $u_P$, $u_I$, and the applied command while the temperature approaches
 the setpoint.
-
-Compare P-only and PI simulations:
-
-- final droop,
-- time to approach setpoint,
-- overshoot,
-- sensitivity to saturation.
-
-The main point is that integral action can reduce steady-state error, but it can
-also create overshoot and windup.
 
 ### Guided Simulation Exercise: Watch The Integral Contribution
 
@@ -1197,22 +1179,26 @@ saturation, do not update $q$ on that step. The output clamp and independent
 Arduino safety shutdown remain active even when anti-windup is working.
 
 Before applying actuator power, show the instructor the lines that calculate
-$e$, $q$, $u_P$, $u_I$, and the clamped command. Then:
+$e$, $q$, $u_P$, $u_I$, and the clamped command. Then begin the Goldilocks
+study. The first successful P and PI validation traces may count among the six
+retained runs when they use the matched conditions specified below:
 
-1. Use the same safe setpoint and a stable $K_p$ from Module 5.
-2. Set $K_i=0$, zero the integral state, and record a P-only baseline.
+1. Use the same safe setpoints and a stable $K_p$ from Module 5.
+2. Set $K_i=0$, zero the integral state, and record a P-only response. Retain
+   it as a Goldilocks run if it meets the protocol below.
 3. Set PWM to zero before changing controller mode or resetting the integral.
 4. Choose a small positive $K_i$ after exploring it in the simulation. Zero the integral
-   state, enable PI, and record the response from comparable initial conditions.
+   state, enable PI, and record the response from comparable initial
+   conditions. Retain it as a Goldilocks run if it meets the protocol below.
 5. Confirm that $u_I$ grows while a persistent error remains and that the
    steady error becomes smaller than in the P-only run.
 6. Stop and set PWM to zero if the temperature moves in the wrong direction,
    the display freezes, saturation persists unexpectedly, or oscillations grow.
 
-Preserve both traces and the exact $K_p$, $K_i$, setpoint, starting
-temperature, PWM limit, sample interval, and anti-windup setting. These two
-preliminary traces establish that the controller works. Now complete the
-Goldilocks study below before beginning Part II.
+Do not collect extra traces solely to validate the controller. If a validation
+run does not meet the matched Goldilocks conditions, use it only for debugging
+and do not include it in A3. Complete the six-run study below before beginning
+Part II.
 
 ### Experimental Goldilocks Study
 
@@ -1268,11 +1254,16 @@ git push
 - **Analysis and submission target:** about **2 hours** after the in-class analysis is
   complete
 
-**A3 spans both parts of Module 6.** After Part I, you can complete Questions
-1, 2, and 4. Complete Questions 3 and 5 only after Part II: Question 3 uses
-the two-lump model to simulate P and PI responses with overshoot, and Question
-5 uses that model to explain why the one-lump model succeeds at steady state
-but fails to reproduce the measured high-gain transient behavior.
+### How A3 Is Divided Between Parts I And II
+
+| Complete after | A3 questions | Work completed in that part |
+| --- | --- | --- |
+| **Part I** | **Questions 1, 2, and 4** | Derive the one-lump predictions; present the six experimental Goldilocks plots and step-response metrics; analyze PI steady state, windup, and anti-windup. |
+| **Part II** | **Questions 3 and 5** | Produce the six two-lump simulation Goldilocks plots; compare simulation with experiment; explain the model limits and justify the selected gains. |
+
+Question 2 contains the experimental reference measurements. Question 3 uses
+Part II to make and interpret the corresponding simulations. Do not try to
+complete Questions 3 or 5 before completing Part II.
 
 The final A3 assembly consists of selecting the already completed comparison
 plots and table, writing the short interpretation, checking paths, committing,
@@ -1334,6 +1325,12 @@ Analyze the largest-gain P and PI cases quantitatively. For both upward and
 downward steps, report rise time, percent overshoot, settling time,
 steady-state error, and oscillation period when applicable. Define the
 thresholds used for rise and settling times.
+
+These measured quantities provide the experimental reference for the
+[guided simulation exercise on increasing and suppressing
+oscillation](../lab-07/index.md#guided-simulation-exercise-what-increases-or-suppresses-oscillation).
+In that exercise, you will vary model parameters and determine which changes
+increase or suppress the same response features measured here.
 
 ![Rise time, percent overshoot, settling time, and steady-state error](../../assets/step_response_metrics.gif)
 

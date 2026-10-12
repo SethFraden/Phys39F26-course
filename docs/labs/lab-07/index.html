@@ -116,6 +116,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#how-a3-is-divided-between-parts-i-and-ii" class="nav-link">How A3 Is Divided Between Parts I And II</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
               <ul class="nav flex-column">
               </ul>
@@ -156,10 +160,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#pre-class-questions" class="nav-link">Pre-Class Questions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#in-class-assignment" class="nav-link">In-Class Assignment</a>
@@ -168,11 +168,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-1-match-the-goldilocks-p-and-pi-trends" class="nav-link">Part 1: Match The Goldilocks P And PI Trends</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="3"><a href="#part-2-interpret-the-match" class="nav-link">Part 2: Interpret The Match</a>
+            <li class="nav-item" data-bs-level="3"><a href="#part-1-guided-goldilocks-simulation-and-oscillation-study" class="nav-link">Part 1: Guided Goldilocks Simulation And Oscillation Study</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -211,8 +207,8 @@ the one-lump model, while Part II compares the one- and two-lump models.</p>
 <h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
 <p>This part follows the first Module 6 modeling work and the initial physical PI
 implementation. Before beginning Part II, complete the physical <span class="arithmatex">\(K_p\)</span> and
-<span class="arithmatex">\(K_i\)</span> study and generate the comparison plots required by <a href="../lab-06/#a3-question-3">Module 6, Part I,
-A3 Question 3</a>. Part II connects three
+<span class="arithmatex">\(K_i\)</span> study and generate the six experimental plots required by <a href="../lab-06/#a3-question-2">Module 6,
+Part I, A3 Question 2</a>. Part II connects three
 things:</p>
 <ol>
 <li>the physical TEC/block/thermistor system,</li>
@@ -223,6 +219,32 @@ things:</p>
 <p>This module is not about perfect quantitative prediction. It is about learning
 how a simple model can qualitatively or semi-quantitatively explain droop,
 overshoot, lag, and the onset of instability.</p>
+<h3 id="how-a3-is-divided-between-parts-i-and-ii">How A3 Is Divided Between Parts I And II<a class="headerlink" href="#how-a3-is-divided-between-parts-i-and-ii" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Complete after</th>
+<th>A3 questions</th>
+<th>Work completed in that part</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../lab-06/#a3-feedback-data-and-lumped-model-memo"><strong>Part I</strong></a></td>
+<td><strong>Questions 1, 2, and 4</strong></td>
+<td>Derive the one-lump predictions; present the six experimental Goldilocks plots and step-response metrics; analyze PI steady state, windup, and anti-windup.</td>
+</tr>
+<tr>
+<td><strong>Part II (this page)</strong></td>
+<td><strong>Questions 3 and 5</strong></td>
+<td>Produce the six two-lump simulation Goldilocks plots; compare simulation with experiment; explain the model limits and justify the selected gains.</td>
+</tr>
+</tbody>
+</table>
+<p>Part II does not replace or repeat the experimental analysis in Question 2.
+It supplies the simulation and model interpretation required for <a href="../lab-06/#a3-question-3">Question
+3</a> and <a href="../lab-06/#5-model-limits-and-gain-selection">Question
+5</a>.</p>
 <h3 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h3>
 <p>By the end of Module 6, Part II, you should be able to:</p>
 <ul>
@@ -232,8 +254,8 @@ overshoot, lag, and the onset of instability.</p>
   second-order equation for the measured temperature;</li>
 <li>use the two-lump model to explain phase lag, overshoot, and underdamped
   behavior that the one-lump model cannot reproduce;</li>
-<li>predict and verify how <span class="arithmatex">\(K_p\)</span>, the coupling conductance, and the two thermal
-  capacitances affect the simulated transient;</li>
+<li>predict and verify which controller and physical parameters increase or
+  suppress oscillation in the one- and two-lump models;</li>
 <li>characterize matched physical P and PI responses using rise time,
   overshoot, settling time, steady-state error, and oscillation period;</li>
 <li>generate six simulation Goldilocks plots using one shared set of physical
@@ -337,11 +359,8 @@ budget and should be attempted only after required work is complete.</p>
   object were at the same temperature. The lump can be viewed as a point
   object of finite thermal mass. See the <a href="#lumped-model-figure">one-lump/two-lump
   figure</a>.</li>
-<li><strong>Thermal mass</strong>: a synonym for heat capacity. A larger thermal mass changes
-  temperature more slowly.</li>
 <li><strong>Thermal lag</strong>: delay between changing the actuator and observing the
   measured temperature response.</li>
-<li><strong>Droop</strong>: steady-state error in proportional-only control.</li>
 <li><strong>Saturation</strong>: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.</li>
 </ul>
 <h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
@@ -458,17 +477,15 @@ open-loop, P, or PI control.</p>
 </tbody>
 </table>
 </details>
-<p>The one-lump model treats the TEC-side region and the measured block as one
-temperature. If their separate thermal capacitances are <span class="arithmatex">\(C_T\)</span> and <span class="arithmatex">\(C_m\)</span>, the
-combined thermal capacitance is</p>
+<p>Part I developed the <a href="../lab-06/#part-2-express-the-one-lump-model-using-measured-parameters">one-lump energy balance and its measured-parameter
+form</a>.
+Carry those results forward rather than deriving them again. For comparison
+with the two-lump model, the one-lump capacitance is the sum</p>
 <div class="arithmatex">\[
 C=C_T+C_m,
-\qquad
-C\frac{dT}{dt}=P_u(u)u-H(T-T_{\mathrm{amb}}).
 \]</div>
-<p>Every term has units of watts. The TEC coefficient is piecewise: the program
-uses <span class="arithmatex">\(P_{u,h}\)</span> for a positive heating command and <span class="arithmatex">\(P_{u,c}\)</span> for a negative
-cooling command. Their ratio is</p>
+<p>and the simulation continues to use <span class="arithmatex">\(P_{u,h}\)</span> for heating and <span class="arithmatex">\(P_{u,c}\)</span> for
+cooling, with</p>
 <div class="arithmatex">\[
 r=\frac{P_{u,h}}{P_{u,c}}=\frac{\chi_h}{\chi_c}.
 \]</div>
@@ -604,20 +621,8 @@ you derived the one-lump energy balance, expressed it using the measured
 <span class="arithmatex">\(\chi\)</span> and <span class="arithmatex">\(\tau\)</span>, and found its steady-state temperature. Use those results
 here; do not repeat that assignment.</p>
 <h4 id="two-lump-theory-assignment">Two-Lump Theory Assignment<a class="headerlink" href="#two-lump-theory-assignment" title="Permanent link">&para;</a></h4>
-<p>The one-lump model assumes that the measured temperature instantly equals
-the actuator-side temperature. The next model separates them:</p>
-<pre><code class="language-text">T  = actuator-side TEC/block temperature
-Tm = measured thermistor/block temperature
-</code></pre>
-<p>A simple two-lump model is:</p>
-<pre><code class="language-text">C_T dT/dt  = Q_tec - G*(T - Tm)
-C_m dTm/dt = G*(T - Tm) - H*(Tm - T_amb)
-</code></pre>
-<p>Here <code>C_T</code> and <code>C_m</code> are heat capacities in J/°C, <code>G</code> is the conductance
-between the two lumps, and <code>H</code> is the conductance from the measured lump to
-the room. Each term has units of W. The left side is a rate of thermal-energy
-change. The right side is the sum of heat flows into and out of each lump.</p>
-<p>Use these questions to annotate the equations before class:</p>
+<p>Use the <a href="#two-lump-physical-model">two-lump equations and their definitions</a>
+above to answer these required pre-class questions:</p>
 <ol>
 <li>Identify which term transfers heat from the TEC side to the measured
    thermistor/block side.</li>
@@ -696,30 +701,13 @@ python Lab_6_7_modeling_tec.py
    balance, check units, and state the lumped-model approximation.</p>
 </li>
 <li>
-<p>Follow <a href="#how-to-run-the-python-gui">How To Run The Python GUI</a> to download
-   and open the prepared simulation:</p>
+<p>Complete <a href="#how-to-run-the-python-gui">How To Run The Python GUI</a> and
+   confirm that the simulation opens.</p>
 </li>
-</ol>
-<p><code>text
-   Lab_6_7_modeling_tec.py</code></p>
-<ol>
-<li>Run the <a href="#how-to-run-the-python-gui">Python GUI</a>:</li>
-</ol>
-<p><code>bash
-   python Lab_6_7_modeling_tec.py</code></p>
-<ol>
 <li>In your notebook, copy the two-lump model equations and label the meaning of
    each variable.</li>
 <li>Answer the five prompts in the <a href="#two-lump-theory-assignment">Two-Lump Theory
    Assignment</a>.</li>
-</ol>
-<h3 id="pre-class-questions">Pre-Class Questions<a class="headerlink" href="#pre-class-questions" title="Permanent link">&para;</a></h3>
-<p>Write short answers before class.</p>
-<ol>
-<li>In the two-lump model, why might <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(T_m\)</span> be different?</li>
-<li>Which temperature does the controller measure?</li>
-<li>Which parameter in the model most directly changes the amount of thermal
-   lag?</li>
 </ol>
 <h2 id="in-class-assignment">In-Class Assignment<a class="headerlink" href="#in-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="what-you-will-do">What You Will Do<a class="headerlink" href="#what-you-will-do" title="Permanent link">&para;</a></h3>
@@ -733,53 +721,67 @@ python Lab_6_7_modeling_tec.py
   update,</li>
 <li>explain what this model teaches you about the real TEC experiment.</li>
 </ul>
-<p>Before beginning the comparison, make one quick simulation check: reproduce
-one familiar open-loop result and one familiar P-control droop result from
-Part I. This confirms your measured parameters and simulation settings. Do not
-make another table or written analysis for this check.</p>
-<h3 id="part-1-match-the-goldilocks-p-and-pi-trends">Part 1: Match The Goldilocks P And PI Trends<a class="headerlink" href="#part-1-match-the-goldilocks-p-and-pi-trends" title="Permanent link">&para;</a></h3>
+<p>Before beginning the comparison, load the measured parameters and saved
+one-lump results from Part I. Confirm that the displayed susceptibility, time
+constant, and P-control droop prediction match those saved values. Rerun a
+one-lump case only if this settings check fails.</p>
+<p><span id="guided-simulation-exercise-what-increases-or-suppresses-oscillation"></span></p>
+<h3 id="part-1-guided-goldilocks-simulation-and-oscillation-study">Part 1: Guided Goldilocks Simulation And Oscillation Study<a class="headerlink" href="#part-1-guided-goldilocks-simulation-and-oscillation-study" title="Permanent link">&para;</a></h3>
 <p><strong>The purpose of this exercise is to build an explicit match between experiment
-and theory.</strong> A successful comparison does more than produce similar-looking
-curves: it identifies which terms and parameters in the model control the
-features measured in the experiment, including rise time, droop, overshoot,
-and the number and decay of oscillations.</p>
-<p>Set the physical model to <code>two_lump</code>. Enter your measured values of
-<span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, and <span class="arithmatex">\(\tau\)</span>, and use the same
-setpoints, PWM limit, and starting conditions as in your six physical runs.
-Your numerical gains may differ from those used by other teams.</p>
-<p>The measurements determine the one-lump behavior but do not uniquely determine
-the internal two-lump parameters <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(C_T/C\)</span>. Use the simulation to find
-<strong>one shared set</strong> of these physical parameters that qualitatively reproduces
-your experimental progression. Do not choose different physical parameters
-for each gain. The experiments all use the same apparatus, so all six
-simulations must likewise use the same <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>, <span class="arithmatex">\(G\)</span>,
-<span class="arithmatex">\(C_T/C\)</span>, TEC voltage, TEC resistance, setpoints, starting conditions, and PWM
-limit. Change only controller mode, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(K_i\)</span> according to the six-run
-protocol.</p>
+and theory.</strong> It is the simulation counterpart to <a href="../lab-06/#a3-question-2">A3 Question 2, Part
+2</a>, where you measured rise time, percent
+overshoot, settling time, steady-state error, and oscillation period. Here you
+will determine which model parameters increase or suppress those same response
+features, then produce the six simulation plots required by A3 Question 3.</p>
+<p>Use the same setpoint, initial temperature, PWM limit, and physical parameters
+for every controlled comparison. Reset the simulation before each run and vary
+only the named parameter.</p>
+<h4 id="carry-forward-the-one-lump-results">Carry Forward The One-Lump Results<a class="headerlink" href="#carry-forward-the-one-lump-results" title="Permanent link">&para;</a></h4>
+<p>Do not repeat the Part I one-lump P gain study. Use its result as the baseline:
+increasing <span class="arithmatex">\(K_p\)</span> reduces droop and response time, but this one-state P model
+remains monotonic.</p>
+<p>For one-lump PI control, use</p>
+<div class="arithmatex">\[
+\zeta=\frac{H+P_uK_p}{2\sqrt{CP_uK_i}}.
+\]</div>
+<p>Make three brief controlled comparisons:</p>
 <ol>
-<li>Set <span class="arithmatex">\(K_i=0\)</span>. Run your experimental low, medium, and high <span class="arithmatex">\(K_p\)</span> values,
-   resetting the simulation before each run. Look for the same progression as
-   in your P-only Goldilocks plots: slow response and larger droop, a useful
-   compromise, and clear overshoot or ringing.</li>
-<li>If the progression does not resemble your measurements, vary only <span class="arithmatex">\(G\)</span> or
-   <span class="arithmatex">\(C_T/C\)</span>, predict the effect, and repeat all three P runs. Continue until one
-   set of physical parameters gives a reasonable qualitative comparison.</li>
-<li>Keep those physical parameters fixed. Select <code>pi</code>, hold <span class="arithmatex">\(K_p\)</span> at the value
-   used for your three experimental PI runs, and simulate your low, medium,
-   and high <span class="arithmatex">\(K_i\)</span> values. Reset the integral before each run.</li>
-<li>Look for the PI progression in your Goldilocks plots: slow removal of
-   steady-state error, a useful compromise, and excessive overshoot, ringing,
-   or saturation.</li>
-<li>Starting from your shared model, vary one parameter at a time. Determine
-   which parameters most strongly change rise time, P-control droop,
-   overshoot, and the number and decay of oscillations. Return each parameter
-   to the shared value before testing the next one. Test <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, <span class="arithmatex">\(G\)</span>,
-   and <span class="arithmatex">\(C_T/C\)</span> explicitly. You may also perturb <span class="arithmatex">\(\tau\)</span> or <span class="arithmatex">\(\chi\)</span> to understand
-   sensitivity, but restore their measured values for the final comparison.</li>
-<li>Make and label the <strong>six simulation Goldilocks plots</strong> using the same
-   organization, axes, and labels as the six experimental Goldilocks plots.</li>
+<li>Hold <span class="arithmatex">\(K_p\)</span> fixed and increase <span class="arithmatex">\(K_i\)</span>.</li>
+<li>Hold <span class="arithmatex">\(K_i\)</span> fixed and increase <span class="arithmatex">\(K_p\)</span>.</li>
+<li>Using <code>direct constants</code>, increase <span class="arithmatex">\(C\)</span> while holding <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(K_p\)</span>, and
+   <span class="arithmatex">\(K_i\)</span> fixed.</li>
 </ol>
-<p>Record the single physical parameter set used for all six simulations:</p>
+<p>For each comparison, predict the change in <span class="arithmatex">\(\zeta\)</span>, then verify whether the
+change increases or suppresses overshoot and ringing. Return to the measured
+physical parameters before continuing. These are exploratory comparisons, not
+additional Goldilocks plots.</p>
+<h4 id="make-the-six-two-lump-goldilocks-plots">Make The Six Two-Lump Goldilocks Plots<a class="headerlink" href="#make-the-six-two-lump-goldilocks-plots" title="Permanent link">&para;</a></h4>
+<p>Select <code>two_lump</code>. Enter your measured <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>,
+and <span class="arithmatex">\(\tau\)</span>, and use the setpoints, PWM limit, starting conditions, TEC voltage,
+and TEC resistance from the six physical runs. Your numerical gains may differ
+from those used by other teams.</p>
+<p>The measurements determine the one-lump behavior but do not uniquely determine
+the internal parameters <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(C_T/C\)</span>. Find <strong>one shared set</strong> of these
+parameters that qualitatively reproduces the experimental progression. The
+apparatus did not change between runs, so do not choose different physical
+parameters for different gains.</p>
+<ol>
+<li>With <span class="arithmatex">\(K_i=0\)</span>, simulate the experimental low, medium, and high <span class="arithmatex">\(K_p\)</span> values.
+   Look for the progression from slow response and larger droop, through a
+   useful compromise, to overshoot or ringing. Plot only the mass temperature
+   when the TEC-side temperature obscures the measured response.</li>
+<li>Near the transition to overshoot, test both a smaller and a larger <span class="arithmatex">\(G\)</span>,
+   returning to the shared value between tests. Repeat for <span class="arithmatex">\(C_T/C\)</span>. Predict
+   each result and determine which direction increases thermal lag and which
+   suppresses overshoot or ringing. Do not assume either dependence remains
+   monotonic over every possible value.</li>
+<li>Restore the shared physical parameters. Select <code>pi</code>, hold <span class="arithmatex">\(K_p\)</span> at the
+   value used for all three experimental PI runs, and simulate the low,
+   medium, and high <span class="arithmatex">\(K_i\)</span> values. Reset the integral before every run.</li>
+<li>Make and label the <strong>six simulation Goldilocks plots</strong> using the same
+   organization, axes, and labels as the six experimental plots.</li>
+</ol>
+<p>Record the one physical parameter set used for all six simulations:</p>
 <table>
 <thead>
 <tr>
@@ -808,7 +810,7 @@ protocol.</p>
 </tr>
 </tbody>
 </table>
-<p>Then compare the six conditions:</p>
+<p>Compare the six matched conditions:</p>
 <table>
 <thead>
 <tr>
@@ -878,81 +880,60 @@ protocol.</p>
 </tr>
 </tbody>
 </table>
-<p>Summarize the parameter-to-behavior correspondence:</p>
+<p>Use one table to summarize the parameter trends observed in both the brief
+one-lump comparisons and the two-lump study:</p>
 <table>
 <thead>
 <tr>
-<th>Observed behavior</th>
-<th>Parameter varied</th>
-<th>Where it enters the equation or update</th>
-<th>Predicted change</th>
-<th>Simulated change</th>
-<th>Experimental evidence</th>
+<th>Model and controller</th>
+<th>Parameter changed</th>
+<th>Held fixed</th>
+<th>Change that increased oscillation</th>
+<th>Change that suppressed oscillation</th>
+<th>Evidence</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Rise time</td>
-<td></td>
-<td></td>
+<td>One-lump P</td>
+<td><span class="arithmatex">\(K_p\)</span></td>
+<td>Physical parameters</td>
+<td>None observed</td>
+<td>Not applicable: response remained monotonic</td>
+<td>Part I result</td>
+</tr>
+<tr>
+<td>One-lump PI</td>
+<td><span class="arithmatex">\(K_i\)</span>, then <span class="arithmatex">\(K_p\)</span>, then <span class="arithmatex">\(C\)</span></td>
+<td>All other parameters</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>P-control droop</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Overshoot</td>
-<td></td>
-<td></td>
+<td>Two-lump P</td>
+<td><span class="arithmatex">\(K_p\)</span>, then <span class="arithmatex">\(G\)</span>, then <span class="arithmatex">\(C_T/C\)</span></td>
+<td>All other parameters</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>Number and decay of oscillations</td>
-<td></td>
-<td></td>
+<td>Two-lump PI</td>
+<td><span class="arithmatex">\(K_i\)</span></td>
+<td><span class="arithmatex">\(K_p\)</span> and physical parameters</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>Answer:</p>
-<ul>
-<li>Which parameters most strongly controlled rise time, P-control droop,
-  overshoot, and the number and decay of oscillations? Explain each connection
-  using the model equations.</li>
-<li>How did changing <span class="arithmatex">\(G\)</span> or <span class="arithmatex">\(C_T/C\)</span> affect lag, overshoot, and ringing?</li>
-<li>Which temperature does the controller use to calculate error, and why does
-  that delayed measurement make high gain dangerous?</li>
-<li>Which trends in the six experimental plots did one shared two-lump model
-  reproduce successfully?</li>
-<li>What important disagreement remains between simulation and experiment?</li>
-<li>Why would changing the physical model parameters separately for every gain
-  weaken the comparison?</li>
-</ul>
-<h3 id="part-2-interpret-the-match">Part 2: Interpret The Match<a class="headerlink" href="#part-2-interpret-the-match" title="Permanent link">&para;</a></h3>
-<p>Use the equations, six-run comparison, and parameter table to prepare A3. Your
-interpretation must make four connections:</p>
-<ol>
-<li>Identify the internal heat flow that makes <span class="arithmatex">\(T_m\)</span> lag behind <span class="arithmatex">\(T\)</span>.</li>
-<li>Explain why that lag permits overshoot even though the one-lump P model is
-   monotonic.</li>
-<li>Explain which parameters primarily changed rise time, droop, overshoot, and
-   oscillation decay in your controlled comparisons.</li>
-<li>State one important agreement and one important disagreement between the
-   shared two-lump simulation and the physical apparatus.</li>
-</ol>
-<p>Do not write a second report for Part II. These results become the model-limit
-and experiment-theory sections of A3.</p>
+<p>Use these two tables and the twelve Goldilocks plots directly in A3 Questions
+3 and 5. Explain why one-lump P control cannot oscillate, identify the heat
+flow that makes <span class="arithmatex">\(T_m\)</span> lag behind <span class="arithmatex">\(T\)</span>, connect the parameter changes to rise
+time, droop, overshoot, and oscillation decay, and state one important
+agreement and disagreement between simulation and experiment. Do not write a
+separate Part II report.</p>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="preserve-the-a3-evidence">Preserve The A3 Evidence<a class="headerlink" href="#preserve-the-a3-evidence" title="Permanent link">&para;</a></h3>
 <p>Before leaving S15, save the shared model settings, six simulation comparisons,

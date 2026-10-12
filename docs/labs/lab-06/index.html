@@ -212,6 +212,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#a3-feedback-data-and-lumped-model-memo" class="nav-link">A3: Feedback Data And Lumped-Model Memo</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#how-a3-is-divided-between-parts-i-and-ii" class="nav-link">How A3 Is Divided Between Parts I And II</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#a3-questions" class="nav-link">A3 Questions</a>
               <ul class="nav flex-column">
               </ul>
@@ -876,13 +880,9 @@ result. Explain any important difference between the model and the apparatus.</p
 u_n=K_p(T_{\mathrm{set}}-T_n).
 \]</div>
 <p>Use one gain from your Module 5 experiment and one larger gain. Before each
-run, predict the steady-state droop and closed-loop time constant from</p>
-<div class="arithmatex">\[
-T_{\mathrm{set}}-T_{\mathrm{ss}}
-=\frac{T_{\mathrm{set}}-T_{\mathrm{amb}}}{1+\chi K_p},
-\qquad
-\tau_{\mathrm{cl}}=\frac{\tau}{1+\chi K_p}.
-\]</div>
+run, predict the steady-state droop from the <a href="#guided-derivation-and-numerical-check">Part 1
+result</a> and the closed-loop time
+constant from the <a href="#part-5-explain-the-one-lump-p-transient-and-its-limit">Part 5 result</a>.</p>
 <p>Confirm that increasing <span class="arithmatex">\(K_p\)</span> decreases both droop and response time. Record
 only the settings and whether the predictions agree; do not make a second
 P-control data table. The six experimental Goldilocks plots later in this
@@ -1060,12 +1060,9 @@ two-lump equations, shows why they form a second-order system, and explores
 their behavior
 quantitatively.</a></p>
 </details>
-<p>The one-lump model predicts the final temperature well because steady state is
-governed by the nearly model-independent requirement that energy entering per
-unit time equals energy leaving per unit time. It fails at high gain because
-transient behavior also depends on where energy is stored and how long it takes
-to reach the thermistor. The qualitative two-lump explanation is developed in
-the sidebar above; its equations and parameter study are the focus of Part II.</p>
+<p>Thus the nearly model-independent steady-state energy balance can succeed even
+when the one-lump transient model fails. Part II develops and tests the
+two-lump explanation quantitatively.</p>
 <h2 id="part-6-add-integral-action-in-simulation">Part 6: Add Integral Action In Simulation<a class="headerlink" href="#part-6-add-integral-action-in-simulation" title="Permanent link">&para;</a></h2>
 <p>Keep the same dimensional one-lump energy balance. PI control changes only the
 command supplied to the TEC. Define the temperature error and its accumulated
@@ -1107,15 +1104,6 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 clear the controller memory before a comparison. Watch the displayed values of
 <span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the applied command while the temperature approaches
 the setpoint.</p>
-<p>Compare P-only and PI simulations:</p>
-<ul>
-<li>final droop,</li>
-<li>time to approach setpoint,</li>
-<li>overshoot,</li>
-<li>sensitivity to saturation.</li>
-</ul>
-<p>The main point is that integral action can reduce steady-state error, but it can
-also create overshoot and windup.</p>
 <h3 id="guided-simulation-exercise-watch-the-integral-contribution">Guided Simulation Exercise: Watch The Integral Contribution<a class="headerlink" href="#guided-simulation-exercise-watch-the-integral-contribution" title="Permanent link">&para;</a></h3>
 <p>Begin from the P-control case after it has developed visible droop. Select
 <code>pi</code>, press <strong>Zero integral</strong>, and resume. Watch <span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the
@@ -1392,22 +1380,26 @@ already beyond the PWM limit and the current error would drive it farther into
 saturation, do not update <span class="arithmatex">\(q\)</span> on that step. The output clamp and independent
 Arduino safety shutdown remain active even when anti-windup is working.</p>
 <p>Before applying actuator power, show the instructor the lines that calculate
-<span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the clamped command. Then:</p>
+<span class="arithmatex">\(e\)</span>, <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and the clamped command. Then begin the Goldilocks
+study. The first successful P and PI validation traces may count among the six
+retained runs when they use the matched conditions specified below:</p>
 <ol>
-<li>Use the same safe setpoint and a stable <span class="arithmatex">\(K_p\)</span> from Module 5.</li>
-<li>Set <span class="arithmatex">\(K_i=0\)</span>, zero the integral state, and record a P-only baseline.</li>
+<li>Use the same safe setpoints and a stable <span class="arithmatex">\(K_p\)</span> from Module 5.</li>
+<li>Set <span class="arithmatex">\(K_i=0\)</span>, zero the integral state, and record a P-only response. Retain
+   it as a Goldilocks run if it meets the protocol below.</li>
 <li>Set PWM to zero before changing controller mode or resetting the integral.</li>
 <li>Choose a small positive <span class="arithmatex">\(K_i\)</span> after exploring it in the simulation. Zero the integral
-   state, enable PI, and record the response from comparable initial conditions.</li>
+   state, enable PI, and record the response from comparable initial
+   conditions. Retain it as a Goldilocks run if it meets the protocol below.</li>
 <li>Confirm that <span class="arithmatex">\(u_I\)</span> grows while a persistent error remains and that the
    steady error becomes smaller than in the P-only run.</li>
 <li>Stop and set PWM to zero if the temperature moves in the wrong direction,
    the display freezes, saturation persists unexpectedly, or oscillations grow.</li>
 </ol>
-<p>Preserve both traces and the exact <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, setpoint, starting
-temperature, PWM limit, sample interval, and anti-windup setting. These two
-preliminary traces establish that the controller works. Now complete the
-Goldilocks study below before beginning Part II.</p>
+<p>Do not collect extra traces solely to validate the controller. If a validation
+run does not meet the matched Goldilocks conditions, use it only for debugging
+and do not include it in A3. Complete the six-run study below before beginning
+Part II.</p>
 <h3 id="experimental-goldilocks-study">Experimental Goldilocks Study<a class="headerlink" href="#experimental-goldilocks-study" title="Permanent link">&para;</a></h3>
 <p>Use one apparatus, one PWM limit, and the same two temperature setpoints for
 all six retained runs. Each run must contain an upward setpoint step and a
@@ -1493,11 +1485,31 @@ git push
 <li><strong>Analysis and submission target:</strong> about <strong>2 hours</strong> after the in-class analysis is
   complete</li>
 </ul>
-<p><strong>A3 spans both parts of Module 6.</strong> After Part I, you can complete Questions
-1, 2, and 4. Complete Questions 3 and 5 only after Part II: Question 3 uses
-the two-lump model to simulate P and PI responses with overshoot, and Question
-5 uses that model to explain why the one-lump model succeeds at steady state
-but fails to reproduce the measured high-gain transient behavior.</p>
+<h3 id="how-a3-is-divided-between-parts-i-and-ii">How A3 Is Divided Between Parts I And II<a class="headerlink" href="#how-a3-is-divided-between-parts-i-and-ii" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Complete after</th>
+<th>A3 questions</th>
+<th>Work completed in that part</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Part I</strong></td>
+<td><strong>Questions 1, 2, and 4</strong></td>
+<td>Derive the one-lump predictions; present the six experimental Goldilocks plots and step-response metrics; analyze PI steady state, windup, and anti-windup.</td>
+</tr>
+<tr>
+<td><strong>Part II</strong></td>
+<td><strong>Questions 3 and 5</strong></td>
+<td>Produce the six two-lump simulation Goldilocks plots; compare simulation with experiment; explain the model limits and justify the selected gains.</td>
+</tr>
+</tbody>
+</table>
+<p>Question 2 contains the experimental reference measurements. Question 3 uses
+Part II to make and interpret the corresponding simulations. Do not try to
+complete Questions 3 or 5 before completing Part II.</p>
 <p>The final A3 assembly consists of selecting the already completed comparison
 plots and table, writing the short interpretation, checking paths, committing,
 pushing, and submitting the PDF. The one-lump derivation is part of this paper,
@@ -1541,6 +1553,11 @@ output <span class="arithmatex">\(y\)</span> is the measured temperature.</em></
 downward steps, report rise time, percent overshoot, settling time,
 steady-state error, and oscillation period when applicable. Define the
 thresholds used for rise and settling times.</p>
+<p>These measured quantities provide the experimental reference for the
+<a href="../lab-07/#guided-simulation-exercise-what-increases-or-suppresses-oscillation">guided simulation exercise on increasing and suppressing
+oscillation</a>.
+In that exercise, you will vary model parameters and determine which changes
+increase or suppress the same response features measured here.</p>
 <p><img alt="Rise time, percent overshoot, settling time, and steady-state error" src="../../assets/step_response_metrics.gif" /></p>
 <p><em>Step-response attributes: rise time, percent overshoot, settling time, and
 steady-state error.</em></p>

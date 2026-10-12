@@ -915,12 +915,196 @@ clears that memory before a new comparison.
 PI control adds the accumulated error as a second state variable. The
 one-lump P model has only one state and therefore produces one monotonic
 exponential; the one-lump PI model has two coupled states and can overshoot or
-oscillate. For the unsaturated linear model, the temperature and integral-state
-displacements obey a second-order characteristic equation,
+oscillate.
+
+For an unsaturated PI controller at steady state,
+
+\[
+T_{\mathrm{ss}}=T_{\mathrm{set}},
+\qquad
+q_{\mathrm{ss}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
+\]
+
+Define the temperature and integral-state displacements from steady state,
+
+\[
+\theta=T-T_{\mathrm{set}},
+\qquad
+z=q-q_{\mathrm{ss}}.
+\]
+
+Because $e=-\theta$, the two coupled first-order equations are
+
+\[
+\frac{d\theta}{dt}
+=-\frac{H+P_uK_p}{C}\theta
++\frac{P_uK_i}{C}z,
+\qquad
+\frac{dz}{dt}=-\theta.
+\]
+
+In matrix form,
+
+\[
+\frac{d}{dt}
+\begin{pmatrix}\theta\\z\end{pmatrix}
+=
+\underbrace{
+\begin{pmatrix}
+-\dfrac{H+P_uK_p}{C} & \dfrac{P_uK_i}{C}\\
+-1 & 0
+\end{pmatrix}
+}_{A}
+\begin{pmatrix}\theta\\z\end{pmatrix}.
+\]
+
+Differentiate the first equation and substitute $dz/dt=-\theta$. The two
+coupled first-order equations are therefore equivalent to one second-order
+differential equation for the temperature displacement:
+
+\[
+\boxed{
+C\frac{d^2\theta}{dt^2}
++(H+P_uK_p)\frac{d\theta}{dt}
++P_uK_i\theta=0
+}.
+\]
+
+Trying $\theta\propto e^{\lambda t}$ gives the second-order characteristic
+equation
 
 \[
 \lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]
+
+<details class="note" markdown="1">
+<summary>How diagonalization solves the matrix ODE</summary>
+
+Write the state vector and its equation as
+
+\[
+\mathbf{x}(t)=
+\begin{pmatrix}\theta(t)\\z(t)\end{pmatrix},
+\qquad
+\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
+\]
+
+Look for one exponential mode,
+
+\[
+\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
+\]
+
+where the constant vector $\mathbf{v}$ gives the relative amounts of
+temperature displacement and integral-state displacement in that mode.
+Substitution and cancellation of the nonzero exponential give
+
+\[
+(A-\lambda I)\mathbf{v}=0.
+\]
+
+We want a nonzero eigenvector $\mathbf{v}$. If $A-\lambda I$ were invertible,
+multiplying by its inverse would force $\mathbf{v}=0$. A nonzero solution is
+therefore possible only when the matrix is singular:
+
+\[
+\boxed{\det(A-\lambda I)=0}.
+\]
+
+This determinant equation finds the allowed eigenvalues. For each eigenvalue,
+solving $(A-\lambda I)\mathbf{v}=0$ gives its eigenvector. If the two
+eigenvectors are independent, put them in the columns of
+
+\[
+V=\begin{pmatrix}\mathbf{v}_+&\mathbf{v}_-\end{pmatrix},
+\qquad
+\Lambda=
+\begin{pmatrix}\lambda_+&0\\0&\lambda_-\end{pmatrix}.
+\]
+
+The eigenvalue equations together say $AV=V\Lambda$. Change coordinates by
+writing $\mathbf{x}=V\mathbf{y}$. Because $V$ is constant,
+
+\[
+V\frac{d\mathbf{y}}{dt}
+=AV\mathbf{y}
+=V\Lambda\mathbf{y},
+\]
+
+so multiplication by $V^{-1}$ gives
+
+\[
+\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
+\]
+
+Because $\Lambda$ is diagonal, the coupled system has become two independent
+scalar equations,
+
+\[
+\frac{dy_+}{dt}=\lambda_+y_+,
+\qquad
+\frac{dy_-}{dt}=\lambda_-y_-.
+\]
+
+Their solutions are $y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}$. Transforming back
+gives
+
+\[
+\boxed{
+\mathbf{x}(t)
+=V
+\begin{pmatrix}
+e^{\lambda_+t}&0\\0&e^{\lambda_-t}
+\end{pmatrix}
+V^{-1}\mathbf{x}(0)
+=e^{At}\mathbf{x}(0)
+}.
+\]
+
+For this PI-control matrix, evaluating the determinant and applying the
+quadratic formula give
+
+\[
+\boxed{
+\lambda_\pm
+=-\frac{H+P_uK_p}{2C}
+\pm
+\sqrt{
+\left(\frac{H+P_uK_p}{2C}\right)^2
+-\frac{P_uK_i}{C}
+}
+}.
+\]
+
+The common negative term sets the exponential decay rate. The expression
+under the square root determines the form of the transient:
+
+- a positive value gives two real negative eigenvalues and an overdamped
+  response;
+- zero gives a repeated eigenvalue and critical damping; and
+- a negative value gives a complex-conjugate pair and an underdamped response.
+
+In the underdamped case, write
+
+\[
+\lambda_\pm=-\zeta\omega_n\pm i\omega_d.
+\]
+
+The real part $-\zeta\omega_n$ controls the decay envelope, while the imaginary
+part $\omega_d$ controls the oscillation period,
+
+\[
+T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
+\]
+
+Thus diagonalization expresses the matrix exponential as two ordinary
+exponential modes. Complex-conjugate eigenvalues combine to produce a real
+decaying oscillation. At critical damping, a repeated eigenvalue may provide
+only one eigenvector; the matrix exponential still exists, and the solution
+can contain a term proportional to $t e^{\lambda t}$.
+
+</details>
 
 Compare this equation with the standard second-order form
 

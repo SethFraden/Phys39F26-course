@@ -1170,11 +1170,157 @@ clears that memory before a new comparison.</p>
 <p>PI control adds the accumulated error as a second state variable. The
 one-lump P model has only one state and therefore produces one monotonic
 exponential; the one-lump PI model has two coupled states and can overshoot or
-oscillate. For the unsaturated linear model, the temperature and integral-state
-displacements obey a second-order characteristic equation,</p>
+oscillate.</p>
+<p>For an unsaturated PI controller at steady state,</p>
+<div class="arithmatex">\[
+T_{\mathrm{ss}}=T_{\mathrm{set}},
+\qquad
+q_{\mathrm{ss}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
+\]</div>
+<p>Define the temperature and integral-state displacements from steady state,</p>
+<div class="arithmatex">\[
+\theta=T-T_{\mathrm{set}},
+\qquad
+z=q-q_{\mathrm{ss}}.
+\]</div>
+<p>Because <span class="arithmatex">\(e=-\theta\)</span>, the two coupled first-order equations are</p>
+<div class="arithmatex">\[
+\frac{d\theta}{dt}
+=-\frac{H+P_uK_p}{C}\theta
++\frac{P_uK_i}{C}z,
+\qquad
+\frac{dz}{dt}=-\theta.
+\]</div>
+<p>In matrix form,</p>
+<div class="arithmatex">\[
+\frac{d}{dt}
+\begin{pmatrix}\theta\\z\end{pmatrix}
+=
+\underbrace{
+\begin{pmatrix}
+-\dfrac{H+P_uK_p}{C} &amp; \dfrac{P_uK_i}{C}\\
+-1 &amp; 0
+\end{pmatrix}
+}_{A}
+\begin{pmatrix}\theta\\z\end{pmatrix}.
+\]</div>
+<p>Differentiate the first equation and substitute <span class="arithmatex">\(dz/dt=-\theta\)</span>. The two
+coupled first-order equations are therefore equivalent to one second-order
+differential equation for the temperature displacement:</p>
+<div class="arithmatex">\[
+\boxed{
+C\frac{d^2\theta}{dt^2}
++(H+P_uK_p)\frac{d\theta}{dt}
++P_uK_i\theta=0
+}.
+\]</div>
+<p>Trying <span class="arithmatex">\(\theta\propto e^{\lambda t}\)</span> gives the second-order characteristic
+equation</p>
 <div class="arithmatex">\[
 \lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
 \]</div>
+<details class="note">
+<summary>How diagonalization solves the matrix ODE</summary>
+<p>Write the state vector and its equation as</p>
+<div class="arithmatex">\[
+\mathbf{x}(t)=
+\begin{pmatrix}\theta(t)\\z(t)\end{pmatrix},
+\qquad
+\frac{d\mathbf{x}}{dt}=A\mathbf{x}.
+\]</div>
+<p>Look for one exponential mode,</p>
+<div class="arithmatex">\[
+\mathbf{x}(t)=\mathbf{v}e^{\lambda t},
+\]</div>
+<p>where the constant vector <span class="arithmatex">\(\mathbf{v}\)</span> gives the relative amounts of
+temperature displacement and integral-state displacement in that mode.
+Substitution and cancellation of the nonzero exponential give</p>
+<div class="arithmatex">\[
+(A-\lambda I)\mathbf{v}=0.
+\]</div>
+<p>We want a nonzero eigenvector <span class="arithmatex">\(\mathbf{v}\)</span>. If <span class="arithmatex">\(A-\lambda I\)</span> were invertible,
+multiplying by its inverse would force <span class="arithmatex">\(\mathbf{v}=0\)</span>. A nonzero solution is
+therefore possible only when the matrix is singular:</p>
+<div class="arithmatex">\[
+\boxed{\det(A-\lambda I)=0}.
+\]</div>
+<p>This determinant equation finds the allowed eigenvalues. For each eigenvalue,
+solving <span class="arithmatex">\((A-\lambda I)\mathbf{v}=0\)</span> gives its eigenvector. If the two
+eigenvectors are independent, put them in the columns of</p>
+<div class="arithmatex">\[
+V=\begin{pmatrix}\mathbf{v}_+&amp;\mathbf{v}_-\end{pmatrix},
+\qquad
+\Lambda=
+\begin{pmatrix}\lambda_+&amp;0\\0&amp;\lambda_-\end{pmatrix}.
+\]</div>
+<p>The eigenvalue equations together say <span class="arithmatex">\(AV=V\Lambda\)</span>. Change coordinates by
+writing <span class="arithmatex">\(\mathbf{x}=V\mathbf{y}\)</span>. Because <span class="arithmatex">\(V\)</span> is constant,</p>
+<div class="arithmatex">\[
+V\frac{d\mathbf{y}}{dt}
+=AV\mathbf{y}
+=V\Lambda\mathbf{y},
+\]</div>
+<p>so multiplication by <span class="arithmatex">\(V^{-1}\)</span> gives</p>
+<div class="arithmatex">\[
+\frac{d\mathbf{y}}{dt}=\Lambda\mathbf{y}.
+\]</div>
+<p>Because <span class="arithmatex">\(\Lambda\)</span> is diagonal, the coupled system has become two independent
+scalar equations,</p>
+<div class="arithmatex">\[
+\frac{dy_+}{dt}=\lambda_+y_+,
+\qquad
+\frac{dy_-}{dt}=\lambda_-y_-.
+\]</div>
+<p>Their solutions are <span class="arithmatex">\(y_\pm(t)=y_\pm(0)e^{\lambda_\pm t}\)</span>. Transforming back
+gives</p>
+<div class="arithmatex">\[
+\boxed{
+\mathbf{x}(t)
+=V
+\begin{pmatrix}
+e^{\lambda_+t}&amp;0\\0&amp;e^{\lambda_-t}
+\end{pmatrix}
+V^{-1}\mathbf{x}(0)
+=e^{At}\mathbf{x}(0)
+}.
+\]</div>
+<p>For this PI-control matrix, evaluating the determinant and applying the
+quadratic formula give</p>
+<div class="arithmatex">\[
+\boxed{
+\lambda_\pm
+=-\frac{H+P_uK_p}{2C}
+\pm
+\sqrt{
+\left(\frac{H+P_uK_p}{2C}\right)^2
+-\frac{P_uK_i}{C}
+}
+}.
+\]</div>
+<p>The common negative term sets the exponential decay rate. The expression
+under the square root determines the form of the transient:</p>
+<ul>
+<li>a positive value gives two real negative eigenvalues and an overdamped
+  response;</li>
+<li>zero gives a repeated eigenvalue and critical damping; and</li>
+<li>a negative value gives a complex-conjugate pair and an underdamped response.</li>
+</ul>
+<p>In the underdamped case, write</p>
+<div class="arithmatex">\[
+\lambda_\pm=-\zeta\omega_n\pm i\omega_d.
+\]</div>
+<p>The real part <span class="arithmatex">\(-\zeta\omega_n\)</span> controls the decay envelope, while the imaginary
+part <span class="arithmatex">\(\omega_d\)</span> controls the oscillation period,</p>
+<div class="arithmatex">\[
+T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
+\]</div>
+<p>Thus diagonalization expresses the matrix exponential as two ordinary
+exponential modes. Complex-conjugate eigenvalues combine to produce a real
+decaying oscillation. At critical damping, a repeated eigenvalue may provide
+only one eigenvector; the matrix exponential still exists, and the solution
+can contain a term proportional to <span class="arithmatex">\(t e^{\lambda t}\)</span>.</p>
+</details>
 <p>Compare this equation with the standard second-order form</p>
 <div class="arithmatex">\[
 \lambda^2+2\zeta\omega_n\lambda+\omega_n^2=0.

@@ -1020,6 +1020,12 @@ git push
 - **Analysis and submission target:** about **2 hours** after the in-class analysis is
   complete
 
+**A3 spans both parts of Module 6.** After Part I, you can complete Questions
+1, 2, and 4. Complete Questions 3 and 5 only after Part II: Question 3 uses
+the two-lump model to simulate P and PI responses with overshoot, and Question
+5 uses that model to explain why the one-lump model succeeds at steady state
+but fails to reproduce the measured high-gain transient behavior.
+
 The final A3 assembly consists of selecting the already completed comparison
 plots and table, writing the short interpretation, checking paths, committing,
 pushing, and submitting the PDF. The one-lump derivation is part of this paper,
@@ -1090,6 +1096,8 @@ steady-state error.*
 
 #### 3. Simulation Goldilocks Plots And Experiment-Theory Comparison
 
+**To be answered after completing Part II.**
+
 Present six simulation plots corresponding to the six experimental plots in
 Question 2. Every simulation must use the **same physical parameters**
 $\chi_c$, $\chi_h$, $\tau$, $G$, $C_T/C$, TEC voltage, TEC resistance,
@@ -1108,6 +1116,8 @@ happens when the integral state is reset after PI control has reached steady
 state.
 
 #### 5. Model Limits And Gain Selection
+
+**To be answered after completing Part II.**
 
 Explain mathematically why the one-lump P-control model cannot overshoot. Use
 the two-lump equations and your twelve Goldilocks plots to explain how internal

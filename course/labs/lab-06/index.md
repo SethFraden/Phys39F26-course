@@ -127,6 +127,10 @@ heating from cooling.
 | $\zeta$ | PI damping ratio | dimensionless |
 | $T_m$ | Temperature of the measured block in the two-lump model | °C |
 
+In this module, a **command** means setting the controller output $u$, which is
+the signed PWM value, to a particular value. For example, a command of
+$+25$ PWM means set $u=+25$ PWM.
+
 ## Before Class
 
 Review your Module 4 and Module 5 results. Before class, make sure you can
@@ -502,19 +506,16 @@ $\chi_c$, $\chi_h$, and $\tau$, the on-state voltage measured across the TEC,
 and the TEC module resistance from the datasheet. The voltage control is
 limited to the apparatus maximum of $12\ \mathrm{V}$. The program uses these
 measurements to calculate $r$, $P_{u,c}$, $H$, and the total one-lump
-capacitance $C$. Select `direct constants` only when you want to enter $H$,
+capacitance $C$. Select `direct constants`  when you want to enter $H$,
 $C$, $P_{u,c}$, and $r$ independently for a modeling study. Before running,
 use the steady-state equation to predict the final temperature for one heating
 command and one cooling command.
 
-The reduced temperature equation requires only $\chi_h$, $\chi_c$, and $\tau$.
-The voltage and resistance are additionally needed when the program separates
-the Peltier and Joule contributions and displays the corresponding dimensional
-values of $P_u$, $H$, and $C$.
+
 
 ### Guided Simulation Exercise: Open Loop And Thermal Mass
 
-Work in pairs. Select `one_lump`, `measured`, and `open_loop`. Use the
+Select `one_lump`, `measured`, and `open_loop`. Use the
 current simulation defaults
 
 \[
@@ -539,7 +540,10 @@ $T_{\mathrm{ss}}=T_{\mathrm{amb}}+\chi u$:
 Run each case and answer:
 
 1. Why do $+25$ PWM and $-25$ PWM produce unequal temperature changes?
-2. Which displayed quantities reveal $\chi_h$, $\chi_c$, and their ratio?
+2. Use the displayed PWM value $u$, ambient temperature $T_{\mathrm{amb}}$,
+   and steady-state temperature $T_{\mathrm{ss}}$ to calculate $\chi_h$,
+   $\chi_c$, and their ratio. Confirm that your calculated values agree with
+   the susceptibilities displayed by the simulation.
 
 Next, keep one open-loop command fixed and note the displayed value of $C$.
 Select `direct constants`, double $C$, and leave $H$, $P_{u,c}$, and $r$
@@ -975,16 +979,18 @@ temperature.
 | 1 | P | Low $K_p$ | No overshoot; relatively slow response or large droop |
 | 2 | P | Intermediate $K_p$ | Best P-only compromise |
 | 3 | P | High $K_p$ | Clear overshoot or ringing |
-| 4 | PI | Run 2 $K_p$; low $K_i$ | Slow integral correction |
-| 5 | PI | Run 2 $K_p$; intermediate $K_i$ | Best PI compromise |
-| 6 | PI | Run 2 $K_p$; high $K_i$ | Excess overshoot, ringing, or saturation |
+| 4 | PI | Slightly below Run 2 $K_p$; low $K_i$ | Slow integral correction |
+| 5 | PI | Run 4 $K_p$; intermediate $K_i$ | Best PI compromise |
+| 6 | PI | Run 4 $K_p$; high $K_i$ | Excess overshoot, ringing, or saturation |
 
-For P runs, set $K_i=0$. For PI runs, hold $K_p$ fixed at the Run 2 value and
-change only $K_i$. Reset the integral state before every run. Preserve time
-series for measured temperature, setpoint, signed applied PWM, $u_P$, $u_I$,
-and error. Record the actual gains, initial temperatures, PWM limit, sample
-interval, and anti-windup setting. The Arduino temperature shutdown and PWM
-clamp remain active for every run.
+For P runs, set $K_i=0$. **Hint for PI control:** the integral term contributes
+part of the output $u$, so begin by exploring $K_p$ values near but slightly
+below the Run 2 value. Choose one PI value of $K_p$, hold it fixed for Runs
+4-6, and change only $K_i$. Reset the integral state before every run.
+Preserve time series for measured temperature, setpoint, signed applied PWM,
+$u_P$, $u_I$, and error. Record the actual gains, initial temperatures, PWM
+limit, sample interval, and anti-windup setting. The Arduino temperature
+shutdown and PWM clamp remain active for every run.
 
 Make and label the **six experimental Goldilocks plots** during this lesson.
 Part II asks you to make the six corresponding simulation plots and compare

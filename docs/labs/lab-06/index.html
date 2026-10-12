@@ -478,6 +478,9 @@ heating from cooling.</p>
 </tr>
 </tbody>
 </table>
+<p>In this module, a <strong>command</strong> means setting the controller output <span class="arithmatex">\(u\)</span>, which is
+the signed PWM value, to a particular value. For example, a command of
+<span class="arithmatex">\(+25\)</span> PWM means set <span class="arithmatex">\(u=+25\)</span> PWM.</p>
 <h2 id="before-class">Before Class<a class="headerlink" href="#before-class" title="Permanent link">&para;</a></h2>
 <p>Review your Module 4 and Module 5 results. Before class, make sure you can
 locate and open these existing files on your laptop:</p>
@@ -805,16 +808,12 @@ T_{n+1}=T_n+\frac{\Delta t}{\tau}
 and the TEC module resistance from the datasheet. The voltage control is
 limited to the apparatus maximum of <span class="arithmatex">\(12\ \mathrm{V}\)</span>. The program uses these
 measurements to calculate <span class="arithmatex">\(r\)</span>, <span class="arithmatex">\(P_{u,c}\)</span>, <span class="arithmatex">\(H\)</span>, and the total one-lump
-capacitance <span class="arithmatex">\(C\)</span>. Select <code>direct constants</code> only when you want to enter <span class="arithmatex">\(H\)</span>,
+capacitance <span class="arithmatex">\(C\)</span>. Select <code>direct constants</code>  when you want to enter <span class="arithmatex">\(H\)</span>,
 <span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(P_{u,c}\)</span>, and <span class="arithmatex">\(r\)</span> independently for a modeling study. Before running,
 use the steady-state equation to predict the final temperature for one heating
 command and one cooling command.</p>
-<p>The reduced temperature equation requires only <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\chi_c\)</span>, and <span class="arithmatex">\(\tau\)</span>.
-The voltage and resistance are additionally needed when the program separates
-the Peltier and Joule contributions and displays the corresponding dimensional
-values of <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(H\)</span>, and <span class="arithmatex">\(C\)</span>.</p>
 <h3 id="guided-simulation-exercise-open-loop-and-thermal-mass">Guided Simulation Exercise: Open Loop And Thermal Mass<a class="headerlink" href="#guided-simulation-exercise-open-loop-and-thermal-mass" title="Permanent link">&para;</a></h3>
-<p>Work in pairs. Select <code>one_lump</code>, <code>measured</code>, and <code>open_loop</code>. Use the
+<p>Select <code>one_lump</code>, <code>measured</code>, and <code>open_loop</code>. Use the
 current simulation defaults</p>
 <div class="arithmatex">\[
 T_{\mathrm{amb}}=22\ ^\circ\mathrm{C},
@@ -852,7 +851,10 @@ r=2.
 <p>Run each case and answer:</p>
 <ol>
 <li>Why do <span class="arithmatex">\(+25\)</span> PWM and <span class="arithmatex">\(-25\)</span> PWM produce unequal temperature changes?</li>
-<li>Which displayed quantities reveal <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\chi_c\)</span>, and their ratio?</li>
+<li>Use the displayed PWM value <span class="arithmatex">\(u\)</span>, ambient temperature <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>,
+   and steady-state temperature <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> to calculate <span class="arithmatex">\(\chi_h\)</span>,
+   <span class="arithmatex">\(\chi_c\)</span>, and their ratio. Confirm that your calculated values agree with
+   the susceptibilities displayed by the simulation.</li>
 </ol>
 <p>Next, keep one open-loop command fixed and note the displayed value of <span class="arithmatex">\(C\)</span>.
 Select <code>direct constants</code>, double <span class="arithmatex">\(C\)</span>, and leave <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_{u,c}\)</span>, and <span class="arithmatex">\(r\)</span>
@@ -1247,29 +1249,31 @@ temperature.</p>
 <tr>
 <td style="text-align: right;">4</td>
 <td>PI</td>
-<td>Run 2 <span class="arithmatex">\(K_p\)</span>; low <span class="arithmatex">\(K_i\)</span></td>
+<td>Slightly below Run 2 <span class="arithmatex">\(K_p\)</span>; low <span class="arithmatex">\(K_i\)</span></td>
 <td>Slow integral correction</td>
 </tr>
 <tr>
 <td style="text-align: right;">5</td>
 <td>PI</td>
-<td>Run 2 <span class="arithmatex">\(K_p\)</span>; intermediate <span class="arithmatex">\(K_i\)</span></td>
+<td>Run 4 <span class="arithmatex">\(K_p\)</span>; intermediate <span class="arithmatex">\(K_i\)</span></td>
 <td>Best PI compromise</td>
 </tr>
 <tr>
 <td style="text-align: right;">6</td>
 <td>PI</td>
-<td>Run 2 <span class="arithmatex">\(K_p\)</span>; high <span class="arithmatex">\(K_i\)</span></td>
+<td>Run 4 <span class="arithmatex">\(K_p\)</span>; high <span class="arithmatex">\(K_i\)</span></td>
 <td>Excess overshoot, ringing, or saturation</td>
 </tr>
 </tbody>
 </table>
-<p>For P runs, set <span class="arithmatex">\(K_i=0\)</span>. For PI runs, hold <span class="arithmatex">\(K_p\)</span> fixed at the Run 2 value and
-change only <span class="arithmatex">\(K_i\)</span>. Reset the integral state before every run. Preserve time
-series for measured temperature, setpoint, signed applied PWM, <span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>,
-and error. Record the actual gains, initial temperatures, PWM limit, sample
-interval, and anti-windup setting. The Arduino temperature shutdown and PWM
-clamp remain active for every run.</p>
+<p>For P runs, set <span class="arithmatex">\(K_i=0\)</span>. <strong>Hint for PI control:</strong> the integral term contributes
+part of the output <span class="arithmatex">\(u\)</span>, so begin by exploring <span class="arithmatex">\(K_p\)</span> values near but slightly
+below the Run 2 value. Choose one PI value of <span class="arithmatex">\(K_p\)</span>, hold it fixed for Runs
+4-6, and change only <span class="arithmatex">\(K_i\)</span>. Reset the integral state before every run.
+Preserve time series for measured temperature, setpoint, signed applied PWM,
+<span class="arithmatex">\(u_P\)</span>, <span class="arithmatex">\(u_I\)</span>, and error. Record the actual gains, initial temperatures, PWM
+limit, sample interval, and anti-windup setting. The Arduino temperature
+shutdown and PWM clamp remain active for every run.</p>
 <p>Make and label the <strong>six experimental Goldilocks plots</strong> during this lesson.
 Part II asks you to make the six corresponding simulation plots and compare
 them under matched conditions.</p>

@@ -256,6 +256,10 @@ overshoot, ring, and oscillate. Module 6 develops the theory needed to
 distinguish what a one-lump model explains from behavior that requires
 additional thermal dynamics.</p>
 <p>The goal is to connect thermal physics, feedback equations, and the data you measured from the TEC.</p>
+<p>A central theme is <strong>stability</strong>: whether a disturbed response returns to its
+steady state, continues oscillating, or grows away from it. You will first
+identify these behaviors qualitatively in data and simulation, then connect
+them to quantitative model predictions.</p>
 <p>You will begin with algebra, then simulate the one-lump model in time, then
 extend the model just enough to understand why integral control is useful and
 why real feedback loops can oscillate.</p>
@@ -264,18 +268,21 @@ why real feedback loops can oscillate.</p>
 <ul>
 <li>derive and interpret the one-lump energy balance, open-loop susceptibility,
   thermal time constant, and P-control droop;</li>
-<li>use the prepared simulation to compare open-loop, P, and PI control;</li>
-<li>connect the model parameters and predictions to measured values of
-  susceptibility, time constant, droop, and transient response;</li>
-<li>explain why the one-lump P-control model can predict steady-state droop yet
-  cannot reproduce measured high-gain overshoot;</li>
+<li>calculate how <span class="arithmatex">\(K_p\)</span> changes one-lump P-control droop and response time, and
+  explain why this first-order model is stable and cannot overshoot;</li>
+<li>use the one-lump PI damping ratio to predict qualitatively how <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>,
+  and <span class="arithmatex">\(C\)</span> affect oscillation and settling;</li>
+<li>distinguish rise time, overshoot, settling time, steady-state error, and
+  stable, marginal, or growing oscillations in simulation and measurement;</li>
+<li>connect model predictions to measured susceptibility, time constant, droop,
+  and transient response, and identify where the one-lump model fails;</li>
 <li>explain qualitatively how internal thermal storage and transport create
   phase lag and motivate a two-lump model;</li>
 <li>implement PI control on the physical TEC, including integral reset and
   anti-windup;</li>
 <li>generate six experimental Goldilocks plots that show low-, medium-, and
-  high-gain P and PI behavior, then use them to connect controller settings to
-  droop, rise time, overshoot, and oscillation.</li>
+  high-gain P and PI behavior, then use them to choose gains that balance speed,
+  steady-state accuracy, overshoot, settling, and stability.</li>
 </ul>
 <p>The Goldilocks plots are the principal way you achieve these objectives. They
 are assessed through the physical six-run study, the six matched simulation
@@ -325,6 +332,13 @@ environment, and responds over a time scale.</p>
 <li><strong>Anti-windup:</strong> a software rule that prevents or reverses inappropriate
   growth of the integral term while the actuator is saturated.</li>
 <li><strong>Droop:</strong> nonzero steady-state temperature error in P-only control.</li>
+<li><strong>Stable:</strong> after a disturbance, the response returns to its steady state.</li>
+<li><strong>Underdamped:</strong> a stable response that crosses its steady state and
+  oscillates with decreasing amplitude.</li>
+<li><strong>Marginally stable:</strong> an idealized response whose oscillations persist at
+  constant amplitude rather than decaying.</li>
+<li><strong>Unstable:</strong> a response that moves farther from steady state; in an
+  oscillatory instability, successive oscillations grow.</li>
 </ul>
 <h3 id="symbols-used-in-module-6-part-i">Symbols Used In Module 6, Part I<a class="headerlink" href="#symbols-used-in-module-6-part-i" title="Permanent link">&para;</a></h3>
 <p>A temperature difference has the same numerical value in K and °C. Earlier
@@ -981,6 +995,10 @@ initial sign while shrinking toward zero. The response therefore cannot cross
 the steady state, overshoot, or oscillate. Increasing <span class="arithmatex">\(K_p\)</span> decreases both
 droop and <span class="arithmatex">\(\tau_{\mathrm{cl}}\)</span>; it does not create the additional dynamical
 state or time delay needed for oscillation.</p>
+<p>Thus the ideal one-lump P model is <strong>stable and non-oscillatory</strong> for positive
+physical parameters and negative feedback. A measured overshoot, sustained
+oscillation, or growing oscillation is behavior this model cannot produce and
+therefore falsifies it as a model of the transient response.</p>
 <p>Return to the high-gain trace saved in Module 5. Mark the late-time value
 <span class="arithmatex">\(T_{\mathrm{ss}}\)</span> and the first overshoot. If the measured temperature crosses
 <span class="arithmatex">\(T_{\mathrm{ss}}\)</span>, its behavior is incompatible with this one-lump solution.
@@ -1328,6 +1346,13 @@ can contain a term proportional to <span class="arithmatex">\(t e^{\lambda t}\)<
 <li><span class="arithmatex">\(\zeta&lt;1\)</span>: underdamped, with a complex-conjugate pair and a decaying
   oscillation.</li>
 </ul>
+<p>For positive <span class="arithmatex">\(C\)</span>, <span class="arithmatex">\(H\)</span>, <span class="arithmatex">\(P_u\)</span>, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(K_i\)</span>, the real parts of both
+eigenvalues are negative. The ideal one-lump PI model is therefore <strong>stable</strong>
+in all three cases above. In particular, <em>underdamped</em> means that its
+oscillations decay; it does not mean unstable. Constant-amplitude oscillations
+that last forever would be marginally stable, and growing oscillations would
+be unstable. Neither is predicted by this unsaturated one-lump PI model with
+positive parameters.</p>
 <p>For the underdamped one-lump PI model, the temperature approaches steady state
 as a decaying sinusoid,</p>
 <div class="arithmatex">\[
@@ -1574,8 +1599,12 @@ II</a>. Label each P
 plot with the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> and each PI plot with the
 displayed <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span>. Use these
 stability measures to explain rise time, overshoot, settling, and oscillation
-decay. Identify one important agreement and one important disagreement between
-simulation and experiment.</p>
+decay. For the shared physical parameter set, also calculate
+<span class="arithmatex">\(K_{p,\mathrm{crit}}\)</span> and identify which of the three P gains lie below, near,
+or above it. Classify each response as stable non-oscillatory, stable
+underdamped, marginally stable, or unstable, and state whether the selected
+model permits that behavior. Identify one important agreement and one
+important disagreement between simulation and experiment.</p>
 <h4 id="4-pi-steady-state-assumptions-and-windup">4. PI Steady State, Assumptions, And Windup<a class="headerlink" href="#4-pi-steady-state-assumptions-and-windup" title="Permanent link">&para;</a></h4>
 <p><strong>Part 1: Ideal PI steady state.</strong> Assume ideal PI behavior and
 <span class="arithmatex">\(T_{\mathrm{set}}=55\ ^\circ\mathrm{C}\)</span>. What is the steady-state temperature
@@ -1591,8 +1620,9 @@ has reached steady state.</p>
 <p><strong>To be answered after completing Part II.</strong></p>
 <p>Explain mathematically why the one-lump P-control model cannot overshoot. Use
 the two-lump equations and your twelve Goldilocks plots to explain how internal
-thermal lag produces behavior absent from the one-lump model. Justify your
-final <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> and name one physical effect that a better model should
+thermal lag produces behavior absent from the one-lump model. Use
+<span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>, <span class="arithmatex">\(K_{p,\mathrm{crit}}\)</span>, and <span class="arithmatex">\(\rho_I\)</span> to justify your
+final <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span>, then name one physical effect that a better model should
 include.</p>
 <h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
 <p>Submit one PDF containing concise responses to all five questions, the six
@@ -1628,7 +1658,7 @@ Question 4 rather than repeating either set separately.</p>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
-<td>The two-lump explanation, parameter-behavior connections, model comparison, and final gain choice are justified</td>
+<td>The two-lump explanation, quantitative stability criteria, model comparison, and final gain choice are justified</td>
 <td style="text-align: right;">2</td>
 </tr>
 </tbody>

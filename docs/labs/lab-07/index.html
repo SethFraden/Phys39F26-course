@@ -217,8 +217,8 @@ things:</p>
    model parameters and watch the predicted temperature response.</li>
 </ol>
 <p>This module is not about perfect quantitative prediction. It is about learning
-how a simple model can qualitatively or semi-quantitatively explain droop,
-overshoot, lag, and the onset of instability.</p>
+how a simple model can qualitatively and quantitatively explain droop,
+overshoot, lag, damping, and the transition from stable to unstable control.</p>
 <h3 id="how-a3-is-divided-between-parts-i-and-ii">How A3 Is Divided Between Parts I And II<a class="headerlink" href="#how-a3-is-divided-between-parts-i-and-ii" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -252,17 +252,22 @@ It supplies the simulation and model interpretation required for <a href="../lab
   measured-block thermal masses;</li>
 <li>show how two coupled first-order temperature equations produce one
   second-order equation for the measured temperature;</li>
-<li>use the two-lump model to explain phase lag, overshoot, and underdamped
-  behavior that the one-lump model cannot reproduce;</li>
-<li>predict and verify which controller and physical parameters increase or
-  suppress oscillation in the one- and two-lump models;</li>
+<li>use the two-lump model to explain how thermal storage and transport produce
+  phase lag, overshoot, and behavior absent from the one-lump P model;</li>
+<li>calculate <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> and <span class="arithmatex">\(K_{p,\mathrm{crit}}\)</span> and use them to
+  classify two-lump P responses as over-, critically, or underdamped;</li>
+<li>calculate <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and
+  <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span> and use the Routh-Hurwitz criterion to
+  predict stable, marginal, or unstable two-lump PI behavior;</li>
+<li>predict and verify how <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, <span class="arithmatex">\(G\)</span>, total capacitance, and capacitance
+  division affect response speed, damping, and stability;</li>
 <li>characterize matched physical P and PI responses using rise time,
   overshoot, settling time, steady-state error, and oscillation period;</li>
 <li>generate six simulation Goldilocks plots using one shared set of physical
   parameters and compare them with the six experimental Goldilocks plots; and</li>
-<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by balancing rise time, settling time,
-  overshoot, and stability while connecting theory, simulation, and
-  measurement.</li>
+<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by balancing rapid approach to the
+  setpoint against overshoot, settling time, actuator limits, and stability
+  while connecting theory, simulation, and measurement.</li>
 </ul>
 <p>The six measured and six simulated Goldilocks plots are the principal way you
 achieve these objectives. They are assessed together with the two-lump
@@ -363,6 +368,13 @@ budget and should be attempted only after required work is complete.</p>
 <li><strong>Thermal lag</strong>: delay between changing the actuator and observing the
   measured temperature response.</li>
 <li><strong>Saturation</strong>: the actuator command reaches its limit, such as PWM 255. This could be a physical or software imposed limit.</li>
+<li><strong>Stable</strong>: the response returns to steady state after a disturbance.</li>
+<li><strong>Underdamped</strong>: a stable response with oscillations that decrease in
+  amplitude.</li>
+<li><strong>Marginally stable</strong>: an idealized response with constant-amplitude
+  oscillations that continue forever.</li>
+<li><strong>Unstable</strong>: a response that moves farther from steady state; oscillations
+  grow rather than decay when the instability is oscillatory.</li>
 </ul>
 <h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
 <p>The <a href="#how-to-run-the-python-gui">Python GUI</a> separates the physical model
@@ -570,6 +582,13 @@ s^2+2\zeta\omega_n s+\omega_n^2=0.
 <li><span class="arithmatex">\(\zeta_{\mathrm{2L,P}}&lt;1\)</span> gives an underdamped response with overshoot or
   ringing.</li>
 </ul>
+<p>Because all coefficients in this second-order P-control equation are positive,
+the two-lump P model is <strong>stable</strong> for positive physical parameters and
+negative feedback. Its underdamped oscillations decay. Sustained oscillations
+that last forever or oscillations that grow are not predictions of this linear
+two-lump P model; observing either would falsify at least one of its assumptions
+or reveal omitted effects such as delay, saturation, or additional thermal
+states.</p>
 <p>For fixed physical parameters, increasing <span class="arithmatex">\(K_p\)</span> increases the denominator and
 therefore decreases <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>. Sufficiently large P gain can move
 the two-lump model from overdamped to underdamped behavior. The critical gain
@@ -629,6 +648,12 @@ are positive. The Routh-Hurwitz stability condition therefore reduces to</p>
 <div class="arithmatex">\[
 a_2a_1&gt;a_3a_0.
 \]</div>
+<p>The significance of the Routh-Hurwitz criterion is that it determines
+stability from the polynomial coefficients without explicitly calculating all
+three eigenvalues. For the convention used here, each free mode varies as
+<span class="arithmatex">\(e^{st}\)</span>, so asymptotic stability requires <strong>every eigenvalue <span class="arithmatex">\(s\)</span> to have a
+negative real part</strong>, not to be positive. The Routh-Hurwitz conditions are
+necessary and sufficient for that result.</p>
 <p>Solving the equality for the integral gain gives the stability boundary</p>
 <div class="arithmatex">\[
 \boxed{
@@ -646,6 +671,28 @@ At <span class="arithmatex">\(\rho_I=1\)</span>, the normalized polynomial facto
 <span class="arithmatex">\((s+a)(s^2+b)\)</span>: one eigenvalue remains negative while the other two are purely
 imaginary. The linear model then predicts sustained oscillation. For
 <span class="arithmatex">\(\rho_I&gt;1\)</span>, it predicts growing oscillation and instability.</p>
+<p>The qualitative classification is therefore:</p>
+<ul>
+<li><span class="arithmatex">\(0&lt;\rho_I&lt;1\)</span>: <strong>stable</strong>; any oscillations decay;</li>
+<li><span class="arithmatex">\(\rho_I=1\)</span>: <strong>marginally stable</strong>; ideal constant-amplitude oscillations
+  persist forever; and</li>
+<li><span class="arithmatex">\(\rho_I&gt;1\)</span>: <strong>unstable</strong>; oscillations grow.</li>
+</ul>
+<p>This distinction is useful for model falsification. A stable underdamped trace
+may overshoot many times, but its envelope must shrink. A trace with constant
+amplitude lies on the predicted stability boundary, while a growing envelope
+lies beyond it. If the measured classification disagrees with the model's
+classification for the measured parameters, the model or one of its assumed
+parameter values is inadequate.</p>
+<p>The prediction of exponential growth applies only while the controller and
+plant remain linear. The apparatus cannot apply an arbitrarily large command:
+the H-bridge limits the signed command to
+<span class="arithmatex">\(-255\leq u\leq+255\)</span> PWM. Once the requested command reaches either limit, the
+applied command is clipped and the linear characteristic equation no longer
+describes the complete response. Instead of growing forever, the simulated or
+physical temperature may approach a bounded nonlinear oscillation. This does
+not make the underlying linear model stable; it shows that actuator saturation
+has limited the instability.</p>
 <p>These results give practical rules of thumb:</p>
 <table>
 <thead>
@@ -924,15 +971,15 @@ the overdamped-to-underdamped transition predictable. Select <code>two_lump</cod
 <tbody>
 <tr>
 <td><span class="arithmatex">\(T_{\mathrm{amb}}\)</span></td>
-<td style="text-align: right;"><span class="arithmatex">\(22\ ^\circ\mathrm{C}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(29\ ^\circ\mathrm{C}\)</span></td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(T_0\)</span></td>
-<td style="text-align: right;"><span class="arithmatex">\(22\ ^\circ\mathrm{C}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(29\ ^\circ\mathrm{C}\)</span></td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(T_{\mathrm{set}}\)</span></td>
-<td style="text-align: right;"><span class="arithmatex">\(23\ ^\circ\mathrm{C}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(30\ ^\circ\mathrm{C}\)</span></td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(C\)</span></td>
@@ -974,7 +1021,10 @@ the overdamped-to-underdamped transition predictable. Select <code>two_lump</cod
 </table>
 <p>The <span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> setpoint step keeps the requested command below the
 PWM limit for all three gains, so saturation does not obscure the linear
-P-control prediction. Anti-windup has no effect because <span class="arithmatex">\(K_i=0\)</span>.</p>
+P-control prediction. The demonstration uses
+<span class="arithmatex">\(T_{\mathrm{amb}}=29\ ^\circ\mathrm{C}\)</span> only to preserve this small step while
+using the familiar <span class="arithmatex">\(30\ ^\circ\mathrm{C}\)</span>
+setpoint. Anti-windup has no effect because <span class="arithmatex">\(K_i=0\)</span>.</p>
 <p>Use the boxed expression for <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> to verify these predictions
 before running the simulation:</p>
 <table>
@@ -989,17 +1039,17 @@ before running the simulation:</p>
 <tr>
 <td style="text-align: right;"><span class="arithmatex">\(60\)</span></td>
 <td style="text-align: right;"><span class="arithmatex">\(1.31\)</span></td>
-<td>Overdamped</td>
+<td>Stable, overdamped</td>
 </tr>
 <tr>
 <td style="text-align: right;"><span class="arithmatex">\(105\)</span></td>
 <td style="text-align: right;"><span class="arithmatex">\(1.00\)</span></td>
-<td>Approximately critically damped</td>
+<td>Stable, approximately critically damped</td>
 </tr>
 <tr>
 <td style="text-align: right;"><span class="arithmatex">\(160\)</span></td>
 <td style="text-align: right;"><span class="arithmatex">\(0.81\)</span></td>
-<td>Underdamped</td>
+<td>Stable, underdamped; oscillations decay</td>
 </tr>
 </tbody>
 </table>
@@ -1023,6 +1073,9 @@ the displayed values are rounded.</p>
 additional A3 plots. Return to your measured parameters before making the six
 Goldilocks plots.</p>
 <h4 id="predict-and-observe-two-lump-pi-stability">Predict And Observe Two-Lump PI Stability<a class="headerlink" href="#predict-and-observe-two-lump-pi-stability" title="Permanent link">&para;</a></h4>
+<p>Before running this study, review the
+<a href="#stability-of-two-lump-pi-control">two-lump PI stability criterion</a>, including
+the Routh-Hurwitz inequality, <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span>, and <span class="arithmatex">\(\rho_I\)</span>.</p>
 <p>Continue with the common parameter set above, but set <span class="arithmatex">\(G=2\ \mathrm{W/K}\)</span>,
 <span class="arithmatex">\(K_p=18\ \mathrm{PWM}/^\circ\mathrm{C}\)</span>, and select PI control. Keep the
 <span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> setpoint step and anti-windup on so actuator saturation
@@ -1081,6 +1134,10 @@ controller gains trade rapid approach against overshoot and settling time.</p>
 asking you to search the entire parameter space. The apparatus did not change
 between runs, so all six simulations must use <strong>one shared set of physical
 parameters</strong>. Only the controller gains change.</p>
+<p>Use the <a href="#stability-of-two-lump-pi-control">two-lump PI stability
+criterion</a> to predict and interpret the PI
+runs in terms of <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and
+<span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span>.</p>
 <p><strong>Step 1: Enter the measured quantities.</strong> Select <code>two_lump</code> and enter your
 measured <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, and <span class="arithmatex">\(\tau\)</span>. Use the same
 setpoints, initial temperatures, PWM limit, TEC voltage, and TEC resistance as
@@ -1118,8 +1175,9 @@ relatively slow and strongly damped toward faster and less damped behavior.</p>
 set chosen to make the stability transition easy to see. Select <code>direct
 constants</code>, <code>two_lump</code>, and PI control, then enter:</p>
 <ul>
-<li><span class="arithmatex">\(T_{\mathrm{amb}}=T_0=22\ ^\circ\mathrm{C}\)</span> and
-  <span class="arithmatex">\(T_{\mathrm{set}}=23\ ^\circ\mathrm{C}\)</span>;</li>
+<li><span class="arithmatex">\(T_{\mathrm{amb}}=T_0=29\ ^\circ\mathrm{C}\)</span> and
+  <span class="arithmatex">\(T_{\mathrm{set}}=30\ ^\circ\mathrm{C}\)</span>, preserving a small
+  <span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> step that avoids saturation;</li>
 <li><span class="arithmatex">\(C=100\ \mathrm{J/K}\)</span> and <span class="arithmatex">\(C_T/C=0.50\)</span>, so the two thermal stores are equal
   and neither state disappears into a one-lump approximation;</li>
 <li><span class="arithmatex">\(G=2.0\ \mathrm{W/K}\)</span>, which is small enough to create visible internal lag
@@ -1146,17 +1204,34 @@ while <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span> increas
 simulation automatically extends the <span class="arithmatex">\(K_i\)</span> slider beyond the calculated
 <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span>, even when a large <span class="arithmatex">\(K_p\)</span> makes that boundary greater
 than 5.</p>
-<p>Observe the response in three regions:</p>
+<p>Observe the response in four regions:</p>
 <ol>
-<li><span class="arithmatex">\(\rho_I\ll1\)</span>: oscillations decay and the system is stable;</li>
-<li><span class="arithmatex">\(\rho_I\)</span> just below 1: oscillations decay slowly and settling takes a long
-   time; and</li>
+<li><span class="arithmatex">\(\rho_I\ll1\)</span>: the system is stable and oscillations decay;</li>
+<li><span class="arithmatex">\(\rho_I\)</span> just below 1: the system is stable and underdamped, but
+   oscillations decay slowly and settling takes a long time;</li>
+<li><span class="arithmatex">\(\rho_I=1\)</span>: the ideal model is marginally stable and oscillations persist
+   forever at constant amplitude; and</li>
 <li><span class="arithmatex">\(\rho_I&gt;1\)</span>: oscillations grow and the linear model is unstable.</li>
 </ol>
 <p>This is a simulation, so you may briefly cross the instability boundary. Pause
 and reset once the growing oscillation is clear. Keep anti-windup on and use a
 small enough setpoint step that the PWM does not saturate; otherwise you are
 testing windup and saturation rather than the linear stability criterion.</p>
+<p><strong>Observe growth followed by actuator saturation.</strong> Now deliberately leave the
+linear regime. Keep the Step 4 physical parameters, <span class="arithmatex">\(K_p=10\)</span>, the
+<span class="arithmatex">\(30\ ^\circ\mathrm{C}\)</span> setpoint, the <span class="arithmatex">\(\pm255\)</span> PWM limit, and anti-windup on.
+Set <span class="arithmatex">\(K_i=3.0\ \mathrm{PWM}/(^\circ\mathrm{C\,s})\)</span>, select <strong>mass temperature
+only</strong>, use a rolling window of at least <span class="arithmatex">\(600\)</span> s, and reset the simulation.
+Run for about <span class="arithmatex">\(700\)</span> simulated seconds. You should see several growing
+temperature oscillations before the requested command reaches the PWM limit.
+The applied PWM then clips at <span class="arithmatex">\(+255\)</span> or <span class="arithmatex">\(-255\)</span>, and the temperature oscillation
+approaches a bounded amplitude rather than continuing to grow exponentially.</p>
+<p>Compare the command and temperature plots. Identify (1) the early interval in
+which the oscillation envelope grows, (2) the first time the applied PWM reaches
+a limit, and (3) the later bounded oscillation. Explain why the first interval
+is evidence of linear instability, while the later behavior is controlled by
+the nonlinear actuator limit. This is an exploration; do not add another plot
+to A3.</p>
 <p>After locating the transition, restore the one shared physical parameter set
 from Steps 1-3 and set <span class="arithmatex">\(K_p\)</span> to the value shared by the three experimental PI
 runs. Then use the three experimental <span class="arithmatex">\(K_i\)</span> values. For each one:</p>
@@ -1179,11 +1254,15 @@ parameter table.</p>
 <ol>
 <li>Which P and PI simulation best reproduce the corresponding experimental
    rise time, overshoot, and settling behavior?</li>
-<li>How does decreasing <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> organize the three P responses?</li>
+<li>How do decreasing <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> and the location of each gain
+   relative to <span class="arithmatex">\(K_{p,\mathrm{crit}}\)</span> organize the three P responses?</li>
 <li>How does increasing <span class="arithmatex">\(\rho_I\)</span> organize the three PI responses?</li>
 <li>State one important agreement and one important disagreement between the
    six simulations and six experiments, then justify the P and PI gains that
-   give the best compromise between speed and settling.</li>
+   give the best compromise between speed and settling. In doing so, classify
+   each response as stable non-oscillatory, stable underdamped, marginally
+   stable, or unstable, and identify any observed behavior that falsifies the
+   selected model.</li>
 </ol>
 <p><strong>Optional windup demonstration:</strong> after preserving the six plots, turn
 anti-windup off, reduce <span class="arithmatex">\(G\)</span>, choose PI control, and apply a setpoint step large

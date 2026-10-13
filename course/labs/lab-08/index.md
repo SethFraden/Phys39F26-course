@@ -22,10 +22,8 @@ profile gives the first quantitative evidence of heat loss from the rod's side.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S16, Mon. Oct. 26 | Lecture: solve the finite-length one-dimensional rod; obtain the semi-infinite limit; introduce the transverse Biot number | Guided self-study begins |
-| S17, Wed. Oct. 28 | Compare finite and semi-infinite predictions; calculate the rod Biot number; map and calibrate sensors | **A4: finite-length and small-Biot guided study** |
-| S18, Mon. Nov. 2 | Acquire a synchronized step response; lecture on the axisymmetric radial model while the experiment runs | **C5: Rod instrument and data-acquisition chain** |
-| S19, Wed. Nov. 4 | Reach steady state; fit finite-length and semi-infinite stationary profiles | Formative stationary-fin analysis |
+| S16, Mon. Oct. 26 | Review the finite-rod theory prepared at home; compare finite and semi-infinite predictions; calculate the transverse Biot number; map and calibrate sensors; begin baseline and step-response measurements | Module 7 home preparation |
+| S17, Wed. Oct. 28 | Complete the synchronized step response and stationary profile; fit finite-length and semi-infinite stationary profiles | **A4: finite-length and small-Biot guided study**; **C5: Rod instrument and data-acquisition chain** |
 
 ## Outside-Class Workload Budget
 
@@ -37,12 +35,6 @@ profile gives the first quantitative evidence of heat loss from the rod's side.
 | S17 | Complete and check the individual A4 calculations | 180 minutes |
 | S17 | Prepare the sensor-map and calibration record | 45 minutes |
 | S17 | **Total associated with S17** | **3 hours 45 minutes** |
-| S18 | Prepare acquisition metadata and update the sensor map | 60 minutes |
-| S18 | Organize the C5 evidence and Moodle receipt | 45 minutes |
-| S18 | **Total associated with S18** | **1 hour 45 minutes** |
-| S19 | Complete finite/semi-infinite fits, residuals, and uncertainty analysis | 135 minutes |
-| S19 | Document, commit, and push the formative stationary analysis | 30 minutes |
-| S19 | **Total associated with S19** | **2 hours 45 minutes** |
 
 The reading allocation includes time to follow the derivation, not merely read
 the prose. Save all rod measurements during class; the outside-class budget is
@@ -189,13 +181,13 @@ Submit an individual solution that:
 7. gives two separate conclusions: whether the rod may be treated as
    semi-infinite and whether it may be treated as one-dimensional.
 
-### Radial-Model Lecture During S18
+### Radial Model Preview
 
-While the long step-response experiment is running, the lecture will retain
-radial variation and introduce the axisymmetric heat equation. The goal is to
-identify the new radial derivative and surface boundary condition, and to
-distinguish surface, centerline, and cross-sectional mean temperature. The
-guided numerical solution follows in Module 8, Part I, before the Angstrom analysis.
+The next module retains radial variation and introduces the axisymmetric heat
+equation. Its goal is to identify the new radial derivative and surface
+boundary condition, and to distinguish surface, centerline, and
+cross-sectional mean temperature. The guided numerical solution begins in
+Module 8, Part I, before the Angstrom analysis.
 
 ## Part 1: Sensor Map And Calibration
 
@@ -221,7 +213,7 @@ guided numerical solution follows in Module 8, Part I, before the Angstrom analy
 
 ## C5 Checkoff
 
-At S18, demonstrate:
+At S17, demonstrate:
 
 - calibrated or cross-checked rod thermistors,
 - documented sensor coordinates and wiring,
@@ -247,7 +239,7 @@ At S18, demonstrate:
 
 ## Stationary-Fin Analysis Record
 
-### Evidence To Save During S17-S19
+### Evidence To Save During S16-S17
 
 Keep the sensor map, calibration record, geometry, raw baseline, synchronized
 step response, commanded and measured base temperature, steady profile, run
@@ -270,8 +262,9 @@ radius.
 
 ### C5: Rod Instrument And Data-Acquisition Chain
 
-Demonstrate C5 during S18. The `C5 Team Checkoff` Moodle receipt is due by
-**11:55 AM** and must cite the pushed acquisition-code and evidence commit.
+Demonstrate C5 during S17 on Wednesday, October 28. The `C5 Team Checkoff`
+Moodle receipt is due by **11:55 AM** and must cite the pushed acquisition-code
+and evidence commit.
 Prepare the [C5 oral questions](../../assessment.md#c5-rod-instrument-and-data-acquisition-chain).
 
 ### Formative Stationary-Fin Analysis

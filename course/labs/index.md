@@ -24,9 +24,15 @@ oral checks. The calendar below shows the corresponding `A#`, `C#`, `P#`, and
 
 **Pacing update:** Modules 1 and 2 required more class time than originally
 anticipated. Module 2 was held on September 14, and S5 combined the end of
-Module 2 with the beginning of Module 3. Module 4 continues through S9 on
-September 30. The remaining TEC-control sequence has been shifted one session
-later, while the rod sequence and final December 2 endpoint remain unchanged.
+Module 2 with the beginning of Module 3. Module 4 continued through S9 on
+September 30. Module 7 is compressed into S16-S17 so that Module 8 begins on
+November 2; the final December 2 endpoint remains unchanged.
+
+**Home-assignment release plan:** Release the Module 7 home preparation after
+class on Monday, October 19; its Moodle preparation check is due Monday,
+October 26, at 9:05 AM. Release the Module 8 home preparation after class on
+Wednesday, October 28; its Moodle preparation check is due Monday, November 2,
+at 9:05 AM.
 
 ## Course Modules
 
@@ -55,7 +61,7 @@ documentation in its repository, and have each student explain the work.
 | [**C2. Measurement and actuator electronics complete**](../assessment.md#c2-measurement-and-actuator-electronics) | Demonstration during S6, Wed. Sept. 16; receipt by 5:00 PM | The thermistor reports a plausible calibrated temperature; the H-bridge PWM and direction inputs have been verified with the oscilloscope; and the prepared actuator wiring is complete. |
 | [**C3. TEC instrument and first Python GUI complete**](../assessment.md#c3-tec-instrument-and-first-python-gui) | Demonstration during S7, Wed. Sept. 23; receipt by 11:55 AM | The TEC and thermal switch are wired safely; manual heat/cool and PWM work; Python displays and saves the serial data; and an open-loop temperature record has been made. |
 | [**C4. Open-loop TEC calibration and software safety complete**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) | Demonstration during S10, Mon. Oct. 5; receipt by 11:55 AM | Independent safety protections work; steady-state heating and cooling susceptibilities are measured; and the student can explain the asymmetry and data-sheet comparison. |
-| [**C5. Rod instrument and data-acquisition chain complete**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) | Demonstration during S18, Mon. Nov. 2; receipt by 11:55 AM | Rod thermistors are calibrated; sensor positions and wiring are documented; multichannel logging works; and baseline plus initial step-response data have been saved. |
+| [**C5. Rod instrument and data-acquisition chain complete**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) | Demonstration during S17, Wed. Oct. 28; receipt by 11:55 AM | Rod thermistors are calibrated; sensor positions and wiring are documented; multichannel logging works; and baseline plus initial step-response data have been saved. |
 | [**C6. Final thermal-transport package complete**](../assessment.md#c6-final-thermal-transport-package) | Demonstration during S25, Mon. Nov. 30; receipt by 11:55 AM | Periodic rod data and reproducible analysis report `q`, `q_prime`, diffusivity `kappa`, aluminum conductivity `k`, loss rate `nu`, and side heat-transfer coefficient `H`, with units and uncertainty. |
 
 For every milestone, late work must still be completed. Timely completion is
@@ -98,16 +104,16 @@ means required preparation with no separate grade.
 | **5**<br>[S10](#session-10)<br>[Module 4](lab-04/index.md) / [Module 5](lab-05/index.md)<br>[**C4 checkoff**](../assessment.md#c4-open-loop-tec-calibration-and-software-safety) | 6 | **7**<br>[S11](#session-11)<br>[Module 5](lab-05/index.md)<br>P-control measurements<br>[**A2 due 6:00 PM**](lab-04/index.md#a2-tec-heating-and-cooling-analysis) | 8 | 9 | 10 | 11 |
 | **12**<br>No class | **13**<br>[S12](#session-12)<br>[Module 6, Part I](lab-06/index.md)<br>Brandeis Monday<br>Guided derivation | **14**<br>[S13](#session-13)<br>[Module 6, Part I](lab-06/index.md)<br>Implement physical PI control | 15 | 16 | 17 | 18 |
 | **19**<br>[S14](#session-14)<br>[Module 6, Part I](lab-06/index.md) / [Part II](lab-07/index.md)<br>Tune $K_p$ and $K_i$<br>**P2** | 20 | **21**<br>[S15](#session-15)<br>[Module 6, Part II](lab-07/index.md)<br>**A3 due 6:00 PM** | 22 | 23 | 24 | 25 |
-| **26**<br>[S16](#session-16)<br>[Module 7, Part I](theory-bridge-chapter-1/index.md) / [Part III](lab-08/index.md)<br>**Prep** | 27 | **28**<br>[S17](#session-17)<br>[Module 7, Parts II-III](lab-08/index.md)<br>**A4 due** | 29 | 30 | 31 |  |
+| **26**<br>[S16](#session-16)<br>[Module 7, Parts I-III](lab-08/index.md)<br>**Home preparation due** | 27 | **28**<br>[S17](#session-17)<br>[Module 7, Part III](lab-08/index.md)<br>**A4 due**<br>**C5 checkoff** | 29 | 30 | 31 |  |
 
 ### November 2026
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 | --- | --- | --- | --- | --- | --- | --- |
-| **2**<br>[S18](#session-18)<br>[Module 7, Part III](lab-08/index.md)<br>**C5 checkoff** | 3 | **4**<br>[S19](#session-19)<br>[Module 7, Part III](lab-08/index.md)<br>Stationary analysis | 5 | 6 | 7 | 8 |
-| **9**<br>[S20](#session-20)<br>[Module 8, Part I](lab-09/index.md)<br>**P3** | 10 | **11**<br>[S21](#session-21)<br>[Module 8, Part I](lab-09/index.md)<br>**A5 due** | 12 | 13 | 14 | 15 |
-| **16**<br>[S22](#session-22)<br>[Module 8, Part I](lab-09/index.md)<br>**P4** | 17 | **18**<br>[S23](#session-23)<br>[Module 8, Part I](lab-09/index.md)<br>Modeling-app check | 19 | 20 | 21 | 22 |
-| **23**<br>[S24](#session-24)<br>[Module 8, Part II](lab-10/index.md)<br>A5 draft | 24 | **25**<br>No class | 26 | 27 | 28 | 29 |
+| **2**<br>[S18](#session-18)<br>[Module 8, Part I](lab-09/index.md)<br>**Home preparation due**<br>**P3** | 3 | **4**<br>[S19](#session-19)<br>[Module 8, Part I](lab-09/index.md)<br>Pilot analysis | 5 | 6 | 7 | 8 |
+| **9**<br>[S20](#session-20)<br>[Module 8, Part I](lab-09/index.md)<br>Production data | 10 | **11**<br>[S21](#session-21)<br>[Module 8, Part I](lab-09/index.md)<br>**A5 due** | 12 | 13 | 14 | 15 |
+| **16**<br>[S22](#session-22)<br>[Module 8, Part I](lab-09/index.md)<br>**P4** | 17 | **18**<br>[S23](#session-23)<br>[Module 8, Part II](lab-10/index.md)<br>Calculate $k$ and $H$ | 19 | 20 | 21 | 22 |
+| **23**<br>[S24](#session-24)<br>[Module 8, Part II](lab-10/index.md)<br>Draft-results check | 24 | **25**<br>No class | 26 | 27 | 28 | 29 |
 | **30**<br>[S25](#session-25)<br>[Module 8, Part II](lab-10/index.md)<br>**C6 checkoff** |  |  |  |  |  |  |
 
 ### December 2026
@@ -129,8 +135,8 @@ time for every session.
 | S5, S6, S7, S8 | 3 h 30 min; 2 h 30 min; 3 h; 1 h 30 min |
 | S9, S10, S11, S12 | 1 h 30 min; 2 h 15 min; 2 h 30 min; 3 h 30 min |
 | S13, S14, S15, S16 | 2 h 45 min; 3 h 30 min; 3 h 30 min; 3 h 45 min |
-| S17, S18, S19, S20 | 3 h 45 min; 1 h 45 min; 2 h 45 min; 3 h 30 min |
-| S21, S22, S23, S24 | 3 h 45 min; 1 h; 3 h; 3 h 45 min |
+| S17, S18, S19, S20 | 3 h 45 min; 3 h 30 min; 2 h 45 min; 2 h 45 min |
+| S21, S22, S23, S24 | 3 h; 1 h; 3 h 45 min; 3 h |
 | S25, S26 | 4 h; 4 h |
 
 If a technical blocker would require exceeding a session's budget, save and
@@ -155,15 +161,15 @@ document the current state and bring the problem to class.
 | <span id="meeting-13"></span><span id="session-13">S13</span> | 2026-10-14 | Wed | Explain how integral action removes droop; implement PI control and anti-windup on the physical TEC; record matched P and PI responses. | [Module 6, Part I](lab-06/index.md) | Initial physical PI-control evidence | G8-G10, G13 |
 | <span id="meeting-14"></span><span id="session-14">S14</span> | 2026-10-19 | Mon | Tune physical $K_p$ and $K_i$; quantify the response of one acceptable and one poor but safe gain pair; connect thermal lag to one- and two-lump models. | [Module 6, Part I](lab-06/index.md) and [Part II](lab-07/index.md) | `P2`; assemble the A3 physical P/PI comparison | G3, G7-G10, G12-G14 |
 | <span id="meeting-15"></span><span id="session-15">S15</span> | 2026-10-21 | Wed | Explain what one- and two-lump models reveal about thermal lag and why a rod requires `T(x,t)` rather than a lumped temperature. | [Module 6, Part II](lab-07/index.md) | [**A3**](lab-06/index.md#a3-feedback-data-and-lumped-model-memo) due 6:00 PM | G3, G7-G10, G12-G14 |
-| <span id="meeting-16"></span><span id="session-16">S16</span> | 2026-10-26 | Mon | Lecture: solve the finite-length one-dimensional rod, obtain the semi-infinite limit, and introduce the transverse Biot number. | [Module 7, Part I: Thermal Transport Foundations](theory-bridge-chapter-1/index.md) and [Part III: Rod Instrument](lab-08/index.md) | `Prep`: Lienhard Chapter 1 and Section 4.5 | G11, G13, G14 |
-| <span id="meeting-17"></span><span id="session-17">S17</span> | 2026-10-28 | Wed | Quantify finite-length error and transverse Biot number; calibrate and map rod thermistors for `T(x,t)`. | [Module 7, Parts II-III: Rod Theory And Instrument](lab-08/index.md) | [**A4**](lab-08/index.md#a4-finite-length-and-small-biot-guided-study) due 9:05 AM | G2-G4, G11-G14 |
-| <span id="meeting-18"></span><span id="session-18">S18</span> | 2026-11-02 | Mon | Acquire baseline and step-response data; lecture on the axisymmetric radial model while the experiment runs. | [Module 7, Part III](lab-08/index.md) | [**C5**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) demonstration; receipt 11:55 AM | G3, G7, G9, G11-G13 |
-| <span id="meeting-19"></span><span id="session-19">S19</span> | 2026-11-04 | Wed | Fit finite-length and semi-infinite stationary profiles; compare residuals and approximation error. | [Module 7, Part III](lab-08/index.md) | Formative stationary analysis for C6/F1 | G3, G11, G13-G15 |
-| <span id="meeting-20"></span><span id="session-20">S20</span> | 2026-11-09 | Mon | Complete the guided radial-model study, then tune a sinusoidal base boundary and collect an Angstrom pilot run. | [Module 8, Part I: The Angstrom Method](lab-09/index.md) | `P3` | G6-G9, G11-G13 |
-| <span id="meeting-21"></span><span id="session-21">S21</span> | 2026-11-11 | Wed | Fit sensor mean, amplitude, and phase; explain exponential amplitude decay and linear phase lag. | [Module 8, Part I](lab-09/index.md) | [**A5**](lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) due 9:05 AM | G3, G7, G11, G13-G15 |
-| <span id="meeting-22"></span><span id="session-22">S22</span> | 2026-11-16 | Mon | Acquire at least five settled periods and document whether the measured boundary and rod data are usable. | [Module 8, Part I](lab-09/index.md) | `P4` | G2, G3, G7, G11, G12 |
-| <span id="meeting-23"></span><span id="session-23">S23</span> | 2026-11-18 | Wed | Determine spatial amplitude and phase coefficients and infer diffusivity `kappa` and loss rate `nu`. | [Module 8, Part I](lab-09/index.md) | Formative modeling-app check for C6/F1 | G3, G7, G11-G15 |
-| <span id="meeting-24"></span><span id="session-24">S24</span> | 2026-11-23 | Mon | Calculate aluminum `k` and side-loss `H`; update finite-length and transverse-Biot checks using measured parameters. | [Module 8, Part II: Conductivity, Heat Loss, And Final Synthesis](lab-10/index.md) | Formative A5 draft-results check | G3, G11, G13-G15 |
+| <span id="meeting-16"></span><span id="session-16">S16</span> | 2026-10-26 | Mon | Use the finite-rod theory and transverse Biot number prepared at home; map and calibrate rod thermistors; begin baseline and step-response measurements. | [Module 7, Parts I-III](lab-08/index.md) | Module 7 home preparation due 9:05 AM | G2-G4, G11-G14 |
+| <span id="meeting-17"></span><span id="session-17">S17</span> | 2026-10-28 | Wed | Complete the synchronized step response and stationary profile; compare finite-length and semi-infinite predictions and preserve the rod-instrument evidence. | [Module 7, Part III: Rod Instrument](lab-08/index.md) | [**A4**](lab-08/index.md#a4-finite-length-and-small-biot-guided-study) due 9:05 AM; [**C5**](../assessment.md#c5-rod-instrument-and-data-acquisition-chain) demonstration and receipt by 11:55 AM | G2-G4, G7, G9, G11-G14 |
+| <span id="meeting-18"></span><span id="session-18">S18</span> | 2026-11-02 | Mon | Complete the guided radial-model study, tune a sinusoidal base boundary, and collect an Angstrom pilot run. | [Module 8, Part I: The Angstrom Method](lab-09/index.md) | Module 8 home preparation due 9:05 AM; `P3` | G6-G9, G11-G13 |
+| <span id="meeting-19"></span><span id="session-19">S19</span> | 2026-11-04 | Wed | Fit pilot-run means, amplitudes, and phases; compare one-dimensional and radial predictions; choose the production period. | [Module 8, Part I](lab-09/index.md) | Pilot-analysis and production-plan check | G3, G7, G11, G13-G15 |
+| <span id="meeting-20"></span><span id="session-20">S20</span> | 2026-11-09 | Mon | Acquire at least five settled production periods and document whether the measured boundary and rod data are usable. | [Module 8, Part I](lab-09/index.md) | Production-data readiness check | G2, G3, G7, G11, G12 |
+| <span id="meeting-21"></span><span id="session-21">S21</span> | 2026-11-11 | Wed | Determine spatial amplitude and phase coefficients and infer diffusivity `kappa` and loss rate `nu`. | [Module 8, Part I](lab-09/index.md) | [**A5**](lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) due 9:05 AM | G3, G7, G11, G13-G15 |
+| <span id="meeting-22"></span><span id="session-22">S22</span> | 2026-11-16 | Mon | Repeat or extend the periodic measurement; test frequency consistency, residuals, and model validity. | [Module 8, Part I](lab-09/index.md) | `P4`; formative modeling-app check for C6/F1 | G2, G3, G7, G11-G15 |
+| <span id="meeting-23"></span><span id="session-23">S23</span> | 2026-11-18 | Wed | Calculate aluminum `k` and side-loss `H`; update finite-length and transverse-Biot checks using measured parameters. | [Module 8, Part II: Conductivity, Heat Loss, And Final Synthesis](lab-10/index.md) | Parameter and model-validity check | G3, G11, G13-G15 |
+| <span id="meeting-24"></span><span id="session-24">S24</span> | 2026-11-23 | Mon | Propagate uncertainty, compare the stationary and periodic estimates, and assemble the draft final analysis. | [Module 8, Part II](lab-10/index.md) | Formative draft-results check | G3, G11, G13-G15 |
 | <span id="meeting-25"></span><span id="session-25">S25</span> | 2026-11-30 | Mon | Compare measured and modeled `T(x,t)`; defend finite-length and finite-radius validity checks; reproduce final results. | [Module 8, Part II](lab-10/index.md) | [**C6**](../assessment.md#c6-final-thermal-transport-package) demonstration and receipt 11:55 AM | G3, G7, G11-G15 |
 | <span id="meeting-26"></span><span id="session-26">S26</span> | 2026-12-02 | Wed | Present the instrument-to-model chain and individually defend hardware, software, control, and thermal-physics decisions. | [Module 8, Part II](lab-10/index.md) | `F1` | G1-G15 |
 

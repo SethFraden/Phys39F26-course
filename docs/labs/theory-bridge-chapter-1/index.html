@@ -316,6 +316,10 @@ R_{\mathrm{th}}=\frac{L}{kA},
 \qquad
 \dot Q=\frac{T_{\mathrm{hot}}-T_{\mathrm{cold}}}{R_{\mathrm{th}}}.
 \]</div>
+<p>Here <span class="arithmatex">\(L\)</span> is the length of the conduction path, <span class="arithmatex">\(A\)</span> is its cross-sectional
+area perpendicular to the heat flow, and <span class="arithmatex">\(k\)</span> is the thermal conductivity of
+the material. Section 2 explains these quantities more fully and shows how this
+geometry-dependent resistance follows from Fourier's local heat-flux law.</p>
 <p>For a reservoir-height difference <span class="arithmatex">\(\Delta h\)</span>, gravity produces a pressure
 difference <span class="arithmatex">\(\Delta p=\rho g\Delta h\)</span>. For fully developed laminar flow of
 an incompressible Newtonian fluid through a straight circular pipe,</p>
@@ -422,6 +426,26 @@ sign matters: heat flows in the direction of decreasing temperature.</p>
 <div class="arithmatex">\[
 \dot Q_x=-kA\frac{\partial T}{\partial x}.
 \]</div>
+<p>Fourier's law is fundamentally a <strong>flux law</strong>. The heat flux <span class="arithmatex">\(q_x\)</span> is the
+heat-transfer rate per unit area, whereas the heat current <span class="arithmatex">\(\dot Q_x=Aq_x\)</span>
+is the total heat-transfer rate through a specified cross section. The thermal
+conductivity <span class="arithmatex">\(k\)</span> is independent of the sample geometry: it is a property of
+the material, although it can depend on temperature, composition, and
+direction in an anisotropic material.</p>
+<p>Thermal resistance is different. For steady one-dimensional conduction through
+a uniform sample of length <span class="arithmatex">\(L\)</span>, constant area <span class="arithmatex">\(A\)</span>, and constant <span class="arithmatex">\(k\)</span>,
+integrating Fourier's law gives</p>
+<div class="arithmatex">\[
+\dot Q=\frac{kA}{L}\left(T_{\mathrm{hot}}-T_{\mathrm{cold}}\right)
+=\frac{T_{\mathrm{hot}}-T_{\mathrm{cold}}}{R_{\mathrm{th}}},
+\qquad
+R_{\mathrm{th}}=\frac{L}{kA}.
+\]</div>
+<p>Thus <span class="arithmatex">\(R_{\mathrm{th}}\)</span> is not a material property. It is the
+geometry-dependent lumped parameter obtained when the continuous flux law is
+applied to, or discretized over, a finite piece of material. Doubling <span class="arithmatex">\(L\)</span>
+doubles its thermal resistance, while doubling <span class="arithmatex">\(A\)</span> halves it; neither change
+alters <span class="arithmatex">\(k\)</span>.</p>
 <p>For this course, the key idea is not the symbol manipulation. The key idea is
 that a temperature gradient causes a heat current.</p>
 <p><img alt="Heat conduction between hot and cool walls" src="../../assets/lienhard-fig-1-5-conduction.png" /></p>

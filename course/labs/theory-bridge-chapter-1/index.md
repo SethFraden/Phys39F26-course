@@ -103,6 +103,11 @@ R_{\mathrm{th}}=\frac{L}{kA},
 \dot Q=\frac{T_{\mathrm{hot}}-T_{\mathrm{cold}}}{R_{\mathrm{th}}}.
 \]
 
+Here \(L\) is the length of the conduction path, \(A\) is its cross-sectional
+area perpendicular to the heat flow, and \(k\) is the thermal conductivity of
+the material. Section 2 explains these quantities more fully and shows how this
+geometry-dependent resistance follows from Fourier's local heat-flux law.
+
 For a reservoir-height difference \(\Delta h\), gravity produces a pressure
 difference \(\Delta p=\rho g\Delta h\). For fully developed laminar flow of
 an incompressible Newtonian fluid through a straight circular pipe,
@@ -214,6 +219,30 @@ For a rod with cross-sectional area \(A\), the heat-flow rate is
 \[
 \dot Q_x=-kA\frac{\partial T}{\partial x}.
 \]
+
+Fourier's law is fundamentally a **flux law**. The heat flux \(q_x\) is the
+heat-transfer rate per unit area, whereas the heat current \(\dot Q_x=Aq_x\)
+is the total heat-transfer rate through a specified cross section. The thermal
+conductivity \(k\) is independent of the sample geometry: it is a property of
+the material, although it can depend on temperature, composition, and
+direction in an anisotropic material.
+
+Thermal resistance is different. For steady one-dimensional conduction through
+a uniform sample of length \(L\), constant area \(A\), and constant \(k\),
+integrating Fourier's law gives
+
+\[
+\dot Q=\frac{kA}{L}\left(T_{\mathrm{hot}}-T_{\mathrm{cold}}\right)
+=\frac{T_{\mathrm{hot}}-T_{\mathrm{cold}}}{R_{\mathrm{th}}},
+\qquad
+R_{\mathrm{th}}=\frac{L}{kA}.
+\]
+
+Thus \(R_{\mathrm{th}}\) is not a material property. It is the
+geometry-dependent lumped parameter obtained when the continuous flux law is
+applied to, or discretized over, a finite piece of material. Doubling \(L\)
+doubles its thermal resistance, while doubling \(A\) halves it; neither change
+alters \(k\).
 
 For this course, the key idea is not the symbol manipulation. The key idea is
 that a temperature gradient causes a heat current.
@@ -440,7 +469,11 @@ If there is no internal heat generation, \(\dot q'''=0\), then
 \]
 
 The parameter \(\alpha\) is the thermal diffusivity. It tells how quickly a
-temperature disturbance spreads through the material.
+temperature disturbance spreads through the material. Its dimensions are
+\(\mathrm{m^2/s}\), the same as the diffusion coefficient \(D\) for Brownian
+particles. The mathematical analogy is direct: \(\alpha\) governs the spreading
+of a temperature field, while \(D\) governs the spreading of particle
+concentration or probability.
 
 For a long, thin rod whose temperature varies mostly along its length, this
 becomes the one-dimensional heat equation:

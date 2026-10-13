@@ -19,7 +19,8 @@ the measured temperature field.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S24, Mon. Nov. 23 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | Formative draft-results check |
+| S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | Parameter and model-validity check |
+| S24, Mon. Nov. 23 | Propagate uncertainty, compare stationary and periodic estimates, and assemble the final analysis | Formative draft-results check |
 | S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 final analysis package** |
 | S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
 
@@ -27,10 +28,13 @@ the measured temperature field.
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S24 | Read this assignment and organize the final parameter table | 45 minutes |
+| S23 | Read this assignment and organize the final parameter table | 45 minutes |
+| S23 | Calculate `k` and `H` and update the model-validity checks | 150 minutes |
+| S23 | Document, commit, and push the parameter checkpoint | 30 minutes |
+| S23 | **Total associated with S23** | **3 hours 45 minutes** |
 | S24 | Propagate uncertainty, compare accepted values, and prepare the draft-results check | 150 minutes |
 | S24 | Document, commit, and push the draft | 30 minutes |
-| S24 | **Total associated with S24** | **3 hours 45 minutes** |
+| S24 | **Total associated with S24** | **3 hours** |
 | S25 | Freeze the analysis, run the reproducibility test, and prepare C6 | 240 minutes |
 | S25 | **Total associated with S25** | **4 hours** |
 | S26 | Prepare slides, rehearse, and practice the announced oral questions | 240 minutes |

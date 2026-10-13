@@ -149,7 +149,7 @@ code, plots, and repository state.
 | --- | --- | --- |
 | `P1` | S6, Wed. Sept. 16 | Python reads real serial data, displays temperature and PWM, and saves a labeled data file. |
 | `P2` | S14, Mon. Oct. 19 | The physical PI controller runs with independent safety shutdown and anti-windup; the live display shows error, $u_P$, $u_I$, and applied PWM; the team shows one matched P/PI comparison and its gain-tuning table. |
-| `P3` | S20, Mon. Nov. 9 | Completed Angstrom reading questions, a proposed drive period, and a prediction for amplitude decay and phase lag. |
+| `P3` | S18, Mon. Nov. 2 | Completed Angstrom reading questions, a proposed drive period, and a prediction for amplitude decay and phase lag. |
 | `P4` | S22, Mon. Nov. 16 | A periodic dataset containing at least five settled cycles, sensor positions and units, acquisition metadata, and a base-temperature tracking check. |
 
 ## How Written Assessments Are Graded
@@ -209,7 +209,7 @@ separately to Moodle.
 
 Present selected open-loop and physical P/PI evidence, droop and instability,
 dimensional one-lump analysis, comparable experimental P/PI metrics,
-anti-windup, the v3 result used to interpret the gains, model limitations, code
+anti-windup, the simulation result used to interpret the gains, model limitations, code
 and data links, and the cited Git checkpoint.
 
 See [Module 6: A3 Feedback Data And Lumped-Model Memo](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
@@ -333,7 +333,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 
 ## C5: Rod Instrument And Data-Acquisition Chain
 
-**Due:** Demonstration during Session S18, Monday, November 2; Moodle
+**Due:** Demonstration during Session S17, Wednesday, October 28; Moodle
 `C5 Team Checkoff` receipt due by **11:55 AM**
 
 | Criterion | Points |
@@ -406,9 +406,9 @@ of `F1`.
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#c3-demonstration-and-evidence), demonstrated using the C3 rubric above. |
 | `A2` | Oct. 7, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
 | `C4` | Oct. 5, during S10; receipt by 11:55 AM | [Open-loop TEC calibration and software-safety milestone](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration), demonstrated using the C4 rubric above. |
-| `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting v3 result, model limits, code/data links, and `GC`. |
+| `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting simulation result, model limits, code/data links, and `GC`. |
 | `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
-| `C5` | Nov. 2, during S18; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
+| `C5` | Oct. 28, during S17; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
 | `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
 | `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |
 | `F1` | Dec. 2 | Final team presentation and individual oral defense, using the rubric below. |

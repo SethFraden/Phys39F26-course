@@ -15,27 +15,31 @@ to separate thermal diffusion from heat loss to the air.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S20, Mon. Nov. 9 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | `P3` model and pilot check |
-| S21, Wed. Nov. 11 | Fit pilot amplitudes and phases; choose production period | **A5: Angstrom derivation and model-validity plan** |
-| S22, Mon. Nov. 16 | Acquire settled production data at one or more periods | Data-readiness check |
-| S23, Wed. Nov. 18 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | Formative modeling-app check |
+| S18, Mon. Nov. 2 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | Module 8 home preparation; `P3` model and pilot check |
+| S19, Wed. Nov. 4 | Fit pilot amplitudes and phases; compare one-dimensional and radial predictions; choose the production period | Pilot-analysis and production-plan check |
+| S20, Mon. Nov. 9 | Acquire at least five settled production periods | Data-readiness check |
+| S21, Wed. Nov. 11 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | **A5: Angstrom derivation and model-validity plan** |
+| S22, Mon. Nov. 16 | Repeat or extend the measurement; test frequency consistency, residuals, and model validity | `P4`; formative modeling-app check |
 
 ## Outside-Class Workload Budget
 
 | Session | Work | Planned time |
 | --- | --- | ---: |
-| S20 | Read this assignment and review the periodic solution | 60 minutes |
-| S20 | Run the supplied radial scaffold and compare the three Biot-number cases | 120 minutes |
-| S20 | Prepare the pilot-run settings and metadata plan | 30 minutes |
-| S20 | **Total associated with S20** | **3 hours 30 minutes** |
-| S21 | Complete and check the individual A5 derivation and validity plan | 180 minutes |
-| S21 | Inspect pilot fits and prepare the production-run plan | 45 minutes |
-| S21 | **Total associated with S21** | **3 hours 45 minutes** |
-| S22 | Prepare production filenames, metadata, and data-readiness checklist | 60 minutes |
+| S18 | Read this assignment and review the periodic solution | 60 minutes |
+| S18 | Run the supplied radial scaffold and compare the three Biot-number cases | 120 minutes |
+| S18 | Prepare the pilot-run settings and metadata plan | 30 minutes |
+| S18 | **Total associated with S18** | **3 hours 30 minutes** |
+| S19 | Continue and check the individual A5 derivation and validity plan | 120 minutes |
+| S19 | Inspect pilot fits and prepare the production-run plan | 45 minutes |
+| S19 | **Total associated with S19** | **2 hours 45 minutes** |
+| S20 | Complete the individual A5 derivation and validity plan | 120 minutes |
+| S20 | Prepare production filenames, metadata, and data-readiness checklist | 45 minutes |
+| S20 | **Total associated with S20** | **2 hours 45 minutes** |
+| S21 | Complete the spatial fits, uncertainty, and residual displays | 150 minutes |
+| S21 | Document, commit, and push the formative modeling-app checkpoint | 30 minutes |
+| S21 | **Total associated with S21** | **3 hours** |
+| S22 | Prepare a repeat run or frequency-consistency and model-validity check | 60 minutes |
 | S22 | **Total associated with S22** | **1 hour** |
-| S23 | Complete the modeling-app fits, uncertainty, and residual displays | 150 minutes |
-| S23 | Document, commit, and push the formative modeling-app checkpoint | 30 minutes |
-| S23 | **Total associated with S23** | **3 hours** |
 
 Production data are acquired in class. If five settled periods do not fit in a
 meeting, use an instructor-approved supervised run rather than silently adding
@@ -271,9 +275,8 @@ two-dimensional PDE solver from scratch. Run otherwise identical cases with
 4. explain how a surface thermistor analyzed with a one-dimensional model could
    bias inferred \(k\) or \(H\).
 
-This numerical study follows the radial-model lecture from S18. Finish it
-before using the one-dimensional periodic solution for the production
-Angstrom analysis.
+This numerical study begins in S18. Finish it before using the
+one-dimensional periodic solution for the production Angstrom analysis.
 
 ## Part 1: Establish The Boundary Condition
 
@@ -340,7 +343,7 @@ Your Python app, notebook, or script must visibly show:
 
 ## Modeling-App Draft And Evidence
 
-### Evidence To Save During S20-S23
+### Evidence To Save During S18-S22
 
 Preserve the requested and measured boundary waveforms, controller settings,
 sensor map, raw pilot and production data, fitting intervals, exclusions,

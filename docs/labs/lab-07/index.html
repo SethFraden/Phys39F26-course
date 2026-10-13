@@ -1077,199 +1077,131 @@ suppresses the two-state oscillatory behavior.</p>
 to teach how the physical parameters set the stability margin and how the
 controller gains trade rapid approach against overshoot and settling time.</p>
 <h4 id="make-the-six-two-lump-goldilocks-plots">Make The Six Two-Lump Goldilocks Plots<a class="headerlink" href="#make-the-six-two-lump-goldilocks-plots" title="Permanent link">&para;</a></h4>
-<p>Select <code>two_lump</code>. Enter your measured <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>,
-and <span class="arithmatex">\(\tau\)</span>, and use the setpoints, PWM limit, starting conditions, TEC voltage,
-and TEC resistance from the six physical runs. Your numerical gains may differ
-from those used by other teams.</p>
-<p>The measurements determine the one-lump behavior but do not uniquely determine
-the internal parameters <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(C_T/C\)</span>. Find <strong>one shared set</strong> of these
-parameters that qualitatively reproduces the experimental progression. The
-apparatus did not change between runs, so do not choose different physical
-parameters for different gains.</p>
+<p>This exercise reproduces the six experimental Goldilocks conditions without
+asking you to search the entire parameter space. The apparatus did not change
+between runs, so all six simulations must use <strong>one shared set of physical
+parameters</strong>. Only the controller gains change.</p>
+<p><strong>Step 1: Enter the measured quantities.</strong> Select <code>two_lump</code> and enter your
+measured <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, and <span class="arithmatex">\(\tau\)</span>. Use the same
+setpoints, initial temperatures, PWM limit, TEC voltage, and TEC resistance as
+the six experiments. Begin with <span class="arithmatex">\(G=2\ \mathrm{W/K}\)</span> and <span class="arithmatex">\(C_T/C=0.35\)</span>. These
+are starting estimates for the unresolved internal structure, not additional
+measurements.</p>
+<p><strong>Step 2: Determine the shared internal parameters once.</strong> Select P control,
+set <span class="arithmatex">\(K_i=0\)</span>, and enter the <span class="arithmatex">\(K_p\)</span> from the experimental high-gain P run. Compare
+the simulated and measured overshoot and oscillation decay.</p>
 <ol>
-<li>With <span class="arithmatex">\(K_i=0\)</span>, simulate the experimental low, medium, and high <span class="arithmatex">\(K_p\)</span> values.
-   Look for the progression from slow response and larger droop, through a
-   useful compromise, to overshoot or ringing. Plot only the mass temperature
-   when the TEC-side temperature obscures the measured response.</li>
-<li>Near the transition to overshoot, test both a smaller and a larger <span class="arithmatex">\(G\)</span>,
-   returning to the shared value between tests. Repeat for <span class="arithmatex">\(C_T/C\)</span>. Predict
-   each result and determine which direction increases thermal lag and which
-   suppresses overshoot or ringing. Do not assume either dependence remains
-   monotonic over every possible value.</li>
-<li>Restore the shared physical parameters. Select <code>pi</code>, hold <span class="arithmatex">\(K_p\)</span> at the
-   value used for all three experimental PI runs, and simulate the low,
-   medium, and high <span class="arithmatex">\(K_i\)</span> values. Keep anti-windup on and reset the integral
-   before every run. This makes the retained comparison primarily about the
-   physical model and controller gains.</li>
-<li>Make and label the <strong>six simulation Goldilocks plots</strong> using the same
-   organization, axes, and labels as the six experimental plots.</li>
+<li>Read the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>. A value above 1 predicts a
+   monotonic response; a value below 1 predicts overshoot or ringing.</li>
+<li>Change only <span class="arithmatex">\(G\)</span> and watch the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>. Move <span class="arithmatex">\(G\)</span>
+   in the direction that makes the simulated damping more like the high-gain
+   experimental trace.</li>
+<li>If changing <span class="arithmatex">\(G\)</span> is insufficient, restore the best <span class="arithmatex">\(G\)</span> and vary <span class="arithmatex">\(C_T/C\)</span>.
+   Again, use the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> to choose the direction
+   rather than guessing.</li>
+<li>Stop when the high-gain P simulation reproduces the qualitative behavior:
+   monotonic, one overshoot, or repeated decaying oscillations. Exact fitting
+   is not required. Record this one choice of <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(C_T/C\)</span>, then do not
+   change either value again.</li>
 </ol>
-<p>After preserving the six plots, you may demonstrate windup separately: turn
+<p><strong>Step 3: Sweep <span class="arithmatex">\(K_p\)</span>, then make the three P plots.</strong> Lock every physical
+parameter, keep <span class="arithmatex">\(K_i=0\)</span>, and move only the <span class="arithmatex">\(K_p\)</span> slider. Begin at low <span class="arithmatex">\(K_p\)</span>
+and increase it until the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> passes from above
+1 to below 1. Observe the corresponding transition from monotonic response to
+overshoot or ringing. This sweep is for understanding; it need not be saved.</p>
+<p>Now reset and run the experimental low, medium, and high <span class="arithmatex">\(K_p\)</span> values with the
+same locked physical parameters. Plot only <span class="arithmatex">\(T_m\)</span> if the TEC-side temperature
+obscures the measured response. Each retained plot caption must give <span class="arithmatex">\(K_p\)</span> and
+the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>. Verify that the sequence moves from
+relatively slow and strongly damped toward faster and less damped behavior.</p>
+<p><strong>Step 4: Sweep <span class="arithmatex">\(K_i\)</span>, then make the three PI plots.</strong> First use a parameter
+set chosen to make the stability transition easy to see. Select <code>direct
+constants</code>, <code>two_lump</code>, and PI control, then enter:</p>
+<ul>
+<li><span class="arithmatex">\(T_{\mathrm{amb}}=T_0=22\ ^\circ\mathrm{C}\)</span> and
+  <span class="arithmatex">\(T_{\mathrm{set}}=23\ ^\circ\mathrm{C}\)</span>;</li>
+<li><span class="arithmatex">\(C=100\ \mathrm{J/K}\)</span> and <span class="arithmatex">\(C_T/C=0.50\)</span>, so the two thermal stores are equal
+  and neither state disappears into a one-lump approximation;</li>
+<li><span class="arithmatex">\(G=2.0\ \mathrm{W/K}\)</span>, which is small enough to create visible internal lag
+  without nearly disconnecting the measured mass;</li>
+<li><span class="arithmatex">\(H=1.14\ \mathrm{W/K}\)</span>, <span class="arithmatex">\(P_{u,c}=0.26\ \mathrm{W/PWM}\)</span>, and <span class="arithmatex">\(r=2.0\)</span>;</li>
+<li><span class="arithmatex">\(K_p=10\ \mathrm{PWM}/^\circ\mathrm{C}\)</span>, which is large enough to respond
+  but not so large that P action dominates the stability demonstration;</li>
+<li>PWM limit <span class="arithmatex">\(255\)</span> and <span class="arithmatex">\(\Delta t=0.05\ \mathrm{s}\)</span>.</li>
+</ul>
+<p>The equal capacitance split makes both dynamical states important. The
+appreciable total capacitance stores enough thermal energy to create a visible
+transient, the modest <span class="arithmatex">\(G\)</span> creates phase lag, and the <span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> step
+avoids saturation. With these values, the display should give approximately</p>
+<div class="arithmatex">\[
+K_{i,\mathrm{crit}}\approx
+1.25\ \mathrm{PWM}/(^\circ\mathrm{C\,s}).
+\]</div>
+<p>Fix every setting except <span class="arithmatex">\(K_i\)</span>. Try <span class="arithmatex">\(K_i=0.10\)</span>, <span class="arithmatex">\(0.60\)</span>, <span class="arithmatex">\(1.10\)</span>, <span class="arithmatex">\(1.25\)</span>, and
+<span class="arithmatex">\(1.40\ \mathrm{PWM}/(^\circ\mathrm{C\,s})\)</span>. The corresponding <span class="arithmatex">\(\rho_I\)</span> values
+are approximately <span class="arithmatex">\(0.08\)</span>, <span class="arithmatex">\(0.48\)</span>, <span class="arithmatex">\(0.88\)</span>, <span class="arithmatex">\(1.00\)</span>, and <span class="arithmatex">\(1.12\)</span>. Move the slider
+between these checkpoints and observe the continuous transition. The displayed
+<span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> remains fixed because the plant and <span class="arithmatex">\(K_p\)</span> are fixed,
+while <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span> increases. For two-lump PI control, the
+simulation automatically extends the <span class="arithmatex">\(K_i\)</span> slider beyond the calculated
+<span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span>, even when a large <span class="arithmatex">\(K_p\)</span> makes that boundary greater
+than 5.</p>
+<p>Observe the response in three regions:</p>
+<ol>
+<li><span class="arithmatex">\(\rho_I\ll1\)</span>: oscillations decay and the system is stable;</li>
+<li><span class="arithmatex">\(\rho_I\)</span> just below 1: oscillations decay slowly and settling takes a long
+   time; and</li>
+<li><span class="arithmatex">\(\rho_I&gt;1\)</span>: oscillations grow and the linear model is unstable.</li>
+</ol>
+<p>This is a simulation, so you may briefly cross the instability boundary. Pause
+and reset once the growing oscillation is clear. Keep anti-windup on and use a
+small enough setpoint step that the PWM does not saturate; otherwise you are
+testing windup and saturation rather than the linear stability criterion.</p>
+<p>After locating the transition, restore the one shared physical parameter set
+from Steps 1-3 and set <span class="arithmatex">\(K_p\)</span> to the value shared by the three experimental PI
+runs. Then use the three experimental <span class="arithmatex">\(K_i\)</span> values. For each one:</p>
+<ol>
+<li>read the displayed <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and
+   <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span>;</li>
+<li>predict whether the oscillation should decay rapidly, decay slowly, or grow;</li>
+<li>reset the integral, keep anti-windup on, and run the simulation; and</li>
+<li>put <span class="arithmatex">\(K_p\)</span>, <span class="arithmatex">\(K_i\)</span>, <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span>, and <span class="arithmatex">\(\rho_I\)</span> in the plot caption.</li>
+</ol>
+<p>The retained PI runs should progress from lower to higher <span class="arithmatex">\(\rho_I\)</span>. Use the
+experimental gains even if they do not span the theoretical transition as
+cleanly as the preliminary slider sweep.</p>
+<p><strong>Step 5: Preserve the six plots.</strong> Use the same time range, temperature range,
+and labeling scheme as the six experimental plots. Every plot must show the
+setpoint, measured mass temperature, and signed applied PWM. Before the plots,
+state the one shared physical parameter set in a sentence. Do not make a
+parameter table.</p>
+<p>After the plots, answer these four comparison prompts:</p>
+<ol>
+<li>Which P and PI simulation best reproduce the corresponding experimental
+   rise time, overshoot, and settling behavior?</li>
+<li>How does decreasing <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> organize the three P responses?</li>
+<li>How does increasing <span class="arithmatex">\(\rho_I\)</span> organize the three PI responses?</li>
+<li>State one important agreement and one important disagreement between the
+   six simulations and six experiments, then justify the P and PI gains that
+   give the best compromise between speed and settling.</li>
+</ol>
+<p><strong>Optional windup demonstration:</strong> after preserving the six plots, turn
 anti-windup off, reduce <span class="arithmatex">\(G\)</span>, choose PI control, and apply a setpoint step large
 enough to saturate the PWM command. The measured temperature responds slowly,
 so the persistent error continues increasing the integral contribution even
 while the applied command is clamped. This extra overshoot is caused by stored
 controller error, not solely by the two-lump damping ratio. Turn anti-windup
 back on and press <strong>Zero integral</strong> before continuing.</p>
-<p>Record the one physical parameter set used for all six simulations:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;"><span class="arithmatex">\(\chi_c\)</span></th>
-<th style="text-align: right;"><span class="arithmatex">\(\chi_h\)</span></th>
-<th style="text-align: right;"><span class="arithmatex">\(\tau\)</span></th>
-<th style="text-align: right;"><span class="arithmatex">\(G\)</span></th>
-<th style="text-align: right;"><span class="arithmatex">\(C_T/C\)</span></th>
-<th style="text-align: right;">TEC voltage</th>
-<th style="text-align: right;">TEC resistance</th>
-<th>Setpoints</th>
-<th style="text-align: right;">PWM limit</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-<td style="text-align: right;"></td>
-</tr>
-</tbody>
-</table>
-<p>Compare the six matched conditions:</p>
-<table>
-<thead>
-<tr>
-<th>Condition</th>
-<th>Controller</th>
-<th style="text-align: right;"><span class="arithmatex">\(K_p\)</span></th>
-<th style="text-align: right;"><span class="arithmatex">\(K_i\)</span></th>
-<th>Experimental behavior</th>
-<th>Simulated behavior</th>
-<th>Agreement or mismatch</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P low</td>
-<td>P</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;">0</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>P medium</td>
-<td>P</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;">0</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>P high</td>
-<td>P</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;">0</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>PI low</td>
-<td>PI</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>PI medium</td>
-<td>PI</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>PI high</td>
-<td>PI</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Use one table to summarize the parameter trends observed in both the brief
-one-lump comparisons and the two-lump study:</p>
-<table>
-<thead>
-<tr>
-<th>Model and controller</th>
-<th>Parameter changed</th>
-<th>Held fixed</th>
-<th>Change that increased oscillation</th>
-<th>Change that suppressed oscillation</th>
-<th>Evidence</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>One-lump P</td>
-<td><span class="arithmatex">\(K_p\)</span></td>
-<td>Physical parameters</td>
-<td>None observed</td>
-<td>Not applicable: response remained monotonic</td>
-<td>Part I result</td>
-</tr>
-<tr>
-<td>One-lump PI</td>
-<td><span class="arithmatex">\(K_i\)</span>, then <span class="arithmatex">\(K_p\)</span>, then <span class="arithmatex">\(C\)</span></td>
-<td>All other parameters</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Two-lump P</td>
-<td><span class="arithmatex">\(K_p\)</span>, then <span class="arithmatex">\(G\)</span>, then <span class="arithmatex">\(C_T/C\)</span></td>
-<td>All other parameters</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Two-lump PI</td>
-<td><span class="arithmatex">\(K_i\)</span></td>
-<td><span class="arithmatex">\(K_p\)</span> and physical parameters</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Use these two tables and the twelve Goldilocks plots directly in A3 Questions
-3 and 5. Explain why one-lump P control cannot oscillate, identify the heat
-flow that makes <span class="arithmatex">\(T_m\)</span> lag behind <span class="arithmatex">\(T\)</span>, connect the parameter changes to rise
-time, droop, overshoot, and oscillation decay, and state one important
-agreement and disagreement between simulation and experiment. Do not write a
-separate Part II report.</p>
+<p>Use the twelve Goldilocks plots, their captions, and the four comparison
+answers directly in A3 Questions 3 and 5. Explain why one-lump P control cannot
+oscillate and identify the heat flow that makes <span class="arithmatex">\(T_m\)</span> lag behind <span class="arithmatex">\(T\)</span>. Do not
+write a separate Part II report.</p>
 <h2 id="post-class-assignment">Post-Class Assignment<a class="headerlink" href="#post-class-assignment" title="Permanent link">&para;</a></h2>
 <h3 id="preserve-the-a3-evidence">Preserve The A3 Evidence<a class="headerlink" href="#preserve-the-a3-evidence" title="Permanent link">&para;</a></h3>
-<p>Before leaving S15, save the shared model settings, six simulation comparisons,
-parameter-to-behavior table, exact run command, and links to the experimental
-data. Preserve the prepared simulation in your repository. These are A3
-working materials, not a separate submission.</p>
+<p>Before leaving S15, save the shared model settings, six simulation plots and
+captions, four comparison answers, exact run command, and links to the
+experimental data. Preserve the prepared simulation in your repository. These
+are A3 working materials, not a separate submission.</p>
 <h3 id="oral-review-questions-process-modeling">Oral Review Questions: Process Modeling<a class="headerlink" href="#oral-review-questions-process-modeling" title="Permanent link">&para;</a></h3>
 <p>Use this modeling question bank to check your understanding and prepare A3:</p>
 <ol>

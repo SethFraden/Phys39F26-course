@@ -769,35 +769,125 @@ controller gains trade rapid approach against overshoot and settling time.
 
 #### Make The Six Two-Lump Goldilocks Plots
 
-Select `two_lump`. Enter your measured $T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$,
-and $\tau$, and use the setpoints, PWM limit, starting conditions, TEC voltage,
-and TEC resistance from the six physical runs. Your numerical gains may differ
-from those used by other teams.
+This exercise reproduces the six experimental Goldilocks conditions without
+asking you to search the entire parameter space. The apparatus did not change
+between runs, so all six simulations must use **one shared set of physical
+parameters**. Only the controller gains change.
 
-The measurements determine the one-lump behavior but do not uniquely determine
-the internal parameters $G$ and $C_T/C$. Find **one shared set** of these
-parameters that qualitatively reproduces the experimental progression. The
-apparatus did not change between runs, so do not choose different physical
-parameters for different gains.
+**Step 1: Enter the measured quantities.** Select `two_lump` and enter your
+measured $T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$, and $\tau$. Use the same
+setpoints, initial temperatures, PWM limit, TEC voltage, and TEC resistance as
+the six experiments. Begin with $G=2\ \mathrm{W/K}$ and $C_T/C=0.35$. These
+are starting estimates for the unresolved internal structure, not additional
+measurements.
 
-1. With $K_i=0$, simulate the experimental low, medium, and high $K_p$ values.
-   Look for the progression from slow response and larger droop, through a
-   useful compromise, to overshoot or ringing. Plot only the mass temperature
-   when the TEC-side temperature obscures the measured response.
-2. Near the transition to overshoot, test both a smaller and a larger $G$,
-   returning to the shared value between tests. Repeat for $C_T/C$. Predict
-   each result and determine which direction increases thermal lag and which
-   suppresses overshoot or ringing. Do not assume either dependence remains
-   monotonic over every possible value.
-3. Restore the shared physical parameters. Select `pi`, hold $K_p$ at the
-   value used for all three experimental PI runs, and simulate the low,
-   medium, and high $K_i$ values. Keep anti-windup on and reset the integral
-   before every run. This makes the retained comparison primarily about the
-   physical model and controller gains.
-4. Make and label the **six simulation Goldilocks plots** using the same
-   organization, axes, and labels as the six experimental plots.
+**Step 2: Determine the shared internal parameters once.** Select P control,
+set $K_i=0$, and enter the $K_p$ from the experimental high-gain P run. Compare
+the simulated and measured overshoot and oscillation decay.
 
-After preserving the six plots, you may demonstrate windup separately: turn
+1. Read the displayed $\zeta_{\mathrm{2L,P}}$. A value above 1 predicts a
+   monotonic response; a value below 1 predicts overshoot or ringing.
+2. Change only $G$ and watch the displayed $\zeta_{\mathrm{2L,P}}$. Move $G$
+   in the direction that makes the simulated damping more like the high-gain
+   experimental trace.
+3. If changing $G$ is insufficient, restore the best $G$ and vary $C_T/C$.
+   Again, use the displayed $\zeta_{\mathrm{2L,P}}$ to choose the direction
+   rather than guessing.
+4. Stop when the high-gain P simulation reproduces the qualitative behavior:
+   monotonic, one overshoot, or repeated decaying oscillations. Exact fitting
+   is not required. Record this one choice of $G$ and $C_T/C$, then do not
+   change either value again.
+
+**Step 3: Sweep $K_p$, then make the three P plots.** Lock every physical
+parameter, keep $K_i=0$, and move only the $K_p$ slider. Begin at low $K_p$
+and increase it until the displayed $\zeta_{\mathrm{2L,P}}$ passes from above
+1 to below 1. Observe the corresponding transition from monotonic response to
+overshoot or ringing. This sweep is for understanding; it need not be saved.
+
+Now reset and run the experimental low, medium, and high $K_p$ values with the
+same locked physical parameters. Plot only $T_m$ if the TEC-side temperature
+obscures the measured response. Each retained plot caption must give $K_p$ and
+the displayed $\zeta_{\mathrm{2L,P}}$. Verify that the sequence moves from
+relatively slow and strongly damped toward faster and less damped behavior.
+
+**Step 4: Sweep $K_i$, then make the three PI plots.** First use a parameter
+set chosen to make the stability transition easy to see. Select `direct
+constants`, `two_lump`, and PI control, then enter:
+
+- $T_{\mathrm{amb}}=T_0=22\ ^\circ\mathrm{C}$ and
+  $T_{\mathrm{set}}=23\ ^\circ\mathrm{C}$;
+- $C=100\ \mathrm{J/K}$ and $C_T/C=0.50$, so the two thermal stores are equal
+  and neither state disappears into a one-lump approximation;
+- $G=2.0\ \mathrm{W/K}$, which is small enough to create visible internal lag
+  without nearly disconnecting the measured mass;
+- $H=1.14\ \mathrm{W/K}$, $P_{u,c}=0.26\ \mathrm{W/PWM}$, and $r=2.0$;
+- $K_p=10\ \mathrm{PWM}/^\circ\mathrm{C}$, which is large enough to respond
+  but not so large that P action dominates the stability demonstration;
+- PWM limit $255$ and $\Delta t=0.05\ \mathrm{s}$.
+
+The equal capacitance split makes both dynamical states important. The
+appreciable total capacitance stores enough thermal energy to create a visible
+transient, the modest $G$ creates phase lag, and the $1\ ^\circ\mathrm{C}$ step
+avoids saturation. With these values, the display should give approximately
+
+\[
+K_{i,\mathrm{crit}}\approx
+1.25\ \mathrm{PWM}/(^\circ\mathrm{C\,s}).
+\]
+
+Fix every setting except $K_i$. Try $K_i=0.10$, $0.60$, $1.10$, $1.25$, and
+$1.40\ \mathrm{PWM}/(^\circ\mathrm{C\,s})$. The corresponding $\rho_I$ values
+are approximately $0.08$, $0.48$, $0.88$, $1.00$, and $1.12$. Move the slider
+between these checkpoints and observe the continuous transition. The displayed
+$K_{i,\mathrm{crit}}$ remains fixed because the plant and $K_p$ are fixed,
+while $\rho_I=K_i/K_{i,\mathrm{crit}}$ increases. For two-lump PI control, the
+simulation automatically extends the $K_i$ slider beyond the calculated
+$K_{i,\mathrm{crit}}$, even when a large $K_p$ makes that boundary greater
+than 5.
+
+Observe the response in three regions:
+
+1. $\rho_I\ll1$: oscillations decay and the system is stable;
+2. $\rho_I$ just below 1: oscillations decay slowly and settling takes a long
+   time; and
+3. $\rho_I>1$: oscillations grow and the linear model is unstable.
+
+This is a simulation, so you may briefly cross the instability boundary. Pause
+and reset once the growing oscillation is clear. Keep anti-windup on and use a
+small enough setpoint step that the PWM does not saturate; otherwise you are
+testing windup and saturation rather than the linear stability criterion.
+
+After locating the transition, restore the one shared physical parameter set
+from Steps 1-3 and set $K_p$ to the value shared by the three experimental PI
+runs. Then use the three experimental $K_i$ values. For each one:
+
+1. read the displayed $K_{i,\mathrm{crit}}$ and
+   $\rho_I=K_i/K_{i,\mathrm{crit}}$;
+2. predict whether the oscillation should decay rapidly, decay slowly, or grow;
+3. reset the integral, keep anti-windup on, and run the simulation; and
+4. put $K_p$, $K_i$, $K_{i,\mathrm{crit}}$, and $\rho_I$ in the plot caption.
+
+The retained PI runs should progress from lower to higher $\rho_I$. Use the
+experimental gains even if they do not span the theoretical transition as
+cleanly as the preliminary slider sweep.
+
+**Step 5: Preserve the six plots.** Use the same time range, temperature range,
+and labeling scheme as the six experimental plots. Every plot must show the
+setpoint, measured mass temperature, and signed applied PWM. Before the plots,
+state the one shared physical parameter set in a sentence. Do not make a
+parameter table.
+
+After the plots, answer these four comparison prompts:
+
+1. Which P and PI simulation best reproduce the corresponding experimental
+   rise time, overshoot, and settling behavior?
+2. How does decreasing $\zeta_{\mathrm{2L,P}}$ organize the three P responses?
+3. How does increasing $\rho_I$ organize the three PI responses?
+4. State one important agreement and one important disagreement between the
+   six simulations and six experiments, then justify the P and PI gains that
+   give the best compromise between speed and settling.
+
+**Optional windup demonstration:** after preserving the six plots, turn
 anti-windup off, reduce $G$, choose PI control, and apply a setpoint step large
 enough to saturate the PWM command. The measured temperature responds slowly,
 so the persistent error continues increasing the integral contribution even
@@ -805,48 +895,19 @@ while the applied command is clamped. This extra overshoot is caused by stored
 controller error, not solely by the two-lump damping ratio. Turn anti-windup
 back on and press **Zero integral** before continuing.
 
-Record the one physical parameter set used for all six simulations:
-
-| $\chi_c$ | $\chi_h$ | $\tau$ | $G$ | $C_T/C$ | TEC voltage | TEC resistance | Setpoints | PWM limit |
-| ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
-|  |  |  |  |  |  |  |  |  |
-
-Compare the six matched conditions:
-
-| Condition | Controller | $K_p$ | $K_i$ | Experimental behavior | Simulated behavior | Agreement or mismatch |
-| --- | --- | ---: | ---: | --- | --- | --- |
-| P low | P |  | 0 |  |  |  |
-| P medium | P |  | 0 |  |  |  |
-| P high | P |  | 0 |  |  |  |
-| PI low | PI |  |  |  |  |  |
-| PI medium | PI |  |  |  |  |  |
-| PI high | PI |  |  |  |  |  |
-
-Use one table to summarize the parameter trends observed in both the brief
-one-lump comparisons and the two-lump study:
-
-| Model and controller | Parameter changed | Held fixed | Change that increased oscillation | Change that suppressed oscillation | Evidence |
-| --- | --- | --- | --- | --- | --- |
-| One-lump P | $K_p$ | Physical parameters | None observed | Not applicable: response remained monotonic | Part I result |
-| One-lump PI | $K_i$, then $K_p$, then $C$ | All other parameters |  |  |  |
-| Two-lump P | $K_p$, then $G$, then $C_T/C$ | All other parameters |  |  |  |
-| Two-lump PI | $K_i$ | $K_p$ and physical parameters |  |  |  |
-
-Use these two tables and the twelve Goldilocks plots directly in A3 Questions
-3 and 5. Explain why one-lump P control cannot oscillate, identify the heat
-flow that makes $T_m$ lag behind $T$, connect the parameter changes to rise
-time, droop, overshoot, and oscillation decay, and state one important
-agreement and disagreement between simulation and experiment. Do not write a
-separate Part II report.
+Use the twelve Goldilocks plots, their captions, and the four comparison
+answers directly in A3 Questions 3 and 5. Explain why one-lump P control cannot
+oscillate and identify the heat flow that makes $T_m$ lag behind $T$. Do not
+write a separate Part II report.
 
 ## Post-Class Assignment
 
 ### Preserve The A3 Evidence
 
-Before leaving S15, save the shared model settings, six simulation comparisons,
-parameter-to-behavior table, exact run command, and links to the experimental
-data. Preserve the prepared simulation in your repository. These are A3
-working materials, not a separate submission.
+Before leaving S15, save the shared model settings, six simulation plots and
+captions, four comparison answers, exact run command, and links to the
+experimental data. Preserve the prepared simulation in your repository. These
+are A3 working materials, not a separate submission.
 
 ### Oral Review Questions: Process Modeling
 

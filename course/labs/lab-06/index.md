@@ -1348,10 +1348,13 @@ Question 2. Every simulation must use the **same physical parameters**
 $\chi_c$, $\chi_h$, $\tau$, $G$, $C_T/C$, TEC voltage, TEC resistance,
 setpoints, starting conditions, and PWM limit because all six experiments use
 the same apparatus. Change only controller mode, $K_p$, and $K_i$ as required
-by the six-run protocol. Use the two-lump equations to explain which parameters
-primarily control rise time, P-control droop, overshoot, and the number and
-decay of oscillations. Identify one important agreement and one important
-disagreement between simulation and experiment.
+by the [guided six-run protocol in Part
+II](../lab-07/index.md#make-the-six-two-lump-goldilocks-plots). Label each P
+plot with the displayed $\zeta_{\mathrm{2L,P}}$ and each PI plot with the
+displayed $K_{i,\mathrm{crit}}$ and $\rho_I=K_i/K_{i,\mathrm{crit}}$. Use these
+stability measures to explain rise time, overshoot, settling, and oscillation
+decay. Identify one important agreement and one important disagreement between
+simulation and experiment.
 
 #### 4. PI Steady State, Assumptions, And Windup
 
@@ -1380,8 +1383,8 @@ include.
 ### What To Submit
 
 Submit one PDF containing concise responses to all five questions, the six
-experimental and six simulated Goldilocks plots, the comparison tables, and
-links to the underlying data, analysis
+experimental and six simulated Goldilocks plots, the guided comparison
+answers, and links to the underlying data, analysis
 code, and GitHub modeling checkpoint. Integrate the [Module 5 interpretation
 questions](../lab-05/index.md#student-derivation-recover-the-droop-equation)
 into A3 Questions 1 and 5, and integrate the windup thought experiment into

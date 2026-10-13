@@ -1569,10 +1569,13 @@ Question 2. Every simulation must use the <strong>same physical parameters</stro
 <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>, <span class="arithmatex">\(\tau\)</span>, <span class="arithmatex">\(G\)</span>, <span class="arithmatex">\(C_T/C\)</span>, TEC voltage, TEC resistance,
 setpoints, starting conditions, and PWM limit because all six experiments use
 the same apparatus. Change only controller mode, <span class="arithmatex">\(K_p\)</span>, and <span class="arithmatex">\(K_i\)</span> as required
-by the six-run protocol. Use the two-lump equations to explain which parameters
-primarily control rise time, P-control droop, overshoot, and the number and
-decay of oscillations. Identify one important agreement and one important
-disagreement between simulation and experiment.</p>
+by the <a href="../lab-07/#make-the-six-two-lump-goldilocks-plots">guided six-run protocol in Part
+II</a>. Label each P
+plot with the displayed <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> and each PI plot with the
+displayed <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span>. Use these
+stability measures to explain rise time, overshoot, settling, and oscillation
+decay. Identify one important agreement and one important disagreement between
+simulation and experiment.</p>
 <h4 id="4-pi-steady-state-assumptions-and-windup">4. PI Steady State, Assumptions, And Windup<a class="headerlink" href="#4-pi-steady-state-assumptions-and-windup" title="Permanent link">&para;</a></h4>
 <p><strong>Part 1: Ideal PI steady state.</strong> Assume ideal PI behavior and
 <span class="arithmatex">\(T_{\mathrm{set}}=55\ ^\circ\mathrm{C}\)</span>. What is the steady-state temperature
@@ -1593,8 +1596,8 @@ final <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i
 include.</p>
 <h3 id="what-to-submit">What To Submit<a class="headerlink" href="#what-to-submit" title="Permanent link">&para;</a></h3>
 <p>Submit one PDF containing concise responses to all five questions, the six
-experimental and six simulated Goldilocks plots, the comparison tables, and
-links to the underlying data, analysis
+experimental and six simulated Goldilocks plots, the guided comparison
+answers, and links to the underlying data, analysis
 code, and GitHub modeling checkpoint. Integrate the <a href="../lab-05/#student-derivation-recover-the-droop-equation">Module 5 interpretation
 questions</a>
 into A3 Questions 1 and 5, and integrate the windup thought experiment into

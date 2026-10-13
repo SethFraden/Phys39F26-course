@@ -1421,6 +1421,14 @@ class ModelingTECGui:
         enabled["setpoint_c"] = controller != "open_loop"
         enabled["kp_pwm_per_c"] = controller in {"p", "pi"}
         enabled["ki_pwm_per_c_s"] = controller == "pi"
+
+        ki_slider = self.field_widgets["ki_pwm_per_c_s"][2]
+        ki_upper = max(5.0, self.entries["ki_pwm_per_c_s"].get())
+        if process == "two_lump" and controller == "pi":
+            critical_ki = two_lump_pi_critical_integral_gain(self.config)
+            ki_upper = max(ki_upper, math.ceil(1.25 * critical_ki))
+        ki_slider.configure(to=ki_upper)
+
         self.mass_only_button.configure(
             state="normal" if process == "two_lump" else "disabled"
         )

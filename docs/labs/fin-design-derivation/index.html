@@ -110,6 +110,10 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#module-7-part-ii-finite-and-infinite-rod-theory" class="nav-link">Module 7, Part II: Finite And Infinite Rod Theory</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#how-to-use-this-reference" class="nav-link">How To Use This Reference</a>
               <ul class="nav flex-column">
               </ul>
@@ -120,22 +124,26 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#geometry-and-the-one-dimensional-assumption" class="nav-link">Geometry And The One-Dimensional Assumption</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#what-the-transverse-biot-number-compares" class="nav-link">What The Transverse Biot Number Compares</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#energy-balance-and-differential-equation" class="nav-link">Energy Balance And Differential Equation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#dimensional-form" class="nav-link">Dimensional Form</a>
+            <li class="nav-item" data-bs-level="2"><a href="#dimensional-analysis-and-dimensionless-form" class="nav-link">Dimensional Analysis And Dimensionless Form</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#choosing-a-dimensionless-position-coordinate" class="nav-link">Choosing A Dimensionless Position Coordinate</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#finite-rod-with-an-insulated-tip" class="nav-link">Finite Rod With An Insulated Tip</a>
+            <li class="nav-item" data-bs-level="3"><a href="#why-the-axial-biot-number-disappears-for-an-adiabatic-tip" class="nav-link">Why The Axial Biot Number Disappears For An Adiabatic Tip</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#exact-convecting-tip-solution" class="nav-link">Exact Convecting-Tip Solution</a>
-              <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#infinite-rod-limit" class="nav-link">Infinite-Rod Limit</a>
@@ -161,6 +169,21 @@ in <a href="../lab-08/">Part III: Rod Instrument And Stationary Fin</a>.</p>
 pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 7, Part III.</p>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>The objectives below are listed in priority order. By the end of Module 7,
+Part II, you should be able to:</p>
+<ol>
+<li>Use Fourier conduction, Newton cooling, and conservation of energy to derive
+   the stationary one-dimensional fin equation and check every term's units.</li>
+<li>Apply the base-temperature and insulated-tip boundary conditions to obtain
+   the finite-rod temperature profile.</li>
+<li>Interpret the transverse Biot number and the dimensionless group <span class="arithmatex">\(mL\)</span> as
+   tests of two different approximations: uniform temperature across a section
+   and negligible influence of the far end.</li>
+<li>Obtain the semi-infinite exponential profile as a limit of the finite-rod
+   solution and quantify the resulting approximation error at the sensor
+   positions.</li>
+</ol>
 <h2 id="how-to-use-this-reference">How To Use This Reference<a class="headerlink" href="#how-to-use-this-reference" title="Permanent link">&para;</a></h2>
 <p>Read this page alongside Lienhard Section 4.5 for A4. The Module 7 workload
 budget includes <strong>150 minutes total</strong> for reading the module, the textbook
@@ -195,8 +218,88 @@ coefficient <span class="arithmatex">\(h\)</span>, and tip coefficient <span cla
 =\frac{h(A/P)}{k}\ll1.
 \tag{4.27}
 \]</div>
-<p>For a circular rod, <span class="arithmatex">\(A/P=R/2\)</span>. This criterion allows us to use one
-cross-sectional temperature <span class="arithmatex">\(T(x)\)</span>.</p>
+<h3 id="what-the-transverse-biot-number-compares">What The Transverse Biot Number Compares<a class="headerlink" href="#what-the-transverse-biot-number-compares" title="Permanent link">&para;</a></h3>
+<p>The transverse Biot number does <strong>not</strong> compare radial heat transport with
+axial heat transport. It compares conduction from the interior of a cross
+section to its surface with convection from that surface to the surrounding
+air.</p>
+<p>Refer back to <a href="../theory-bridge-chapter-1/#5-lumped-cooling-and-the-biot-number">Fig. 1.10 and the accompanying Part I discussion of lumped
+cooling and the Biot number</a>.
+That figure shows the same two processes in sequence: heat first conducts
+through the solid to its surface and then crosses from the surface to the
+surroundings. Here we apply that picture across each cross section of the rod.</p>
+<p>Consider a rod element of length <span class="arithmatex">\(\delta x\)</span>. Its curved surface area is
+<span class="arithmatex">\(P\delta x\)</span>, and the characteristic transverse conduction length is</p>
+<div class="arithmatex">\[
+L_c=\frac{A}{P}.
+\]</div>
+<p>For a circular rod, <span class="arithmatex">\(A=\pi R^2\)</span> and <span class="arithmatex">\(P=2\pi R\)</span>, so</p>
+<div class="arithmatex">\[
+L_c=\frac{A}{P}=\frac{R}{2}.
+\]</div>
+<p>Thus <span class="arithmatex">\(L_c\)</span> is the characteristic radial distance: it is of order the rod
+radius <span class="arithmatex">\(R\)</span>. The factor of <span class="arithmatex">\(1/2\)</span> comes from the standard volume-to-surface-area
+definition <span class="arithmatex">\(L_c=V/A_s\)</span> applied to a cylindrical element.</p>
+<p>A cylinder has two independent geometric lengths: its radius <span class="arithmatex">\(R\)</span> and its
+length <span class="arithmatex">\(L\)</span>. We must therefore state which length is being used to
+nondimensionalize the problem and why:</p>
+<ul>
+<li>The radial scale <span class="arithmatex">\(R\)</span> (or, with the <span class="arithmatex">\(V/A_s\)</span> convention, <span class="arithmatex">\(L_c=R/2\)</span>) is used in
+  the transverse Biot number because that number tests whether temperature
+  variation across a cross section can be neglected.</li>
+<li>The axial scale <span class="arithmatex">\(L\)</span> is used in <span class="arithmatex">\(\xi=x/L\)</span> and in <span class="arithmatex">\(mL\)</span> because those quantities
+  describe variation along the rod and whether the far-end boundary affects
+  the measured region.</li>
+</ul>
+<p>These choices answer different physical questions; one characteristic length
+cannot replace the other. A sphere, by contrast, has only one independent
+geometric length, its radius <span class="arithmatex">\(R\)</span>. The conventional volume-to-surface-area
+length for a sphere is <span class="arithmatex">\(L_c=V/A_s=R/3\)</span>, but it is still set entirely by the
+single scale <span class="arithmatex">\(R\)</span>.</p>
+<p>Using the same representative temperature difference <span class="arithmatex">\(\Delta T\)</span> for both
+processes, their characteristic heat-transport capacities are</p>
+<div class="arithmatex">\[
+\dot Q_{\mathrm{radial\ conduction}}
+\sim \frac{k(P\delta x)}{L_c}\Delta T,
+\qquad
+\dot Q_{\mathrm{side\ convection}}
+\sim h(P\delta x)\Delta T.
+\]</div>
+<p>Their ratio is</p>
+<div class="arithmatex">\[
+\boxed{
+\frac{\dot Q_{\mathrm{side\ convection}}}
+{\dot Q_{\mathrm{radial\ conduction}}}
+\sim \frac{hL_c}{k}
+=\mathrm{Bi}_{\perp}
+}.
+\]</div>
+<p>These are characteristic rates evaluated using the same <span class="arithmatex">\(\Delta T\)</span>, not two
+independent actual heat rates. In steady operation, radial conduction to the
+surface and convection from the surface occur in series, so their actual rates
+must be equal. Equivalently,</p>
+<div class="arithmatex">\[
+\mathrm{Bi}_{\perp}
+\sim
+\frac{R_{\mathrm{radial\ conduction}}}
+{R_{\mathrm{surface\ convection}}}.
+\]</div>
+<p>When <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span>, radial conduction offers little resistance.
+Only a small center-to-surface temperature difference is needed to replace the
+heat lost by convection, so each cross section is nearly isothermal.</p>
+<p>The comparison between <strong>axial conduction</strong> and <strong>side convection</strong> is a
+different dimensionless ratio:</p>
+<div class="arithmatex">\[
+\frac{\dot Q_{\mathrm{side\ convection}}}
+{\dot Q_{\mathrm{axial\ conduction}}}
+\sim \frac{hPL^2}{kA}
+=(mL)^2.
+\]</div>
+<p>Thus <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> tests whether radial temperature variation may be
+neglected, whereas <span class="arithmatex">\((mL)^2\)</span> describes how strongly side cooling competes with
+conduction along the rod.</p>
+<p>The small-transverse-Biot criterion allows us to use one cross-sectional
+temperature <span class="arithmatex">\(T(x)\)</span>.</p>
 <h2 id="energy-balance-and-differential-equation">Energy Balance And Differential Equation<a class="headerlink" href="#energy-balance-and-differential-equation" title="Permanent link">&para;</a></h2>
 <p>An energy balance on a slice of width <span class="arithmatex">\(\delta x\)</span> is</p>
 <div class="arithmatex">\[
@@ -237,7 +340,7 @@ cross-sectional temperature <span class="arithmatex">\(T(x)\)</span>.</p>
 \left.\frac{d(T-T_\infty)}{dx}\right|_{x=L}=0.
 \tag{4.31b}
 \]</div>
-<h2 id="dimensional-form">Dimensional Form<a class="headerlink" href="#dimensional-form" title="Permanent link">&para;</a></h2>
+<h2 id="dimensional-analysis-and-dimensionless-form">Dimensional Analysis And Dimensionless Form<a class="headerlink" href="#dimensional-analysis-and-dimensionless-form" title="Permanent link">&para;</a></h2>
 <p>The dimensional functional relation is</p>
 <div class="arithmatex">\[
 T-T_\infty
@@ -265,6 +368,63 @@ m=\sqrt{\frac{hP}{kA}},
 \Theta=\operatorname{fn}(\xi,mL).
 \tag{4.33b}
 \]</div>
+<h3 id="choosing-a-dimensionless-position-coordinate">Choosing A Dimensionless Position Coordinate<a class="headerlink" href="#choosing-a-dimensionless-position-coordinate" title="Permanent link">&para;</a></h3>
+<p>The quantity <span class="arithmatex">\(m\)</span> is not itself a dimensionless coordinate: it has units of
+inverse length. Both</p>
+<div class="arithmatex">\[
+\xi=\frac{x}{L}
+\qquad\text{and}\qquad
+X=mx=\frac{x}{1/m}
+\]</div>
+<p>are valid dimensionless coordinates, but they emphasize different length
+scales. The rod length <span class="arithmatex">\(L\)</span> is the geometric scale, whereas <span class="arithmatex">\(1/m\)</span> is the
+thermal decay length set by axial conduction and side cooling.</p>
+<p>For a finite rod, <span class="arithmatex">\(\xi=x/L\)</span> is convenient because the base is always at
+<span class="arithmatex">\(\xi=0\)</span> and the tip is always at <span class="arithmatex">\(\xi=1\)</span>. The physics then appears in the
+separate dimensionless group</p>
+<div class="arithmatex">\[
+mL=\frac{L}{1/m},
+\]</div>
+<p>which compares the rod length with the thermal decay length. We could instead
+use <span class="arithmatex">\(X=mx\)</span>. Equation (4.34) would then become</p>
+<div class="arithmatex">\[
+\frac{d^2\Theta}{dX^2}=\Theta,
+\]</div>
+<p>but the tip would be located at <span class="arithmatex">\(X=mL\)</span> rather than at a fixed coordinate.
+Nothing physical changes because <span class="arithmatex">\(X=(mL)\xi\)</span>; the two choices merely organize
+the same information differently. When the rod is effectively infinite and
+the tip no longer matters, <span class="arithmatex">\(mx\)</span> becomes the natural coordinate and the solution
+is <span class="arithmatex">\(\Theta=e^{-mx}\)</span>.</p>
+<p><a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=181">Lienhard, p. 167, Eqs. (4.32)-(4.33b)</a>
+uses <span class="arithmatex">\(\xi=x/L\)</span> for the finite-fin dimensional analysis. On
+<a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=187">p. 173, Eq. (4.50)</a>,
+the long-fin limit is written as <span class="arithmatex">\(e^{-mL\xi}=e^{-mx}\)</span>, and the following
+paragraph interprets <span class="arithmatex">\((mL)^2\)</span> as a hybrid Biot number comparing axial
+conduction resistance with the overall resistance to side convection.</p>
+<h3 id="why-the-axial-biot-number-disappears-for-an-adiabatic-tip">Why The Axial Biot Number Disappears For An Adiabatic Tip<a class="headerlink" href="#why-the-axial-biot-number-disappears-for-an-adiabatic-tip" title="Permanent link">&para;</a></h3>
+<p>For a convecting tip, <span class="arithmatex">\(h_L\)</span> enters through the tip boundary condition:</p>
+<div class="arithmatex">\[
+-\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}
+=\underbrace{\frac{h_LL}{k}}_{\mathrm{Bi}_{\mathrm{axial}}}\Theta(1).
+\]</div>
+<p>Thus <span class="arithmatex">\(\mathrm{Bi}_{\mathrm{axial}}\)</span> measures the strength of convection from
+the tip relative to axial conduction. For an adiabatic tip, the heat flux at
+the tip is zero:</p>
+<div class="arithmatex">\[
+\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}=0.
+\]</div>
+<p>There is no tip heat-transfer coefficient <span class="arithmatex">\(h_L\)</span> in this boundary condition.
+Consequently, <span class="arithmatex">\(h_L\)</span> is absent from the dimensional functional relation and no
+independent axial Biot number can be formed. Equivalently, one may set <span class="arithmatex">\(h_L=0\)</span>
+and obtain <span class="arithmatex">\(\mathrm{Bi}_{\mathrm{axial}}=0\)</span>, but saying that the parameter
+<strong>drops out of the problem</strong> better expresses the dimensional-analysis logic.
+The transverse Biot number does not disappear: it remains the separate test of
+whether each cross section can be assigned one temperature.</p>
+<p><a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=181">Lienhard, p. 167, immediately following Eq. (4.33a)</a>
+makes this variable-counting argument explicitly: removing <span class="arithmatex">\(h_L\)</span> leaves one
+fewer variable but the same fundamental dimensions, so the corresponding
+dimensionless group <span class="arithmatex">\(\mathrm{Bi}_{\mathrm{axial}}\)</span> is removed, giving
+Eq. (4.33b).</p>
 <p>The differential equation becomes</p>
 <div class="arithmatex">\[
 \frac{d^2\Theta}{d\xi^2}=(mL)^2\Theta.
@@ -275,7 +435,8 @@ m=\sqrt{\frac{hP}{kA}},
 \Theta=C_1e^{mL\xi}+C_2e^{-mL\xi}.
 \tag{4.35}
 \]</div>
-<h2 id="finite-rod-with-an-insulated-tip">Finite Rod With An Insulated Tip<a class="headerlink" href="#finite-rod-with-an-insulated-tip" title="Permanent link">&para;</a></h2>
+<details class="note">
+<summary><strong>Sidebar: Finite Rod With An Insulated Tip</strong></summary>
 <p>The dimensionless boundary conditions are</p>
 <div class="arithmatex">\[
 \Theta(0)=1,
@@ -346,7 +507,9 @@ C_2=1-\frac{e^{-mL}}{2\cosh(mL)}.
 \Theta_{\mathrm{tip}}=\frac{1}{\cosh(mL)}.
 \tag{4.45}
 \]</div>
-<h2 id="exact-convecting-tip-solution">Exact Convecting-Tip Solution<a class="headerlink" href="#exact-convecting-tip-solution" title="Permanent link">&para;</a></h2>
+</details>
+<details class="note">
+<summary><strong>Sidebar: Exact Convecting-Tip Solution</strong></summary>
 <p>The dimensionless boundary conditions become</p>
 <div class="arithmatex">\[
 \Theta(0)=1,
@@ -390,6 +553,7 @@ C_1+C_2&amp;=1,\\
 }.
 \tag{4.49}
 \]</div>
+</details>
 <h2 id="infinite-rod-limit">Infinite-Rod Limit<a class="headerlink" href="#infinite-rod-limit" title="Permanent link">&para;</a></h2>
 <p>When <span class="arithmatex">\(mL\gg1\)</span>, the finite solution approaches</p>
 <div class="arithmatex">\[

@@ -323,19 +323,23 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 the prose. Save all rod measurements during class; the outside-class budget is
 for theory, analysis, documentation, and submission.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
-<p>By the end of this module, you should be able to:</p>
-<ul>
-<li>define coordinates and metadata for a spatial temperature measurement,</li>
-<li>calibrate or cross-check several thermistors,</li>
-<li>acquire synchronized <code>T(x,t)</code> data with units and timestamps,</li>
-<li>derive the one-dimensional heat equation with side loss,</li>
-<li>solve the finite-length stationary problem and obtain its semi-infinite limit,</li>
-<li>calculate the error introduced by ignoring the far end,</li>
-<li>use the transverse Biot number to justify neglecting radial variation,</li>
-<li>distinguish a transient from a steady spatial profile,</li>
-<li>fit a stationary-fin model and interpret its decay coefficient,</li>
-<li>identify what the steady experiment can and cannot determine by itself.</li>
-</ul>
+<p>The objectives below are listed in priority order. By the end of Module 7,
+Part III, you should be able to:</p>
+<ol>
+<li>Build and document a spatial temperature measurement by defining sensor
+   coordinates, cross-checking the thermistors, and acquiring synchronized
+   <span class="arithmatex">\(T(x,t)\)</span> data with units, timestamps, and experimental metadata.</li>
+<li>Use the finite-length solution and transverse Biot number to make separate,
+   quantitative decisions about whether the far end and radial temperature
+   variation may be neglected.</li>
+<li>Distinguish a transient from a steady spatial profile and explain why a
+   temperature disturbance arrives later and is smaller farther from the
+   heated base.</li>
+<li>Fit finite-length and semi-infinite stationary-fin models, examine their
+   residuals, and interpret the fitted decay coefficient and decay length.</li>
+<li>Explain what the steady experiment can determine and why it cannot determine
+   the thermal conductivity and side heat-transfer coefficient separately.</li>
+</ol>
 <h2 id="reading-and-preparation">Reading And Preparation<a class="headerlink" href="#reading-and-preparation" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Read Chapter 1 of <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>.</li>
@@ -352,15 +356,15 @@ for theory, analysis, documentation, and submission.</p>
 <div class="arithmatex">\[
 \theta(x,t)=T(x,t)-T_{\mathrm{room}}.
 \]</div>
-<p>For a uniform rod with cross-sectional area <code>A</code>, perimeter <code>P</code>, density <code>rho</code>,
-specific heat <code>c</code>, thermal conductivity <code>k</code>, and side heat-transfer coefficient
-<code>H</code>, conservation of energy gives</p>
+<p>For a uniform rod with cross-sectional area <span class="arithmatex">\(A\)</span>, perimeter <span class="arithmatex">\(P\)</span>, density <span class="arithmatex">\(\rho\)</span>,
+specific heat <span class="arithmatex">\(c\)</span>, thermal conductivity <span class="arithmatex">\(k\)</span>, and side heat-transfer coefficient
+<span class="arithmatex">\(H\)</span>, conservation of energy gives</p>
 <div class="arithmatex">\[
 \rho c A\frac{\partial\theta}{\partial t}
 =kA\frac{\partial^2\theta}{\partial x^2}-HP\theta.
 \]</div>
 <p>Every term has units of power per unit length, watts per meter. Dividing by
-<code>rho*c*A</code> gives</p>
+<span class="arithmatex">\(\rho cA\)</span> gives</p>
 <div class="arithmatex">\[
 \frac{\partial\theta}{\partial t}
 =\kappa\frac{\partial^2\theta}{\partial x^2}-\nu\theta,
@@ -369,8 +373,8 @@ specific heat <code>c</code>, thermal conductivity <code>k</code>, and side heat
 \qquad
 \nu=\frac{HP}{\rho c A}.
 \]</div>
-<p>Here <code>kappa</code> has units of square meters per second and <code>nu</code> has units of inverse
-seconds.</p>
+<p>Here <span class="arithmatex">\(\kappa\)</span> has units of square meters per second and <span class="arithmatex">\(\nu\)</span> has units of
+inverse seconds.</p>
 <p>At steady state,</p>
 <div class="arithmatex">\[
 \frac{d^2\theta}{dx^2}-m^2\theta=0,
@@ -381,8 +385,8 @@ m^2=\frac{HP}{kA}=\frac{\nu}{\kappa}.
 <div class="arithmatex">\[
 \theta(x)=\theta_0 e^{-mx}.
 \]</div>
-<p>The fitted <code>m</code> quantifies the competition between axial conduction and side
-loss. It does <strong>not</strong> determine <code>k</code> and <code>H</code> separately. The periodic Angstrom
+<p>The fitted <span class="arithmatex">\(m\)</span> quantifies the competition between axial conduction and side
+loss. It does <strong>not</strong> determine <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(H\)</span> separately. The periodic Angstrom
 experiment in Module 8, Part I, supplies the second independent measurement.</p>
 <h2 id="part-0-which-geometry-may-we-ignore">Part 0: Which Geometry May We Ignore?<a class="headerlink" href="#part-0-which-geometry-may-we-ignore" title="Permanent link">&para;</a></h2>
 <h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>

@@ -50,18 +50,22 @@ for theory, analysis, documentation, and submission.
 
 ## Learning Objectives
 
-By the end of this module, you should be able to:
+The objectives below are listed in priority order. By the end of Module 7,
+Part III, you should be able to:
 
-- define coordinates and metadata for a spatial temperature measurement,
-- calibrate or cross-check several thermistors,
-- acquire synchronized `T(x,t)` data with units and timestamps,
-- derive the one-dimensional heat equation with side loss,
-- solve the finite-length stationary problem and obtain its semi-infinite limit,
-- calculate the error introduced by ignoring the far end,
-- use the transverse Biot number to justify neglecting radial variation,
-- distinguish a transient from a steady spatial profile,
-- fit a stationary-fin model and interpret its decay coefficient,
-- identify what the steady experiment can and cannot determine by itself.
+1. Build and document a spatial temperature measurement by defining sensor
+   coordinates, cross-checking the thermistors, and acquiring synchronized
+   $T(x,t)$ data with units, timestamps, and experimental metadata.
+2. Use the finite-length solution and transverse Biot number to make separate,
+   quantitative decisions about whether the far end and radial temperature
+   variation may be neglected.
+3. Distinguish a transient from a steady spatial profile and explain why a
+   temperature disturbance arrives later and is smaller farther from the
+   heated base.
+4. Fit finite-length and semi-infinite stationary-fin models, examine their
+   residuals, and interpret the fitted decay coefficient and decay length.
+5. Explain what the steady experiment can determine and why it cannot determine
+   the thermal conductivity and side heat-transfer coefficient separately.
 
 ## Reading And Preparation
 
@@ -82,9 +86,9 @@ Let
 \theta(x,t)=T(x,t)-T_{\mathrm{room}}.
 \]
 
-For a uniform rod with cross-sectional area `A`, perimeter `P`, density `rho`,
-specific heat `c`, thermal conductivity `k`, and side heat-transfer coefficient
-`H`, conservation of energy gives
+For a uniform rod with cross-sectional area $A$, perimeter $P$, density $\rho$,
+specific heat $c$, thermal conductivity $k$, and side heat-transfer coefficient
+$H$, conservation of energy gives
 
 \[
 \rho c A\frac{\partial\theta}{\partial t}
@@ -92,7 +96,7 @@ specific heat `c`, thermal conductivity `k`, and side heat-transfer coefficient
 \]
 
 Every term has units of power per unit length, watts per meter. Dividing by
-`rho*c*A` gives
+$\rho cA$ gives
 
 \[
 \frac{\partial\theta}{\partial t}
@@ -103,8 +107,8 @@ Every term has units of power per unit length, watts per meter. Dividing by
 \nu=\frac{HP}{\rho c A}.
 \]
 
-Here `kappa` has units of square meters per second and `nu` has units of inverse
-seconds.
+Here $\kappa$ has units of square meters per second and $\nu$ has units of
+inverse seconds.
 
 At steady state,
 
@@ -120,8 +124,8 @@ Far from the rod end, a useful first model is
 \theta(x)=\theta_0 e^{-mx}.
 \]
 
-The fitted `m` quantifies the competition between axial conduction and side
-loss. It does **not** determine `k` and `H` separately. The periodic Angstrom
+The fitted $m$ quantifies the competition between axial conduction and side
+loss. It does **not** determine $k$ and $H$ separately. The periodic Angstrom
 experiment in Module 8, Part I, supplies the second independent measurement.
 
 ## Part 0: Which Geometry May We Ignore?

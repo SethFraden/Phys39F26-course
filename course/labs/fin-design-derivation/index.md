@@ -9,6 +9,22 @@ pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 7, Part III.
 
+## Learning Objectives
+
+The objectives below are listed in priority order. By the end of Module 7,
+Part II, you should be able to:
+
+1. Use Fourier conduction, Newton cooling, and conservation of energy to derive
+   the stationary one-dimensional fin equation and check every term's units.
+2. Apply the base-temperature and insulated-tip boundary conditions to obtain
+   the finite-rod temperature profile.
+3. Interpret the transverse Biot number and the dimensionless group $mL$ as
+   tests of two different approximations: uniform temperature across a section
+   and negligible influence of the far end.
+4. Obtain the semi-infinite exponential profile as a limit of the finite-rod
+   solution and quantify the resulting approximation error at the sensor
+   positions.
+
 ## How To Use This Reference
 
 Read this page alongside Lienhard Section 4.5 for A4. The Module 7 workload
@@ -57,8 +73,107 @@ The transverse Biot number must be small:
 \tag{4.27}
 \]
 
-For a circular rod, \(A/P=R/2\). This criterion allows us to use one
-cross-sectional temperature \(T(x)\).
+### What The Transverse Biot Number Compares
+
+The transverse Biot number does **not** compare radial heat transport with
+axial heat transport. It compares conduction from the interior of a cross
+section to its surface with convection from that surface to the surrounding
+air.
+
+Refer back to [Fig. 1.10 and the accompanying Part I discussion of lumped
+cooling and the Biot number](../theory-bridge-chapter-1/index.md#5-lumped-cooling-and-the-biot-number).
+That figure shows the same two processes in sequence: heat first conducts
+through the solid to its surface and then crosses from the surface to the
+surroundings. Here we apply that picture across each cross section of the rod.
+
+Consider a rod element of length $\delta x$. Its curved surface area is
+$P\delta x$, and the characteristic transverse conduction length is
+
+\[
+L_c=\frac{A}{P}.
+\]
+
+For a circular rod, $A=\pi R^2$ and $P=2\pi R$, so
+
+\[
+L_c=\frac{A}{P}=\frac{R}{2}.
+\]
+
+Thus $L_c$ is the characteristic radial distance: it is of order the rod
+radius $R$. The factor of $1/2$ comes from the standard volume-to-surface-area
+definition $L_c=V/A_s$ applied to a cylindrical element.
+
+A cylinder has two independent geometric lengths: its radius $R$ and its
+length $L$. We must therefore state which length is being used to
+nondimensionalize the problem and why:
+
+- The radial scale $R$ (or, with the $V/A_s$ convention, $L_c=R/2$) is used in
+  the transverse Biot number because that number tests whether temperature
+  variation across a cross section can be neglected.
+- The axial scale $L$ is used in $\xi=x/L$ and in $mL$ because those quantities
+  describe variation along the rod and whether the far-end boundary affects
+  the measured region.
+
+These choices answer different physical questions; one characteristic length
+cannot replace the other. A sphere, by contrast, has only one independent
+geometric length, its radius $R$. The conventional volume-to-surface-area
+length for a sphere is $L_c=V/A_s=R/3$, but it is still set entirely by the
+single scale $R$.
+
+Using the same representative temperature difference $\Delta T$ for both
+processes, their characteristic heat-transport capacities are
+
+\[
+\dot Q_{\mathrm{radial\ conduction}}
+\sim \frac{k(P\delta x)}{L_c}\Delta T,
+\qquad
+\dot Q_{\mathrm{side\ convection}}
+\sim h(P\delta x)\Delta T.
+\]
+
+Their ratio is
+
+\[
+\boxed{
+\frac{\dot Q_{\mathrm{side\ convection}}}
+{\dot Q_{\mathrm{radial\ conduction}}}
+\sim \frac{hL_c}{k}
+=\mathrm{Bi}_{\perp}
+}.
+\]
+
+These are characteristic rates evaluated using the same $\Delta T$, not two
+independent actual heat rates. In steady operation, radial conduction to the
+surface and convection from the surface occur in series, so their actual rates
+must be equal. Equivalently,
+
+\[
+\mathrm{Bi}_{\perp}
+\sim
+\frac{R_{\mathrm{radial\ conduction}}}
+{R_{\mathrm{surface\ convection}}}.
+\]
+
+When $\mathrm{Bi}_{\perp}\ll1$, radial conduction offers little resistance.
+Only a small center-to-surface temperature difference is needed to replace the
+heat lost by convection, so each cross section is nearly isothermal.
+
+The comparison between **axial conduction** and **side convection** is a
+different dimensionless ratio:
+
+\[
+\frac{\dot Q_{\mathrm{side\ convection}}}
+{\dot Q_{\mathrm{axial\ conduction}}}
+\sim \frac{hPL^2}{kA}
+=(mL)^2.
+\]
+
+Thus $\mathrm{Bi}_{\perp}$ tests whether radial temperature variation may be
+neglected, whereas $(mL)^2$ describes how strongly side cooling competes with
+conduction along the rod.
+
+The small-transverse-Biot criterion allows us to use one cross-sectional
+temperature \(T(x)\).
 
 ## Energy Balance And Differential Equation
 
@@ -111,7 +226,7 @@ For an insulated tip,
 \tag{4.31b}
 \]
 
-## Dimensional Form
+## Dimensional Analysis And Dimensionless Form
 
 The dimensional functional relation is
 
@@ -148,6 +263,80 @@ whereas an adiabatic-tip fin has
 \tag{4.33b}
 \]
 
+### Choosing A Dimensionless Position Coordinate
+
+The quantity $m$ is not itself a dimensionless coordinate: it has units of
+inverse length. Both
+
+\[
+\xi=\frac{x}{L}
+\qquad\text{and}\qquad
+X=mx=\frac{x}{1/m}
+\]
+
+are valid dimensionless coordinates, but they emphasize different length
+scales. The rod length $L$ is the geometric scale, whereas $1/m$ is the
+thermal decay length set by axial conduction and side cooling.
+
+For a finite rod, $\xi=x/L$ is convenient because the base is always at
+$\xi=0$ and the tip is always at $\xi=1$. The physics then appears in the
+separate dimensionless group
+
+\[
+mL=\frac{L}{1/m},
+\]
+
+which compares the rod length with the thermal decay length. We could instead
+use $X=mx$. Equation (4.34) would then become
+
+\[
+\frac{d^2\Theta}{dX^2}=\Theta,
+\]
+
+but the tip would be located at $X=mL$ rather than at a fixed coordinate.
+Nothing physical changes because $X=(mL)\xi$; the two choices merely organize
+the same information differently. When the rod is effectively infinite and
+the tip no longer matters, $mx$ becomes the natural coordinate and the solution
+is $\Theta=e^{-mx}$.
+
+[Lienhard, p. 167, Eqs. (4.32)-(4.33b)](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=181)
+uses $\xi=x/L$ for the finite-fin dimensional analysis. On
+[p. 173, Eq. (4.50)](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=187),
+the long-fin limit is written as $e^{-mL\xi}=e^{-mx}$, and the following
+paragraph interprets $(mL)^2$ as a hybrid Biot number comparing axial
+conduction resistance with the overall resistance to side convection.
+
+### Why The Axial Biot Number Disappears For An Adiabatic Tip
+
+For a convecting tip, $h_L$ enters through the tip boundary condition:
+
+\[
+-\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}
+=\underbrace{\frac{h_LL}{k}}_{\mathrm{Bi}_{\mathrm{axial}}}\Theta(1).
+\]
+
+Thus $\mathrm{Bi}_{\mathrm{axial}}$ measures the strength of convection from
+the tip relative to axial conduction. For an adiabatic tip, the heat flux at
+the tip is zero:
+
+\[
+\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}=0.
+\]
+
+There is no tip heat-transfer coefficient $h_L$ in this boundary condition.
+Consequently, $h_L$ is absent from the dimensional functional relation and no
+independent axial Biot number can be formed. Equivalently, one may set $h_L=0$
+and obtain $\mathrm{Bi}_{\mathrm{axial}}=0$, but saying that the parameter
+**drops out of the problem** better expresses the dimensional-analysis logic.
+The transverse Biot number does not disappear: it remains the separate test of
+whether each cross section can be assigned one temperature.
+
+[Lienhard, p. 167, immediately following Eq. (4.33a)](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=181)
+makes this variable-counting argument explicitly: removing $h_L$ leaves one
+fewer variable but the same fundamental dimensions, so the corresponding
+dimensionless group $\mathrm{Bi}_{\mathrm{axial}}$ is removed, giving
+Eq. (4.33b).
+
 The differential equation becomes
 
 \[
@@ -162,7 +351,8 @@ Its general solution is
 \tag{4.35}
 \]
 
-## Finite Rod With An Insulated Tip
+<details class="note" markdown="1">
+<summary><strong>Sidebar: Finite Rod With An Insulated Tip</strong></summary>
 
 The dimensionless boundary conditions are
 
@@ -254,7 +444,10 @@ At the tip,
 \tag{4.45}
 \]
 
-## Exact Convecting-Tip Solution
+</details>
+
+<details class="note" markdown="1">
+<summary><strong>Sidebar: Exact Convecting-Tip Solution</strong></summary>
 
 The dimensionless boundary conditions become
 
@@ -306,6 +499,8 @@ The corresponding base heat rate is
 }.
 \tag{4.49}
 \]
+
+</details>
 
 ## Infinite-Rod Limit
 

@@ -110,6 +110,10 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#module-7-part-i-thermal-transport-foundations" class="nav-link">Module 7, Part I: Thermal Transport Foundations</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#why-this-bridge-exists" class="nav-link">Why This Bridge Exists</a>
               <ul class="nav flex-column">
               </ul>
@@ -124,6 +128,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#2-heat-conduction-and-fouriers-law" class="nav-link">2. Heat Conduction And Fourier's Law</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#why-use-a-phenomenological-constitutive-law" class="nav-link">Why Use A Phenomenological Constitutive Law?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#unified-transport-equations" class="nav-link">Unified Transport Equations</a>
               <ul class="nav flex-column">
               </ul>
@@ -175,6 +183,22 @@ models from Module 6 to the spatial models needed for the long-cylinder
 experiment. Continue with <a href="../fin-design-derivation/">Part II: Finite And Infinite Rod
 Theory</a>, followed by <a href="../lab-08/">Part III: Rod
 Instrument And Stationary Fin</a>.</p>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>The objectives below are listed in priority order. By the end of Module 7,
+Part I, you should be able to:</p>
+<ol>
+<li>Explain Fourier's law as a phenomenological constitutive relation and
+   combine it with local conservation of energy to derive the one-dimensional
+   heat equation.</li>
+<li>Distinguish temperature, heat-transfer rate, and heat flux, and interpret
+   the units and physical meanings of thermal conductivity <span class="arithmatex">\(k\)</span>, thermal
+   diffusivity <span class="arithmatex">\(\alpha\)</span>, and the convection coefficient <span class="arithmatex">\(h\)</span>.</li>
+<li>Derive and interpret the Biot number
+   <span class="arithmatex">\(\mathrm{Bi}=hL_c/k\)</span>, with <span class="arithmatex">\(L_c=V/A_s\)</span>, and use it to decide whether internal
+   temperature variation may be neglected.</li>
+<li>Distinguish the two independent approximations required for the course rod:
+   neglecting the finite end and neglecting radial temperature variation.</li>
+</ol>
 <p>Read selectively in
 <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard, A Heat Transfer Textbook</a>,
 Section 1.3, pp. 11-26. Focus on Fourier's Law, the derivation of the heat
@@ -412,12 +436,41 @@ q=-k\frac{dT}{dx}.
 writes <span class="arithmatex">\(dT/dx\)</span>, because he is describing one-dimensional conduction. We write
 <span class="arithmatex">\(\partial T/\partial x\)</span> here because the long-cylinder experiment will have a
 temperature <span class="arithmatex">\(T(x,t)\)</span> that can depend on both position and time.</p>
+<h3 id="why-use-a-phenomenological-constitutive-law">Why Use A Phenomenological Constitutive Law?<a class="headerlink" href="#why-use-a-phenomenological-constitutive-law" title="Permanent link">&para;</a></h3>
+<p>Conservation of energy tells us that local energy accumulation must equal heat
+flowing in minus heat flowing out, plus any heat generated. Conservation alone
+does not tell us what heat flux a given temperature field produces. We need a
+second relation that connects the flux <span class="arithmatex">\(\mathbf q\)</span> to the temperature <span class="arithmatex">\(T\)</span>.</p>
+<p>Several physical observations motivate the simplest relation:</p>
+<ol>
+<li>A uniform temperature produces no conductive heat flux, so the flux should
+   depend on the temperature gradient rather than on temperature itself.</li>
+<li>Heat flows from hot regions toward cold regions, so the flux points opposite
+   <span class="arithmatex">\(\nabla T\)</span>.</li>
+<li>The local flux is determined primarily by the nearby temperature field.</li>
+<li>Near thermal equilibrium, the first approximation is a response proportional
+   to the driving gradient.</li>
+</ol>
+<p>These observations give Fourier's law,</p>
+<div class="arithmatex">\[
+\boxed{\mathbf q=-k\nabla T}.
+\]</div>
+<p>Fourier's law is a <strong>constitutive law</strong> because it specifies how a particular
+material responds. It is <strong>phenomenological</strong> because it summarizes measured
+macroscopic behavior without deriving that behavior from the microscopic
+motion of phonons, electrons, or molecules. The thermal conductivity <span class="arithmatex">\(k\)</span> must
+be measured. It tells how much heat flux the material carries for a given
+temperature gradient.</p>
+<p>The proportionality is a linear-response approximation. For an anisotropic
+material, <span class="arithmatex">\(k\)</span> can be a tensor; for large gradients or very short length and
+time scales, the response can be nonlinear or nonlocal. Fourier's law is the
+appropriate first model when those complications are unimportant.</p>
 <h3 id="unified-transport-equations">Unified Transport Equations<a class="headerlink" href="#unified-transport-equations" title="Permanent link">&para;</a></h3>
-<p>Fourier's law is one member of a broad family of linear transport laws. The
-logical sequence has three steps: a gradient of a driving field produces a
-flux; a local balance law states how flux divergence and sources produce
-accumulation; substituting the flux law into the balance produces the field
-equation.</p>
+<p>Fourier's law is one member of a broad family of phenomenological constitutive
+laws for linear transport. The logical sequence has three steps: a gradient of
+a driving field produces a flux; a local conservation or balance law states
+how flux divergence and sources produce accumulation; substituting the
+constitutive law into the balance produces the field equation.</p>
 <table>
 <thead>
 <tr>
@@ -483,6 +536,11 @@ steady finite-rod model to the time-dependent Angstrom experiment.</p>
 "One-dimensional heat conduction equation," and Fig. 1.8. Read this part
 slowly; it is the bridge from a heat-flow law to a temperature equation.</p>
 <p>This is the derivation core of the bridge.</p>
+<p>The division of labor is important. Conservation of energy is universal, but
+its local balance contains both the unknown temperature field and the unknown
+heat flux. Fourier's material-specific constitutive law expresses the heat flux
+in terms of the temperature gradient and thereby <strong>closes</strong> the conservation
+equation. Combining the two produces a field equation for <span class="arithmatex">\(T(x,t)\)</span> alone.</p>
 <p><img alt="One-dimensional heat-conduction control volume" src="../../assets/lienhard-fig-1-8-control-volume.png" /></p>
 <p><em>Lienhard and Lienhard, Fig. 1.8, textbook p. 18: Fourier conduction into and
 out of a differential element.</em></p>
@@ -638,8 +696,17 @@ model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
 thermocouple example checks whether <span class="arithmatex">\(\mathrm{Bi}\ll1\)</span> is actually valid.</p>
 <p>Before assuming that a body has one uniform temperature, ask how heat moves
 through it. Heat must first conduct through the solid to its surface and then
-transfer from the surface to the surroundings by convection. These two stages
-have approximate thermal resistances</p>
+transfer from the surface to the surroundings by convection. Describing the
+internal conduction resistance requires a characteristic length.</p>
+<p>The characteristic conduction length is</p>
+<div class="arithmatex">\[
+\boxed{L_c=\frac{V}{A_s}},
+\]</div>
+<p>where <span class="arithmatex">\(V\)</span> is the object's volume and <span class="arithmatex">\(A_s\)</span> is the surface area through which
+heat is transferred to the surroundings. It represents the distance scale for
+internal conduction. For a long circular cylinder losing heat through its
+curved surface, <span class="arithmatex">\(L_c=A/P=R/2\)</span>.</p>
+<p>The two stages have approximate thermal resistances</p>
 <div class="arithmatex">\[
 R_{\mathrm{cond}}\sim\frac{L_c}{kA},
 \qquad
@@ -656,11 +723,13 @@ units of m<span class="arithmatex">\(^2\)</span> K/W.</p>
 <p>Using the same representative area for this scaling argument, their ratio is</p>
 <div class="arithmatex">\[
 \frac{R_{\mathrm{cond}}}{R_{\mathrm{conv}}}
-\sim\frac{hL_c}{k}.
+\sim\frac{hL_c}{k}
+=\mathrm{Bi}.
 \]</div>
 <p>This ratio compares resistance to heat flow <strong>inside the solid</strong> with resistance
-to heat transfer <strong>from its surface to the surroundings</strong>. We now derive the
-same dimensionless combination from the heat-transport equations.</p>
+to heat transfer <strong>from its surface to the surroundings</strong>. It is the <strong>Biot
+number</strong>. We now derive why the same dimensionless combination appears in the
+heat-transport equations.</p>
 <h3 id="nondimensional-derivation">Nondimensional Derivation<a class="headerlink" href="#nondimensional-derivation" title="Permanent link">&para;</a></h3>
 <p>With no internal heat generation, the temperature inside the solid obeys</p>
 <div class="arithmatex">\[
@@ -700,14 +769,14 @@ condition is made dimensionless. It is not an additional empirical correction.
 It is the parameter that determines how strongly surface cooling competes with
 internal conduction.</p>
 <p>Here <span class="arithmatex">\(h\)</span> is the convection coefficient to the surroundings, <span class="arithmatex">\(k\)</span> is the
-thermal conductivity inside the solid, and <span class="arithmatex">\(L_c\)</span> is a characteristic length,
-often <span class="arithmatex">\(V/A_s\)</span>, the volume divided by the surface area. The tricky bit is that
-there can be more than one characteristic length (or thermal conductivity
-constant) in the problem. How do you choose which one to use? For a long, thin
-cylinder, the Bi number for the radius, <span class="arithmatex">\(r\)</span>, can be small, but the Biot number
-of the length, <span class="arithmatex">\(L\)</span>, can be large, e.g. <span class="arithmatex">\(r\ll L\)</span>. In this case, instead of
-having a differential equation that depends on both radius and length, you can
-reduce it to a 1D problem by ignoring any radial dependence of the temperature.</p>
+thermal conductivity inside the solid, and <span class="arithmatex">\(L_c\)</span> is the characteristic
+length defined above. The tricky bit is that there can be more than one
+characteristic length in the problem. How do you choose which one to use? For a
+long, thin cylinder, the radial Biot number can be small while a Biot number
+formed using the length can be large because <span class="arithmatex">\(R\ll L\)</span>. In this case, instead
+of using a differential equation that depends on both radius and length, you
+can reduce it to a one-dimensional problem by neglecting radial temperature
+variation.</p>
 <p>Interpretation:</p>
 <ul>
 <li>Small <span class="arithmatex">\(\mathrm{Bi}\)</span>: internal conduction offers much less resistance than
@@ -769,8 +838,9 @@ from Fourier's Law to the heat equation to the Biot number.</p>
    model instead of a lumped model?</li>
 </ol>
 <h2 id="how-this-work-is-assessed">How This Work Is Assessed<a class="headerlink" href="#how-this-work-is-assessed" title="Permanent link">&para;</a></h2>
-<p>This bridge supports the later individual <code>A4</code> and <code>A5</code> derivations and the C4
-oral discussion. It does not create an additional submission. Keep your
+<p>This bridge supports the later individual <code>A4</code> and <code>A5</code> derivations and the
+thermal-transport oral discussions. It does not create an additional
+submission. Keep your
 answers above and a dimensional equation sheet in
 <code>docs/theory/theory_bridge_chapter_1_notes.md</code> so you can reuse the reasoning
 without rewriting it for an extra grade.</p>

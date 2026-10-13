@@ -387,6 +387,50 @@ def one_lump_pi_damping_ratio(config: ModelConfig) -> float:
     ) / denominator
 
 
+def two_lump_p_damping_ratio(
+    config: ModelConfig, kp_pwm_per_c: float | None = None
+) -> float:
+    """Return the two-lump damping ratio for open-loop or P dynamics."""
+
+    tec_coefficient = (
+        heating_tec_coefficient(config)
+        if config.setpoint_c >= config.ambient_c
+        else cooling_tec_coefficient(config)
+    )
+    c_tec = config.tec_capacitance_j_per_c
+    c_mass = config.measured_capacitance_j_per_c
+    coupling = config.coupling_w_per_c
+    heat_loss = config.heat_loss_w_per_c
+    kp = config.kp_pwm_per_c if kp_pwm_per_c is None else kp_pwm_per_c
+    numerator = c_tec * (coupling + heat_loss) + c_mass * coupling
+    denominator = 2.0 * math.sqrt(
+        c_tec
+        * c_mass
+        * coupling
+        * (heat_loss + tec_coefficient * kp)
+    )
+    return numerator / denominator
+
+
+def two_lump_pi_critical_integral_gain(config: ModelConfig) -> float:
+    """Return the Routh-Hurwitz stability boundary for two-lump PI control."""
+
+    tec_coefficient = (
+        heating_tec_coefficient(config)
+        if config.setpoint_c >= config.ambient_c
+        else cooling_tec_coefficient(config)
+    )
+    c_tec = config.tec_capacitance_j_per_c
+    c_mass = config.measured_capacitance_j_per_c
+    coupling = config.coupling_w_per_c
+    heat_loss = config.heat_loss_w_per_c
+    return (
+        (c_tec * (coupling + heat_loss) + c_mass * coupling)
+        * (heat_loss + tec_coefficient * config.kp_pwm_per_c)
+        / (c_tec * c_mass * tec_coefficient)
+    )
+
+
 def damping_description(value: float) -> str:
     if math.isinf(value):
         return "no integral action"
@@ -540,6 +584,7 @@ class ModelingTECGui:
         self.math_to_image = math_to_image
         self.math_symbol_images: list[tk.PhotoImage] = []
         self.live_symbol_widgets: dict[str, ttk.Label] = {}
+        self.live_value_frames: dict[str, ttk.Frame] = {}
         self.live_symbol_cache: dict[str, tk.PhotoImage] = {}
         self.root = root
         self.root.title("Module 6: TEC Control Models")
@@ -769,6 +814,7 @@ class ModelingTECGui:
                     padx=(0, 12) if column == 0 else 0,
                     pady=1,
                 )
+                self.live_value_frames[key] = value_frame
                 ttk.Label(
                     value_frame,
                     text=description,
@@ -1233,12 +1279,55 @@ class ModelingTECGui:
                 rf"$\tau_{{fast}}={tau_fast:.3g}\,\mathrm{{s}},\quad\tau_{{slow}}={tau_slow:.3g}\,\mathrm{{s}}$"
             )
 
-        zeta = one_lump_pi_damping_ratio(self.config)
-        zeta_text = r"\infty" if math.isinf(zeta) else f"{zeta:.3f}"
         right_lines = [r"$\bf{Selected\ controller}$", "", "", *controller_lines]
-        if controller == "pi":
-            right_lines.append(
-                rf"One-lump PI: $\zeta={zeta_text}$ ({damping_description(zeta)})"
+        zeta: float | None = None
+        if process == "one_lump" and controller == "pi":
+            zeta = one_lump_pi_damping_ratio(self.config)
+            zeta_text = r"\infty" if math.isinf(zeta) else f"{zeta:.3f}"
+            right_lines.extend(
+                (
+                    r"One-lump PI:",
+                    r"$\zeta_{1L,PI}=\frac{H+P_uK_p}"
+                    r"{2\sqrt{CP_uK_i}}$"
+                    rf"$={zeta_text}$ ({damping_description(zeta)})",
+                )
+            )
+        elif process == "two_lump" and controller == "p":
+            zeta = two_lump_p_damping_ratio(self.config)
+            right_lines.extend(
+                (
+                    r"Two-lump P:",
+                    r"$\zeta_{2L,P}=\frac{C_T(G+H)+C_mG}"
+                    r"{2\sqrt{C_TC_mG(H+P_uK_p)}}$"
+                    rf"$={zeta:.3f}$ ({damping_description(zeta)})",
+                )
+            )
+        elif process == "two_lump" and controller == "open_loop":
+            zeta = two_lump_p_damping_ratio(self.config, kp_pwm_per_c=0.0)
+            right_lines.extend(
+                (
+                    r"Two-lump open loop:",
+                    r"$\zeta_{2L,OL}=\frac{C_T(G+H)+C_mG}"
+                    r"{2\sqrt{C_TC_mGH}}$"
+                    rf"$={zeta:.3f}$ ({damping_description(zeta)})",
+                )
+            )
+        elif process == "two_lump" and controller == "pi":
+            critical_ki = two_lump_pi_critical_integral_gain(self.config)
+            integral_ratio = self.config.ki_pwm_per_c_s / critical_ki
+            if integral_ratio < 1.0 - 1e-3:
+                stability = "stable"
+            elif integral_ratio > 1.0 + 1e-3:
+                stability = "unstable"
+            else:
+                stability = "marginal"
+            right_lines.extend(
+                (
+                    r"Two-lump PI stability:",
+                    r"$K_{i,crit}=\frac{[C_T(G+H)+C_mG](H+P_uK_p)}"
+                    r"{C_TC_mP_u}$",
+                    rf"$K_i/K_{{i,crit}}={integral_ratio:.3f}$ ({stability})",
+                )
             )
         self.right_equations.set_text("\n".join(right_lines))
 
@@ -1287,10 +1376,15 @@ class ModelingTECGui:
         self.live_p_prediction.set(
             f"= {predicted_p_droop(self.config):7.2f} °C"
         )
-        zeta_display = "∞" if math.isinf(zeta) else f"{zeta:.2f}"
-        self.live_damping.set(
-            f"= {zeta_display} ({damping_description(zeta)})"
-        )
+        if zeta is None:
+            self.live_damping.set("")
+            self.live_value_frames["damping"].grid_remove()
+        else:
+            self.live_value_frames["damping"].grid()
+            zeta_display = "∞" if math.isinf(zeta) else f"{zeta:.2f}"
+            self.live_damping.set(
+                f"= {zeta_display} ({damping_description(zeta)})"
+            )
         run_state = "Running" if self.running else "Paused"
         self.live_status.set(
             f"{run_state} | {process.replace('_', ' ')} | "

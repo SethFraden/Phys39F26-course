@@ -260,7 +260,8 @@ It supplies the simulation and model interpretation required for <a href="../lab
   overshoot, settling time, steady-state error, and oscillation period;</li>
 <li>generate six simulation Goldilocks plots using one shared set of physical
   parameters and compare them with the six experimental Goldilocks plots; and</li>
-<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by connecting theory, simulation, and
+<li>select and justify <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> by balancing rise time, settling time,
+  overshoot, and stability while connecting theory, simulation, and
   measurement.</li>
 </ul>
 <p>The six measured and six simulated Goldilocks plots are the principal way you
@@ -545,9 +546,163 @@ C_TC_m s^2+
 \left[C_T(G+H)+C_mG\right]s+
 G(H+P_uK_p)=0.
 \]</div>
-<p>Depending on the parameters, the two eigenvalues can be real or a complex
-conjugate pair. Complex eigenvalues produce an underdamped transient even
-though the apparatus contains no mechanical momentum.</p>
+<p>Divide by <span class="arithmatex">\(C_TC_m\)</span> and compare with the standard second-order form</p>
+<div class="arithmatex">\[
+s^2+2\zeta\omega_n s+\omega_n^2=0.
+\]</div>
+<p>The two-lump P-control natural frequency and damping ratio are</p>
+<div class="arithmatex">\[
+\boxed{
+\omega_n=\sqrt{\frac{G(H+P_uK_p)}{C_TC_m}}
+},
+\]</div>
+<div class="arithmatex">\[
+\boxed{
+\zeta_{\mathrm{2L,P}}
+=\frac{C_T(G+H)+C_mG}
+{2\sqrt{C_TC_mG(H+P_uK_p)}}
+}.
+\]</div>
+<p>This expression predicts the transition:</p>
+<ul>
+<li><span class="arithmatex">\(\zeta_{\mathrm{2L,P}}&gt;1\)</span> gives an overdamped response;</li>
+<li><span class="arithmatex">\(\zeta_{\mathrm{2L,P}}=1\)</span> gives critical damping; and</li>
+<li><span class="arithmatex">\(\zeta_{\mathrm{2L,P}}&lt;1\)</span> gives an underdamped response with overshoot or
+  ringing.</li>
+</ul>
+<p>For fixed physical parameters, increasing <span class="arithmatex">\(K_p\)</span> increases the denominator and
+therefore decreases <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span>. Sufficiently large P gain can move
+the two-lump model from overdamped to underdamped behavior. The critical gain
+is found by setting <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}=1\)</span>:</p>
+<div class="arithmatex">\[
+\boxed{
+K_{p,\mathrm{crit}}
+=\frac{1}{P_u}
+\left[
+\frac{\left(C_T(G+H)+C_mG\right)^2}
+{4C_TC_mG}-H
+\right]
+}.
+\]</div>
+<p>The dependence on <span class="arithmatex">\(G\)</span> is not monotonic. Very large <span class="arithmatex">\(G\)</span> forces <span class="arithmatex">\(T\approx T_m\)</span>
+and recovers one-lump behavior. Very small <span class="arithmatex">\(G\)</span> nearly disconnects the measured
+mass from the TEC, producing a very slow response. For fixed <span class="arithmatex">\(C_T\)</span>, <span class="arithmatex">\(C_m\)</span>, and
+<span class="arithmatex">\(H\)</span>, the damping ratio is smallest at</p>
+<div class="arithmatex">\[
+G=\frac{C_TH}{C_T+C_m}.
+\]</div>
+<p>Likewise, at fixed total capacitance <span class="arithmatex">\(C=C_T+C_m\)</span>, putting almost all the
+capacitance in either lump suppresses the second-order behavior. The damping
+ratio is smallest when</p>
+<div class="arithmatex">\[
+\frac{C_T}{C}=\frac{G}{H+2G},
+\]</div>
+<p>which is close to one-half when <span class="arithmatex">\(G\gg H\)</span>. Thus a noticeable internal lag and
+two appreciable thermal stores promote ringing; neither phrase alone means
+that making <span class="arithmatex">\(G\)</span> arbitrarily small always creates more oscillation.</p>
+<p>Complex eigenvalues produce an underdamped transient even though the apparatus
+contains no mechanical momentum. Thermal storage in two locations and delayed
+transport between them supply the two dynamical states.</p>
+<h4 id="stability-of-two-lump-pi-control">Stability Of Two-Lump PI Control<a class="headerlink" href="#stability-of-two-lump-pi-control" title="Permanent link">&para;</a></h4>
+<p>PI control adds the integral state</p>
+<div class="arithmatex">\[
+q=\int e\,dt,\qquad \dot q=-\theta_m,
+\]</div>
+<p>and the command perturbation is</p>
+<div class="arithmatex">\[
+u=-K_p\theta_m+K_iq.
+\]</div>
+<p>Substitution into the two-lump equations gives the characteristic equation</p>
+<div class="arithmatex">\[
+\boxed{
+C_TC_m s^3+
+\left[C_T(G+H)+C_mG\right]s^2+
+G(H+P_uK_p)s+
+GP_uK_i=0.
+}
+\]</div>
+<p>This equation is third order, so the complete response does not have one
+second-order damping ratio <span class="arithmatex">\(\zeta\)</span>. It commonly has one real eigenvalue and a
+complex-conjugate pair; that pair produces the observed ringing.</p>
+<p>Write the cubic as <span class="arithmatex">\(a_3s^3+a_2s^2+a_1s+a_0=0\)</span>. All four coefficients above
+are positive. The Routh-Hurwitz stability condition therefore reduces to</p>
+<div class="arithmatex">\[
+a_2a_1&gt;a_3a_0.
+\]</div>
+<p>Solving the equality for the integral gain gives the stability boundary</p>
+<div class="arithmatex">\[
+\boxed{
+K_{i,\mathrm{crit}}
+=\frac{\left[C_T(G+H)+C_mG\right](H+P_uK_p)}
+{C_TC_mP_u}.
+}
+\]</div>
+<p>A useful dimensionless measure of integral aggressiveness is</p>
+<div class="arithmatex">\[
+\boxed{\rho_I=\frac{K_i}{K_{i,\mathrm{crit}}}.}
+\]</div>
+<p>As <span class="arithmatex">\(\rho_I\)</span> approaches 1 from below, the oscillatory pair becomes less damped.
+At <span class="arithmatex">\(\rho_I=1\)</span>, the normalized polynomial factors as
+<span class="arithmatex">\((s+a)(s^2+b)\)</span>: one eigenvalue remains negative while the other two are purely
+imaginary. The linear model then predicts sustained oscillation. For
+<span class="arithmatex">\(\rho_I&gt;1\)</span>, it predicts growing oscillation and instability.</p>
+<p>These results give practical rules of thumb:</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Expected effect</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Increase <span class="arithmatex">\(K_i\)</span></td>
+<td>Increases <span class="arithmatex">\(\rho_I\)</span> and promotes oscillation</td>
+<td>Integral action removes droop, but too much increases settling time or causes instability.</td>
+</tr>
+<tr>
+<td>Increase <span class="arithmatex">\(K_p\)</span> at fixed <span class="arithmatex">\(K_i\)</span></td>
+<td>Raises <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span></td>
+<td>P action can improve the PI stability margin, although excessive <span class="arithmatex">\(K_p\)</span> can already excite two-lump P overshoot.</td>
+</tr>
+<tr>
+<td>Decrease <span class="arithmatex">\(G\)</span> over the apparatus-relevant range</td>
+<td>Increases internal lag and usually reduces PI stability margin</td>
+<td>The integral continues accumulating while <span class="arithmatex">\(T_m\)</span> responds slowly. Extremely small or large <span class="arithmatex">\(G\)</span> requires direct evaluation rather than this slogan.</td>
+</tr>
+<tr>
+<td>Make both <span class="arithmatex">\(C_T\)</span> and <span class="arithmatex">\(C_m\)</span> appreciable</td>
+<td>Strengthens two-state behavior</td>
+<td>Concentrating nearly all capacitance in one lump moves the system toward one-lump behavior.</td>
+</tr>
+<tr>
+<td>Increase total <span class="arithmatex">\(C\)</span> without retuning gains</td>
+<td>Slows the plant and generally makes the same <span class="arithmatex">\(K_i\)</span> more aggressive</td>
+<td>More error can accumulate before the measured temperature responds.</td>
+</tr>
+<tr>
+<td>Increase <span class="arithmatex">\(P_u\)</span></td>
+<td>Makes each PWM unit more effective</td>
+<td>The same numerical <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> produce stronger physical feedback.</td>
+</tr>
+<tr>
+<td>Saturate PWM with anti-windup off</td>
+<td>Produces integral windup</td>
+<td>The resulting overshoot is nonlinear controller memory, not solely the linear two-lump instability.</td>
+</tr>
+</tbody>
+</table>
+<p>The objective is not the shortest rise time at any cost. A large gain may
+reach the setpoint quickly on the first crossing but then overshoot and take
+longer to settle. A useful tuning procedure is:</p>
+<ol>
+<li>choose <span class="arithmatex">\(K_p\)</span> for a fast P response without unacceptable overshoot;</li>
+<li>choose a slightly smaller <span class="arithmatex">\(K_p\)</span> when adding integral action;</li>
+<li>increase <span class="arithmatex">\(K_i\)</span> from zero until droop is removed on the desired timescale;</li>
+<li>stop increasing <span class="arithmatex">\(K_i\)</span> when extra oscillation makes the settling time worse;</li>
+<li>verify both heating and cooling steps without sustained saturation.</li>
+</ol>
 <p>At steady state, both temperature derivatives are zero, so</p>
 <div class="arithmatex">\[
 P_u u=G(T-T_m)=H(T_m-T_{\mathrm{amb}}).
@@ -755,6 +910,172 @@ remains monotonic.</p>
 change increases or suppresses overshoot and ringing. Return to the measured
 physical parameters before continuing. These are exploratory comparisons, not
 additional Goldilocks plots.</p>
+<h4 id="predict-and-observe-the-two-lump-p-transition">Predict And Observe The Two-Lump P Transition<a class="headerlink" href="#predict-and-observe-the-two-lump-p-transition" title="Permanent link">&para;</a></h4>
+<p>Before matching your apparatus, use the following common parameter set to make
+the overdamped-to-underdamped transition predictable. Select <code>two_lump</code>,
+<code>direct constants</code>, and <code>p</code>, then enter:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{amb}}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(22\ ^\circ\mathrm{C}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(22\ ^\circ\mathrm{C}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{set}}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(23\ ^\circ\mathrm{C}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(C\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(91\ \mathrm{J/K}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(C_T/C\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.35\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(G\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(50\ \mathrm{W/K}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(1.14\ \mathrm{W/K}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P_{u,c}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.26\ \mathrm{W/PWM}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r=P_{u,h}/P_{u,c}\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(2.0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(K_i\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>PWM limit</td>
+<td style="text-align: right;"><span class="arithmatex">\(255\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Delta t\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.05\ \mathrm{s}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> setpoint step keeps the requested command below the
+PWM limit for all three gains, so saturation does not obscure the linear
+P-control prediction. Anti-windup has no effect because <span class="arithmatex">\(K_i=0\)</span>.</p>
+<p>Use the boxed expression for <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span> to verify these predictions
+before running the simulation:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><span class="arithmatex">\(K_p\)</span> (PWM/<span class="arithmatex">\(^\circ\)</span>C)</th>
+<th style="text-align: right;">Predicted <span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span></th>
+<th>Predicted behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(60\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(1.31\)</span></td>
+<td>Overdamped</td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(105\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(1.00\)</span></td>
+<td>Approximately critically damped</td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(160\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.81\)</span></td>
+<td>Underdamped</td>
+</tr>
+</tbody>
+</table>
+<p>Reset the simulation before each run and plot only the mass temperature. Check
+whether the response changes from monotonic, to nearly critically damped, to
+overshooting. Small numerical and graphical differences are expected because
+the displayed values are rounded.</p>
+<p>Now hold <span class="arithmatex">\(K_p=105\)</span> and vary one physical parameter at a time:</p>
+<ol>
+<li>Set <span class="arithmatex">\(G\)</span> to <span class="arithmatex">\(35\)</span>, <span class="arithmatex">\(50\)</span>, and <span class="arithmatex">\(70\ \mathrm{W/K}\)</span>. The predicted damping ratios
+   are approximately <span class="arithmatex">\(0.84\)</span>, <span class="arithmatex">\(1.00\)</span>, and <span class="arithmatex">\(1.18\)</span>, respectively. Verify the
+   transition from underdamped to overdamped over this range. This local trend
+   does not imply that <span class="arithmatex">\(G\rightarrow0\)</span> produces unlimited ringing.</li>
+<li>Restore <span class="arithmatex">\(G=50\ \mathrm{W/K}\)</span> and set <span class="arithmatex">\(C_T/C\)</span> to <span class="arithmatex">\(0.20\)</span>, <span class="arithmatex">\(0.35\)</span>, <span class="arithmatex">\(0.50\)</span>,
+   and <span class="arithmatex">\(0.80\)</span>. The corresponding damping ratios are approximately <span class="arithmatex">\(1.19\)</span>,
+   <span class="arithmatex">\(1.00\)</span>, <span class="arithmatex">\(0.96\)</span>, and <span class="arithmatex">\(1.21\)</span>. Verify that the response is least damped when
+   both thermal masses are appreciable and becomes more damped when the
+   capacitance is concentrated in either lump.</li>
+</ol>
+<p>These runs isolate intrinsic two-lump P dynamics. They are practice runs, not
+additional A3 plots. Return to your measured parameters before making the six
+Goldilocks plots.</p>
+<h4 id="predict-and-observe-two-lump-pi-stability">Predict And Observe Two-Lump PI Stability<a class="headerlink" href="#predict-and-observe-two-lump-pi-stability" title="Permanent link">&para;</a></h4>
+<p>Continue with the common parameter set above, but set <span class="arithmatex">\(G=2\ \mathrm{W/K}\)</span>,
+<span class="arithmatex">\(K_p=18\ \mathrm{PWM}/^\circ\mathrm{C}\)</span>, and select PI control. Keep the
+<span class="arithmatex">\(1\ ^\circ\mathrm{C}\)</span> setpoint step and anti-windup on so actuator saturation
+does not obscure the linear prediction.</p>
+<p>For these values,</p>
+<div class="arithmatex">\[
+K_{i,\mathrm{crit}}\approx
+2.34\ \mathrm{PWM}/(^\circ\mathrm{C\,s}).
+\]</div>
+<p>Calculate <span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span> and then reset and run each case:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><span class="arithmatex">\(K_i\)</span> (PWM/(<span class="arithmatex">\(^\circ\)</span>C s))</th>
+<th style="text-align: right;"><span class="arithmatex">\(\rho_I\)</span></th>
+<th>Prediction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(0.25\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.11\)</span></td>
+<td>Stable, relatively well damped</td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(1.00\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.43\)</span></td>
+<td>Stable, more oscillatory</td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(2.10\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0.90\)</span></td>
+<td>Stable but weakly damped; long settling time</td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(2.50\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(1.07\)</span></td>
+<td>Unstable in the linear model</td>
+</tr>
+</tbody>
+</table>
+<p>For every run, record rise time, overshoot, settling time, and whether the
+oscillation decays or grows. Verify that increasing <span class="arithmatex">\(K_i\)</span> can shorten the
+initial correction while simultaneously making the final settling slower.</p>
+<p>Next hold <span class="arithmatex">\(K_i=1.00\)</span> and compare <span class="arithmatex">\(G=0.5\)</span>, <span class="arithmatex">\(1\)</span>, <span class="arithmatex">\(2\)</span>, and
+<span class="arithmatex">\(5\ \mathrm{W/K}\)</span>. Recalculate <span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span> and <span class="arithmatex">\(\rho_I\)</span> each time.
+Predict the stable or unstable result before pressing <strong>Resume</strong>, then check
+the prediction. Finally, restore the common values and move <span class="arithmatex">\(C_T/C\)</span> toward
+either extreme. Observe that concentrating the capacitance in one lump
+suppresses the two-state oscillatory behavior.</p>
+<p>These are short parameter studies, not additional A3 plots. Their purpose is
+to teach how the physical parameters set the stability margin and how the
+controller gains trade rapid approach against overshoot and settling time.</p>
 <h4 id="make-the-six-two-lump-goldilocks-plots">Make The Six Two-Lump Goldilocks Plots<a class="headerlink" href="#make-the-six-two-lump-goldilocks-plots" title="Permanent link">&para;</a></h4>
 <p>Select <code>two_lump</code>. Enter your measured <span class="arithmatex">\(T_{\mathrm{amb}}\)</span>, <span class="arithmatex">\(\chi_c\)</span>, <span class="arithmatex">\(\chi_h\)</span>,
 and <span class="arithmatex">\(\tau\)</span>, and use the setpoints, PWM limit, starting conditions, TEC voltage,
@@ -777,10 +1098,19 @@ parameters for different gains.</p>
    monotonic over every possible value.</li>
 <li>Restore the shared physical parameters. Select <code>pi</code>, hold <span class="arithmatex">\(K_p\)</span> at the
    value used for all three experimental PI runs, and simulate the low,
-   medium, and high <span class="arithmatex">\(K_i\)</span> values. Reset the integral before every run.</li>
+   medium, and high <span class="arithmatex">\(K_i\)</span> values. Keep anti-windup on and reset the integral
+   before every run. This makes the retained comparison primarily about the
+   physical model and controller gains.</li>
 <li>Make and label the <strong>six simulation Goldilocks plots</strong> using the same
    organization, axes, and labels as the six experimental plots.</li>
 </ol>
+<p>After preserving the six plots, you may demonstrate windup separately: turn
+anti-windup off, reduce <span class="arithmatex">\(G\)</span>, choose PI control, and apply a setpoint step large
+enough to saturate the PWM command. The measured temperature responds slowly,
+so the persistent error continues increasing the integral contribution even
+while the applied command is clamped. This extra overshoot is caused by stored
+controller error, not solely by the two-lump damping ratio. Turn anti-windup
+back on and press <strong>Zero integral</strong> before continuing.</p>
 <p>Record the one physical parameter set used for all six simulations:</p>
 <table>
 <thead>

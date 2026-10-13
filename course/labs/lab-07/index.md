@@ -53,7 +53,8 @@ By the end of Module 6, Part II, you should be able to:
   overshoot, settling time, steady-state error, and oscillation period;
 - generate six simulation Goldilocks plots using one shared set of physical
   parameters and compare them with the six experimental Goldilocks plots; and
-- select and justify $K_p$ and $K_i$ by connecting theory, simulation, and
+- select and justify $K_p$ and $K_i$ by balancing rise time, settling time,
+  overshoot, and stability while connecting theory, simulation, and
   measurement.
 
 The six measured and six simulated Goldilocks plots are the principal way you
@@ -256,9 +257,155 @@ C_TC_m s^2+
 G(H+P_uK_p)=0.
 \]
 
-Depending on the parameters, the two eigenvalues can be real or a complex
-conjugate pair. Complex eigenvalues produce an underdamped transient even
-though the apparatus contains no mechanical momentum.
+Divide by $C_TC_m$ and compare with the standard second-order form
+
+\[
+s^2+2\zeta\omega_n s+\omega_n^2=0.
+\]
+
+The two-lump P-control natural frequency and damping ratio are
+
+\[
+\boxed{
+\omega_n=\sqrt{\frac{G(H+P_uK_p)}{C_TC_m}}
+},
+\]
+
+\[
+\boxed{
+\zeta_{\mathrm{2L,P}}
+=\frac{C_T(G+H)+C_mG}
+{2\sqrt{C_TC_mG(H+P_uK_p)}}
+}.
+\]
+
+This expression predicts the transition:
+
+- $\zeta_{\mathrm{2L,P}}>1$ gives an overdamped response;
+- $\zeta_{\mathrm{2L,P}}=1$ gives critical damping; and
+- $\zeta_{\mathrm{2L,P}}<1$ gives an underdamped response with overshoot or
+  ringing.
+
+For fixed physical parameters, increasing $K_p$ increases the denominator and
+therefore decreases $\zeta_{\mathrm{2L,P}}$. Sufficiently large P gain can move
+the two-lump model from overdamped to underdamped behavior. The critical gain
+is found by setting $\zeta_{\mathrm{2L,P}}=1$:
+
+\[
+\boxed{
+K_{p,\mathrm{crit}}
+=\frac{1}{P_u}
+\left[
+\frac{\left(C_T(G+H)+C_mG\right)^2}
+{4C_TC_mG}-H
+\right]
+}.
+\]
+
+The dependence on $G$ is not monotonic. Very large $G$ forces $T\approx T_m$
+and recovers one-lump behavior. Very small $G$ nearly disconnects the measured
+mass from the TEC, producing a very slow response. For fixed $C_T$, $C_m$, and
+$H$, the damping ratio is smallest at
+
+\[
+G=\frac{C_TH}{C_T+C_m}.
+\]
+
+Likewise, at fixed total capacitance $C=C_T+C_m$, putting almost all the
+capacitance in either lump suppresses the second-order behavior. The damping
+ratio is smallest when
+
+\[
+\frac{C_T}{C}=\frac{G}{H+2G},
+\]
+
+which is close to one-half when $G\gg H$. Thus a noticeable internal lag and
+two appreciable thermal stores promote ringing; neither phrase alone means
+that making $G$ arbitrarily small always creates more oscillation.
+
+Complex eigenvalues produce an underdamped transient even though the apparatus
+contains no mechanical momentum. Thermal storage in two locations and delayed
+transport between them supply the two dynamical states.
+
+#### Stability Of Two-Lump PI Control
+
+PI control adds the integral state
+
+\[
+q=\int e\,dt,\qquad \dot q=-\theta_m,
+\]
+
+and the command perturbation is
+
+\[
+u=-K_p\theta_m+K_iq.
+\]
+
+Substitution into the two-lump equations gives the characteristic equation
+
+\[
+\boxed{
+C_TC_m s^3+
+\left[C_T(G+H)+C_mG\right]s^2+
+G(H+P_uK_p)s+
+GP_uK_i=0.
+}
+\]
+
+This equation is third order, so the complete response does not have one
+second-order damping ratio $\zeta$. It commonly has one real eigenvalue and a
+complex-conjugate pair; that pair produces the observed ringing.
+
+Write the cubic as $a_3s^3+a_2s^2+a_1s+a_0=0$. All four coefficients above
+are positive. The Routh-Hurwitz stability condition therefore reduces to
+
+\[
+a_2a_1>a_3a_0.
+\]
+
+Solving the equality for the integral gain gives the stability boundary
+
+\[
+\boxed{
+K_{i,\mathrm{crit}}
+=\frac{\left[C_T(G+H)+C_mG\right](H+P_uK_p)}
+{C_TC_mP_u}.
+}
+\]
+
+A useful dimensionless measure of integral aggressiveness is
+
+\[
+\boxed{\rho_I=\frac{K_i}{K_{i,\mathrm{crit}}}.}
+\]
+
+As $\rho_I$ approaches 1 from below, the oscillatory pair becomes less damped.
+At $\rho_I=1$, the normalized polynomial factors as
+$(s+a)(s^2+b)$: one eigenvalue remains negative while the other two are purely
+imaginary. The linear model then predicts sustained oscillation. For
+$\rho_I>1$, it predicts growing oscillation and instability.
+
+These results give practical rules of thumb:
+
+| Change | Expected effect | Interpretation |
+| --- | --- | --- |
+| Increase $K_i$ | Increases $\rho_I$ and promotes oscillation | Integral action removes droop, but too much increases settling time or causes instability. |
+| Increase $K_p$ at fixed $K_i$ | Raises $K_{i,\mathrm{crit}}$ | P action can improve the PI stability margin, although excessive $K_p$ can already excite two-lump P overshoot. |
+| Decrease $G$ over the apparatus-relevant range | Increases internal lag and usually reduces PI stability margin | The integral continues accumulating while $T_m$ responds slowly. Extremely small or large $G$ requires direct evaluation rather than this slogan. |
+| Make both $C_T$ and $C_m$ appreciable | Strengthens two-state behavior | Concentrating nearly all capacitance in one lump moves the system toward one-lump behavior. |
+| Increase total $C$ without retuning gains | Slows the plant and generally makes the same $K_i$ more aggressive | More error can accumulate before the measured temperature responds. |
+| Increase $P_u$ | Makes each PWM unit more effective | The same numerical $K_p$ and $K_i$ produce stronger physical feedback. |
+| Saturate PWM with anti-windup off | Produces integral windup | The resulting overshoot is nonlinear controller memory, not solely the linear two-lump instability. |
+
+The objective is not the shortest rise time at any cost. A large gain may
+reach the setpoint quickly on the first crossing but then overshoot and take
+longer to settle. A useful tuning procedure is:
+
+1. choose $K_p$ for a fast P response without unacceptable overshoot;
+2. choose a slightly smaller $K_p$ when adding integral action;
+3. increase $K_i$ from zero until droop is removed on the desired timescale;
+4. stop increasing $K_i$ when extra oscillation makes the settling time worse;
+5. verify both heating and cooling steps without sustained saturation.
 
 At steady state, both temperature derivatives are zero, so
 
@@ -527,6 +674,99 @@ change increases or suppresses overshoot and ringing. Return to the measured
 physical parameters before continuing. These are exploratory comparisons, not
 additional Goldilocks plots.
 
+#### Predict And Observe The Two-Lump P Transition
+
+Before matching your apparatus, use the following common parameter set to make
+the overdamped-to-underdamped transition predictable. Select `two_lump`,
+`direct constants`, and `p`, then enter:
+
+| Parameter | Value |
+| --- | ---: |
+| $T_{\mathrm{amb}}$ | $22\ ^\circ\mathrm{C}$ |
+| $T_0$ | $22\ ^\circ\mathrm{C}$ |
+| $T_{\mathrm{set}}$ | $23\ ^\circ\mathrm{C}$ |
+| $C$ | $91\ \mathrm{J/K}$ |
+| $C_T/C$ | $0.35$ |
+| $G$ | $50\ \mathrm{W/K}$ |
+| $H$ | $1.14\ \mathrm{W/K}$ |
+| $P_{u,c}$ | $0.26\ \mathrm{W/PWM}$ |
+| $r=P_{u,h}/P_{u,c}$ | $2.0$ |
+| $K_i$ | $0$ |
+| PWM limit | $255$ |
+| $\Delta t$ | $0.05\ \mathrm{s}$ |
+
+The $1\ ^\circ\mathrm{C}$ setpoint step keeps the requested command below the
+PWM limit for all three gains, so saturation does not obscure the linear
+P-control prediction. Anti-windup has no effect because $K_i=0$.
+
+Use the boxed expression for $\zeta_{\mathrm{2L,P}}$ to verify these predictions
+before running the simulation:
+
+| $K_p$ (PWM/$^\circ$C) | Predicted $\zeta_{\mathrm{2L,P}}$ | Predicted behavior |
+| ---: | ---: | --- |
+| $60$ | $1.31$ | Overdamped |
+| $105$ | $1.00$ | Approximately critically damped |
+| $160$ | $0.81$ | Underdamped |
+
+Reset the simulation before each run and plot only the mass temperature. Check
+whether the response changes from monotonic, to nearly critically damped, to
+overshooting. Small numerical and graphical differences are expected because
+the displayed values are rounded.
+
+Now hold $K_p=105$ and vary one physical parameter at a time:
+
+1. Set $G$ to $35$, $50$, and $70\ \mathrm{W/K}$. The predicted damping ratios
+   are approximately $0.84$, $1.00$, and $1.18$, respectively. Verify the
+   transition from underdamped to overdamped over this range. This local trend
+   does not imply that $G\rightarrow0$ produces unlimited ringing.
+2. Restore $G=50\ \mathrm{W/K}$ and set $C_T/C$ to $0.20$, $0.35$, $0.50$,
+   and $0.80$. The corresponding damping ratios are approximately $1.19$,
+   $1.00$, $0.96$, and $1.21$. Verify that the response is least damped when
+   both thermal masses are appreciable and becomes more damped when the
+   capacitance is concentrated in either lump.
+
+These runs isolate intrinsic two-lump P dynamics. They are practice runs, not
+additional A3 plots. Return to your measured parameters before making the six
+Goldilocks plots.
+
+#### Predict And Observe Two-Lump PI Stability
+
+Continue with the common parameter set above, but set $G=2\ \mathrm{W/K}$,
+$K_p=18\ \mathrm{PWM}/^\circ\mathrm{C}$, and select PI control. Keep the
+$1\ ^\circ\mathrm{C}$ setpoint step and anti-windup on so actuator saturation
+does not obscure the linear prediction.
+
+For these values,
+
+\[
+K_{i,\mathrm{crit}}\approx
+2.34\ \mathrm{PWM}/(^\circ\mathrm{C\,s}).
+\]
+
+Calculate $\rho_I=K_i/K_{i,\mathrm{crit}}$ and then reset and run each case:
+
+| $K_i$ (PWM/($^\circ$C s)) | $\rho_I$ | Prediction |
+| ---: | ---: | --- |
+| $0.25$ | $0.11$ | Stable, relatively well damped |
+| $1.00$ | $0.43$ | Stable, more oscillatory |
+| $2.10$ | $0.90$ | Stable but weakly damped; long settling time |
+| $2.50$ | $1.07$ | Unstable in the linear model |
+
+For every run, record rise time, overshoot, settling time, and whether the
+oscillation decays or grows. Verify that increasing $K_i$ can shorten the
+initial correction while simultaneously making the final settling slower.
+
+Next hold $K_i=1.00$ and compare $G=0.5$, $1$, $2$, and
+$5\ \mathrm{W/K}$. Recalculate $K_{i,\mathrm{crit}}$ and $\rho_I$ each time.
+Predict the stable or unstable result before pressing **Resume**, then check
+the prediction. Finally, restore the common values and move $C_T/C$ toward
+either extreme. Observe that concentrating the capacitance in one lump
+suppresses the two-state oscillatory behavior.
+
+These are short parameter studies, not additional A3 plots. Their purpose is
+to teach how the physical parameters set the stability margin and how the
+controller gains trade rapid approach against overshoot and settling time.
+
 #### Make The Six Two-Lump Goldilocks Plots
 
 Select `two_lump`. Enter your measured $T_{\mathrm{amb}}$, $\chi_c$, $\chi_h$,
@@ -551,9 +791,19 @@ parameters for different gains.
    monotonic over every possible value.
 3. Restore the shared physical parameters. Select `pi`, hold $K_p$ at the
    value used for all three experimental PI runs, and simulate the low,
-   medium, and high $K_i$ values. Reset the integral before every run.
+   medium, and high $K_i$ values. Keep anti-windup on and reset the integral
+   before every run. This makes the retained comparison primarily about the
+   physical model and controller gains.
 4. Make and label the **six simulation Goldilocks plots** using the same
    organization, axes, and labels as the six experimental plots.
+
+After preserving the six plots, you may demonstrate windup separately: turn
+anti-windup off, reduce $G$, choose PI control, and apply a setpoint step large
+enough to saturate the PWM command. The measured temperature responds slowly,
+so the persistent error continues increasing the integral contribution even
+while the applied command is clamped. This extra overshoot is caused by stored
+controller error, not solely by the two-lump damping ratio. Turn anti-windup
+back on and press **Zero integral** before continuing.
 
 Record the one physical parameter set used for all six simulations:
 

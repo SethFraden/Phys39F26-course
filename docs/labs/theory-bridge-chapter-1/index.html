@@ -15,11 +15,7 @@
         <link href="../../css/solid.min.css" rel="stylesheet">
         <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../../stylesheets/course.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <link href="../../stylesheets/course.css" rel="stylesheet"> 
     </head>
 
     <body>
@@ -491,16 +487,18 @@ time scales, the response can be nonlinear or nonlocal. Fourier's law is the
 appropriate first model when those complications are unimportant.</p>
 <h3 id="unified-transport-equations">Unified Transport Equations<a class="headerlink" href="#unified-transport-equations" title="Permanent link">&para;</a></h3>
 <p>Fourier's law is one member of a broad family of phenomenological constitutive
-laws for linear transport. The logical sequence has three steps: a gradient of
-a driving field produces a flux; a local conservation or balance law states
-how flux divergence and sources produce accumulation; substituting the
-constitutive law into the balance produces the field equation.</p>
+laws for linear transport. The common mathematical structure is easiest to see
+for steady transport with no local sources. A gradient of a driving field
+produces a flux; conservation says that the flux has zero divergence; and
+substituting the constitutive law into the conservation law produces the field
+equation.</p>
+<h4 id="steady-source-free-transport">Steady, Source-Free Transport<a class="headerlink" href="#steady-source-free-transport" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
 <th>Phenomenon</th>
-<th>Driving field and flux law</th>
-<th>Local balance or source equation</th>
+<th>Constitutive flux law</th>
+<th>Steady, source-free conservation</th>
 <th>Field equation after substitution</th>
 </tr>
 </thead>
@@ -508,23 +506,107 @@ constitutive law into the balance produces the field equation.</p>
 <tr>
 <td>Heat conduction</td>
 <td><span class="arithmatex">\(\mathbf q=-k\nabla T\)</span></td>
-<td><span class="arithmatex">\(\rho c\,\partial T/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\)</span></td>
-<td><span class="arithmatex">\(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot\mathbf q=0\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot(k\nabla T)=0\)</span></td>
 </tr>
 <tr>
 <td>Molecular diffusion</td>
 <td><span class="arithmatex">\(\mathbf J_m=-D\nabla c\)</span></td>
-<td><span class="arithmatex">\(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\)</span></td>
-<td><span class="arithmatex">\(\partial c/\partial t=D\nabla^2c+s\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot\mathbf J_m=0\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot(D\nabla c)=0\)</span></td>
 </tr>
 <tr>
 <td>Electrical conduction</td>
 <td><span class="arithmatex">\(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\)</span></td>
-<td><span class="arithmatex">\(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\)</span>; at steady state, <span class="arithmatex">\(\nabla\!\cdot\mathbf J=0\)</span></td>
+<td><span class="arithmatex">\(\nabla\!\cdot\mathbf J=0\)</span></td>
 <td><span class="arithmatex">\(\nabla\!\cdot(\sigma\nabla\phi)=0\)</span></td>
 </tr>
 </tbody>
 </table>
+<p>For constant <span class="arithmatex">\(k\)</span>, <span class="arithmatex">\(D\)</span>, and <span class="arithmatex">\(\sigma\)</span>, respectively, these become</p>
+<div class="arithmatex">\[
+\nabla^2T=0,\qquad \nabla^2c=0,\qquad \nabla^2\phi=0.
+\]</div>
+<h4 id="transient-transport">Transient Transport<a class="headerlink" href="#transient-transport" title="Permanent link">&para;</a></h4>
+<p>For a transient problem, conservation relates the divergence of the flux to
+the rate of change of a <strong>stored quantity</strong>. Substitution gives</p>
+<table>
+<thead>
+<tr>
+<th>Phenomenon</th>
+<th>Stored quantity per unit volume</th>
+<th>Transient conservation law</th>
+<th>Result after substituting the flux law</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heat conduction</td>
+<td>Thermal energy density, with <span class="arithmatex">\(\partial u_{\mathrm{th}}/\partial T=\rho c\)</span></td>
+<td><span class="arithmatex">\(\partial u_{\mathrm{th}}/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\)</span></td>
+<td><span class="arithmatex">\(\rho c\,\partial T/\partial t=\nabla\!\cdot(k\nabla T)+\dot q_v\)</span></td>
+</tr>
+<tr>
+<td>Molecular diffusion</td>
+<td>Molecular concentration <span class="arithmatex">\(c\)</span></td>
+<td><span class="arithmatex">\(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\)</span></td>
+<td><span class="arithmatex">\(\partial c/\partial t=\nabla\!\cdot(D\nabla c)+s\)</span></td>
+</tr>
+<tr>
+<td>Electrical conduction</td>
+<td>Charge density <span class="arithmatex">\(\rho_e\)</span></td>
+<td><span class="arithmatex">\(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\)</span></td>
+<td><span class="arithmatex">\(\partial\rho_e/\partial t=\nabla\!\cdot(\sigma\nabla\phi)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="arithmatex">\(u_{\mathrm{th}}\)</span> is the thermal energy stored per unit volume. For
+constant density <span class="arithmatex">\(\rho\)</span> and specific heat <span class="arithmatex">\(c\)</span>, raising the temperature by
+<span class="arithmatex">\(dT\)</span> changes that stored energy density by</p>
+<div class="arithmatex">\[
+du_{\mathrm{th}}=\rho c\,dT.
+\]</div>
+<p>The chain rule therefore gives the accumulation term in the heat equation:</p>
+<div class="arithmatex">\[
+\frac{\partial u_{\mathrm{th}}}{\partial t}
+=\frac{\partial u_{\mathrm{th}}}{\partial T}
+ \frac{\partial T}{\partial t}
+=\rho c\frac{\partial T}{\partial t}.
+\]</div>
+<p>The units provide a useful check: <span class="arithmatex">\(\rho c\)</span> has units of
+J/(m<span class="arithmatex">\(^3\)</span> K), so multiplying it by <span class="arithmatex">\(\partial T/\partial t\)</span> gives
+W/m<span class="arithmatex">\(^3\)</span>, the rate of thermal-energy accumulation per unit volume.</p>
+<p>The first two rows produce closed diffusion equations for the driving fields.
+Local thermal energy storage is related directly to temperature through the
+volumetric heat capacity <span class="arithmatex">\(\rho c\)</span>, while the stored molecular quantity is
+the concentration <span class="arithmatex">\(c\)</span> itself. Consequently, conservation plus the
+constitutive flux law gives an equation containing only <span class="arithmatex">\(T\)</span>, or only <span class="arithmatex">\(c\)</span>.</p>
+<p>Electrical conduction is different. Electrical current is driven by the
+potential gradient, but the conserved stored quantity is charge density
+<span class="arithmatex">\(\rho_e\)</span>, not potential <span class="arithmatex">\(\phi\)</span>. The last entry in the table therefore
+contains both <span class="arithmatex">\(\rho_e\)</span> and <span class="arithmatex">\(\phi\)</span>; charge conservation and Ohm's law alone
+do <strong>not</strong> make a closed diffusion equation for electrical potential. Gauss's
+law and the permittivity relate charge density to the electric field, while
+the geometry and boundary conditions determine capacitance and the potential.</p>
+<p>For example, in a uniform conductor with constant conductivity <span class="arithmatex">\(\sigma\)</span> and
+permittivity <span class="arithmatex">\(\epsilon\)</span>, Gauss's law gives
+<span class="arithmatex">\(\nabla\!\cdot\mathbf E=\rho_e/\epsilon\)</span>. Combining this with
+<span class="arithmatex">\(\mathbf J=\sigma\mathbf E\)</span> and charge conservation gives</p>
+<div class="arithmatex">\[
+\frac{\partial\rho_e}{\partial t}
+=-\frac{\sigma}{\epsilon}\rho_e,
+\qquad
+\rho_e(t)=\rho_e(0)e^{-t/\tau_e},
+\qquad
+\tau_e=\frac{\epsilon}{\sigma}.
+\]</div>
+<p>This is <strong>charge relaxation</strong>, not spatial diffusion of <span class="arithmatex">\(\phi\)</span>. Excess
+charge in the bulk relaxes toward surfaces, and the potential at each instant
+is determined by the corresponding electrostatic boundary-value problem. The
+familiar transient voltage in an <span class="arithmatex">\(RC\)</span> circuit comes from charge stored on
+capacitors and therefore depends on geometry as well as material properties.
+This is why electrical potential is most directly analogous to temperature
+and concentration in the <strong>steady</strong> table.</p>
 <p>Here <span class="arithmatex">\(\mathbf q\)</span> is heat flux in W/m<span class="arithmatex">\(^2\)</span>, <span class="arithmatex">\(\mathbf J_m\)</span> is molecular
 flux, <span class="arithmatex">\(\mathbf J\)</span> is electrical current density in A/m<span class="arithmatex">\(^2\)</span>, and <span class="arithmatex">\(c\)</span> in
 the molecular-diffusion row is concentration. The <span class="arithmatex">\(c\)</span> in <span class="arithmatex">\(\rho c\)</span> is
@@ -678,7 +760,11 @@ internal heat generation.</p>
 \alpha=\frac{k}{\rho c_p}.
 \]</div>
 <p>The parameter <span class="arithmatex">\(\alpha\)</span> is the thermal diffusivity. It tells how quickly a
-temperature disturbance spreads through the material.</p>
+temperature disturbance spreads through the material. Its dimensions are
+<span class="arithmatex">\(\mathrm{m^2/s}\)</span>, the same as the diffusion coefficient <span class="arithmatex">\(D\)</span> for Brownian
+particles. The mathematical analogy is direct: <span class="arithmatex">\(\alpha\)</span> governs the spreading
+of a temperature field, while <span class="arithmatex">\(D\)</span> governs the spreading of particle
+concentration or probability.</p>
 <p>For a long, thin rod whose temperature varies mostly along its length, this
 becomes the one-dimensional heat equation:</p>
 <div class="arithmatex">\[

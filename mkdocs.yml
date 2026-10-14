@@ -9,7 +9,8 @@ theme:
   name: mkdocs
   locale: en
   navigation_depth: 3
-  highlightjs: true
+  # Avoid a parser-blocking CDN request that can prevent local MathJax from loading.
+  highlightjs: false
 
 nav:
   - Home: index.md

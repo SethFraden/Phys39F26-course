@@ -302,16 +302,93 @@ appropriate first model when those complications are unimportant.
 ### Unified Transport Equations
 
 Fourier's law is one member of a broad family of phenomenological constitutive
-laws for linear transport. The logical sequence has three steps: a gradient of
-a driving field produces a flux; a local conservation or balance law states
-how flux divergence and sources produce accumulation; substituting the
-constitutive law into the balance produces the field equation.
+laws for linear transport. The common mathematical structure is easiest to see
+for steady transport with no local sources. A gradient of a driving field
+produces a flux; conservation says that the flux has zero divergence; and
+substituting the constitutive law into the conservation law produces the field
+equation.
 
-| Phenomenon | Driving field and flux law | Local balance or source equation | Field equation after substitution |
+#### Steady, Source-Free Transport
+
+| Phenomenon | Constitutive flux law | Steady, source-free conservation | Field equation after substitution |
 | --- | --- | --- | --- |
-| Heat conduction | \(\mathbf q=-k\nabla T\) | \(\rho c\,\partial T/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\) | \(\rho c\,\partial T/\partial t=k\nabla^2T+\dot q_v\) |
-| Molecular diffusion | \(\mathbf J_m=-D\nabla c\) | \(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\) | \(\partial c/\partial t=D\nabla^2c+s\) |
-| Electrical conduction | \(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\) | \(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\); at steady state, \(\nabla\!\cdot\mathbf J=0\) | \(\nabla\!\cdot(\sigma\nabla\phi)=0\) |
+| Heat conduction | \(\mathbf q=-k\nabla T\) | \(\nabla\!\cdot\mathbf q=0\) | \(\nabla\!\cdot(k\nabla T)=0\) |
+| Molecular diffusion | \(\mathbf J_m=-D\nabla c\) | \(\nabla\!\cdot\mathbf J_m=0\) | \(\nabla\!\cdot(D\nabla c)=0\) |
+| Electrical conduction | \(\mathbf J=\sigma\mathbf E=-\sigma\nabla\phi\) | \(\nabla\!\cdot\mathbf J=0\) | \(\nabla\!\cdot(\sigma\nabla\phi)=0\) |
+
+For constant \(k\), \(D\), and \(\sigma\), respectively, these become
+
+\[
+\nabla^2T=0,\qquad \nabla^2c=0,\qquad \nabla^2\phi=0.
+\]
+
+#### Transient Transport
+
+For a transient problem, conservation relates the divergence of the flux to
+the rate of change of a **stored quantity**. Substitution gives
+
+| Phenomenon | Stored quantity per unit volume | Transient conservation law | Result after substituting the flux law |
+| --- | --- | --- | --- |
+| Heat conduction | Thermal energy density, with \(\partial u_{\mathrm{th}}/\partial T=\rho c\) | \(\partial u_{\mathrm{th}}/\partial t=-\nabla\!\cdot\mathbf q+\dot q_v\) | \(\rho c\,\partial T/\partial t=\nabla\!\cdot(k\nabla T)+\dot q_v\) |
+| Molecular diffusion | Molecular concentration \(c\) | \(\partial c/\partial t=-\nabla\!\cdot\mathbf J_m+s\) | \(\partial c/\partial t=\nabla\!\cdot(D\nabla c)+s\) |
+| Electrical conduction | Charge density \(\rho_e\) | \(\partial\rho_e/\partial t=-\nabla\!\cdot\mathbf J\) | \(\partial\rho_e/\partial t=\nabla\!\cdot(\sigma\nabla\phi)\) |
+
+Here \(u_{\mathrm{th}}\) is the thermal energy stored per unit volume. For
+constant density \(\rho\) and specific heat \(c\), raising the temperature by
+\(dT\) changes that stored energy density by
+
+\[
+du_{\mathrm{th}}=\rho c\,dT.
+\]
+
+The chain rule therefore gives the accumulation term in the heat equation:
+
+\[
+\frac{\partial u_{\mathrm{th}}}{\partial t}
+=\frac{\partial u_{\mathrm{th}}}{\partial T}
+ \frac{\partial T}{\partial t}
+=\rho c\frac{\partial T}{\partial t}.
+\]
+
+The units provide a useful check: \(\rho c\) has units of
+J/(m\(^3\) K), so multiplying it by \(\partial T/\partial t\) gives
+W/m\(^3\), the rate of thermal-energy accumulation per unit volume.
+
+The first two rows produce closed diffusion equations for the driving fields.
+Local thermal energy storage is related directly to temperature through the
+volumetric heat capacity \(\rho c\), while the stored molecular quantity is
+the concentration \(c\) itself. Consequently, conservation plus the
+constitutive flux law gives an equation containing only \(T\), or only \(c\).
+
+Electrical conduction is different. Electrical current is driven by the
+potential gradient, but the conserved stored quantity is charge density
+\(\rho_e\), not potential \(\phi\). The last entry in the table therefore
+contains both \(\rho_e\) and \(\phi\); charge conservation and Ohm's law alone
+do **not** make a closed diffusion equation for electrical potential. Gauss's
+law and the permittivity relate charge density to the electric field, while
+the geometry and boundary conditions determine capacitance and the potential.
+
+For example, in a uniform conductor with constant conductivity \(\sigma\) and
+permittivity \(\epsilon\), Gauss's law gives
+\(\nabla\!\cdot\mathbf E=\rho_e/\epsilon\). Combining this with
+\(\mathbf J=\sigma\mathbf E\) and charge conservation gives
+
+\[
+\frac{\partial\rho_e}{\partial t}
+=-\frac{\sigma}{\epsilon}\rho_e,
+\qquad
+\rho_e(t)=\rho_e(0)e^{-t/\tau_e},
+\qquad
+\tau_e=\frac{\epsilon}{\sigma}.
+\]
+
+This is **charge relaxation**, not spatial diffusion of \(\phi\). Excess
+charge in the bulk relaxes toward surfaces, and the potential at each instant
+is determined by the corresponding electrostatic boundary-value problem. The
+familiar transient voltage in an \(RC\) circuit comes from charge stored on
+capacitors and therefore depends on geometry as well as material properties.
+This is why electrical potential is most directly analogous to temperature
+and concentration in the **steady** table.
 
 Here \(\mathbf q\) is heat flux in W/m\(^2\), \(\mathbf J_m\) is molecular
 flux, \(\mathbf J\) is electrical current density in A/m\(^2\), and \(c\) in

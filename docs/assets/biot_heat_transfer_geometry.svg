@@ -1,56 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
-  <title id="title">Internal conduction and surface convection from a cylindrical solid</title>
-  <desc id="desc">A cylindrical solid conducts heat from its interior to its surface over the characteristic length L c. Heat then leaves the surface by convection to surroundings at temperature T infinity.</desc>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1200 520">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
   <defs>
-    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#2867a8"/>
-    </marker>
-    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#b33b32"/>
-    </marker>
     <style>
-      .heading { font: 700 28px Arial, sans-serif; fill: #17233c; }
-      .label { font: 22px Arial, sans-serif; fill: #17233c; }
-      .small { font: 19px Arial, sans-serif; fill: #465469; }
-      .math { font: italic 23px Georgia, serif; fill: #17233c; }
-      .sub { font: italic 16px Georgia, serif; fill: #17233c; }
+      .st0, .st1, .st2, .st3, .st4 {
+        fill: none;
+      }
+
+      .st5 {
+        fill: #ff4f00;
+      }
+
+      .st6 {
+        font-size: 22px;
+      }
+
+      .st6, .st7, .st8, .st9, .st10, .st11 {
+        isolation: isolate;
+      }
+
+      .st6, .st7, .st11 {
+        font-family: ArialMT, Arial;
+      }
+
+      .st6, .st8, .st12, .st10, .st13, .st11 {
+        fill: #17233c;
+      }
+
+      .st1 {
+        stroke: #004fff;
+        stroke-width: 8px;
+      }
+
+      .st14 {
+        fill: #2867a8;
+      }
+
+      .st15 {
+        fill: #004fff;
+      }
+
+      .st7 {
+        fill: #465469;
+        font-size: 19px;
+      }
+
+      .st8 {
+        font-size: 16px;
+      }
+
+      .st8, .st10, .st13 {
+        font-family: Georgia-Italic, Georgia;
+        font-style: italic;
+      }
+
+      .st2 {
+        stroke: #465469;
+      }
+
+      .st2, .st16, .st17 {
+        stroke-width: 2px;
+      }
+
+      .st16 {
+        fill: #fff1ee;
+        stroke: #d89289;
+      }
+
+      .st3 {
+        stroke: #ff4f00;
+        stroke-width: 7px;
+      }
+
+      .st18 {
+        fill: #fff;
+      }
+
+      .st19 {
+        fill: #b33b32;
+      }
+
+      .st17 {
+        fill: #eef5fc;
+        stroke: #8ab3dc;
+      }
+
+      .st10, .st13 {
+        font-size: 23px;
+      }
+
+      .st4 {
+        stroke: #9db7ce;
+        stroke-width: 4px;
+      }
+
+      .st11 {
+        font-size: 36px;
+      }
+
+      .st20 {
+        fill: #dbeafe;
+        stroke: #2867a8;
+        stroke-width: 5px;
+      }
     </style>
   </defs>
-
-  <rect width="1200" height="520" fill="#ffffff"/>
-  <text x="600" y="45" text-anchor="middle" class="heading">Two successive heat-transfer steps</text>
-
-  <!-- Cylindrical solid viewed in cross section. -->
-  <circle cx="300" cy="265" r="170" fill="#dbeafe" stroke="#2867a8" stroke-width="5"/>
-  <circle cx="300" cy="265" r="12" fill="#b33b32"/>
-  <text x="300" y="245" text-anchor="middle" class="math">T<tspan baseline-shift="sub" class="sub">interior</tspan></text>
-  <text x="300" y="300" text-anchor="middle" class="small">solid, conductivity <tspan class="math">k</tspan></text>
-
-  <!-- Representative internal conduction distance. -->
-  <line x1="325" y1="265" x2="452" y2="265" stroke="#2867a8" stroke-width="7" marker-end="url(#arrow-blue)"/>
-  <line x1="325" y1="330" x2="465" y2="330" stroke="#465469" stroke-width="2"/>
-  <line x1="325" y1="320" x2="325" y2="340" stroke="#465469" stroke-width="2"/>
-  <line x1="465" y1="320" x2="465" y2="340" stroke="#465469" stroke-width="2"/>
-  <text x="395" y="365" text-anchor="middle" class="math">L<tspan baseline-shift="sub" class="sub">c</tspan> = V/A<tspan baseline-shift="sub" class="sub">s</tspan></text>
-  <text x="395" y="398" text-anchor="middle" class="small">representative conduction distance</text>
-
-  <!-- Surface and convection. -->
-  <circle cx="470" cy="265" r="9" fill="#17233c"/>
-  <text x="470" y="225" text-anchor="middle" class="math">T<tspan baseline-shift="sub" class="sub">s</tspan></text>
-
-  <line x1="490" y1="265" x2="825" y2="265" stroke="#b33b32" stroke-width="7" marker-end="url(#arrow-red)"/>
-  <path d="M760 150 C820 130, 880 170, 940 150" fill="none" stroke="#9db7ce" stroke-width="4"/>
-  <path d="M760 195 C825 175, 900 215, 980 190" fill="none" stroke="#9db7ce" stroke-width="4"/>
-  <path d="M760 335 C825 315, 900 355, 980 330" fill="none" stroke="#9db7ce" stroke-width="4"/>
-  <path d="M760 380 C820 360, 880 400, 940 380" fill="none" stroke="#9db7ce" stroke-width="4"/>
-  <text x="900" y="245" text-anchor="middle" class="label">surroundings</text>
-  <text x="900" y="285" text-anchor="middle" class="math">T<tspan baseline-shift="sub" class="sub">∞</tspan></text>
-  <text x="650" y="225" text-anchor="middle" class="small">surface convection, coefficient <tspan class="math">h</tspan></text>
-
-  <!-- Governing relations. -->
-  <rect x="70" y="455" width="475" height="48" rx="6" fill="#eef5fc" stroke="#8ab3dc" stroke-width="2"/>
-  <text x="308" y="487" text-anchor="middle" class="math">q<tspan baseline-shift="sub" class="sub">cond</tspan> ~ k(T<tspan baseline-shift="sub" class="sub">interior</tspan> - T<tspan baseline-shift="sub" class="sub">s</tspan>)/L<tspan baseline-shift="sub" class="sub">c</tspan></text>
-  <rect x="575" y="455" width="555" height="48" rx="6" fill="#fff1ee" stroke="#d89289" stroke-width="2"/>
-  <text x="852" y="487" text-anchor="middle" class="math">q<tspan baseline-shift="sub" class="sub">conv</tspan> = h(T<tspan baseline-shift="sub" class="sub">s</tspan> - T<tspan baseline-shift="sub" class="sub">∞</tspan>)</text>
+  <rect class="st18" width="1200" height="520"/>
+  <text class="st11" transform="translate(389.58 64.32)"><tspan x="0" y="0">Two successive heat-transfer steps</tspan></text>
+  <circle class="st20" cx="300" cy="265" r="170"/>
+  <circle class="st19" cx="300" cy="265" r="12"/>
+  <g class="st9">
+    <text class="st10" transform="translate(265.18 245)"><tspan x="0" y="0">T</tspan></text>
+    <text class="st8" transform="translate(279.41 249.6)"><tspan x="0" y="0">interior</tspan></text>
+  </g>
+  <g class="st9">
+    <text class="st7" transform="translate(216.84 300)"><tspan x="0" y="0">solid, conductivity </tspan></text>
+    <text class="st10" transform="translate(371.02 300)"><tspan x="0" y="0">k</tspan></text>
+  </g>
+  <path class="st0" d=""/>
+  <path class="st14" d="M452,265" marker-end="url(#arrow-blue)"/>
+  <line class="st2" x1="302" y1="330" x2="449" y2="330"/>
+  <line class="st2" x1="302" y1="320" x2="302" y2="340"/>
+  <line class="st2" x1="449" y1="320" x2="449" y2="340"/>
+  <g class="st9">
+    <text class="st10" transform="translate(323.27 365)"><tspan x="0" y="0">L</tspan></text>
+    <text class="st8" transform="translate(337.15 369.6)"><tspan x="0" y="0">c</tspan></text>
+    <text class="st13" transform="translate(344.41 365)"><tspan x="0" y="0" xml:space="preserve"> = V/A</tspan></text>
+    <text class="st8" transform="translate(411.83 369.6)"><tspan x="0" y="0">s</tspan></text>
+  </g>
+  <text class="st7" transform="translate(217.43 369.6)"><tspan x="0" y="0" xml:space="preserve"> conduction </tspan><tspan x="0" y="22.8" xml:space="preserve">  distance</tspan></text>
+  <circle class="st12" cx="470" cy="265" r="9"/>
+  <g class="st9">
+    <text class="st10" transform="translate(469.44 225)"><tspan x="0" y="0">T</tspan></text>
+    <text class="st8" transform="translate(483.67 229.6)"><tspan x="0" y="0">s</tspan></text>
+  </g>
+  <path class="st0" d=""/>
+  <path class="st19" d="M825,265" marker-end="url(#arrow-red)"/>
+  <path class="st4" d="M760,150c60-20,120,20,180,0"/>
+  <path class="st4" d="M760,195c65-20,140,20,220-5"/>
+  <path class="st4" d="M760,335c65-20,140,20,220-5"/>
+  <path class="st4" d="M760,380c60-20,120,20,180,0"/>
+  <text class="st6" transform="translate(836.41 245)"><tspan x="0" y="0">surroundings</tspan></text>
+  <g class="st9">
+    <text class="st10" transform="translate(887.15 285)"><tspan x="0" y="0">T</tspan></text>
+    <text class="st8" transform="translate(901.38 289.6)"><tspan x="0" y="0">∞</tspan></text>
+  </g>
+  <g class="st9">
+    <text class="st7" transform="translate(513.8 225)"><tspan x="0" y="0">surface convection, coefficient </tspan></text>
+    <text class="st10" transform="translate(773.26 225)"><tspan x="0" y="0">h</tspan></text>
+  </g>
+  <rect class="st17" x="154.91" y="455" width="324.09" height="48" rx="6" ry="6"/>
+  <g class="st9">
+    <text class="st10" transform="translate(185.54 487)"><tspan x="0" y="0">q</tspan></text>
+    <text class="st8" transform="translate(198.31 491.6)"><tspan x="0" y="0">cond</tspan></text>
+    <text class="st13" transform="translate(232.8 487)"><tspan x="0" y="0" xml:space="preserve"> ~ k(T</tspan></text>
+    <text class="st8" transform="translate(293.68 491.6)"><tspan x="0" y="0">interior</tspan></text>
+    <text class="st13" transform="translate(349.09 487)"><tspan x="0" y="0" xml:space="preserve"> - T</tspan></text>
+    <text class="st8" transform="translate(383.02 491.6)"><tspan x="0" y="0">s</tspan></text>
+    <text class="st13" transform="translate(389.92 487)"><tspan x="0" y="0">)/L</tspan></text>
+    <text class="st8" transform="translate(423.21 491.6)"><tspan x="0" y="0">c</tspan></text>
+  </g>
+  <rect class="st16" x="720.86" y="455" width="246.88" height="48" rx="6" ry="6"/>
+  <g>
+    <text class="st10" transform="translate(767.37 487)"><tspan x="0" y="0">q</tspan></text>
+    <text class="st8" transform="translate(780.14 491.6)"><tspan x="0" y="0">conv</tspan></text>
+    <text class="st13" transform="translate(814.04 487)"><tspan x="0" y="0" xml:space="preserve"> = h(T</tspan></text>
+    <text class="st8" transform="translate(875.71 491.6)"><tspan x="0" y="0">s</tspan></text>
+    <text class="st13" transform="translate(882.61 487)"><tspan x="0" y="0" xml:space="preserve"> - T</tspan></text>
+    <text class="st8" transform="translate(916.54 491.6)"><tspan x="0" y="0">∞</tspan></text>
+    <text class="st13" transform="translate(928.01 487)"><tspan x="0" y="0">)</tspan></text>
+  </g>
+  <g>
+    <line class="st1" x1="300" y1="265" x2="425.78" y2="265"/>
+    <path class="st15" d="M418.03,265l-9.47-15.57.53-.35,25.38,10.08c8.84,1.94,17.68,3.89,26.53,5.84-8.84,1.94-17.68,3.89-26.53,5.84l-25.38,10.08-.53-.27,9.47-15.65Z"/>
+  </g>
+  <g>
+    <line class="st3" x1="485.79" y1="265" x2="706.85" y2="265"/>
+    <path class="st5" d="M700.19,265l-8.13-13.37.46-.3,21.8,8.66c7.59,1.67,15.19,3.34,22.78,5.01-7.59,1.67-15.19,3.34-22.78,5.01l-21.8,8.66-.46-.23,8.13-13.44Z"/>
+  </g>
 </svg>

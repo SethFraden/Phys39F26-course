@@ -462,8 +462,8 @@ the useful inverse relations:</p>
 \]</div>
 <p>Amplitude attenuation and phase delay provide two independent measurements,
 allowing us to separate thermal diffusivity from lateral heat loss. Thermal
-conductivity follows from <span class="arithmatex">\(k=\rho c_p\kappa\)</span>, where <span class="arithmatex">\(\rho\)</span> is density in
-<span class="arithmatex">\(\mathrm{kg/m^3}\)</span> and <span class="arithmatex">\(c_p\)</span> is specific heat capacity in <span class="arithmatex">\(\mathrm{J/(kg\,K)}\)</span>;
+conductivity follows from <span class="arithmatex">\(k=\rho c\kappa\)</span>, where <span class="arithmatex">\(\rho\)</span> is density in
+<span class="arithmatex">\(\mathrm{kg/m^3}\)</span> and <span class="arithmatex">\(c\)</span> is specific heat capacity in <span class="arithmatex">\(\mathrm{J/(kg\,K)}\)</span>;
 thus <span class="arithmatex">\(k\)</span> has units <span class="arithmatex">\(\mathrm{W/(m\,K)}\)</span>.</p>
 <p>As a check, with no lateral loss, <span class="arithmatex">\(\nu=0\)</span>, so</p>
 <div class="arithmatex">\[
@@ -480,7 +480,7 @@ Module 7 and complete the radial-model study below. State which sensors and
 conditions satisfy your chosen approximation tolerances.</p>
 <h2 id="part-0-guided-radial-model-study">Part 0: Guided Radial-Model Study<a class="headerlink" href="#part-0-guided-radial-model-study" title="Permanent link">&para;</a></h2>
 <p>The one-dimensional rod equation assumes
-<span class="arithmatex">\(\mathrm{Bi}_{\perp}=HR/(2k)\ll1\)</span>. Retaining radial variation gives the
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}=hR/(2k)\ll1\)</span>. Retaining radial variation gives the
 axisymmetric equation</p>
 <div class="arithmatex">\[
 \frac{\partial T}{\partial t}
@@ -493,7 +493,7 @@ axisymmetric equation</p>
 <p>with cylindrical-surface boundary condition</p>
 <div class="arithmatex">\[
 -k\left.\frac{\partial T}{\partial r}\right|_{r=R}
-=H\left[T(R,x,t)-T_\infty\right].
+=h\left[T(R,x,t)-T_\infty\right].
 \]</div>
 <p>Use the supplied numerical scaffold; you are not expected to write a
 two-dimensional PDE solver from scratch. Run otherwise identical cases with
@@ -504,7 +504,7 @@ two-dimensional PDE solver from scratch. Run otherwise identical cases with
 <li>quantify surface-versus-mean amplitude and phase differences at a sensor
    location, and</li>
 <li>explain how a surface thermistor analyzed with a one-dimensional model could
-   bias inferred <span class="arithmatex">\(k\)</span> or <span class="arithmatex">\(H\)</span>.</li>
+   bias inferred <span class="arithmatex">\(k\)</span> or <span class="arithmatex">\(h\)</span>.</li>
 </ol>
 <p>This numerical study begins in S18. Finish it before using the
 one-dimensional periodic solution for the production Angstrom analysis.</p>

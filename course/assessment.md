@@ -367,7 +367,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 
 | Criterion | Points |
 | --- | ---: |
-| Angstrom analysis reports `q`, `q_prime`, `kappa`, aluminum `k`, `nu`, and side-loss `H` with dimensional equations | 4 |
+| Angstrom analysis reports `q`, `q_prime`, `kappa`, aluminum `k`, `nu`, and side-loss `h` with dimensional equations | 4 |
 | Uncertainties, residuals, accepted-value comparison, and finite-length, finite-radius, and frequency/model checks are present | 2 |
 | A fresh run from the documented repository reproduces the principal values and figures | 1 |
 | Individual explains how amplitude decay and phase lag separate conductivity from side loss | 2 |
@@ -384,10 +384,10 @@ of `F1`.
 3. Derive or explain `kappa = omega/(2*q*q_prime)` and
    `nu = kappa*(q^2 - q_prime^2)`, including units.
 4. How are `kappa` and `nu` converted into aluminum conductivity `k` and
-   side heat-transfer coefficient `H`?
+   side heat-transfer coefficient `h`?
 5. Point to one residual plot or frequency-consistency check. What model failure
    would it reveal?
-6. Which systematic uncertainty most limits your reported `k` or `H`, and why?
+6. Which systematic uncertainty most limits your reported `k` or `h`, and why?
 7. How did you quantify the error caused by treating the finite rod as
    semi-infinite? Why can the answer depend on sensor position?
 8. Define the transverse Biot number for the circular rod. What physical
@@ -421,7 +421,7 @@ The individual `F1` oral defense uses the announced questions in the
 | Criterion | Points |
 | --- | ---: |
 | Team clearly explains the instrument, control system, rod experiment, and analysis chain | 3 |
-| Results for aluminum `k` and side-loss `H` include units, uncertainty, evidence, and limitations | 2 |
+| Results for aluminum `k` and side-loss `h` include units, uncertainty, evidence, and limitations | 2 |
 | Figures are readable and the repository can reproduce the principal results | 1 |
 | Individual accurately answers questions about hardware, software, control, and thermal physics | 3 |
 | Presentation is complete and delivered on the scheduled final meeting | 1 |
@@ -437,4 +437,4 @@ The individual `F1` oral defense uses the announced questions in the
 | P-only feedback control | G8, G9, G14 | Droop and instability evidence, controller implementation, oral explanation |
 | P/PI control and process modeling | G3, G8-G10, G13, G14 | Physical P/PI implementation and gain tuning, lumped-model derivations and simulation, A3 and P2 |
 | Thermal transport theory and rod instrument | G2-G4, G7, G11, G13-G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, C5 |
-| Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity `k`, side-loss `H`, C6, presentation |
+| Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity `k`, side-loss `h`, C6, presentation |

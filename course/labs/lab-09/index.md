@@ -221,8 +221,8 @@ the useful inverse relations:
 
 Amplitude attenuation and phase delay provide two independent measurements,
 allowing us to separate thermal diffusivity from lateral heat loss. Thermal
-conductivity follows from $k=\rho c_p\kappa$, where $\rho$ is density in
-$\mathrm{kg/m^3}$ and $c_p$ is specific heat capacity in $\mathrm{J/(kg\,K)}$;
+conductivity follows from $k=\rho c\kappa$, where $\rho$ is density in
+$\mathrm{kg/m^3}$ and $c$ is specific heat capacity in $\mathrm{J/(kg\,K)}$;
 thus $k$ has units $\mathrm{W/(m\,K)}$.
 
 As a check, with no lateral loss, $\nu=0$, so
@@ -245,7 +245,7 @@ conditions satisfy your chosen approximation tolerances.
 ## Part 0: Guided Radial-Model Study
 
 The one-dimensional rod equation assumes
-\(\mathrm{Bi}_{\perp}=HR/(2k)\ll1\). Retaining radial variation gives the
+\(\mathrm{Bi}_{\perp}=hR/(2k)\ll1\). Retaining radial variation gives the
 axisymmetric equation
 
 \[
@@ -261,7 +261,7 @@ with cylindrical-surface boundary condition
 
 \[
 -k\left.\frac{\partial T}{\partial r}\right|_{r=R}
-=H\left[T(R,x,t)-T_\infty\right].
+=h\left[T(R,x,t)-T_\infty\right].
 \]
 
 Use the supplied numerical scaffold; you are not expected to write a
@@ -273,7 +273,7 @@ two-dimensional PDE solver from scratch. Run otherwise identical cases with
 3. quantify surface-versus-mean amplitude and phase differences at a sensor
    location, and
 4. explain how a surface thermistor analyzed with a one-dimensional model could
-   bias inferred \(k\) or \(H\).
+   bias inferred \(k\) or \(h\).
 
 This numerical study begins in S18. Finish it before using the
 one-dimensional periodic solution for the production Angstrom analysis.

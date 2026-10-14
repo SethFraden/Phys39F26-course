@@ -10,7 +10,7 @@ The final task is not merely to make a good-looking rod-temperature plot. You
 will use the Angstrom measurements to determine two physical properties:
 
 - the thermal conductivity `k` of the aluminum rod, and
-- the side heat-transfer coefficient `H` between the rod and its surroundings.
+- the side heat-transfer coefficient `h` between the rod and its surroundings.
 
 You will then test whether the heat equation with those parameters reproduces
 the measured temperature field.
@@ -19,7 +19,7 @@ the measured temperature field.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `H`; update the earlier finite-length and finite-radius checks using measured parameters | Parameter and model-validity check |
+| S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `h`; update the earlier finite-length and finite-radius checks using measured parameters | Parameter and model-validity check |
 | S24, Mon. Nov. 23 | Propagate uncertainty, compare stationary and periodic estimates, and assemble the final analysis | Formative draft-results check |
 | S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 final analysis package** |
 | S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
@@ -29,7 +29,7 @@ the measured temperature field.
 | Session | Work | Planned time |
 | --- | --- | ---: |
 | S23 | Read this assignment and organize the final parameter table | 45 minutes |
-| S23 | Calculate `k` and `H` and update the model-validity checks | 150 minutes |
+| S23 | Calculate `k` and `h` and update the model-validity checks | 150 minutes |
 | S23 | Document, commit, and push the parameter checkpoint | 30 minutes |
 | S23 | **Total associated with S23** | **3 hours 45 minutes** |
 | S24 | Propagate uncertainty, compare accepted values, and prepare the draft-results check | 150 minutes |
@@ -79,10 +79,10 @@ k=\kappa\rho c.
 For rod cross-sectional area `A` and perimeter `P`, calculate
 
 \[
-H=\frac{\nu\rho c A}{P}.
+h=\frac{\nu\rho c A}{P}.
 \]
 
-Report `k` in watts per meter-kelvin and `H` in watts per square
+Report `k` in watts per meter-kelvin and `h` in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.
 
 ## Part 1: Parameter Table And Uncertainty
@@ -96,7 +96,7 @@ uncertainty, and source. It must include at least:
 - `q` and `q_prime`,
 - `kappa` and `nu`,
 - `rho` and `c`,
-- final `k` and `H`.
+- final `k` and `h`.
 
 Use analytic propagation, bootstrap/resampling, Monte Carlo propagation, or an
 approved equivalent. Include position uncertainty because phase and amplitude
@@ -106,7 +106,7 @@ slopes depend directly on sensor coordinates.
 
 1. Compare `k` with an accepted range for the relevant aluminum alloy. Do not
    tune the model merely to force agreement.
-2. Compare `H` with the expected scale for natural or forced convection in the
+2. Compare `h` with the expected scale for natural or forced convection in the
    actual apparatus.
 3. Compare `m^2` from the stationary-fin fit with `nu/kappa` from the periodic
    fit.
@@ -166,7 +166,7 @@ The final repository must contain:
 - runnable analysis/model code,
 - a README with exact reproduction steps,
 - amplitude, phase, residual, and measured-versus-modeled plots,
-- `q`, `q_prime`, `kappa`, `nu`, aluminum `k`, and side-loss `H`, all with units
+- `q`, `q_prime`, `kappa`, `nu`, aluminum `k`, and side-loss `h`, all with units
   and uncertainty,
 - accepted-value and model-limitation discussion,
 - the finite-length error calculation and final transverse-Biot-number check,
@@ -191,7 +191,7 @@ The presentation should tell one connected story:
    create a measurable boundary-value experiment.
 2. How conservation of energy and Fourier's law produce the rod model.
 3. How the data produce `q` and `q_prime`.
-4. How those slopes produce `k` and `H`.
+4. How those slopes produce `k` and `h`.
 5. Whether the results are credible, what limits them, and what you would do
    next.
 

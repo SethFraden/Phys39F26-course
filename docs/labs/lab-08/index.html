@@ -314,10 +314,10 @@ Part III, you should be able to:</p>
 \]</div>
 <p>For a uniform rod with cross-sectional area <span class="arithmatex">\(A\)</span>, perimeter <span class="arithmatex">\(P\)</span>, density <span class="arithmatex">\(\rho\)</span>,
 specific heat <span class="arithmatex">\(c\)</span>, thermal conductivity <span class="arithmatex">\(k\)</span>, and side heat-transfer coefficient
-<span class="arithmatex">\(H\)</span>, conservation of energy gives</p>
+<span class="arithmatex">\(h\)</span>, conservation of energy gives</p>
 <div class="arithmatex">\[
 \rho c A\frac{\partial\theta}{\partial t}
-=kA\frac{\partial^2\theta}{\partial x^2}-HP\theta.
+=kA\frac{\partial^2\theta}{\partial x^2}-hP\theta.
 \]</div>
 <p>Every term has units of power per unit length, watts per meter. Dividing by
 <span class="arithmatex">\(\rho cA\)</span> gives</p>
@@ -327,7 +327,7 @@ specific heat <span class="arithmatex">\(c\)</span>, thermal conductivity <span 
 \qquad
 \kappa=\frac{k}{\rho c},
 \qquad
-\nu=\frac{HP}{\rho c A}.
+\nu=\frac{hP}{\rho c A}.
 \]</div>
 <p>Here <span class="arithmatex">\(\kappa\)</span> has units of square meters per second and <span class="arithmatex">\(\nu\)</span> has units of
 inverse seconds.</p>
@@ -335,14 +335,14 @@ inverse seconds.</p>
 <div class="arithmatex">\[
 \frac{d^2\theta}{dx^2}-m^2\theta=0,
 \qquad
-m^2=\frac{HP}{kA}=\frac{\nu}{\kappa}.
+m^2=\frac{hP}{kA}=\frac{\nu}{\kappa}.
 \]</div>
 <p>Far from the rod end, a useful first model is</p>
 <div class="arithmatex">\[
 \theta(x)=\theta_0 e^{-mx}.
 \]</div>
 <p>The fitted <span class="arithmatex">\(m\)</span> quantifies the competition between axial conduction and side
-loss. It does <strong>not</strong> determine <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(H\)</span> separately. The periodic Angstrom
+loss. It does <strong>not</strong> determine <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(h\)</span> separately. The periodic Angstrom
 experiment in Module 8, Part I, supplies the second independent measurement.</p>
 <h2 id="part-0-which-geometry-may-we-ignore">Part 0: Which Geometry May We Ignore?<a class="headerlink" href="#part-0-which-geometry-may-we-ignore" title="Permanent link">&para;</a></h2>
 <h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>
@@ -369,12 +369,12 @@ which observable you use.</p>
 <h3 id="radius-check-the-transverse-biot-number">Radius: Check The Transverse Biot Number<a class="headerlink" href="#radius-check-the-transverse-biot-number" title="Permanent link">&para;</a></h3>
 <p>For a circular rod,</p>
 <div class="arithmatex">\[
-\mathrm{Bi}_{\perp}=\frac{H(A/P)}{k}=\frac{HR}{2k}.
+\mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
 \]</div>
 <p>The small-Biot condition <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> means radial conduction
 is fast enough that a cross section can be represented by one temperature.
 Calculate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius and a justified range of
-<span class="arithmatex">\(H\)</span> and <span class="arithmatex">\(k\)</span>. This is a separate test from the finite-length test.</p>
+<span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>. This is a separate test from the finite-length test.</p>
 <h3 id="a4-guided-self-study">A4 Guided Self-Study<a class="headerlink" href="#a4-guided-self-study" title="Permanent link">&para;</a></h3>
 <p>Submit an individual solution that:</p>
 <ol>
@@ -481,7 +481,7 @@ final presentation.</p>
 <li>steady <code>theta(x)</code> data, finite and semi-infinite fits, and both residual sets,</li>
 <li>fitted <code>m</code> and <code>1/m</code> with units and uncertainty,</li>
 <li>the sensor-by-sensor finite-length error and transverse Biot-number check,</li>
-<li>a short explanation of why this result alone cannot separate <code>k</code> from <code>H</code>.</li>
+<li>a short explanation of why this result alone cannot separate <code>k</code> from <code>h</code>.</li>
 </ul>
 <h3 id="a4-rubric">A4 Rubric<a class="headerlink" href="#a4-rubric" title="Permanent link">&para;</a></h3>
 <table>

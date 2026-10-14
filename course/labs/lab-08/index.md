@@ -80,11 +80,11 @@ Let
 
 For a uniform rod with cross-sectional area $A$, perimeter $P$, density $\rho$,
 specific heat $c$, thermal conductivity $k$, and side heat-transfer coefficient
-$H$, conservation of energy gives
+$h$, conservation of energy gives
 
 \[
 \rho c A\frac{\partial\theta}{\partial t}
-=kA\frac{\partial^2\theta}{\partial x^2}-HP\theta.
+=kA\frac{\partial^2\theta}{\partial x^2}-hP\theta.
 \]
 
 Every term has units of power per unit length, watts per meter. Dividing by
@@ -96,7 +96,7 @@ $\rho cA$ gives
 \qquad
 \kappa=\frac{k}{\rho c},
 \qquad
-\nu=\frac{HP}{\rho c A}.
+\nu=\frac{hP}{\rho c A}.
 \]
 
 Here $\kappa$ has units of square meters per second and $\nu$ has units of
@@ -107,7 +107,7 @@ At steady state,
 \[
 \frac{d^2\theta}{dx^2}-m^2\theta=0,
 \qquad
-m^2=\frac{HP}{kA}=\frac{\nu}{\kappa}.
+m^2=\frac{hP}{kA}=\frac{\nu}{\kappa}.
 \]
 
 Far from the rod end, a useful first model is
@@ -117,7 +117,7 @@ Far from the rod end, a useful first model is
 \]
 
 The fitted $m$ quantifies the competition between axial conduction and side
-loss. It does **not** determine $k$ and $H$ separately. The periodic Angstrom
+loss. It does **not** determine $k$ and $h$ separately. The periodic Angstrom
 experiment in Module 8, Part I, supplies the second independent measurement.
 
 ## Part 0: Which Geometry May We Ignore?
@@ -156,13 +156,13 @@ which observable you use.
 For a circular rod,
 
 \[
-\mathrm{Bi}_{\perp}=\frac{H(A/P)}{k}=\frac{HR}{2k}.
+\mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
 \]
 
 The small-Biot condition \(\mathrm{Bi}_{\perp}\ll1\) means radial conduction
 is fast enough that a cross section can be represented by one temperature.
 Calculate \(\mathrm{Bi}_{\perp}\) using the rod radius and a justified range of
-\(H\) and \(k\). This is a separate test from the finite-length test.
+\(h\) and \(k\). This is a separate test from the finite-length test.
 
 ### A4 Guided Self-Study
 
@@ -282,7 +282,7 @@ Submit one reproducible analysis containing:
 - steady `theta(x)` data, finite and semi-infinite fits, and both residual sets,
 - fitted `m` and `1/m` with units and uncertainty,
 - the sensor-by-sensor finite-length error and transverse Biot-number check,
-- a short explanation of why this result alone cannot separate `k` from `H`.
+- a short explanation of why this result alone cannot separate `k` from `h`.
 
 ### A4 Rubric
 

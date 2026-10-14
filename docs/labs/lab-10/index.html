@@ -170,7 +170,7 @@ and a final test of the model.</p>
 will use the Angstrom measurements to determine two physical properties:</p>
 <ul>
 <li>the thermal conductivity <code>k</code> of the aluminum rod, and</li>
-<li>the side heat-transfer coefficient <code>H</code> between the rod and its surroundings.</li>
+<li>the side heat-transfer coefficient <code>h</code> between the rod and its surroundings.</li>
 </ul>
 <p>You will then test whether the heat equation with those parameters reproduces
 the measured temperature field.</p>
@@ -186,7 +186,7 @@ the measured temperature field.</p>
 <tbody>
 <tr>
 <td>S23, Wed. Nov. 18</td>
-<td>Convert fitted coefficients into <code>k</code> and <code>H</code>; update the earlier finite-length and finite-radius checks using measured parameters</td>
+<td>Convert fitted coefficients into <code>k</code> and <code>h</code>; update the earlier finite-length and finite-radius checks using measured parameters</td>
 <td>Parameter and model-validity check</td>
 </tr>
 <tr>
@@ -223,7 +223,7 @@ the measured temperature field.</p>
 </tr>
 <tr>
 <td>S23</td>
-<td>Calculate <code>k</code> and <code>H</code> and update the model-validity checks</td>
+<td>Calculate <code>k</code> and <code>h</code> and update the model-validity checks</td>
 <td style="text-align: right;">150 minutes</td>
 </tr>
 <tr>
@@ -304,9 +304,9 @@ k=\kappa\rho c.
 \]</div>
 <p>For rod cross-sectional area <code>A</code> and perimeter <code>P</code>, calculate</p>
 <div class="arithmatex">\[
-H=\frac{\nu\rho c A}{P}.
+h=\frac{\nu\rho c A}{P}.
 \]</div>
-<p>Report <code>k</code> in watts per meter-kelvin and <code>H</code> in watts per square
+<p>Report <code>k</code> in watts per meter-kelvin and <code>h</code> in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.</p>
 <h2 id="part-1-parameter-table-and-uncertainty">Part 1: Parameter Table And Uncertainty<a class="headerlink" href="#part-1-parameter-table-and-uncertainty" title="Permanent link">&para;</a></h2>
 <p>Create one table containing every input, fitted quantity, derived result, unit,
@@ -318,7 +318,7 @@ uncertainty, and source. It must include at least:</p>
 <li><code>q</code> and <code>q_prime</code>,</li>
 <li><code>kappa</code> and <code>nu</code>,</li>
 <li><code>rho</code> and <code>c</code>,</li>
-<li>final <code>k</code> and <code>H</code>.</li>
+<li>final <code>k</code> and <code>h</code>.</li>
 </ul>
 <p>Use analytic propagation, bootstrap/resampling, Monte Carlo propagation, or an
 approved equivalent. Include position uncertainty because phase and amplitude
@@ -327,7 +327,7 @@ slopes depend directly on sensor coordinates.</p>
 <ol>
 <li>Compare <code>k</code> with an accepted range for the relevant aluminum alloy. Do not
    tune the model merely to force agreement.</li>
-<li>Compare <code>H</code> with the expected scale for natural or forced convection in the
+<li>Compare <code>h</code> with the expected scale for natural or forced convection in the
    actual apparatus.</li>
 <li>Compare <code>m^2</code> from the stationary-fin fit with <code>nu/kappa</code> from the periodic
    fit.</li>
@@ -379,7 +379,7 @@ checks support the conclusions.</p>
 <li>runnable analysis/model code,</li>
 <li>a README with exact reproduction steps,</li>
 <li>amplitude, phase, residual, and measured-versus-modeled plots,</li>
-<li><code>q</code>, <code>q_prime</code>, <code>kappa</code>, <code>nu</code>, aluminum <code>k</code>, and side-loss <code>H</code>, all with units
+<li><code>q</code>, <code>q_prime</code>, <code>kappa</code>, <code>nu</code>, aluminum <code>k</code>, and side-loss <code>h</code>, all with units
   and uncertainty,</li>
 <li>accepted-value and model-limitation discussion,</li>
 <li>the finite-length error calculation and final transverse-Biot-number check,</li>
@@ -401,7 +401,7 @@ the announced <a href="../../assessment/#c6-oral-questions">C6/F1 oral questions
    create a measurable boundary-value experiment.</li>
 <li>How conservation of energy and Fourier's law produce the rod model.</li>
 <li>How the data produce <code>q</code> and <code>q_prime</code>.</li>
-<li>How those slopes produce <code>k</code> and <code>H</code>.</li>
+<li>How those slopes produce <code>k</code> and <code>h</code>.</li>
 <li>Whether the results are credible, what limits them, and what you would do
    next.</li>
 </ol>

@@ -40,6 +40,14 @@ This bridge follows the order of Lienhard Section 1.3:
 | pp. 21-24, lumped capacity, Fig. 1.10, and Biot number | Read carefully. This explains when a one-temperature model is acceptable. |
 | pp. 24-26, thermocouple example | Skim for how Lienhard checks the Biot number assumption in a real calculation. |
 
+**Notation.** Throughout the course, $c$ denotes the specific heat of the
+solid and $h$ denotes the surface heat-transfer coefficient. Lienhard and
+other sources may write the same solid specific heat as $c_p$. We use $c$
+because the distinction between $c_p$ and $c_v$ is negligible for the
+incompressible solids studied here. Lowercase $h$ also distinguishes the
+surface coefficient, in W/(m\(^2\) K), from a total lumped thermal conductance,
+which has units W/K.
+
 ## Why This Bridge Exists
 
 Module 6 used lumped models: one temperature for one object, or two temperatures
@@ -360,6 +368,14 @@ volumetric heat capacity \(\rho c\), while the stored molecular quantity is
 the concentration \(c\) itself. Consequently, conservation plus the
 constitutive flux law gives an equation containing only \(T\), or only \(c\).
 
+Electrical conduction has the same steady, source-free field equation, but its
+transient behavior is not generally a diffusion equation for potential. The
+conserved quantity is charge density \(\rho_e\), not potential \(\phi\). The
+sidebar develops this distinction and its connection to electrostatics.
+
+<details class="note" markdown="1">
+<summary><strong>Sidebar: Why electrical potential behaves differently in a transient</strong></summary>
+
 Electrical conduction is different. Electrical current is driven by the
 potential gradient, but the conserved stored quantity is charge density
 \(\rho_e\), not potential \(\phi\). The last entry in the table therefore
@@ -389,13 +405,6 @@ familiar transient voltage in an \(RC\) circuit comes from charge stored on
 capacitors and therefore depends on geometry as well as material properties.
 This is why electrical potential is most directly analogous to temperature
 and concentration in the **steady** table.
-
-Here \(\mathbf q\) is heat flux in W/m\(^2\), \(\mathbf J_m\) is molecular
-flux, \(\mathbf J\) is electrical current density in A/m\(^2\), and \(c\) in
-the molecular-diffusion row is concentration. The \(c\) in \(\rho c\) is
-specific heat; the symbols coincide but represent different physical
-quantities. The source \(\dot q_v\) is heat generated per unit volume, whereas
-\(s\) is the net rate at which molecules are added per unit volume.
 
 Electrostatics uses a related field-source equation. **Gauss's law** says that
 charge is the source of electric field. In vacuum,
@@ -428,6 +437,15 @@ without internal generation it obeys \(\nabla^2T=0\). By contrast, the
 time-dependent heat and molecular-diffusion equations describe fields that
 smooth out over time. This distinction will matter when we move from the
 steady finite-rod model to the time-dependent Angstrom experiment.
+
+</details>
+
+Here \(\mathbf q\) is heat flux in W/m\(^2\), \(\mathbf J_m\) is molecular
+flux, \(\mathbf J\) is electrical current density in A/m\(^2\), and \(c\) in
+the molecular-diffusion row is concentration. The \(c\) in \(\rho c\) is
+specific heat; the symbols coincide but represent different physical
+quantities. The source \(\dot q_v\) is heat generated per unit volume, whereas
+\(s\) is the net rate at which molecules are added per unit volume.
 
 ## 3. One-Dimensional Conduction: From Energy Balance To The Heat Equation
 
@@ -521,11 +539,11 @@ Start with conservation of energy for a small piece of material:
 rate of thermal energy storage = heat flowing in - heat flowing out + heat generated
 ```
 
-For a solid with density \(\rho\), heat capacity \(c_p\), and constant thermal
+For a solid with density \(\rho\), specific heat \(c\), and constant thermal
 conductivity \(k\), this becomes
 
 \[
-\rho c_p\frac{\partial T}{\partial t}
+\rho c\frac{\partial T}{\partial t}
 =
 k\nabla^2 T+\dot q'''.
 \]
@@ -542,7 +560,7 @@ If there is no internal heat generation, \(\dot q'''=0\), then
 =
 \alpha\nabla^2T,
 \qquad
-\alpha=\frac{k}{\rho c_p}.
+\alpha=\frac{k}{\rho c}.
 \]
 
 The parameter \(\alpha\) is the thermal diffusivity. It tells how quickly a
@@ -621,6 +639,13 @@ where $V$ is the object's volume and $A_s$ is the surface area through which
 heat is transferred to the surroundings. It represents the distance scale for
 internal conduction. For a long circular cylinder losing heat through its
 curved surface, $L_c=A/P=R/2$.
+
+![Internal conduction through a solid followed by surface convection](../../assets/biot_heat_transfer_geometry.svg)
+
+*Heat first conducts through the solid over the representative distance
+\(L_c=V/A_s\), then crosses the surface by convection to surroundings at
+\(T_\infty\). The surface temperature \(T_s\) connects the two heat-transfer
+steps.*
 
 The two stages have approximate thermal resistances
 
@@ -770,8 +795,12 @@ Before class, write short answers to these questions. Use Lienhard Section 1.3,
 pp. 11-26. Give most of your time to questions 3-9, which follow the main arc
 from Fourier's Law to the heat equation to the Biot number.
 
-1. In Fourier's Law, why is there a minus sign?
-2. What are the units of \(q_x\), \(\dot Q_x\), and \(k\)?
+1. Why is Fourier's law a **phenomenological constitutive law**, and what does
+   its minus sign say about the direction of heat flow?
+2. Distinguish temperature \(T\), heat-transfer rate \(\dot Q_x\), and heat
+   flux \(q_x\). Give the physical meaning and units of thermal conductivity
+   \(k\), thermal diffusivity \(\alpha\), and surface heat-transfer coefficient
+   \(h\).
 3. On pp. 14-16, why does a larger \(k\) lead to a smaller temperature gradient
    for the same heat flux?
 4. In Lienhard Eq. (1.12), what physical quantity is being calculated?
@@ -783,15 +812,16 @@ from Fourier's Law to the heat equation to the Biot number.
    the Biot number, and why does a small Biot number support a lumped-temperature
    model?
 9. In Lienhard's thermocouple example, why does checking \(\mathrm{Bi}\) matter?
-10. Why might the long metal cylinder require a one-dimensional or two-dimensional
-   model instead of a lumped model?
+10. What two independent approximation questions must be answered before the
+    long cylinder can be modeled as a one-dimensional, semi-infinite rod? State
+    which calculation tests each approximation.
 
 ## How This Work Is Assessed
 
-This bridge supports the later individual `A4` and `A5` derivations and the
-thermal-transport oral discussions. It does not create an additional
-submission. Keep your
-answers above and a dimensional equation sheet in
+The Part I objectives are assessed directly in the individual `A4` derivation
+and the `C5` oral check. The same foundations are reused later in `A5` for the
+time-dependent Angstrom analysis. This bridge does not create an additional
+submission. Keep your answers above and a dimensional equation sheet in
 `docs/theory/theory_bridge_chapter_1_notes.md` so you can reuse the reasoning
 without rewriting it for an extra grade.
 
@@ -808,7 +838,7 @@ Do not add this time again when reading the Module 7 workload table. Bring
 specific questions to class if the derivations remain unclear after the
 planned time.
 
-## Core Equations And Explanations To Master
+## What Parts I and II Prepare You to Master
 
 By the time of A4 and the C5 oral check, you should be able to do the following
 without relying on AI-generated prose:
@@ -816,7 +846,7 @@ without relying on AI-generated prose:
 1. state Fourier's law and explain its sign and units,
 2. apply conservation of energy to a differential slice and obtain the heat
    equation,
-3. state Newton's law of cooling and explain the meaning and units of (h),
+3. state Newton's law of cooling and explain the meaning and units of \(h\),
 4. combine axial conduction and side cooling to obtain the stationary fin
    equation,
 5. solve that equation with a prescribed base temperature and insulated-tip

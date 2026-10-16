@@ -222,9 +222,10 @@ for the complete instructions and rubric.
 **Format:** 10-point individual assignment; each student submits independently
 written work to Moodle.
 
-Complete the governing-equation derivation, Lienhard Problems 4.12 and 4.20,
-finite and semi-infinite solutions, sensor-error analysis, and transverse Biot
-number calculation.
+Complete Lienhard Problem 1.3 as assigned in Module 7, Part I, the
+governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and
+semi-infinite solutions, sensor-error analysis, and the transverse Biot-number
+calculation.
 
 See [Module 8: A4 Finite-Length And Small-Biot Guided Study](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study)
 for the complete instructions and rubric.
@@ -407,7 +408,7 @@ of `F1`.
 | `A2` | Oct. 7, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
 | `C4` | Oct. 5, during S10; receipt by 11:55 AM | [Open-loop TEC calibration and software-safety milestone](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration), demonstrated using the C4 rubric above. |
 | `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting simulation result, model limits, code/data links, and `GC`. |
-| `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
+| `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Oct. 28, during S17; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
 | `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
 | `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |

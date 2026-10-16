@@ -16,9 +16,10 @@ Part I, you should be able to:
    heat equation.
 2. Distinguish temperature, heat-transfer rate, and heat flux, and interpret
    the units and physical meanings of thermal conductivity $k$, thermal
-   diffusivity $\alpha$, and the convection coefficient $h$.
+   diffusivity $\alpha$, and the convection coefficient $h$. Apply Fourier's
+   law to calculate a temperature difference from a prescribed heat flux.
 3. Derive and interpret the Biot number
-   $\mathrm{Bi}=hL_c/k$, with $L_c=V/A_s$, and use it to decide whether internal
+   $\mathrm{Bi}=hL_c/k$, with $L_c=V/A_s$, and use it to decide whether the lumped model assumption is valid, e.g. the internal
    temperature variation may be neglected.
 4. Distinguish the two independent approximations required for the course rod:
    neglecting the finite end and neglecting radial temperature variation.
@@ -618,7 +619,7 @@ Here \(h\) has units W/(m\(^2\) K). Unlike \(k\), which is a material property,
 
 ## 5. Lumped Cooling And The Biot Number
 
-Use Lienhard Section 1.3, pp. 11-26, as the source for this
+Here we justify the use of the lumped model in which we approximate the body to be at an uniform temperature. This approximation is valid when the Biot number is small, \(\mathrm{Bi}\ll1\). Use Lienhard Section 1.3, pp. 11-26, as the source for this
 section. Read pp. 19-21 to understand Newton's law of cooling and the heat
 transfer coefficient \(h\). Then read pp. 21-24 carefully for the lumped-capacity
 model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
@@ -676,7 +677,23 @@ Using the same representative area for this scaling argument, their ratio is
 
 This ratio compares resistance to heat flow **inside the solid** with resistance
 to heat transfer **from its surface to the surroundings**. It is the **Biot
-number**. We now derive why the same dimensionless combination appears in the
+number**, Bi.
+
+Since energy is conserved, the heat that leaves the body by conduction is equal to the heat that enters the room by convection so
+
+\[
+\dot Q = \frac{\Delta T_{\mathrm{cond}}}{R_{\mathrm{cond}}}=\frac{\Delta T_{\mathrm{conv}}}{R_{\mathrm{conc}}}
+\]
+
+and
+
+\[
+\frac{\Delta T_{\mathrm{cond}}}{\Delta T_{\mathrm{conv}}}=\frac{R_{\mathrm{cond}}}{R_{\mathrm{conc}}} = \mathrm{Bi}.
+\]
+
+If \(\mathrm{Bi}\ll1\) then \(\Delta T_{\mathrm{cond}} \ll \Delta T_{\mathrm{conv}}\) or equivalently, \(T_{\mathrm{interior}} - T_s \ll T_s - T_{\infty}\). Since the temperature change in the solid is much smaller than the temperature change outside the solid  we justify the lumped model assumption that the temperature of the solid doesn't depend on position.
+
+We now derive why the same dimensionless combination appears in the
 heat-transport equations.
 
 ### Nondimensional Derivation
@@ -795,6 +812,23 @@ Before class, write short answers to these questions. Use Lienhard Section 1.3,
 pp. 11-26. Give most of your time to questions 3-9, which follow the main arc
 from Fourier's Law to the heat equation to the Biot number.
 
+### A4, Part I: Lienhard Problem 1.3
+
+Complete [Lienhard Problem 1.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=51)
+in full. This is the first assessed component of `A4`, which you will submit
+after completing all three parts of Module 7. For each material:
+
+1. begin with Fourier's law and show how you obtain the temperature rise from
+   the specified heat flux, slab thickness, and thermal conductivity,
+2. report the temperature rise with units, and
+3. explain which results are physically unreasonable and why. Hint: think about our TEC, for which we go to lengths to protect it from overheating.
+
+Use one clear sample calculation and organize the remaining results in a
+table. Do not merely report numerical answers; the assessment is testing your
+use of Fourier's law, units, and physical judgment.
+
+### Reading Questions
+
 1. Why is Fourier's law a **phenomenological constitutive law**, and what does
    its minus sign say about the direction of heat flow?
 2. Distinguish temperature \(T\), heat-transfer rate \(\dot Q_x\), and heat
@@ -818,12 +852,13 @@ from Fourier's Law to the heat equation to the Biot number.
 
 ## How This Work Is Assessed
 
-The Part I objectives are assessed directly in the individual `A4` derivation
-and the `C5` oral check. The same foundations are reused later in `A5` for the
-time-dependent Angstrom analysis. This bridge does not create an additional
-submission. Keep your answers above and a dimensional equation sheet in
-`docs/theory/theory_bridge_chapter_1_notes.md` so you can reuse the reasoning
-without rewriting it for an extra grade.
+The Part I objectives are assessed directly in `A4`, beginning with your
+solution to Lienhard Problem 1.3, and in the `C5` oral check. The same
+foundations are reused later in `A5` for the time-dependent Angstrom analysis.
+Problem 1.3 is submitted as part of the individual `A4` PDF; the reading
+questions do not create another submission. Keep those answers and a
+dimensional equation sheet in `docs/theory/theory_bridge_chapter_1_notes.md`
+so you can reuse the reasoning without rewriting it for an extra grade.
 
 The planned outside-class time is already counted in the Module 7 budget:
 
@@ -831,7 +866,7 @@ The planned outside-class time is already counted in the Module 7 budget:
 | --- | ---: |
 | Read this bridge alongside the selected Chapter 1 pages | 60 minutes |
 | Work through Eqs. (1.12)-(1.14) and the Biot-number scaling | 45 minutes |
-| Answer the preparation questions and check units | 30 minutes |
+| Complete Problem 1.3, answer the preparation questions, and check units | 30 minutes |
 | **Total theory-bridge preparation** | **2 hours 15 minutes** |
 
 Do not add this time again when reading the Module 7 workload table. Bring
@@ -844,16 +879,18 @@ By the time of A4 and the C5 oral check, you should be able to do the following
 without relying on AI-generated prose:
 
 1. state Fourier's law and explain its sign and units,
-2. apply conservation of energy to a differential slice and obtain the heat
+2. apply Fourier's law to a specified heat flux and interpret the resulting
+   temperature difference,
+3. apply conservation of energy to a differential slice and obtain the heat
    equation,
-3. state Newton's law of cooling and explain the meaning and units of \(h\),
-4. combine axial conduction and side cooling to obtain the stationary fin
+4. state Newton's law of cooling and explain the meaning and units of \(h\),
+5. combine axial conduction and side cooling to obtain the stationary fin
    equation,
-5. solve that equation with a prescribed base temperature and insulated-tip
+6. solve that equation with a prescribed base temperature and insulated-tip
    boundary condition,
-6. obtain the semi-infinite exponential solution as a limit of the finite
+7. obtain the semi-infinite exponential solution as a limit of the finite
    solution, and
-7. derive and interpret the transverse Biot number as the test for neglecting
+8. derive and interpret the transverse Biot number as the test for neglecting
    radial temperature variation.
 
 The goal is not memorization of an isolated formula. You should be able to

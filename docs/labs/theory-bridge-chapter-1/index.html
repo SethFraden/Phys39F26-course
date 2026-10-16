@@ -152,6 +152,14 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#what-to-prepare" class="nav-link">What To Prepare</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#a4-part-i-lienhard-problem-13" class="nav-link">A4, Part I: Lienhard Problem 1.3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#reading-questions" class="nav-link">Reading Questions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#how-this-work-is-assessed" class="nav-link">How This Work Is Assessed</a>
@@ -188,9 +196,10 @@ Part I, you should be able to:</p>
    heat equation.</li>
 <li>Distinguish temperature, heat-transfer rate, and heat flux, and interpret
    the units and physical meanings of thermal conductivity <span class="arithmatex">\(k\)</span>, thermal
-   diffusivity <span class="arithmatex">\(\alpha\)</span>, and the convection coefficient <span class="arithmatex">\(h\)</span>.</li>
+   diffusivity <span class="arithmatex">\(\alpha\)</span>, and the convection coefficient <span class="arithmatex">\(h\)</span>. Apply Fourier's
+   law to calculate a temperature difference from a prescribed heat flux.</li>
 <li>Derive and interpret the Biot number
-   <span class="arithmatex">\(\mathrm{Bi}=hL_c/k\)</span>, with <span class="arithmatex">\(L_c=V/A_s\)</span>, and use it to decide whether internal
+   <span class="arithmatex">\(\mathrm{Bi}=hL_c/k\)</span>, with <span class="arithmatex">\(L_c=V/A_s\)</span>, and use it to decide whether the lumped model assumption is valid, e.g. the internal
    temperature variation may be neglected.</li>
 <li>Distinguish the two independent approximations required for the course rod:
    neglecting the finite end and neglecting radial temperature variation.</li>
@@ -813,7 +822,7 @@ q=h\left(T_{\mathrm{body}}-T_\infty\right).
 <p>Here <span class="arithmatex">\(h\)</span> has units W/(m<span class="arithmatex">\(^2\)</span> K). Unlike <span class="arithmatex">\(k\)</span>, which is a material property,
 <span class="arithmatex">\(h\)</span> depends on the fluid, flow, geometry, and often temperature.</p>
 <h2 id="5-lumped-cooling-and-the-biot-number">5. Lumped Cooling And The Biot Number<a class="headerlink" href="#5-lumped-cooling-and-the-biot-number" title="Permanent link">&para;</a></h2>
-<p>Use Lienhard Section 1.3, pp. 11-26, as the source for this
+<p>Here we justify the use of the lumped model in which we approximate the body to be at an uniform temperature. This approximation is valid when the Biot number is small, <span class="arithmatex">\(\mathrm{Bi}\ll1\)</span>. Use Lienhard Section 1.3, pp. 11-26, as the source for this
 section. Read pp. 19-21 to understand Newton's law of cooling and the heat
 transfer coefficient <span class="arithmatex">\(h\)</span>. Then read pp. 21-24 carefully for the lumped-capacity
 model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
@@ -857,7 +866,17 @@ units of m<span class="arithmatex">\(^2\)</span> K/W.</p>
 \]</div>
 <p>This ratio compares resistance to heat flow <strong>inside the solid</strong> with resistance
 to heat transfer <strong>from its surface to the surroundings</strong>. It is the <strong>Biot
-number</strong>. We now derive why the same dimensionless combination appears in the
+number</strong>, Bi.  </p>
+<p>Since energy is conserved, the heat that leaves the body by conduction is equal to the heat that enters the room by convection so </p>
+<div class="arithmatex">\[
+\dot Q = \frac{\Delta T_{\mathrm{cond}}}{R_{\mathrm{cond}}}=\frac{\Delta T_{\mathrm{conv}}}{R_{\mathrm{conc}}}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\frac{\Delta T_{\mathrm{cond}}}{\Delta T_{\mathrm{conv}}}=\frac{R_{\mathrm{cond}}}{R_{\mathrm{conc}}} = \mathrm{Bi}.
+\]</div>
+<p>If <span class="arithmatex">\(\mathrm{Bi}\ll1\)</span> then <span class="arithmatex">\(\Delta T_{\mathrm{cond}} \ll \Delta T_{\mathrm{conv}}\)</span> or equivalently, <span class="arithmatex">\(T_{\mathrm{interior}} - T_s \ll T_s - T_{\infty}\)</span>. Since the temperature change in the solid is much smaller than the temperature change outside the solid  we justify the lumped model assumption that the temperature of the solid doesn't depend on position.</p>
+<p>We now derive why the same dimensionless combination appears in the
 heat-transport equations.</p>
 <h3 id="nondimensional-derivation">Nondimensional Derivation<a class="headerlink" href="#nondimensional-derivation" title="Permanent link">&para;</a></h3>
 <p>With no internal heat generation, the temperature inside the solid obeys</p>
@@ -949,6 +968,20 @@ effects must be kept in the model.</p>
 <p>Before class, write short answers to these questions. Use Lienhard Section 1.3,
 pp. 11-26. Give most of your time to questions 3-9, which follow the main arc
 from Fourier's Law to the heat equation to the Biot number.</p>
+<h3 id="a4-part-i-lienhard-problem-13">A4, Part I: Lienhard Problem 1.3<a class="headerlink" href="#a4-part-i-lienhard-problem-13" title="Permanent link">&para;</a></h3>
+<p>Complete <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf#page=51">Lienhard Problem 1.3</a>
+in full. This is the first assessed component of <code>A4</code>, which you will submit
+after completing all three parts of Module 7. For each material:</p>
+<ol>
+<li>begin with Fourier's law and show how you obtain the temperature rise from
+   the specified heat flux, slab thickness, and thermal conductivity,</li>
+<li>report the temperature rise with units, and</li>
+<li>explain which results are physically unreasonable and why.</li>
+</ol>
+<p>Use one clear sample calculation and organize the remaining results in a
+table. Do not merely report numerical answers; the assessment is testing your
+use of Fourier's law, units, and physical judgment.</p>
+<h3 id="reading-questions">Reading Questions<a class="headerlink" href="#reading-questions" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Why is Fourier's law a <strong>phenomenological constitutive law</strong>, and what does
    its minus sign say about the direction of heat flow?</li>
@@ -972,12 +1005,13 @@ from Fourier's Law to the heat equation to the Biot number.</p>
     which calculation tests each approximation.</li>
 </ol>
 <h2 id="how-this-work-is-assessed">How This Work Is Assessed<a class="headerlink" href="#how-this-work-is-assessed" title="Permanent link">&para;</a></h2>
-<p>The Part I objectives are assessed directly in the individual <code>A4</code> derivation
-and the <code>C5</code> oral check. The same foundations are reused later in <code>A5</code> for the
-time-dependent Angstrom analysis. This bridge does not create an additional
-submission. Keep your answers above and a dimensional equation sheet in
-<code>docs/theory/theory_bridge_chapter_1_notes.md</code> so you can reuse the reasoning
-without rewriting it for an extra grade.</p>
+<p>The Part I objectives are assessed directly in <code>A4</code>, beginning with your
+solution to Lienhard Problem 1.3, and in the <code>C5</code> oral check. The same
+foundations are reused later in <code>A5</code> for the time-dependent Angstrom analysis.
+Problem 1.3 is submitted as part of the individual <code>A4</code> PDF; the reading
+questions do not create another submission. Keep those answers and a
+dimensional equation sheet in <code>docs/theory/theory_bridge_chapter_1_notes.md</code>
+so you can reuse the reasoning without rewriting it for an extra grade.</p>
 <p>The planned outside-class time is already counted in the Module 7 budget:</p>
 <table>
 <thead>
@@ -996,7 +1030,7 @@ without rewriting it for an extra grade.</p>
 <td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
-<td>Answer the preparation questions and check units</td>
+<td>Complete Problem 1.3, answer the preparation questions, and check units</td>
 <td style="text-align: right;">30 minutes</td>
 </tr>
 <tr>
@@ -1013,6 +1047,8 @@ planned time.</p>
 without relying on AI-generated prose:</p>
 <ol>
 <li>state Fourier's law and explain its sign and units,</li>
+<li>apply Fourier's law to a specified heat flux and interpret the resulting
+   temperature difference,</li>
 <li>apply conservation of energy to a differential slice and obtain the heat
    equation,</li>
 <li>state Newton's law of cooling and explain the meaning and units of <span class="arithmatex">\(h\)</span>,</li>

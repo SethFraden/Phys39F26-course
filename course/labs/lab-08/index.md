@@ -68,7 +68,9 @@ Part III, you should be able to:
    the final formulas.
 4. Use [Fin Design: From A Finite Rod To An Infinite Rod](../fin-design-derivation/index.md)
    as the equation-by-equation guide to Lienhard Eqs. (4.27)-(4.51).
-5. Complete the guided work in `A4`, including Lienhard Problems 4.12 and 4.20.
+5. Complete the guided work in `A4`, including Lienhard Problems 1.3, 4.12,
+   and 4.20. Problem 1.3 is assigned in
+   [Module 7, Part I](../theory-bridge-chapter-1/index.md#a4-part-i-lienhard-problem-13).
 
 ## Model
 
@@ -168,17 +170,19 @@ Calculate \(\mathrm{Bi}_{\perp}\) using the rod radius and a justified range of
 
 Submit an individual solution that:
 
-1. uses conservation of energy, Fourier's law, and Newton's law of cooling to
+1. completes Lienhard Problem 1.3 as assigned in
+   [Part I](../theory-bridge-chapter-1/index.md#a4-part-i-lienhard-problem-13),
+2. uses conservation of energy, Fourier's law, and Newton's law of cooling to
    derive the stationary fin equation with side heat loss,
-2. follows the finite-fin solution in Lienhard Section 4.5 and identifies the
+3. follows the finite-fin solution in Lienhard Section 4.5 and identifies the
    two boundary conditions,
-3. completes Problem 4.12 to obtain the semi-infinite limit,
-4. uses Example 4.8 and Problem 4.20 to quantify the effect of a tip-boundary
+4. completes Problem 4.12 to obtain the semi-infinite limit,
+5. uses Example 4.8 and Problem 4.20 to quantify the effect of a tip-boundary
    approximation,
-5. calculates \(mL\) and \(\epsilon_T(x)\) for each course-rod sensor, using
+6. calculates \(mL\) and \(\epsilon_T(x)\) for each course-rod sensor, using
    supplied parameters if measured values are not yet available,
-6. calculates \(\mathrm{Bi}_{\perp}\), and
-7. gives two separate conclusions: whether the rod may be treated as
+7. calculates \(\mathrm{Bi}_{\perp}\), and
+8. gives two separate conclusions: whether the rod may be treated as
    semi-infinite and whether it may be treated as one-dimensional.
 
 ### Radial Model Preview
@@ -256,9 +260,9 @@ metadata, and exact acquisition code as each item is produced. Use
 
 The required content is listed in [A4 Guided Self-Study](#a4-guided-self-study).
 Submit the governing-equation derivation, finite and semi-infinite analytical
-solutions, Problems 4.12 and 4.20, sensor-by-sensor error, transverse Biot
-calculation, dimensional checks, and separate conclusions about length and
-radius.
+solutions, Problems 1.3, 4.12, and 4.20, sensor-by-sensor error, transverse
+Biot calculation, dimensional checks, and separate conclusions about length
+and radius.
 
 ### C5: Rod Instrument And Data-Acquisition Chain
 
@@ -288,7 +292,8 @@ Submit one reproducible analysis containing:
 
 | Criterion | Points |
 | --- | ---: |
-| Stationary rod equation is derived from conservation, Fourier's law, and Newton's law | 2 |
+| Problem 1.3 correctly applies Fourier's law, units, and physical judgment | 1 |
+| Stationary rod equation is derived from conservation, Fourier's law, and Newton's law | 1 |
 | Finite insulated-tip solution follows from the stated boundary conditions | 2 |
 | Semi-infinite limit and sensor-by-sensor finite-length errors are correct | 2 |
 | Transverse Biot number and the separate radius conclusion are correct | 2 |

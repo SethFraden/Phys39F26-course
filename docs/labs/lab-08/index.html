@@ -122,6 +122,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-iii-vocabulary-and-notation" class="nav-link">Part III Vocabulary And Notation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#reading-and-preparation" class="nav-link">Reading And Preparation</a>
               <ul class="nav flex-column">
               </ul>
@@ -296,6 +300,82 @@ Part III, you should be able to:</p>
 <li>Explain what the steady experiment can determine and why it cannot determine
    the thermal conductivity and side heat-transfer coefficient separately.</li>
 </ol>
+<h2 id="part-iii-vocabulary-and-notation">Part III Vocabulary And Notation<a class="headerlink" href="#part-iii-vocabulary-and-notation" title="Permanent link">&para;</a></h2>
+<p>Review the <a href="../theory-bridge-chapter-1/#module-7-vocabulary-and-notation">foundational vocabulary in Part
+I</a> and the
+<a href="../fin-design-derivation/#part-ii-vocabulary-and-notation">fin-model vocabulary in Part
+II</a>. The
+terms below connect that theory to the experiment and its analysis.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temperature field, <span class="arithmatex">\(T(x,t)\)</span></td>
+<td>Temperature as a function of both position along the rod and time.</td>
+</tr>
+<tr>
+<td>Excess temperature, <span class="arithmatex">\(\theta(x,t)=T(x,t)-T_{\mathrm{room}}\)</span></td>
+<td>Rod temperature measured relative to room temperature.</td>
+</tr>
+<tr>
+<td>Thermal diffusivity, <span class="arithmatex">\(\kappa=k/(\rho c)\)</span></td>
+<td>The coefficient controlling axial spreading in the Part III model. It is the same physical property denoted <span class="arithmatex">\(\alpha\)</span> in Part I.</td>
+</tr>
+<tr>
+<td>Side-loss rate, <span class="arithmatex">\(\nu=hP/(\rho cA)\)</span></td>
+<td>The fractional rate, in s<span class="arithmatex">\(^{-1}\)</span>, at which side convection removes excess thermal energy in the one-dimensional model.</td>
+</tr>
+<tr>
+<td>Decay coefficient, <span class="arithmatex">\(m=\sqrt{hP/(kA)}=\sqrt{\nu/\kappa}\)</span></td>
+<td>The spatial decay rate of the stationary profile; <span class="arithmatex">\(1/m\)</span> is the decay length.</td>
+</tr>
+<tr>
+<td>Sensor map</td>
+<td>A record of each channel name, thermistor position, coordinate origin and direction, and position uncertainty.</td>
+</tr>
+<tr>
+<td>Calibration or cross-check</td>
+<td>A comparison under a common temperature condition used to identify sensor offsets or other channel differences.</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>Measurements made before the imposed temperature change, used to establish room temperature and initial sensor readings.</td>
+</tr>
+<tr>
+<td>Step response</td>
+<td>The measured evolution of <span class="arithmatex">\(T(x,t)\)</span> after the base-temperature command changes.</td>
+</tr>
+<tr>
+<td>Boundary condition</td>
+<td>The measured or prescribed behavior at a boundary. The measured base temperature, rather than only its commanded value, is the experimental thermal boundary condition.</td>
+</tr>
+<tr>
+<td>Stationary profile</td>
+<td>The position-dependent temperature after changes with time have become negligible according to a stated criterion.</td>
+</tr>
+<tr>
+<td>Model fit</td>
+<td>Estimation of model parameters by comparing a predicted curve with measured data.</td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>Measured value minus model prediction at the same position or time. Residual structure can reveal model inadequacy.</td>
+</tr>
+<tr>
+<td>Uncertainty</td>
+<td>A quantitative estimate of the plausible range of a measured or fitted result.</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>Information needed to interpret and reproduce a run, including units, timestamps, channel labels, geometry, settings, and experimental notes.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="reading-and-preparation">Reading And Preparation<a class="headerlink" href="#reading-and-preparation" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Read Chapter 1 of <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>.</li>

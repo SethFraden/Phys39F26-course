@@ -110,6 +110,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#module-7-vocabulary-and-notation" class="nav-link">Module 7 Vocabulary And Notation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#why-this-bridge-exists" class="nav-link">Why This Bridge Exists</a>
               <ul class="nav flex-column">
               </ul>
@@ -204,6 +208,75 @@ Part I, you should be able to:</p>
 <li>Distinguish the two independent approximations required for the course rod:
    neglecting the finite end and neglecting radial temperature variation.</li>
 </ol>
+<h2 id="module-7-vocabulary-and-notation">Module 7 Vocabulary And Notation<a class="headerlink" href="#module-7-vocabulary-and-notation" title="Permanent link">&para;</a></h2>
+<p>These foundational terms are used throughout all three parts of Module 7.
+Parts II and III add vocabulary specific to the fin model and the experiment.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temperature, <span class="arithmatex">\(T\)</span></td>
+<td>A local thermal state variable, measured in kelvin or degrees Celsius. Temperature differences drive heat transfer.</td>
+</tr>
+<tr>
+<td>Heat, <span class="arithmatex">\(Q\)</span></td>
+<td>Energy transferred across a system boundary because of a temperature difference, measured in joules.</td>
+</tr>
+<tr>
+<td>Heat-transfer rate or heat current, <span class="arithmatex">\(\dot Q\)</span></td>
+<td>Heat transferred per unit time, measured in watts.</td>
+</tr>
+<tr>
+<td>Heat flux, <span class="arithmatex">\(\mathbf q\)</span> or <span class="arithmatex">\(q_x\)</span></td>
+<td>Heat-transfer rate per unit area, measured in W/m<span class="arithmatex">\(^2\)</span>.</td>
+</tr>
+<tr>
+<td>Thermal conductivity, <span class="arithmatex">\(k\)</span></td>
+<td>A material property relating conductive heat flux to temperature gradient through Fourier's law; units W/(m K).</td>
+</tr>
+<tr>
+<td>Specific heat, <span class="arithmatex">\(c\)</span></td>
+<td>Energy needed per unit mass per degree of temperature rise; units J/(kg K). The volumetric heat capacity is <span class="arithmatex">\(\rho c\)</span>, and a body of mass <span class="arithmatex">\(m\)</span> has thermal capacitance <span class="arithmatex">\(mc\)</span>.</td>
+</tr>
+<tr>
+<td>Thermal diffusivity, <span class="arithmatex">\(\alpha=k/(\rho c)\)</span></td>
+<td>The material property governing how rapidly a temperature disturbance spreads; units m<span class="arithmatex">\(^2\)</span>/s.</td>
+</tr>
+<tr>
+<td>Thermal resistance, <span class="arithmatex">\(R_{\mathrm{th}}\)</span></td>
+<td>A geometry-dependent ratio <span class="arithmatex">\(\Delta T/\dot Q\)</span>, measured in K/W. For uniform one-dimensional conduction, <span class="arithmatex">\(R_{\mathrm{th}}=L/(kA)\)</span>.</td>
+</tr>
+<tr>
+<td>Constitutive law</td>
+<td>A material-response relation connecting a flux to a driving field, such as Fourier's law <span class="arithmatex">\(\mathbf q=-k\nabla T\)</span>.</td>
+</tr>
+<tr>
+<td>Conservation law</td>
+<td>A balance stating that accumulation equals inflow minus outflow plus generation. Conservation of energy and a constitutive law together produce the heat equation.</td>
+</tr>
+<tr>
+<td>Surface heat-transfer coefficient, <span class="arithmatex">\(h\)</span></td>
+<td>The coefficient in Newton's law of cooling, <span class="arithmatex">\(q=h(T_s-T_\infty)\)</span>; units W/(m<span class="arithmatex">\(^2\)</span> K). It depends on the fluid, flow, and geometry.</td>
+</tr>
+<tr>
+<td>Characteristic length, <span class="arithmatex">\(L_c=V/A_s\)</span></td>
+<td>The representative internal conduction distance used in the Biot number.</td>
+</tr>
+<tr>
+<td>Biot number, <span class="arithmatex">\(\mathrm{Bi}=hL_c/k\)</span></td>
+<td>The ratio of internal conduction resistance to surface convection resistance. Small <span class="arithmatex">\(\mathrm{Bi}\)</span> supports a nearly uniform internal temperature.</td>
+</tr>
+<tr>
+<td>Lumped-capacitance model</td>
+<td>A model that assigns one temperature to an entire object; it requires sufficiently small internal temperature variation.</td>
+</tr>
+</tbody>
+</table>
 <p>Read selectively in
 <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard, A Heat Transfer Textbook</a>,
 Section 1.3, pp. 11-26. Focus on Fourier's Law, the derivation of the heat
@@ -866,8 +939,8 @@ units of m<span class="arithmatex">\(^2\)</span> K/W.</p>
 \]</div>
 <p>This ratio compares resistance to heat flow <strong>inside the solid</strong> with resistance
 to heat transfer <strong>from its surface to the surroundings</strong>. It is the <strong>Biot
-number</strong>, Bi.  </p>
-<p>Since energy is conserved, the heat that leaves the body by conduction is equal to the heat that enters the room by convection so </p>
+number</strong>, Bi.</p>
+<p>Since energy is conserved, the heat that leaves the body by conduction is equal to the heat that enters the room by convection so</p>
 <div class="arithmatex">\[
 \dot Q = \frac{\Delta T_{\mathrm{cond}}}{R_{\mathrm{cond}}}=\frac{\Delta T_{\mathrm{conv}}}{R_{\mathrm{conc}}}
 \]</div>
@@ -976,7 +1049,7 @@ after completing all three parts of Module 7. For each material:</p>
 <li>begin with Fourier's law and show how you obtain the temperature rise from
    the specified heat flux, slab thickness, and thermal conductivity,</li>
 <li>report the temperature rise with units, and</li>
-<li>explain which results are physically unreasonable and why.</li>
+<li>explain which results are physically unreasonable and why. Hint: think about our TEC, for which we go to lengths to protect it from overheating.</li>
 </ol>
 <p>Use one clear sample calculation and organize the remaining results in a
 table. Do not merely report numerical answers; the assessment is testing your

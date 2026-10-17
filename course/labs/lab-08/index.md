@@ -59,6 +59,32 @@ Part III, you should be able to:
 5. Explain what the steady experiment can determine and why it cannot determine
    the thermal conductivity and side heat-transfer coefficient separately.
 
+## Part III Vocabulary And Notation
+
+Review the [foundational vocabulary in Part
+I](../theory-bridge-chapter-1/index.md#module-7-vocabulary-and-notation) and the
+[fin-model vocabulary in Part
+II](../fin-design-derivation/index.md#part-ii-vocabulary-and-notation). The
+terms below connect that theory to the experiment and its analysis.
+
+| Term | Meaning |
+| --- | --- |
+| Temperature field, \(T(x,t)\) | Temperature as a function of both position along the rod and time. |
+| Excess temperature, \(\theta(x,t)=T(x,t)-T_{\mathrm{room}}\) | Rod temperature measured relative to room temperature. |
+| Thermal diffusivity, \(\kappa=k/(\rho c)\) | The coefficient controlling axial spreading in the Part III model. It is the same physical property denoted \(\alpha\) in Part I. |
+| Side-loss rate, \(\nu=hP/(\rho cA)\) | The fractional rate, in s\(^{-1}\), at which side convection removes excess thermal energy in the one-dimensional model. |
+| Decay coefficient, \(m=\sqrt{hP/(kA)}=\sqrt{\nu/\kappa}\) | The spatial decay rate of the stationary profile; \(1/m\) is the decay length. |
+| Sensor map | A record of each channel name, thermistor position, coordinate origin and direction, and position uncertainty. |
+| Calibration or cross-check | A comparison under a common temperature condition used to identify sensor offsets or other channel differences. |
+| Baseline | Measurements made before the imposed temperature change, used to establish room temperature and initial sensor readings. |
+| Step response | The measured evolution of \(T(x,t)\) after the base-temperature command changes. |
+| Boundary condition | The measured or prescribed behavior at a boundary. The measured base temperature, rather than only its commanded value, is the experimental thermal boundary condition. |
+| Stationary profile | The position-dependent temperature after changes with time have become negligible according to a stated criterion. |
+| Model fit | Estimation of model parameters by comparing a predicted curve with measured data. |
+| Residual | Measured value minus model prediction at the same position or time. Residual structure can reveal model inadequacy. |
+| Uncertainty | A quantitative estimate of the plausible range of a measured or fitted result. |
+| Metadata | Information needed to interpret and reproduce a run, including units, timestamps, channel labels, geometry, settings, and experimental notes. |
+
 ## Reading And Preparation
 
 1. Read Chapter 1 of [Lienhard and Lienhard, *A Heat Transfer Textbook*](../../references/lienhard-heat-transfer-textbook-v6.pdf).

@@ -110,6 +110,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#part-ii-vocabulary-and-notation" class="nav-link">Part II Vocabulary And Notation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#how-to-use-this-reference" class="nav-link">How To Use This Reference</a>
               <ul class="nav flex-column">
               </ul>
@@ -174,13 +178,86 @@ Part II, you should be able to:</p>
 <li>Apply the base-temperature and insulated-tip boundary conditions to obtain
    the finite-rod temperature profile.</li>
 <li>Interpret <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> and
-   <span class="arithmatex">\(\mathrm{Bi}_{\parallel}=(mL)^2\)</span> as resistance ratios that compare radial
-   conduction with surface convection and axial conduction with distributed
-   side convection, respectively.</li>
+   <span class="arithmatex">\(\mathrm{Bi}_{\parallel}=hPL^2/(kA)\)</span> as resistance ratios that compare
+   radial conduction with surface convection and axial conduction with
+   distributed side convection, respectively.</li>
 <li>Obtain the semi-infinite exponential profile as a limit of the finite-rod
    solution and quantify the resulting approximation error at the sensor
    positions.</li>
 </ol>
+<h2 id="part-ii-vocabulary-and-notation">Part II Vocabulary And Notation<a class="headerlink" href="#part-ii-vocabulary-and-notation" title="Permanent link">&para;</a></h2>
+<p>This table extends the <a href="../theory-bridge-chapter-1/#module-7-vocabulary-and-notation">foundational Module 7 vocabulary from Part
+I</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fin</td>
+<td>A solid that conducts heat along its length while exchanging heat with the surrounding fluid through its surface.</td>
+</tr>
+<tr>
+<td>Base and tip</td>
+<td>The base at <span class="arithmatex">\(x=0\)</span> is where the rod temperature is prescribed; the tip at <span class="arithmatex">\(x=L\)</span> is the far end.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(P\)</span>, and <span class="arithmatex">\(PL\)</span></td>
+<td><span class="arithmatex">\(A\)</span> is the cross-sectional area normal to axial heat flow, <span class="arithmatex">\(P\)</span> is the cross-sectional perimeter, and <span class="arithmatex">\(PL\)</span> is the lateral surface area of a uniform rod, excluding its ends.</td>
+</tr>
+<tr>
+<td>Stationary or steady state</td>
+<td>A condition in which temperature no longer changes with time, although heat can continue to flow.</td>
+</tr>
+<tr>
+<td>Boundary condition</td>
+<td>A physical constraint imposed at a boundary, such as prescribed base temperature, zero tip heat flux, or convection from the tip.</td>
+</tr>
+<tr>
+<td>Adiabatic or insulated tip</td>
+<td>A tip through which no heat flows: <span class="arithmatex">\(dT/dx=0\)</span> at <span class="arithmatex">\(x=L\)</span>.</td>
+</tr>
+<tr>
+<td>Convecting tip</td>
+<td>A tip that transfers heat to the surroundings with coefficient <span class="arithmatex">\(h_L\)</span>.</td>
+</tr>
+<tr>
+<td>Normalized excess temperature, <span class="arithmatex">\(\Theta\)</span></td>
+<td><span class="arithmatex">\(\Theta=(T-T_\infty)/(T_0-T_\infty)\)</span>; it is 1 at the prescribed-temperature base and dimensionless.</td>
+</tr>
+<tr>
+<td>Dimensionless position, <span class="arithmatex">\(\xi=x/L\)</span></td>
+<td>Position scaled by the physical rod length, placing the base at <span class="arithmatex">\(\xi=0\)</span> and the tip at <span class="arithmatex">\(\xi=1\)</span>.</td>
+</tr>
+<tr>
+<td>Fin parameter, <span class="arithmatex">\(m=\sqrt{hP/(kA)}\)</span></td>
+<td>The inverse axial decay length, with units m<span class="arithmatex">\(^{-1}\)</span>. The characteristic decay length is <span class="arithmatex">\(1/m\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(mL\)</span></td>
+<td>Rod length divided by decay length. It measures how strongly the finite tip can influence the temperature profile.</td>
+</tr>
+<tr>
+<td>Transverse Biot number, <span class="arithmatex">\(\mathrm{Bi}_{\perp}=h(A/P)/k\)</span></td>
+<td>The resistance ratio testing whether radial temperature variation across a section may be neglected.</td>
+</tr>
+<tr>
+<td>Parallel Biot number, <span class="arithmatex">\(\mathrm{Bi}_{\parallel}=hPL^2/(kA)=(mL)^2\)</span></td>
+<td>The resistance ratio comparing axial conduction over the rod length with distributed side convection.</td>
+</tr>
+<tr>
+<td>Tip Biot number, <span class="arithmatex">\(\mathrm{Bi}_{\mathrm{tip}}=h_LL/k\)</span></td>
+<td>The dimensionless strength of convection from the tip relative to axial conduction. It drops out for an insulated tip.</td>
+</tr>
+<tr>
+<td>Finite and semi-infinite models</td>
+<td>The finite model retains the boundary at <span class="arithmatex">\(x=L\)</span>; the semi-infinite model neglects the far-end influence over the measured region.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="how-to-use-this-reference">How To Use This Reference<a class="headerlink" href="#how-to-use-this-reference" title="Permanent link">&para;</a></h2>
 <p>Read this page alongside Lienhard Section 4.5 for A4. The Module 7 workload
 budget includes <strong>150 minutes total</strong> for reading the module, the textbook

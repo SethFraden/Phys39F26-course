@@ -19,12 +19,35 @@ Part II, you should be able to:
 2. Apply the base-temperature and insulated-tip boundary conditions to obtain
    the finite-rod temperature profile.
 3. Interpret $\mathrm{Bi}_{\perp}$ and
-   $\mathrm{Bi}_{\parallel}=(mL)^2$ as resistance ratios that compare radial
-   conduction with surface convection and axial conduction with distributed
-   side convection, respectively.
+   $\mathrm{Bi}_{\parallel}=hPL^2/(kA)$ as resistance ratios that compare
+   radial conduction with surface convection and axial conduction with
+   distributed side convection, respectively.
 4. Obtain the semi-infinite exponential profile as a limit of the finite-rod
    solution and quantify the resulting approximation error at the sensor
    positions.
+
+## Part II Vocabulary And Notation
+
+This table extends the [foundational Module 7 vocabulary from Part
+I](../theory-bridge-chapter-1/index.md#module-7-vocabulary-and-notation).
+
+| Term | Meaning |
+| --- | --- |
+| Fin | A solid that conducts heat along its length while exchanging heat with the surrounding fluid through its surface. |
+| Base and tip | The base at \(x=0\) is where the rod temperature is prescribed; the tip at \(x=L\) is the far end. |
+| \(A\), \(P\), and \(PL\) | \(A\) is the cross-sectional area normal to axial heat flow, \(P\) is the cross-sectional perimeter, and \(PL\) is the lateral surface area of a uniform rod, excluding its ends. |
+| Stationary or steady state | A condition in which temperature no longer changes with time, although heat can continue to flow. |
+| Boundary condition | A physical constraint imposed at a boundary, such as prescribed base temperature, zero tip heat flux, or convection from the tip. |
+| Adiabatic or insulated tip | A tip through which no heat flows: \(dT/dx=0\) at \(x=L\). |
+| Convecting tip | A tip that transfers heat to the surroundings with coefficient \(h_L\). |
+| Normalized excess temperature, \(\Theta\) | \(\Theta=(T-T_\infty)/(T_0-T_\infty)\); it is 1 at the prescribed-temperature base and dimensionless. |
+| Dimensionless position, \(\xi=x/L\) | Position scaled by the physical rod length, placing the base at \(\xi=0\) and the tip at \(\xi=1\). |
+| Fin parameter, \(m=\sqrt{hP/(kA)}\) | The inverse axial decay length, with units m\(^{-1}\). The characteristic decay length is \(1/m\). |
+| \(mL\) | Rod length divided by decay length. It measures how strongly the finite tip can influence the temperature profile. |
+| Transverse Biot number, \(\mathrm{Bi}_{\perp}=h(A/P)/k\) | The resistance ratio testing whether radial temperature variation across a section may be neglected. |
+| Parallel Biot number, \(\mathrm{Bi}_{\parallel}=hPL^2/(kA)=(mL)^2\) | The resistance ratio comparing axial conduction over the rod length with distributed side convection. |
+| Tip Biot number, \(\mathrm{Bi}_{\mathrm{tip}}=h_LL/k\) | The dimensionless strength of convection from the tip relative to axial conduction. It drops out for an insulated tip. |
+| Finite and semi-infinite models | The finite model retains the boundary at \(x=L\); the semi-infinite model neglects the far-end influence over the measured region. |
 
 ## How To Use This Reference
 

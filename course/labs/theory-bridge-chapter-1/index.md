@@ -24,6 +24,28 @@ Part I, you should be able to:
 4. Distinguish the two independent approximations required for the course rod:
    neglecting the finite end and neglecting radial temperature variation.
 
+## Module 7 Vocabulary And Notation
+
+These foundational terms are used throughout all three parts of Module 7.
+Parts II and III add vocabulary specific to the fin model and the experiment.
+
+| Term | Meaning |
+| --- | --- |
+| Temperature, \(T\) | A local thermal state variable, measured in kelvin or degrees Celsius. Temperature differences drive heat transfer. |
+| Heat, \(Q\) | Energy transferred across a system boundary because of a temperature difference, measured in joules. |
+| Heat-transfer rate or heat current, \(\dot Q\) | Heat transferred per unit time, measured in watts. |
+| Heat flux, \(\mathbf q\) or \(q_x\) | Heat-transfer rate per unit area, measured in W/m\(^2\). |
+| Thermal conductivity, \(k\) | A material property relating conductive heat flux to temperature gradient through Fourier's law; units W/(m K). |
+| Specific heat, \(c\) | Energy needed per unit mass per degree of temperature rise; units J/(kg K). The volumetric heat capacity is \(\rho c\), and a body of mass \(m\) has thermal capacitance \(mc\). |
+| Thermal diffusivity, \(\alpha=k/(\rho c)\) | The material property governing how rapidly a temperature disturbance spreads; units m\(^2\)/s. |
+| Thermal resistance, \(R_{\mathrm{th}}\) | A geometry-dependent ratio \(\Delta T/\dot Q\), measured in K/W. For uniform one-dimensional conduction, \(R_{\mathrm{th}}=L/(kA)\). |
+| Constitutive law | A material-response relation connecting a flux to a driving field, such as Fourier's law \(\mathbf q=-k\nabla T\). |
+| Conservation law | A balance stating that accumulation equals inflow minus outflow plus generation. Conservation of energy and a constitutive law together produce the heat equation. |
+| Surface heat-transfer coefficient, \(h\) | The coefficient in Newton's law of cooling, \(q=h(T_s-T_\infty)\); units W/(m\(^2\) K). It depends on the fluid, flow, and geometry. |
+| Characteristic length, \(L_c=V/A_s\) | The representative internal conduction distance used in the Biot number. |
+| Biot number, \(\mathrm{Bi}=hL_c/k\) | The ratio of internal conduction resistance to surface convection resistance. Small \(\mathrm{Bi}\) supports a nearly uniform internal temperature. |
+| Lumped-capacitance model | A model that assigns one temperature to an entire object; it requires sufficiently small internal temperature variation. |
+
 Read selectively in
 [Lienhard, A Heat Transfer Textbook](../../references/lienhard-heat-transfer-textbook-v6.pdf),
 Section 1.3, pp. 11-26. Focus on Fourier's Law, the derivation of the heat

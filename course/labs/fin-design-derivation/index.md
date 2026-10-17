@@ -18,9 +18,10 @@ Part II, you should be able to:
    the stationary one-dimensional fin equation and check every term's units.
 2. Apply the base-temperature and insulated-tip boundary conditions to obtain
    the finite-rod temperature profile.
-3. Interpret the transverse Biot number and the dimensionless group $mL$ as
-   tests of two different approximations: uniform temperature across a section
-   and negligible influence of the far end.
+3. Interpret $\mathrm{Bi}_{\perp}$ and
+   $\mathrm{Bi}_{\parallel}=(mL)^2$ as resistance ratios that compare radial
+   conduction with surface convection and axial conduction with distributed
+   side convection, respectively.
 4. Obtain the semi-infinite exponential profile as a limit of the finite-rod
    solution and quantify the resulting approximation error at the sensor
    positions.
@@ -49,8 +50,7 @@ transfer.
 
 ![Pin-fin assembly](../../assets/pin-fin-3.jpg)
 
-*Examples used in the historical Phys 39 course: extended metal surfaces
-increase the area available for heat transfer.*
+*Extended metal surfaces increase the area available for heat transfer.*
 
 ![Possible biological cooling fins](../../assets/lienhard-fig-4-7-fin-example.png)
 
@@ -65,112 +65,82 @@ example of cooling fins.*
 cross-sectional area \(A\), perimeter \(P\), conductivity \(k\), side
 coefficient \(h\), and tip coefficient \(h_L\).*
 
-The transverse Biot number must be small:
+As derived in
+[Part I](../theory-bridge-chapter-1/index.md#5-lumped-cooling-and-the-biot-number),
+the transverse Biot number must be small to treat a cylinder as a one-dimensional object:
 
 \[
-\mathrm{Bi}_{\mathrm{fin}}
+\mathrm{Bi}_{\perp}
 =\frac{h(A/P)}{k}\ll1.
 \tag{4.27}
 \]
 
-### What The Transverse Biot Number Compares
+### Transverse And Parallel Resistance Ratios
 
-The transverse Biot number does **not** compare radial heat transport with
-axial heat transport. It compares conduction from the interior of a cross
-section to its surface with convection from that surface to the surrounding
-air.
-
-Refer back to [Fig. 1.10 and the accompanying Part I discussion of lumped
-cooling and the Biot number](../theory-bridge-chapter-1/index.md#5-lumped-cooling-and-the-biot-number).
-That figure shows the same two processes in sequence: heat first conducts
-through the solid to its surface and then crosses from the surface to the
-surroundings. Here we apply that picture across each cross section of the rod.
-
-Consider a rod element of length $\delta x$. Its curved surface area is
-$P\delta x$, and the characteristic transverse conduction length is
-
-\[
-L_c=\frac{A}{P}.
-\]
-
-For a circular rod, $A=\pi R^2$ and $P=2\pi R$, so
-
-\[
-L_c=\frac{A}{P}=\frac{R}{2}.
-\]
-
-Thus $L_c$ is the characteristic radial distance: it is of order the rod
-radius $R$. The factor of $1/2$ comes from the standard volume-to-surface-area
-definition $L_c=V/A_s$ applied to a cylindrical element.
-
-A cylinder has two independent geometric lengths: its radius $R$ and its
-length $L$. We must therefore state which length is being used to
-nondimensionalize the problem and why:
-
-- The radial scale $R$ (or, with the $V/A_s$ convention, $L_c=R/2$) is used in
-  the transverse Biot number because that number tests whether temperature
-  variation across a cross section can be neglected.
-- The axial scale $L$ is used in $\xi=x/L$ and in $mL$ because those quantities
-  describe variation along the rod and whether the far-end boundary affects
-  the measured region.
-
-These choices answer different physical questions; one characteristic length
-cannot replace the other. A sphere, by contrast, has only one independent
-geometric length, its radius $R$. The conventional volume-to-surface-area
-length for a sphere is $L_c=V/A_s=R/3$, but it is still set entirely by the
-single scale $R$.
-
-Using the same representative temperature difference $\Delta T$ for both
-processes, their characteristic heat-transport capacities are
-
-\[
-\dot Q_{\mathrm{radial\ conduction}}
-\sim \frac{k(P\delta x)}{L_c}\Delta T,
-\qquad
-\dot Q_{\mathrm{side\ convection}}
-\sim h(P\delta x)\Delta T.
-\]
-
-Their ratio is
+Part I defines the Biot number as a ratio of thermal resistances. Applied
+across a rod section,
 
 \[
 \boxed{
-\frac{\dot Q_{\mathrm{side\ convection}}}
-{\dot Q_{\mathrm{radial\ conduction}}}
-\sim \frac{hL_c}{k}
-=\mathrm{Bi}_{\perp}
-}.
-\]
-
-These are characteristic rates evaluated using the same $\Delta T$, not two
-independent actual heat rates. In steady operation, radial conduction to the
-surface and convection from the surface occur in series, so their actual rates
-must be equal. Equivalently,
-
-\[
 \mathrm{Bi}_{\perp}
 \sim
 \frac{R_{\mathrm{radial\ conduction}}}
-{R_{\mathrm{surface\ convection}}}.
+{R_{\mathrm{surface\ convection}}}
+=\frac{h(A/P)}{k}
+}.
 \]
 
-When $\mathrm{Bi}_{\perp}\ll1$, radial conduction offers little resistance.
-Only a small center-to-surface temperature difference is needed to replace the
-heat lost by convection, so each cross section is nearly isothermal.
+For a circular rod, $A/P=R/2$. Thus $\mathrm{Bi}_{\perp}\ll1$ means that
+only a small center-to-surface temperature difference is needed to supply the
+heat lost to the air, so each cross section is nearly isothermal. This is the
+same argument developed in Part I and is not a comparison with axial
+conduction.
 
-The comparison between **axial conduction** and **side convection** is a
-different dimensionless ratio:
+For the axial comparison, assume a uniform cylindrical rod of length $L$,
+constant cross-sectional area $A$, perimeter $P$, conductivity $k$, and side
+heat-transfer coefficient $h$. Axial conduction crosses the end-on area $A$,
+whereas side convection acts over the cylinder's entire lateral area $PL$
+(excluding the two ends). The characteristic heat-transfer rates are therefore
 
 \[
-\frac{\dot Q_{\mathrm{side\ convection}}}
-{\dot Q_{\mathrm{axial\ conduction}}}
-\sim \frac{hPL^2}{kA}
-=(mL)^2.
+\dot Q_{\mathrm{axial\ conduction}}
+\sim \frac{kA}{L}\Delta T_{\parallel},
+\qquad
+\dot Q_{\mathrm{side\ convection}}
+\sim hPL\Delta T_{\mathrm{side}}.
 \]
 
-Thus $\mathrm{Bi}_{\perp}$ tests whether radial temperature variation may be
-neglected, whereas $(mL)^2$ describes how strongly side cooling competes with
-conduction along the rod.
+Here $\Delta T_{\parallel}$ is a representative temperature change along the
+rod, while $\Delta T_{\mathrm{side}}$ is a representative rod-to-room
+temperature difference. They are not generally the same actual temperature
+difference. To compare the capacities of the two transport mechanisms, use a
+common characteristic temperature scale $\Delta T$. Equivalently,
+
+\[
+R_{\mathrm{axial\ conduction}}\sim\frac{L}{kA},
+\qquad
+R_{\mathrm{side\ convection}}\sim\frac{1}{hPL}.
+\]
+
+Their ratio defines the parallel Biot number:
+
+\[
+\boxed{
+\mathrm{Bi}_{\parallel}
+\equiv
+\frac{R_{\mathrm{axial\ conduction}}}
+{R_{\mathrm{side\ convection}}}
+=\frac{hPL^2}{kA}
+=(mL)^2
+}.
+\]
+
+When $\mathrm{Bi}_{\parallel}\ll1$, axial conduction carries heat along the
+rod readily compared with side convection. When
+$\mathrm{Bi}_{\parallel}\gg1$, much of the heat is lost from the side before
+it reaches the far end, and the temperature decays strongly along the rod.
+The side loss is distributed continuously rather than occurring in one lump,
+so this resistance ratio is a scaling interpretation of the fin equation.
 
 The small-transverse-Biot criterion allows us to use one cross-sectional
 temperature \(T(x)\).
@@ -245,14 +215,14 @@ Define
 \qquad
 m=\sqrt{\frac{hP}{kA}},
 \qquad
-\mathrm{Bi}_{\mathrm{axial}}=\frac{h_LL}{k}.
+\mathrm{Bi}_{\mathrm{tip}}=\frac{h_LL}{k}.
 \]
 
 Then a convecting-tip fin has
 
 \[
 \Theta=\operatorname{fn}
-\left(\xi,mL,\mathrm{Bi}_{\mathrm{axial}}\right),
+\left(\xi,mL,\mathrm{Bi}_{\mathrm{tip}}\right),
 \tag{4.33a}
 \]
 
@@ -306,16 +276,16 @@ the long-fin limit is written as $e^{-mL\xi}=e^{-mx}$, and the following
 paragraph interprets $(mL)^2$ as a hybrid Biot number comparing axial
 conduction resistance with the overall resistance to side convection.
 
-### Why The Axial Biot Number Disappears For An Adiabatic Tip
+### Why The Tip Biot Number Disappears For An Adiabatic Tip
 
 For a convecting tip, $h_L$ enters through the tip boundary condition:
 
 \[
 -\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}
-=\underbrace{\frac{h_LL}{k}}_{\mathrm{Bi}_{\mathrm{axial}}}\Theta(1).
+=\underbrace{\frac{h_LL}{k}}_{\mathrm{Bi}_{\mathrm{tip}}}\Theta(1).
 \]
 
-Thus $\mathrm{Bi}_{\mathrm{axial}}$ measures the strength of convection from
+Thus $\mathrm{Bi}_{\mathrm{tip}}$ measures the strength of convection from
 the tip relative to axial conduction. For an adiabatic tip, the heat flux at
 the tip is zero:
 
@@ -325,8 +295,8 @@ the tip is zero:
 
 There is no tip heat-transfer coefficient $h_L$ in this boundary condition.
 Consequently, $h_L$ is absent from the dimensional functional relation and no
-independent axial Biot number can be formed. Equivalently, one may set $h_L=0$
-and obtain $\mathrm{Bi}_{\mathrm{axial}}=0$, but saying that the parameter
+independent tip Biot number can be formed. Equivalently, one may set $h_L=0$
+and obtain $\mathrm{Bi}_{\mathrm{tip}}=0$, but saying that the parameter
 **drops out of the problem** better expresses the dimensional-analysis logic.
 The transverse Biot number does not disappear: it remains the separate test of
 whether each cross section can be assigned one temperature.
@@ -334,7 +304,7 @@ whether each cross section can be assigned one temperature.
 [Lienhard, p. 167, immediately following Eq. (4.33a)](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=181)
 makes this variable-counting argument explicitly: removing $h_L$ leaves one
 fewer variable but the same fundamental dimensions, so the corresponding
-dimensionless group $\mathrm{Bi}_{\mathrm{axial}}$ is removed, giving
+dimensionless group $\mathrm{Bi}_{\mathrm{tip}}$ is removed, giving
 Eq. (4.33b).
 
 The differential equation becomes
@@ -455,7 +425,7 @@ The dimensionless boundary conditions become
 \Theta(0)=1,
 \qquad
 -\left.\frac{d\Theta}{d\xi}\right|_{\xi=1}
-=\mathrm{Bi}_{\mathrm{axial}}\Theta(1).
+=\mathrm{Bi}_{\mathrm{tip}}\Theta(1).
 \tag{4.46}
 \]
 
@@ -465,7 +435,7 @@ Substitution into the general solution gives
 \begin{aligned}
 C_1+C_2&=1,\\
 -mL(C_1e^{mL}-C_2e^{-mL})
-&=\mathrm{Bi}_{\mathrm{axial}}
+&=\mathrm{Bi}_{\mathrm{tip}}
 (C_1e^{mL}+C_2e^{-mL}).
 \end{aligned}
 \tag{4.47}
@@ -478,10 +448,10 @@ The exact temperature distribution is
 =
 \frac{
 \cosh[mL(1-\xi)]
-+(\mathrm{Bi}_{\mathrm{axial}}/mL)\sinh[mL(1-\xi)]
++(\mathrm{Bi}_{\mathrm{tip}}/mL)\sinh[mL(1-\xi)]
 }{
 \cosh(mL)
-+(\mathrm{Bi}_{\mathrm{axial}}/mL)\sinh(mL)
++(\mathrm{Bi}_{\mathrm{tip}}/mL)\sinh(mL)
 }.
 \tag{4.48}
 \]
@@ -493,9 +463,9 @@ The corresponding base heat rate is
 {\sqrt{kAhP}\,(T_0-T_\infty)}
 =
 \frac{
-(\mathrm{Bi}_{\mathrm{axial}}/mL)+\tanh(mL)
+(\mathrm{Bi}_{\mathrm{tip}}/mL)+\tanh(mL)
 }{
-1+(\mathrm{Bi}_{\mathrm{axial}}/mL)\tanh(mL)
+1+(\mathrm{Bi}_{\mathrm{tip}}/mL)\tanh(mL)
 }.
 \tag{4.49}
 \]

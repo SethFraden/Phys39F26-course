@@ -136,6 +136,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#symbol-glossary" class="nav-link">Symbol Glossary</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#model-equations-and-numerical-algorithm" class="nav-link">Model Equations And Numerical Algorithm</a>
               <ul class="nav flex-column">
               </ul>
@@ -372,24 +376,12 @@ budget and should be attempted only after required work is complete.</p>
 <li><strong>Unstable</strong>: a response that moves farther from steady state; oscillations
   grow rather than decay when the instability is oscillatory.</li>
 </ul>
-<h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
-<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> separates the physical model
-from the controller. Select either a one-lump or two-lump process, then select
-open-loop, P, or PI control.</p>
-<p><a id="lumped-model-figure"></a></p>
-<p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
-<p><em>Course-specific lumped-model diagram.</em></p>
-<p>The one-lump model assigns one temperature to the TEC, block, and thermistor
-assembly. It retains heat storage and heat loss to the room, but it cannot
-represent an internal temperature difference or delay. The two-lump model
-separates the TEC-side temperature <span class="arithmatex">\(T\)</span> from the measured temperature <span class="arithmatex">\(T_m\)</span>.
-Heat first crosses the internal conductance <span class="arithmatex">\(G\)</span> and then leaves the measured
-lump through the room conductance <span class="arithmatex">\(H\)</span>. Because the controller responds to
-<span class="arithmatex">\(T_m\)</span>, this extra thermal store and transport step introduce lag that can
-produce overshoot and underdamped behavior.</p>
-<h4 id="one-lump-physical-model">One-Lump Physical Model<a class="headerlink" href="#one-lump-physical-model" title="Permanent link">&para;</a></h4>
+<h3 id="symbol-glossary">Symbol Glossary<a class="headerlink" href="#symbol-glossary" title="Permanent link">&para;</a></h3>
 <details class="note">
 <summary><strong>Symbols Used In Module 6, Part II</strong></summary>
+<p>Part II carries forward the notation in the <a href="../lab-06/#symbol-glossary">Part I symbol
+glossary</a> and adds the two-lump and stability
+quantities below.</p>
 <table>
 <thead>
 <tr>
@@ -407,6 +399,11 @@ produce overshoot and underdamped behavior.</p>
 <tr>
 <td><span class="arithmatex">\(T_m\)</span></td>
 <td>Measured-block temperature in the two-lump model</td>
+<td><span class="arithmatex">\(^\circ\)</span>C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{meas}}\)</span></td>
+<td>Temperature used by the controller: <span class="arithmatex">\(T\)</span> for one lump and <span class="arithmatex">\(T_m\)</span> for two lumps</td>
 <td><span class="arithmatex">\(^\circ\)</span>C</td>
 </tr>
 <tr>
@@ -475,6 +472,11 @@ produce overshoot and underdamped behavior.</p>
 <td><span class="arithmatex">\(^\circ\)</span>C</td>
 </tr>
 <tr>
+<td><span class="arithmatex">\(q=\int e\,dt\)</span></td>
+<td>Accumulated temperature error</td>
+<td><span class="arithmatex">\(^\circ\)</span>C s</td>
+</tr>
+<tr>
 <td><span class="arithmatex">\(K_p\)</span></td>
 <td>Proportional gain</td>
 <td>PWM counts/<span class="arithmatex">\(^\circ\)</span>C</td>
@@ -494,9 +496,55 @@ produce overshoot and underdamped behavior.</p>
 <td>Deviations from the steady-state temperatures</td>
 <td><span class="arithmatex">\(^\circ\)</span>C</td>
 </tr>
+<tr>
+<td><span class="arithmatex">\(s\)</span></td>
+<td>Eigenvalue in a mode proportional to <span class="arithmatex">\(e^{st}\)</span></td>
+<td>1/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\omega_n\)</span></td>
+<td>Natural angular frequency of the two-lump P response</td>
+<td>rad/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\zeta_{\mathrm{2L,P}}\)</span></td>
+<td>Damping ratio of the two-lump P model</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(K_{p,\mathrm{crit}}\)</span></td>
+<td>P gain at the transition between over- and underdamping</td>
+<td>PWM counts/<span class="arithmatex">\(^\circ\)</span>C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(K_{i,\mathrm{crit}}\)</span></td>
+<td>Integral gain at the two-lump PI stability boundary</td>
+<td>PWM counts/(<span class="arithmatex">\(^\circ\)</span>C s)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\rho_I=K_i/K_{i,\mathrm{crit}}\)</span></td>
+<td>Integral-gain ratio used to classify two-lump PI stability</td>
+<td>dimensionless</td>
+</tr>
 </tbody>
 </table>
 </details>
+<h3 id="model-equations-and-numerical-algorithm">Model Equations And Numerical Algorithm<a class="headerlink" href="#model-equations-and-numerical-algorithm" title="Permanent link">&para;</a></h3>
+<p>The <a href="#how-to-run-the-python-gui">Python GUI</a> separates the physical model
+from the controller. Select either a one-lump or two-lump process, then select
+open-loop, P, or PI control.</p>
+<p><a id="lumped-model-figure"></a></p>
+<p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
+<p><em>Course-specific lumped-model diagram.</em></p>
+<p>The one-lump model assigns one temperature to the TEC, block, and thermistor
+assembly. It retains heat storage and heat loss to the room, but it cannot
+represent an internal temperature difference or delay. The two-lump model
+separates the TEC-side temperature <span class="arithmatex">\(T\)</span> from the measured temperature <span class="arithmatex">\(T_m\)</span>.
+Heat first crosses the internal conductance <span class="arithmatex">\(G\)</span> and then leaves the measured
+lump through the room conductance <span class="arithmatex">\(H\)</span>. Because the controller responds to
+<span class="arithmatex">\(T_m\)</span>, this extra thermal store and transport step introduce lag that can
+produce overshoot and underdamped behavior.</p>
+<h4 id="one-lump-physical-model">One-Lump Physical Model<a class="headerlink" href="#one-lump-physical-model" title="Permanent link">&para;</a></h4>
 <p>Part I developed the <a href="../lab-06/#part-2-express-the-one-lump-model-using-measured-parameters">one-lump energy balance and its measured-parameter
 form</a>.
 Carry those results forward rather than deriving them again. For comparison

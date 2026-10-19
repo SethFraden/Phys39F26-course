@@ -104,7 +104,10 @@ environment, and responds over a time scale.
 - **Unstable:** a response that moves farther from steady state; in an
   oscillatory instability, successive oscillations grow.
 
-### Symbols Used In Module 6, Part I
+### Symbol Glossary
+
+<details class="note" markdown="1">
+<summary><strong>Symbols Used In Module 6, Part I</strong></summary>
 
 A temperature difference has the same numerical value in K and °C. Earlier
 modules wrote the generic open-loop susceptibility as $\chi_{T,u}$. For
@@ -142,7 +145,16 @@ heating from cooling.
 | $\theta$, $z$ | Temperature and integral-state displacements from steady state | °C, °C s |
 | $\lambda$ | Eigenvalue governing exponential growth or decay | 1/s |
 | $\zeta$ | PI damping ratio | dimensionless |
+| $\omega_n$ | Natural angular frequency of the one-lump PI response | rad/s |
+| $\omega_d$ | Damped angular frequency of an underdamped response | rad/s |
+| $T_{\mathrm{osc}}$ | Oscillation period | s |
+| $\tau_{\mathrm{decay}}$ | Decay time of the oscillation envelope | s |
+| $Q=1/(2\zeta)$ | Quality factor, a measure of how slowly oscillations decay | dimensionless |
+| $T_{\mathrm{ss}}$ | Steady-state temperature | °C |
+| $q_{\mathrm{ss}}$ | Steady accumulated error required to maintain $T_{\mathrm{set}}$ under PI control | °C s |
 | $T_m$ | Temperature of the measured block in the two-lump model | °C |
+
+</details>
 
 In this module, a **command** means setting the controller output $u$, which is
 the signed PWM value, to a particular value. For example, a command of
@@ -919,7 +931,39 @@ one-lump P model has only one state and therefore produces one monotonic
 exponential; the one-lump PI model has two coupled states and can overshoot or
 oscillate.
 
-For an unsaturated PI controller at steady state,
+For an unsaturated PI controller at steady state, the integral state must stop
+changing. Because $dq/dt=e$,
+
+\[
+\frac{dq}{dt}=0
+\quad\Longrightarrow\quad
+e_{\mathrm{ss}}=0
+\quad\Longrightarrow\quad
+T_{\mathrm{ss}}=T_{\mathrm{set}}.
+\]
+
+The steady-state heat balance is therefore
+
+\[
+0=P_u u_{\mathrm{ss}}
+-H(T_{\mathrm{set}}-T_{\mathrm{amb}}),
+\]
+
+which requires
+
+\[
+u_{\mathrm{ss}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_u}.
+\]
+
+At zero error the proportional contribution is zero, so the integral
+contribution supplies the entire steady command:
+
+\[
+u_{\mathrm{ss}}=K_iq_{\mathrm{ss}}.
+\]
+
+Combining these results gives
 
 \[
 T_{\mathrm{ss}}=T_{\mathrm{set}},
@@ -927,6 +971,9 @@ T_{\mathrm{ss}}=T_{\mathrm{set}},
 q_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
 \]
+
+This result assumes stable control, a reachable setpoint, no sustained
+actuator saturation, and continued integral action.
 
 Define the temperature and integral-state displacements from steady state,
 

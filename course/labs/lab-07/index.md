@@ -144,6 +144,47 @@ budget and should be attempted only after required work is complete.
 - **Unstable**: a response that moves farther from steady state; oscillations
   grow rather than decay when the instability is oscillatory.
 
+### Symbol Glossary
+
+<details class="note" markdown="1">
+<summary><strong>Symbols Used In Module 6, Part II</strong></summary>
+
+Part II carries forward the notation in the [Part I symbol
+glossary](../lab-06/index.md#symbol-glossary) and adds the two-lump and stability
+quantities below.
+
+| Symbol | Meaning | Units |
+| --- | --- | --- |
+| $T$ | One-lump temperature, or TEC-side temperature in the two-lump model | $^\circ$C |
+| $T_m$ | Measured-block temperature in the two-lump model | $^\circ$C |
+| $T_{\mathrm{meas}}$ | Temperature used by the controller: $T$ for one lump and $T_m$ for two lumps | $^\circ$C |
+| $T_{\mathrm{amb}}$ | Ambient room temperature | $^\circ$C |
+| $T_{\mathrm{set}}$ | Controller setpoint | $^\circ$C |
+| $C$ | One-lump thermal capacitance, $C=C_T+C_m$ | J/K |
+| $C_T$ | TEC-side thermal capacitance | J/K |
+| $C_m$ | Measured-block thermal capacitance | J/K |
+| $G$ | Passive thermal conductance between the two lumps | W/K |
+| $H$ | Passive thermal conductance from the measured lump to the room | W/K |
+| $u$ | Signed PWM command | PWM counts |
+| $P_u$ | TEC thermal-power coefficient for the active direction | W/PWM count |
+| $P_{u,h}$, $P_{u,c}$ | Heating and cooling thermal-power coefficients | W/PWM count |
+| $\chi_h$, $\chi_c$ | Heating and cooling susceptibilities | $^\circ$C/PWM count |
+| $r=\chi_h/\chi_c$ | Heating-to-cooling susceptibility ratio | dimensionless |
+| $e=T_{\mathrm{set}}-T_{\mathrm{meas}}$ | Temperature error | $^\circ$C |
+| $q=\int e\,dt$ | Accumulated temperature error | $^\circ$C s |
+| $K_p$ | Proportional gain | PWM counts/$^\circ$C |
+| $K_i$ | Integral gain | PWM counts/($^\circ$C s) |
+| $\Delta t$ | Numerical time step | s |
+| $\theta_T$, $\theta_m$ | Deviations from the steady-state temperatures | $^\circ$C |
+| $s$ | Eigenvalue in a mode proportional to $e^{st}$ | 1/s |
+| $\omega_n$ | Natural angular frequency of the two-lump P response | rad/s |
+| $\zeta_{\mathrm{2L,P}}$ | Damping ratio of the two-lump P model | dimensionless |
+| $K_{p,\mathrm{crit}}$ | P gain at the transition between over- and underdamping | PWM counts/$^\circ$C |
+| $K_{i,\mathrm{crit}}$ | Integral gain at the two-lump PI stability boundary | PWM counts/($^\circ$C s) |
+| $\rho_I=K_i/K_{i,\mathrm{crit}}$ | Integral-gain ratio used to classify two-lump PI stability | dimensionless |
+
+</details>
+
 ### Model Equations And Numerical Algorithm
 
 The [Python GUI](#how-to-run-the-python-gui) separates the physical model
@@ -166,33 +207,6 @@ $T_m$, this extra thermal store and transport step introduce lag that can
 produce overshoot and underdamped behavior.
 
 #### One-Lump Physical Model
-
-<details class="note" markdown="1">
-<summary><strong>Symbols Used In Module 6, Part II</strong></summary>
-
-| Symbol | Meaning | Units |
-| --- | --- | --- |
-| $T$ | One-lump temperature, or TEC-side temperature in the two-lump model | $^\circ$C |
-| $T_m$ | Measured-block temperature in the two-lump model | $^\circ$C |
-| $T_{\mathrm{amb}}$ | Ambient room temperature | $^\circ$C |
-| $T_{\mathrm{set}}$ | Controller setpoint | $^\circ$C |
-| $C$ | One-lump thermal capacitance, $C=C_T+C_m$ | J/K |
-| $C_T$ | TEC-side thermal capacitance | J/K |
-| $C_m$ | Measured-block thermal capacitance | J/K |
-| $G$ | Passive thermal conductance between the two lumps | W/K |
-| $H$ | Passive thermal conductance from the measured lump to the room | W/K |
-| $u$ | Signed PWM command | PWM counts |
-| $P_u$ | TEC thermal-power coefficient for the active direction | W/PWM count |
-| $P_{u,h}$, $P_{u,c}$ | Heating and cooling thermal-power coefficients | W/PWM count |
-| $\chi_h$, $\chi_c$ | Heating and cooling susceptibilities | $^\circ$C/PWM count |
-| $r=\chi_h/\chi_c$ | Heating-to-cooling susceptibility ratio | dimensionless |
-| $e=T_{\mathrm{set}}-T_{\mathrm{meas}}$ | Temperature error | $^\circ$C |
-| $K_p$ | Proportional gain | PWM counts/$^\circ$C |
-| $K_i$ | Integral gain | PWM counts/($^\circ$C s) |
-| $\Delta t$ | Numerical time step | s |
-| $\theta_T$, $\theta_m$ | Deviations from the steady-state temperatures | $^\circ$C |
-
-</details>
 
 Part I developed the [one-lump energy balance and its measured-parameter
 form](../lab-06/index.md#part-2-express-the-one-lump-model-using-measured-parameters).

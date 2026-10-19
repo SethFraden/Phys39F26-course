@@ -124,7 +124,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#symbols-used-in-module-6-part-i" class="nav-link">Symbols Used In Module 6, Part I</a>
+            <li class="nav-item" data-bs-level="3"><a href="#symbol-glossary" class="nav-link">Symbol Glossary</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -336,7 +336,9 @@ environment, and responds over a time scale.</p>
 <li><strong>Unstable:</strong> a response that moves farther from steady state; in an
   oscillatory instability, successive oscillations grow.</li>
 </ul>
-<h3 id="symbols-used-in-module-6-part-i">Symbols Used In Module 6, Part I<a class="headerlink" href="#symbols-used-in-module-6-part-i" title="Permanent link">&para;</a></h3>
+<h3 id="symbol-glossary">Symbol Glossary<a class="headerlink" href="#symbol-glossary" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary><strong>Symbols Used In Module 6, Part I</strong></summary>
 <p>A temperature difference has the same numerical value in K and °C. Earlier
 modules wrote the generic open-loop susceptibility as <span class="arithmatex">\(\chi_{T,u}\)</span>. For
 concision, this module writes it as <span class="arithmatex">\(\chi\)</span> and uses <span class="arithmatex">\(\chi_h\)</span> and <span class="arithmatex">\(\chi_c\)</span> when
@@ -488,12 +490,48 @@ heating from cooling.</p>
 <td>dimensionless</td>
 </tr>
 <tr>
+<td><span class="arithmatex">\(\omega_n\)</span></td>
+<td>Natural angular frequency of the one-lump PI response</td>
+<td>rad/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\omega_d\)</span></td>
+<td>Damped angular frequency of an underdamped response</td>
+<td>rad/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{osc}}\)</span></td>
+<td>Oscillation period</td>
+<td>s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\tau_{\mathrm{decay}}\)</span></td>
+<td>Decay time of the oscillation envelope</td>
+<td>s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(Q=1/(2\zeta)\)</span></td>
+<td>Quality factor, a measure of how slowly oscillations decay</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{ss}}\)</span></td>
+<td>Steady-state temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_{\mathrm{ss}}\)</span></td>
+<td>Steady accumulated error required to maintain <span class="arithmatex">\(T_{\mathrm{set}}\)</span> under PI control</td>
+<td>°C s</td>
+</tr>
+<tr>
 <td><span class="arithmatex">\(T_m\)</span></td>
 <td>Temperature of the measured block in the two-lump model</td>
 <td>°C</td>
 </tr>
 </tbody>
 </table>
+</details>
 <p>In this module, a <strong>command</strong> means setting the controller output <span class="arithmatex">\(u\)</span>, which is
 the signed PWM value, to a particular value. For example, a command of
 <span class="arithmatex">\(+25\)</span> PWM means set <span class="arithmatex">\(u=+25\)</span> PWM.</p>
@@ -1173,13 +1211,39 @@ clears that memory before a new comparison.</p>
 one-lump P model has only one state and therefore produces one monotonic
 exponential; the one-lump PI model has two coupled states and can overshoot or
 oscillate.</p>
-<p>For an unsaturated PI controller at steady state,</p>
+<p>For an unsaturated PI controller at steady state, the integral state must stop
+changing. Because <span class="arithmatex">\(dq/dt=e\)</span>,</p>
+<div class="arithmatex">\[
+\frac{dq}{dt}=0
+\quad\Longrightarrow\quad
+e_{\mathrm{ss}}=0
+\quad\Longrightarrow\quad
+T_{\mathrm{ss}}=T_{\mathrm{set}}.
+\]</div>
+<p>The steady-state heat balance is therefore</p>
+<div class="arithmatex">\[
+0=P_u u_{\mathrm{ss}}
+-H(T_{\mathrm{set}}-T_{\mathrm{amb}}),
+\]</div>
+<p>which requires</p>
+<div class="arithmatex">\[
+u_{\mathrm{ss}}
+=\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_u}.
+\]</div>
+<p>At zero error the proportional contribution is zero, so the integral
+contribution supplies the entire steady command:</p>
+<div class="arithmatex">\[
+u_{\mathrm{ss}}=K_iq_{\mathrm{ss}}.
+\]</div>
+<p>Combining these results gives</p>
 <div class="arithmatex">\[
 T_{\mathrm{ss}}=T_{\mathrm{set}},
 \qquad
 q_{\mathrm{ss}}
 =\frac{H(T_{\mathrm{set}}-T_{\mathrm{amb}})}{P_uK_i}.
 \]</div>
+<p>This result assumes stable control, a reachable setpoint, no sustained
+actuator saturation, and continued integral action.</p>
 <p>Define the temperature and integral-state displacements from steady state,</p>
 <div class="arithmatex">\[
 \theta=T-T_{\mathrm{set}},

@@ -150,6 +150,21 @@ The [Python GUI](#how-to-run-the-python-gui) separates the physical model
 from the controller. Select either a one-lump or two-lump process, then select
 open-loop, P, or PI control.
 
+<a id="lumped-model-figure"></a>
+
+![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg)
+
+*Course-specific lumped-model diagram.*
+
+The one-lump model assigns one temperature to the TEC, block, and thermistor
+assembly. It retains heat storage and heat loss to the room, but it cannot
+represent an internal temperature difference or delay. The two-lump model
+separates the TEC-side temperature $T$ from the measured temperature $T_m$.
+Heat first crosses the internal conductance $G$ and then leaves the measured
+lump through the room conductance $H$. Because the controller responds to
+$T_m$, this extra thermal store and transport step introduce lag that can
+produce overshoot and underdamped behavior.
+
 #### One-Lump Physical Model
 
 <details class="note" markdown="1">
@@ -532,12 +547,6 @@ You are not required to write this code. Use it to develop physical intuition:
 vary one model, parameter, or initial condition at a time; predict the result;
 observe the response; and interpret it using the heat balances and controller
 equations.
-
-<a id="lumped-model-figure"></a>
-
-![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg)
-
-*Course-specific lumped-model diagram.*
 
 ### Thermal Transport Theory Assignments
 

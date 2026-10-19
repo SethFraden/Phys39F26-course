@@ -376,6 +376,17 @@ budget and should be attempted only after required work is complete.</p>
 <p>The <a href="#how-to-run-the-python-gui">Python GUI</a> separates the physical model
 from the controller. Select either a one-lump or two-lump process, then select
 open-loop, P, or PI control.</p>
+<p><a id="lumped-model-figure"></a></p>
+<p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
+<p><em>Course-specific lumped-model diagram.</em></p>
+<p>The one-lump model assigns one temperature to the TEC, block, and thermistor
+assembly. It retains heat storage and heat loss to the room, but it cannot
+represent an internal temperature difference or delay. The two-lump model
+separates the TEC-side temperature <span class="arithmatex">\(T\)</span> from the measured temperature <span class="arithmatex">\(T_m\)</span>.
+Heat first crosses the internal conductance <span class="arithmatex">\(G\)</span> and then leaves the measured
+lump through the room conductance <span class="arithmatex">\(H\)</span>. Because the controller responds to
+<span class="arithmatex">\(T_m\)</span>, this extra thermal store and transport step introduce lag that can
+produce overshoot and underdamped behavior.</p>
 <h4 id="one-lump-physical-model">One-Lump Physical Model<a class="headerlink" href="#one-lump-physical-model" title="Permanent link">&para;</a></h4>
 <details class="note">
 <summary><strong>Symbols Used In Module 6, Part II</strong></summary>
@@ -805,9 +816,6 @@ T_{m,n+1}=T_{m,n}+\frac{\Delta t}{C_m}
 vary one model, parameter, or initial condition at a time; predict the result;
 observe the response; and interpret it using the heat balances and controller
 equations.</p>
-<p><a id="lumped-model-figure"></a></p>
-<p><img alt="One-lump and two-lump thermal models" src="../../assets/lumped_thermal_models.svg" /></p>
-<p><em>Course-specific lumped-model diagram.</em></p>
 <h3 id="thermal-transport-theory-assignments">Thermal Transport Theory Assignments<a class="headerlink" href="#thermal-transport-theory-assignments" title="Permanent link">&para;</a></h3>
 <p>This part of the course uses <strong>lumped thermal models</strong>. A lumped model assumes
 that one object, such as the TEC/block assembly, can be described by one

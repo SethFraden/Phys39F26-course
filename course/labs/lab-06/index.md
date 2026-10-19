@@ -146,10 +146,11 @@ heating from cooling.
 | $\lambda$ | Eigenvalue governing exponential growth or decay | 1/s |
 | $\zeta$ | PI damping ratio | dimensionless |
 | $\omega_n$ | Natural angular frequency of the one-lump PI response | rad/s |
+| $\gamma=\zeta\omega_n$ | Relaxation rate of the oscillation envelope | 1/s |
 | $\omega_d$ | Damped angular frequency of an underdamped response | rad/s |
 | $T_{\mathrm{osc}}$ | Oscillation period | s |
 | $\tau_{\mathrm{decay}}$ | Decay time of the oscillation envelope | s |
-| $Q=1/(2\zeta)$ | Quality factor, a measure of how slowly oscillations decay | dimensionless |
+| $Q=\omega_n/(2\gamma)=1/(2\zeta)$ | Quality factor, a dimensionless measure of how slowly oscillations decay | dimensionless |
 | $T_{\mathrm{ss}}$ | Steady-state temperature | °C |
 | $q_{\mathrm{ss}}$ | Steady accumulated error required to maintain $T_{\mathrm{set}}$ under PI control | °C s |
 | $T_m$ | Temperature of the measured block in the two-lump model | °C |
@@ -1201,12 +1202,28 @@ T(t)-T_{\mathrm{ss}}
 The exponential envelope has decay time
 
 \[
-\tau_{\mathrm{decay}}=\frac{1}{\zeta\omega_n},
+\tau_{\mathrm{decay}}=\frac{1}{\gamma},
+\qquad
+\boxed{
+\gamma=\zeta\omega_n
+=\frac{H+P_uK_p}{2C}
+}.
 \]
 
-and the oscillation period is
+Thus $\gamma$ is the **relaxation rate**: increasing $\gamma$ makes the
+oscillation envelope decay more rapidly. The damped oscillation frequency and
+period are
 
 \[
+\boxed{
+\omega_d
+=\omega_n\sqrt{1-\zeta^2}
+=\sqrt{
+\frac{P_uK_i}{C}
+-\left(\frac{H+P_uK_p}{2C}\right)^2
+}
+},
+\qquad
 T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
 \]
 
@@ -1214,13 +1231,30 @@ The dimensionless quality factor is
 
 \[
 \boxed{
-Q=\frac{1}{2\zeta}
+Q=\frac{\omega_n}{2\gamma}
+=\frac{1}{2\zeta}
 =\frac{\sqrt{CP_uK_i}}{H+P_uK_p}
 }.
 \]
 
-Thus $Q<1/2$ is overdamped, $Q=1/2$ is critically damped, and $Q>1/2$
-is underdamped. Larger $Q$ means more slowly decaying oscillations.
+The quality factor is related to, but is not equal to, the number of
+oscillation periods in one decay time. For an underdamped response,
+
+\[
+\boxed{
+\frac{\tau_{\mathrm{decay}}}{T_{\mathrm{osc}}}
+=\frac{\omega_d}{2\pi\gamma}
+=\frac{\sqrt{1-\zeta^2}}{2\pi\zeta}
+=\frac{Q}{\pi}\sqrt{1-\frac{1}{4Q^2}}
+}.
+\]
+
+When damping is weak, $\zeta\ll1$, this becomes
+$\tau_{\mathrm{decay}}/T_{\mathrm{osc}}\approx Q/\pi$, or
+$Q\approx\pi\tau_{\mathrm{decay}}/T_{\mathrm{osc}}$. Thus $Q<1/2$ is
+overdamped, $Q=1/2$ is critically damped, and $Q>1/2$ is underdamped. Larger
+$Q$ means that the oscillation loses a smaller fraction of its amplitude per
+cycle.
 
 Within this ideal unsaturated one-lump PI model, increasing $K_i$ decreases
 $\zeta$ and makes oscillation more likely, while increasing $K_p$ increases

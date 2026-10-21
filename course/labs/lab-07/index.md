@@ -193,7 +193,7 @@ open-loop, P, or PI control.
 
 <a id="lumped-model-figure"></a>
 
-![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg)
+![One-lump and two-lump thermal models](../../assets/lumped_thermal_models.svg?v=heat-rate-notation)
 
 *Course-specific lumped-model diagram.*
 

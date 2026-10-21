@@ -976,6 +976,14 @@ q_{\mathrm{ss}}
 This result assumes stable control, a reachable setpoint, no sustained
 actuator saturation, and continued integral action.
 
+#### From Two First-Order Equations To One Second-Order Equation
+
+The one-lump thermal plant has one state, its temperature $T$. PI control adds
+the accumulated error $q$ as a second state. The closed-loop model therefore
+has two coupled first-order differential equations even though it contains
+only one thermal lump. Those two first-order equations can be combined into
+one second-order differential equation for temperature.
+
 Define the temperature and integral-state displacements from steady state,
 
 \[
@@ -1009,9 +1017,23 @@ In matrix form,
 \begin{pmatrix}\theta\\z\end{pmatrix}.
 \]
 
-Differentiate the first equation and substitute $dz/dt=-\theta$. The two
-coupled first-order equations are therefore equivalent to one second-order
-differential equation for the temperature displacement:
+To eliminate $z$, first multiply the temperature equation by $C$,
+
+\[
+C\frac{d\theta}{dt}
+=-(H+P_uK_p)\theta+P_uK_i z.
+\]
+
+Differentiate this equation with respect to time:
+
+\[
+C\frac{d^2\theta}{dt^2}
+=-(H+P_uK_p)\frac{d\theta}{dt}
++P_uK_i\frac{dz}{dt}.
+\]
+
+The second first-order equation says $dz/dt=-\theta$. Substituting it removes
+the integral-state variable and gives
 
 \[
 \boxed{
@@ -1021,12 +1043,74 @@ C\frac{d^2\theta}{dt^2}
 }.
 \]
 
-Trying $\theta\propto e^{\lambda t}$ gives the second-order characteristic
-equation
+Thus the two coupled first-order equations for $(\theta,z)$ are equivalent to
+one second-order differential equation for $\theta$. The integral controller's
+memory supplies the additional dynamical state that makes overshoot and
+oscillation possible in the one-lump PI model.
+
+#### Eigenvalues And The Time Response
+
+Try an exponential solution, $\theta(t)=\theta_0e^{\lambda t}$. Substitution
+into the second-order differential equation gives
 
 \[
-\lambda^2+\frac{H+P_uK_p}{C}\lambda+\frac{P_uK_i}{C}=0.
+C\lambda^2+(H+P_uK_p)\lambda+P_uK_i=0.
 \]
+
+The eigenvalues $\lambda_+$ and $\lambda_-$ are the two roots of this
+quadratic equation. Applying the quadratic formula gives
+
+\[
+\boxed{
+\lambda_\pm
+=-\frac{H+P_uK_p}{2C}
+\pm
+\sqrt{
+\left(\frac{H+P_uK_p}{2C}\right)^2
+-\frac{P_uK_i}{C}
+}
+}.
+\]
+
+Define the envelope relaxation rate and natural angular frequency,
+
+\[
+\gamma=\frac{H+P_uK_p}{2C},
+\qquad
+\omega_n=\sqrt{\frac{P_uK_i}{C}}.
+\]
+
+Then
+
+\[
+\lambda_\pm=-\gamma\pm\sqrt{\gamma^2-\omega_n^2}.
+\]
+
+For positive $C$, $H$, $P_u$, $K_p$, and $K_i$, the real parts of both
+eigenvalues are always negative. Thus this ideal, unsaturated one-lump PI
+model is always **stable**: every transient eventually decays toward steady
+state. Stability does not require a monotonic response, however. If
+$\omega_n>\gamma$, the square root is imaginary, and
+
+\[
+\lambda_\pm=-\gamma\pm i\omega_d,
+\qquad
+\boxed{\omega_d=\sqrt{\omega_n^2-\gamma^2}}.
+\]
+
+The temperature displacement is then a decaying oscillation,
+
+\[
+\boxed{
+\theta(t)=e^{-\gamma t}
+\left[A\cos(\omega_dt)+B\sin(\omega_dt)\right]
+}.
+\]
+
+The negative real part, $-\gamma$, makes the oscillation envelope decay; the
+imaginary part, $\omega_d$, sets the oscillation period
+$T_{\mathrm{osc}}=2\pi/\omega_d$. The response is therefore stable but
+underdamped.
 
 <details class="note" markdown="1">
 <summary>How diagonalization solves the matrix ODE</summary>
@@ -1112,47 +1196,12 @@ V^{-1}\mathbf{x}(0)
 }.
 \]
 
-For this PI-control matrix, evaluating the determinant and applying the
-quadratic formula give
-
-\[
-\boxed{
-\lambda_\pm
-=-\frac{H+P_uK_p}{2C}
-\pm
-\sqrt{
-\left(\frac{H+P_uK_p}{2C}\right)^2
--\frac{P_uK_i}{C}
-}
-}.
-\]
-
-The common negative term sets the exponential decay rate. The expression
-under the square root determines the form of the transient:
-
-- a positive value gives two real negative eigenvalues and an overdamped
-  response;
-- zero gives a repeated eigenvalue and critical damping; and
-- a negative value gives a complex-conjugate pair and an underdamped response.
-
-In the underdamped case, write
-
-\[
-\lambda_\pm=-\zeta\omega_n\pm i\omega_d.
-\]
-
-The real part $-\zeta\omega_n$ controls the decay envelope, while the imaginary
-part $\omega_d$ controls the oscillation period,
-
-\[
-T_{\mathrm{osc}}=\frac{2\pi}{\omega_d}.
-\]
-
 Thus diagonalization expresses the matrix exponential as two ordinary
-exponential modes. Complex-conjugate eigenvalues combine to produce a real
-decaying oscillation. At critical damping, a repeated eigenvalue may provide
-only one eigenvector; the matrix exponential still exists, and the solution
-can contain a term proportional to $t e^{\lambda t}$.
+exponential modes whose eigenvalues are the quadratic roots derived above.
+Complex-conjugate eigenvalues combine to produce a real decaying oscillation.
+At critical damping, a repeated eigenvalue may provide only one eigenvector;
+the matrix exponential still exists, and the solution can contain a term
+proportional to $t e^{\lambda t}$.
 
 </details>
 
@@ -1179,13 +1228,12 @@ The dimensionless damping ratio $\zeta$ identifies the transition:
 - $\zeta<1$: underdamped, with a complex-conjugate pair and a decaying
   oscillation.
 
-For positive $C$, $H$, $P_u$, $K_p$, and $K_i$, the real parts of both
-eigenvalues are negative. The ideal one-lump PI model is therefore **stable**
-in all three cases above. In particular, *underdamped* means that its
-oscillations decay; it does not mean unstable. Constant-amplitude oscillations
-that last forever would be marginally stable, and growing oscillations would
-be unstable. Neither is predicted by this unsaturated one-lump PI model with
-positive parameters.
+As the eigenvalues show above, all three responses are stable for positive
+parameters. In particular, *underdamped* means that the oscillations decay; it
+does not mean unstable. Constant-amplitude oscillations that last forever
+would be marginally stable, and growing oscillations would be unstable.
+Neither is predicted by this unsaturated one-lump PI model with positive
+parameters.
 
 For the underdamped one-lump PI model, the temperature approaches steady state
 as a decaying sinusoid,

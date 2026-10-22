@@ -234,16 +234,26 @@ This is the first major idea in the pp. 11-26 reading span.
 | Section 1.3, p. 13, line beginning "The direction of heat flow," through Eq. (1.9) | In one-dimensional steady conduction, Lienhard often rewrites the law with positive \(\Delta T\) and positive \(q\). |
 | Section 1.3, p. 13, line beginning "Notice that," through Eq. (1.10) | For the same heat flux, a material with larger \(k\) needs a smaller temperature gradient. |
 
-Fourier's Law says that heat flows from hot regions toward cold regions. In one
-dimension,
+For an isotropic material, Fourier's Law has the general form
+
+\[
+\mathbf q=-k\nabla T.
+\]
+
+The heat-flux vector \(\mathbf q\) points opposite the temperature gradient:
+heat flows from hot regions toward cold regions. In one dimension, this becomes
 
 \[
 q_x=-k\frac{\partial T}{\partial x}.
 \]
 
 Here \(q_x\) is heat flux in W/m\(^2\), \(k\) is thermal conductivity in
-W/(m K), and \(\partial T/\partial x\) is the temperature gradient. The minus
+W/(m K), and \(\partial T/\partial x\) is the temperature gradient in K/m. The minus
 sign matters: heat flows in the direction of decreasing temperature.
+
+Lienhard writes \(dT/dx\) when discussing one-dimensional steady conduction.
+We use \(\partial T/\partial x\) because the long-cylinder experiment will have
+a temperature \(T(x,t)\) that can depend on both position and time.
 
 For a rod with cross-sectional area \(A\), the heat-flow rate is
 
@@ -273,7 +283,9 @@ Thus \(R_{\mathrm{th}}\) is not a material property. It is the
 geometry-dependent lumped parameter obtained when the continuous flux law is
 applied to, or discretized over, a finite piece of material. Doubling \(L\)
 doubles its thermal resistance, while doubling \(A\) halves it; neither change
-alters \(k\).
+alters \(k\). This should remind you of electrical resistance: resistances in
+series add directly, whereas resistances in parallel combine through their
+reciprocals.
 
 For this course, the key idea is not the symbol manipulation. The key idea is
 that a temperature gradient causes a heat current.
@@ -283,40 +295,19 @@ that a temperature gradient causes a heat current.
 *Lienhard and Lienhard, Fig. 1.5, textbook p. 14: a temperature gradient and
 the corresponding direction of conductive heat flow.*
 
-In Lienhard's one-dimensional notation, Fourier's Law is
-
-\[
-q=-k\frac{dT}{dx}.
-\tag{1.8}
-\]
-
-When you read Lienhard, notice the small change in notation. Lienhard first
-writes \(dT/dx\), because he is describing one-dimensional conduction. We write
-\(\partial T/\partial x\) here because the long-cylinder experiment will have a
-temperature \(T(x,t)\) that can depend on both position and time.
-
 ### Why Use A Phenomenological Constitutive Law?
 
+The relation just introduced is a **phenomenological constitutive law**.
 Conservation of energy tells us that local energy accumulation must equal heat
-flowing in minus heat flowing out, plus any heat generated. Conservation alone
-does not tell us what heat flux a given temperature field produces. We need a
-second relation that connects the flux $\mathbf q$ to the temperature $T$.
+flowing in minus heat flowing out, plus any heat generated, but conservation
+alone does not tell us what heat flux a given temperature field produces.
+Fourier's law supplies that second relation.
 
-Several physical observations motivate the simplest relation:
-
-1. A uniform temperature produces no conductive heat flux, so the flux should
-   depend on the temperature gradient rather than on temperature itself.
-2. Heat flows from hot regions toward cold regions, so the flux points opposite
-   $\nabla T$.
-3. The local flux is determined primarily by the nearby temperature field.
-4. Near thermal equilibrium, the first approximation is a response proportional
-   to the driving gradient.
-
-These observations give Fourier's law,
-
-\[
-\boxed{\mathbf q=-k\nabla T}.
-\]
+Its form reflects four observations: a uniform temperature produces no
+conductive flux; the flux points opposite the temperature gradient; the local
+flux is determined primarily by the nearby temperature field; and, near
+thermal equilibrium, the first approximation is a response proportional to
+the driving gradient.
 
 Fourier's law is a **constitutive law** because it specifies how a particular
 material responds. It is **phenomenological** because it summarizes measured

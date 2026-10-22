@@ -6,6 +6,21 @@ experiment. Continue with [Part II: Finite And Infinite Rod
 Theory](../fin-design-derivation/index.md), followed by [Part III: Rod
 Instrument And Stationary Fin](../lab-08/index.md).
 
+## Module 7 Roadmap
+
+The three parts form one model-building and model-testing sequence:
+
+| Part | Central question | What you do | Where it is assessed |
+| --- | --- | --- | --- |
+| Part I: foundations | How do a constitutive law and conservation produce a temperature equation? | Interpret Fourier's law, derive the heat equation, and establish the Biot test. | A4 Part 1 and selected C5 questions |
+| Part II: rod theory | What stationary profile follows from axial conduction, side cooling, and the end conditions? | Derive the finite-rod solution, its semi-infinite limit, and the two model-validity checks. | A4 Parts 2-4 and selected C5 questions |
+| Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Cross-calibrate the sensors, measure the transient and stationary profiles, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
+
+Sections 1-5 and **What To Prepare** are the required route through Part I.
+The unified-transport comparison, electrical-transient sidebar, and optional
+nondimensional derivation provide broader context but are not additional
+assignments.
+
 ## Learning Objectives
 
 The objectives below are listed in priority order. By the end of Module 7,
@@ -710,7 +725,8 @@ If \(\mathrm{Bi}\ll1\) then \(\Delta T_{\mathrm{cond}} \ll \Delta T_{\mathrm{con
 We now derive why the same dimensionless combination appears in the
 heat-transport equations.
 
-### Nondimensional Derivation
+<details class="note" markdown="1">
+<summary><strong>Optional extension: Deriving the Biot number by nondimensionalization</strong></summary>
 
 With no internal heat generation, the temperature inside the solid obeys
 
@@ -778,6 +794,8 @@ Interpretation:
 - Large \(\mathrm{Bi}\): internal conduction offers appreciable resistance.
   Internal temperature gradients matter, so a spatial model is needed.
 
+</details>
+
 Only after establishing that \(\mathrm{Bi}\) is small do we approximate the
 body by one temperature. Applying the First Law, introduced in Section 1, and
 using Newton's law of cooling then gives
@@ -830,7 +848,7 @@ from Fourier's Law to the heat equation to the Biot number.
 
 Complete [Lienhard Problem 1.3](../../references/lienhard-heat-transfer-textbook-v6.pdf#page=51)
 in full. This is the first assessed component of `A4`, which you will submit
-after completing all three parts of Module 7. For each material:
+after completing Parts I and II of Module 7. For each material:
 
 1. begin with Fourier's law and show how you obtain the temperature rise from
    the specified heat flux, slab thickness, and thermal conductivity,
@@ -874,16 +892,10 @@ questions do not create another submission. Keep those answers and a
 dimensional equation sheet in `docs/theory/theory_bridge_chapter_1_notes.md`
 so you can reuse the reasoning without rewriting it for an extra grade.
 
-The planned outside-class time is already counted in the Module 7 budget:
-
-| Work | Planned time |
-| --- | ---: |
-| Read this bridge alongside the selected Chapter 1 pages | 60 minutes |
-| Work through Eqs. (1.12)-(1.14) and the Biot-number scaling | 45 minutes |
-| Complete Problem 1.3, answer the preparation questions, and check units | 30 minutes |
-| **Total theory-bridge preparation** | **2 hours 15 minutes** |
-
-Do not add this time again when reading the Module 7 workload table. Bring
+Use the single
+[Module 7 workload budget](../lab-08/index.md#outside-class-workload-budget)
+for Parts I-III. The Part I reading, derivation work, preparation questions,
+and Problem 1.3 are already included there; do not count them again. Bring
 specific questions to class if the derivations remain unclear after the
 planned time.
 

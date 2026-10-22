@@ -215,19 +215,20 @@ and data links, and the cited Git checkpoint.
 See [Module 6: A3 Feedback Data And Lumped-Model Memo](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo)
 for the complete instructions and rubric.
 
-## A4: Finite-Length And Small-Biot Guided Study
+## A4: Finite-Rod Model And Validity Checks
 
 **Due:** Wednesday, October 28, **9:05 AM**
 
 **Format:** 10-point individual assignment; each student submits independently
 written work to Moodle.
 
-Complete Lienhard Problem 1.3 as assigned in Module 7, Part I, the
-governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and
-semi-infinite solutions, sensor-error analysis, and the transverse Biot-number
-calculation.
+Submit one individual PDF organized into four parts: Fourier's law and Lienhard
+Problem 1.3; derivation of the stationary finite-rod model; the finite-length
+test using Problems 4.12 and 4.20; and the transverse-Biot test of the
+one-dimensional approximation, including the brief convection-versus-radiation
+comparison.
 
-See [Module 8: A4 Finite-Length And Small-Biot Guided Study](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study)
+See [Module 7, Part III: A4 Finite-Rod Model And Validity Checks](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks)
 for the complete instructions and rubric.
 
 ## A5: Angstrom Derivation And Model-Validity Plan
@@ -342,7 +343,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 | Mapped thermistors and synchronized multichannel logging acquire credible `T(x,t)` data | 4 |
 | Calibration, baseline, initial step response, coordinates, units, and metadata are present | 2 |
 | Acquisition code and data organization are reproducible | 1 |
-| Individual explains the measurement chain and a dominant uncertainty | 2 |
+| Individual explains the measurement chain, the qualitative spatial step response, and a dominant uncertainty | 2 |
 | Complete by the deadline | 1 |
 
 ### C5 Oral Questions
@@ -360,6 +361,9 @@ Each student answers one primary question and, when useful, one brief follow-up.
 7. Write or explain the finite insulated-tip and semi-infinite analytical
    temperature profiles. Which boundary condition is lost in the
    semi-infinite limit?
+8. Before heating the rod, what did you predict about the order and relative
+   size of the sensor responses? Compare that prediction with the initial
+   step-response data.
 
 ## C6: Final Thermal-Transport Package
 
@@ -408,7 +412,7 @@ of `F1`.
 | `A2` | Oct. 7, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
 | `C4` | Oct. 5, during S10; receipt by 11:55 AM | [Open-loop TEC calibration and software-safety milestone](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration), demonstrated using the C4 rubric above. |
 | `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting simulation result, model limits, code/data links, and `GC`. |
-| `A4` | Oct. 28, 9:05 AM | [**Finite-length and small-Biot guided study**](labs/lab-08/index.md#a4-finite-length-and-small-biot-guided-study) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
+| `A4` | Oct. 28, 9:05 AM | [**Finite-rod model and validity checks**](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Oct. 28, during S17; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
 | `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
 | `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |

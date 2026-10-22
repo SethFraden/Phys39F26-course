@@ -134,7 +134,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-0-which-geometry-may-we-ignore" class="nav-link">Part 0: Which Geometry May We Ignore?</a>
+            <li class="nav-item" data-bs-level="2"><a href="#before-the-experiment-model-validity-checks" class="nav-link">Before The Experiment: Model-Validity Checks</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="3"><a href="#length-solve-it-first" class="nav-link">Length: Solve It First</a>
               <ul class="nav flex-column">
@@ -144,7 +144,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#a4-guided-self-study" class="nav-link">A4 Guided Self-Study</a>
+            <li class="nav-item" data-bs-level="3"><a href="#a4-finite-rod-model-and-validity-checks" class="nav-link">A4: Finite-Rod Model And Validity Checks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#prediction-record-before-heating" class="nav-link">Prediction Record Before Heating</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -180,7 +184,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#a4-finite-length-and-small-biot-guided-study" class="nav-link">A4: Finite-Length And Small-Biot Guided Study</a>
+            <li class="nav-item" data-bs-level="3"><a href="#a4-submission-and-rubric" class="nav-link">A4 Submission And Rubric</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -219,6 +223,17 @@ T=T(x,t).
 <p>In this module you will build and validate the multichannel rod instrument,
 measure a step response, and measure the steady temperature profile. The steady
 profile gives the first quantitative evidence of heat loss from the rod's side.</p>
+<p>Use one model-testing cycle throughout Part III:</p>
+<ol>
+<li><strong>Predict:</strong> use the Part I and Part II theory to predict the qualitative
+   transient, the stationary profile, and the importance of the end and radius.</li>
+<li><strong>Measure:</strong> acquire synchronized, calibrated temperature data with the
+   geometry and settings needed to interpret them.</li>
+<li><strong>Compare:</strong> fit the finite and semi-infinite models and inspect residuals,
+   parameter values, and uncertainties.</li>
+<li><strong>Judge:</strong> state which assumptions the evidence supports and where the
+   model is inadequate.</li>
+</ol>
 <h2 id="schedule-and-due-work">Schedule And Due Work<a class="headerlink" href="#schedule-and-due-work" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -237,7 +252,7 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 <tr>
 <td>S17, Wed. Oct. 28</td>
 <td>Complete the synchronized step response and stationary profile; fit finite-length and semi-infinite stationary profiles</td>
-<td><strong>A4: finite-length and small-Biot guided study</strong>; <strong>C5: Rod instrument and data-acquisition chain</strong></td>
+<td><strong>A4: finite-rod model and validity checks</strong>; <strong>C5: Rod instrument and data-acquisition chain</strong></td>
 </tr>
 </tbody>
 </table>
@@ -253,7 +268,7 @@ profile gives the first quantitative evidence of heat loss from the rod's side.<
 <tbody>
 <tr>
 <td>S16</td>
-<td>Read this assignment, Lienhard Section 4.5, and the fin-derivation guide</td>
+<td>Complete the required Part I and Part II reading route, including the selected Lienhard sections and derivation guide</td>
 <td style="text-align: right;">150 minutes</td>
 </tr>
 <tr>
@@ -323,19 +338,23 @@ terms below connect that theory to the experiment and its analysis.</p>
 <td>Temperature as a function of both position along the rod and time.</td>
 </tr>
 <tr>
-<td>Excess temperature, <span class="arithmatex">\(\theta(x,t)=T(x,t)-T_{\mathrm{room}}\)</span></td>
-<td>Rod temperature measured relative to room temperature.</td>
+<td>Environmental temperature, <span class="arithmatex">\(T_\infty\)</span></td>
+<td>The temperature of the environment far from the rod. In this experiment, it is the room temperature measured away from the heated apparatus.</td>
 </tr>
 <tr>
-<td>Thermal diffusivity, <span class="arithmatex">\(\kappa=k/(\rho c)\)</span></td>
-<td>The coefficient controlling axial spreading in the Part III model. It is the same physical property denoted <span class="arithmatex">\(\alpha\)</span> in Part I.</td>
+<td>Excess temperature, <span class="arithmatex">\(\theta(x,t)=T(x,t)-T_\infty\)</span></td>
+<td>Rod temperature measured relative to the environment.</td>
+</tr>
+<tr>
+<td>Thermal diffusivity, <span class="arithmatex">\(\alpha=k/(\rho c)\)</span></td>
+<td>The coefficient controlling axial spreading in the Part III model; units m<span class="arithmatex">\(^2\)</span>/s. This is Lienhard's notation.</td>
 </tr>
 <tr>
 <td>Side-loss rate, <span class="arithmatex">\(\nu=hP/(\rho cA)\)</span></td>
 <td>The fractional rate, in s<span class="arithmatex">\(^{-1}\)</span>, at which side convection removes excess thermal energy in the one-dimensional model.</td>
 </tr>
 <tr>
-<td>Decay coefficient, <span class="arithmatex">\(m=\sqrt{hP/(kA)}=\sqrt{\nu/\kappa}\)</span></td>
+<td>Decay coefficient, <span class="arithmatex">\(m=\sqrt{hP/(kA)}=\sqrt{\nu/\alpha}\)</span></td>
 <td>The spatial decay rate of the stationary profile; <span class="arithmatex">\(1/m\)</span> is the decay length.</td>
 </tr>
 <tr>
@@ -389,15 +408,18 @@ terms below connect that theory to the experiment and its analysis.</p>
    the final formulas.</li>
 <li>Use <a href="../fin-design-derivation/">Fin Design: From A Finite Rod To An Infinite Rod</a>
    as the equation-by-equation guide to Lienhard Eqs. (4.27)-(4.51).</li>
-<li>Complete the guided work in <code>A4</code>, including Lienhard Problems 1.3, 4.12,
+<li>Complete <code>A4</code>, including Lienhard Problems 1.3, 4.12,
    and 4.20. Problem 1.3 is assigned in
    <a href="../theory-bridge-chapter-1/#a4-part-i-lienhard-problem-13">Module 7, Part I</a>.</li>
 </ol>
 <h2 id="model">Model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
 <p>Let</p>
 <div class="arithmatex">\[
-\theta(x,t)=T(x,t)-T_{\mathrm{room}}.
+\theta(x,t)=T(x,t)-T_\infty,
 \]</div>
+<p>where <span class="arithmatex">\(T_\infty\)</span> is the temperature of the environment far from the rod. For
+the course experiment, <span class="arithmatex">\(T_\infty\)</span> is the room temperature measured away from
+the heated apparatus.</p>
 <p>For a uniform rod with cross-sectional area <span class="arithmatex">\(A\)</span>, perimeter <span class="arithmatex">\(P\)</span>, density <span class="arithmatex">\(\rho\)</span>,
 specific heat <span class="arithmatex">\(c\)</span>, thermal conductivity <span class="arithmatex">\(k\)</span>, and side heat-transfer coefficient
 <span class="arithmatex">\(h\)</span>, conservation of energy gives</p>
@@ -409,28 +431,36 @@ specific heat <span class="arithmatex">\(c\)</span>, thermal conductivity <span 
 <span class="arithmatex">\(\rho cA\)</span> gives</p>
 <div class="arithmatex">\[
 \frac{\partial\theta}{\partial t}
-=\kappa\frac{\partial^2\theta}{\partial x^2}-\nu\theta,
+=\alpha\frac{\partial^2\theta}{\partial x^2}-\nu\theta,
 \qquad
-\kappa=\frac{k}{\rho c},
+\alpha=\frac{k}{\rho c},
 \qquad
 \nu=\frac{hP}{\rho c A}.
 \]</div>
-<p>Here <span class="arithmatex">\(\kappa\)</span> has units of square meters per second and <span class="arithmatex">\(\nu\)</span> has units of
+<p>Here <span class="arithmatex">\(\alpha\)</span> has units of square meters per second and <span class="arithmatex">\(\nu\)</span> has units of
 inverse seconds.</p>
 <p>At steady state,</p>
 <div class="arithmatex">\[
 \frac{d^2\theta}{dx^2}-m^2\theta=0,
 \qquad
-m^2=\frac{hP}{kA}=\frac{\nu}{\kappa}.
+m^2=\frac{hP}{kA}=\frac{\nu}{\alpha}.
 \]</div>
-<p>Far from the rod end, a useful first model is</p>
+<p>This second-order equation requires two boundary conditions. For a prescribed
+base temperature and an insulated tip, Part II gives the complete finite-rod
+profile</p>
+<div class="arithmatex">\[
+\frac{\theta(x)}{\theta(0)}
+=\frac{\cosh[m(L-x)]}{\cosh(mL)}.
+\]</div>
+<p>When the far end has negligible influence over the measured region, this
+finite profile approaches the semi-infinite approximation</p>
 <div class="arithmatex">\[
 \theta(x)=\theta_0 e^{-mx}.
 \]</div>
 <p>The fitted <span class="arithmatex">\(m\)</span> quantifies the competition between axial conduction and side
 loss. It does <strong>not</strong> determine <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(h\)</span> separately. The periodic Angstrom
 experiment in Module 8, Part I, supplies the second independent measurement.</p>
-<h2 id="part-0-which-geometry-may-we-ignore">Part 0: Which Geometry May We Ignore?<a class="headerlink" href="#part-0-which-geometry-may-we-ignore" title="Permanent link">&para;</a></h2>
+<h2 id="before-the-experiment-model-validity-checks">Before The Experiment: Model-Validity Checks<a class="headerlink" href="#before-the-experiment-model-validity-checks" title="Permanent link">&para;</a></h2>
 <h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>
 <p>For a rod of finite length <span class="arithmatex">\(L\)</span>, prescribed base temperature, and insulated
 tip, the exact normalized stationary solution is</p>
@@ -450,8 +480,10 @@ tip, the exact normalized stationary solution is</p>
 {\left|\Theta_{\mathrm{finite}}(x)\right|}.
 \]</div>
 <p>State an acceptable error before deciding whether the far end may be ignored.
-The product <span class="arithmatex">\(mL\)</span> is useful, but the answer also depends on which sensor and
-which observable you use.</p>
+A reasonable starting criterion is <span class="arithmatex">\(\epsilon_T&lt;5\%\)</span> at every sensor used in
+the analysis, but record and justify a different threshold if the intended
+measurement requires one. The product <span class="arithmatex">\(mL\)</span> is useful, but the answer also
+depends on which sensor and which observable you use.</p>
 <h3 id="radius-check-the-transverse-biot-number">Radius: Check The Transverse Biot Number<a class="headerlink" href="#radius-check-the-transverse-biot-number" title="Permanent link">&para;</a></h3>
 <p>For a circular rod,</p>
 <div class="arithmatex">\[
@@ -461,24 +493,52 @@ which observable you use.</p>
 is fast enough that a cross section can be represented by one temperature.
 Calculate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius and a justified range of
 <span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>. This is a separate test from the finite-length test.</p>
-<h3 id="a4-guided-self-study">A4 Guided Self-Study<a class="headerlink" href="#a4-guided-self-study" title="Permanent link">&para;</a></h3>
-<p>Submit an individual solution that:</p>
+<h3 id="a4-finite-rod-model-and-validity-checks">A4: Finite-Rod Model And Validity Checks<a class="headerlink" href="#a4-finite-rod-model-and-validity-checks" title="Permanent link">&para;</a></h3>
+<p><code>A4</code> is a 10-point individual written assignment based on Module 7, Parts I
+and II. It does not require the temperature data collected in Part III. Submit
+one PDF organized under the following four headings. Show units and dimensional
+checks throughout.</p>
+<p><strong>Part 1. Apply Fourier's law.</strong> Complete Lienhard Problem 1.3 as assigned in
+<a href="../theory-bridge-chapter-1/#a4-part-i-lienhard-problem-13">Part I</a>.
+Show how Fourier's law produces each result, include units, and identify any
+physically unreasonable result.</p>
+<p><strong>Part 2. Build the stationary finite-rod model.</strong> Starting from conservation
+of energy, Fourier's law, and Newton's law of cooling, derive the stationary
+fin equation with side heat loss. Follow the finite-fin solution in Lienhard
+Section 4.5, showing the principal steps from the differential equation to the
+solution. State the two boundary conditions and explain what each means
+physically.</p>
+<p><strong>Part 3. Test the finite-length approximation.</strong> Complete Lienhard Problem
+4.12 to obtain the semi-infinite limit. Use Example 4.8 and Problem 4.20 to
+quantify the effect of approximating the tip boundary condition. Calculate
+<span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x)\)</span> for every course-rod sensor. Use the supplied
+course-rod parameters and sensor positions if your measured values are not yet
+available. Conclude whether the course rod may be treated as semi-infinite,
+and state the sensor positions and error criterion on which your conclusion
+depends.</p>
+<p><strong>Part 4. Test the one-dimensional approximation.</strong> Calculate
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> for the course rod. Conclude separately whether each
+cross section may be represented by one temperature. Do not combine this
+radius conclusion with the finite-length conclusion from Part 3.</p>
+<p>Then answer this brief application question: an electronic heat sink in air
+and a spacecraft radiator both use extended surfaces. Which one can be modeled
+with Newton's law of cooling? Explain why convection is absent in space and
+write the radiative heat-flux law that replaces it.</p>
+<p>The <a href="#a4-submission-and-rubric">submission details and rubric</a> appear near the
+end of this page.</p>
+<h3 id="prediction-record-before-heating">Prediction Record Before Heating<a class="headerlink" href="#prediction-record-before-heating" title="Permanent link">&para;</a></h3>
+<p>Before applying heat to the course rod, record the provisional values of
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span>, <span class="arithmatex">\(mL\)</span>, and <span class="arithmatex">\(\epsilon_T(x)\)</span> at every sensor.
+Predict:</p>
 <ol>
-<li>completes Lienhard Problem 1.3 as assigned in
-   <a href="../theory-bridge-chapter-1/#a4-part-i-lienhard-problem-13">Part I</a>,</li>
-<li>uses conservation of energy, Fourier's law, and Newton's law of cooling to
-   derive the stationary fin equation with side heat loss,</li>
-<li>follows the finite-fin solution in Lienhard Section 4.5 and identifies the
-   two boundary conditions,</li>
-<li>completes Problem 4.12 to obtain the semi-infinite limit,</li>
-<li>uses Example 4.8 and Problem 4.20 to quantify the effect of a tip-boundary
-   approximation,</li>
-<li>calculates <span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x)\)</span> for each course-rod sensor, using
-   supplied parameters if measured values are not yet available,</li>
-<li>calculates <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span>, and</li>
-<li>gives two separate conclusions: whether the rod may be treated as
-   semi-infinite and whether it may be treated as one-dimensional.</li>
+<li>the order in which the sensors will respond to a base-temperature step,</li>
+<li>how the response amplitude will change with distance from the base,</li>
+<li>the qualitative shape of the stationary temperature profile, and</li>
+<li>whether the measured region should reveal the finite tip.</li>
 </ol>
+<p>Use supplied parameters when measured values are not yet available. Return to
+these predictions after fitting the stationary data and state which were
+supported by the evidence.</p>
 <h3 id="radial-model-preview">Radial Model Preview<a class="headerlink" href="#radial-model-preview" title="Permanent link">&para;</a></h3>
 <p>The next module retains radial variation and introduces the axisymmetric heat
 equation. Its goal is to identify the new radial derivative and surface
@@ -487,11 +547,11 @@ cross-sectional mean temperature. The guided numerical solution begins in
 Module 8, Part I, before the Angstrom analysis.</p>
 <h2 id="part-1-sensor-map-and-calibration">Part 1: Sensor Map And Calibration<a class="headerlink" href="#part-1-sensor-map-and-calibration" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Measure the rod diameter and record <code>A</code> and <code>P</code> in SI units.</li>
+<li>Measure the rod diameter and calculate the cross section <code>A</code>, perimeter <code>P</code> and length <code>L</code> in SI units.</li>
 <li>Assign each thermistor a permanent channel name.</li>
 <li>Measure each sensor position from the defined origin and estimate its
    position uncertainty.</li>
-<li>Hold all sensors at nearly the same temperature and record at least 60
+<li>Hold all sensors at the same temperature and record at least 60
    seconds of data.</li>
 <li>Plot channel differences. Decide whether offsets require correction.</li>
 <li>Save a diagram or photograph showing the coordinate direction and channel
@@ -509,9 +569,9 @@ thermistors as follows:</p>
 together in a Styrofoam cup of warm water. You are interested in the approximate temperature range <span class="arithmatex">\(60^{\circ} \mathrm{C} &gt; T &gt; 20^{\circ}\mathrm{C}\)</span>. Immerse only waterproof sensing ends
 and keep electrical joints dry. Do not allow the sensors to touch the cup walls
 or bottom.</p>
-<p><strong>Step 2. Use the experimental measurement chain.</strong> Make sure the corresonding Arduino circuit and thermistor are always used together. Use the same voltage
+<p><strong>Step 2. Use the experimental measurement chain.</strong> Make sure the corresponding Arduino circuit and thermistor are always used together. Use the same voltage
 dividers, Arduino inputs, acquisition code, and sample rate that will be used
-for the rod experiment. </p>
+for the rod experiment.</p>
 <p><strong>Step 3. Keep the bath uniform.</strong> Stir the water gently and continuously so
 that all sensors experience the same temperature.</p>
 <p><strong>Step 4. Record the common cooling history.</strong> Record every channel
@@ -523,13 +583,22 @@ and fit</p>
 <div class="arithmatex">\[
 T_{\mathrm{TEC}}=a_i+b_iT_i.
 \]</div>
+<p>Apply this fitted relation as the correction:</p>
+<div class="arithmatex">\[
+T_{i,\mathrm{corrected}}=a_i+b_iT_i.
+\]</div>
 <p><strong>Step 6. Check the corrected differences.</strong> Plot</p>
 <div class="arithmatex">\[
 \Delta T_i
 =T_{i,\mathrm{corrected}}-T_{\mathrm{TEC}}
 \]</div>
 <p>against <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Report the mean difference, scatter, and any
-remaining trend with temperature.</p>
+remaining trend with temperature. Choose and record an acceptance criterion
+before evaluating the correction. A useful starting criterion is a corrected
+mean difference smaller than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> for every channel, with
+no residual trend larger than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> across the calibration
+range. Revise this criterion if the measured noise and resolution justify a
+different value.</p>
 <p><strong>Step 7. Preserve the raw readings.</strong> Store the correction coefficients
 separately and apply them during analysis; never overwrite the original data.</p>
 <p>No independent reference thermometer is required for this relative
@@ -538,8 +607,16 @@ but that bias does not affect temperature differences or the measured spatial
 profile.</p>
 <h2 id="part-2-baseline-and-step-response">Part 2: Baseline And Step Response<a class="headerlink" href="#part-2-baseline-and-step-response" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Record room temperature and all rod channels before changing the base.</li>
-<li>Apply a safe temperature step at the base using PI control.</li>
+<li>Record room temperature and all rod channels before changing the base
+   temperature. Are all the thermistors at the same temperature within the
+   calibration criterion?</li>
+<li>Select a base-temperature setpoint in the approximate range
+   <span class="arithmatex">\(40^{\circ}\mathrm{C}\)</span> to <span class="arithmatex">\(60^{\circ}\mathrm{C}\)</span> and apply the step using
+   PI control. A larger step improves the signal at distant sensors, but it can
+   increase equilibration time, heat loss, and sensitivity to
+   temperature-dependent properties. Use a short pilot run to choose the
+   lowest setpoint that gives a clearly resolved response at the distant
+   sensors, and record your rationale.</li>
 <li>Record long enough to see the disturbance arrive at several positions.</li>
 <li>Plot all temperatures against the same time axis.</li>
 <li>Explain why farther sensors respond later and with smaller excursions.</li>
@@ -559,17 +636,25 @@ profile.</p>
 </ul>
 <h2 id="part-3-stationary-fin-profile">Part 3: Stationary-Fin Profile<a class="headerlink" href="#part-3-stationary-fin-profile" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Hold the base at a constant safe temperature until the profile changes more
-   slowly than your stated steady-state criterion.</li>
-<li>Average each sensor over a justified final time interval.</li>
-<li>Plot <code>theta</code> versus <code>x</code> with error bars.</li>
+<li>Before the run, record the predicted profile and select a numerical
+   steady-state criterion. A useful starting criterion is
+   <span class="arithmatex">\(|dT_i/dt|&lt;0.02^{\circ}\mathrm{C}/\mathrm{min}\)</span> at every sensor for at
+   least 10 minutes; justify any different criterion.</li>
+<li>Hold the base at the setpoint selected from the pilot study until the
+   steady-state criterion is satisfied.</li>
+<li>Average each sensor over a justified final interval. Five minutes is a
+   reasonable starting interval after the steady-state criterion has been met.</li>
+<li>Plot <span class="arithmatex">\(\theta\)</span> versus <span class="arithmatex">\(x\)</span> with error bars.</li>
 <li>Fit both the exact finite-length model and the semi-infinite exponential.</li>
-<li>Plot both sets of residuals and report <code>m</code> in inverse meters with uncertainty.</li>
-<li>Calculate the characteristic decay length <code>1/m</code> in meters.</li>
-<li>Report how much the fitted <code>m</code> changes when the finite end is ignored and
+<li>Plot both sets of residuals and report <span class="arithmatex">\(m\)</span> in inverse meters with uncertainty.</li>
+<li>Calculate the characteristic decay length <span class="arithmatex">\(1/m\)</span> in meters.</li>
+<li>Report how much the fitted <span class="arithmatex">\(m\)</span> changes when the finite end is ignored and
    compare that shift with the fit uncertainty.</li>
 <li>Discuss sensor-position error, room-temperature drift, imperfect contact,
    and the measured evidence for the tip boundary condition.</li>
+<li>Compare the measured profile and residuals with the prediction record.
+    State which assumptions are supported, which model is more adequate, and
+    what discrepancy remains unexplained.</li>
 </ol>
 <h2 id="stationary-fin-analysis-record">Stationary-Fin Analysis Record<a class="headerlink" href="#stationary-fin-analysis-record" title="Permanent link">&para;</a></h2>
 <h3 id="evidence-to-save-during-s16-s17">Evidence To Save During S16-S17<a class="headerlink" href="#evidence-to-save-during-s16-s17" title="Permanent link">&para;</a></h3>
@@ -578,18 +663,18 @@ step response, commanded and measured base temperature, steady profile, run
 metadata, and exact acquisition code as each item is produced. Use
 <code>docs/module_notes/module_08_rod_instrument.md</code>, <code>data/module_08/</code>, and
 <code>docs/figures/module_08/</code>. Never overwrite raw rod data with corrected data.</p>
-<h3 id="a4-finite-length-and-small-biot-guided-study">A4: Finite-Length And Small-Biot Guided Study<a class="headerlink" href="#a4-finite-length-and-small-biot-guided-study" title="Permanent link">&para;</a></h3>
+<h3 id="a4-submission-and-rubric">A4 Submission And Rubric<a class="headerlink" href="#a4-submission-and-rubric" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Type:</strong> individual, 10 points</li>
 <li><strong>Due:</strong> Wednesday, October 28, at <strong>9:05 AM</strong></li>
 <li><strong>Moodle file:</strong> <code>A4_Lastname.pdf</code></li>
 <li><strong>Repository file:</strong> <code>docs/assessments/a4_finite_length_biot.md</code></li>
 </ul>
-<p>The required content is listed in <a href="#a4-guided-self-study">A4 Guided Self-Study</a>.
-Submit the governing-equation derivation, finite and semi-infinite analytical
-solutions, Problems 1.3, 4.12, and 4.20, sensor-by-sensor error, transverse
-Biot calculation, dimensional checks, and separate conclusions about length
-and radius.</p>
+<p>The four required parts are listed in
+<a href="#a4-finite-rod-model-and-validity-checks">A4: Finite-Rod Model And Validity Checks</a>.
+Submit all four parts in the single PDF and repository file named above. Put
+your name, assignment code, date, repository URL, and the exact Git commit hash
+on the first page.</p>
 <h3 id="c5-rod-instrument-and-data-acquisition-chain">C5: Rod Instrument And Data-Acquisition Chain<a class="headerlink" href="#c5-rod-instrument-and-data-acquisition-chain" title="Permanent link">&para;</a></h3>
 <p>Demonstrate C5 during S17 on Wednesday, October 28. The <code>C5 Team Checkoff</code>
 Moodle receipt is due by <strong>11:55 AM</strong> and must cite the pushed acquisition-code
@@ -605,8 +690,8 @@ final presentation.</p>
 <li>the dimensional governing equation and assumptions,</li>
 <li>the sensor map and calibration result,</li>
 <li>baseline and step-response plots,</li>
-<li>steady <code>theta(x)</code> data, finite and semi-infinite fits, and both residual sets,</li>
-<li>fitted <code>m</code> and <code>1/m</code> with units and uncertainty,</li>
+<li>steady <span class="arithmatex">\(\theta(x)\)</span> data, finite and semi-infinite fits, and both residual sets,</li>
+<li>fitted <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(1/m\)</span> with units and uncertainty,</li>
 <li>the sensor-by-sensor finite-length error and transverse Biot-number check,</li>
 <li>a short explanation of why this result alone cannot separate <code>k</code> from <code>h</code>.</li>
 </ul>
@@ -620,28 +705,24 @@ final presentation.</p>
 </thead>
 <tbody>
 <tr>
-<td>Problem 1.3 correctly applies Fourier's law, units, and physical judgment</td>
+<td>Part 1 correctly applies Fourier's law, units, and physical judgment to Problem 1.3</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr>
-<td>Stationary rod equation is derived from conservation, Fourier's law, and Newton's law</td>
+<td>Part 2 derives the stationary rod equation and finite insulated-tip solution from the stated laws and boundary conditions</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td>Part 3 obtains the semi-infinite limit and correctly evaluates the tip approximation and sensor-by-sensor finite-length errors</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td>Part 4 correctly calculates the transverse Biot number, gives a separate radius conclusion, and distinguishes convection from radiation</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>The individual submission is complete, dimensionally checked, clearly organized, and cites the exact Git checkpoint</td>
 <td style="text-align: right;">1</td>
-</tr>
-<tr>
-<td>Finite insulated-tip solution follows from the stated boundary conditions</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>Semi-infinite limit and sensor-by-sensor finite-length errors are correct</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>Transverse Biot number and the separate radius conclusion are correct</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>Individual PDF and cited Git checkpoint are clear and on time</td>
-<td style="text-align: right;">2</td>
 </tr>
 </tbody>
 </table>

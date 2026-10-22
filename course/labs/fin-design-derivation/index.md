@@ -52,10 +52,10 @@ I](../theory-bridge-chapter-1/index.md#module-7-vocabulary-and-notation).
 
 ## How To Use This Reference
 
-Read this page alongside Lienhard Section 4.5 for A4. The Module 7 workload
-budget includes **150 minutes total** for reading the module, the textbook
-section, and this guide. This page is not a separate submission and should not
-be copied into another report.
+Read this page alongside Lienhard Section 4.5 for A4. Use the single
+[Module 7 workload budget](../lab-08/index.md#outside-class-workload-budget)
+for all three parts; do not count this reading a second time. This page is not
+a separate submission and should not be copied into another report.
 
 Annotate the derivation with three questions in mind:
 
@@ -212,7 +212,12 @@ so this resistance ratio is a scaling interpretation of the fin equation.
 The small-transverse-Biot criterion allows us to use one cross-sectional
 temperature \(T(x)\).
 
-The conditions under which we can model axial heat transfer in a cylinder as a one-dimensional partial differential equation are $\mathrm{Bi}_{\perp}\ll1$ and $\mathrm{Bi}_{\parallel}\gg1$.
+The condition that justifies a one-dimensional fin model is
+$\mathrm{Bi}_{\perp}\ll1$: it allows each cross section to be represented by
+one temperature $T(x)$. The value of $\mathrm{Bi}_{\parallel}=(mL)^2$ does
+not determine whether the model is one-dimensional. Instead, it determines how
+strongly the temperature decays along the rod. When $mL$ is sufficiently
+large, the measured region may also be approximated as semi-infinite.
 
 ## Energy Balance And Differential Equation
 
@@ -653,6 +658,6 @@ sensor rather than relying only on these general thresholds.
 8. Show mathematically how Eq. (4.41) approaches Eq. (4.50) when the far end
    becomes irrelevant.
 
-These are assessed in the [A4 written derivation](../lab-08/index.md#a4-finite-length-and-small-biot-guided-study)
+These are assessed in the [A4 written derivation](../lab-08/index.md#a4-finite-rod-model-and-validity-checks)
 and may be sampled in the C5 oral check. Understanding the derivation matters
 more than reproducing a long sequence of algebra from memory.

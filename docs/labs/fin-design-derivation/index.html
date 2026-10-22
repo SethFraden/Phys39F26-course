@@ -174,7 +174,7 @@ used in Module 7, Part III.</p>
 Part II, you should be able to:</p>
 <ol>
 <li>Use Fourier conduction, Newton cooling, and conservation of energy to derive
-   the stationary one-dimensional fin equation and check every term's units.</li>
+   the stationary one-dimensional heat equation and check every term's units.</li>
 <li>Apply the base-temperature and insulated-tip boundary conditions to obtain
    the finite-rod temperature profile.</li>
 <li>Interpret <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> and
@@ -184,6 +184,7 @@ Part II, you should be able to:</p>
 <li>Obtain the semi-infinite exponential profile as a limit of the finite-rod
    solution and quantify the resulting approximation error at the sensor
    positions.</li>
+<li>Recognize the range of applications of fins for heat transfer.</li>
 </ol>
 <h2 id="part-ii-vocabulary-and-notation">Part II Vocabulary And Notation<a class="headerlink" href="#part-ii-vocabulary-and-notation" title="Permanent link">&para;</a></h2>
 <p>This table extends the <a href="../theory-bridge-chapter-1/#module-7-vocabulary-and-notation">foundational Module 7 vocabulary from Part
@@ -276,10 +277,63 @@ fluid through its surface. Increasing surface area can greatly increase heat
 transfer.</p>
 <p><img alt="Pin-fin heat exchanger" src="../../assets/pin-fin.gif" /></p>
 <p><img alt="Pin-fin assembly" src="../../assets/pin-fin-3.jpg" /></p>
-<p><em>Extended metal surfaces increase the area available for heat transfer.</em></p>
+<p><em>Extended metal surfaces increase the area available for heat transfer. Here fins are used to cool a CPU in a computer.</em></p>
 <p><img alt="Possible biological cooling fins" src="../../assets/lienhard-fig-4-7-fin-example.png" /></p>
 <p><em>Lienhard and Lienhard, Fig. 4.7, textbook p. 165: a speculative biological
 example of cooling fins.</em></p>
+<p>Thermal fins appear in technologies ranging from air-cooled engines to
+semiconductor heat sinks and spacecraft radiators. The same
+conduction problem appears in each case, although the fin may lose heat by
+natural convection, forced convection, radiation, or a combination of these
+mechanisms.</p>
+<details class="note">
+<summary><strong>Sidebar: Where Are Thermal Fins Used?</strong></summary>
+<p>The common design idea is to conduct heat from a source into an extended solid
+surface. What happens at that surface depends on the application.</p>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Heat reaches the extended surface by</th>
+<th>Heat leaves the surface by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Heat_sink">Electronic heat sink</a></td>
+<td>Conduction from a semiconductor package</td>
+<td>Natural or fan-driven convection, plus radiation</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Air-cooled_engine">Air-cooled engine</a></td>
+<td>Conduction through the cylinder and cylinder head</td>
+<td>Convection to air moving naturally, with the vehicle, or from a fan</td>
+</tr>
+<tr>
+<td><a href="https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/">Spacecraft radiator</a></td>
+<td>Conduction, thermal straps, or heat pipes from onboard equipment</td>
+<td>Infrared radiation to space</td>
+</tr>
+</tbody>
+</table>
+<p>The first two applications use Newton's law of cooling,</p>
+<div class="arithmatex">\[
+\dot Q_{\mathrm{conv}}=hA_s\left(T_s-T_\infty\right),
+\]</div>
+<p>where natural or forced airflow continually replaces warmed air near the fins
+and carries the transferred heat away.</p>
+<p>The spacecraft example is the most important contrast. In vacuum there is no
+surrounding fluid and therefore no convective coefficient <span class="arithmatex">\(h\)</span>. A radiator
+surface instead loses heat approximately according to</p>
+<div class="arithmatex">\[
+q''_{\mathrm{rad}}
+=\epsilon\sigma\left(T^4-T_{\mathrm{sur}}^4\right).
+\]</div>
+<p>The fin still conducts heat away from its base, but its surface boundary
+condition is radiative rather than the Newton-cooling law used for the course
+rod. NASA shows a real example in its photograph of the
+<a href="https://www.nasa.gov/image-article/station-solar-arrays-radiator-panels/">International Space Station radiator panels</a>.</p>
+</details>
 <h2 id="geometry-and-the-one-dimensional-assumption">Geometry And The One-Dimensional Assumption<a class="headerlink" href="#geometry-and-the-one-dimensional-assumption" title="Permanent link">&para;</a></h2>
 <p><img alt="One-dimensional fin geometry and energy-balance slice" src="../../assets/lienhard-fig-4-8-fin-model.png" /></p>
 <p><em>Lienhard and Lienhard, Fig. 4.8, textbook p. 166: a fin of length <span class="arithmatex">\(L\)</span>,
@@ -351,8 +405,9 @@ The side loss is distributed continuously rather than occurring in one lump,
 so this resistance ratio is a scaling interpretation of the fin equation.</p>
 <p>The small-transverse-Biot criterion allows us to use one cross-sectional
 temperature <span class="arithmatex">\(T(x)\)</span>.</p>
+<p>The conditions under which we can model axial heat transfer in a cylinder as a one-dimensional partial differential equation are <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> and <span class="arithmatex">\(\mathrm{Bi}_{\parallel}\gg1\)</span>.</p>
 <h2 id="energy-balance-and-differential-equation">Energy Balance And Differential Equation<a class="headerlink" href="#energy-balance-and-differential-equation" title="Permanent link">&para;</a></h2>
-<p>An energy balance on a slice of width <span class="arithmatex">\(\delta x\)</span> is</p>
+<p>An energy balance on a slice of width <span class="arithmatex">\(\delta x\)</span> with cross-sectional area <span class="arithmatex">\(A\)</span> and side area <span class="arithmatex">\(P\delta x\)</span>, as shown in Lienhard Figure 4.8 is</p>
 <div class="arithmatex">\[
 -kA\left.\frac{dT}{dx}\right|_{x+\delta x}
 +kA\left.\frac{dT}{dx}\right|_x
@@ -376,7 +431,28 @@ temperature <span class="arithmatex">\(T(x)\)</span>.</p>
 =\frac{hP}{kA}(T-T_\infty).
 \tag{4.30}
 \]</div>
-<p>For a convecting tip,</p>
+<p>Solving this second-order differential equation requires two boundary
+conditions. Three common types appear in heat-transfer problems:</p>
+<p><strong>Dirichlet boundary condition.</strong> This condition specifies the temperature
+itself. At the base of the rod,</p>
+<div class="arithmatex">\[
+T(0)=T_0.
+\]</div>
+<p><strong>Neumann boundary condition.</strong> This condition specifies the temperature
+derivative, or equivalently the conductive heat flux. An insulated tip has
+zero heat flux:</p>
+<div class="arithmatex">\[
+\left.\frac{dT}{dx}\right|_{x=L}=0.
+\]</div>
+<p><strong>Robin boundary condition.</strong> This condition relates the temperature to its
+derivative. At a convecting tip, conductive heat flow to the tip equals heat
+loss from the tip by Newton's law of cooling:</p>
+<div class="arithmatex">\[
+-kA\left.\frac{dT}{dx}\right|_{x=L}
+=h_LA\left[T(L)-T_\infty\right].
+\]</div>
+<p>Thus, the base has a Dirichlet condition. For a convecting tip, the second
+condition is Robin:</p>
 <div class="arithmatex">\[
 (T-T_\infty)_{x=0}=T_0-T_\infty,
 \qquad
@@ -384,7 +460,7 @@ temperature <span class="arithmatex">\(T(x)\)</span>.</p>
 =h_LA(T-T_\infty)_{x=L}.
 \tag{4.31a}
 \]</div>
-<p>For an insulated tip,</p>
+<p>For an insulated tip, the second condition is Neumann:</p>
 <div class="arithmatex">\[
 (T-T_\infty)_{x=0}=T_0-T_\infty,
 \qquad
@@ -618,6 +694,40 @@ C_1+C_2&amp;=1,\\
 \dot Q_0=\sqrt{kAhP}\,(T_0-T_\infty).
 \tag{4.51}
 \]</div>
+<p>Equation (4.51) follows directly from the infinite-rod temperature profile.
+Because</p>
+<div class="arithmatex">\[
+\Theta
+=\frac{T(x)-T_\infty}{T_0-T_\infty}
+=e^{-mx},
+\]</div>
+<p>the dimensional temperature profile is</p>
+<div class="arithmatex">\[
+T(x)-T_\infty=(T_0-T_\infty)e^{-mx}.
+\]</div>
+<p>Fourier's law gives the heat entering the rod at its base:</p>
+<div class="arithmatex">\[
+\dot Q_0
+=-kA\left.\frac{dT}{dx}\right|_{x=0}.
+\]</div>
+<p>Differentiating the temperature profile gives</p>
+<div class="arithmatex">\[
+\frac{dT}{dx}
+=-m(T_0-T_\infty)e^{-mx}.
+\]</div>
+<p>At the base, <span class="arithmatex">\(x=0\)</span> and <span class="arithmatex">\(e^{-mx}=1\)</span>, so</p>
+<div class="arithmatex">\[
+\dot Q_0=kAm(T_0-T_\infty).
+\]</div>
+<p>Finally, substituting <span class="arithmatex">\(m=\sqrt{hP/(kA)}\)</span> gives</p>
+<div class="arithmatex">\[
+kAm
+=kA\sqrt{\frac{hP}{kA}}
+=\sqrt{kAhP},
+\]</div>
+<p>which produces Eq. (4.51). Physically, this is the rate at which heat must
+enter the base to replace all the heat lost by convection from the surface of
+the semi-infinite fin.</p>
 <p>Lienhard recommends <span class="arithmatex">\(mL\gtrsim5\)</span> when using the infinite-fin approximation
 for temperature and <span class="arithmatex">\(mL\gtrsim3\)</span> when using it for the base heat rate. In
 In Module 7, Part III, you will calculate the actual finite-versus-infinite error at every

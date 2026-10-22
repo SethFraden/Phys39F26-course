@@ -231,6 +231,59 @@ Module 8, Part I, before the Angstrom analysis.
 6. Save a diagram or photograph showing the coordinate direction and channel
    positions.
 
+### Relative Thermistor Cross-Calibration
+
+The rod experiment measures temperature differences and spatial temperature
+gradients. It does not require an absolute temperature calibration. It does
+require all thermistor channels to give the same reading when they experience
+the same temperature; otherwise, channel-to-channel offsets could be mistaken
+for a temperature gradient along the rod.
+
+Use the TEC thermistor as the reference channel and cross-calibrate the rod
+thermistors as follows:
+
+**Step 1. Arrange the sensors.** Label all the thermistors. Label your existing TEC thermistor "TEC". Label the others 1 - 5. It is important that the labels do not fall off for the rest of the semester. Place all six thermistor sensing ends close
+together in a Styrofoam cup of warm water. You are interested in the approximate temperature range $60^{\circ} \mathrm{C} > T > 20^{\circ}\mathrm{C}$. Immerse only waterproof sensing ends
+and keep electrical joints dry. Do not allow the sensors to touch the cup walls
+or bottom.
+
+**Step 2. Use the experimental measurement chain.** Make sure the corresonding Arduino circuit and thermistor are always used together. Use the same voltage
+dividers, Arduino inputs, acquisition code, and sample rate that will be used
+for the rod experiment.
+
+**Step 3. Keep the bath uniform.** Stir the water gently and continuously so
+that all sensors experience the same temperature.
+
+**Step 4. Record the common cooling history.** Record every channel
+simultaneously while the water cools slowly through the temperature range
+expected in the rod experiment.
+
+**Step 5. Fit each channel to the reference.** Plot each rod-sensor reading,
+$T_i$, against the simultaneous TEC-thermistor reading, $T_{\mathrm{TEC}}$,
+and fit
+
+\[
+T_{\mathrm{TEC}}=a_i+b_iT_i.
+\]
+
+**Step 6. Check the corrected differences.** Plot
+
+\[
+\Delta T_i
+=T_{i,\mathrm{corrected}}-T_{\mathrm{TEC}}
+\]
+
+against $T_{\mathrm{TEC}}$. Report the mean difference, scatter, and any
+remaining trend with temperature.
+
+**Step 7. Preserve the raw readings.** Store the correction coefficients
+separately and apply them during analysis; never overwrite the original data.
+
+No independent reference thermometer is required for this relative
+cross-calibration. The corrected channels may share a common absolute bias,
+but that bias does not affect temperature differences or the measured spatial
+profile.
+
 ## Part 2: Baseline And Step Response
 
 1. Record room temperature and all rod channels before changing the base.

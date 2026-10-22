@@ -156,6 +156,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-sensor-map-and-calibration" class="nav-link">Part 1: Sensor Map And Calibration</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#relative-thermistor-cross-calibration" class="nav-link">Relative Thermistor Cross-Calibration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-2-baseline-and-step-response" class="nav-link">Part 2: Baseline And Step Response</a>
@@ -493,6 +497,45 @@ Module 8, Part I, before the Angstrom analysis.</p>
 <li>Save a diagram or photograph showing the coordinate direction and channel
    positions.</li>
 </ol>
+<h3 id="relative-thermistor-cross-calibration">Relative Thermistor Cross-Calibration<a class="headerlink" href="#relative-thermistor-cross-calibration" title="Permanent link">&para;</a></h3>
+<p>The rod experiment measures temperature differences and spatial temperature
+gradients. It does not require an absolute temperature calibration. It does
+require all thermistor channels to give the same reading when they experience
+the same temperature; otherwise, channel-to-channel offsets could be mistaken
+for a temperature gradient along the rod.</p>
+<p>Use the TEC thermistor as the reference channel and cross-calibrate the rod
+thermistors as follows:</p>
+<p><strong>Step 1. Arrange the sensors.</strong> Label all the thermistors. Label your existing TEC thermistor "TEC". Label the others 1 - 5. It is important that the labels do not fall off for the rest of the semester. Place all six thermistor sensing ends close
+together in a Styrofoam cup of warm water. You are interested in the approximate temperature range <span class="arithmatex">\(60^{\circ} \mathrm{C} &gt; T &gt; 20^{\circ}\mathrm{C}\)</span>. Immerse only waterproof sensing ends
+and keep electrical joints dry. Do not allow the sensors to touch the cup walls
+or bottom.</p>
+<p><strong>Step 2. Use the experimental measurement chain.</strong> Make sure the corresonding Arduino circuit and thermistor are always used together. Use the same voltage
+dividers, Arduino inputs, acquisition code, and sample rate that will be used
+for the rod experiment. </p>
+<p><strong>Step 3. Keep the bath uniform.</strong> Stir the water gently and continuously so
+that all sensors experience the same temperature.</p>
+<p><strong>Step 4. Record the common cooling history.</strong> Record every channel
+simultaneously while the water cools slowly through the temperature range
+expected in the rod experiment.</p>
+<p><strong>Step 5. Fit each channel to the reference.</strong> Plot each rod-sensor reading,
+<span class="arithmatex">\(T_i\)</span>, against the simultaneous TEC-thermistor reading, <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>,
+and fit</p>
+<div class="arithmatex">\[
+T_{\mathrm{TEC}}=a_i+b_iT_i.
+\]</div>
+<p><strong>Step 6. Check the corrected differences.</strong> Plot</p>
+<div class="arithmatex">\[
+\Delta T_i
+=T_{i,\mathrm{corrected}}-T_{\mathrm{TEC}}
+\]</div>
+<p>against <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Report the mean difference, scatter, and any
+remaining trend with temperature.</p>
+<p><strong>Step 7. Preserve the raw readings.</strong> Store the correction coefficients
+separately and apply them during analysis; never overwrite the original data.</p>
+<p>No independent reference thermometer is required for this relative
+cross-calibration. The corrected channels may share a common absolute bias,
+but that bias does not affect temperature differences or the measured spatial
+profile.</p>
 <h2 id="part-2-baseline-and-step-response">Part 2: Baseline And Step Response<a class="headerlink" href="#part-2-baseline-and-step-response" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Record room temperature and all rod channels before changing the base.</li>

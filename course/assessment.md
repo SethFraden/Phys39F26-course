@@ -239,9 +239,10 @@ for the complete instructions and rubric.
 written work to Moodle.
 
 Develop the periodic relations for the Angstrom method, derive `kappa` and
-`nu`, specify the acquisition plan, and assess the radial-model approximation.
+`nu`, specify the acquisition plan, and assess the one-dimensional model using
+the Module 7 approximation checks and the planned experimental evidence.
 
-See [Module 9: A5 Angstrom Derivation And Model-Validity Plan](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan)
+See [Module 8: A5 Angstrom Derivation And Model-Validity Plan](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan)
 for the complete instructions and rubric.
 
 ## How Milestones Are Graded
@@ -397,9 +398,8 @@ of `F1`.
    semi-infinite? Why can the answer depend on sensor position?
 8. Define the transverse Biot number for the circular rod. What physical
    approximation does a small value justify?
-9. In the guided radial calculation, why did the surface, centerline, and
-   cross-sectional mean temperatures differ? Which one does a surface
-   thermistor measure most directly?
+9. What phase convention did you use? Why must the phases be unwrapped before
+   fitting the spatial phase coefficient `q_prime`?
 
 ## Fixed Graded Due Dates And Definitions
 
@@ -414,7 +414,7 @@ of `F1`.
 | `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting simulation result, model limits, code/data links, and `GC`. |
 | `A4` | Oct. 28, 9:05 AM | [**Finite-rod model and validity checks**](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Oct. 28, during S17; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
-| `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and radial-model comparison. |
+| `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and one-dimensional model-validity checks. |
 | `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |
 | `F1` | Dec. 2 | Final team presentation and individual oral defense, using the rubric below. |
 

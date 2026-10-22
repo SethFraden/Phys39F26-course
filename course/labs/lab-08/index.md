@@ -281,14 +281,6 @@ Use supplied parameters when measured values are not yet available. Return to
 these predictions after fitting the stationary data and state which were
 supported by the evidence.
 
-### Radial Model Preview
-
-The next module retains radial variation and introduces the axisymmetric heat
-equation. Its goal is to identify the new radial derivative and surface
-boundary condition, and to distinguish surface, centerline, and
-cross-sectional mean temperature. The guided numerical solution begins in
-Module 8, Part I, before the Angstrom analysis.
-
 ## Part 1: Sensor Map And Calibration
 
 1. Measure the rod diameter and calculate the cross section `A`, perimeter `P` and length `L` in SI units.

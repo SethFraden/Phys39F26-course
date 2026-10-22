@@ -15,8 +15,8 @@ to separate thermal diffusion from heat loss to the air.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S18, Mon. Nov. 2 | Guided radial-model study; tune sinusoidal base-temperature tracking; collect a pilot run | Module 8 home preparation; `P3` model and pilot check |
-| S19, Wed. Nov. 4 | Fit pilot amplitudes and phases; compare one-dimensional and radial predictions; choose the production period | Pilot-analysis and production-plan check |
+| S18, Mon. Nov. 2 | Tune sinusoidal base-temperature tracking; collect a pilot run | Module 8 home preparation; `P3` prediction and pilot-plan check |
+| S19, Wed. Nov. 4 | Fit pilot amplitudes and phases; choose the production period | Pilot-analysis and production-plan check |
 | S20, Mon. Nov. 9 | Acquire at least five settled production periods | Data-readiness check |
 | S21, Wed. Nov. 11 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | **A5: Angstrom derivation and model-validity plan** |
 | S22, Mon. Nov. 16 | Repeat or extend the measurement; test frequency consistency, residuals, and model validity | `P4`; formative modeling-app check |
@@ -26,9 +26,8 @@ to separate thermal diffusion from heat loss to the air.
 | Session | Work | Planned time |
 | --- | --- | ---: |
 | S18 | Read this assignment and review the periodic solution | 60 minutes |
-| S18 | Run the supplied radial scaffold and compare the three Biot-number cases | 120 minutes |
 | S18 | Prepare the pilot-run settings and metadata plan | 30 minutes |
-| S18 | **Total associated with S18** | **3 hours 30 minutes** |
+| S18 | **Total associated with S18** | **1 hour 30 minutes** |
 | S19 | Continue and check the individual A5 derivation and validity plan | 120 minutes |
 | S19 | Inspect pilot fits and prepare the production-run plan | 45 minutes |
 | S19 | **Total associated with S19** | **2 hours 45 minutes** |
@@ -49,15 +48,39 @@ unscheduled outside laboratory time.
 
 By the end of this module, you should be able to:
 
-- impose and verify a sinusoidal temperature boundary with PI control,
-- choose a useful forcing period using physical and practical constraints,
-- fit a sinusoid to noisy temperature data,
-- distinguish temporal frequency from spatial decay and phase coefficients,
-- unwrap phase and maintain consistent sign conventions,
-- determine thermal diffusivity and side-loss rate with uncertainty,
-- compare one-dimensional and axisymmetric predictions as the transverse Biot
-  number increases,
-- test the model using residuals and frequency consistency.
+1. **Create the boundary:** impose and verify a sinusoidal base temperature
+   with PI control and choose a useful forcing period.
+2. **Extract the spatial response:** fit noisy temperature data to determine
+   the amplitude-decay coefficient \(q\) and phase coefficient \(q'\), using
+   phase unwrapping and a consistent sign convention.
+3. **Infer physical parameters:** determine thermal diffusivity \(\kappa\) and
+   side-loss rate \(\nu\), with units and uncertainty.
+4. **Assess the model:** use residuals, frequency consistency, and the
+   finite-length and transverse-Biot checks from Module 7 to decide whether the
+   one-dimensional model adequately describes the retained data.
+
+## Roadmap And Student Work
+
+The module follows one experimental argument. First predict what periodic heat
+diffusion should look like along the rod. Then derive the amplitude decay and
+phase lag, establish a sinusoidal boundary, test the analysis on a pilot run,
+and acquire the production data. Finally, infer \(\kappa\) and \(\nu\) and test
+whether the same model explains all retained sensors and forcing periods.
+
+**Before S18:** read through the periodic solution, write down your qualitative
+predictions, and prepare proposed pilot settings and metadata. This is the
+`P3` check: bring your proposed drive period and your prediction for how
+amplitude and phase will change with distance.
+
+**In class during S18-S20:** tune and document the measured base-temperature
+waveform, collect a pilot run, fit it, choose the production period, and acquire
+at least five periods after the response you judge to be settled.
+
+**After the production run during S21-S22:** complete the spatial fits,
+uncertainty and residual analysis, and model-validity checks. The `P4` check is
+a periodic dataset with at least five periods you identify as settled, sensor
+positions and units, acquisition metadata, and a base-temperature tracking
+check. State the criterion you used to decide that the response was settled.
 
 ## Periodic Solution
 
@@ -67,9 +90,14 @@ By the end of this module, you should be able to:
 conductivity. The course replaces the alternating hot and cold reservoirs with
 a TEC-controlled sinusoidal boundary temperature.*
 
+Take a few minutes to look at the
+[1863 English translation of Angstrom's original work](../../references/angstrom-thermal-conductivity-1863.pdf).
+You are not expected to follow every line. Focus on the apparatus, the recorded
+observations, and the way the measurements are connected to the theory. Recognize the kinship between Angstrom and ourselves; the scientific process isn't different 165 years later, although the tools have progressed.
+
 ### Start With The Rod Equation
 
-Use excess temperature $\theta=T-T_{\mathrm{room}}$ and the rod equation
+Use excess temperature $\theta=T-T_\infty$ and the rod equation
 
 \[
 \frac{\partial\theta}{\partial t}
@@ -79,8 +107,13 @@ Use excess temperature $\theta=T-T_{\mathrm{room}}$ and the rod equation
 Here $\kappa$ is thermal diffusivity in $\mathrm{m^2/s}$ and $\nu$ is
 the lateral heat-loss rate coefficient in $\mathrm{s^{-1}}$. Every term has
 units of K/s. We assume constant material properties, linear heat loss,
-constant room temperature, and a temperature uniform across each cross
-section. We initially treat the rod as semi-infinite, with $x\geq0$.
+constant environmental temperature, and a temperature uniform across each
+cross section. Module 7 denoted thermal diffusivity by $\alpha$; here
+$\kappa\equiv\alpha=k/(\rho c)$. The symbol $T_\infty$ does not mean the
+temperature at the other end of the universe. It is the temperature of the
+surrounding room, which we treat as a large thermodynamic reservoir whose
+temperature is not changed appreciably by the rod. We initially treat the rod
+as semi-infinite, with $x\geq0$.
 
 Drive the measured base temperature approximately as
 
@@ -96,6 +129,12 @@ If the base oscillates about a mean above room temperature, the full solution
 also contains a stationary mean profile. By linearity, we can solve for that
 profile and the oscillating component separately; the derivation below gives
 the oscillating component.
+
+Before continuing, make a qualitative prediction. Sketch temperature versus
+time at the base and at two increasing distances along the rod. Predict which
+features remain the same, which change with distance, and what a shorter drive
+period should do to the attenuation and phase lag. Return to this sketch after
+the derivation and pilot run.
 
 ### Guess A Complex Exponential
 
@@ -238,45 +277,11 @@ A finite rod generally requires both spatial exponentials to satisfy its
 far-end boundary condition.
 
 These equations use a one-dimensional, semi-infinite rod. Before selecting
-sensors for the fit, carry forward the finite-length error calculation from
-Module 7 and complete the radial-model study below. State which sensors and
-conditions satisfy your chosen approximation tolerances.
-
-## Part 0: Guided Radial-Model Study
-
-The one-dimensional rod equation assumes
-\(\mathrm{Bi}_{\perp}=hR/(2k)\ll1\). Retaining radial variation gives the
-axisymmetric equation
-
-\[
-\frac{\partial T}{\partial t}
-=\alpha\left[
-\frac{\partial^2T}{\partial x^2}
-+\frac{1}{r}\frac{\partial}{\partial r}
-\left(r\frac{\partial T}{\partial r}\right)
-\right],
-\]
-
-with cylindrical-surface boundary condition
-
-\[
--k\left.\frac{\partial T}{\partial r}\right|_{r=R}
-=h\left[T(R,x,t)-T_\infty\right].
-\]
-
-Use the supplied numerical scaffold; you are not expected to write a
-two-dimensional PDE solver from scratch. Run otherwise identical cases with
-\(\mathrm{Bi}_{\perp}=0.01, 0.1,\) and \(1\). For each case:
-
-1. plot centerline, surface, and cross-sectional mean temperature,
-2. compare them with the one-dimensional prediction,
-3. quantify surface-versus-mean amplitude and phase differences at a sensor
-   location, and
-4. explain how a surface thermistor analyzed with a one-dimensional model could
-   bias inferred \(k\) or \(h\).
-
-This numerical study begins in S18. Finish it before using the
-one-dimensional periodic solution for the production Angstrom analysis.
+sensors for the fit, carry forward the finite-length error and transverse-Biot
+checks from Module 7. State which sensors and conditions satisfy your chosen
+approximation tolerances, and then use the measured residuals and
+frequency-consistency test to determine whether those approximations were
+adequate in practice.
 
 ## Part 1: Establish The Boundary Condition
 
@@ -298,7 +303,24 @@ For each sensor, fit
 T_i(t)=a_i+B_i\cos(\omega t+\phi_i).
 \]
 
-1. Remove the initial transient or justify the selected fitting interval.
+With this convention, a downstream phase lag appears as a smaller unwrapped
+value of $\phi_i$. Therefore a plot of unwrapped phase versus position has
+slope $-q'$. Reversing the sinusoid convention reverses the phase signs but
+must not change the inferred physics.
+
+The experimental example below shows temperatures measured at two rod
+positions. The traces have the same temporal frequency, while the downstream
+response has a smaller amplitude and reaches each peak later.
+
+![Measured periodic temperature at two rod positions](../../assets/angstrom-legacy-two-sensor-data.jpg)
+
+*Course data showing the two observables used by the Angstrom method:
+amplitude decay and phase lag. Fit each trace independently to obtain $B_i$ and
+$\phi_i$; spatial fits of $\ln B_i$ and unwrapped $\phi_i$ then determine $q$
+and $q'$.*
+
+1. Remove the initial transient or justify the selected fitting interval. State
+   what evidence you used to decide that the response was settled.
 2. Fit at least five complete settled periods.
 3. Plot the data and fitted sinusoid for every sensor.
 4. Plot amplitude `B_i` versus position on a logarithmic vertical scale.
@@ -347,9 +369,10 @@ Your Python app, notebook, or script must visibly show:
 
 Preserve the requested and measured boundary waveforms, controller settings,
 sensor map, raw pilot and production data, fitting intervals, exclusions,
-intermediate fit parameters, residuals, and exact code version. Use
-`docs/module_notes/module_09_angstrom.md`, `data/module_09/`, and
-`docs/figures/module_09/`. Never replace raw measurements with processed data.
+intermediate fit parameters, residuals, and exact code version. In your own
+course repository, use `docs/module_notes/module_08_angstrom.md`,
+`data/module_08/`, and `docs/figures/module_08/`. Never replace raw
+measurements with processed data.
 
 ### A5: Angstrom Derivation And Model-Validity Plan
 
@@ -359,22 +382,23 @@ intermediate fit parameters, residuals, and exact code version. Use
 - **Repository file:** `docs/assessments/a5_angstrom_derivation_plan.md`
 
 Submit the amplitude/phase derivation, inverse relations for `kappa` and `nu`,
-dimensional checks, justified acquisition plan, and the guided radial-model
-comparison. State explicitly whether the course rod supports the proposed
-one-dimensional analysis.
+dimensional checks, justified acquisition plan, and the finite-length and
+transverse-Biot checks carried forward from Module 7. State explicitly whether
+the retained sensors support the proposed one-dimensional analysis.
 
 ### Formative Modeling-App Check
 
 There is no separate modeling-app paper. Keep the team note at
-`docs/module_notes/module_09_modeling_app.md` and authoritative runnable app,
+`docs/module_notes/module_08_modeling_app.md` and authoritative runnable app,
 script, or notebook under `python/analysis/`. Show it during the scheduled
 progress check; its code, plots, and residuals become part of C6 and F1.
 
 Submit runnable code, a short README with the exact command or procedure, the
 data file or stable link, intermediate plots, preliminary `kappa` and `nu`, the
-guided radial-model comparison, and a note describing any AI assistance. Every
-team member must be able to explain the input format, the sequence of fits, and
-why the selected one-dimensional approximation is acceptable or not.
+finite-length and transverse-Biot checks, and a note describing any AI
+assistance. Every team member must be able to explain the input format, the
+sequence of fits, and why the selected one-dimensional approximation is
+acceptable or not.
 
 ### A5 Rubric
 
@@ -383,10 +407,19 @@ why the selected one-dimensional approximation is acceptable or not.
 | Periodic amplitude and phase relations and inverse equations are correct | 2 |
 | Units and sign conventions are explicit and consistent | 2 |
 | Drive period, sampling, settling, sensors, and safety limits are justified | 2 |
-| Finite-length and radial-model validity checks support a clear conclusion | 2 |
+| Finite-length, transverse-Biot, and data-based validity checks support a clear conclusion | 2 |
 | Individual PDF and cited Git checkpoint are clear and on time | 2 |
 
 The formative app is ready when it loads documented raw data; displays
 per-sensor fits, amplitude, unwrapped phase, and residuals; reports `q`,
 `q_prime`, `kappa`, and `nu` with units and uncertainty; and documents
 exclusions, approximation checks, run instructions, and AI assistance.
+
+### How The Learning Objectives Are Assessed
+
+| Learning objective | Evidence |
+| --- | --- |
+| 1. Create the boundary | `P3`, base-tracking plot, and the acquisition plan in A5 |
+| 2. Extract the spatial response | A5 derivation; pilot and production sinusoid, amplitude, and phase fits |
+| 3. Infer physical parameters | A5 inverse relations; formative app values and uncertainty for $\kappa$ and $\nu$ |
+| 4. Assess the model | `P4`, residuals, frequency consistency, Module 7 approximation checks, and the C6 explanation |

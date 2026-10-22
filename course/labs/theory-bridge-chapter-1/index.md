@@ -632,7 +632,7 @@ Here \(h\) has units W/(m\(^2\) K). Unlike \(k\), which is a material property,
 
 ## 5. Lumped Cooling And The Biot Number
 
-Here we justify the use of the lumped model in which we approximate the body to be at an uniform temperature. This approximation is valid when the Biot number is small, \(\mathrm{Bi}\ll1\). Use Lienhard Section 1.3, pp. 11-26, as the source for this
+Here we justify the use of the lumped model in which we approximate the body to be at a uniform temperature. This approximation is valid when the Biot number is small, \(\mathrm{Bi}\ll1\). Use Lienhard Section 1.3, pp. 11-26, as the source for this
 section. Read pp. 19-21 to understand Newton's law of cooling and the heat
 transfer coefficient \(h\). Then read pp. 21-24 carefully for the lumped-capacity
 model, Fig. 1.10, and the Biot number. Skim pp. 24-26 to see how the
@@ -677,8 +677,7 @@ rate:
 \]
 
 Therefore, both \(R_{\mathrm{cond}}\) and \(R_{\mathrm{conv}}\) have units of
-kelvin per watt, K/W. A resistance quoted per unit area, \(R''=AR\), instead has
-units of m\(^2\) K/W.
+kelvin per watt, K/W.
 
 Using the same representative area for this scaling argument, their ratio is
 
@@ -692,16 +691,18 @@ This ratio compares resistance to heat flow **inside the solid** with resistance
 to heat transfer **from its surface to the surroundings**. It is the **Biot
 number**, Bi.
 
-Since energy is conserved, the heat that leaves the body by conduction is equal to the heat that enters the room by convection so
+In this resistance-scaling picture, the same representative heat-transfer rate
+passes through the two successive steps: conduction through the solid and
+convection from its surface. Therefore,
 
 \[
-\dot Q = \frac{\Delta T_{\mathrm{cond}}}{R_{\mathrm{cond}}}=\frac{\Delta T_{\mathrm{conv}}}{R_{\mathrm{conc}}}
+\dot Q = \frac{\Delta T_{\mathrm{cond}}}{R_{\mathrm{cond}}}=\frac{\Delta T_{\mathrm{conv}}}{R_{\mathrm{conv}}}
 \]
 
 and
 
 \[
-\frac{\Delta T_{\mathrm{cond}}}{\Delta T_{\mathrm{conv}}}=\frac{R_{\mathrm{cond}}}{R_{\mathrm{conc}}} = \mathrm{Bi}.
+\frac{\Delta T_{\mathrm{cond}}}{\Delta T_{\mathrm{conv}}}=\frac{R_{\mathrm{cond}}}{R_{\mathrm{conv}}} = \mathrm{Bi}.
 \]
 
 If \(\mathrm{Bi}\ll1\) then \(\Delta T_{\mathrm{cond}} \ll \Delta T_{\mathrm{conv}}\) or equivalently, \(T_{\mathrm{interior}} - T_s \ll T_s - T_{\infty}\). Since the temperature change in the solid is much smaller than the temperature change outside the solid  we justify the lumped model assumption that the temperature of the solid doesn't depend on position.

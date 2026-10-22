@@ -221,6 +221,20 @@ large, the measured region may also be approximated as semi-infinite.
 
 ## Energy Balance And Differential Equation
 
+**Steady-state assumption.** Part I derived the time-dependent heat equation
+for conduction without side loss. Here we add distributed convective cooling
+from the side of the rod, but first consider only the stationary temperature
+profile. At steady state, the temperature at every position is constant in
+time:
+
+\[
+\frac{\partial T}{\partial t}=0.
+\]
+
+Each differential slice therefore stores no net energy. Axial heat conducted
+into the slice minus axial heat conducted out must equal the heat lost by
+convection from its side.
+
 An energy balance on a slice of width \(\delta x\) with cross-sectional area $A$ and side area $P\delta x$, as shown in Lienhard Figure 4.8 is
 
 \[

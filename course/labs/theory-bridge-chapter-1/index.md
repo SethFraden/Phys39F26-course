@@ -16,6 +16,12 @@ The three parts form one model-building and model-testing sequence:
 | Part II: rod theory | What stationary profile follows from axial conduction, side cooling, and the end conditions? | Derive the finite-rod solution, its semi-infinite limit, and the two model-validity checks. | A4 Parts 2-4 and selected C5 questions |
 | Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Cross-calibrate the sensors, measure the transient and stationary profiles, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
 
+**Model hierarchy.** Part I derives the time-dependent heat equation while
+neglecting heat loss from the side of the rod. Part II adds distributed side
+cooling but assumes steady state, so $\partial T/\partial t=0$. Part III keeps
+the side-cooling term and restores the time derivative to describe how the rod
+approaches its stationary profile.
+
 Sections 1-5 and **What To Prepare** are the required route through Part I.
 The unified-transport comparison, electrical-transient sidebar, and optional
 nondimensional derivation provide broader context but are not additional

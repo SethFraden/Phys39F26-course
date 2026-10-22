@@ -412,6 +412,17 @@ not determine whether the model is one-dimensional. Instead, it determines how
 strongly the temperature decays along the rod. When <span class="arithmatex">\(mL\)</span> is sufficiently
 large, the measured region may also be approximated as semi-infinite.</p>
 <h2 id="energy-balance-and-differential-equation">Energy Balance And Differential Equation<a class="headerlink" href="#energy-balance-and-differential-equation" title="Permanent link">&para;</a></h2>
+<p><strong>Steady-state assumption.</strong> Part I derived the time-dependent heat equation
+for conduction without side loss. Here we add distributed convective cooling
+from the side of the rod, but first consider only the stationary temperature
+profile. At steady state, the temperature at every position is constant in
+time:</p>
+<div class="arithmatex">\[
+\frac{\partial T}{\partial t}=0.
+\]</div>
+<p>Each differential slice therefore stores no net energy. Axial heat conducted
+into the slice minus axial heat conducted out must equal the heat lost by
+convection from its side.</p>
 <p>An energy balance on a slice of width <span class="arithmatex">\(\delta x\)</span> with cross-sectional area <span class="arithmatex">\(A\)</span> and side area <span class="arithmatex">\(P\delta x\)</span>, as shown in Lienhard Figure 4.8 is</p>
 <div class="arithmatex">\[
 -kA\left.\frac{dT}{dx}\right|_{x+\delta x}

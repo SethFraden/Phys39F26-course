@@ -112,6 +112,11 @@ terms below connect that theory to the experiment and its analysis.
 
 ## Model
 
+Part II set the energy-storage term to zero to obtain the stationary fin
+equation. We now restore that term while retaining distributed side cooling,
+so the model describes both the transient response and the stationary profile
+that it approaches.
+
 Let
 
 \[

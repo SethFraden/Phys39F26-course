@@ -208,6 +208,21 @@ q=\sqrt{\frac{\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}},
 q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
 \]
 
+The frequency of the drive therefore sets two useful spatial scales. The
+**oscillatory decay length** $1/q$ is the distance over which the oscillation
+amplitude falls by a factor of $e$. The **spatial wavelength** $2\pi/q'$ is the
+distance over which the oscillation accumulates a full $2\pi$ phase lag. For
+comparison, the stationary temperature profile has decay length
+$1/q_1=\sqrt{\kappa/\nu}$.
+
+![Characteristic lengths in the Angstrom method as a function of forcing period](../../assets/angstrom-method-length-scales.gif)
+
+*Characteristic lengths calculated for a half-inch-diameter aluminum rod.
+Longer periods penetrate farther into the rod but produce less phase change per
+unit length. Shorter periods produce more phase change per unit length but also
+attenuate more rapidly. The experimental period should give both a measurable
+amplitude and a resolvable phase difference across several sensors.*
+
 ### Take The Real Part
 
 The complex solution can now be written

@@ -129,68 +129,74 @@ code {
 .apparatus-hotspot {
   position: absolute;
   display: block;
-  padding: 0.22rem 0.38rem;
-  border: 2px solid var(--phys39-red);
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--phys39-red);
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  font-size: 0;
   text-decoration: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .apparatus-hotspot:hover,
 .apparatus-hotspot:focus {
-  color: #ffffff;
-  background: var(--phys39-red);
-  outline: 3px solid rgba(23, 107, 135, 0.35);
+  color: transparent;
+  background: rgba(255, 255, 255, 0.12);
+  outline: 3px solid var(--phys39-red);
 }
 
 .hotspot-switch {
-  top: 16%;
-  left: 16%;
-  width: 20%;
+  top: 19.3%;
+  left: 14.8%;
+  width: 16%;
+  height: 8%;
 }
 
 .hotspot-thermistor {
-  top: 30%;
-  left: 35%;
+  top: 31.1%;
+  left: 30.1%;
   width: 14%;
+  height: 8%;
 }
 
 .hotspot-tec {
-  top: 46%;
-  left: 18%;
-  width: 9%;
+  top: 42.7%;
+  left: 16.5%;
+  width: 7%;
+  height: 9%;
 }
 
 .hotspot-exchanger {
-  top: 57%;
-  left: 13%;
-  width: 18%;
-  height: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  top: 54.8%;
+  left: 12%;
+  width: 17%;
+  height: 10%;
 }
 
 .hotspot-arduino {
-  top: 38%;
-  left: 61%;
-  width: 12%;
+  top: 37%;
+  left: 52.9%;
+  width: 10%;
+  height: 10%;
 }
 
 .hotspot-hbridge {
-  top: 80%;
-  left: 59%;
-  width: 14%;
+  top: 70.6%;
+  left: 52.4%;
+  width: 11%;
+  height: 10%;
 }
 
 .hotspot-laptop {
-  top: 18%;
-  left: 85%;
-  width: 10%;
+  top: 10.4%;
+  left: 75.5%;
+  width: 9%;
+  height: 10%;
+}
+
+.hotspot-logger {
+  top: 63.4%;
+  left: 73.1%;
+  width: 14%;
+  height: 10%;
 }

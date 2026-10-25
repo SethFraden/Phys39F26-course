@@ -10,7 +10,7 @@ reference material below.
 
 <div class="apparatus-scroll">
   <div class="apparatus-map">
-    <img src="../assets/tec_system_layout.jpg" alt="Block diagram of the Phys 39 temperature-control instrument">
+    <img src="../assets/tec_system_layout_powerpoint.png" alt="Block diagram of the Phys 39 temperature-control instrument">
     <a class="apparatus-hotspot hotspot-switch" href="#thermal-safety-switch">Thermal switch</a>
     <a class="apparatus-hotspot hotspot-thermistor" href="#thermistor">Thermistor</a>
     <a class="apparatus-hotspot hotspot-tec" href="#thermoelectric-cooler">TEC</a>
@@ -18,6 +18,7 @@ reference material below.
     <a class="apparatus-hotspot hotspot-arduino" href="#arduino-uno">Arduino</a>
     <a class="apparatus-hotspot hotspot-hbridge" href="#h-bridge">H-bridge</a>
     <a class="apparatus-hotspot hotspot-laptop" href="#laptop-software">Laptop</a>
+    <a class="apparatus-hotspot hotspot-logger" href="#serial-data-logger">Data logger</a>
   </div>
 </div>
 
@@ -33,6 +34,10 @@ measurements, saves data, and eventually sends control settings. The bench
 power supply provides the TEC current; the Arduino supplies only logic-level
 control signals.
 
+For an unattended run, the Arduino can also send its serial output to the
+Fermion data logger, which records the stream on a microSD card without a
+laptop.
+
 ## Component Reference
 
 
@@ -44,6 +49,7 @@ control signals.
 | TEC/Peltier element | Moves heat when current flows; reversing current reverses heat/cool direction. | [Laird CP14-127-045 data sheet](references/laird-tec-cp14-127-045.pdf) |
 | Heat exchanger | Removes waste heat from the TEC hot side and rejects it to the room. | [ID-COOLING DASHFLOW 240 BASIC WHITE product page](https://www.idcooling.com/product/detail?id=323&name=DASHFLOW%20240%20BASIC%20WHITE) · [F2023 parts-list order link](https://www.amazon.com/ID-COOLING-DASHFLOW-LGA1700-Compatible-2x120mm/dp/B0BFPL84GK) |
 | Arduino Uno | Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals. | [Arduino reference](arduino/index.md) · [Uno pinout](arduino/pinout.md) · [Official Uno Rev3](https://docs.arduino.cc/hardware/uno-rev3/) |
+| DFRobot Fermion serial data logger | Records Arduino UART output to a microSD card for unattended measurements. | [Fermion Serial Data Logger V2.0 product page](https://www.dfrobot.com/product-2499.html) · [DFRobot setup and example](https://wiki.dfrobot.com/tel0148/) |
 | BTS7960 H-bridge | Uses Arduino PWM inputs to drive TEC current in either direction from the external supply. Use 18 AWG wire for the TEC. | [BTS7960 driver reference](references/bts7960-h-bridge.pdf) |
 | Bench power supply | Supplies current-limited actuator power to the H-bridge and TEC heat-exchanger. Use 18 AWG wire for the H-bridge. | [ALITOVE 12V 10A power adapter](https://alitove.com/products/alitove-12v-10a-power-adapter) |
 | Oscilloscope | Verifies voltage levels, timing, PWM duty cycle, direction signals, and grounding. | Use the assigned laboratory oscilloscope |
@@ -219,6 +225,56 @@ pins cannot directly power the TEC.
 - [Arduino reference and built-in examples](arduino/index.md)
 - [Arduino Uno pinout](arduino/pinout.md)
 - [Official Arduino Uno Rev3 page](https://docs.arduino.cc/hardware/uno-rev3/)
+
+### Serial Data Logger
+
+The class uses the **DFRobot Fermion Serial Data Logger V2.0 (TEL0148)** for
+long measurements that must continue without a laptop. The module records the
+Arduino's UART serial output directly to a FAT32 microSD card in TXT or CSV
+format. It accepts 3.3-5 V power and supports cards up to 32 GB.
+
+<img src="../assets/fermion-serial-data-logger.webp"
+     alt="DFRobot Fermion Serial Data Logger V2.0"
+     style="display: block; width: 50%; height: auto; margin: 0 auto;"
+     loading="lazy">
+
+*DFRobot Fermion Serial Data Logger V2.0. The microSD card fits in the metal
+socket; the USB-C connector is used to read stored files after data collection.
+Image: DFRobot.*
+
+For basic one-way recording, make three connections:
+
+- Arduino `5V` to logger `VCC`,
+- Arduino `GND` to logger `GND`, and
+- Arduino hardware-serial `TX` pin `1` to logger `RX`.
+
+Leave the logger `TX` pin unconnected unless a later activity explicitly calls
+for two-way communication. The `S` pin is optional; firmware can pull it low to
+close the current file and begin another one. Set the logger baud rate in
+`CONFIG.TXT` to match `Serial.begin(...)` in the Arduino sketch, and allow at
+least two seconds after startup before sending measurements.
+
+<img src="../assets/fermion-serial-data-logger-arduino-wiring.webp"
+     alt="DFRobot wiring diagram for the Fermion logger and Arduino Uno"
+     style="display: block; width: 50%; height: auto; margin: 0 auto;"
+     loading="lazy">
+
+*Basic wiring for one-way logging. The logger listens to the Arduino's `TX`
+line while sharing 5 V power and ground. Image: DFRobot.*
+
+The Arduino's serial output can be viewed on the Mac and recorded by the logger
+at the same time: both the Uno USB interface and the logger `RX` input listen to
+the same `TX` signal. When the computer is removed, power the Arduino from its
+USB wall adapter; the Arduino then powers the logger through its `5V` pin.
+
+During data collection, leave the logger's USB-C port disconnected. Connecting
+that port to a computer places the logger in USB flash-drive mode, in which it
+does not record new serial data. After stopping the run, disconnect power from
+the apparatus, connect the logger to the Mac with a USB data cable, copy the
+files, eject the drive, and then disconnect the cable.
+
+- [DFRobot Fermion Serial Data Logger V2.0 product page](https://www.dfrobot.com/product-2499.html)
+- [DFRobot documentation, setup, wiring, and examples](https://wiki.dfrobot.com/tel0148/)
 
 ### H-Bridge
 

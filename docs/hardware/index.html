@@ -146,6 +146,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="3"><a href="#serial-data-logger" class="nav-link">Serial Data Logger</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="3"><a href="#h-bridge" class="nav-link">H-Bridge</a>
               <ul class="nav flex-column">
               </ul>
@@ -179,7 +183,7 @@ electronics to a higher-power thermal actuator.</p>
 reference material below.</p>
 <div class="apparatus-scroll">
   <div class="apparatus-map">
-    <img src="../assets/tec_system_layout.jpg" alt="Block diagram of the Phys 39 temperature-control instrument">
+    <img src="../assets/tec_system_layout_powerpoint.png" alt="Block diagram of the Phys 39 temperature-control instrument">
     <a class="apparatus-hotspot hotspot-switch" href="#thermal-safety-switch">Thermal switch</a>
     <a class="apparatus-hotspot hotspot-thermistor" href="#thermistor">Thermistor</a>
     <a class="apparatus-hotspot hotspot-tec" href="#thermoelectric-cooler">TEC</a>
@@ -187,6 +191,7 @@ reference material below.</p>
     <a class="apparatus-hotspot hotspot-arduino" href="#arduino-uno">Arduino</a>
     <a class="apparatus-hotspot hotspot-hbridge" href="#h-bridge">H-bridge</a>
     <a class="apparatus-hotspot hotspot-laptop" href="#laptop-software">Laptop</a>
+    <a class="apparatus-hotspot hotspot-logger" href="#serial-data-logger">Data logger</a>
   </div>
 </div>
 
@@ -198,6 +203,9 @@ reference material below.</p>
 measurements, saves data, and eventually sends control settings. The bench
 power supply provides the TEC current; the Arduino supplies only logic-level
 control signals.</p>
+<p>For an unattended run, the Arduino can also send its serial output to the
+Fermion data logger, which records the stream on a microSD card without a
+laptop.</p>
 <h2 id="component-reference">Component Reference<a class="headerlink" href="#component-reference" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -237,6 +245,11 @@ control signals.</p>
 <td>Arduino Uno</td>
 <td>Digitizes sensor voltage, communicates over USB serial, and produces two PWM control signals.</td>
 <td><a href="../arduino/">Arduino reference</a> · <a href="../arduino/pinout/">Uno pinout</a> · <a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Uno Rev3</a></td>
+</tr>
+<tr>
+<td>DFRobot Fermion serial data logger</td>
+<td>Records Arduino UART output to a microSD card for unattended measurements.</td>
+<td><a href="https://www.dfrobot.com/product-2499.html">Fermion Serial Data Logger V2.0 product page</a> · <a href="https://wiki.dfrobot.com/tel0148/">DFRobot setup and example</a></td>
 </tr>
 <tr>
 <td>BTS7960 H-bridge</td>
@@ -399,6 +412,48 @@ pins cannot directly power the TEC.</p>
 <li><a href="../arduino/">Arduino reference and built-in examples</a></li>
 <li><a href="../arduino/pinout/">Arduino Uno pinout</a></li>
 <li><a href="https://docs.arduino.cc/hardware/uno-rev3/">Official Arduino Uno Rev3 page</a></li>
+</ul>
+<h3 id="serial-data-logger">Serial Data Logger<a class="headerlink" href="#serial-data-logger" title="Permanent link">&para;</a></h3>
+<p>The class uses the <strong>DFRobot Fermion Serial Data Logger V2.0 (TEL0148)</strong> for
+long measurements that must continue without a laptop. The module records the
+Arduino's UART serial output directly to a FAT32 microSD card in TXT or CSV
+format. It accepts 3.3-5 V power and supports cards up to 32 GB.</p>
+<p><img src="../assets/fermion-serial-data-logger.webp"
+     alt="DFRobot Fermion Serial Data Logger V2.0"
+     style="display: block; width: 50%; height: auto; margin: 0 auto;"
+     loading="lazy"></p>
+<p><em>DFRobot Fermion Serial Data Logger V2.0. The microSD card fits in the metal
+socket; the USB-C connector is used to read stored files after data collection.
+Image: DFRobot.</em></p>
+<p>For basic one-way recording, make three connections:</p>
+<ul>
+<li>Arduino <code>5V</code> to logger <code>VCC</code>,</li>
+<li>Arduino <code>GND</code> to logger <code>GND</code>, and</li>
+<li>Arduino hardware-serial <code>TX</code> pin <code>1</code> to logger <code>RX</code>.</li>
+</ul>
+<p>Leave the logger <code>TX</code> pin unconnected unless a later activity explicitly calls
+for two-way communication. The <code>S</code> pin is optional; firmware can pull it low to
+close the current file and begin another one. Set the logger baud rate in
+<code>CONFIG.TXT</code> to match <code>Serial.begin(...)</code> in the Arduino sketch, and allow at
+least two seconds after startup before sending measurements.</p>
+<p><img src="../assets/fermion-serial-data-logger-arduino-wiring.webp"
+     alt="DFRobot wiring diagram for the Fermion logger and Arduino Uno"
+     style="display: block; width: 50%; height: auto; margin: 0 auto;"
+     loading="lazy"></p>
+<p><em>Basic wiring for one-way logging. The logger listens to the Arduino's <code>TX</code>
+line while sharing 5 V power and ground. Image: DFRobot.</em></p>
+<p>The Arduino's serial output can be viewed on the Mac and recorded by the logger
+at the same time: both the Uno USB interface and the logger <code>RX</code> input listen to
+the same <code>TX</code> signal. When the computer is removed, power the Arduino from its
+USB wall adapter; the Arduino then powers the logger through its <code>5V</code> pin.</p>
+<p>During data collection, leave the logger's USB-C port disconnected. Connecting
+that port to a computer places the logger in USB flash-drive mode, in which it
+does not record new serial data. After stopping the run, disconnect power from
+the apparatus, connect the logger to the Mac with a USB data cable, copy the
+files, eject the drive, and then disconnect the cable.</p>
+<ul>
+<li><a href="https://www.dfrobot.com/product-2499.html">DFRobot Fermion Serial Data Logger V2.0 product page</a></li>
+<li><a href="https://wiki.dfrobot.com/tel0148/">DFRobot documentation, setup, wiring, and examples</a></li>
 </ul>
 <h3 id="h-bridge">H-Bridge<a class="headerlink" href="#h-bridge" title="Permanent link">&para;</a></h3>
 <p>The BTS7960-style H-bridge lets the low-power Arduino control the amount and

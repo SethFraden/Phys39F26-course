@@ -3,6 +3,8 @@
 The temperature-control instrument connects low-power measurement and control
 electronics to a higher-power thermal actuator.
 
+<link rel="stylesheet" href="../stylesheets/course.css?v=bed976b">
+
 ## Interactive Instrument Map
 
 Select a labeled component in the diagram to jump to its description and

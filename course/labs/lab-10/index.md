@@ -19,7 +19,7 @@ the measured temperature field.
 
 | Session | In class | Due |
 | --- | --- | --- |
-| S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `h`; update the earlier finite-length and finite-radius checks using measured parameters | Parameter and model-validity check |
+| S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `h`; update the finite-length and transverse-Biot checks using measured parameters | Parameter and model-validity check |
 | S24, Mon. Nov. 23 | Propagate uncertainty, compare stationary and periodic estimates, and assemble the final analysis | Formative draft-results check |
 | S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 final analysis package** |
 | S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
@@ -41,7 +41,7 @@ the measured temperature field.
 | S26 | **Total associated with S26** | **4 hours** |
 
 These final sessions use the full allowance. Reuse the figures, equations, and
-documentation already produced during Modules 8-9; do not create a second parallel
+documentation already produced during Modules 7 and 8; do not create a second parallel
 analysis solely for presentation polish.
 
 ## Learning Objectives
@@ -54,14 +54,26 @@ By the end of this module, you should be able to:
 - propagate measurement uncertainty and identify systematic error,
 - compare steady and periodic estimates,
 - simulate or reconstruct `T(x,t)` from a measured boundary condition,
-- explain separately when finite length and finite radius may be ignored,
+- explain separately how finite length and transverse temperature gradients
+  affect the one-dimensional model,
 - judge model quality using residuals rather than appearance alone,
 - make a repository reproduce the reported result,
 - defend the physical reasoning without relying on AI-generated prose.
 
 ## From Angstrom Fits To Physical Properties
 
-From Module 8, Part I,
+Bring forward from Module 8, Part I the immutable raw files, calibrated sensor
+map, sensor-position uncertainties, exact forcing frequency, selected settled
+intervals, fitted \(q\) and \(q'\) with uncertainty, residuals, and the code
+checkpoint that produced them. A minimum experiment provides one usable
+frequency; an extended experiment adds independently analyzed frequencies.
+
+Part I produced preliminary values of \(\kappa\) and \(\nu\) so that you could
+judge whether the experiment worked. Part II turns those estimates into final,
+uncertainty-qualified values of \(k\) and \(h\), reconstructs the measured
+temperature field, and determines whether the model is credible.
+
+From Part I,
 
 \[
 \kappa=\frac{\omega}{2qq'},
@@ -69,7 +81,7 @@ From Module 8, Part I,
 \nu=\kappa(q^2-q'^2).
 \]
 
-Use aluminum density `rho` and specific heat `c`, with their sources and
+Use 6061-T6 aluminum density `rho` and specific heat `c`, with their sources and
 uncertainties, to calculate
 
 \[
@@ -85,7 +97,7 @@ h=\frac{\nu\rho c A}{P}.
 Report `k` in watts per meter-kelvin and `h` in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.
 
-## Part 1: Parameter Table And Uncertainty
+## Stage 1: Parameter Table And Uncertainty
 
 Create one table containing every input, fitted quantity, derived result, unit,
 uncertainty, and source. It must include at least:
@@ -102,9 +114,9 @@ Use analytic propagation, bootstrap/resampling, Monte Carlo propagation, or an
 approved equivalent. Include position uncertainty because phase and amplitude
 slopes depend directly on sensor coordinates.
 
-## Part 2: Physical And Model Checks
+## Stage 2: Physical And Model Checks
 
-1. Compare `k` with an accepted range for the relevant aluminum alloy. Do not
+1. Compare `k` with an accepted range for 6061-T6 aluminum. Do not
    tune the model merely to force agreement.
 2. Compare `h` with the expected scale for natural or forced convection in the
    actual apparatus.
@@ -117,9 +129,12 @@ slopes depend directly on sensor coordinates.
 6. Plot measured-versus-modeled traces and residuals for several positions.
 7. Recalculate `mL`, finite-length error, and the transverse Biot number using
    the final fitted or inferred parameters rather than the preliminary values
-   used in Modules 8 and 9.
+   used in Modules 7 and 8.
+8. Use the two-stage per-sensor and spatial fits as the primary analysis. As an
+   optional model-validity test, compare them with a global fit of the retained
+   \(T_i(t)\) data using shared spatial parameters.
 
-## Part 3: Systematic Error
+## Stage 3: Systematic Error
 
 Discuss at least four of the following and state the expected direction of bias
 when possible:
@@ -136,6 +151,14 @@ when possible:
 - temperature dependence or alloy dependence of material properties.
 
 ## C6 Checkoff And Final Analysis Packet
+
+The assessments build on one another rather than asking for parallel analyses:
+
+- **A5** is each student's derivation and acquisition plan.
+- The **formative modeling app** is the team's working implementation and
+  preliminary analysis of measured data.
+- **C6** is the team's final reproducible inference, including uncertainty,
+  physical checks, and a defensible judgment of model quality.
 
 ### Final Thermal-Transport Analysis Packet
 
@@ -170,14 +193,12 @@ The final repository must contain:
   and uncertainty,
 - accepted-value and model-limitation discussion,
 - the finite-length error calculation and final transverse-Biot-number check,
-- the guided numerical comparison of one-dimensional and finite-radius models
-  completed before the Angstrom production analysis,
 - a record of meaningful AI assistance.
 
 For the C6 demonstration, a fresh run from the documented repository must
 reproduce the principal numbers and figures. Each student will answer short
-individual questions about the Angstrom inference and about when length or
-radius may be neglected.
+individual questions about the Angstrom inference, finite-length effects, and
+the transverse-Biot criterion.
 
 ## Final Presentation
 

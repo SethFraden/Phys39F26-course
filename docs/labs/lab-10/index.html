@@ -126,15 +126,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-1-parameter-table-and-uncertainty" class="nav-link">Part 1: Parameter Table And Uncertainty</a>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-1-parameter-table-and-uncertainty" class="nav-link">Stage 1: Parameter Table And Uncertainty</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-physical-and-model-checks" class="nav-link">Part 2: Physical And Model Checks</a>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-2-physical-and-model-checks" class="nav-link">Stage 2: Physical And Model Checks</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-systematic-error" class="nav-link">Part 3: Systematic Error</a>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-3-systematic-error" class="nav-link">Stage 3: Systematic Error</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -186,7 +186,7 @@ the measured temperature field.</p>
 <tbody>
 <tr>
 <td>S23, Wed. Nov. 18</td>
-<td>Convert fitted coefficients into <code>k</code> and <code>h</code>; update the earlier finite-length and finite-radius checks using measured parameters</td>
+<td>Convert fitted coefficients into <code>k</code> and <code>h</code>; update the finite-length and transverse-Biot checks using measured parameters</td>
 <td>Parameter and model-validity check</td>
 </tr>
 <tr>
@@ -274,7 +274,7 @@ the measured temperature field.</p>
 </tbody>
 </table>
 <p>These final sessions use the full allowance. Reuse the figures, equations, and
-documentation already produced during Modules 8-9; do not create a second parallel
+documentation already produced during Modules 7 and 8; do not create a second parallel
 analysis solely for presentation polish.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this module, you should be able to:</p>
@@ -285,19 +285,29 @@ analysis solely for presentation polish.</p>
 <li>propagate measurement uncertainty and identify systematic error,</li>
 <li>compare steady and periodic estimates,</li>
 <li>simulate or reconstruct <code>T(x,t)</code> from a measured boundary condition,</li>
-<li>explain separately when finite length and finite radius may be ignored,</li>
+<li>explain separately how finite length and transverse temperature gradients
+  affect the one-dimensional model,</li>
 <li>judge model quality using residuals rather than appearance alone,</li>
 <li>make a repository reproduce the reported result,</li>
 <li>defend the physical reasoning without relying on AI-generated prose.</li>
 </ul>
 <h2 id="from-angstrom-fits-to-physical-properties">From Angstrom Fits To Physical Properties<a class="headerlink" href="#from-angstrom-fits-to-physical-properties" title="Permanent link">&para;</a></h2>
-<p>From Module 8, Part I,</p>
+<p>Bring forward from Module 8, Part I the immutable raw files, calibrated sensor
+map, sensor-position uncertainties, exact forcing frequency, selected settled
+intervals, fitted <span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span> with uncertainty, residuals, and the code
+checkpoint that produced them. A minimum experiment provides one usable
+frequency; an extended experiment adds independently analyzed frequencies.</p>
+<p>Part I produced preliminary values of <span class="arithmatex">\(\kappa\)</span> and <span class="arithmatex">\(\nu\)</span> so that you could
+judge whether the experiment worked. Part II turns those estimates into final,
+uncertainty-qualified values of <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(h\)</span>, reconstructs the measured
+temperature field, and determines whether the model is credible.</p>
+<p>From Part I,</p>
 <div class="arithmatex">\[
 \kappa=\frac{\omega}{2qq'},
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]</div>
-<p>Use aluminum density <code>rho</code> and specific heat <code>c</code>, with their sources and
+<p>Use 6061-T6 aluminum density <code>rho</code> and specific heat <code>c</code>, with their sources and
 uncertainties, to calculate</p>
 <div class="arithmatex">\[
 k=\kappa\rho c.
@@ -308,7 +318,7 @@ h=\frac{\nu\rho c A}{P}.
 \]</div>
 <p>Report <code>k</code> in watts per meter-kelvin and <code>h</code> in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.</p>
-<h2 id="part-1-parameter-table-and-uncertainty">Part 1: Parameter Table And Uncertainty<a class="headerlink" href="#part-1-parameter-table-and-uncertainty" title="Permanent link">&para;</a></h2>
+<h2 id="stage-1-parameter-table-and-uncertainty">Stage 1: Parameter Table And Uncertainty<a class="headerlink" href="#stage-1-parameter-table-and-uncertainty" title="Permanent link">&para;</a></h2>
 <p>Create one table containing every input, fitted quantity, derived result, unit,
 uncertainty, and source. It must include at least:</p>
 <ul>
@@ -323,9 +333,9 @@ uncertainty, and source. It must include at least:</p>
 <p>Use analytic propagation, bootstrap/resampling, Monte Carlo propagation, or an
 approved equivalent. Include position uncertainty because phase and amplitude
 slopes depend directly on sensor coordinates.</p>
-<h2 id="part-2-physical-and-model-checks">Part 2: Physical And Model Checks<a class="headerlink" href="#part-2-physical-and-model-checks" title="Permanent link">&para;</a></h2>
+<h2 id="stage-2-physical-and-model-checks">Stage 2: Physical And Model Checks<a class="headerlink" href="#stage-2-physical-and-model-checks" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Compare <code>k</code> with an accepted range for the relevant aluminum alloy. Do not
+<li>Compare <code>k</code> with an accepted range for 6061-T6 aluminum. Do not
    tune the model merely to force agreement.</li>
 <li>Compare <code>h</code> with the expected scale for natural or forced convection in the
    actual apparatus.</li>
@@ -338,9 +348,12 @@ slopes depend directly on sensor coordinates.</p>
 <li>Plot measured-versus-modeled traces and residuals for several positions.</li>
 <li>Recalculate <code>mL</code>, finite-length error, and the transverse Biot number using
    the final fitted or inferred parameters rather than the preliminary values
-   used in Modules 8 and 9.</li>
+   used in Modules 7 and 8.</li>
+<li>Use the two-stage per-sensor and spatial fits as the primary analysis. As an
+   optional model-validity test, compare them with a global fit of the retained
+   <span class="arithmatex">\(T_i(t)\)</span> data using shared spatial parameters.</li>
 </ol>
-<h2 id="part-3-systematic-error">Part 3: Systematic Error<a class="headerlink" href="#part-3-systematic-error" title="Permanent link">&para;</a></h2>
+<h2 id="stage-3-systematic-error">Stage 3: Systematic Error<a class="headerlink" href="#stage-3-systematic-error" title="Permanent link">&para;</a></h2>
 <p>Discuss at least four of the following and state the expected direction of bias
 when possible:</p>
 <ul>
@@ -356,6 +369,14 @@ when possible:</p>
 <li>temperature dependence or alloy dependence of material properties.</li>
 </ul>
 <h2 id="c6-checkoff-and-final-analysis-packet">C6 Checkoff And Final Analysis Packet<a class="headerlink" href="#c6-checkoff-and-final-analysis-packet" title="Permanent link">&para;</a></h2>
+<p>The assessments build on one another rather than asking for parallel analyses:</p>
+<ul>
+<li><strong>A5</strong> is each student's derivation and acquisition plan.</li>
+<li>The <strong>formative modeling app</strong> is the team's working implementation and
+  preliminary analysis of measured data.</li>
+<li><strong>C6</strong> is the team's final reproducible inference, including uncertainty,
+  physical checks, and a defensible judgment of model quality.</li>
+</ul>
 <h3 id="final-thermal-transport-analysis-packet">Final Thermal-Transport Analysis Packet<a class="headerlink" href="#final-thermal-transport-analysis-packet" title="Permanent link">&para;</a></h3>
 <p>This team analysis is graded within C6 and F1 rather than as a sixth written
 assignment. Keep the report at
@@ -383,14 +404,12 @@ checks support the conclusions.</p>
   and uncertainty,</li>
 <li>accepted-value and model-limitation discussion,</li>
 <li>the finite-length error calculation and final transverse-Biot-number check,</li>
-<li>the guided numerical comparison of one-dimensional and finite-radius models
-  completed before the Angstrom production analysis,</li>
 <li>a record of meaningful AI assistance.</li>
 </ul>
 <p>For the C6 demonstration, a fresh run from the documented repository must
 reproduce the principal numbers and figures. Each student will answer short
-individual questions about the Angstrom inference and about when length or
-radius may be neglected.</p>
+individual questions about the Angstrom inference, finite-length effects, and
+the transverse-Biot criterion.</p>
 <h2 id="final-presentation">Final Presentation<a class="headerlink" href="#final-presentation" title="Permanent link">&para;</a></h2>
 <p>One team member submits <code>F1_Lastname_Lastname_slides.pdf</code> to Moodle before the
 S26 presentation and cites the final repository commit. Every student prepares

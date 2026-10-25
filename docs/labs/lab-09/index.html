@@ -124,6 +124,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#roadmap-and-student-work" class="nav-link">Roadmap And Student Work</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#two-tier-completion-checklist" class="nav-link">Two-Tier Completion Checklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#reuse-the-calibrated-sensor-map" class="nav-link">Reuse The Calibrated Sensor Map</a>
@@ -154,19 +158,47 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-1-establish-the-boundary-condition" class="nav-link">Part 1: Establish The Boundary Condition</a>
+            <li class="nav-item" data-bs-level="2"><a href="#experimental-notation" class="nav-link">Experimental Notation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-pilot-analysis-and-experiment-plan" class="nav-link">Part 2: Pilot Analysis And Experiment Plan</a>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-1-establish-the-boundary-condition" class="nav-link">Stage 1: Establish The Boundary Condition</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#compensate-the-heating-cooling-asymmetry" class="nav-link">Compensate The Heating-Cooling Asymmetry</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-production-data" class="nav-link">Part 3: Production Data</a>
+            <li class="nav-item" data-bs-level="3"><a href="#optimize-the-waveform-from-the-pilot-data" class="nav-link">Optimize The Waveform From The Pilot Data</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-4-spatial-fits-and-modeling-app-draft" class="nav-link">Part 4: Spatial Fits And Modeling-App Draft</a>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-2-three-hour-live-gui-and-logger-lab" class="nav-link">Stage 2: Three-Hour Live GUI And Logger Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-3-verify-logger-storage-and-gui-retrieval" class="nav-link">Stage 3: Verify Logger Storage And GUI Retrieval</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-4-build-and-test-the-autonomous-frequency-schedule" class="nav-link">Stage 4: Build And Test The Autonomous Frequency Schedule</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-5-rehearse-the-live-to-autonomous-handoff" class="nav-link">Stage 5: Rehearse The Live-To-Autonomous Handoff</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-6-pilot-analysis-and-experiment-plan" class="nav-link">Stage 6: Pilot Analysis And Experiment Plan</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-7-minimum-and-extended-production-data" class="nav-link">Stage 7: Minimum And Extended Production Data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stage-8-spatial-fits-and-modeling-app-draft" class="nav-link">Stage 8: Spatial Fits And Modeling-App Draft</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -222,18 +254,18 @@ to separate thermal diffusion from heat loss to the air.</p>
 <tbody>
 <tr>
 <td>S18, Mon. Nov. 2</td>
-<td>Tune sinusoidal base-temperature tracking; collect a pilot run</td>
+<td>Three-hour live Angstrom lab: display all six thermistors in the Python GUI while recording the same serial stream on the Fermion logger</td>
 <td>Module 8 home preparation; <code>P3</code> prediction and pilot-plan check</td>
 </tr>
 <tr>
 <td>S19, Wed. Nov. 4</td>
-<td>Fit pilot amplitudes and phases; choose the production period</td>
-<td>Pilot-analysis and production-plan check</td>
+<td>Retrieve and verify the logger file; fit pilot amplitudes and phases; build and test the autonomous frequency schedule</td>
+<td>Pilot-analysis, logger-verification, and extended-run plan check</td>
 </tr>
 <tr>
 <td>S20, Mon. Nov. 9</td>
-<td>Acquire at least five settled production periods</td>
-<td>Data-readiness check</td>
+<td>Rehearse the live-to-autonomous handoff and launch or prepare the instructor-approved extended run</td>
+<td>Data-readiness and autonomous-run check</td>
 </tr>
 <tr>
 <td>S21, Wed. Nov. 11</td>
@@ -329,15 +361,21 @@ to separate thermal diffusion from heat loss to the air.</p>
 </tr>
 </tbody>
 </table>
-<p>Production data are acquired in class. If five settled periods do not fit in a
-meeting, use an instructor-approved supervised run rather than silently adding
-unscheduled outside laboratory time.</p>
+<p>The live dual-recording test and handoff rehearsal are completed in class. The
+long production record may continue as an instructor-approved extended run
+using the autonomous Arduino and serial logger. Do not leave the apparatus
+running outside the scheduled protocol or without completing the safety and
+data-readiness checks below.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this module, you should be able to:</p>
 <ol>
 <li><strong>Create the boundary:</strong> use PI control to drive the TEC and verify a
    sinusoidal temperature at the rod analysis base, the first hole at <span class="arithmatex">\(x=0\)</span>,
    while choosing a useful forcing period.</li>
+<li><strong>Operate the acquisition system:</strong> display all six thermistors live while
+   recording the same serial stream on the logger, recover and verify the
+   stored file, and execute a persistent autonomous schedule after a controlled
+   power transition.</li>
 <li><strong>Extract the spatial response:</strong> fit noisy temperature data to determine
    the amplitude-decay coefficient <span class="arithmatex">\(q\)</span> and phase coefficient <span class="arithmatex">\(q'\)</span>, using
    phase unwrapping and a consistent sign convention.</li>
@@ -355,16 +393,66 @@ and acquire the production data. Finally, infer <span class="arithmatex">\(\kapp
 whether the same model explains all retained sensors and forcing periods.</p>
 <p><strong>Before S18:</strong> read through the periodic solution, write down your qualitative
 predictions, and prepare proposed pilot settings and metadata. This is the
-<code>P3</code> check: bring your proposed drive period and your prediction for how
-amplitude and phase will change with distance.</p>
-<p><strong>In class during S18-S20:</strong> tune the TEC drive and document the measured
-rod-base waveform, collect a pilot run, fit it, choose the production period, and acquire
-at least five periods after the response you judge to be settled.</p>
-<p><strong>After the production run during S21-S22:</strong> complete the spatial fits,
+<code>P3</code> check. Bring your proposed drive period, starting values of <span class="arithmatex">\(T_a\)</span> and
+<span class="arithmatex">\(T_b\)</span>, safety limits, and a prediction for how amplitude and phase will
+change with distance. This is a planning check, not a separate written
+submission.</p>
+<p><strong>In class during S18-S20:</strong> complete the minimum acquisition, boundary,
+dual-recording, and pilot-analysis gates below. Then build and rehearse the
+autonomous schedule needed for the approved extended run.</p>
+<p><strong>During the approved extended run:</strong> let the autonomous Arduino execute the
+frequency schedule and preserve the complete record, including the transient
+after every frequency change. <strong>After the production run during S21-S22:</strong> complete the spatial fits,
 uncertainty and residual analysis, and model-validity checks. The <code>P4</code> check is
-a periodic dataset with at least five periods you identify as settled, sensor
-positions and units, acquisition metadata, and a rod-base waveform check.
-State the criterion you used to decide that the response was settled.</p>
+a minimum successful periodic dataset, as defined below, together with sensor
+positions and units, acquisition metadata, and a rod-base waveform check. This
+is an in-class data-readiness check, not a separate written submission. State
+the criterion you used to decide that the response was settled.</p>
+<h3 id="two-tier-completion-checklist">Two-Tier Completion Checklist<a class="headerlink" href="#two-tier-completion-checklist" title="Permanent link">&para;</a></h3>
+<p>Complete each minimum gate before proceeding to the next one. The extended
+tier adds frequency-comparison evidence without changing what counts as a
+successful minimum Angstrom experiment.</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Minimum experiment</th>
+<th>Extended experiment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acquisition</td>
+<td>Verify the TEC and <code>T1</code>-<code>T5</code>, their units, calibration corrections, and sensor positions</td>
+<td>Keep the same verified sensor map for every scheduled frequency</td>
+</tr>
+<tr>
+<td>Boundary</td>
+<td>Produce and document a well-tracked sinusoidal rod-base temperature, beginning with a 100-second drive</td>
+<td>Optimize the period while keeping the waveform safe and nearly sinusoidal</td>
+</tr>
+<tr>
+<td>Dual recording</td>
+<td>Show that the GUI and logger captured matching records and that the GUI can import the logger file</td>
+<td>Demonstrate that the autonomous schedule and metadata survive the laptop-to-wall-power handoff</td>
+</tr>
+<tr>
+<td>Usable data</td>
+<td>Retain at least five settled cycles at one frequency with measurable amplitude and phase at three or more rod sensors</td>
+<td>Retain usable settled intervals at two or more frequencies; include the 480-second condition only in the approved extended run</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Produce per-sensor fits, <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(q'\)</span>, <span class="arithmatex">\(\kappa\)</span>, <span class="arithmatex">\(\nu\)</span>, uncertainties, and residuals for the minimum dataset</td>
+<td>Compare independently inferred parameters across frequencies and, optionally, compare with a global <span class="arithmatex">\(T(x,t)\)</span> fit</td>
+</tr>
+</tbody>
+</table>
+<p>For the minimum experiment, the response is sufficiently settled when the
+team's stated quantitative test is satisfied. Suitable tests include stable
+fitted amplitude and phase in consecutive time windows, no systematic drift in
+the fit residuals, or agreement between consecutive groups of complete cycles.
+Do not select a settled interval merely because five cycles have elapsed.</p>
 <h2 id="reuse-the-calibrated-sensor-map">Reuse The Calibrated Sensor Map<a class="headerlink" href="#reuse-the-calibrated-sensor-map" title="Permanent link">&para;</a></h2>
 <p>Module 7 established the geometry and cross-calibrated six thermistor
 measurement chains: one thermistor in the TEC base and five thermistors at
@@ -418,7 +506,7 @@ temperature at the other end of the universe. It is the temperature of the
 surrounding room, which we treat as a large thermodynamic reservoir whose
 temperature is not changed appreciably by the rod. We initially treat the rod
 as semi-infinite, with <span class="arithmatex">\(x\geq0\)</span>.</p>
-<p>Use the measured temperature of rod thermistor 1 at the analysis base as</p>
+<p>Use the measured temperature <code>T1</code> at the analysis base as</p>
 <div class="arithmatex">\[
 \theta(0,t)=\theta_b\cos(\omega t),
 \qquad
@@ -437,6 +525,8 @@ time at the base and at two increasing distances along the rod. Predict which
 features remain the same, which change with distance, and what a shorter drive
 period should do to the attenuation and phase lag. Return to this sketch after
 the derivation and pilot run.</p>
+<details>
+<summary>Full complex-exponential derivation</summary>
 <h3 id="guess-a-complex-exponential">Guess A Complex Exponential<a class="headerlink" href="#guess-a-complex-exponential" title="Permanent link">&para;</a></h3>
 <p>A complex exponential is useful because differentiation returns a constant
 times the same function. Guess</p>
@@ -522,6 +612,7 @@ used to fit the experiment:</p>
 \theta(x,t)=B_0e^{-qx}\cos(\omega t-q'x+\phi_0).
 \]</div>
 <p>For the boundary condition chosen above, <span class="arithmatex">\(B_0=\theta_b\)</span> and <span class="arithmatex">\(\phi_0=0\)</span>.</p>
+</details>
 <h3 id="recover-diffusivity-and-heat-loss-from-measurements">Recover Diffusivity And Heat Loss From Measurements<a class="headerlink" href="#recover-diffusivity-and-heat-loss-from-measurements" title="Permanent link">&para;</a></h3>
 <p>For two sensors separated by <span class="arithmatex">\(\Delta x=x_2-x_1&gt;0\)</span>, let their oscillation
 amplitudes be <span class="arithmatex">\(B_1&gt;B_2\)</span>, and let the downstream sensor lag by
@@ -539,6 +630,23 @@ the useful inverse relations:</p>
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]</div>
+<details>
+<summary>Numerical sanity check</summary>
+<p>For example, suppose a 100-second run gives
+<span class="arithmatex">\(\omega=0.0628\ \mathrm{rad/s}\)</span>, <span class="arithmatex">\(q=25\ \mathrm{m^{-1}}\)</span>, and
+<span class="arithmatex">\(q'=18\ \mathrm{m^{-1}}\)</span>. Then</p>
+<div class="arithmatex">\[
+\kappa=\frac{0.0628}{2(25)(18)}
+=6.98\times10^{-5}\ \mathrm{m^2/s},
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\nu=\kappa(25^2-18^2)
+=2.10\times10^{-2}\ \mathrm{s^{-1}}.
+\]</div>
+<p>Use this only as a unit and order-of-magnitude check; it is not a supplied
+result for the course rod.</p>
+</details>
 <p>Amplitude attenuation and phase delay provide two independent measurements,
 allowing us to separate thermal diffusivity from lateral heat loss. Thermal
 conductivity follows from <span class="arithmatex">\(k=\rho c\kappa\)</span>, where <span class="arithmatex">\(\rho\)</span> is density in
@@ -548,7 +656,10 @@ thus <span class="arithmatex">\(k\)</span> has units <span class="arithmatex">\(
 <div class="arithmatex">\[
 q=q'=\sqrt{\frac{\omega}{2\kappa}}.
 \]</div>
-<p>Positive lateral heat loss makes <span class="arithmatex">\(q&gt;q'\)</span>. A shorter driving period produces
+<p>Positive lateral heat loss makes <span class="arithmatex">\(q&gt;q'\)</span>. Therefore a fitted result with
+<span class="arithmatex">\(q\leq q'\)</span>, a negative <span class="arithmatex">\(\nu\)</span>, or strongly frequency-dependent
+<span class="arithmatex">\(\kappa\)</span> is evidence to investigate the data, uncertainty, settling
+criterion, or model assumptions rather than a number to repair silently. A shorter driving period produces
 stronger attenuation and phase change per unit distance. These expressions
 describe the settled periodic response; they do not include startup transients.
 A finite rod generally requires both spatial exponentials to satisfy its
@@ -559,22 +670,313 @@ checks from Module 7. State which sensors and conditions satisfy your chosen
 approximation tolerances, and then use the measured residuals and
 frequency-consistency test to determine whether those approximations were
 adequate in practice.</p>
-<h2 id="part-1-establish-the-boundary-condition">Part 1: Establish The Boundary Condition<a class="headerlink" href="#part-1-establish-the-boundary-condition" title="Permanent link">&para;</a></h2>
+<h2 id="experimental-notation">Experimental Notation<a class="headerlink" href="#experimental-notation" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symbol or channel</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(T_\infty\)</span></td>
+<td>Measured room temperature, treated as the surrounding thermal reservoir</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_a\)</span></td>
+<td>Requested mean TEC setpoint temperature</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_b\)</span></td>
+<td>Requested TEC setpoint amplitude</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T_{\mathrm{TEC}}\)</span> or <code>TEC</code></td>
+<td>Temperature measured by the thermistor embedded in the TEC base</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(T(0,t)\)</span> or <code>T1</code></td>
+<td>Temperature at the first rod hole, which defines the analysis boundary <span class="arithmatex">\(x=0\)</span></td>
+</tr>
+<tr>
+<td><code>T2</code>-<code>T5</code></td>
+<td>Temperatures at the four downstream rod sensors</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a_i\)</span></td>
+<td>Mean temperature obtained by fitting rod sensor <span class="arithmatex">\(i\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In this module, <span class="arithmatex">\(\tau\)</span> denotes the <strong>forcing period</strong>. It is not the thermal
+relaxation time denoted by <span class="arithmatex">\(\tau\)</span> in Module 6.</p>
+<h2 id="stage-1-establish-the-boundary-condition">Stage 1: Establish The Boundary Condition<a class="headerlink" href="#stage-1-establish-the-boundary-condition" title="Permanent link">&para;</a></h2>
+<p>Drive the TEC with a sinusoidal setpoint</p>
+<div class="arithmatex">\[
+\boxed{T_{\mathrm{set}}(t)=T_a+T_b\sin(\omega t)},
+\qquad
+\omega=\frac{2\pi}{\tau}.
+\]</div>
+<p>Here <span class="arithmatex">\(T_a\)</span> is the mean TEC setpoint, <span class="arithmatex">\(T_b\)</span> is its oscillation amplitude,
+<span class="arithmatex">\(\tau\)</span> is the forcing period, and <span class="arithmatex">\(\omega\)</span> is the angular frequency. For the first
+classroom run, use the suggested values</p>
+<div class="arithmatex">\[
+T_a=40^\circ\mathrm{C},
+\qquad
+T_b=8^\circ\mathrm{C},
+\qquad
+\tau=100\ \mathrm{s},
+\qquad
+\omega=\frac{2\pi}{100\ \mathrm{s}}
+\approx 0.0628\ \mathrm{rad/s}.
+\]</div>
+<p>The resulting requested TEC profile is</p>
+<div class="arithmatex">\[
+\boxed{
+T_{\mathrm{set}}(t)
+=40^\circ\mathrm{C}
++8^\circ\mathrm{C}\sin\!\left(\frac{2\pi t}{100\ \mathrm{s}}\right)
+}.
+\]</div>
+<p>This has a mean of <span class="arithmatex">\(40^\circ\mathrm{C}\)</span>, an amplitude of <span class="arithmatex">\(8^\circ\mathrm{C}\)</span>,
+and a range from <span class="arithmatex">\(32^\circ\mathrm{C}\)</span> to <span class="arithmatex">\(48^\circ\mathrm{C}\)</span>. We assume an
+initial room temperature of approximately <span class="arithmatex">\(22^\circ\mathrm{C}\)</span> to simplify the
+starting protocol, but you must measure and record the actual room temperature
+for the excess-temperature analysis. The requested TEC temperature is the
+controller input; the measured temperature <code>T1</code> at <span class="arithmatex">\(x=0\)</span> is the
+boundary condition used in the Angstrom analysis.</p>
+<h3 id="compensate-the-heating-cooling-asymmetry">Compensate The Heating-Cooling Asymmetry<a class="headerlink" href="#compensate-the-heating-cooling-asymmetry" title="Permanent link">&para;</a></h3>
+<p>Generating this sinusoid requires the TEC to alternate between heating and
+cooling. Your Module 4 measurements showed that equal-magnitude PWM commands do
+not produce equal temperature responses in the two directions. Let <span class="arithmatex">\(\chi_h\)</span>
+and <span class="arithmatex">\(\chi_c\)</span> denote the positive magnitudes of the measured heating and cooling
+susceptibilities, respectively, and define</p>
+<div class="arithmatex">\[
+\boxed{r=\frac{\chi_h}{\chi_c}}.
+\]</div>
+<p>A useful starting estimate is <span class="arithmatex">\(\chi_c\approx\chi_h/2\)</span>, so <span class="arithmatex">\(r\approx2\)</span>:
+cooling may require approximately twice the PWM magnitude of heating for the
+same temperature response. Use the ratio measured for your own TEC rather than
+assuming that it is exactly two.</p>
+<p>The feedback response is slow enough that the controller should not rely on
+the integral term alone to discover this asymmetry. First calculate the
+ordinary signed PI command</p>
+<div class="arithmatex">\[
+u_{\mathrm{PI}}=K_p e+K_i\int e\,dt,
+\qquad
+e=T_{\mathrm{set}}-T_{\mathrm{TEC}}.
+\]</div>
+<p>Then apply the measured heating-cooling ratio before limiting the command:</p>
+<div class="arithmatex">\[
+u_{\mathrm{cmd}}=
+\begin{cases}
+u_{\mathrm{PI}}, &amp; u_{\mathrm{PI}}\geq0 \quad\text{(heating)},\\[4pt]
+r\,u_{\mathrm{PI}}, &amp; u_{\mathrm{PI}}&lt;0 \quad\text{(cooling)}.
+\end{cases}
+\]</div>
+<p>The sign of <span class="arithmatex">\(u_{\mathrm{cmd}}\)</span> selects the H-bridge direction, and its magnitude
+sets the PWM after clamping it to the safe range. This measured,
+direction-dependent scaling is a <strong>static actuator compensation</strong>, also called
+static feedforward compensation. It linearizes the unequal heating and cooling
+gains by supplying the known extra cooling command immediately; it does not
+predict the rod's dynamic response. PI feedback corrects the remaining
+tracking error. Apply saturation and anti-windup to the compensated command,
+and never energize both H-bridge direction inputs simultaneously.</p>
 <ol>
-<li>Choose a safe mean TEC setpoint and an amplitude of approximately
-   5-10 degrees Celsius unless the instructor specifies otherwise.</li>
-<li>Begin with a period in the range 100-300 seconds.</li>
-<li>Tune PI settings so the TEC drive produces a rod-base temperature at the
+<li>Measure and record room temperature before starting the run.</li>
+<li>Start with the 100-second minimum experiment specified in the
+   <a href="#two-tier-completion-checklist">two-tier checklist</a>. This is the period used in the
+   <a href="#stage-6-pilot-analysis-and-experiment-plan">course-data figure in Stage 6</a>,
+   so you can compare your first observations with a known example. Its short
+   period lets you observe many cycles, check phase lag, and debug the
+   acquisition system promptly.</li>
+<li>Enter the measured values of <span class="arithmatex">\(\chi_h\)</span> and <span class="arithmatex">\(\chi_c\)</span>, calculate <span class="arithmatex">\(r\)</span>, and
+   verify that a negative controller command receives the cooling multiplier
+   before PWM saturation.</li>
+<li>Tune PI settings so the TEC drive produces a rod-base temperature <code>T1</code> at the
    first hole that is close to sinusoidal without strong clipping, drift, or
    phase jumps.</li>
-<li>Record the TEC setpoint, measured TEC temperature, PWM, and all rod
-   temperatures, including rod thermistor 1 at the analysis base.</li>
-<li>Quantify the TEC tracking and the sinusoidal quality of rod thermistor 1
-   with amplitude, phase, and residual measures.</li>
-<li>Use the measured temperature of rod thermistor 1, rather than the requested
+<li>Record the TEC setpoint, measured TEC temperature, raw PI command,
+   compensated signed PWM, direction, and all rod
+   temperatures, <code>T1</code>-<code>T5</code>.</li>
+<li>Quantify the TEC tracking and the sinusoidal quality of <code>T1</code>
+   with amplitude, phase, and residual measures. Report the measured-to-requested
+   amplitude ratio and the phase lag of <code>T1</code> relative to the requested setpoint.</li>
+<li>Use the measured temperature <code>T1</code>, rather than the requested
    TEC setpoint or TEC-thermistor temperature, as the model boundary condition.</li>
+<li>Plot raw <span class="arithmatex">\(u_{\mathrm{PI}}\)</span> against applied signed PWM. Identify the two
+   actuator slopes, saturation, and any region in which the compensation does
+   not linearize the heating and cooling response adequately.</li>
 </ol>
-<h2 id="part-2-pilot-analysis-and-experiment-plan">Part 2: Pilot Analysis And Experiment Plan<a class="headerlink" href="#part-2-pilot-analysis-and-experiment-plan" title="Permanent link">&para;</a></h2>
+<h3 id="optimize-the-waveform-from-the-pilot-data">Optimize The Waveform From The Pilot Data<a class="headerlink" href="#optimize-the-waveform-from-the-pilot-data" title="Permanent link">&para;</a></h3>
+<p>The best waveform is the one that produces both measurable attenuation and a
+resolvable phase lag across several rod sensors while remaining safe and close
+to sinusoidal. Use the live display and pilot fits to adjust it:</p>
+<ul>
+<li>Aim for the farthest retained sensor to have an oscillation amplitude of at
+  least about 10-20% of the amplitude at <span class="arithmatex">\(x=0\)</span>. A smaller response may be
+  difficult to distinguish from sensor noise.</li>
+<li>Aim for an unwrapped phase lag from the first to the farthest retained sensor
+  of roughly 0.5-2 radians. This is a planning target, not a fit constraint.</li>
+<li>If distant oscillations are too small, first try a longer period. If all
+  sensors have nearly the same phase, try a shorter period.</li>
+<li>If the measured waveform clips, flattens, or tracks poorly, reduce <span class="arithmatex">\(T_b\)</span>,
+  reduce the mean temperature, or retune the controller before collecting
+  production data.</li>
+<li>If the oscillation is clean but too small at every sensor, increase <span class="arithmatex">\(T_b\)</span>
+  cautiously. Keep the measured rod-base temperature below
+  <span class="arithmatex">\(55^\circ\mathrm{C}\)</span> and retain margin for overshoot.</li>
+<li>Keep <span class="arithmatex">\(T_a\)</span> and <span class="arithmatex">\(T_b\)</span> fixed while comparing periods unless the pilot data
+  show that a change is necessary. This makes frequency comparisons easier to
+  interpret.</li>
+</ul>
+<p>Use the minimum and extended period requirements in the
+<a href="#two-tier-completion-checklist">two-tier checklist</a>. Choose additional periods
+from the pilot evidence rather than from a fixed list alone.</p>
+<h2 id="stage-2-three-hour-live-gui-and-logger-lab">Stage 2: Three-Hour Live GUI And Logger Lab<a class="headerlink" href="#stage-2-three-hour-live-gui-and-logger-lab" title="Permanent link">&para;</a></h2>
+<p>The first Angstrom run is both a physics experiment and an acquisition-system
+test. Connect the Arduino to the laptop and connect the Fermion logger as shown
+on the <a href="../../hardware/#serial-data-logger">Hardware page</a>. The logger receives
+the Arduino transmit line; leave the logger transmit pin disconnected so that
+it does not compete with commands sent from the Python GUI to the Arduino.</p>
+<p>Revise the Arduino sketch and Python GUI so that one serial record contains, at
+minimum,</p>
+<pre><code class="language-text">time_ms,run_state,step,Ta_C,Tb_C,period_s,setpoint_C,TEC_C,T1_C,T2_C,T3_C,T4_C,T5_C,uPI_pwm,heating_to_cooling_ratio,signed_pwm
+</code></pre>
+<p>The GUI must display the TEC thermistor and all five rod thermistors live,
+display the requested setpoint and PWM output, and save a local copy of every
+complete record it receives. The Arduino must send exactly the same complete
+records through <code>Serial.print()</code> to both the laptop USB interface and the
+logger. Do not create a separate reduced data stream for the logger.</p>
+<p>During this run, use the sinusoidal setpoint and starting parameters established
+in Stage 1, adjusting them only through the documented optimization procedure.</p>
+<p>Use one three-hour laboratory block as follows:</p>
+<ol>
+<li>Verify channel names, units, sensor positions, calibration corrections, and
+   safe TEC operation before beginning the timed run.</li>
+<li>Start the Python GUI and the logger. Confirm that all six temperatures,
+   setpoint, and PWM are updating plausibly.</li>
+<li>Observe the live spatial response for the remainder of the run. Record
+   changes to controller settings or forcing parameters as explicit events;
+   do not make undocumented changes.</li>
+<li>Watch for clipping, implausible sensor values, loss of serial records,
+   excessive temperature, and poor base tracking. Stop the run if a safety
+   limit or the physical thermal cutoff is reached.</li>
+<li>Preserve both the GUI file and the logger file as raw data. The three-hour
+   record is a pilot and commissioning record even if the rod has not yet
+   reached its settled periodic response.</li>
+</ol>
+<details>
+<summary>Suggested Copilot prompts for the Arduino sketch and Python GUI</summary>
+<p>For the existing tested Arduino sketch:</p>
+<blockquote>
+<p>Extend this sketch without removing its working PI control or safety limits.
+Print one documented CSV record containing elapsed milliseconds, operating
+state, schedule step, requested sinusoid parameters, setpoint, TEC
+temperature, five rod temperatures, raw PI command, cooling compensation
+ratio, and applied signed PWM. Compute the signed PI command, multiply
+negative commands by the measured ratio <span class="arithmatex">\(r=\chi_h/\chi_c\)</span>, and then apply
+PWM saturation, direction
+selection, safety limits, and anti-windup. Never energize both H-bridge
+directions. Use one <code>Serial</code> stream so the Uno USB interface and a
+receive-only serial logger record identical lines.</p>
+</blockquote>
+<p>For the existing tested Python GUI:</p>
+<blockquote>
+<p>Extend this GUI without removing its current controls. Parse and validate the
+new CSV record, display the TEC and five rod thermistors live on a common time
+axis, display setpoint and PWM, report malformed or missing records, and save
+every unmodified valid record to a timestamped local CSV file.</p>
+</blockquote>
+</details>
+<h2 id="stage-3-verify-logger-storage-and-gui-retrieval">Stage 3: Verify Logger Storage And GUI Retrieval<a class="headerlink" href="#stage-3-verify-logger-storage-and-gui-retrieval" title="Permanent link">&para;</a></h2>
+<p>At the end of the live run, set TEC output to zero, close the GUI cleanly, allow
+the logger to finish its last write, and remove power before connecting the
+logger USB receptacle to the laptop. The Fermion enters USB storage mode when
+connected to a USB host and does not log in that mode.</p>
+<p>Add an <strong>Import Logger File</strong> action to the GUI. It may use a normal file chooser;
+the GUI does not need to communicate with the logger through a custom protocol.
+The imported file must pass the same parser and validation checks as live data.
+Display the imported temperatures, setpoint, and PWM, and report the number of
+valid, malformed, duplicated, and missing records.</p>
+<p>Verify all of the following before proceeding:</p>
+<ol>
+<li>The logger file opens through the GUI and contains the expected columns and
+   units.</li>
+<li>Its first and last records and approximate duration agree with the run log.</li>
+<li>A common interval recorded by both systems gives the same measurements.</li>
+<li>Restarting the Arduino or logger creates an identifiable new run or file and
+   does not silently overwrite an earlier production file.</li>
+<li>The raw logger file is copied unchanged into <code>data/module_08/</code>.</li>
+</ol>
+<h2 id="stage-4-build-and-test-the-autonomous-frequency-schedule">Stage 4: Build And Test The Autonomous Frequency Schedule<a class="headerlink" href="#stage-4-build-and-test-the-autonomous-frequency-schedule" title="Permanent link">&para;</a></h2>
+<p>The Python GUI controls the pilot run, but it will not be present during the
+extended run. Revise the GUI and Arduino code so the GUI can define a sequence
+of schedule steps. Each step must specify at least its duration, <span class="arithmatex">\(T_a\)</span>,
+<span class="arithmatex">\(T_b\)</span>, and either <span class="arithmatex">\(\omega\)</span> or the period. The Arduino, not Python, must
+advance the schedule and calculate the setpoint during autonomous operation.</p>
+<p>The schedule must remain present after Arduino power is removed. Either compile
+the approved schedule into a separately named autonomous sketch or have the GUI
+send it once to nonvolatile Arduino storage and then read it back for
+verification. Values held only in Arduino RAM do not survive the power
+transition. Do not write the schedule to EEPROM on every sampling cycle.</p>
+<p>Keep the sinusoidal phase continuous when the frequency changes so that the
+requested boundary temperature does not jump merely because a new schedule
+step begins. At every step transition, print a metadata/event line and include
+the active step and forcing parameters in subsequent data records. Preserve
+the transient after each frequency change; the analysis will later identify
+the settled interval for that frequency.</p>
+<p>Before the extended run, test an accelerated version of the complete schedule
+while the GUI and logger are both attached. Demonstrate at least two automatic
+frequency changes, safe completion, and correct logger retrieval. Then restore
+the intended durations and read back or otherwise verify the final schedule.</p>
+<p>For a minimum successful experiment, the autonomous schedule may hold one
+well-resolved frequency long enough to satisfy the settled-data criterion. An
+extended schedule may sample periods such as 100, 180, 240, 300, and 480
+seconds while initially retaining the same <span class="arithmatex">\(T_a\)</span> and <span class="arithmatex">\(T_b\)</span>. Longer periods
+penetrate farther along the rod but produce less phase change per unit length.
+Use the pilot data and stated settling criterion to choose step durations; do
+not assume that every frequency settles on the same schedule.</p>
+<details>
+<summary>Suggested Copilot prompt for the autonomous schedule</summary>
+<blockquote>
+<p>Add a persistent autonomous schedule to this working Arduino/Python system.
+Each step contains duration, mean temperature, sinusoidal amplitude, and
+period. Let the GUI edit, send, and read back the schedule. Let the Arduino
+validate and store it, execute it without Python after a reboot, maintain
+continuous sinusoidal phase when the period changes, print step metadata in
+every CSV record, preserve all existing safety limits, and finish with zero
+TEC output. Do not write repeatedly to EEPROM inside the sampling loop.</p>
+</blockquote>
+</details>
+<h2 id="stage-5-rehearse-the-live-to-autonomous-handoff">Stage 5: Rehearse The Live-To-Autonomous Handoff<a class="headerlink" href="#stage-5-rehearse-the-live-to-autonomous-handoff" title="Permanent link">&para;</a></h2>
+<p>The classroom run and extended run are separate records. A short power gap will
+perturb the rod, so the extended file must retain the new startup transient and
+the analysis must exclude it until the response satisfies the stated settling
+criterion. Minimize the gap, but do not bypass a safe shutdown.</p>
+<ol>
+<li>While still connected to the laptop, load or store the final autonomous
+   schedule, read it back, and confirm the logger is receiving valid records.</li>
+<li>Record the wall-clock handoff time, schedule version, code commit, intended
+   logger filename, and all power-supply and safety settings.</li>
+<li>Command zero TEC output and turn off the separate TEC supply.</li>
+<li>Close the GUI, close the logger file using its SAVE input if connected, and
+   wait several seconds for the final write.</li>
+<li>Remove Arduino power, disconnect the Arduino USB cable from the laptop, and
+   connect it promptly to the approved USB wall supply. Do not connect two USB
+   power sources to the Uno.</li>
+<li>Restore the separate current-limited TEC supply. On reboot, the Arduino must
+   wait for the logger to initialize, print a new run header, load the verified
+   schedule, and begin at schedule step 1 without Python.</li>
+<li>Confirm the expected Arduino and logger indicators and complete the
+   instructor's unattended-run safety check before leaving the apparatus.</li>
+</ol>
+<p>Rehearse this entire sequence in class. Measure and report the power-off gap.
+The acceptance criterion is not zero interruption; it is a short, documented,
+repeatable transition followed by a recognizable autonomous run whose startup
+transient can be excluded honestly.</p>
+<h2 id="stage-6-pilot-analysis-and-experiment-plan">Stage 6: Pilot Analysis And Experiment Plan<a class="headerlink" href="#stage-6-pilot-analysis-and-experiment-plan" title="Permanent link">&para;</a></h2>
 <p>For each sensor, fit</p>
 <div class="arithmatex">\[
 T_i(t)=a_i+B_i\cos(\omega t+\phi_i).
@@ -587,10 +989,10 @@ must not change the inferred physics.</p>
 positions. The traces have the same temporal frequency, while the downstream
 response has a smaller amplitude and reaches each peak later.</p>
 <p><img alt="Measured periodic temperature at two rod positions" src="../../assets/angstrom-legacy-two-sensor-data.jpg" /></p>
-<p><em>Course data showing the two observables used by the Angstrom method:
-amplitude decay and phase lag. Fit each trace independently to obtain <span class="arithmatex">\(B_i\)</span> and
-<span class="arithmatex">\(\phi_i\)</span>; spatial fits of <span class="arithmatex">\(\ln B_i\)</span> and unwrapped <span class="arithmatex">\(\phi_i\)</span> then determine <span class="arithmatex">\(q\)</span>
-and <span class="arithmatex">\(q'\)</span>.</em></p>
+<p><em>Course data acquired with a 100-second forcing period, showing the two
+observables used by the Angstrom method: amplitude decay and phase lag. Fit
+each trace independently to obtain <span class="arithmatex">\(B_i\)</span> and <span class="arithmatex">\(\phi_i\)</span>; spatial fits of
+<span class="arithmatex">\(\ln B_i\)</span> and unwrapped <span class="arithmatex">\(\phi_i\)</span> then determine <span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span>.</em></p>
 <ol>
 <li>Remove the initial transient or justify the selected fitting interval. State
    what evidence you used to decide that the response was settled.</li>
@@ -598,22 +1000,29 @@ and <span class="arithmatex">\(q'\)</span>.</em></p>
 <li>Plot the data and fitted sinusoid for every sensor.</li>
 <li>Plot amplitude <code>B_i</code> versus position on a logarithmic vertical scale.</li>
 <li>Unwrap phase and plot phase versus position.</li>
-<li>Select a production period for which several sensors have measurable
-   amplitude and phase differences while the run still fits available time.</li>
+<li>Confirm one production period that satisfies the minimum-data gate. If the
+   pilot evidence supports an extended experiment, select additional periods
+   for which several sensors retain measurable amplitude and phase differences.</li>
 </ol>
 <p>Your experiment plan must state the period, mean, amplitude, run duration,
 sampling interval, safety limits, settling criterion, channels, files, and the
 tests you will use to decide whether the run is usable.</p>
-<h2 id="part-3-production-data">Part 3: Production Data<a class="headerlink" href="#part-3-production-data" title="Permanent link">&para;</a></h2>
+<h2 id="stage-7-minimum-and-extended-production-data">Stage 7: Minimum And Extended Production Data<a class="headerlink" href="#stage-7-minimum-and-extended-production-data" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Record at least five complete settled periods.</li>
-<li>Repeat the run at a second period if time and signal quality permit.</li>
+<li>First secure the minimum dataset defined in the two-tier checklist: at least
+   five complete settled cycles at one usable forcing period and measurable
+   amplitude and phase at three or more rod sensors.</li>
+<li>If the minimum dataset passes its quality checks, execute the approved
+   extended schedule. Retain each transition and identify the settled interval
+   independently for each additional frequency.</li>
 <li>Keep the rod geometry and sensor map unchanged.</li>
 <li>Record room temperature and check for drift.</li>
 <li>Preserve raw data. Apply calibration and exclusions in analysis code, not by
    overwriting the original file.</li>
+<li>Record every restart, file boundary, schedule transition, safety event, and
+   departure from the approved protocol.</li>
 </ol>
-<h2 id="part-4-spatial-fits-and-modeling-app-draft">Part 4: Spatial Fits And Modeling-App Draft<a class="headerlink" href="#part-4-spatial-fits-and-modeling-app-draft" title="Permanent link">&para;</a></h2>
+<h2 id="stage-8-spatial-fits-and-modeling-app-draft">Stage 8: Spatial Fits And Modeling-App Draft<a class="headerlink" href="#stage-8-spatial-fits-and-modeling-app-draft" title="Permanent link">&para;</a></h2>
 <p>Fit</p>
 <div class="arithmatex">\[
 B(x)=B_0e^{-qx},
@@ -632,6 +1041,13 @@ B(x)=B_0e^{-qx},
 <li>the finite-length and transverse-Biot-number checks that justify the
   one-dimensional semi-infinite analysis for the retained sensors.</li>
 </ul>
+<p>Use the two-stage analysis above as the primary method: first fit each
+temperature trace to obtain <span class="arithmatex">\(B_i\)</span> and <span class="arithmatex">\(\phi_i\)</span>, and then fit their spatial
+dependence. This makes individual sensor behavior, phase unwrapping, and
+exclusions visible. As an optional model-validity extension, fit all retained
+<span class="arithmatex">\(T_i(t)\)</span> data globally with one shared set of spatial parameters and compare
+the resulting <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(q'\)</span>, residuals, and uncertainties with the transparent
+two-stage result.</p>
 <h2 id="modeling-app-draft-and-evidence">Modeling-App Draft And Evidence<a class="headerlink" href="#modeling-app-draft-and-evidence" title="Permanent link">&para;</a></h2>
 <h3 id="evidence-to-save-during-s18-s22">Evidence To Save During S18-S22<a class="headerlink" href="#evidence-to-save-during-s18-s22" title="Permanent link">&para;</a></h3>
 <p>Preserve the requested and measured boundary waveforms, controller settings,
@@ -711,15 +1127,19 @@ exclusions, approximation checks, run instructions, and AI assistance.</p>
 <td><code>P3</code>, base-tracking plot, and the acquisition plan in A5</td>
 </tr>
 <tr>
-<td>2. Extract the spatial response</td>
+<td>2. Operate the acquisition system</td>
+<td>Three-hour live display, matching GUI/logger records, logger-file import, persistent schedule demonstration, and measured handoff gap</td>
+</tr>
+<tr>
+<td>3. Extract the spatial response</td>
 <td>A5 derivation; pilot and production sinusoid, amplitude, and phase fits</td>
 </tr>
 <tr>
-<td>3. Infer physical parameters</td>
+<td>4. Infer physical parameters</td>
 <td>A5 inverse relations; formative app values and uncertainty for <span class="arithmatex">\(\kappa\)</span> and <span class="arithmatex">\(\nu\)</span></td>
 </tr>
 <tr>
-<td>4. Assess the model</td>
+<td>5. Assess the model</td>
 <td><code>P4</code>, residuals, frequency consistency, Module 7 approximation checks, and the C6 explanation</td>
 </tr>
 </tbody>

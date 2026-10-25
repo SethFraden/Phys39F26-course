@@ -108,6 +108,10 @@
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#thermistor-channels-and-calibration" class="nav-link">Thermistor Channels And Calibration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#schedule-and-due-work" class="nav-link">Schedule And Due Work</a>
@@ -154,6 +158,26 @@
             </li>
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#software-extension-for-six-channel-rod-measurements" class="nav-link">Software Extension For Six-Channel Rod Measurements</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#stage-1-extend-the-arduino-measurement" class="nav-link">Stage 1: Extend The Arduino Measurement</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#stage-2-extend-the-python-display-and-raw-data-record" class="nav-link">Stage 2: Extend The Python Display And Raw-Data Record</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#stage-3-write-the-relative-calibration-analysis" class="nav-link">Stage 3: Write The Relative-Calibration Analysis</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#stage-4-integration-check-before-calibration" class="nav-link">Stage 4: Integration Check Before Calibration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#part-1-sensor-map-and-calibration" class="nav-link">Part 1: Sensor Map And Calibration</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="3"><a href="#relative-thermistor-cross-calibration" class="nav-link">Relative Thermistor Cross-Calibration</a>
@@ -162,7 +186,7 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-baseline-and-step-response" class="nav-link">Part 2: Baseline And Step Response</a>
+            <li class="nav-item" data-bs-level="2"><a href="#part-2-choose-sensor-positions-then-measure-the-step-response" class="nav-link">Part 2: Choose Sensor Positions, Then Measure The Step Response</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -217,8 +241,36 @@ on position and time:</p>
 T=T(x,t).
 \]</div>
 <p>In this module you will build and validate the multichannel rod instrument,
-measure a step response, and measure the steady temperature profile. The steady
-profile gives the first quantitative evidence of heat loss from the rod's side.</p>
+measure a non-oscillatory step response, and measure the steady temperature
+profile. The steady profile gives the first quantitative evidence of heat loss
+from the rod's side. The sinusoidal Angstrom experiment begins in Module 8.</p>
+<h3 id="thermistor-channels-and-calibration">Thermistor Channels And Calibration<a class="headerlink" href="#thermistor-channels-and-calibration" title="Permanent link">&para;</a></h3>
+<p>The Arduino Uno R3 has six analog input channels, <code>A0</code> through <code>A5</code>, feeding one
+multiplexed 10-bit analog-to-digital converter. Use one channel for the
+thermistor in the TEC base and the other five channels for five thermistors
+along the rod. The converter samples the six channels in rapid sequence rather
+than at exactly the same instant. This delay is negligible on the thermal
+timescales measured here.</p>
+<p>The purpose here is to assign each thermistor a permanent channel,
+cross-calibrate all six measurement chains, and establish the sensor map used
+for the non-oscillatory step response and stationary-fin profile. Module 8
+reuses the same calibrated sensor map for the oscillatory Angstrom experiment.
+The rod has more thermistor holes than the five available rod channels, so the
+five rod thermistors can be distributed among selected holes to obtain a useful
+range of positions and temperatures. Holes in the first group are nominally
+spaced at <span class="arithmatex">\(1/2\)</span>-inch intervals; holes in the second group are nominally
+spaced at <span class="arithmatex">\(1\)</span>-inch intervals. Treat these as
+orientation values only; measure and record the actual positions you use.</p>
+<p>The course rod is <strong>6061-T6 aluminum</strong> with a nominal diameter of <span class="arithmatex">\(1/2\)</span> inch,
+or <span class="arithmatex">\(12.7\ \mathrm{mm}\)</span>. The <strong>analysis base</strong> at <span class="arithmatex">\(x=0\)</span> is the first
+thermistor hole in the rod, occupied by rod thermistor 1. It is not the physical
+end of the rod and it is not the thermistor embedded in the TEC. Measure the
+positions of the other four rod thermistors relative to this origin. Define
+the analyzed length <span class="arithmatex">\(L\)</span> as the distance from the first thermistor hole to the
+rod tip. Also record the rod's overall physical length, diameter <span class="arithmatex">\(d\)</span>, and
+their uncertainties. The TEC thermistor monitors the actuator, while the
+measured temperature of rod thermistor 1 supplies the boundary condition
+<span class="arithmatex">\(T(0,t)\)</span> for the rod model.</p>
 <p>Use one model-testing cycle throughout Part III:</p>
 <ol>
 <li><strong>Predict:</strong> use the Part I and Part II theory to predict the qualitative
@@ -371,7 +423,7 @@ terms below connect that theory to the experiment and its analysis.</p>
 </tr>
 <tr>
 <td>Boundary condition</td>
-<td>The measured or prescribed behavior at a boundary. The measured base temperature, rather than only its commanded value, is the experimental thermal boundary condition.</td>
+<td>The measured or prescribed behavior at a boundary. For the rod model, the measured temperature of rod thermistor 1 at the first hole is the boundary condition <span class="arithmatex">\(T(0,t)\)</span>; the TEC setpoint and TEC-thermistor temperature describe the actuator that creates it.</td>
 </tr>
 <tr>
 <td>Stationary profile</td>
@@ -445,9 +497,10 @@ inverse seconds.</p>
 \qquad
 m^2=\frac{hP}{kA}=\frac{\nu}{\alpha}.
 \]</div>
-<p>This second-order equation requires two boundary conditions. For a prescribed
-base temperature and an insulated tip, Part II gives the complete finite-rod
-profile</p>
+<p>This second-order equation requires two boundary conditions. For the analyzed
+section, rod thermistor 1 supplies the measured temperature at the analysis
+base <span class="arithmatex">\(x=0\)</span>, and the tip is treated as insulated. Part II then gives the
+complete finite-rod profile</p>
 <div class="arithmatex">\[
 \frac{\theta(x)}{\theta(0)}
 =\frac{\cosh[m(L-x)]}{\cosh(mL)}.
@@ -462,8 +515,8 @@ loss. It does <strong>not</strong> determine <span class="arithmatex">\(k\)</spa
 experiment in Module 8, Part I, supplies the second independent measurement.</p>
 <h2 id="before-the-experiment-model-validity-checks">Before The Experiment: Model-Validity Checks<a class="headerlink" href="#before-the-experiment-model-validity-checks" title="Permanent link">&para;</a></h2>
 <h3 id="length-solve-it-first">Length: Solve It First<a class="headerlink" href="#length-solve-it-first" title="Permanent link">&para;</a></h3>
-<p>For a rod of finite length <span class="arithmatex">\(L\)</span>, prescribed base temperature, and insulated
-tip, the exact normalized stationary solution is</p>
+<p>For the section of rod extending a distance <span class="arithmatex">\(L\)</span> from the first thermistor
+hole to the insulated tip, the exact normalized stationary solution is</p>
 <div class="arithmatex">\[
 \Theta_{\mathrm{finite}}(x)
 =\frac{\theta(x)}{\theta(0)}
@@ -539,17 +592,185 @@ Predict:</p>
 <p>Use supplied parameters when measured values are not yet available. Return to
 these predictions after fitting the stationary data and state which were
 supported by the evidence.</p>
+<h2 id="software-extension-for-six-channel-rod-measurements">Software Extension For Six-Channel Rod Measurements<a class="headerlink" href="#software-extension-for-six-channel-rod-measurements" title="Permanent link">&para;</a></h2>
+<p>Do not replace the working temperature-control system from Module 6. Extend
+the Arduino sketch and Python GUI that you have already tested. The TEC-base
+thermistor remains the feedback and safety sensor. The five rod thermistors
+are additional measurement channels; they do not enter the PI-control law.</p>
+<p>Develop and test the software in the stages below. Keep each stage working
+before asking Copilot to make the next change. Copilot may write code, but you
+are responsible for checking the pin assignments, serial interface, units,
+safety behavior, and saved data.</p>
+<h3 id="stage-1-extend-the-arduino-measurement">Stage 1: Extend The Arduino Measurement<a class="headerlink" href="#stage-1-extend-the-arduino-measurement" title="Permanent link">&para;</a></h3>
+<p>Use all six Uno analog inputs. Unless your documented wiring requires a
+different assignment, use <code>A0</code> for the TEC-base thermistor and <code>A1</code> through
+<code>A5</code> for rod thermistors 1 through 5. The Uno has one analog-to-digital
+converter and selects the six inputs sequentially. Read and average each
+channel, then send all six temperatures together in one measurement record.
+The resulting time offsets between channels are negligible compared with the
+rod's thermal response, but the Arduino time must be measured and transmitted
+with every record.</p>
+<p>The revised sketch must:</p>
+<ul>
+<li>retain the existing PI control, zero-PWM startup, H-bridge pin assignments,
+  temperature limit, and hardware-safety instructions,</li>
+<li>use the TEC-base thermistor alone for feedback and the software temperature
+  limit,</li>
+<li>calculate all six temperatures with the same thermistor conversion,</li>
+<li>label every transmitted field unambiguously,</li>
+<li>emit exactly one complete measurement record per acquisition cycle, and</li>
+<li>continue accepting the existing commands from the Python GUI.</li>
+</ul>
+<p>Use a stable serial record such as</p>
+<pre><code class="language-text">DATA,time_s,tec_C,rod1_C,rod2_C,rod3_C,rod4_C,rod5_C,pwm,heat_cool,setpoint_C,safety
+DATA,12.50,23.41,23.38,23.36,23.34,23.31,23.29,120,1,45.00,OK
+</code></pre>
+<p>The first line is a header printed once at startup; each later <code>DATA</code> line is
+one measurement. Status and error messages must not begin with <code>DATA</code>. This
+distinction lets both Python and the serial microSD logger recognize valid
+records without confusing them with diagnostic text.</p>
+<details>
+<summary>Suggested Copilot prompt: six-channel Arduino acquisition</summary>
+<pre><code class="language-text">Inspect the working Module 6 Arduino TEC-controller sketch that is open in VS
+Code. Extend this sketch; do not replace it with a new program. Preserve its PI
+control, serial-command parser, H-bridge pins, zero-PWM startup, software
+temperature limit, and all safety behavior.
+
+Use A0 for the TEC-base thermistor and A1-A5 for rod thermistors 1-5. The A0
+temperature must remain the only temperature used by the PI controller and
+software safety limit. Read and average all six analog channels and convert
+each reading with the sketch's existing thermistor-conversion function. Keep
+the number of averages as a named constant. Record the Arduino elapsed time
+after the six measurements have been acquired.
+
+At startup, print this header once:
+DATA,time_s,tec_C,rod1_C,rod2_C,rod3_C,rod4_C,rod5_C,pwm,heat_cool,setpoint_C,safety
+
+For every acquisition cycle, print exactly one comma-separated line beginning
+with DATA and containing those fields in that order. Diagnostic, command-ack,
+and error lines must not begin with DATA. Keep accepting the existing Python
+commands without changing their format. Comment the new pin definitions,
+six-channel acquisition loop, and serial-output block for an Arduino beginner.
+After editing, summarize every function and line of control logic that you
+preserved unchanged.
+</code></pre>
+</details>
+<p>Before connecting TEC power, test this sketch with Serial Monitor. Warm one
+thermistor at a time with your fingers and verify that only its named column
+changes. Confirm that the Arduino starts with PWM zero and still responds to a
+zero-power command. Close Serial Monitor before opening the Python GUI because
+only one program can own the serial port at a time.</p>
+<h3 id="stage-2-extend-the-python-display-and-raw-data-record">Stage 2: Extend The Python Display And Raw-Data Record<a class="headerlink" href="#stage-2-extend-the-python-display-and-raw-data-record" title="Permanent link">&para;</a></h3>
+<p>Modify the Module 6 GUI so that it parses the new <code>DATA</code> record and displays
+six simultaneous temperature traces. Retain the existing setpoint, controller,
+PWM, and safety displays. Give each trace a stable label and color, make the
+TEC-base trace visually distinct, and provide checkboxes or a legend that
+makes crowded plots readable.</p>
+<p>Every accepted record must be written to a new CSV file with at least these
+columns:</p>
+<pre><code class="language-text">time_s,tec_C,rod1_C,rod2_C,rod3_C,rod4_C,rod5_C,pwm,heat_cool,setpoint_C,safety
+</code></pre>
+<p>These are raw measured temperatures. Do not replace them with calibrated
+values. Reject incomplete or malformed lines without stopping the program,
+flush saved data regularly, and never silently overwrite an existing run.</p>
+<details>
+<summary>Suggested Copilot prompt: six-temperature GUI and CSV logger</summary>
+<pre><code class="language-text">Inspect both the open Arduino sketch and my working Module 6 PySide6 and
+pyqtgraph TEC-control GUI. Modify the existing Python program; do not create a
+different controller or change the Arduino command format. Preserve all PI
+controls, PWM and direction displays, serial command sending, safety display,
+and zero-output stop behavior.
+
+Parse only complete Arduino lines beginning with DATA. The fields are:
+time_s, tec_C, rod1_C, rod2_C, rod3_C, rod4_C, rod5_C, pwm, heat_cool,
+setpoint_C, and safety. Ignore headers, acknowledgments, diagnostics, and
+malformed lines without crashing.
+
+Plot TEC and rod1-rod5 temperatures together against Arduino time. Give every
+trace a fixed label and color and make the TEC trace thicker than the rod
+traces. Add live numerical displays for all six temperatures. Preserve the
+existing rolling-window behavior and controls.
+
+Write every accepted raw record to a new CSV file with exactly those column
+names. Do not apply calibration corrections and do not overwrite an existing
+file; create a timestamped filename or require a new filename. Flush the file
+regularly so a long run is not lost if the GUI closes unexpectedly. Add a
+visible count of accepted and rejected serial lines. Keep the code readable
+for a Python beginner and comment the parser, data storage, CSV writing, and
+plot updates. At the end, explain how I can verify that every plotted trace is
+being written to the correct CSV column.
+</code></pre>
+</details>
+<p>Test with TEC power off. Compare several consecutive Arduino <code>DATA</code> records
+with the corresponding Python numerical display and CSV rows. The field order,
+values, and units must agree before the program is used for calibration.</p>
+<h3 id="stage-3-write-the-relative-calibration-analysis">Stage 3: Write The Relative-Calibration Analysis<a class="headerlink" href="#stage-3-write-the-relative-calibration-analysis" title="Permanent link">&para;</a></h3>
+<p>Write a separate Python analysis program for the common-bath calibration. It
+must read the raw CSV rather than modify the acquisition program. For each rod
+channel, fit</p>
+<div class="arithmatex">\[
+T_{\mathrm{TEC}}=a_i+b_iT_i,
+\]</div>
+<p>make the comparison and residual plots required below, and save the fitted
+coefficients and fit-quality measures in a separate calibration file. Keep the
+raw CSV unchanged. Later analyses may read both files and calculate additional
+columns named <code>rod1_corrected_C</code> through <code>rod5_corrected_C</code>.</p>
+<details>
+<summary>Suggested Copilot prompt: relative-calibration analysis</summary>
+<pre><code class="language-text">Write a separate Python calibration-analysis script for my six-thermistor CSV
+file. Do not modify or overwrite the raw data. The raw columns are time_s,
+tec_C, rod1_C, rod2_C, rod3_C, rod4_C, rod5_C, pwm, heat_cool, setpoint_C, and
+safety.
+
+Treat tec_C as the reference. For each rod channel i, perform a linear
+least-squares fit tec_C = a_i + b_i * rod_i_C over a user-selected calibration
+time or temperature range. Plot each rod temperature against tec_C with the
+identity line and fitted line. Then plot the corrected residual
+(a_i + b_i * rod_i_C) - tec_C against tec_C.
+
+Print and save a table containing channel, a_i, b_i, number of fitted points,
+calibration temperature range, residual mean, residual standard deviation,
+and maximum absolute residual. Save this table to a separate CSV file. Also
+write a separate corrected-data CSV that retains every original raw column and
+adds rod1_corrected_C through rod5_corrected_C. Never replace a raw column.
+Include clear axis labels with units and comment the file input, range
+selection, fitting, residual calculation, and output sections for a Python
+beginner.
+</code></pre>
+</details>
+<h3 id="stage-4-integration-check-before-calibration">Stage 4: Integration Check Before Calibration<a class="headerlink" href="#stage-4-integration-check-before-calibration" title="Permanent link">&para;</a></h3>
+<p>Demonstrate the complete measurement chain before collecting the cooling-bath
+record:</p>
+<ol>
+<li>Show that warming one sensor changes only its assigned Arduino and Python
+   channel.</li>
+<li>Verify that one Arduino <code>DATA</code> line, one set of displayed values, and one
+   saved CSV row agree.</li>
+<li>Disconnect one rod thermistor temporarily and verify that the fault is
+   visible without defeating the TEC-base safety shutdown.</li>
+<li>Restart both programs and confirm that PWM begins at zero and that a new
+   data file is created.</li>
+<li>Record the Arduino sketch, Python GUI, and calibration-script filenames and
+   their Git commit hash in the sensor map.</li>
+</ol>
 <h2 id="part-1-sensor-map-and-calibration">Part 1: Sensor Map And Calibration<a class="headerlink" href="#part-1-sensor-map-and-calibration" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Measure the rod diameter and calculate the cross section <code>A</code>, perimeter <code>P</code> and length <code>L</code> in SI units.</li>
-<li>Assign each thermistor a permanent channel name.</li>
-<li>Measure each sensor position from the defined origin and estimate its
-   position uncertainty.</li>
+<li>Record the rod material as 6061-T6 aluminum. Measure its diameter <span class="arithmatex">\(d\)</span>,
+   overall physical length, and analysis length <span class="arithmatex">\(L\)</span> from the first thermistor
+   hole to the tip. Calculate its cross-sectional area <span class="arithmatex">\(A\)</span> and perimeter
+   <span class="arithmatex">\(P\)</span> in SI units.</li>
+<li>Assign permanent names to the TEC-base thermistor and the five rod
+   thermistors, and record the corresponding Arduino channels <code>A0</code> through
+   <code>A5</code>.</li>
 <li>Hold all sensors at the same temperature and record at least 60
    seconds of data.</li>
 <li>Plot channel differences. Decide whether offsets require correction.</li>
-<li>Save a diagram or photograph showing the coordinate direction and channel
-   positions.</li>
+<li>After calibration, install rod thermistor 1 in the first rod hole and define
+   that hole as the analysis base <span class="arithmatex">\(x=0\)</span>. Measure the other four rod-sensor
+   positions and the tip relative to this origin, so that the tip is at (x=L).
+   Estimate the uncertainty of every position and of <span class="arithmatex">\(L\)</span>.</li>
+<li>Save a diagram or photograph showing the permanent sensor labels, Arduino
+   channel assignments, coordinate direction, and measured rod positions.</li>
 </ol>
 <h3 id="relative-thermistor-cross-calibration">Relative Thermistor Cross-Calibration<a class="headerlink" href="#relative-thermistor-cross-calibration" title="Permanent link">&para;</a></h3>
 <p>The rod experiment measures temperature differences and spatial temperature
@@ -559,10 +780,18 @@ the same temperature; otherwise, channel-to-channel offsets could be mistaken
 for a temperature gradient along the rod.</p>
 <p>Use the TEC thermistor as the reference channel and cross-calibrate the rod
 thermistors as follows:</p>
-<p><strong>Step 1. Arrange the sensors.</strong> Label all the thermistors. Label your existing TEC thermistor "TEC". Label the others 1 - 5. It is important that the labels do not fall off for the rest of the semester. Place all six thermistor sensing ends close
-together in a Styrofoam cup of warm water. You are interested in the approximate temperature range <span class="arithmatex">\(60^{\circ} \mathrm{C} &gt; T &gt; 20^{\circ}\mathrm{C}\)</span>. Immerse only waterproof sensing ends
-and keep electrical joints dry. Do not allow the sensors to touch the cup walls
-or bottom.</p>
+<p><strong>Step 1. Arrange the sensors.</strong> Complete this cross-calibration before the
+thermistors are permanently installed in the TEC base and rod. All six sensing
+ends must remain accessible; do not immerse the assembled TEC, heater, or
+electrical hardware. If you don't have enough prepared thermistors, solder
+wires to the thermistors and insulate each joint with heat shrink. The hardware
+page shows how the finished sensor should look.</p>
+<p>Label the thermistor intended for the TEC base <code>TEC</code> and label the others 1-5.
+The labels must remain attached for the rest of the semester. Place all six
+thermistor sensing ends close together in a Styrofoam cup of warm water over the
+approximate range <span class="arithmatex">\(20^{\circ}\mathrm{C}&lt;T&lt;60^{\circ}\mathrm{C}\)</span>. Immerse
+only waterproof sensing ends and keep electrical joints dry. Do not allow the
+sensors to touch the cup walls or bottom.</p>
 <p><strong>Step 2. Use the experimental measurement chain.</strong> Make sure the corresponding Arduino circuit and thermistor are always used together. Use the same voltage
 dividers, Arduino inputs, acquisition code, and sample rate that will be used
 for the rod experiment.</p>
@@ -599,23 +828,49 @@ separately and apply them during analysis; never overwrite the original data.</p
 cross-calibration. The corrected channels may share a common absolute bias,
 but that bias does not affect temperature differences or the measured spatial
 profile.</p>
-<h2 id="part-2-baseline-and-step-response">Part 2: Baseline And Step Response<a class="headerlink" href="#part-2-baseline-and-step-response" title="Permanent link">&para;</a></h2>
+<h2 id="part-2-choose-sensor-positions-then-measure-the-step-response">Part 2: Choose Sensor Positions, Then Measure The Step Response<a class="headerlink" href="#part-2-choose-sensor-positions-then-measure-the-step-response" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Record room temperature and all rod channels before changing the base
-   temperature. Are all the thermistors at the same temperature within the
-   calibration criterion?</li>
-<li>Select a base-temperature setpoint in the approximate range
-   <span class="arithmatex">\(40^{\circ}\mathrm{C}\)</span> to <span class="arithmatex">\(60^{\circ}\mathrm{C}\)</span> and apply the step using
-   PI control. A larger step improves the signal at distant sensors, but it can
-   increase equilibration time, heat loss, and sensitivity to
-   temperature-dependent properties. Use a short pilot run to choose the
-   lowest setpoint that gives a clearly resolved response at the distant
-   sensors, and record your rationale.</li>
-<li>Record long enough to see the disturbance arrive at several positions.</li>
-<li>Plot all temperatures against the same time axis.</li>
-<li>Explain why farther sensors respond later and with smaller excursions.</li>
-<li>Save the commanded base temperature and measured base temperature. The
-   measured base is the actual boundary condition.</li>
+<li>Install rod thermistor 1 in the first rod hole and use that hole as the
+   analysis base <span class="arithmatex">\(x=0\)</span>. It is neither the physical rod end nor the separate
+   thermistor embedded in the TEC. Its measured signal <span class="arithmatex">\(T(0,t)\)</span> is the
+   boundary condition for the rod model.</li>
+<li>For a steady placement pilot, begin with the TEC set to
+   <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span>. A lower temperature generally reaches steady state
+   faster but may produce temperature differences that are too small to resolve.
+   A higher temperature improves the spatial signal but increases equilibration
+   time and heat loss. If you change the pilot temperature, use the lowest
+   setpoint that gives a clear profile and <strong>never exceed
+   <span class="arithmatex">\(55^{\circ}\mathrm{C}\)</span></strong>.</li>
+<li>
+<p>Move the other four thermistors among the available fixed holes and measure
+   the resulting steady temperatures. No advance calculation of the positions
+   is required. Choose locations for which the steady excess temperature drops
+   by at least a factor of <span class="arithmatex">\(e\)</span> from rod thermistor 1 to the farthest retained
+   sensor:</p>
+<div class="arithmatex">\[
+0&lt;\theta_5(x_5,\infty)
+\leq\frac{\theta_1(0,\infty)}{e}.
+\]</div>
+<p>Plot the pilot values as <span class="arithmatex">\(\ln\theta\)</span> versus <span class="arithmatex">\(x\)</span> while selecting the
+holes. The retained points should be spread across the semilog plot rather
+than clustered near one end. Do not retain a position whose excess
+temperature is indistinguishable from noise or room drift.</p>
+</li>
+<li>
+<p>Once you have identified useful locations, leave the thermistors in those
+   holes. Measure and record every selected position and its uncertainty.</p>
+</li>
+<li>Set the TEC to <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> and allow the entire rod to
+   equilibrate. Record room temperature and all six thermistor channels. Verify
+   that the rod channels agree within the calibration criterion.</li>
+<li>Apply a non-oscillatory TEC step from <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> to
+   <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span> using PI control. Record continuously until the
+   stationary-profile criterion below is satisfied.</li>
+<li>Plot all temperatures against the same time axis and explain why farther
+   sensors respond later and with smaller excursions.</li>
+<li>Save the commanded TEC temperature, measured TEC temperature, and measured
+   rod temperature <span class="arithmatex">\(T(0,t)\)</span>. The rod thermistor at <span class="arithmatex">\(x=0\)</span>, rather than the
+   TEC command or TEC thermistor, supplies the model boundary condition.</li>
 </ol>
 <h2 id="c5-checkoff">C5 Checkoff<a class="headerlink" href="#c5-checkoff" title="Permanent link">&para;</a></h2>
 <p>At S17, demonstrate:</p>
@@ -634,8 +889,9 @@ profile.</p>
    steady-state criterion. A useful starting criterion is
    <span class="arithmatex">\(|dT_i/dt|&lt;0.02^{\circ}\mathrm{C}/\mathrm{min}\)</span> at every sensor for at
    least 10 minutes; justify any different criterion.</li>
-<li>Hold the base at the setpoint selected from the pilot study until the
-   steady-state criterion is satisfied.</li>
+<li>Use the final steady portion of the <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> to
+   <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span> step-response run. No separate heating run is
+   required. Confirm that the steady-state criterion is satisfied.</li>
 <li>Average each sensor over a justified final interval. Five minutes is a
    reasonable starting interval after the steady-state criterion has been met.</li>
 <li>Plot <span class="arithmatex">\(\theta\)</span> versus <span class="arithmatex">\(x\)</span> with error bars.</li>
@@ -653,10 +909,11 @@ profile.</p>
 <h2 id="stationary-fin-analysis-record">Stationary-Fin Analysis Record<a class="headerlink" href="#stationary-fin-analysis-record" title="Permanent link">&para;</a></h2>
 <h3 id="evidence-to-save-during-s16-s17">Evidence To Save During S16-S17<a class="headerlink" href="#evidence-to-save-during-s16-s17" title="Permanent link">&para;</a></h3>
 <p>Keep the sensor map, calibration record, geometry, raw baseline, synchronized
-step response, commanded and measured base temperature, steady profile, run
+step response, commanded and measured TEC temperature, measured rod-base
+temperature, steady profile, run
 metadata, and exact acquisition code as each item is produced. Use
-<code>docs/module_notes/module_08_rod_instrument.md</code>, <code>data/module_08/</code>, and
-<code>docs/figures/module_08/</code>. Never overwrite raw rod data with corrected data.</p>
+<code>docs/module_notes/module_07_rod_instrument.md</code>, <code>data/module_07/</code>, and
+<code>docs/figures/module_07/</code>. Never overwrite raw rod data with corrected data.</p>
 <h3 id="a4-submission-and-rubric">A4 Submission And Rubric<a class="headerlink" href="#a4-submission-and-rubric" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Type:</strong> individual, 10 points</li>
@@ -676,7 +933,7 @@ and evidence commit.
 Prepare the <a href="../../assessment/#c5-rod-instrument-and-data-acquisition-chain">C5 oral questions</a>.</p>
 <h3 id="formative-stationary-fin-analysis">Formative Stationary-Fin Analysis<a class="headerlink" href="#formative-stationary-fin-analysis" title="Permanent link">&para;</a></h3>
 <p>There is no separate Moodle paper for this step. Keep the team note at
-<code>docs/module_notes/module_08_stationary_fin.md</code> and authoritative analysis code
+<code>docs/module_notes/module_07_stationary_fin.md</code> and authoritative analysis code
 under <code>python/analysis/</code>. The result becomes evidence for C6 and the
 final presentation.</p>
 <p>Submit one reproducible analysis containing:</p>

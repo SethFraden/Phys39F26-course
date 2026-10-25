@@ -35,18 +35,18 @@ I](../theory-bridge-chapter-1/index.md#module-7-vocabulary-and-notation).
 | Term | Meaning |
 | --- | --- |
 | Fin | A solid that conducts heat along its length while exchanging heat with the surrounding fluid through its surface. |
-| Base and tip | The base at \(x=0\) is where the rod temperature is prescribed; the tip at \(x=L\) is the far end. |
+| Analysis base and tip | The analysis base at \(x=0\) is the plane where the rod temperature is measured or prescribed; the tip at \(x=L\) is the far end of the analyzed section. For the course rod, the first thermistor hole is the analysis base. |
 | \(A\), \(P\), and \(PL\) | \(A\) is the cross-sectional area normal to axial heat flow, \(P\) is the cross-sectional perimeter, and \(PL\) is the lateral surface area of a uniform rod, excluding its ends. |
 | Stationary or steady state | A condition in which temperature no longer changes with time, although heat can continue to flow. |
 | Boundary condition | A physical constraint imposed at a boundary, such as prescribed base temperature, zero tip heat flux, or convection from the tip. |
 | Adiabatic or insulated tip | A tip through which no heat flows: \(dT/dx=0\) at \(x=L\). |
 | Convecting tip | A tip that transfers heat to the surroundings with coefficient \(h_L\). |
 | Normalized excess temperature, \(\Theta\) | \(\Theta=(T-T_\infty)/(T_0-T_\infty)\); it is 1 at the prescribed-temperature base and dimensionless. |
-| Dimensionless position, \(\xi=x/L\) | Position scaled by the physical rod length, placing the base at \(\xi=0\) and the tip at \(\xi=1\). |
+| Dimensionless position, \(\xi=x/L\) | Position scaled by the analyzed length from the first thermistor hole to the tip, placing the analysis base at \(\xi=0\) and the tip at \(\xi=1\). |
 | Fin parameter, \(m=\sqrt{hP/(kA)}\) | The inverse axial decay length, with units m\(^{-1}\). The characteristic decay length is \(1/m\). |
 | \(mL\) | Rod length divided by decay length. It measures how strongly the finite tip can influence the temperature profile. |
 | Transverse Biot number, \(\mathrm{Bi}_{\perp}=h(A/P)/k\) | The resistance ratio testing whether radial temperature variation across a section may be neglected. |
-| Parallel Biot number, \(\mathrm{Bi}_{\parallel}=hPL^2/(kA)=(mL)^2\) | The resistance ratio comparing axial conduction over the rod length with distributed side convection. |
+| Parallel Biot number, \(\mathrm{Bi}_{\parallel}=hPL^2/(kA)=(mL)^2\) | The course's descriptive name for the resistance ratio comparing axial conduction over the rod length with distributed side convection. Lienhard calls it a hybrid Biot number. |
 | Tip Biot number, \(\mathrm{Bi}_{\mathrm{tip}}=h_LL/k\) | The dimensionless strength of convection from the tip relative to axial conduction. It drops out for an insulated tip. |
 | Finite and semi-infinite models | The finite model retains the boundary at \(x=L\); the semi-infinite model neglects the far-end influence over the measured region. |
 
@@ -132,6 +132,15 @@ rod. NASA shows a real example in its photograph of the
 cross-sectional area \(A\), perimeter \(P\), conductivity \(k\), side
 coefficient \(h\), and tip coefficient \(h_L\).*
 
+**Course coordinate convention.** In the textbook figure, the base is the
+physical end where the fin joins the warmer body. For the course rod, we choose
+the first thermistor hole as the **analysis base** and define it to be \(x=0\).
+It is neither the physical end of the rod nor the thermistor embedded in the
+TEC. Its measured temperature supplies the boundary value \(T(0,t)\), and
+\(L\) is the distance from this first hole to the rod tip. Choosing this
+interior reference plane is valid because the equations apply to the portion
+of rod from that plane to the tip.
+
 As derived in
 [Part I](../theory-bridge-chapter-1/index.md#5-lumped-cooling-and-the-biot-number),
 the transverse Biot number must be small to treat a cylinder as a one-dimensional object:
@@ -202,15 +211,16 @@ Their ratio defines the parallel Biot number:
 }.
 \]
 
+We use the descriptive name \(\mathrm{Bi}_{\parallel}\) in this course because
+the ratio compares axial conduction with distributed side convection. Lienhard
+describes the same quantity \((mL)^2\) as a **hybrid Biot number**.
+
 When $\mathrm{Bi}_{\parallel}\ll1$, axial conduction carries heat along the
 rod readily compared with side convection. When
 $\mathrm{Bi}_{\parallel}\gg1$, much of the heat is lost from the side before
 it reaches the far end, and the temperature decays strongly along the rod.
 The side loss is distributed continuously rather than occurring in one lump,
 so this resistance ratio is a scaling interpretation of the fin equation.
-
-The small-transverse-Biot criterion allows us to use one cross-sectional
-temperature \(T(x)\).
 
 The condition that justifies a one-dimensional fin model is
 $\mathrm{Bi}_{\perp}\ll1$: it allows each cross section to be represented by
@@ -655,7 +665,7 @@ the semi-infinite fin.
 
 Lienhard recommends \(mL\gtrsim5\) when using the infinite-fin approximation
 for temperature and \(mL\gtrsim3\) when using it for the base heat rate. In
-In Module 7, Part III, you will calculate the actual finite-versus-infinite error at every
+Module 7, Part III, you will calculate the actual finite-versus-infinite error at every
 sensor rather than relying only on these general thresholds.
 
 ## What To Be Able To Explain

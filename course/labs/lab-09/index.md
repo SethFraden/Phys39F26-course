@@ -48,8 +48,9 @@ unscheduled outside laboratory time.
 
 By the end of this module, you should be able to:
 
-1. **Create the boundary:** impose and verify a sinusoidal base temperature
-   with PI control and choose a useful forcing period.
+1. **Create the boundary:** use PI control to drive the TEC and verify a
+   sinusoidal temperature at the rod analysis base, the first hole at \(x=0\),
+   while choosing a useful forcing period.
 2. **Extract the spatial response:** fit noisy temperature data to determine
    the amplitude-decay coefficient \(q\) and phase coefficient \(q'\), using
    phase unwrapping and a consistent sign convention.
@@ -72,15 +73,49 @@ predictions, and prepare proposed pilot settings and metadata. This is the
 `P3` check: bring your proposed drive period and your prediction for how
 amplitude and phase will change with distance.
 
-**In class during S18-S20:** tune and document the measured base-temperature
-waveform, collect a pilot run, fit it, choose the production period, and acquire
+**In class during S18-S20:** tune the TEC drive and document the measured
+rod-base waveform, collect a pilot run, fit it, choose the production period, and acquire
 at least five periods after the response you judge to be settled.
 
 **After the production run during S21-S22:** complete the spatial fits,
 uncertainty and residual analysis, and model-validity checks. The `P4` check is
 a periodic dataset with at least five periods you identify as settled, sensor
-positions and units, acquisition metadata, and a base-temperature tracking
-check. State the criterion you used to decide that the response was settled.
+positions and units, acquisition metadata, and a rod-base waveform check.
+State the criterion you used to decide that the response was settled.
+
+## Reuse The Calibrated Sensor Map
+
+Module 7 established the geometry and cross-calibrated six thermistor
+measurement chains: one thermistor in the TEC base and five thermistors at
+measured positions along the 6061-T6 aluminum rod. Keep the same coordinate
+origin at the first rod hole, channel assignments, correction coefficients,
+measured diameter, analysis length \(L\) from the first hole to the tip, and
+sensor positions for the Angstrom experiment. Do not move a rod
+sensor without updating the sensor map and its position uncertainty.
+
+The thermistor embedded in the TEC measures the driven actuator, but it is not
+the rod boundary at \(x=0\) and is not one of the five rod coordinates. Rod
+thermistor 1 in the first hole measures \(T(0,t)\), the boundary condition used
+in the Angstrom model. You will use the Angstrom measurement to determine thermal
+conductivity rather than substitute a supplied final value. Literature values
+of \(k\) may guide planning and model-validity checks.
+
+This choice of origin does not change the Angstrom result. Shifting \(x=0\)
+changes the reference amplitude and phase, but the fitted spatial decay and
+phase coefficients depend on amplitude ratios, phase differences, and sensor
+separations. Use the first hole as \(x=0\) consistently in every plot and fit.
+
+In principle, the Angstrom method needs temperatures at only two distinct rod
+positions. The experiment could therefore be repeated for several pairs of
+positions. Five simultaneous rod measurements are preferable because they
+provide multiple amplitude and phase differences in one run, support spatial
+fits and residual checks, and avoid comparing pairs acquired under different
+room or boundary conditions.
+
+Before the pilot run, verify that the saved diagram or photograph identifies
+the TEC-base channel, the five rod channels, the positive \(x\) direction, all
+five measured rod positions, the analysis length from the first hole to the
+tip, the overall physical length, and the measured diameter.
 
 ## Periodic Solution
 
@@ -115,7 +150,7 @@ surrounding room, which we treat as a large thermodynamic reservoir whose
 temperature is not changed appreciably by the rod. We initially treat the rod
 as semi-infinite, with $x\geq0$.
 
-Drive the measured base temperature approximately as
+Use the measured temperature of rod thermistor 1 at the analysis base as
 
 \[
 \theta(0,t)=\theta_b\cos(\omega t),
@@ -124,7 +159,9 @@ Drive the measured base temperature approximately as
 \]
 
 where $\tau$ is the period in seconds and $\omega$ is angular frequency in
-rad/s. We seek the settled periodic response after initial transients decay.
+rad/s. The TEC and its embedded thermistor create and monitor the forcing, but
+the measured rod temperature at the first hole supplies this boundary
+condition. We seek the settled periodic response after initial transients decay.
 If the base oscillates about a mean above room temperature, the full solution
 also contains a stationary mean profile. By linearity, we can solve for that
 profile and the oscillating component separately; the derivation below gives
@@ -300,15 +337,18 @@ adequate in practice.
 
 ## Part 1: Establish The Boundary Condition
 
-1. Choose a safe mean base temperature and an amplitude of approximately
+1. Choose a safe mean TEC setpoint and an amplitude of approximately
    5-10 degrees Celsius unless the instructor specifies otherwise.
 2. Begin with a period in the range 100-300 seconds.
-3. Tune PI settings so measured base temperature is close to sinusoidal without
-   strong clipping, drift, or phase jumps.
-4. Record setpoint, measured base temperature, PWM, and all rod temperatures.
-5. Quantify boundary tracking with amplitude error, phase error, and residuals.
-6. If tracking is imperfect, use the measured base temperature rather than the
-   requested setpoint as the model boundary condition.
+3. Tune PI settings so the TEC drive produces a rod-base temperature at the
+   first hole that is close to sinusoidal without strong clipping, drift, or
+   phase jumps.
+4. Record the TEC setpoint, measured TEC temperature, PWM, and all rod
+   temperatures, including rod thermistor 1 at the analysis base.
+5. Quantify the TEC tracking and the sinusoidal quality of rod thermistor 1
+   with amplitude, phase, and residual measures.
+6. Use the measured temperature of rod thermistor 1, rather than the requested
+   TEC setpoint or TEC-thermistor temperature, as the model boundary condition.
 
 ## Part 2: Pilot Analysis And Experiment Plan
 
@@ -369,7 +409,7 @@ B(x)=B_0e^{-qx},
 Your Python app, notebook, or script must visibly show:
 
 - imported raw data and selected fitting interval,
-- measured base tracking,
+- TEC tracking and the measured rod-base waveform,
 - sinusoid fit for every retained sensor,
 - amplitude and unwrapped phase versus position,
 - fitted `q` and `q_prime` with units and uncertainty,

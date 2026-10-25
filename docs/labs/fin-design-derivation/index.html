@@ -202,8 +202,8 @@ I</a>.</p>
 <td>A solid that conducts heat along its length while exchanging heat with the surrounding fluid through its surface.</td>
 </tr>
 <tr>
-<td>Base and tip</td>
-<td>The base at <span class="arithmatex">\(x=0\)</span> is where the rod temperature is prescribed; the tip at <span class="arithmatex">\(x=L\)</span> is the far end.</td>
+<td>Analysis base and tip</td>
+<td>The analysis base at <span class="arithmatex">\(x=0\)</span> is the plane where the rod temperature is measured or prescribed; the tip at <span class="arithmatex">\(x=L\)</span> is the far end of the analyzed section. For the course rod, the first thermistor hole is the analysis base.</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(P\)</span>, and <span class="arithmatex">\(PL\)</span></td>
@@ -231,7 +231,7 @@ I</a>.</p>
 </tr>
 <tr>
 <td>Dimensionless position, <span class="arithmatex">\(\xi=x/L\)</span></td>
-<td>Position scaled by the physical rod length, placing the base at <span class="arithmatex">\(\xi=0\)</span> and the tip at <span class="arithmatex">\(\xi=1\)</span>.</td>
+<td>Position scaled by the analyzed length from the first thermistor hole to the tip, placing the analysis base at <span class="arithmatex">\(\xi=0\)</span> and the tip at <span class="arithmatex">\(\xi=1\)</span>.</td>
 </tr>
 <tr>
 <td>Fin parameter, <span class="arithmatex">\(m=\sqrt{hP/(kA)}\)</span></td>
@@ -247,7 +247,7 @@ I</a>.</p>
 </tr>
 <tr>
 <td>Parallel Biot number, <span class="arithmatex">\(\mathrm{Bi}_{\parallel}=hPL^2/(kA)=(mL)^2\)</span></td>
-<td>The resistance ratio comparing axial conduction over the rod length with distributed side convection.</td>
+<td>The course's descriptive name for the resistance ratio comparing axial conduction over the rod length with distributed side convection. Lienhard calls it a hybrid Biot number.</td>
 </tr>
 <tr>
 <td>Tip Biot number, <span class="arithmatex">\(\mathrm{Bi}_{\mathrm{tip}}=h_LL/k\)</span></td>
@@ -339,6 +339,14 @@ rod. NASA shows a real example in its photograph of the
 <p><em>Lienhard and Lienhard, Fig. 4.8, textbook p. 166: a fin of length <span class="arithmatex">\(L\)</span>,
 cross-sectional area <span class="arithmatex">\(A\)</span>, perimeter <span class="arithmatex">\(P\)</span>, conductivity <span class="arithmatex">\(k\)</span>, side
 coefficient <span class="arithmatex">\(h\)</span>, and tip coefficient <span class="arithmatex">\(h_L\)</span>.</em></p>
+<p><strong>Course coordinate convention.</strong> In the textbook figure, the base is the
+physical end where the fin joins the warmer body. For the course rod, we choose
+the first thermistor hole as the <strong>analysis base</strong> and define it to be <span class="arithmatex">\(x=0\)</span>.
+It is neither the physical end of the rod nor the thermistor embedded in the
+TEC. Its measured temperature supplies the boundary value <span class="arithmatex">\(T(0,t)\)</span>, and
+<span class="arithmatex">\(L\)</span> is the distance from this first hole to the rod tip. Choosing this
+interior reference plane is valid because the equations apply to the portion
+of rod from that plane to the tip.</p>
 <p>As derived in
 <a href="../theory-bridge-chapter-1/#5-lumped-cooling-and-the-biot-number">Part I</a>,
 the transverse Biot number must be small to treat a cylinder as a one-dimensional object:</p>
@@ -397,14 +405,15 @@ R_{\mathrm{side\ convection}}\sim\frac{1}{hPL}.
 =(mL)^2
 }.
 \]</div>
+<p>We use the descriptive name <span class="arithmatex">\(\mathrm{Bi}_{\parallel}\)</span> in this course because
+the ratio compares axial conduction with distributed side convection. Lienhard
+describes the same quantity <span class="arithmatex">\((mL)^2\)</span> as a <strong>hybrid Biot number</strong>.</p>
 <p>When <span class="arithmatex">\(\mathrm{Bi}_{\parallel}\ll1\)</span>, axial conduction carries heat along the
 rod readily compared with side convection. When
 <span class="arithmatex">\(\mathrm{Bi}_{\parallel}\gg1\)</span>, much of the heat is lost from the side before
 it reaches the far end, and the temperature decays strongly along the rod.
 The side loss is distributed continuously rather than occurring in one lump,
 so this resistance ratio is a scaling interpretation of the fin equation.</p>
-<p>The small-transverse-Biot criterion allows us to use one cross-sectional
-temperature <span class="arithmatex">\(T(x)\)</span>.</p>
 <p>The condition that justifies a one-dimensional fin model is
 <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span>: it allows each cross section to be represented by
 one temperature <span class="arithmatex">\(T(x)\)</span>. The value of <span class="arithmatex">\(\mathrm{Bi}_{\parallel}=(mL)^2\)</span> does
@@ -746,7 +755,7 @@ enter the base to replace all the heat lost by convection from the surface of
 the semi-infinite fin.</p>
 <p>Lienhard recommends <span class="arithmatex">\(mL\gtrsim5\)</span> when using the infinite-fin approximation
 for temperature and <span class="arithmatex">\(mL\gtrsim3\)</span> when using it for the base heat rate. In
-In Module 7, Part III, you will calculate the actual finite-versus-infinite error at every
+Module 7, Part III, you will calculate the actual finite-versus-infinite error at every
 sensor rather than relying only on these general thresholds.</p>
 <h2 id="what-to-be-able-to-explain">What To Be Able To Explain<a class="headerlink" href="#what-to-be-able-to-explain" title="Permanent link">&para;</a></h2>
 <ol>

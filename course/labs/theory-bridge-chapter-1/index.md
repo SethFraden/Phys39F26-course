@@ -14,7 +14,7 @@ The three parts form one model-building and model-testing sequence:
 | --- | --- | --- | --- |
 | Part I: foundations | How do a constitutive law and conservation produce a temperature equation? | Interpret Fourier's law, derive the heat equation, and establish the Biot test. | A4 Part 1 and selected C5 questions |
 | Part II: rod theory | What stationary profile follows from axial conduction, side cooling, and the end conditions? | Derive the finite-rod solution, its semi-infinite limit, and the two model-validity checks. | A4 Parts 2-4 and selected C5 questions |
-| Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Cross-calibrate the sensors, measure the transient and stationary profiles, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
+| Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Cross-calibrate the sensors, measure a non-oscillatory step response and the stationary profile, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
 
 **Model hierarchy.** Part I derives the time-dependent heat equation while
 neglecting heat loss from the side of the rod. Part II adds distributed side
@@ -898,36 +898,16 @@ questions do not create another submission. Keep those answers and a
 dimensional equation sheet in `docs/theory/theory_bridge_chapter_1_notes.md`
 so you can reuse the reasoning without rewriting it for an extra grade.
 
+The goal is not memorization of an isolated formula. You should be able to
+identify the physical balance, state the boundary conditions, carry the units,
+and explain what approximation each solution uses.
+
 Use the single
 [Module 7 workload budget](../lab-08/index.md#outside-class-workload-budget)
 for Parts I-III. The Part I reading, derivation work, preparation questions,
 and Problem 1.3 are already included there; do not count them again. Bring
 specific questions to class if the derivations remain unclear after the
 planned time.
-
-## What Parts I and II Prepare You to Master
-
-By the time of A4 and the C5 oral check, you should be able to do the following
-without relying on AI-generated prose:
-
-1. state Fourier's law and explain its sign and units,
-2. apply Fourier's law to a specified heat flux and interpret the resulting
-   temperature difference,
-3. apply conservation of energy to a differential slice and obtain the heat
-   equation,
-4. state Newton's law of cooling and explain the meaning and units of \(h\),
-5. combine axial conduction and side cooling to obtain the stationary fin
-   equation,
-6. solve that equation with a prescribed base temperature and insulated-tip
-   boundary condition,
-7. obtain the semi-infinite exponential solution as a limit of the finite
-   solution, and
-8. derive and interpret the transverse Biot number as the test for neglecting
-   radial temperature variation.
-
-The goal is not memorization of an isolated formula. You should be able to
-identify the physical balance, state the boundary conditions, carry the units,
-and explain what approximation each solution uses.
 
 ## Two Different Approximation Questions
 
@@ -946,9 +926,9 @@ one-dimensional."
    \mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
    \)
 
-   We will first work in the \(\mathrm{Bi}_{\perp}\ll1\) regime, where a
-   one-dimensional model is justified. Later we will retain radial variation
-   and study the large-Biot-number regime numerically.
+   We work in the \(\mathrm{Bi}_{\perp}\ll1\) regime, where a one-dimensional
+   model is justified. If this condition fails, the one-dimensional model must
+   be rejected; a radial model is beyond the scope of this course.
 
 The next full theory treatment uses
 [Lienhard Section 4.5](../../references/lienhard-heat-transfer-textbook-v6.pdf)

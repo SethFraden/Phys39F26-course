@@ -316,8 +316,11 @@ supported by the evidence.
 
 ## Software Extension For Six-Channel Rod Measurements
 
-Do not replace the working temperature-control system from Module 6. Extend
-the Arduino sketch and Python GUI that you have already tested. The TEC-base
+Keep the tested Module 6 files unchanged as a working checkpoint. Make new
+Module 7 copies of both the Arduino sketch and Python GUI, give the copies
+clear Module 7 filenames, and extend those copies for the rod experiment. For
+example, use `arduino/module_07_rod_controller/module_07_rod_controller.ino`
+and `python/module_07_rod_acquisition_gui.py` in your repository. The TEC-base
 thermistor remains the feedback and safety sensor. The five rod thermistors
 are additional measurement channels; they do not enter the PI-control law.
 
@@ -365,7 +368,9 @@ records without confusing them with diagnostic text.
 
 ```text
 Inspect the working Module 6 Arduino TEC-controller sketch that is open in VS
-Code. Extend this sketch; do not replace it with a new program. Preserve its PI
+Code. First copy it to a new Module 7 sketch named
+arduino/module_07_rod_controller/module_07_rod_controller.ino. Leave the
+Module 6 file unchanged and edit only the new Module 7 copy. Preserve its PI
 control, serial-command parser, H-bridge pins, zero-PWM startup, software
 temperature limit, and all safety behavior.
 
@@ -419,11 +424,13 @@ flush saved data regularly, and never silently overwrite an existing run.
 <summary>Suggested Copilot prompt: six-temperature GUI and CSV logger</summary>
 
 ```text
-Inspect both the open Arduino sketch and my working Module 6 PySide6 and
-pyqtgraph TEC-control GUI. Modify the existing Python program; do not create a
-different controller or change the Arduino command format. Preserve all PI
-controls, PWM and direction displays, serial command sending, safety display,
-and zero-output stop behavior.
+Inspect both the new Module 7 Arduino sketch and my working Module 6 PySide6
+and pyqtgraph TEC-control GUI. First copy the Module 6 GUI to a new file named
+python/module_07_rod_acquisition_gui.py. Leave the Module 6 file unchanged and
+edit only the new Module 7 copy. Do not create a different controller or change
+the Arduino command format. Preserve all PI controls, PWM and direction
+displays, serial command sending, safety display, and zero-output stop
+behavior.
 
 Parse only complete Arduino lines beginning with DATA. The fields are:
 time_s, tec_C, rod1_C, rod2_C, rod3_C, rod4_C, rod5_C, pwm, heat_cool,

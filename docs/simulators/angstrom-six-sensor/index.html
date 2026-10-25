@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEC Rod Thermal Lab — Six-Sensor PID Simulator</title>
+<style>
+  :root{
+    --bg:#14171c; --panel:#1d2129; --panel2:#232834; --edge:#323a48;
+    --txt:#dde3ec; --dim:#8b95a7; --accent:#4fb3ff; --hot:#ff6a4d; --cold:#5ac8fa;
+    --ok:#57d98a; --warn:#ffcc4d; --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--txt); font:14px/1.45 -apple-system,'Segoe UI',Roboto,sans-serif; height:100vh; display:flex; flex-direction:column; overflow:hidden;}
+  header{display:flex; align-items:center; gap:14px; padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--edge); flex:0 0 auto;}
+  header h1{font-size:15px; font-weight:600; letter-spacing:.2px; margin-right:6px;}
+  header .sub{color:var(--dim); font-size:12px;}
+  .spacer{flex:1;}
+  .seg{display:flex; border:1px solid var(--edge); border-radius:7px; overflow:hidden;}
+  .seg button{background:transparent; color:var(--dim); border:0; padding:5px 12px; cursor:pointer; font-size:13px;}
+  .seg button.on{background:var(--accent); color:#08121c; font-weight:600;}
+  select,input[type=number],input[type=text]{background:var(--panel2); color:var(--txt); border:1px solid var(--edge); border-radius:6px; padding:4px 7px; font-size:13px;}
+  input[type=number]{width:74px; font-family:var(--mono);}
+  button.btn{background:var(--panel2); color:var(--txt); border:1px solid var(--edge); border-radius:6px; padding:5px 11px; cursor:pointer; font-size:13px;}
+  button.btn:hover{border-color:var(--accent);}
+  button.btn.primary{background:var(--accent); color:#08121c; border-color:var(--accent); font-weight:600;}
+  button.btn.danger{border-color:#7a3a3a; color:#ff9d8f;}
+  .clock{font-family:var(--mono); color:var(--dim); font-size:12px; min-width:86px; text-align:right;}
+
+  #layout{flex:1; display:flex; min-height:0;}
+  #main{flex:1; display:flex; flex-direction:column; min-width:0; padding:10px; gap:10px;}
+  #viewwrap{flex:1.35; min-height:220px; position:relative; background:#0c0e12; border:1px solid var(--edge); border-radius:10px; overflow:hidden;}
+  #scene{position:absolute; inset:0; width:100%; height:100%; cursor:default;}
+  #rigbar{flex:0 0 auto; display:flex; gap:16px; align-items:center; flex-wrap:wrap; background:var(--panel); border:1px solid var(--edge); border-radius:10px; padding:8px 12px;}
+  .rig{display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--dim);}
+  .rig b{color:var(--txt); font-family:var(--mono); font-weight:500; min-width:52px; display:inline-block;}
+  .rig input[type=range]{width:110px;}
+  #chartwrap{flex:1; min-height:150px; position:relative; background:var(--panel); border:1px solid var(--edge); border-radius:10px; overflow:hidden;}
+  #chart{position:absolute; inset:0; width:100%; height:100%;}
+
+  #side{flex:0 0 355px; overflow-y:auto; border-left:1px solid var(--edge); background:var(--bg); padding:10px; display:flex; flex-direction:column; gap:10px;}
+  .panel{background:var(--panel); border:1px solid var(--edge); border-radius:10px; padding:10px 12px;}
+  .panel h2{font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:var(--accent); margin-bottom:8px; display:flex; align-items:center; gap:8px;}
+  .panel h2 .tag{margin-left:auto; font-size:10.5px; color:var(--dim); text-transform:none; letter-spacing:0;}
+  .panel.locked{opacity:.42; pointer-events:none; filter:saturate(.6);}
+  .row{display:flex; align-items:center; gap:8px; margin:6px 0; flex-wrap:wrap;}
+  .row label{color:var(--dim); font-size:12.5px;}
+  .mono{font-family:var(--mono);}
+  .big{font-size:19px; font-weight:600; font-family:var(--mono);}
+  .readgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:6px;}
+  .readcell{background:var(--panel2); border-radius:7px; padding:6px 8px; text-align:center;}
+  .readcell .v{font-family:var(--mono); font-size:15px; font-weight:600;}
+  .readcell .l{font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.5px;}
+  .pwmbar{height:14px; background:var(--panel2); border-radius:7px; position:relative; margin:8px 0 2px; overflow:hidden;}
+  .pwmbar .zero{position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--edge);}
+  .pwmbar .fill{position:absolute; top:0; bottom:0; border-radius:0;}
+  .term{display:grid; grid-template-columns:20px 30px 86px 1fr; align-items:center; gap:6px; margin:5px 0;}
+  .term .sym{font-family:var(--mono); font-weight:700;}
+  .term .sym.p{color:#ffd166;} .term .sym.i{color:#57d98a;} .term .sym.d{color:#c792ea;}
+  .mathbox{background:#12151b; border:1px solid var(--edge); border-radius:8px; padding:8px 10px; font-family:var(--mono); font-size:11.8px; line-height:1.7; margin-top:8px; white-space:pre; overflow-x:auto;}
+  .mathbox .mp{color:#ffd166;} .mathbox .mi{color:#57d98a;} .mathbox .md{color:#c792ea;} .mathbox .mu{color:var(--accent); font-weight:700;}
+  .drivebox{background:#12151b; border:1px solid var(--edge); border-radius:8px; padding:7px 9px; font:11.5px/1.55 var(--mono); color:var(--dim); margin:6px 0;}
+  .drivebox b{color:var(--accent);}
+  .sineparams{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:6px 0;}
+  .sineparams label{display:flex; flex-direction:column; gap:3px; font-size:10px; color:var(--dim);}
+  .sineparams input{width:100%;}
+  table.tune{width:100%; border-collapse:collapse; font-size:12px; margin-top:6px;}
+  table.tune th{color:var(--dim); font-weight:500; text-align:left; padding:3px 4px; border-bottom:1px solid var(--edge); font-size:11px;}
+  table.tune td{padding:3px 4px; font-family:var(--mono); border-bottom:1px solid #262c38;}
+  table.tune td:first-child{font-family:inherit; color:var(--txt);}
+  table.tune button{background:var(--accent); color:#08121c; border:0; border-radius:5px; padding:2px 8px; cursor:pointer; font-size:11px; font-weight:600;}
+  .status{font-size:12px; color:var(--warn); font-family:var(--mono); margin-top:6px; min-height:16px;}
+  .idbox{background:#12151b; border:1px solid var(--edge); border-radius:8px; padding:6px 10px; font-family:var(--mono); font-size:12px; margin-top:8px;}
+  .hint{font-size:11px; color:var(--dim); margin-top:6px;}
+  input[type=checkbox]{accent-color:var(--accent); width:15px; height:15px;}
+  input[type=range]{accent-color:var(--accent);}
+  #sensorbar{display:grid; grid-template-columns:repeat(6,minmax(78px,1fr)); gap:6px; flex:0 0 auto;}
+  .sensorcell{background:var(--panel); border:1px solid var(--edge); border-top:3px solid var(--sensor); border-radius:7px; padding:5px 7px; min-width:0;}
+  .sensorcell .sensorhead{display:flex; justify-content:space-between; gap:6px; color:var(--dim); font-size:10px;}
+  .sensorcell .sensorvalue{font:600 15px var(--mono); margin-top:2px; white-space:nowrap;}
+  @media(max-width:900px){#sensorbar{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<header>
+  <h1>TEC Rod Thermal Lab</h1>
+  <span class="sub">Peltier + rod &middot; six thermistors &middot; Phys 39</span>
+  <span class="spacer"></span>
+  <div class="seg" id="viewSeg">
+    <button id="btnNormal" class="on">Visual</button>
+    <button id="btnThermal">Thermal cam</button>
+  </div>
+  <label class="sub">speed</label>
+  <select id="speed">
+    <option value="1">1&times;</option><option value="2">2&times;</option>
+    <option value="5">5&times;</option><option value="10">10&times;</option>
+    <option value="30">30&times;</option><option value="60" selected>60&times;</option>
+  </select>
+  <button class="btn" id="btnPause">Pause</button>
+  <button class="btn" id="btnReset">Reset</button>
+  <span class="clock" id="clock">t = 0.0 s</span>
+</header>
+
+<div id="layout">
+  <div id="main">
+    <div id="viewwrap">
+      <canvas id="scene"></canvas>
+    </div>
+    <div id="rigbar">
+      <div class="rig">Material
+        <select id="material">
+          <option value="aluminum" selected>Aluminum 6061</option>
+          <option value="copper">Copper</option>
+          <option value="brass">Brass</option>
+          <option value="steel">Mild steel</option>
+          <option value="stainless">Stainless 304</option>
+          <option value="acrylic">Acrylic (insulator)</option>
+        </select>
+      </div>
+      <div class="rig">Diameter <input type="range" id="diam" min="3" max="25" step="1" value="10"><b id="diamV">10 mm</b></div>
+      <div class="rig">Length <input type="range" id="len" min="40" max="300" step="5" value="300"><b id="lenV">300 mm</b></div>
+      <div class="rig">PID sensor <b>T0 at x = 0</b></div>
+      <div class="rig" style="color:var(--dim)">Ambient <b id="ambV">22.0 °C</b>&nbsp;&middot;&nbsp;dew pt <b>11 °C</b></div>
+    </div>
+    <div id="sensorbar">
+      <div class="sensorcell" style="--sensor:#4fb3ff"><div class="sensorhead"><b>T0</b><span id="sensorPos0">0 mm</span></div><div class="sensorvalue" id="sensorRead0">22.0 °C</div></div>
+      <div class="sensorcell" style="--sensor:#57d98a"><div class="sensorhead"><b>T1</b><span id="sensorPos1">36 mm</span></div><div class="sensorvalue" id="sensorRead1">22.0 °C</div></div>
+      <div class="sensorcell" style="--sensor:#ffd166"><div class="sensorhead"><b>T2</b><span id="sensorPos2">84 mm</span></div><div class="sensorvalue" id="sensorRead2">22.0 °C</div></div>
+      <div class="sensorcell" style="--sensor:#ff8c61"><div class="sensorhead"><b>T3</b><span id="sensorPos3">144 mm</span></div><div class="sensorvalue" id="sensorRead3">22.0 °C</div></div>
+      <div class="sensorcell" style="--sensor:#c792ea"><div class="sensorhead"><b>T4</b><span id="sensorPos4">216 mm</span></div><div class="sensorvalue" id="sensorRead4">22.0 °C</div></div>
+      <div class="sensorcell" style="--sensor:#5ac8fa"><div class="sensorhead"><b>T5</b><span id="sensorPos5">285 mm</span></div><div class="sensorvalue" id="sensorRead5">22.0 °C</div></div>
+    </div>
+    <div id="chartwrap"><canvas id="chart"></canvas></div>
+  </div>
+
+  <div id="side">
+    <!-- ============ 1. RAW PWM / DIRECT DRIVE ============ -->
+    <div class="panel" id="pwmPanel">
+      <h2>PWM drive <span class="tag">H-bridge &rarr; TEC</span></h2>
+      <div class="row">
+        <input type="checkbox" id="manualChk">
+        <label for="manualChk" style="color:var(--txt)">Direct drive (manual) — overrides PID &amp; tuner</label>
+      </div>
+      <div class="row" id="manualRow">
+        <label>raw</label>
+        <input type="range" id="pwmRaw" min="0" max="255" step="1" value="0" style="flex:1" disabled>
+        <input type="checkbox" id="polChk" disabled>
+        <label for="polChk">reverse polarity</label>
+      </div>
+      <div class="pwmbar"><div class="zero"></div><div class="fill" id="pwmFill"></div></div>
+      <div class="readgrid">
+        <div class="readcell"><div class="v" id="rdRaw">0<span style="font-size:10px;color:var(--dim)">/255</span></div><div class="l">raw pwm</div></div>
+        <div class="readcell"><div class="v" id="rdPct">0.0%</div><div class="l">duty %</div></div>
+        <div class="readcell"><div class="v" id="rdDir">—</div><div class="l">direction</div></div>
+        <div class="readcell"><div class="v" id="rdV">0.00 V</div><div class="l">tec voltage</div></div>
+        <div class="readcell"><div class="v" id="rdI">0.00 A</div><div class="l">tec current</div></div>
+        <div class="readcell"><div class="v" id="rdW">0.0 W</div><div class="l">tec power</div></div>
+      </div>
+      <div class="readgrid" style="grid-template-columns:1fr 1fr">
+        <div class="readcell"><div class="v" id="rdTc">22.0 °C</div><div class="l">cold plate</div></div>
+        <div class="readcell"><div class="v" id="rdTh">22.0 °C</div><div class="l">hot side / sink</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 2. PID CONTROLLER ============ -->
+    <div class="panel" id="pidPanel">
+      <h2>PID controller <span class="tag">T0 drives PWM</span></h2>
+      <div class="row"><label>Drive</label>
+        <select id="setpointMode" style="flex:1">
+          <option value="constant">Constant setpoint</option>
+          <option value="sine" selected>Angstrom sinusoid</option>
+        </select>
+      </div>
+      <div class="row" id="constantSetpointRow" style="display:none">
+        <label>Setpoint</label>
+        <input type="range" id="spSlide" min="-20" max="60" step="0.5" value="10" style="flex:1">
+        <input type="number" id="spNum" min="-20" max="60" step="0.5" value="10"> <label>°C</label>
+      </div>
+      <div id="sineSetpointControls">
+        <div class="sineparams">
+          <label>Ta mean (°C)<input type="number" id="driveTa" value="40" step="0.5" min="-20" max="60"></label>
+          <label>Tb amplitude (°C)<input type="number" id="driveTb" value="16" step="0.5" min="0" max="30"></label>
+          <label>period (s)<input type="number" id="drivePeriod" value="200" step="5" min="5" max="3600"></label>
+        </div>
+        <div class="drivebox" id="driveEquation">Tset(t) = <b>40.0</b> + <b>16.0</b> sin(2πt / <b>200.0 s</b>)</div>
+      </div>
+      <div class="term"><input type="checkbox" id="pOn" checked><span class="sym p">P</span><input type="number" id="kp" value="8" step="0.5" min="0"><label>%/°C &nbsp;(Kp)</label></div>
+      <div class="term"><input type="checkbox" id="iOn" checked><span class="sym i">I</span><input type="number" id="ki" value="0.15" step="0.01" min="0"><label>%/(°C·s) (Ki)</label></div>
+      <div class="term"><input type="checkbox" id="dOn"><span class="sym d">D</span><input type="number" id="kd" value="15" step="1" min="0"><label>%·s/°C (Kd)</label></div>
+      <div class="mathbox" id="pidMath">—</div>
+      <div class="row">
+        <button class="btn" id="btnIntReset">Reset ∫e</button>
+        <span class="spacer"></span>
+        <select id="profileSel" style="max-width:120px"><option value="">— profiles —</option></select>
+        <input type="text" id="profileName" placeholder="name" style="width:74px">
+        <button class="btn" id="btnSaveProf">Save</button>
+        <button class="btn danger" id="btnDelProf">✕</button>
+      </div>
+    </div>
+
+    <!-- ============ 3. AUTO-TUNING ============ -->
+    <div class="panel" id="tunePanel">
+      <h2>Auto-tuning <span class="tag">system ID</span></h2>
+      <div class="row">
+        <label>Test</label>
+        <select id="tuneTest" style="flex:1">
+          <option value="step">Open-loop step response (FOPDT fit)</option>
+          <option value="relay">Relay oscillation (Åström–Hägglund)</option>
+        </select>
+      </div>
+      <div class="row" id="stepParams">
+        <label>Step size</label><input type="number" id="stepAmp" value="40" step="5" min="-100" max="100"><label>% duty</label>
+      </div>
+      <div class="row" id="relayParams" style="display:none">
+        <label>Relay ±</label><input type="number" id="relayAmp" value="35" step="5" min="5" max="100"><label>%</label>
+        <label>hyst</label><input type="number" id="relayHyst" value="0.3" step="0.1" min="0.05"><label>°C</label>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="btnTune">Run test</button>
+        <button class="btn danger" id="btnTuneAbort" disabled>Abort</button>
+        <span class="hint" style="margin:0">tip: raise sim speed first</span>
+      </div>
+      <div class="status" id="tuneStatus"></div>
+      <div class="idbox" id="tuneId" style="display:none"></div>
+      <div id="tuneResults"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ================================================================
+   MATERIALS & CONSTANTS
+================================================================ */
+const MATERIALS = {
+  aluminum:{name:'Aluminum 6061', k:167, rho:2700, c:896,  color:'#a9b2bb', hi:'#e2e8ee', lo:'#6d757e'},
+  copper:  {name:'Copper',        k:390, rho:8960, c:385,  color:'#c07a4c', hi:'#f0b58a', lo:'#7c4526'},
+  brass:   {name:'Brass',         k:110, rho:8500, c:380,  color:'#c2a24e', hi:'#efd88f', lo:'#7d6528'},
+  steel:   {name:'Mild steel',    k:50,  rho:7850, c:490,  color:'#8d939b', hi:'#c4cad2', lo:'#565b62'},
+  stainless:{name:'Stainless 304',k:16,  rho:8000, c:500,  color:'#b4bac2', hi:'#e6ebf1', lo:'#767c84'},
+  acrylic: {name:'Acrylic',       k:0.19,rho:1180, c:1470, color:'#cfe5ee', hi:'#f2fbff', lo:'#8fa8b4'},
+};
+const TAMB = 22.0, DEW = 11.0;
+// TEC1-12706-ish derived params (Th=300K, Vmax=15.4, Imax=6.4, dTmax=68)
+const TEC = { S:0.0513, R:1.861, Kt:0.560, Vsup:12.0, Imax:8.0,
+              Cc:12.0,  Ch:180.0, Rhs:0.55, Gleak:0.15, hContact:15000 };
+const H_CONV = 10.0;          // W/m^2K natural convection on rod
+const SUB_DT = 0.01;          // physics substep (s)
+const PID_DT = 0.1;           // controller sample time (s)
+const SENSOR_FRACS = [0, 0.12, 0.28, 0.48, 0.72, 0.95];
+const SENSOR_COLORS = ['#4fb3ff','#57d98a','#ffd166','#ff8c61','#c792ea','#5ac8fa'];
+
+/* ================================================================
+   SIMULATION STATE
+================================================================ */
+const sim = {
+  time:0, paused:false, speed:60,
+  matKey:'aluminum', d:0.010, L:0.300,
+  N:48, dx:0, T:null, F:null,          // rod temps (°C), frost 0..1
+  Tc:TAMB, Th:TAMB,                    // TEC plate temps
+  Ts:new Float64Array(6),               // T0-T5, including thermistor lag
+  duty:0,                              // applied duty −1..1 (+ = heating rod)
+  V:0, I:0, W:0,                       // live electrical readouts
+  pidAcc:0, chartAcc:0,
+};
+function nodeCount(Lmm){ return Math.max(24, Math.min(100, Math.round(Lmm/2.5))); }
+function rebuildRod(preserve){
+  const N = nodeCount(sim.L*1000);
+  const T = new Float64Array(N), F = new Float64Array(N);
+  if(preserve && sim.T){
+    const oN = sim.N;
+    for(let i=0;i<N;i++){
+      const x = i/(N-1)*(oN-1), j = Math.min(oN-2, Math.floor(x)), f = x-j;
+      T[i] = sim.T[j]*(1-f)+sim.T[j+1]*f;
+      F[i] = sim.F[j]*(1-f)+sim.F[j+1]*f;
+    }
+  } else { T.fill(TAMB); }
+  sim.N=N; sim.T=T; sim.F=F; sim.dx=sim.L/N;
+}
+function resetSim(){
+  sim.time=0; sim.Tc=TAMB; sim.Th=TAMB; sim.Ts.fill(TAMB); sim.duty=0; sim.V=0; sim.I=0; sim.W=0;
+  rebuildRod(false);
+  pid.integ=0; pid.dFilt=0; pid.prevPV=null;
+  updateSetpoint();
+  chart.t.length=0; chart.temps.forEach(a=>a.length=0); chart.sp.length=0; chart.u.length=0;
+  tuner.abort('reset');
+}
+rebuildRod(false);
+sim.Ts.fill(TAMB);
+
+function rodTempAt(frac){
+  const x = frac*(sim.N-1), j=Math.min(sim.N-2,Math.floor(x)), f=x-j;
+  return sim.T[j]*(1-f)+sim.T[j+1]*f;
+}
+const TAU_SENSOR = 2.0;   // thermistor bead + housing lag (s)
+function sensedTemp(i=0){ return sim.Ts[i]; }
+
+/* physics: one substep of h seconds with drive duty ∈ [−1,1] (+=heat) */
+function physicsStep(h){
+  const m = MATERIALS[sim.matKey];
+  const {S,R,Kt,Vsup,Imax,Cc,Ch,Rhs,Gleak,hContact} = TEC;
+  const A = Math.PI*sim.d*sim.d/4, Gc = hContact*A;
+  const alpha = m.k/(m.rho*m.c);
+  const convC = 4*H_CONV/(m.rho*m.c*sim.d);      // 1/s
+  const dx2 = sim.dx*sim.dx, T=sim.T, F=sim.F, N=sim.N;
+  const cap = m.rho*m.c*A*sim.dx;                // J/K per node
+
+  // --- TEC electrical (duty>0 = current direction that heats the rod side)
+  let I=0, V=0;
+  if(Math.abs(sim.duty)>0.002){
+    V = sim.duty*Vsup;
+    // I>0 heats cold plate: standard eqs with cooling current = −I
+    I = (V - (-S*(sim.Th - sim.Tc)))/R;          // back-EMF opposes
+    I = Math.max(-Imax, Math.min(Imax, I));
+  }
+  const TcK = sim.Tc+273.15, ThK = sim.Th+273.15;
+  // With Ic = −I (cooling-positive convention): Qc = S·Ic·TcK − ½Ic²R − Kt(Th−Tc)
+  const Ic = -I;
+  const Qc = S*Ic*TcK - 0.5*Ic*Ic*R - Kt*(sim.Th-sim.Tc); // heat absorbed FROM cold plate
+  const Qh = S*Ic*ThK + 0.5*Ic*Ic*R - Kt*(sim.Th-sim.Tc); // heat dumped at hot side
+  sim.Tc += h*( -Qc + Gc*(T[0]-sim.Tc) + Gleak*(TAMB-sim.Tc) )/Cc;
+  sim.Th += h*(  Qh - (sim.Th-TAMB)/Rhs )/Ch;
+  sim.V=V; sim.I=I; sim.W=Math.abs(Qh-Qc);       // electrical power = Qh−Qc
+
+  // --- rod conduction (explicit)
+  const Tn = physScratch.length===N ? physScratch : (physScratch = new Float64Array(N));
+  for(let i=0;i<N;i++){
+    const Tl = i>0 ? T[i-1] : T[0], Tr = i<N-1 ? T[i+1] : T[N-1];
+    let dT = alpha*(Tl - 2*T[i] + Tr)/dx2 - convC*(T[i]-TAMB);
+    if(i===0)   dT += Gc*(sim.Tc - T[0])/cap;
+    Tn[i] = T[i] + h*dT;
+  }
+  T.set(Tn);
+
+  // --- six thermistors with identical first-order response
+  for(let i=0;i<SENSOR_FRACS.length;i++){
+    sim.Ts[i] += h*(rodTempAt(SENSOR_FRACS[i])-sim.Ts[i])/TAU_SENSOR;
+  }
+
+  // --- frost / melt
+  for(let i=0;i<N;i++){
+    const t=T[i];
+    if(t<0)        F[i] = Math.min(1, F[i] + h*Math.min(-t,12)/12/45);
+    else if(t>0.2) F[i] = Math.max(0, F[i] - h*Math.min(t,10)/10/12);
+  }
+}
+let physScratch = new Float64Array(sim.N);
+
+/* ================================================================
+   PID
+================================================================ */
+const pid = {
+  sp:10, kp:8, ki:0.15, kd:15, pOn:true, iOn:true, dOn:false,
+  integ:0, dFilt:0, prevPV:null, u:0, terms:{p:0,i:0,d:0,e:0,dpv:0},
+};
+const setpointDrive = {
+  mode:'sine', constant:10, Ta:40, Tb:16, period:200,
+};
+function updateSetpoint(){
+  if(setpointDrive.mode==='sine'){
+    const omega = 2*Math.PI/setpointDrive.period;
+    pid.sp = setpointDrive.Ta + setpointDrive.Tb*Math.sin(omega*sim.time);
+  } else {
+    pid.sp = setpointDrive.constant;
+  }
+}
+function pidStep(dt){
+  updateSetpoint();
+  const pv = sensedTemp(), e = pid.sp - pv;
+  let dpv = 0;
+  if(pid.prevPV!==null){
+    const raw = (pv-pid.prevPV)/dt;
+    const a = dt/(0.8+dt);                        // 0.8 s derivative filter
+    pid.dFilt += a*(raw-pid.dFilt); dpv = pid.dFilt;
+  }
+  pid.prevPV = pv;
+  const P = pid.pOn ? pid.kp*e : 0;
+  const D = pid.dOn ? -pid.kd*dpv : 0;
+  if(pid.iOn){
+    const uUnsat = P + pid.integ + D;
+    // conditional anti-windup: don't wind further into saturation
+    if(!((uUnsat>=100 && e>0)||(uUnsat<=-100 && e<0))) pid.integ += pid.ki*e*dt;
+    pid.integ = Math.max(-120, Math.min(120, pid.integ));
+  }
+  const Iterm = pid.iOn ? pid.integ : 0;
+  pid.u = Math.max(-100, Math.min(100, P + Iterm + D));
+  pid.terms = {p:P, i:Iterm, d:D, e, dpv};
+  return pid.u;
+}
+
+/* ================================================================
+   AUTO-TUNER
+================================================================ */
+const tuner = {
+  active:false, test:'step', phase:'', u:0, msg:'',
+  t0:0, buf:[],                 // ring of {t,pv} for steady detection
+  rec:[], pv0:0, uBase:0, amp:40,
+  relay:{d:35, h:0.3, state:1, switches:[], mins:[], maxs:[], curMin:1e9, curMax:-1e9},
+  result:null,
+  start(){
+    if(this.active) return;
+    this.test = el.tuneTest.value; this.active=true; this.buf=[]; this.rec=[];
+    this.t0 = sim.time; this.result=null;
+    if(this.test==='step'){
+      this.amp = parseFloat(el.stepAmp.value)||40;
+      this.uBase = 0; this.u = 0; this.phase='settle';
+      this.msg='settling at 0% drive…';
+    } else {
+      const r=this.relay; r.d=Math.abs(parseFloat(el.relayAmp.value))||35;
+      r.h=Math.abs(parseFloat(el.relayHyst.value))||0.3;
+      r.state = (sensedTemp()<pid.sp)?1:-1; r.switches=[]; r.mins=[]; r.maxs=[];
+      r.curMin=1e9; r.curMax=-1e9;
+      this.u = r.state*r.d; this.phase='relay';
+      this.msg='relay oscillating about SP='+pid.sp+' °C…';
+    }
+    uiTunerState();
+  },
+  abort(why){
+    if(!this.active) return;
+    this.active=false; this.u=0; this.msg = why==='reset' ? '' : 'aborted';
+    uiTunerState();
+  },
+  steady(win, tol){   // buf holds last `win` seconds
+    const t=sim.time;
+    this.buf.push({t, pv:sensedTemp()});
+    while(this.buf.length && this.buf[0].t < t-win) this.buf.shift();
+    if(this.buf.length<5 || (t-this.buf[0].t) < win*0.9) return false;
+    let mn=1e9,mx=-1e9; for(const s of this.buf){ mn=Math.min(mn,s.pv); mx=Math.max(mx,s.pv); }
+    return (mx-mn)<tol;
+  },
+  step(dt){
+    if(!this.active) return;
+    const t = sim.time - this.t0, pv = sensedTemp();
+    if(this.test==='step'){
+      if(this.phase==='settle'){
+        this.msg = `settling… (${t.toFixed(0)} s)`;
+        if(this.steady(30,0.15) || t>600){
+          this.phase='step'; this.tStep=sim.time; this.pv0=pv;
+          this.u=this.uBase+this.amp; this.buf=[]; this.rec=[];
+          this.msg=`step ${this.amp>0?'+':''}${this.amp}% applied — recording…`;
+        }
+      } else if(this.phase==='step'){
+        const ts = sim.time-this.tStep;
+        this.rec.push({t:ts, pv});
+        this.msg=`step response… ${ts.toFixed(0)} s, ΔT=${(pv-this.pv0).toFixed(2)} °C`;
+        if((ts>60 && this.steady(40,0.12)) || ts>1500){ this.finishStep(); }
+      }
+    } else { // relay
+      const r=this.relay;
+      r.curMin=Math.min(r.curMin,pv); r.curMax=Math.max(r.curMax,pv);
+      if(r.state===1 && pv > pid.sp + r.h){
+        r.state=-1; r.switches.push(sim.time); r.maxs.push(r.curMax); r.curMax=-1e9;
+      } else if(r.state===-1 && pv < pid.sp - r.h){
+        r.state=1; r.switches.push(sim.time); r.mins.push(r.curMin); r.curMin=1e9;
+      }
+      this.u = r.state*r.d;
+      const cyc = Math.floor(r.switches.length/2);
+      this.msg=`relay: ${cyc} half-period pairs, PV=${pv.toFixed(2)} °C`;
+      if(r.switches.length>=9){
+        const sw=r.switches, periods=[];
+        for(let i=sw.length-1; i>=2 && periods.length<3; i--) periods.push(sw[i]-sw[i-2]);
+        const Pu = periods.reduce((a,b)=>a+b,0)/periods.length;
+        const spread = Math.max(...periods)-Math.min(...periods);
+        if(spread < 0.1*Pu){ this.finishRelay(Pu); return; }
+      }
+      if(t>2500){ this.abort(); this.msg='relay: no stable oscillation (2500 s) — aborted'; uiTunerState(); }
+    }
+  },
+  finishStep(){
+    const rec=this.rec, pvInf=rec.slice(-Math.max(5,rec.length>>4)).reduce((a,s)=>a+s.pv,0)/Math.max(5,rec.length>>4);
+    const dPV = pvInf-this.pv0;
+    this.active=false; this.u=0;
+    if(Math.abs(dPV)<0.8){ this.msg='response too small ('+dPV.toFixed(2)+' °C) — increase step size'; uiTunerState(); return; }
+    const cross=f=>{ const tgt=this.pv0+f*dPV;
+      for(const s of rec){ if((dPV>0&&s.pv>=tgt)||(dPV<0&&s.pv<=tgt)) return s.t; } return null; };
+    // apparent dead time from the 3.5% crossing (robust for S-shaped responses,
+    // where the classic 28/63 two-point method drives L negative)
+    const t035=cross(0.035), t63=cross(0.632);
+    if(t035===null||t63===null||t63<=t035){ this.msg='fit failed — could not locate 3.5/63% crossings'; uiTunerState(); return; }
+    const tauEst=t63-t035;
+    const Lg=Math.max(0.2, t035-0.036*tauEst);   // back out the FOPDT 3.5%-point offset
+    const tau=Math.max(1, t63-Lg), Kg=dPV/this.amp;
+    this.result={kind:'step', K:Kg, tau, L:Lg, dPV, pvInf};
+    this.msg=`done — FOPDT fit complete (ΔT=${dPV.toFixed(1)} °C)`;
+    renderTuneResults(); uiTunerState();
+  },
+  finishRelay(Pu){
+    const r=this.relay;
+    const last=a=>a.slice(-3).reduce((x,y)=>x+y,0)/Math.min(3,a.length);
+    const a=(last(r.maxs)-last(r.mins))/2;
+    this.active=false; this.u=0;
+    if(!(a>0)){ this.msg='relay fit failed'; uiTunerState(); return; }
+    const Ku=4*r.d/(Math.PI*a);
+    this.result={kind:'relay', Ku, Pu, a};
+    this.msg=`done — Ku=${Ku.toFixed(2)}, Pu=${Pu.toFixed(1)} s`;
+    renderTuneResults(); uiTunerState();
+  },
+};
+
+/* tuning rule tables — all output parallel gains: Ki=Kp/Ti, Kd=Kp·Td */
+function methodsFromFOPDT(K,tau,L){
+  const r=L/tau, iK=1/K, TL=tau/L;
+  const rows=[];
+  const add=(name,Kp,Ti,Td)=>rows.push({name, kp:Kp, ki:Ti?Kp/Ti:0, kd:Td?Kp*Td:0, hasI:!!Ti, hasD:!!Td});
+  add('Ziegler–Nichols P',      iK*TL, null, null);
+  add('Ziegler–Nichols PI',     0.9*iK*TL, L/0.3, null);
+  add('Ziegler–Nichols PID',    1.2*iK*TL, 2*L, 0.5*L);
+  add('Cohen–Coon P',           iK*TL*(1+r/3), null, null);
+  add('Cohen–Coon PI',          iK*TL*(0.9+r/12), L*(30+3*r)/(9+20*r), null);
+  add('Cohen–Coon PID',         iK*TL*(4/3+r/4), L*(32+6*r)/(13+8*r), 4*L/(11+2*r));
+  add('AMIGO PID',              iK*(0.2+0.45*TL), L*(0.4*L+0.8*tau)/(L+0.1*tau), 0.5*L*tau/(0.3*L+tau));
+  add('CHR 0%-overshoot PID',   0.6*iK*TL, tau, 0.5*L);
+  add('SIMC PI (τc=L)',         iK*tau/(2*L), Math.min(tau,8*L), null);
+  return rows;
+}
+function methodsFromRelay(Ku,Pu){
+  const rows=[];
+  const add=(name,Kp,Ti,Td)=>rows.push({name, kp:Kp, ki:Ti?Kp/Ti:0, kd:Td?Kp*Td:0, hasI:!!Ti, hasD:!!Td});
+  add('Z–N closed-loop P',    0.5*Ku, null, null);
+  add('Z–N closed-loop PI',   0.45*Ku, Pu/1.2, null);
+  add('Z–N classic PID',      0.6*Ku, Pu/2, Pu/8);
+  add('Pessen integral PID',  0.7*Ku, 0.4*Pu, 0.15*Pu);
+  add('Some-overshoot PID',   0.33*Ku, Pu/2, Pu/3);
+  add('No-overshoot PID',     0.2*Ku, Pu/2, Pu/3);
+  add('Tyreus–Luyben PI',     0.31*Ku, 2.2*Pu, null);
+  add('Tyreus–Luyben PID',    0.45*Ku, 2.2*Pu, Pu/6.3);
+  return rows;
+}
+
+/* ================================================================
+   DRIVE ARBITRATION
+================================================================ */
+const drive = { manual:false, raw:0, rev:false };
+function currentDuty(){
+  if(drive.manual) return (drive.rev?-1:1)*drive.raw/255;
+  if(tuner.active) return Math.max(-1,Math.min(1,tuner.u/100));
+  return pid.u/100;
+}
+
+/* ================================================================
+   MAIN LOOP
+================================================================ */
+function advance(simDt){
+  let remaining = simDt, guard=0;
+  while(remaining>1e-9 && guard<12000){
+    const h=Math.min(SUB_DT, remaining);
+    sim.pidAcc+=h; sim.chartAcc+=h;
+    if(sim.pidAcc>=PID_DT){
+      const dt=sim.pidAcc; sim.pidAcc=0;
+      pidStep(dt);
+      tuner.step(dt);
+      sim.duty=currentDuty();
+    }
+    physicsStep(h);
+    sim.time+=h;
+    if(sim.chartAcc>=0.25){ sim.chartAcc=0; chartPush(); }
+    remaining-=h; guard++;
+  }
+}
+/* physics on a wall-clock interval (rAF gets throttled in embedded panes) */
+let lastTick=performance.now();
+setInterval(()=>{
+  const now=performance.now(), dt=Math.min(0.5,(now-lastTick)/1000);
+  lastTick=now;
+  if(!sim.paused) advance(dt*sim.speed);
+},40);
+function raf(){
+  drawScene(); drawChart(); uiRefresh();
+  requestAnimationFrame(raf);
+}
+
+/* ================================================================
+   RENDERING — SCENE
+================================================================ */
+const sceneCv=document.getElementById('scene'), sctx=sceneCv.getContext('2d');
+const chartCv=document.getElementById('chart'), cctx=chartCv.getContext('2d');
+let viewMode='normal';
+function fitCanvas(cv){
+  const r=cv.getBoundingClientRect(), dpr=devicePixelRatio||1;
+  if(cv.width!==Math.round(r.width*dpr)||cv.height!==Math.round(r.height*dpr)){
+    cv.width=Math.round(r.width*dpr); cv.height=Math.round(r.height*dpr);
+  }
+  return {w:r.width,h:r.height,dpr};
+}
+/* ironbow palette LUT */
+const IRON=[[0,0,10],[32,0,140],[145,0,156],[226,43,0],[255,143,0],[255,217,0],[255,255,255]];
+const ironLUT=[];
+for(let i=0;i<256;i++){
+  const x=i/255*(IRON.length-1), j=Math.min(IRON.length-2,Math.floor(x)), f=x-j;
+  const c=IRON[j].map((v,ch)=>Math.round(v+(IRON[j+1][ch]-v)*f));
+  ironLUT.push(`rgb(${c[0]},${c[1]},${c[2]})`);
+}
+const TMIN=-25, TMAX=65;
+function ironColor(t){ return ironLUT[Math.max(0,Math.min(255,Math.round((t-TMIN)/(TMAX-TMIN)*255)))]; }
+
+/* deterministic per-node frost speckles */
+function speckles(i,n){
+  const out=[]; let s=(i*2654435761)>>>0;
+  const rnd=()=>{ s^=s<<13; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
+  for(let k=0;k<n;k++) out.push([rnd(),rnd(),rnd()]);
+  return out;
+}
+const speckleCache={};
+function nodeSpeckles(i){ return speckleCache[i]||(speckleCache[i]=speckles(i,7)); }
+
+let geom={};  // computed layout for hit-testing
+function drawScene(){
+  const {w,h,dpr}=fitCanvas(sceneCv);
+  sctx.setTransform(dpr,0,0,dpr,0,0);
+  const thermal=viewMode==='thermal';
+  // background
+  if(thermal){ sctx.fillStyle=ironColor(TAMB-3); sctx.fillRect(0,0,w,h); }
+  else{ const g=sctx.createLinearGradient(0,0,0,h); g.addColorStop(0,'#161a21'); g.addColorStop(1,'#0b0d11'); sctx.fillStyle=g; sctx.fillRect(0,0,w,h); }
+
+  const Lmm=sim.L*1000, dmm=sim.d*1000;
+  const s=Math.max(1.2,Math.min(6,(w-190)/(46+Lmm)));
+  const cy=h*0.46;
+  const hsW=20*s, hsH=Math.min(h*0.5,Math.max(110,52*s)), tecW=9*s, tecH=Math.min(hsH*0.82,42*s);
+  let x=Math.max(30,(w-(hsW+tecW+Lmm*s))/2);
+  const hsX=x, tecX=hsX+hsW, rodX=tecX+tecW, rodW=Lmm*s, rodH=Math.max(4,dmm*s);
+  geom={rodX,rodW,cy,rodH,s};
+
+  // --- heatsink
+  if(thermal){
+    const g=sctx.createLinearGradient(hsX,0,tecX,0);
+    g.addColorStop(0,ironColor(TAMB+(sim.Th-TAMB)*0.3)); g.addColorStop(1,ironColor(sim.Th));
+    sctx.fillStyle=g;
+  } else sctx.fillStyle='#3f4652';
+  sctx.fillRect(tecX-6*s,cy-hsH/2,6*s,hsH); // base plate
+  for(let i=0;i<9;i++){
+    const fy=cy-hsH/2 + i*(hsH-3)/8;
+    if(thermal) sctx.fillStyle=ironColor(TAMB+(sim.Th-TAMB)*(0.25+0.5*(1-Math.abs(i-4)/4)));
+    else sctx.fillStyle= i%2? '#3a414c':'#454d59';
+    sctx.fillRect(hsX,fy,hsW-6*s,3.2);
+  }
+  // --- TEC ceramic sandwich (hot half left / cold half right)
+  if(thermal){
+    sctx.fillStyle=ironColor(sim.Th); sctx.fillRect(tecX,cy-tecH/2,tecW/2,tecH);
+    sctx.fillStyle=ironColor(sim.Tc); sctx.fillRect(tecX+tecW/2,cy-tecH/2,tecW/2,tecH);
+  } else {
+    sctx.fillStyle='#e8e6df'; sctx.fillRect(tecX,cy-tecH/2,tecW,tecH);
+    sctx.fillStyle='#c9c6bc';
+    for(let i=0;i<6;i++) sctx.fillRect(tecX+tecW*0.25,cy-tecH/2+4+i*(tecH-8)/5,tecW*0.5,2);
+    // wires
+    sctx.strokeStyle='#c33'; sctx.lineWidth=2; sctx.beginPath();
+    sctx.moveTo(tecX+2,cy-tecH/2); sctx.bezierCurveTo(tecX-8,cy-tecH/2-26,tecX-24,cy-tecH/2-30,tecX-30,cy-tecH/2-46); sctx.stroke();
+    sctx.strokeStyle='#333a44'; sctx.beginPath();
+    sctx.moveTo(tecX+6,cy-tecH/2); sctx.bezierCurveTo(tecX,cy-tecH/2-30,tecX-14,cy-tecH/2-36,tecX-20,cy-tecH/2-50); sctx.stroke();
+  }
+
+  // --- rod
+  const N=sim.N, segW=rodW/N;
+  if(thermal){
+    for(let i=0;i<N;i++){ sctx.fillStyle=ironColor(sim.T[i]); sctx.fillRect(rodX+i*segW-0.5,cy-rodH/2,segW+1,rodH); }
+  } else {
+    const m=MATERIALS[sim.matKey];
+    const g=sctx.createLinearGradient(0,cy-rodH/2,0,cy+rodH/2);
+    g.addColorStop(0,m.lo); g.addColorStop(0.28,m.hi); g.addColorStop(0.55,m.color); g.addColorStop(1,m.lo);
+    sctx.fillStyle=g; sctx.fillRect(rodX,cy-rodH/2,rodW,rodH);
+    // condensation sheen (below dew point, above freezing)
+    for(let i=0;i<N;i++){
+      const t=sim.T[i];
+      if(t<DEW && t>=-0.5 && sim.F[i]<0.25){
+        sctx.fillStyle=`rgba(140,190,230,${0.28*Math.min(1,(DEW-t)/DEW)})`;
+        sctx.fillRect(rodX+i*segW,cy-rodH/2,segW+0.5,rodH);
+      }
+    }
+    // frost: white fuzzy layer growing outward
+    for(let i=0;i<N;i++){
+      const f=sim.F[i]; if(f<=0.01) continue;
+      const wet = sim.T[i]>0;   // melting → wet translucent look
+      const pad=f*(2+rodH*0.28);
+      sctx.fillStyle=wet?`rgba(210,235,255,${0.5*f})`:`rgba(245,250,255,${0.32+0.55*f})`;
+      sctx.fillRect(rodX+i*segW-0.5,cy-rodH/2-pad,segW+1,rodH+2*pad);
+      const sp=nodeSpeckles(i);
+      sctx.fillStyle=wet?`rgba(230,245,255,${0.4*f})`:`rgba(255,255,255,${0.65*f})`;
+      for(let k=0;k<Math.round(f*7);k++){
+        const [a,b,r]=sp[k];
+        sctx.beginPath();
+        sctx.arc(rodX+i*segW+a*segW, cy-rodH/2-pad+ b*(rodH+2*pad), 0.8+r*1.6, 0, 7);
+        sctx.fill();
+      }
+      if(wet){ // drip line under melting frost
+        sctx.fillStyle=`rgba(150,200,240,${0.5*f})`;
+        sctx.fillRect(rodX+i*segW+segW*0.4, cy+rodH/2+pad, 1.4, 3+4*f);
+      }
+    }
+    // end cap
+    sctx.fillStyle=m.lo; sctx.fillRect(rodX+rodW-1.5,cy-rodH/2,1.5,rodH);
+  }
+
+  // --- six fixed thermistors
+  SENSOR_FRACS.forEach((frac,i)=>{
+    const px=rodX+frac*rodW;
+    const color=thermal?'#ffffff':SENSOR_COLORS[i];
+    sctx.strokeStyle=color; sctx.fillStyle=color; sctx.lineWidth=1.4;
+    sctx.beginPath(); sctx.moveTo(px,cy-rodH/2-3);
+    sctx.lineTo(px,cy-rodH/2-18-(i%2)*7); sctx.stroke();
+    sctx.beginPath(); sctx.arc(px,cy,3.4,0,Math.PI*2); sctx.fill();
+    sctx.font='600 10px '+getComputedStyle(document.body).getPropertyValue('--mono');
+    sctx.textAlign='center';
+    sctx.fillText('T'+i,px,cy-rodH/2-22-(i%2)*7);
+  });
+  sctx.textAlign='left';
+
+  // --- labels
+  sctx.fillStyle=thermal?'rgba(255,255,255,.75)':'#67718385'; sctx.font='11px sans-serif';
+  sctx.fillStyle=thermal?'rgba(255,255,255,.8)':'rgba(139,149,167,.9)';
+  sctx.fillText('heatsink',hsX,cy+hsH/2+16);
+  sctx.fillText('TEC',tecX-2,cy+tecH/2+16);
+  sctx.fillText(MATERIALS[sim.matKey].name+'  ⌀'+dmm+' mm × '+Lmm+' mm',rodX+6,cy+Math.max(rodH/2,14)+22);
+
+  if(thermal){
+    // palette bar
+    const bx=w-46, by=28, bh=h-90;
+    for(let i=0;i<bh;i++){ sctx.fillStyle=ironLUT[Math.round(255*(1-i/bh))]; sctx.fillRect(bx,by+i,14,1.5); }
+    sctx.strokeStyle='rgba(255,255,255,.5)'; sctx.strokeRect(bx-0.5,by-0.5,15,bh+1);
+    sctx.fillStyle='#fff'; sctx.font='10.5px '+getComputedStyle(document.body).getPropertyValue('--mono');
+    for(const tv of [-20,0,20,40,60]){
+      const ty=by+bh*(1-(tv-TMIN)/(TMAX-TMIN));
+      sctx.fillText(tv+'°',bx+18,ty+3.5);
+      sctx.fillRect(bx+14,ty,3,1);
+    }
+    sctx.fillStyle='rgba(255,255,255,.85)'; sctx.font='11px sans-serif';
+    sctx.fillText('IRONBOW  •  −25…65 °C',14,20);
+    sctx.fillText('SIM-IR 640',w-100,h-14);
+  } else {
+    sctx.fillStyle='rgba(139,149,167,.7)'; sctx.font='11px sans-serif';
+    sctx.fillText('ambient '+TAMB.toFixed(0)+' °C',14,20);
+  }
+}
+
+/* ================================================================
+   CHART (six thermistors + setpoint + PWM% over time)
+================================================================ */
+const chart={t:[],temps:SENSOR_FRACS.map(()=>[]),sp:[],u:[],max:4800};
+function chartPush(){
+  chart.t.push(sim.time);
+  chart.temps.forEach((a,i)=>a.push(sensedTemp(i)));
+  chart.sp.push(pid.sp); chart.u.push(sim.duty*100);
+  if(chart.t.length>chart.max){
+    chart.t.shift(); chart.temps.forEach(a=>a.shift()); chart.sp.shift(); chart.u.shift();
+  }
+}
+function drawChart(){
+  const {w,h,dpr}=fitCanvas(chartCv);
+  cctx.setTransform(dpr,0,0,dpr,0,0);
+  cctx.fillStyle='#1d2129'; cctx.fillRect(0,0,w,h);
+  const mL=46,mR=44,mT=20,mB=22, pw=w-mL-mR, ph=h-mT-mB;
+  cctx.strokeStyle='#323a48'; cctx.strokeRect(mL+0.5,mT+0.5,pw,ph);
+  const n=chart.t.length;
+  cctx.font='10.5px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  cctx.fillStyle='#8b95a7'; cctx.fillText('°C',mL,13);
+  SENSOR_COLORS.forEach((color,i)=>{ cctx.fillStyle=color; cctx.fillText('— T'+i,mL+24+i*38,13); });
+  cctx.fillStyle='#ff6a4d'; cctx.fillText('--- SP',mL+258,13);
+  cctx.fillStyle='#b7a36b'; cctx.fillText('— PWM% (right)',mL+306,13);
+  if(n<2) return;
+  const t0=chart.t[0], t1=chart.t[n-1], span=Math.max(10,t1-t0);
+  let lo=1e9,hi=-1e9;
+  for(let i=0;i<n;i++){
+    lo=Math.min(lo,chart.sp[i]); hi=Math.max(hi,chart.sp[i]);
+    chart.temps.forEach(a=>{lo=Math.min(lo,a[i]); hi=Math.max(hi,a[i]);});
+  }
+  const pad=Math.max(1.5,(hi-lo)*0.12); lo-=pad; hi+=pad;
+  const X=t=>mL+ (t-t0)/span*pw, Y=v=>mT+ (1-(v-lo)/(hi-lo))*ph, YU=u=>mT+(1-(u+100)/200)*ph;
+  // gridlines
+  cctx.fillStyle='#5a6373';
+  const step=niceStep((hi-lo)/5);
+  for(let v=Math.ceil(lo/step)*step; v<hi; v+=step){
+    cctx.strokeStyle='rgba(80,90,110,.18)'; cctx.beginPath(); cctx.moveTo(mL,Y(v)); cctx.lineTo(mL+pw,Y(v)); cctx.stroke();
+    cctx.fillText(v.toFixed(step<1?1:0),6,Y(v)+3.5);
+  }
+  const tstep=niceStep(span/6);
+  for(let tt=Math.ceil(t0/tstep)*tstep; tt<t1; tt+=tstep){
+    cctx.strokeStyle='rgba(80,90,110,.12)'; cctx.beginPath(); cctx.moveTo(X(tt),mT); cctx.lineTo(X(tt),mT+ph); cctx.stroke();
+    cctx.fillText(fmtTime(tt),X(tt)-14,h-7);
+  }
+  // right axis PWM
+  cctx.fillStyle='#7a6a3a';
+  for(const uv of [-100,0,100]) cctx.fillText((uv>0?'+':'')+uv+'%',mL+pw+5,YU(uv)+3.5);
+  // PWM trace
+  cctx.strokeStyle='rgba(255,209,102,.55)'; cctx.lineWidth=1; cctx.beginPath();
+  for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=YU(chart.u[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
+  cctx.stroke();
+  // SP
+  cctx.strokeStyle='#ff6a4d'; cctx.setLineDash([5,4]); cctx.lineWidth=1.2; cctx.beginPath();
+  for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=Y(chart.sp[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
+  cctx.stroke(); cctx.setLineDash([]);
+  // T0-T5
+  chart.temps.forEach((a,j)=>{
+    cctx.strokeStyle=SENSOR_COLORS[j]; cctx.lineWidth=j===0?2.1:1.55; cctx.beginPath();
+    for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=Y(a[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
+    cctx.stroke();
+  });
+}
+function niceStep(x){ const p=Math.pow(10,Math.floor(Math.log10(x))); const m=x/p;
+  return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p; }
+function fmtTime(s){ return s<120? s.toFixed(0)+'s' : (s/60).toFixed(1)+'m'; }
+
+/* ================================================================
+   UI WIRING
+================================================================ */
+const $=id=>document.getElementById(id);
+const el={ material:$('material'), diam:$('diam'), len:$('len'),
+  speed:$('speed'), manualChk:$('manualChk'), pwmRaw:$('pwmRaw'), polChk:$('polChk'),
+  setpointMode:$('setpointMode'), spSlide:$('spSlide'), spNum:$('spNum'),
+  driveTa:$('driveTa'), driveTb:$('driveTb'), drivePeriod:$('drivePeriod'),
+  kp:$('kp'), ki:$('ki'), kd:$('kd'),
+  pOn:$('pOn'), iOn:$('iOn'), dOn:$('dOn'),
+  tuneTest:$('tuneTest'), stepAmp:$('stepAmp'), relayAmp:$('relayAmp'), relayHyst:$('relayHyst'),
+  profileSel:$('profileSel'), profileName:$('profileName') };
+
+$('btnNormal').onclick=()=>{viewMode='normal'; $('btnNormal').classList.add('on'); $('btnThermal').classList.remove('on');};
+$('btnThermal').onclick=()=>{viewMode='thermal'; $('btnThermal').classList.add('on'); $('btnNormal').classList.remove('on');};
+el.speed.onchange=()=>sim.speed=+el.speed.value;
+$('btnPause').onclick=function(){ sim.paused=!sim.paused; this.textContent=sim.paused?'Run':'Pause'; };
+$('btnReset').onclick=()=>{ resetSim(); };
+
+el.material.onchange=()=>{ sim.matKey=el.material.value; rebuildRod(true); };
+el.diam.oninput=()=>{ sim.d=+el.diam.value/1000; $('diamV').textContent=el.diam.value+' mm'; };
+el.len.oninput=()=>{ sim.L=+el.len.value/1000; $('lenV').textContent=el.len.value+' mm'; rebuildRod(true); updateSensorLabels(); };
+function updateSensorLabels(){
+  SENSOR_FRACS.forEach((frac,i)=>{$('sensorPos'+i).textContent=(frac*sim.L*1000).toFixed(0)+' mm';});
+}
+updateSensorLabels();
+
+el.manualChk.onchange=()=>{ drive.manual=el.manualChk.checked; uiLockPanels(); };
+el.pwmRaw.oninput=()=>drive.raw=+el.pwmRaw.value;
+el.polChk.onchange=()=>drive.rev=el.polChk.checked;
+function uiLockPanels(){
+  const m=drive.manual;
+  el.pwmRaw.disabled=!m; el.polChk.disabled=!m;
+  $('pidPanel').classList.toggle('locked', m || tuner.active);
+  $('tunePanel').classList.toggle('locked', m);
+}
+function uiTunerState(){
+  $('btnTune').disabled=tuner.active; $('btnTuneAbort').disabled=!tuner.active;
+  $('pidPanel').classList.toggle('locked', drive.manual || tuner.active);
+  $('tuneStatus').textContent=tuner.msg;
+}
+
+function syncSP(v){
+  setpointDrive.constant=Math.max(-20,Math.min(60,v));
+  el.spSlide.value=setpointDrive.constant; el.spNum.value=setpointDrive.constant;
+  if(setpointDrive.mode==='constant') pid.sp=setpointDrive.constant;
+}
+function syncSineDrive(){
+  setpointDrive.Ta=Math.max(-20,Math.min(60,+el.driveTa.value||0));
+  setpointDrive.Tb=Math.max(0,Math.min(30,+el.driveTb.value||0));
+  setpointDrive.period=Math.max(5,Math.min(3600,+el.drivePeriod.value||200));
+  el.driveTa.value=setpointDrive.Ta;
+  el.driveTb.value=setpointDrive.Tb;
+  el.drivePeriod.value=setpointDrive.period;
+  $('driveEquation').innerHTML=`T<sub>set</sub>(t) = <b>${setpointDrive.Ta.toFixed(1)}</b> + <b>${setpointDrive.Tb.toFixed(1)}</b> sin(2πt / <b>${setpointDrive.period.toFixed(1)} s</b>)`;
+  updateSetpoint();
+}
+function syncSetpointMode(mode){
+  setpointDrive.mode=mode==='constant'?'constant':'sine';
+  el.setpointMode.value=setpointDrive.mode;
+  $('constantSetpointRow').style.display=setpointDrive.mode==='constant'?'':'none';
+  $('sineSetpointControls').style.display=setpointDrive.mode==='sine'?'':'none';
+  updateSetpoint();
+}
+el.spSlide.oninput=()=>syncSP(+el.spSlide.value);
+el.spNum.onchange=()=>syncSP(+el.spNum.value);
+el.setpointMode.onchange=()=>syncSetpointMode(el.setpointMode.value);
+el.driveTa.onchange=syncSineDrive;
+el.driveTb.onchange=syncSineDrive;
+el.drivePeriod.onchange=syncSineDrive;
+syncSP(setpointDrive.constant);
+syncSineDrive();
+syncSetpointMode(setpointDrive.mode);
+el.kp.onchange=()=>pid.kp=Math.max(0,+el.kp.value||0);
+el.ki.onchange=()=>pid.ki=Math.max(0,+el.ki.value||0);
+el.kd.onchange=()=>pid.kd=Math.max(0,+el.kd.value||0);
+el.pOn.onchange=()=>pid.pOn=el.pOn.checked;
+el.iOn.onchange=()=>{pid.iOn=el.iOn.checked; if(!pid.iOn) pid.integ=0;};
+el.dOn.onchange=()=>pid.dOn=el.dOn.checked;
+$('btnIntReset').onclick=()=>pid.integ=0;
+
+/* profiles */
+const PROF_KEY='teclab_pid_profiles';
+function loadProfiles(){ try{return JSON.parse(localStorage.getItem(PROF_KEY))||{};}catch(e){return{};} }
+function renderProfiles(){
+  const p=loadProfiles(), sel=el.profileSel, cur=sel.value;
+  sel.innerHTML='<option value="">— profiles —</option>';
+  for(const name of Object.keys(p).sort()){ const o=document.createElement('option'); o.value=o.textContent=name; sel.appendChild(o); }
+  sel.value=cur in p?cur:'';
+}
+$('btnSaveProf').onclick=()=>{
+  const name=(el.profileName.value||'').trim()||('profile-'+new Date().toISOString().slice(11,19));
+  const p=loadProfiles();
+  p[name]={kp:pid.kp,ki:pid.ki,kd:pid.kd,pOn:pid.pOn,iOn:pid.iOn,dOn:pid.dOn,
+    sp:setpointDrive.constant,setpointMode:setpointDrive.mode,Ta:setpointDrive.Ta,
+    Tb:setpointDrive.Tb,period:setpointDrive.period};
+  localStorage.setItem(PROF_KEY,JSON.stringify(p)); renderProfiles(); el.profileSel.value=name;
+};
+el.profileSel.onchange=()=>{
+  const p=loadProfiles()[el.profileSel.value]; if(!p) return;
+  applyGains(p.kp,p.ki,p.kd,p.pOn,p.iOn,p.dOn);
+  if(p.sp!==undefined) syncSP(p.sp);
+  if(p.Ta!==undefined) el.driveTa.value=p.Ta;
+  if(p.Tb!==undefined) el.driveTb.value=p.Tb;
+  if(p.period!==undefined) el.drivePeriod.value=p.period;
+  syncSineDrive();
+  syncSetpointMode(p.setpointMode||'constant');
+};
+$('btnDelProf').onclick=()=>{
+  const p=loadProfiles(); delete p[el.profileSel.value];
+  localStorage.setItem(PROF_KEY,JSON.stringify(p)); renderProfiles();
+};
+function applyGains(kp,ki,kd,pOn,iOn,dOn){
+  pid.kp=kp; pid.ki=ki; pid.kd=kd; pid.pOn=pOn; pid.iOn=iOn; pid.dOn=dOn; pid.integ=0;
+  el.kp.value=round3(kp); el.ki.value=round3(ki); el.kd.value=round3(kd);
+  el.pOn.checked=pOn; el.iOn.checked=iOn; el.dOn.checked=dOn;
+}
+function round3(x){ return Math.abs(x)>=100?x.toFixed(1):Math.abs(x)>=1?x.toFixed(2):x.toFixed(4).replace(/0+$/,'').replace(/\.$/,''); }
+renderProfiles();
+
+/* tuner UI */
+el.tuneTest.onchange=()=>{
+  $('stepParams').style.display=el.tuneTest.value==='step'?'':'none';
+  $('relayParams').style.display=el.tuneTest.value==='relay'?'':'none';
+};
+$('btnTune').onclick=()=>tuner.start();
+$('btnTuneAbort').onclick=()=>tuner.abort();
+function renderTuneResults(){
+  const r=tuner.result; if(!r) return;
+  const idb=$('tuneId'); idb.style.display='';
+  let rows;
+  if(r.kind==='step'){
+    idb.innerHTML=`FOPDT fit:&nbsp; K=${r.K.toFixed(3)} °C/% &nbsp; τ=${r.tau.toFixed(1)} s &nbsp; L=${r.L.toFixed(1)} s`;
+    rows=methodsFromFOPDT(r.K,r.tau,r.L);
+  } else {
+    idb.innerHTML=`Relay fit:&nbsp; Ku=${r.Ku.toFixed(2)} %/°C &nbsp; Pu=${r.Pu.toFixed(1)} s &nbsp; a=${r.a.toFixed(2)} °C`;
+    rows=methodsFromRelay(r.Ku,r.Pu);
+  }
+  let html='<table class="tune"><tr><th>method</th><th>Kp</th><th>Ki</th><th>Kd</th><th></th></tr>';
+  rows.forEach((m,i)=>{
+    html+=`<tr><td>${m.name}</td><td>${round3(m.kp)}</td><td>${m.hasI?round3(m.ki):'—'}</td><td>${m.hasD?round3(m.kd):'—'}</td>
+    <td><button data-i="${i}">use</button></td></tr>`;
+  });
+  html+='</table>';
+  $('tuneResults').innerHTML=html;
+  $('tuneResults').querySelectorAll('button').forEach(b=>{
+    b.onclick=()=>{ const m=rows[+b.dataset.i]; applyGains(Math.abs(m.kp),Math.abs(m.ki),Math.abs(m.kd),true,m.hasI,m.hasD); };
+  });
+}
+
+/* live readouts */
+function uiRefresh(){
+  $('clock').textContent='t = '+(sim.time<600?sim.time.toFixed(1)+' s':(sim.time/60).toFixed(1)+' min');
+  SENSOR_FRACS.forEach((_,i)=>{$('sensorRead'+i).textContent=sensedTemp(i).toFixed(1)+' °C';});
+  const dutyPct=sim.duty*100, raw=Math.round(Math.abs(sim.duty)*255);
+  $('rdRaw').innerHTML=raw+'<span style="font-size:10px;color:var(--dim)">/255</span>';
+  $('rdPct').textContent=(dutyPct>=0?'+':'')+dutyPct.toFixed(1)+'%';
+  $('rdDir').textContent= raw===0?'—': dutyPct>0?'HEAT':'COOL';
+  $('rdDir').style.color= raw===0?'var(--dim)': dutyPct>0?'var(--hot)':'var(--cold)';
+  $('rdV').textContent=sim.V.toFixed(2)+' V';
+  $('rdI').textContent=sim.I.toFixed(2)+' A';
+  $('rdW').textContent=sim.W.toFixed(1)+' W';
+  $('rdTc').textContent=sim.Tc.toFixed(1)+' °C';
+  $('rdTh').textContent=sim.Th.toFixed(1)+' °C';
+  const fill=$('pwmFill');
+  if(dutyPct>=0){ fill.style.left='50%'; fill.style.width=(dutyPct/2)+'%'; fill.style.background='var(--hot)'; }
+  else { fill.style.width=(-dutyPct/2)+'%'; fill.style.left=(50+dutyPct/2)+'%'; fill.style.background='var(--cold)'; }
+  // pid math
+  const t=pid.terms, pv=sensedTemp();
+  const src = drive.manual?'[MANUAL drives]': tuner.active?'[TUNER drives]':'[→ PWM]';
+  $('pidMath').innerHTML=
+`e  = SP − PV = ${pid.sp.toFixed(1)} − ${pv.toFixed(2)} = <b>${t.e.toFixed(2)}</b> °C
+<span class="mp">P  = ${pid.pOn?`${round3(pid.kp)} × ${t.e.toFixed(2)} = ${t.p.toFixed(1)}%`:'(off)'}</span>
+<span class="mi">I  = ${pid.iOn?`${round3(pid.ki)} × ∫e dt = ${t.i.toFixed(1)}%`:'(off)'}</span>
+<span class="md">D  = ${pid.dOn?`−${round3(pid.kd)} × dPV/dt(${t.dpv.toFixed(3)}) = ${t.d.toFixed(1)}%`:'(off)'}</span>
+<span class="mu">u  = ${pid.u.toFixed(1)}%  →  PWM ${Math.round(Math.abs(pid.u)/100*255)}/255 ${pid.u>=0?'HEAT':'COOL'}</span> ${src}`;
+}
+
+uiLockPanels();
+requestAnimationFrame(raf);
+</script>
+</body>
+</html>

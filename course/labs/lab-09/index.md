@@ -204,6 +204,90 @@ features remain the same, which change with distance, and what a shorter drive
 period should do to the attenuation and phase lag. Return to this sketch after
 the derivation and pilot run.
 
+### Preview The Six-Sensor Angstrom Experiment
+
+Open the [interactive six-sensor Angstrom simulator](../../simulators/angstrom-six-sensor/).
+This version extends the finite-rod simulator used in Module 7. Select the
+Angstrom sinusoidal drive and begin with
+
+\[
+T_{\mathrm{set}}(t)=T_a+T_b\sin(\omega t),
+\qquad
+T_a=40^\circ\mathrm{C},\quad
+T_b=16^\circ\mathrm{C},\quad
+\tau=200\ \mathrm{s}.
+\]
+
+The simulator displays the driven temperature and the live responses at six
+positions along the finite rod. Compare their amplitudes and phase delays, and
+then change the forcing period to predict which sensor positions will provide
+measurable signals in the physical experiment. The simulator labels its six
+modeled rod positions `T0`-`T5`; in the apparatus, the embedded `TEC` sensor is
+separate and the five rod sensors are named `T1`-`T5`.
+
+**Suggested simulation-only exploration.** The initial run now uses these
+settings. Let the response settle into a repeatable periodic state:
+
+\[
+T_a=40^\circ\mathrm{C},\qquad
+T_b=16^\circ\mathrm{C},\qquad
+\tau=200\ \mathrm{s},
+\]
+
+This simulated setpoint ranges from $24^\circ\mathrm{C}$ to $56^\circ\mathrm{C}$; it is
+an exploration setting, **not** permission to exceed the
+$55^\circ\mathrm{C}$ hardware limit.
+
+For each modeled position, estimate the time-averaged temperature
+$\overline{T}(x)$, oscillation amplitude $B(x)$, and phase lag relative to
+`T0`. Look for four features:
+
+1. The mean excess temperature, $\overline{T}(x)-T_\infty$, falls
+   approximately exponentially with position.
+2. The oscillation amplitude $B(x)$ also falls approximately exponentially,
+   but generally with a different decay coefficient.
+3. The phase lag increases monotonically downstream: each successive
+   temperature trace reaches corresponding points in its cycle later.
+4. Compare the PWM phase with both the requested setpoint and the temperature
+   traces. The PWM should generally lead the measured thermal response because
+   actuator effort precedes the temperature change it produces. Its phase
+   relative to the requested setpoint is not universal: it depends on the
+   controller type and gains, the TEC and rod dynamics, and any saturation. A
+   P-only command is in phase with the instantaneous error; adding the integral
+   term changes the command phase. Measure these phase relationships rather
+   than assuming that PWM always leads the setpoint.
+
+Test the two exponential statements by plotting
+$\ln[\overline{T}(x)-T_\infty]$ and $\ln B(x)$ against $x$. Compare their
+slopes, and inspect whether points near the finite tip depart systematically
+from straight lines.
+
+<details markdown="1">
+<summary>What model is being simulated?</summary>
+
+This simulator uses the same finite-difference rod and dynamic TEC model as
+the Module 7 simulator. Its rod elements obey
+
+\[
+\frac{\partial\theta}{\partial t}
+=\kappa\frac{\partial^2\theta}{\partial x^2}-\nu\theta,
+\qquad \theta=T-T_\infty,
+\]
+
+with a finite, zero-flux far tip. The TEC has separate hot- and cold-side
+thermal states and includes Peltier transport, Joule heating, internal
+conduction, rod contact, and heat-sink loss. A PID controller drives bounded
+heating and cooling PWM so that the `T0` sensor follows the requested
+sinusoidal setpoint. Each of the six displayed thermistors has the same
+first-order sensor lag.
+
+Unlike the semi-infinite analytic solution derived below, the numerical model
+retains the finite tip and actuator dynamics. It therefore lets you explore
+where the exponential amplitude and phase relations work well and where the
+ideal Angstrom assumptions begin to fail.
+
+</details>
+
 <details markdown="1">
 <summary>Full complex-exponential derivation</summary>
 

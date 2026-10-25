@@ -201,6 +201,162 @@ complete finite-rod profile
 =\frac{\cosh[m(L-x)]}{\cosh(mL)}.
 \]
 
+### Explore The Finite-Rod Model
+
+Open the [interactive TEC and finite-rod simulator](../../simulators/tec-rod-control/),
+developed by Tim Hebert, and use a constant setpoint. The simulator numerically evolves the
+one-dimensional transient conduction equation with side heat loss, a finite
+rod, and a dynamic TEC boundary. Move the probe along the rod and observe both
+the approach to steady state and the final spatial profile. Use it to predict
+which parts of the measured rod should be sensitive to the far-end boundary
+condition before fitting the experimental data.
+
+**Suggested high-gain exploration.** Place the probe at $x=0$, use
+proportional control only, and compare successively larger values of $K_p$,
+for example 8, 80, and 800. At modest gain, an overshoot can decay. At large
+gain, the simulator can instead settle into a sustained oscillation while the
+PWM repeatedly saturates or reverses. This oscillation is produced by the
+dynamic TEC actuator included in the simulator; it is absent from the ideal
+one-lump P-control model. Identify approximately where the qualitative change
+occurs, and compare the oscillation period with the thermal response times
+visible in the TEC and rod. Then hold $K_p=800$ fixed and move the probe from
+$x=0$ to a few positions farther along the rod, resetting between trials.
+Observe qualitatively that the oscillation frequency generally increases as
+the probe is moved closer to the TEC.
+
+<details markdown="1">
+<summary>What physical model is inside this simulator?</summary>
+
+The rod is divided into finite-difference elements that obey the
+one-dimensional transient heat equation
+
+\[
+\rho cA\frac{\partial T}{\partial t}
+=kA\frac{\partial^2T}{\partial x^2}-hP(T-T_\infty).
+\]
+
+The simulator does **not** substitute the analytical cosh or exponential
+solution. It replaces the axial second derivative with centered finite
+differences on 24-100 rod elements and advances the resulting coupled ordinary
+differential equations with a 0.01 s numerical substep. The TEC balances and
+thermistor equation are advanced with the same substep, while the controller
+updates every 0.1 s. The analytical stationary profiles derived in Part II are
+therefore predictions that can be compared with the numerical long-time limit,
+not formulas built into the simulation.
+
+The far tip has zero axial heat flux. The driven end is coupled to a dynamic
+TEC model. It is not an ideal heat source. The model has a cold-side
+temperature $T_c$ and hot-side temperature $T_h$, with separate heat
+capacities $C_c$ and $C_h$. A signed duty command $u$ applies the averaged
+voltage $V=uV_s$ to the TEC. The code calculates the signed current from this
+voltage, the TEC electrical resistance, and the Seebeck back-emf, then limits
+the current to the allowed range.
+
+Using the conventional current $I_c$ that is positive in the cooling
+direction, the heat absorbed at the cold side and rejected at the hot side are
+
+\[
+\dot Q_c
+=S I_c T_{c,K}-\frac{1}{2}I_c^2R-K_{\mathrm{TEC}}(T_h-T_c),
+\]
+
+\[
+\dot Q_h
+=S I_c T_{h,K}+\frac{1}{2}I_c^2R-K_{\mathrm{TEC}}(T_h-T_c).
+\]
+
+Here $S$ is the effective Seebeck coefficient, $R$ is the electrical
+resistance, $K_{\mathrm{TEC}}$ is the passive thermal conductance through the
+TEC, and the temperatures marked $K$ are absolute temperatures. The terms
+proportional to $SI_cT$ describe Peltier transport, the $I_c^2R/2$ terms split
+Joule heating between the two faces, and the final terms describe ordinary
+conduction from the hot face toward the cold face.
+
+The two TEC temperatures obey separate energy balances:
+
+\[
+C_c\frac{dT_c}{dt}
+=-\dot Q_c+G_c[T(0,t)-T_c]+G_{\mathrm{leak}}(T_\infty-T_c),
+\]
+
+\[
+C_h\frac{dT_h}{dt}
+=\dot Q_h-\frac{T_h-T_\infty}{R_{\mathrm{hs}}}.
+\]
+
+The contact conductance $G_c=h_{\mathrm{contact}}A$ couples the cold-side plate
+to the first finite-difference element of the rod. The hot side loses heat to
+the room through the heat-sink resistance $R_{\mathrm{hs}}$, while
+$G_{\mathrm{leak}}$ represents an additional cold-side leak to the room. The
+default parameters approximate a TEC1-12706-type device: $S=0.0513$ V/K,
+$R=1.861\ \Omega$, $K_{\mathrm{TEC}}=0.560$ W/K, $C_c=12$ J/K,
+$C_h=180$ J/K, $R_{\mathrm{hs}}=0.55$ K/W, and a 12 V supply. These values are
+model parameters, not measurements of the particular classroom TEC.
+
+The rod is the distributed thermal load on this two-state actuator. Its first
+element exchanges heat with $T_c$ through $G_c$; the remaining elements
+conduct heat axially and lose heat from their sides. The movable thermistor
+measures the local rod temperature through a first-order sensor response with
+a 2 s time constant. The controller samples that measured temperature every
+0.1 s and limits the signed PWM command to the range from $-100\%$ to
+$+100\%$.
+
+**High-gain P-control exploration.** Put the probe at $x=0$, turn off I and D,
+and keep all settings except $K_p$ fixed. Reset the simulation for each trial.
+Begin with $K_p=8$, then try $K_p=80$ and $K_p=800$, adding intermediate
+values to locate the transition. For each run, decide whether the response is
+monotonic, shows damped oscillations, or reaches a sustained oscillation.
+Record whether the PWM remains proportional or spends most of each cycle at
+$+100\%$ and $-100\%$, and compare the oscillation period with the visible TEC
+and rod response times.
+
+Next set $K_p=800$ and move the probe between $x=0$ and a few downstream
+positions. Reset at each position and compare only the qualitative oscillation
+rate. The oscillations are generally faster near the TEC and slower when
+feedback is based on a more distant temperature.
+
+For P control,
+
+\[
+u_{\mathrm{unsat}}=K_p[T_{\mathrm{set}}-T_s],
+\qquad
+u=\operatorname{sat}(u_{\mathrm{unsat}}).
+\]
+
+As $K_p\rightarrow\infty$, almost any nonzero error drives the command to one
+limit or the other. This is the **bang-bang limit**: full heating for one sign
+of the error and full cooling for the other. Reversing the command at the
+setpoint does not reverse the temperature immediately. Energy already stored
+in the TEC faces and rod keeps the temperature moving, so the system
+overshoots, reverses, and may form a bounded limit cycle.
+
+The phase lag is cumulative. The separate $C_c$ and $C_h$ states give the TEC
+its own two-lump actuator lag. Finite contact conductance, the distributed
+diffusion modes of the rod, the thermistor response, and digital sampling add
+further lag. Placing the probe at $x=0$ removes the additional propagation
+delay associated with measuring farther down the rod, but it does not remove
+the TEC dynamics or the rod's distributed thermal load. At sufficiently high
+loop gain, enough phase lag can make nominally negative feedback reinforce an
+oscillation at some frequency; PWM saturation then bounds its amplitude. This
+behavior is absent from the elementary one-lump P-control model, whose single
+closed-loop mode remains stable for positive parameters.
+
+Moving the probe downstream adds thermal-diffusion delay and attenuates the
+measured oscillation. The controller therefore reacts to an older, weaker
+indication of what the actuator has done; in this simulator the sustained
+oscillations generally become slower as the probe moves away from the TEC. The
+exact distance scaling is not the point here because the TEC, rod, sensor, and
+saturation dynamics all contribute. The practical control-design lesson is
+more general: place the feedback sensor close to the actuator when the goal is
+fast, stable regulation, unless the temperature at a remote location is itself
+the quantity that must be controlled.
+
+The model is intentionally idealized. It does not include every contact,
+temperature dependence, electronic delay, or three-dimensional heat-flow
+path in the physical apparatus.
+
+</details>
+
 When the far end has negligible influence over the measured region, this
 finite profile approaches the semi-infinite approximation
 

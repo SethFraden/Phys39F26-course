@@ -747,6 +747,19 @@ the useful inverse relations:</p>
 \qquad
 \nu=\kappa(q^2-q'^2).
 \]</div>
+<p>This is an important experimental advantage of the Angstrom method. Thermal
+conductivity follows directly from the product of the measured amplitude-decay
+and phase slopes:</p>
+<div class="arithmatex">\[
+\boxed{k=\rho c\kappa
+=\rho c\frac{\omega}{2qq'}}.
+\]</div>
+<p>Determining <span class="arithmatex">\(k\)</span> therefore does <strong>not</strong> require an independent measurement of
+the convective coefficient <span class="arithmatex">\(h\)</span> or the total heat lost from the rod. Such a
+measurement would be difficult because convection depends on airflow,
+orientation, surface condition, and temperature. Instead, the amplitude and
+phase measurements contain enough independent information to separate axial
+diffusion from convective side loss.</p>
 <details>
 <summary>Numerical sanity check</summary>
 <p>For example, suppose a 100-second run gives
@@ -764,11 +777,10 @@ the useful inverse relations:</p>
 <p>Use this only as a unit and order-of-magnitude check; it is not a supplied
 result for the course rod.</p>
 </details>
-<p>Amplitude attenuation and phase delay provide two independent measurements,
-allowing us to separate thermal diffusivity from lateral heat loss. Thermal
-conductivity follows from <span class="arithmatex">\(k=\rho c\kappa\)</span>, where <span class="arithmatex">\(\rho\)</span> is density in
-<span class="arithmatex">\(\mathrm{kg/m^3}\)</span> and <span class="arithmatex">\(c\)</span> is specific heat capacity in <span class="arithmatex">\(\mathrm{J/(kg\,K)}\)</span>;
-thus <span class="arithmatex">\(k\)</span> has units <span class="arithmatex">\(\mathrm{W/(m\,K)}\)</span>.</p>
+<p>The second inverse relation separately gives the side-loss rate <span class="arithmatex">\(\nu\)</span>, from
+which the convective coefficient <span class="arithmatex">\(h\)</span> can also be inferred. Here <span class="arithmatex">\(\rho\)</span> is
+density in <span class="arithmatex">\(\mathrm{kg/m^3}\)</span> and <span class="arithmatex">\(c\)</span> is specific heat capacity in
+<span class="arithmatex">\(\mathrm{J/(kg\,K)}\)</span>, so <span class="arithmatex">\(k\)</span> has units <span class="arithmatex">\(\mathrm{W/(m\,K)}\)</span>.</p>
 <p>As a check, with no lateral loss, <span class="arithmatex">\(\nu=0\)</span>, so</p>
 <div class="arithmatex">\[
 q=q'=\sqrt{\frac{\omega}{2\kappa}}.

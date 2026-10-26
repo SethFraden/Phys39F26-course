@@ -471,6 +471,22 @@ the useful inverse relations:
 \nu=\kappa(q^2-q'^2).
 \]
 
+This is an important experimental advantage of the Angstrom method. Thermal
+conductivity follows directly from the product of the measured amplitude-decay
+and phase slopes:
+
+\[
+\boxed{k=\rho c\kappa
+=\rho c\frac{\omega}{2qq'}}.
+\]
+
+Determining \(k\) therefore does **not** require an independent measurement of
+the convective coefficient \(h\) or the total heat lost from the rod. Such a
+measurement would be difficult because convection depends on airflow,
+orientation, surface condition, and temperature. Instead, the amplitude and
+phase measurements contain enough independent information to separate axial
+diffusion from convective side loss.
+
 <details markdown="1">
 <summary>Numerical sanity check</summary>
 
@@ -495,11 +511,10 @@ result for the course rod.
 
 </details>
 
-Amplitude attenuation and phase delay provide two independent measurements,
-allowing us to separate thermal diffusivity from lateral heat loss. Thermal
-conductivity follows from $k=\rho c\kappa$, where $\rho$ is density in
-$\mathrm{kg/m^3}$ and $c$ is specific heat capacity in $\mathrm{J/(kg\,K)}$;
-thus $k$ has units $\mathrm{W/(m\,K)}$.
+The second inverse relation separately gives the side-loss rate \(\nu\), from
+which the convective coefficient \(h\) can also be inferred. Here \(\rho\) is
+density in \(\mathrm{kg/m^3}\) and \(c\) is specific heat capacity in
+\(\mathrm{J/(kg\,K)}\), so \(k\) has units \(\mathrm{W/(m\,K)}\).
 
 As a check, with no lateral loss, $\nu=0$, so
 

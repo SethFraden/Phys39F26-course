@@ -118,6 +118,14 @@ uncertainties, to calculate
 k=\kappa\rho c.
 \]
 
+Because \(\kappa=\omega/(2qq')\), this determination of \(k\) uses the measured
+amplitude-decay slope, phase slope, and forcing frequency; it does not require
+an independent measurement of \(h\) or of the heat lost from the rod. This is
+experimentally valuable because convection is sensitive to airflow,
+orientation, surface condition, and temperature. The Angstrom measurement
+separates axial diffusion from convective side loss using the same temperature
+records.
+
 For rod cross-sectional area `A` and perimeter `P`, calculate
 
 \[

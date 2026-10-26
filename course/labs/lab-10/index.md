@@ -6,11 +6,27 @@ and a final test of the model.
 
 ## Purpose
 
+Module 8 has three priorities, in this order:
+
+1. **Measure six temperatures as functions of time.** The primary experimental
+   result is the synchronized record from the TEC thermistor and rod
+   thermistors `T1`-`T5`, together with the validated sensor map, any optional
+   correction coefficients, positions, units, timestamps, and run metadata.
+2. **Understand the Angstrom method.** Use amplitude decay and phase lag to
+   connect the measured temperature histories to thermal transport.
+3. **Compare experiment and theory.** Reconstruct or simulate the temperature
+   field, inspect residuals and consistency, and decide where the model
+   succeeds or fails.
+
+Part II concentrates on the third priority, but the comparison is credible
+only because Part I produced the six-channel measurement and established the
+Angstrom analysis.
+
 The final task is not merely to make a good-looking rod-temperature plot. You
 will use the Angstrom measurements to determine two physical properties:
 
 - the thermal conductivity `k` of the aluminum rod, and
-- the side heat-transfer coefficient `h` between the rod and its surroundings.
+- the convective heat-transfer coefficient `h` between the rod and room air.
 
 You will then test whether the heat equation with those parameters reproduces
 the measured temperature field.
@@ -46,7 +62,20 @@ analysis solely for presentation polish.
 
 ## Learning Objectives
 
-By the end of this module, you should be able to:
+The first three objectives preserve the Module 8 priority order. By the end of
+this module, you should be able to:
+
+1. Preserve and interpret the synchronized six-temperature record, including
+   the validated sensor map, common-bath result, any optional correction
+   coefficients, sensor positions, forcing history, units, timestamps, and
+   uncertainty.
+2. Explain how the Angstrom method converts measured amplitude decay and phase
+   lag into thermal diffusivity and side-loss rate.
+3. Compare measured and modeled \(T(x,t)\) using reconstruction, residuals,
+   frequency consistency, and separate finite-length and transverse-Biot
+   checks.
+
+To complete that comparison, you should also be able to:
 
 - carry units through the complete inference,
 - convert diffusivity and loss rate into conductivity and heat-transfer
@@ -62,11 +91,12 @@ By the end of this module, you should be able to:
 
 ## From Angstrom Fits To Physical Properties
 
-Bring forward from Module 8, Part I the immutable raw files, calibrated sensor
-map, sensor-position uncertainties, exact forcing frequency, selected settled
-intervals, fitted \(q\) and \(q'\) with uncertainty, residuals, and the code
-checkpoint that produced them. A minimum experiment provides one usable
-frequency; an extended experiment adds independently analyzed frequencies.
+Bring forward from Module 8, Part I the immutable raw files, validated sensor
+map, common-bath result, any optional correction coefficients, sensor-position
+uncertainties, exact forcing frequency, selected settled intervals, fitted
+\(q\) and \(q'\) with uncertainty, residuals, and the code checkpoint that
+produced them. A minimum experiment provides one usable frequency; an extended
+experiment adds independently analyzed frequencies.
 
 Part I produced preliminary values of \(\kappa\) and \(\nu\) so that you could
 judge whether the experiment worked. Part II turns those estimates into final,
@@ -93,6 +123,9 @@ For rod cross-sectional area `A` and perimeter `P`, calculate
 \[
 h=\frac{\nu\rho c A}{P}.
 \]
+
+Here \(h\) is the convective heat-transfer coefficient used in Newton's law of
+cooling.
 
 Report `k` in watts per meter-kelvin and `h` in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.
@@ -140,11 +173,10 @@ Discuss at least four of the following and state the expected direction of bias
 when possible:
 
 - sensor-position uncertainty,
-- thermistor calibration and thermal contact,
+- optional thermistor corrections and thermal contact,
 - room-temperature drift,
 - finite rod length and end boundary condition,
 - nonuniform side convection,
-- radiation loss,
 - non-sinusoidal or poorly tracked base temperature,
 - too few settled periods,
 - phase unwrapping,
@@ -185,7 +217,8 @@ Demonstrate C6 during S25. The `C6 Team Checkoff` Moodle receipt is due by
 The final repository must contain:
 
 - raw data and an immutable description of the run,
-- sensor map and calibration information,
+- validated sensor map, common-bath result, and any optional correction
+  coefficients,
 - runnable analysis/model code,
 - a README with exact reproduction steps,
 - amplitude, phase, residual, and measured-versus-modeled plots,

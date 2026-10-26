@@ -6,6 +6,31 @@ experiment. Continue with [Part II: Finite And Infinite Rod
 Theory](../fin-design-derivation/index.md), followed by [Part III: Rod
 Instrument And Stationary Fin](../lab-08/index.md).
 
+## Module 7 Priorities
+
+Module 7 has two priorities, in this order:
+
+1. **Build the six-thermistor instrument.** This is the primary objective of
+   the module. Establish one TEC-base thermistor and five rod thermistors as a
+   checked measurement system, then develop the Arduino acquisition and Python
+   software needed to display and record all six temperatures together. The
+   default is to use the raw readings when the six sensors agree within
+   \(1^{\circ}\mathrm{C}\) in a common bath; apply calibration corrections only
+   if that check fails.
+2. **Understand heat transport in a long, thin cylinder.** Use Fourier's law,
+   conservation of energy, side cooling, and boundary conditions to develop
+   and test the one-dimensional heat-transport model for the rod.
+
+Part I concentrates on the second priority so that the equations used to
+design and interpret the six-thermistor experiment have a clear physical
+foundation. The instrument itself is built and checked in Part III.
+
+**How to use your time.** Parts I and II are primarily work to complete at
+home. You may use up to one hour of class time to begin this theory work; then
+finish it at home and bring specific questions to class. Preserve the
+remaining laboratory time for Part III, where you will build, check, and test
+the six-thermistor instrument and its software.
+
 ## Module 7 Roadmap
 
 The three parts form one model-building and model-testing sequence:
@@ -14,13 +39,42 @@ The three parts form one model-building and model-testing sequence:
 | --- | --- | --- | --- |
 | Part I: foundations | How do a constitutive law and conservation produce a temperature equation? | Interpret Fourier's law, derive the heat equation, and establish the Biot test. | A4 Part 1 and selected C5 questions |
 | Part II: rod theory | What stationary profile follows from axial conduction, side cooling, and the end conditions? | Derive the finite-rod solution, its semi-infinite limit, and the two model-validity checks. | A4 Parts 2-4 and selected C5 questions |
-| Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Cross-calibrate the sensors, measure a non-oscillatory step response and the stationary profile, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
+| Part III: experiment | Do the assumptions and predicted profiles describe the course rod? | Check the six sensors in a common bath, calibrate only if needed, record the approach to steady state, measure the stationary profile, compare models, and inspect residuals. | C5, the formative stationary-fin record, and later C6 evidence |
 
 **Model hierarchy.** Part I derives the time-dependent heat equation while
 neglecting heat loss from the side of the rod. Part II adds distributed side
 cooling but assumes steady state, so $\partial T/\partial t=0$. Part III keeps
 the side-cooling term and restores the time derivative to describe how the rod
 approaches its stationary profile.
+
+## Two Different Approximation Questions
+
+The words **long** and **thin** describe two independent approximations. We will
+not hide them inside one general statement that the rod is "approximately
+one-dimensional."
+
+1. **Length:** Can the physical end at \(x=L\) be ignored over the part of the
+   rod we measure? We will answer this first by solving the finite-length
+   one-dimensional boundary-value problem analytically and comparing it with
+   the semi-infinite solution.
+2. **Radius:** Can temperature variation across a cross section be ignored? For
+   a circular rod, we will use
+
+   \(\displaystyle
+   \mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
+   \)
+
+   We work in the \(\mathrm{Bi}_{\perp}\ll1\) regime, where a one-dimensional
+   model is justified. If this condition fails, the one-dimensional model must
+   be rejected; a radial model is beyond the scope of this course.
+
+The next full theory treatment uses
+[Lienhard Section 4.5](../../references/lienhard-heat-transfer-textbook-v6.pdf)
+to carry out the finite-length solution and the transverse-Biot-number check.
+Each topic will combine an instructor lecture with guided self-study from the
+textbook. The accompanying
+[Module 7, Part II: Finite And Infinite Rod Theory](../fin-design-derivation/index.md)
+page develops every equation from (4.27) through (4.51).
 
 Sections 1-5 and **What To Prepare** are the required route through Part I.
 The unified-transport comparison, electrical-transient sidebar, and optional
@@ -29,8 +83,8 @@ assignments.
 
 ## Learning Objectives
 
-The objectives below are listed in priority order. By the end of Module 7,
-Part I, you should be able to:
+These are the Part I objectives supporting Module 7's second priority. By the
+end of Module 7, Part I, you should be able to:
 
 1. Explain Fourier's law as a phenomenological constitutive relation and
    combine it with local conservation of energy to derive the one-dimensional
@@ -908,32 +962,3 @@ for Parts I-III. The Part I reading, derivation work, preparation questions,
 and Problem 1.3 are already included there; do not count them again. Bring
 specific questions to class if the derivations remain unclear after the
 planned time.
-
-## Two Different Approximation Questions
-
-The words **long** and **thin** describe two independent approximations. We will
-not hide them inside one general statement that the rod is "approximately
-one-dimensional."
-
-1. **Length:** Can the physical end at \(x=L\) be ignored over the part of the
-   rod we measure? We will answer this first by solving the finite-length
-   one-dimensional boundary-value problem analytically and comparing it with
-   the semi-infinite solution.
-2. **Radius:** Can temperature variation across a cross section be ignored? For
-   a circular rod, we will use
-
-   \(\displaystyle
-   \mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
-   \)
-
-   We work in the \(\mathrm{Bi}_{\perp}\ll1\) regime, where a one-dimensional
-   model is justified. If this condition fails, the one-dimensional model must
-   be rejected; a radial model is beyond the scope of this course.
-
-The next full theory treatment uses
-[Lienhard Section 4.5](../../references/lienhard-heat-transfer-textbook-v6.pdf)
-to carry out the finite-length solution and the transverse-Biot-number check.
-Each topic will combine an instructor lecture with guided self-study from the
-textbook. The accompanying
-[Module 7, Part II: Finite And Infinite Rod Theory](../fin-design-derivation/index.md)
-page develops every equation from (4.27) through (4.51).

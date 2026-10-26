@@ -11,13 +11,29 @@ base of the aluminum rod. Thermal diffusion causes the oscillation amplitude to
 decrease and its phase to lag with distance. Measuring both effects allows you
 to separate thermal diffusion from heat loss to the air.
 
+Module 8 has three priorities, in this order:
+
+1. **Implement Angstrom method** This is the primary
+   objective. Set the TEC temperature using PI control to $T_{\mathrm{set}}(t)=T_a+T_b\sin(\omega t)$. Produce a trustworthy, synchronized record from the TEC
+   thermistor and rod thermistors `T1`-`T5`, display all six traces live, and
+   preserve the same data with the serial logger.
+2. **Understand the Angstrom method.** Connect sinusoidal thermal diffusion to
+   amplitude decay and phase lag, and use those relationships to infer thermal
+   parameters.
+3. **Compare experiment and theory.** Use fitted traces, spatial trends,
+   residuals, repeated frequencies, and the Module 7 validity checks to decide
+   how well the heat-transport model describes the rod.
+
+The sinusoidal boundary, autonomous schedule, and logger handoff are means of
+obtaining the six-temperature record required for these three objectives.
+
 ## Schedule And Due Work
 
 | Session | In class | Due |
 | --- | --- | --- |
 | S18, Mon. Nov. 2 | Three-hour live Angstrom lab: display all six thermistors in the Python GUI while recording the same serial stream on the Fermion logger | Module 8 home preparation; `P3` prediction and pilot-plan check |
-| S19, Wed. Nov. 4 | Retrieve and verify the logger file; fit pilot amplitudes and phases; build and test the autonomous frequency schedule | Pilot-analysis, logger-verification, and extended-run plan check |
-| S20, Mon. Nov. 9 | Rehearse the live-to-autonomous handoff and launch or prepare the instructor-approved extended run | Data-readiness and autonomous-run check |
+| S19, Wed. Nov. 4 | Retrieve and verify the logger file; fit pilot amplitudes and phases; build and test the autonomous frequency schedule | Pilot-analysis, logger-verification, and autonomous-run plan check |
+| S20, Mon. Nov. 9 | Demonstrate the live-to-autonomous handoff with a one-frequency schedule; launch an instructor-approved multi-frequency run only after the minimum gates pass | Data-readiness and autonomous-run check |
 | S21, Wed. Nov. 11 | Fit spatial decay and phase slopes; infer `kappa` and `nu` | **A5: Angstrom derivation and model-validity plan** |
 | S22, Mon. Nov. 16 | Repeat or extend the measurement; test frequency consistency, residuals, and model validity | `P4`; formative modeling-app check |
 
@@ -50,29 +66,29 @@ data-readiness checks below.
 
 By the end of this module, you should be able to:
 
-1. **Create the boundary:** use PI control to drive the TEC and verify a
-   sinusoidal temperature at the rod analysis base, the first hole at \(x=0\),
-   while choosing a useful forcing period.
-2. **Operate the acquisition system:** display all six thermistors live while
-   recording the same serial stream on the logger, recover and verify the
-   stored file, and execute a persistent autonomous schedule after a controlled
-   power transition.
-3. **Extract the spatial response:** fit noisy temperature data to determine
-   the amplitude-decay coefficient \(q\) and phase coefficient \(q'\), using
-   phase unwrapping and a consistent sign convention.
-4. **Infer physical parameters:** determine thermal diffusivity \(\kappa\) and
-   side-loss rate \(\nu\), with units and uncertainty.
-5. **Assess the model:** use residuals, frequency consistency, and the
-   finite-length and transverse-Biot checks from Module 7 to decide whether the
-   one-dimensional model adequately describes the retained data.
+1. **Measure all six temperature histories:** display the TEC and `T1`-`T5`
+   live, record the same serial stream on the logger, recover and verify the
+   stored file, and preserve sensor positions, units, timestamps, and run
+   metadata.
+2. **Understand and apply the Angstrom method:** create and verify a sinusoidal
+   rod-base boundary, explain why amplitude decreases and phase lag increases
+   with position, and fit the data to obtain \(q\), \(q'\), \(\kappa\), and
+   \(\nu\) with units and uncertainty.
+3. **Compare experiment and theory:** use per-sensor fits, spatial trends,
+   residuals, frequency consistency, and the finite-length and
+   transverse-Biot checks from Module 7 to judge the one-dimensional model.
+4. **Demonstrate autonomous operation:** execute a persistent frequency
+   schedule and make a controlled transition from the live GUI to the Arduino
+   and logger without losing the documented experimental protocol.
 
 ## Roadmap And Student Work
 
-The module follows one experimental argument. First predict what periodic heat
-diffusion should look like along the rod. Then derive the amplitude decay and
-phase lag, establish a sinusoidal boundary, test the analysis on a pilot run,
-and acquire the production data. Finally, infer \(\kappa\) and \(\nu\) and test
-whether the same model explains all retained sensors and forcing periods.
+The module follows one experimental argument. First establish and verify the
+six-channel measurement so that the primary result is a trustworthy set of
+temperature histories. Then use the Angstrom method to predict and extract
+amplitude decay and phase lag. Finally, compare those measurements with the
+model, infer \(\kappa\) and \(\nu\), and test whether the same theory explains
+all retained sensors and forcing periods.
 
 **Before S18:** read through the periodic solution, write down your qualitative
 predictions, and prepare proposed pilot settings and metadata. This is the
@@ -82,12 +98,14 @@ change with distance. This is a planning check, not a separate written
 submission.
 
 **In class during S18-S20:** complete the minimum acquisition, boundary,
-dual-recording, and pilot-analysis gates below. Then build and rehearse the
-autonomous schedule needed for the approved extended run.
+dual-recording, pilot-analysis, autonomous-schedule, and handoff gates below.
+The required autonomous schedule may hold one frequency. Rehearse the complete
+laptop-to-wall-power handoff even if you do not perform the extended run.
 
-**During the approved extended run:** let the autonomous Arduino execute the
-frequency schedule and preserve the complete record, including the transient
-after every frequency change. **After the production run during S21-S22:** complete the spatial fits,
+**During an approved extended run:** let the autonomous Arduino execute a
+multi-frequency schedule and preserve the complete record, including the
+transient after every frequency change. **After the production run during
+S21-S22:** complete the spatial fits,
 uncertainty and residual analysis, and model-validity checks. The `P4` check is
 a minimum successful periodic dataset, as defined below, together with sensor
 positions and units, acquisition metadata, and a rod-base waveform check. This
@@ -102,9 +120,10 @@ successful minimum Angstrom experiment.
 
 | Gate | Minimum experiment | Extended experiment |
 | --- | --- | --- |
-| Acquisition | Verify the TEC and `T1`-`T5`, their units, calibration corrections, and sensor positions | Keep the same verified sensor map for every scheduled frequency |
+| Acquisition | Verify the TEC and `T1`-`T5`, their units, common-bath result, any optional correction coefficients, and sensor positions | Keep the same validated sensor map for every scheduled frequency |
 | Boundary | Produce and document a well-tracked sinusoidal rod-base temperature, beginning with a 100-second drive | Optimize the period while keeping the waveform safe and nearly sinusoidal |
-| Dual recording | Show that the GUI and logger captured matching records and that the GUI can import the logger file | Demonstrate that the autonomous schedule and metadata survive the laptop-to-wall-power handoff |
+| Dual recording | Show that the GUI and logger captured matching records and that the GUI can import the logger file | Repeat the check for every extended-run file |
+| Autonomous operation | Store and verify a persistent one-frequency schedule, then demonstrate the documented laptop-to-wall-power handoff | Execute a persistent multi-frequency schedule and preserve every transition |
 | Usable data | Retain at least five settled cycles at one frequency with measurable amplitude and phase at three or more rod sensors | Retain usable settled intervals at two or more frequencies; include the 480-second condition only in the approved extended run |
 | Analysis | Produce per-sensor fits, \(q\), \(q'\), \(\kappa\), \(\nu\), uncertainties, and residuals for the minimum dataset | Compare independently inferred parameters across frequencies and, optionally, compare with a global \(T(x,t)\) fit |
 
@@ -114,14 +133,14 @@ fitted amplitude and phase in consecutive time windows, no systematic drift in
 the fit residuals, or agreement between consecutive groups of complete cycles.
 Do not select a settled interval merely because five cycles have elapsed.
 
-## Reuse The Calibrated Sensor Map
+## Reuse The Validated Sensor Map
 
-Module 7 established the geometry and cross-calibrated six thermistor
-measurement chains: one thermistor in the TEC base and five thermistors at
-measured positions along the 6061-T6 aluminum rod. Keep the same coordinate
-origin at the first rod hole, channel assignments, correction coefficients,
-measured diameter, analysis length \(L\) from the first hole to the tip, and
-sensor positions for the Angstrom experiment. Do not move a rod
+Module 7 established the geometry and validated six thermistor measurement
+chains: one thermistor in the TEC base and five thermistors at measured
+positions along the 6061-T6 aluminum rod. Keep the same coordinate origin at
+the first rod hole, channel assignments, common-bath result, any optional
+correction coefficients, measured diameter, analysis length \(L\) from the
+first hole to the tip, and sensor positions for the Angstrom experiment. Do not move a rod
 sensor without updating the sensor map and its position uncertainty.
 
 The thermistor embedded in the TEC measures the driven actuator, but it is not
@@ -493,6 +512,14 @@ adequate in practice.
 | \(T(0,t)\) or `T1` | Temperature at the first rod hole, which defines the analysis boundary \(x=0\) |
 | `T2`-`T5` | Temperatures at the four downstream rod sensors |
 | \(a_i\) | Mean temperature obtained by fitting rod sensor \(i\) |
+| \(B_i\) | Oscillation amplitude obtained by fitting rod sensor \(i\) |
+| \(\phi_i\) | Unwrapped phase obtained by fitting rod sensor \(i\) |
+| \(\tau\), \(\omega=2\pi/\tau\) | Forcing period and angular frequency |
+| \(q\) | Spatial amplitude-decay coefficient obtained from \(\ln B_i\) versus \(x_i\) |
+| \(q'\) | Spatial phase coefficient obtained from unwrapped \(\phi_i\) versus \(x_i\) |
+| \(\kappa\) | Thermal diffusivity inferred from \(q\), \(q'\), and \(\omega\) |
+| \(\nu\) | Convective side-loss rate inferred from \(q\), \(q'\), and \(\omega\) |
+| \(r=\chi_{\mathrm{heat}}/\chi_{\mathrm{cool}}\) | Measured heating-to-cooling response ratio used in the feedforward compensation |
 
 In this module, \(\tau\) denotes the **forcing period**. It is not the thermal
 relaxation time denoted by \(\tau\) in Module 6.
@@ -664,8 +691,9 @@ in Stage 1, adjusting them only through the documented optimization procedure.
 
 Use one three-hour laboratory block as follows:
 
-1. Verify channel names, units, sensor positions, calibration corrections, and
-   safe TEC operation before beginning the timed run.
+1. Verify channel names, units, sensor positions, the Module 7 common-bath
+   result, any optional correction coefficients, and safe TEC operation before
+   beginning the timed run.
 2. Start the Python GUI and the logger. Confirm that all six temperatures,
    setpoint, and PWM are updating plausibly.
 3. Observe the live spatial response for the remainder of the run. Record
@@ -728,11 +756,12 @@ Verify all of the following before proceeding:
 
 ## Stage 4: Build And Test The Autonomous Frequency Schedule
 
-The Python GUI controls the pilot run, but it will not be present during the
-extended run. Revise the GUI and Arduino code so the GUI can define a sequence
-of schedule steps. Each step must specify at least its duration, \(T_a\),
-\(T_b\), and either \(\omega\) or the period. The Arduino, not Python, must
-advance the schedule and calculate the setpoint during autonomous operation.
+The Python GUI controls the pilot run, but it will not be present during an
+autonomous run. Every team must revise the GUI and Arduino code so the GUI can
+define a sequence of schedule steps. Each step must specify at least its
+duration, \(T_a\), \(T_b\), and either \(\omega\) or the period. The Arduino,
+not Python, must advance the schedule and calculate the setpoint during
+autonomous operation.
 
 The schedule must remain present after Arduino power is removed. Either compile
 the approved schedule into a separately named autonomous sketch or have the GUI
@@ -747,10 +776,11 @@ the active step and forcing parameters in subsequent data records. Preserve
 the transient after each frequency change; the analysis will later identify
 the settled interval for that frequency.
 
-Before the extended run, test an accelerated version of the complete schedule
-while the GUI and logger are both attached. Demonstrate at least two automatic
-frequency changes, safe completion, and correct logger retrieval. Then restore
-the intended durations and read back or otherwise verify the final schedule.
+Before any autonomous run, test an accelerated one-frequency schedule while
+the GUI and logger are both attached. Demonstrate startup, safe completion,
+correct metadata, and logger retrieval. If you plan an extended run, also
+demonstrate at least two automatic frequency changes before restoring the
+intended durations and verifying the final schedule.
 
 For a minimum successful experiment, the autonomous schedule may hold one
 well-resolved frequency long enough to satisfy the settled-data criterion. An
@@ -775,10 +805,11 @@ not assume that every frequency settles on the same schedule.
 
 ## Stage 5: Rehearse The Live-To-Autonomous Handoff
 
-The classroom run and extended run are separate records. A short power gap will
-perturb the rod, so the extended file must retain the new startup transient and
-the analysis must exclude it until the response satisfies the stated settling
-criterion. Minimize the gap, but do not bypass a safe shutdown.
+The classroom run and autonomous run are separate records. Every team must
+demonstrate this handoff using at least a one-frequency schedule. A short power
+gap will perturb the rod, so the autonomous file must retain the new startup
+transient and the analysis must exclude it until the response satisfies the
+stated settling criterion. Minimize the gap, but do not bypass a safe shutdown.
 
 1. While still connected to the laptop, load or store the final autonomous
    schedule, read it back, and confirm the logger is receiving valid records.
@@ -849,8 +880,8 @@ tests you will use to decide whether the run is usable.
    independently for each additional frequency.
 3. Keep the rod geometry and sensor map unchanged.
 4. Record room temperature and check for drift.
-5. Preserve raw data. Apply calibration and exclusions in analysis code, not by
-   overwriting the original file.
+5. Preserve raw data. Apply any optional correction coefficients and all
+   exclusions in analysis code, not by overwriting the original file.
 6. Record every restart, file boundary, schedule transition, safety event, and
    departure from the approved protocol.
 
@@ -940,8 +971,7 @@ exclusions, approximation checks, run instructions, and AI assistance.
 
 | Learning objective | Evidence |
 | --- | --- |
-| 1. Create the boundary | `P3`, base-tracking plot, and the acquisition plan in A5 |
-| 2. Operate the acquisition system | Three-hour live display, matching GUI/logger records, logger-file import, persistent schedule demonstration, and measured handoff gap |
-| 3. Extract the spatial response | A5 derivation; pilot and production sinusoid, amplitude, and phase fits |
-| 4. Infer physical parameters | A5 inverse relations; formative app values and uncertainty for $\kappa$ and $\nu$ |
-| 5. Assess the model | `P4`, residuals, frequency consistency, Module 7 approximation checks, and the C6 explanation |
+| 1. Measure all six temperature histories | Three-hour live display, matching GUI/logger records, verified logger-file import, validated sensor map, required one-frequency autonomous schedule and handoff demonstration, and complete run metadata |
+| 2. Understand and apply the Angstrom method | `P3`, base-tracking plot, A5 derivation, and pilot and production amplitude and phase fits yielding $q$, $q'$, $\kappa$, and $\nu$ |
+| 3. Compare experiment and theory | `P4`, residuals, spatial and frequency consistency, Module 7 approximation checks, and the C6 explanation |
+| 4. Demonstrate autonomous operation | Persistent schedule demonstration, documented live-to-autonomous handoff, and measured handoff gap |

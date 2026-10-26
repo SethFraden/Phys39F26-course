@@ -166,11 +166,26 @@
 from <a href="../lab-09/">Part I: The Angstrom Method</a> into physical properties
 and a final test of the model.</p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Module 8 has three priorities, in this order:</p>
+<ol>
+<li><strong>Measure six temperatures as functions of time.</strong> The primary experimental
+   result is the synchronized record from the TEC thermistor and rod
+   thermistors <code>T1</code>-<code>T5</code>, together with the validated sensor map, any optional
+   correction coefficients, positions, units, timestamps, and run metadata.</li>
+<li><strong>Understand the Angstrom method.</strong> Use amplitude decay and phase lag to
+   connect the measured temperature histories to thermal transport.</li>
+<li><strong>Compare experiment and theory.</strong> Reconstruct or simulate the temperature
+   field, inspect residuals and consistency, and decide where the model
+   succeeds or fails.</li>
+</ol>
+<p>Part II concentrates on the third priority, but the comparison is credible
+only because Part I produced the six-channel measurement and established the
+Angstrom analysis.</p>
 <p>The final task is not merely to make a good-looking rod-temperature plot. You
 will use the Angstrom measurements to determine two physical properties:</p>
 <ul>
 <li>the thermal conductivity <code>k</code> of the aluminum rod, and</li>
-<li>the side heat-transfer coefficient <code>h</code> between the rod and its surroundings.</li>
+<li>the convective heat-transfer coefficient <code>h</code> between the rod and room air.</li>
 </ul>
 <p>You will then test whether the heat equation with those parameters reproduces
 the measured temperature field.</p>
@@ -277,7 +292,20 @@ the measured temperature field.</p>
 documentation already produced during Modules 7 and 8; do not create a second parallel
 analysis solely for presentation polish.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
-<p>By the end of this module, you should be able to:</p>
+<p>The first three objectives preserve the Module 8 priority order. By the end of
+this module, you should be able to:</p>
+<ol>
+<li>Preserve and interpret the synchronized six-temperature record, including
+   the validated sensor map, common-bath result, any optional correction
+   coefficients, sensor positions, forcing history, units, timestamps, and
+   uncertainty.</li>
+<li>Explain how the Angstrom method converts measured amplitude decay and phase
+   lag into thermal diffusivity and side-loss rate.</li>
+<li>Compare measured and modeled <span class="arithmatex">\(T(x,t)\)</span> using reconstruction, residuals,
+   frequency consistency, and separate finite-length and transverse-Biot
+   checks.</li>
+</ol>
+<p>To complete that comparison, you should also be able to:</p>
 <ul>
 <li>carry units through the complete inference,</li>
 <li>convert diffusivity and loss rate into conductivity and heat-transfer
@@ -292,11 +320,12 @@ analysis solely for presentation polish.</p>
 <li>defend the physical reasoning without relying on AI-generated prose.</li>
 </ul>
 <h2 id="from-angstrom-fits-to-physical-properties">From Angstrom Fits To Physical Properties<a class="headerlink" href="#from-angstrom-fits-to-physical-properties" title="Permanent link">&para;</a></h2>
-<p>Bring forward from Module 8, Part I the immutable raw files, calibrated sensor
-map, sensor-position uncertainties, exact forcing frequency, selected settled
-intervals, fitted <span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span> with uncertainty, residuals, and the code
-checkpoint that produced them. A minimum experiment provides one usable
-frequency; an extended experiment adds independently analyzed frequencies.</p>
+<p>Bring forward from Module 8, Part I the immutable raw files, validated sensor
+map, common-bath result, any optional correction coefficients, sensor-position
+uncertainties, exact forcing frequency, selected settled intervals, fitted
+<span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span> with uncertainty, residuals, and the code checkpoint that
+produced them. A minimum experiment provides one usable frequency; an extended
+experiment adds independently analyzed frequencies.</p>
 <p>Part I produced preliminary values of <span class="arithmatex">\(\kappa\)</span> and <span class="arithmatex">\(\nu\)</span> so that you could
 judge whether the experiment worked. Part II turns those estimates into final,
 uncertainty-qualified values of <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(h\)</span>, reconstructs the measured
@@ -316,6 +345,8 @@ k=\kappa\rho c.
 <div class="arithmatex">\[
 h=\frac{\nu\rho c A}{P}.
 \]</div>
+<p>Here <span class="arithmatex">\(h\)</span> is the convective heat-transfer coefficient used in Newton's law of
+cooling.</p>
 <p>Report <code>k</code> in watts per meter-kelvin and <code>h</code> in watts per square
 meter-kelvin. Check the dimensions explicitly before inserting numbers.</p>
 <h2 id="stage-1-parameter-table-and-uncertainty">Stage 1: Parameter Table And Uncertainty<a class="headerlink" href="#stage-1-parameter-table-and-uncertainty" title="Permanent link">&para;</a></h2>
@@ -358,11 +389,10 @@ slopes depend directly on sensor coordinates.</p>
 when possible:</p>
 <ul>
 <li>sensor-position uncertainty,</li>
-<li>thermistor calibration and thermal contact,</li>
+<li>optional thermistor corrections and thermal contact,</li>
 <li>room-temperature drift,</li>
 <li>finite rod length and end boundary condition,</li>
 <li>nonuniform side convection,</li>
-<li>radiation loss,</li>
 <li>non-sinusoidal or poorly tracked base temperature,</li>
 <li>too few settled periods,</li>
 <li>phase unwrapping,</li>
@@ -396,7 +426,8 @@ checks support the conclusions.</p>
 <p>The final repository must contain:</p>
 <ul>
 <li>raw data and an immutable description of the run,</li>
-<li>sensor map and calibration information,</li>
+<li>validated sensor map, common-bath result, and any optional correction
+  coefficients,</li>
 <li>runnable analysis/model code,</li>
 <li>a README with exact reproduction steps,</li>
 <li>amplitude, phase, residual, and measured-versus-modeled plots,</li>

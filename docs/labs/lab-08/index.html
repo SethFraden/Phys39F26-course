@@ -8,7 +8,7 @@
         <meta name="author" content="Seth Fraden">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Module 7, Part III: Rod Instrument, Step Response, And Stationary Fin - Phys 39 | Instrumentation and Thermal Physics</title>
+        <title>Module 7, Part III: Rod Instrument And Stationary Fin - Phys 39 | Instrumentation and Thermal Physics</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -104,11 +104,11 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#module-7-part-iii-rod-instrument-step-response-and-stationary-fin" class="nav-link">Module 7, Part III: Rod Instrument, Step Response, And Stationary Fin</a>
+            <li class="nav-item" data-bs-level="1"><a href="#module-7-part-iii-rod-instrument-and-stationary-fin" class="nav-link">Module 7, Part III: Rod Instrument And Stationary Fin</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#thermistor-channels-and-calibration" class="nav-link">Thermistor Channels And Calibration</a>
+            <li class="nav-item" data-bs-level="3"><a href="#thermistor-channels-and-common-bath-check" class="nav-link">Thermistor Channels And Common-Bath Check</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -116,6 +116,10 @@
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#schedule-and-due-work" class="nav-link">Schedule And Due Work</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#in-class-route" class="nav-link">In-Class Route</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#outside-class-workload-budget" class="nav-link">Outside-Class Workload Budget</a>
@@ -162,35 +166,39 @@
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#software-extension-for-six-channel-rod-measurements" class="nav-link">Software Extension For Six-Channel Rod Measurements</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#stage-1-extend-the-arduino-measurement" class="nav-link">Stage 1: Extend The Arduino Measurement</a>
+            <li class="nav-item" data-bs-level="2"><a href="#phase-1-wire-and-label-the-six-thermistors" class="nav-link">Phase 1: Wire And Label The Six Thermistors</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#stage-2-extend-the-python-display-and-raw-data-record" class="nav-link">Stage 2: Extend The Python Display And Raw-Data Record</a>
+            <li class="nav-item" data-bs-level="2"><a href="#phase-2-develop-the-six-channel-display-and-recording-software" class="nav-link">Phase 2: Develop The Six-Channel Display And Recording Software</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#step-2a-extend-the-arduino-measurement" class="nav-link">Step 2A: Extend The Arduino Measurement</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#stage-3-write-the-relative-calibration-analysis" class="nav-link">Stage 3: Write The Relative-Calibration Analysis</a>
+            <li class="nav-item" data-bs-level="3"><a href="#step-2b-extend-the-python-display-and-raw-data-record" class="nav-link">Step 2B: Extend The Python Display And Raw-Data Record</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="3"><a href="#stage-4-integration-check-before-calibration" class="nav-link">Stage 4: Integration Check Before Calibration</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-1-sensor-map-and-calibration" class="nav-link">Part 1: Sensor Map And Calibration</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="3"><a href="#relative-thermistor-cross-calibration" class="nav-link">Relative Thermistor Cross-Calibration</a>
+            <li class="nav-item" data-bs-level="3"><a href="#step-2c-integration-check-before-the-common-bath-test" class="nav-link">Step 2C: Integration Check Before The Common-Bath Test</a>
               <ul class="nav flex-column">
               </ul>
             </li>
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-2-choose-sensor-positions-then-measure-the-step-response" class="nav-link">Part 2: Choose Sensor Positions, Then Measure The Step Response</a>
+            <li class="nav-item" data-bs-level="2"><a href="#phase-3-common-bath-check-and-sensor-map" class="nav-link">Phase 3: Common-Bath Check And Sensor Map</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#common-bath-check" class="nav-link">Common-Bath Check</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#if-needed-analyze-and-preserve-the-correction" class="nav-link">If Needed, Analyze And Preserve The Correction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#phase-4-configure-and-acquire-the-stationary-profile" class="nav-link">Phase 4: Configure And Acquire The Stationary Profile</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -198,7 +206,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#part-3-stationary-fin-profile" class="nav-link">Part 3: Stationary-Fin Profile</a>
+            <li class="nav-item" data-bs-level="2"><a href="#phase-5-analyze-and-test-the-stationary-fin-models" class="nav-link">Phase 5: Analyze And Test The Stationary-Fin Models</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -226,6 +234,10 @@
             </li>
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#instructor-notes" class="nav-link">Instructor Notes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -233,32 +245,65 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="module-7-part-iii-rod-instrument-step-response-and-stationary-fin">Module 7, Part III: Rod Instrument, Step Response, And Stationary Fin<a class="headerlink" href="#module-7-part-iii-rod-instrument-step-response-and-stationary-fin" title="Permanent link">&para;</a></h1>
+<h1 id="module-7-part-iii-rod-instrument-and-stationary-fin">Module 7, Part III: Rod Instrument And Stationary Fin<a class="headerlink" href="#module-7-part-iii-rod-instrument-and-stationary-fin" title="Permanent link">&para;</a></h1>
 <p>This is the experimental part of Module 7. It builds on <a href="../theory-bridge-chapter-1/">Part I: Thermal
 Transport Foundations</a> and <a href="../fin-design-derivation/">Part II: Finite
 And Infinite Rod Theory</a>.</p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Part III has three priorities, in this order:</p>
+<ol>
+<li><strong>Build the six-thermistor instrument.</strong> This is the primary objective.
+   Establish one TEC-base thermistor and five rod thermistors as a checked
+   measurement system. Extend the Arduino and Python software so that all six
+   temperatures are acquired, displayed, and recorded together. Use the raw
+   readings by default when the six sensors agree within
+   <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span> in a common bath; apply calibration corrections only
+   if that check fails.</li>
+<li><strong>Understand heat transport along a long, thin cylinder.</strong> Develop and
+   understand the one-dimensional heat-transport equation, its boundary
+   conditions, and the finite-length and radial-validity approximations.</li>
+<li><strong>Measure and test the stationary temperature profile.</strong> Measure the
+   steady-state temperature as a function of position along the rod, then fit
+   and compare the finite insulated-tip model and the semi-infinite exponential
+   model using the measured sensor positions and residuals.</li>
+</ol>
+<p>Part III is where the instrument is completed and used for the principal
+Module 7 physics measurement. The theory from Parts I and II predicts the
+stationary profile and provides the two models to test.</p>
+<p><strong>Class-time priority.</strong> Spend no more than one hour of class time beginning
+the Part I and Part II theory. Finish that work at home and bring questions to
+class. Use the rest of the laboratory time for Part III: build the six-channel
+thermistor setup, check all six measurement chains in a common bath, develop
+and test the Arduino and Python software that displays and records all six
+temperatures, retain TEC temperature control, and measure the stationary
+temperature profile for comparison with the finite and semi-infinite models.
+Fit calibration corrections only if the common-bath check fails.</p>
 <p>In Modules 1-6, one or two temperatures were enough to describe the TEC process.
 The aluminum rod cannot be treated as one thermal lump. Its temperature depends
 on position and time:</p>
 <div class="arithmatex">\[
 T=T(x,t).
 \]</div>
-<p>In this module you will build and validate the multichannel rod instrument,
-measure a non-oscillatory step response, and measure the steady temperature
-profile. The steady profile gives the first quantitative evidence of heat loss
-from the rod's side. The sinusoidal Angstrom experiment begins in Module 8.</p>
-<h3 id="thermistor-channels-and-calibration">Thermistor Channels And Calibration<a class="headerlink" href="#thermistor-channels-and-calibration" title="Permanent link">&para;</a></h3>
+<p>In this module you will build and validate the multichannel rod instrument and
+measure the stationary temperature profile along the rod. Record the complete
+approach to steady state so that you can verify when the profile has settled and
+observe qualitatively how a temperature disturbance spreads. The primary
+physics measurement, however, is the stationary profile and its comparison with
+the finite-rod and semi-infinite models. The sinusoidal Angstrom experiment
+begins in Module 8.</p>
+<h3 id="thermistor-channels-and-common-bath-check">Thermistor Channels And Common-Bath Check<a class="headerlink" href="#thermistor-channels-and-common-bath-check" title="Permanent link">&para;</a></h3>
 <p>The Arduino Uno R3 has six analog input channels, <code>A0</code> through <code>A5</code>, feeding one
 multiplexed 10-bit analog-to-digital converter. Use one channel for the
 thermistor in the TEC base and the other five channels for five thermistors
 along the rod. The converter samples the six channels in rapid sequence rather
 than at exactly the same instant. This delay is negligible on the thermal
 timescales measured here.</p>
-<p>The purpose here is to assign each thermistor a permanent channel,
-cross-calibrate all six measurement chains, and establish the sensor map used
-for the non-oscillatory step response and stationary-fin profile. Module 8
-reuses the same calibrated sensor map for the oscillatory Angstrom experiment.
+<p>The purpose here is to assign each thermistor a permanent channel, check all
+six measurement chains under a common temperature condition, and establish the
+sensor map used for the non-oscillatory step response and stationary-fin
+profile. Module 8 reuses the same validated sensor map for the oscillatory
+Angstrom experiment. Calibration corrections are optional rather than the
+default.
 The rod has more thermistor holes than the five available rod channels, so the
 five rod thermistors can be distributed among selected holes to obtain a useful
 range of positions and temperatures. Holes in the first group are nominally
@@ -279,7 +324,7 @@ measured temperature of rod thermistor 1 supplies the boundary condition
 <ol>
 <li><strong>Predict:</strong> use the Part I and Part II theory to predict the qualitative
    transient, the stationary profile, and the importance of the end and radius.</li>
-<li><strong>Measure:</strong> acquire synchronized, calibrated temperature data with the
+<li><strong>Measure:</strong> acquire synchronized, checked temperature data with the
    geometry and settings needed to interpret them.</li>
 <li><strong>Compare:</strong> fit the finite and semi-infinite models and inspect residuals,
    parameter values, and uncertainties.</li>
@@ -298,16 +343,25 @@ measured temperature of rod thermistor 1 supplies the boundary condition
 <tbody>
 <tr>
 <td>S16, Mon. Oct. 26</td>
-<td>Review the finite-rod theory prepared at home; compare finite and semi-infinite predictions; calculate the transverse Biot number; map and calibrate sensors; begin baseline and step-response measurements</td>
+<td>Use no more than the first hour to begin Parts I and II and identify questions to finish at home. Then map and common-bath-check all six sensors, calibrating only if needed; develop and test the six-channel Arduino/Python display and recording system with TEC control; begin the stationary-profile run if the instrument is ready.</td>
 <td>Module 7 home preparation</td>
 </tr>
 <tr>
 <td>S17, Wed. Oct. 28</td>
-<td>Complete the synchronized step response and stationary profile; fit finite-length and semi-infinite stationary profiles</td>
+<td>Complete the stationary-profile measurement, retaining the full approach to steady state; fit and compare the finite-length and semi-infinite stationary profiles</td>
 <td><strong>A4: finite-rod model and validity checks</strong>; <strong>C5: Rod instrument and data-acquisition chain</strong></td>
 </tr>
 </tbody>
 </table>
+<h3 id="in-class-route">In-Class Route<a class="headerlink" href="#in-class-route" title="Permanent link">&para;</a></h3>
+<p>Complete the experimental work in this order:</p>
+<ol>
+<li><strong>Phase 1:</strong> wire and permanently label <code>TEC</code> and <code>T1</code>-<code>T5</code>.</li>
+<li><strong>Phase 2:</strong> display and record all six channels while retaining TEC control.</li>
+<li><strong>Phase 3:</strong> perform the common-bath check and complete the sensor map.</li>
+<li><strong>Phase 4:</strong> choose useful rod positions and acquire the stationary profile.</li>
+<li><strong>Phase 5:</strong> analyze the profile and test the finite and semi-infinite models.</li>
+</ol>
 <h2 id="outside-class-workload-budget">Outside-Class Workload Budget<a class="headerlink" href="#outside-class-workload-budget" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -340,7 +394,7 @@ measured temperature of rod thermistor 1 supplies the boundary condition
 </tr>
 <tr>
 <td>S17</td>
-<td>Prepare the sensor-map and calibration record</td>
+<td>Prepare the sensor-map and common-bath check record</td>
 <td style="text-align: right;">45 minutes</td>
 </tr>
 <tr>
@@ -357,19 +411,24 @@ for theory, analysis, documentation, and submission.</p>
 <p>The objectives below are listed in priority order. By the end of Module 7,
 Part III, you should be able to:</p>
 <ol>
-<li>Build and document a spatial temperature measurement by defining sensor
-   coordinates, cross-checking the thermistors, and acquiring synchronized
-   <span class="arithmatex">\(T(x,t)\)</span> data with units, timestamps, and experimental metadata.</li>
-<li>Use the finite-length solution and transverse Biot number to make separate,
-   quantitative decisions about whether the far end and radial temperature
-   variation may be neglected.</li>
-<li>Distinguish a transient from a steady spatial profile and explain why a
-   temperature disturbance arrives later and is smaller farther from the
-   heated base.</li>
-<li>Fit finite-length and semi-infinite stationary-fin models, examine their
-   residuals, and interpret the fitted decay coefficient and decay length.</li>
+<li>Build and demonstrate the six-thermistor instrument: assign permanent
+   channels to the TEC-base thermistor and five rod thermistors, check all six
+   measurement chains in a common bath, apply calibration corrections only if
+   required, and extend the Arduino and Python software to display and record
+   synchronized temperatures with units, timestamps, sensor positions, and
+   experimental metadata.</li>
+<li>Explain and apply the one-dimensional heat-transport equation for a long,
+   thin cylinder, then use the finite-length solution and transverse Biot
+   number to make separate quantitative decisions about whether the far end
+   and radial temperature variation may be neglected.</li>
+<li>Measure the stationary temperature profile along the rod, fit finite-length
+   and semi-infinite stationary-fin models, examine their residuals, and
+   interpret the fitted decay coefficient and decay length.</li>
 <li>Explain what the steady experiment can determine and why it cannot determine
    the thermal conductivity and side heat-transfer coefficient separately.</li>
+<li>Use the recorded approach to steady state to justify the selected stationary
+   interval and explain qualitatively why more distant sensors respond later
+   and with smaller temperature changes.</li>
 </ol>
 <h2 id="part-iii-vocabulary-and-notation">Part III Vocabulary And Notation<a class="headerlink" href="#part-iii-vocabulary-and-notation" title="Permanent link">&para;</a></h2>
 <p>Review the <a href="../theory-bridge-chapter-1/#module-7-vocabulary-and-notation">foundational vocabulary in Part
@@ -414,8 +473,8 @@ terms below connect that theory to the experiment and its analysis.</p>
 <td>A record of each channel name, thermistor position, coordinate origin and direction, and position uncertainty.</td>
 </tr>
 <tr>
-<td>Calibration or cross-check</td>
-<td>A comparison under a common temperature condition used to identify sensor offsets or other channel differences.</td>
+<td>Common-bath check</td>
+<td>A comparison under a common temperature condition used to identify sensor offsets or other channel differences. If the full spread of the six readings remains below <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span>, use the raw readings without calibration corrections.</td>
 </tr>
 <tr>
 <td>Baseline</td>
@@ -453,7 +512,8 @@ terms below connect that theory to the experiment and its analysis.</p>
 </table>
 <h2 id="reading-and-preparation">Reading And Preparation<a class="headerlink" href="#reading-and-preparation" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Read Chapter 1 of <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>.</li>
+<li>Read selectively in <a href="../../references/lienhard-heat-transfer-textbook-v6.pdf">Lienhard and Lienhard, <em>A Heat Transfer Textbook</em></a>,
+   Section 1.3, pp. 11-26, following the reading guide in Part I.</li>
 <li>Review <a href="../theory-bridge-chapter-1/">Module 7, Part I: Thermal Transport Foundations</a>.</li>
 <li>For the S16 lecture and S17 guided study, read Lienhard Section 4.5,
    textbook pp. 163-173. Work through the derivation rather than reading only
@@ -676,6 +736,16 @@ depends on which sensor and which observable you use.</p>
 <div class="arithmatex">\[
 \mathrm{Bi}_{\perp}=\frac{h(A/P)}{k}=\frac{hR}{2k}.
 \]</div>
+<p>This validity check is performed in two stages. <strong>Before the experiment</strong>, make
+a provisional estimate using a literature value or range for the conductivity
+of 6061-T6 aluminum, a justified range for the convective heat-transfer
+coefficient <span class="arithmatex">\(h\)</span>, and the measured rod geometry. For natural convection from
+the half-inch rod in still room air, use the planning range</p>
+<div class="arithmatex">\[
+3\lesssim h\lesssim
+10\ \mathrm{W\,m^{-2}K^{-1}}.
+\]</div>
+<p>Treat this as a provisional convection range, not as a measured value of <span class="arithmatex">\(h\)</span>.</p>
 <p>The small-Biot condition <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> means radial conduction
 is fast enough that a cross section can be represented by one temperature.
 Before the experiment, estimate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius
@@ -683,8 +753,9 @@ and a justified range of <span class="arithmatex">\(h\)</span> and <span class="
 one-dimensional model under the <strong>provisional assumption</strong> that
 <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span>. You cannot yet test that assumption using the
 measured profile because <span class="arithmatex">\(m\)</span> has not yet been measured.</p>
-<p>After measuring the stationary temperature profile, return to this question.
-The fitted spatial decay coefficient obeys</p>
+<p><strong>After the experiment</strong>, return to this question using the fitted stationary
+profile. This is a measurement-based self-consistency check rather than another
+estimate of <span class="arithmatex">\(h\)</span>. The fitted spatial decay coefficient obeys</p>
 <div class="arithmatex">\[
 m^2=\frac{hP}{kA},
 \]</div>
@@ -725,9 +796,13 @@ radial approximation, while <span class="arithmatex">\(mL\)</span> and <span cla
 end can be ignored; they are separate conclusions obtained from the same fit.</p>
 <h3 id="a4-finite-rod-model-and-validity-checks">A4: Finite-Rod Model And Validity Checks<a class="headerlink" href="#a4-finite-rod-model-and-validity-checks" title="Permanent link">&para;</a></h3>
 <p><code>A4</code> is a 10-point individual written assignment based on Module 7, Parts I
-and II. It does not require the temperature data collected in Part III. Submit
-one PDF organized under the following four headings. Show units and dimensional
-checks throughout.</p>
+and II. It does not require temperature-profile data from Part III. Use the
+measured rod geometry and your planned sensor positions, together with a
+literature range for <span class="arithmatex">\(k\)</span> and the provisional range for <span class="arithmatex">\(h\)</span>
+given above. These calculations are predictions to record before heating the
+rod; they are not the final measurement-based validity checks. Submit one PDF
+organized under the following four headings. Show units and dimensional checks
+throughout.</p>
 <p><strong>Part 1. Apply Fourier's law.</strong> Complete Lienhard Problem 1.3 as assigned in
 <a href="../theory-bridge-chapter-1/#a4-part-i-lienhard-problem-13">Part I</a>.
 Show how Fourier's law produces each result, include units, and identify any
@@ -738,22 +813,23 @@ fin equation with side heat loss. Follow the finite-fin solution in Lienhard
 Section 4.5, showing the principal steps from the differential equation to the
 solution. State the two boundary conditions and explain what each means
 physically.</p>
-<p><strong>Part 3. Test the finite-length approximation.</strong> Complete Lienhard Problem
-4.12 to obtain the semi-infinite limit. Use Example 4.8 and Problem 4.20 to
-quantify the effect of approximating the tip boundary condition. Calculate
-<span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x)\)</span> for every course-rod sensor. Use the supplied
-course-rod parameters and sensor positions if your measured values are not yet
-available. Conclude whether the course rod may be treated as semi-infinite,
-and state the sensor positions and error criterion on which your conclusion
-depends.</p>
-<p><strong>Part 4. Test the one-dimensional approximation.</strong> Calculate
-<span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> for the course rod. Conclude separately whether each
-cross section may be represented by one temperature. Do not combine this
-radius conclusion with the finite-length conclusion from Part 3.</p>
-<p>Then answer this brief application question: an electronic heat sink in air
-and a spacecraft radiator both use extended surfaces. Which one can be modeled
-with Newton's law of cooling? Explain why convection is absent in space and
-write the radiative heat-flux law that replaces it.</p>
+<p><strong>Part 3. Make a provisional finite-length prediction.</strong> Complete Lienhard
+Problem 4.12 to obtain the semi-infinite limit. Use Example 4.8 and Problem
+4.20 to quantify the effect of approximating the tip boundary condition. From
+the provisional ranges of <span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>, calculate a range for
+<span class="arithmatex">\(m\)</span>, then calculate <span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x)\)</span> at every planned course-rod
+sensor position. State whether you expect the course rod to be adequately
+semi-infinite over the measured region, and state the positions, parameter
+ranges, and error criterion on which this prediction depends.</p>
+<p><strong>Part 4. Make a provisional one-dimensional prediction.</strong> Calculate a range
+for <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the same provisional values of
+<span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>. State whether you expect each cross section to
+be represented adequately by one temperature. Do not combine this radius
+conclusion with the finite-length conclusion from Part 3.</p>
+<p>Then answer this brief application question: compare the same electronic heat
+sink in still air and in forced airflow. Which case should have the larger
+convective coefficient <span class="arithmatex">\(h\)</span>, and how should the larger <span class="arithmatex">\(h\)</span> change the decay
+length <span class="arithmatex">\(1/m\)</span>?</p>
 <p>The <a href="#a4-submission-and-rubric">submission details and rubric</a> appear near the
 end of this page.</p>
 <h3 id="prediction-record-before-heating">Prediction Record Before Heating<a class="headerlink" href="#prediction-record-before-heating" title="Permanent link">&para;</a></h3>
@@ -766,10 +842,45 @@ Predict:</p>
 <li>the qualitative shape of the stationary temperature profile, and</li>
 <li>whether the measured region should reveal the finite tip.</li>
 </ol>
-<p>Use supplied parameters when measured values are not yet available. Return to
-these predictions after fitting the stationary data and state which were
-supported by the evidence.</p>
-<h2 id="software-extension-for-six-channel-rod-measurements">Software Extension For Six-Channel Rod Measurements<a class="headerlink" href="#software-extension-for-six-channel-rod-measurements" title="Permanent link">&para;</a></h2>
+<p>Use the measured rod geometry and the sensor positions you initially plan to
+use. If the placement pilot leads you to move a sensor, preserve the original
+prediction and repeat the calculation using the final measured position.
+Return to these predictions after fitting the stationary data and state which
+were supported by the evidence.</p>
+<h2 id="phase-1-wire-and-label-the-six-thermistors">Phase 1: Wire And Label The Six Thermistors<a class="headerlink" href="#phase-1-wire-and-label-the-six-thermistors" title="Permanent link">&para;</a></h2>
+<p>Build the complete measurement circuit before modifying the software or
+preparing the common bath.</p>
+<ol>
+<li>Prepare six thermistors using <strong>26 AWG paired insulated wire</strong> for the sensor
+   leads. Separate the pair near the thermistor and insulate the two solder
+   joints individually so they cannot touch. Use the heat-shrink tubing
+   specified and supplied by the instructor. Slide both pieces onto the wires
+   before soldering, keep the joints compact, and stagger the joints so the
+   finished end is not unnecessarily bulky.</li>
+</ol>
+<p>At the breadboard end, terminate the flexible 26 AWG pair with short
+   <strong>22 AWG solid-wire pigtails</strong> so the connections are reliable in the
+   solderless breadboard. Use a meter to measure the actual resistance of each
+   nominal
+   <span class="arithmatex">\(100\ \mathrm{k}\Omega\)</span> fixed resistor before it is connected in its
+   voltage divider, and record the measured value with its channel assignment.
+   Follow the established thermistor voltage-divider circuit; do not change
+   the TEC power or safety wiring.
+2. Label the TEC-base thermistor <code>TEC</code> and the five rod thermistors <code>T1</code>
+   through <code>T5</code>. Use durable, water-resistant labels attached securely to the
+   dry portions of the leads. The labels must survive handling, the common-bath
+   check, installation, and the rest of the semester without falling off or
+   moving to another lead.
+3. Assign <code>TEC</code> to <code>A0</code> and <code>T1</code> through <code>T5</code> to <code>A1</code> through <code>A5</code>, unless your
+   documented apparatus requires a different assignment. Record every sensor,
+   analog input, divider, and wire color in the sensor map.
+4. Check every connection for exposed conductors, loose joints, and accidental
+   shorts before powering the Arduino. Keep the TEC power disabled during the
+   first sensor tests.</p>
+<p>Photograph the labeled, wired measurement chain before proceeding. From this
+point onward, keep each physical thermistor paired with its assigned divider,
+Arduino input, software label, and CSV column.</p>
+<h2 id="phase-2-develop-the-six-channel-display-and-recording-software">Phase 2: Develop The Six-Channel Display And Recording Software<a class="headerlink" href="#phase-2-develop-the-six-channel-display-and-recording-software" title="Permanent link">&para;</a></h2>
 <p>Keep the tested Module 6 files unchanged as a working checkpoint. Make new
 Module 7 copies of both the Arduino sketch and Python GUI, give the copies
 clear Module 7 filenames, and extend those copies for the rod experiment. For
@@ -777,11 +888,13 @@ example, use <code>arduino/module_07_rod_controller/module_07_rod_controller.ino
 and <code>python/module_07_rod_acquisition_gui.py</code> in your repository. The TEC-base
 thermistor remains the feedback and safety sensor. The five rod thermistors
 are additional measurement channels; they do not enter the PI-control law.</p>
-<p>Develop and test the software in the stages below. Keep each stage working
+<p>Develop and test the software in the steps below. Keep each step working
 before asking Copilot to make the next change. Copilot may write code, but you
 are responsible for checking the pin assignments, serial interface, units,
 safety behavior, and saved data.</p>
-<h3 id="stage-1-extend-the-arduino-measurement">Stage 1: Extend The Arduino Measurement<a class="headerlink" href="#stage-1-extend-the-arduino-measurement" title="Permanent link">&para;</a></h3>
+<p>Do not begin the hot-water common-bath check until the Arduino and Python software
+can display and record all six correctly labeled channels.</p>
+<h3 id="step-2a-extend-the-arduino-measurement">Step 2A: Extend The Arduino Measurement<a class="headerlink" href="#step-2a-extend-the-arduino-measurement" title="Permanent link">&para;</a></h3>
 <p>Use all six Uno analog inputs. Unless your documented wiring requires a
 different assignment, use <code>A0</code> for the TEC-base thermistor and <code>A1</code> through
 <code>A5</code> for rod thermistors 1 through 5. The Uno has one analog-to-digital
@@ -842,7 +955,7 @@ thermistor at a time with your fingers and verify that only its named column
 changes. Confirm that the Arduino starts with PWM zero and still responds to a
 zero-power command. Close Serial Monitor before opening the Python GUI because
 only one program can own the serial port at a time.</p>
-<h3 id="stage-2-extend-the-python-display-and-raw-data-record">Stage 2: Extend The Python Display And Raw-Data Record<a class="headerlink" href="#stage-2-extend-the-python-display-and-raw-data-record" title="Permanent link">&para;</a></h3>
+<h3 id="step-2b-extend-the-python-display-and-raw-data-record">Step 2B: Extend The Python Display And Raw-Data Record<a class="headerlink" href="#step-2b-extend-the-python-display-and-raw-data-record" title="Permanent link">&para;</a></h3>
 <p>Modify the Module 6 GUI so that it parses the new <code>DATA</code> record and displays
 six simultaneous temperature traces. Retain the existing setpoint, controller,
 PWM, and safety displays. Give each trace a stable label and color, make the
@@ -887,18 +1000,179 @@ being written to the correct CSV column.
 </details>
 <p>Test with TEC power off. Compare several consecutive Arduino <code>DATA</code> records
 with the corresponding Python numerical display and CSV rows. The field order,
-values, and units must agree before the program is used for calibration.</p>
-<h3 id="stage-3-write-the-relative-calibration-analysis">Stage 3: Write The Relative-Calibration Analysis<a class="headerlink" href="#stage-3-write-the-relative-calibration-analysis" title="Permanent link">&para;</a></h3>
-<p>Write a separate Python analysis program for the common-bath calibration. It
-must read the raw CSV rather than modify the acquisition program. For each rod
-channel, fit</p>
+values, and units must agree before the program is used for the common-bath
+check.</p>
+<h3 id="step-2c-integration-check-before-the-common-bath-test">Step 2C: Integration Check Before The Common-Bath Test<a class="headerlink" href="#step-2c-integration-check-before-the-common-bath-test" title="Permanent link">&para;</a></h3>
+<p>Demonstrate the complete measurement chain before collecting the cooling-bath
+record:</p>
+<ol>
+<li>Show that warming one sensor changes only its assigned Arduino and Python
+   channel.</li>
+<li>Verify that one Arduino <code>DATA</code> line, one set of displayed values, and one
+   saved CSV row agree.</li>
+<li>Disconnect one rod thermistor temporarily and verify that the fault is
+   visible without defeating the TEC-base safety shutdown.</li>
+<li>Restart both programs and confirm that PWM begins at zero and that a new
+   data file is created.</li>
+<li>Record the Arduino-sketch and Python-GUI filenames and their Git commit hash
+   in the sensor map.</li>
+</ol>
+<h2 id="phase-3-common-bath-check-and-sensor-map">Phase 3: Common-Bath Check And Sensor Map<a class="headerlink" href="#phase-3-common-bath-check-and-sensor-map" title="Permanent link">&para;</a></h2>
+<p>Complete these tasks in order. Do not prepare the hot water until Phases 1 and
+2 are complete.</p>
+<ol>
+<li>Confirm that the six thermistors are securely labeled <code>TEC</code> and <code>T1</code>
+   through <code>T5</code>, wired to their permanent channels, and documented in the
+   sensor map.</li>
+<li>Demonstrate that the Arduino and GUI display all six temperatures and save
+   them in six correctly labeled CSV columns.</li>
+<li>Open the common-bath popup below and perform the check. Display all six
+   temperatures simultaneously and observe them after the mixed bath has
+   settled at several temperatures.</li>
+<li>At each observation, calculate the full spread
+   <span class="arithmatex">\(T_{\max}-T_{\min}\)</span> across the six thermistors. If the spread remains less
+   than <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span>, record that the sensors passed and apply no
+   calibration corrections or calibration-specific GUI changes. This is the
+   default outcome. If the spread reaches or exceeds
+   <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span>, continue to the subsequent Record/Pause and fitting
+   steps in the popup.</li>
+<li>After the common-bath check, record the rod material as 6061-T6 aluminum.
+   Measure its diameter <span class="arithmatex">\(d\)</span>, overall physical length, and analysis length
+   <span class="arithmatex">\(L\)</span> from the first thermistor hole to the tip. Calculate its
+   cross-sectional area <span class="arithmatex">\(A\)</span> and perimeter <span class="arithmatex">\(P\)</span> in SI units. Install rod
+   thermistor 1 in the first rod hole and define that hole as the analysis base
+   <span class="arithmatex">\(x=0\)</span>. Measure the other four rod-sensor
+   positions and the tip relative to this origin, so that the tip is at (x=L).
+   Estimate the uncertainty of every position and of <span class="arithmatex">\(L\)</span>.</li>
+<li>Save a diagram or photograph showing the permanent sensor labels, Arduino
+   channel assignments, coordinate direction, and measured rod positions.</li>
+</ol>
+<details class="note">
+<summary>Common-bath procedure and optional relative calibration</summary>
+<h3 id="common-bath-check">Common-Bath Check<a class="headerlink" href="#common-bath-check" title="Permanent link">&para;</a></h3>
+<p>The rod experiment measures temperature differences and spatial temperature
+gradients. It does not require an absolute temperature calibration. It does
+require a common-bath check so that a large channel-to-channel difference is
+not mistaken for a temperature gradient along the rod.</p>
+<p>The default is <strong>not</strong> to fit or apply calibration corrections. If the full
+spread of all six readings remains below <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span> at every
+retained bath temperature, document that result and use the raw readings. Use
+the <strong>TEC</strong> thermistor as the reference and continue to the optional correction
+steps only if this criterion fails.</p>
+<p><strong>Step 1. Confirm the Phase 1 prerequisites.</strong> Perform the check before
+installing the thermistors in the apparatus. Confirm that <code>TEC</code> and <code>T1</code>-<code>T5</code>
+retain their secure, water-resistant labels and that only their waterproof
+sensing ends will be immersed.</p>
+<p><strong>Step 2. Confirm the Phase 2 prerequisites.</strong> Use the permanent voltage
+dividers, Arduino inputs, acquisition code, and sample rate. Confirm that the
+GUI displays and records six correctly labeled channels, then warm one sensor
+at a time to verify its display and CSV column.</p>
+<p><strong>Step 3. Heat the water.</strong> Put water in a glass beaker and warm the beaker in
+the microwave. Only the beaker and water go into the microwave; never microwave
+the thermistors, wires, or any electrical hardware. Swirl the beaker carefully
+after heating so that the water temperature is reasonably uniform. Handle the
+hot glass and water cautiously. The calibration range should remain below
+approximately <span class="arithmatex">\(60^{\circ}\mathrm{C}\)</span>.</p>
+<p><strong>Step 4. Prepare the common bath.</strong> Pour the warm water from the glass beaker
+into a stable Styrofoam cup. Place all six waterproof sensing ends close
+together in the water. Keep labels, electrical joints, connectors, and exposed
+conductors dry, and do not allow the sensing ends to touch the cup walls or
+bottom. Place the meter's thermocouple probe near the six sensing ends without
+allowing it to touch them or the cup.</p>
+<p><strong>Step 5. Mix and observe.</strong> Run the basic six-temperature GUI. Gently swirl
+the cup or stir the water so that every sensor experiences the same bath
+temperature. Watch the six live traces and numerical readings. After mixing,
+allow any motion-induced fluctuations to settle. If one trace remains much
+noisier than the others, check its connection before using the readings.</p>
+<p><strong>Step 6. Decide whether calibration is needed.</strong> At several bath temperatures
+spanning the range expected in the rod experiment, mix the water, allow the
+display to settle, and note the six simultaneous readings and the thermocouple
+temperature. Calculate <span class="arithmatex">\(T_{\max}-T_{\min}\)</span>. If the spread remains less than
+<span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span>, save a screenshot or short check record, state that no
+correction is required, and stop here. Do not add Record/Pause code merely for
+this check.</p>
+<p>If the spread reaches or exceeds <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span>, continue with the
+remaining steps.</p>
+<p><strong>Step 7. Only if needed, add Record/Pause.</strong> Extend the GUI with a clearly
+labeled <strong>Record/Pause</strong> control. Live numerical values and plots must continue
+updating in both states. In <strong>Record</strong>, append each accepted <code>DATA</code> record to
+the calibration CSV. In <strong>Pause</strong>, append no temperature rows, allowing the
+bath to be mixed and the readings to settle without adding those transients to
+the fitting data. Start in Pause, display the current state prominently, flush
+the file whenever recording is paused, and preserve the continuous Arduino
+timestamp so that gaps in the saved record are unambiguous.</p>
+<details>
+<summary>Suggested Copilot prompt: add Record/Pause only after the check fails</summary>
+<pre><code class="language-text">The six-temperature Arduino acquisition and Python GUI already work. The
+common-bath check found a spread of at least 1 degree C, so modify the existing
+Module 7 GUI to support calibration data collection. Do not change the Arduino
+code, serial format, controller, safety behavior, live numerical displays, or
+live plots.
+
+Add a prominent Record/Pause button that controls only CSV writing. Start in
+Pause. While paused, continue parsing and plotting all six temperatures but do
+not append DATA rows. While recording, append every accepted DATA row to the
+calibration CSV. When recording resumes, continue using Arduino time without
+resetting it. Show the current state clearly and flush the file whenever the
+state changes to Pause.
+
+Comment the new state variable, button callback, and conditional CSV-writing
+logic for a Python beginner. Explain how to verify that the display continues
+in Pause, the CSV row count remains fixed in Pause, and recording resumes
+without resetting Arduino time.
+</code></pre>
+</details>
+<p><strong>Step 8. Collect quiet fitting intervals.</strong> Use the <strong>TEC</strong> channel as the
+reference. At several temperatures, keep the GUI paused while mixing the bath
+and waiting for the displayed readings to settle. Press <strong>Record</strong> and retain
+at least 60 seconds of simultaneous data. Record the thermocouple temperature
+for that interval, then press <strong>Pause</strong> before stirring again. Repeat the
+pause-mix-settle-record-pause sequence as the water cools.</p>
+<p><strong>Step 9. Verify the saved calibration record.</strong> Open the calibration CSV and
+confirm that it contains timestamps and six populated temperature columns with
+the expected labels. Compare several rows with the GUI and confirm that each
+recorded interval has a corresponding thermocouple measurement.</p>
+<p><strong>Step 10. Fit each channel to the reference.</strong> Plot each rod-sensor reading,
+<span class="arithmatex">\(T_i\)</span>, against the simultaneous TEC-thermistor reading,
+<span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Do the data fall on a straight line? If so, fit</p>
+<div class="arithmatex">\[
+T_{\mathrm{TEC}}=a_i+b_iT_i.
+\]</div>
+<p>Apply this fitted relation as the correction:</p>
+<div class="arithmatex">\[
+T_{i,\mathrm{corrected}}=a_i+b_iT_i.
+\]</div>
+<p><strong>Step 11. Check the corrected differences.</strong> Plot</p>
+<div class="arithmatex">\[
+\Delta T_i
+=T_{i,\mathrm{corrected}}-T_{\mathrm{TEC}}
+\]</div>
+<p>against <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Report the mean difference, scatter, and any
+remaining trend with temperature. Choose and record an acceptance criterion
+before evaluating the correction. A useful starting criterion is a corrected
+mean difference smaller than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> for every channel, with
+no residual trend larger than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> across the calibration
+range. Revise this criterion if the measured noise and resolution justify a
+different value.</p>
+<p><strong>Step 12. Preserve the raw readings.</strong> Store the correction coefficients
+separately and apply them during analysis; never overwrite the original data.</p>
+<p>The thermocouple measurement provides an independent check on the approximate
+bath temperature and common-bath range. The channel corrections are still
+obtained by treating the <code>TEC</code> thermistor as the common reference. The
+corrected channels may therefore share a common absolute bias, but that bias
+does not affect temperature differences or the measured spatial profile.</p>
+<h3 id="if-needed-analyze-and-preserve-the-correction">If Needed, Analyze And Preserve The Correction<a class="headerlink" href="#if-needed-analyze-and-preserve-the-correction" title="Permanent link">&para;</a></h3>
+<p>Only if the <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span> agreement criterion fails, write a separate
+Python analysis program for the optional correction. It must read the raw CSV
+rather than modify the acquisition program. For each rod channel, fit</p>
 <div class="arithmatex">\[
 T_{\mathrm{TEC}}=a_i+b_iT_i,
 \]</div>
-<p>make the comparison and residual plots required below, and save the fitted
+<p>make the comparison and residual plots required above, and save the fitted
 coefficients and fit-quality measures in a separate calibration file. Keep the
 raw CSV unchanged. Later analyses may read both files and calculate additional
-columns named <code>rod1_corrected_C</code> through <code>rod5_corrected_C</code>.</p>
+columns named <code>rod1_corrected_C</code> through <code>rod5_corrected_C</code>. Record the
+calibration-script filename and Git commit hash in the sensor map.</p>
 <details>
 <summary>Suggested Copilot prompt: relative-calibration analysis</summary>
 <pre><code class="language-text">Write a separate Python calibration-analysis script for my six-thermistor CSV
@@ -922,97 +1196,8 @@ selection, fitting, residual calculation, and output sections for a Python
 beginner.
 </code></pre>
 </details>
-<h3 id="stage-4-integration-check-before-calibration">Stage 4: Integration Check Before Calibration<a class="headerlink" href="#stage-4-integration-check-before-calibration" title="Permanent link">&para;</a></h3>
-<p>Demonstrate the complete measurement chain before collecting the cooling-bath
-record:</p>
-<ol>
-<li>Show that warming one sensor changes only its assigned Arduino and Python
-   channel.</li>
-<li>Verify that one Arduino <code>DATA</code> line, one set of displayed values, and one
-   saved CSV row agree.</li>
-<li>Disconnect one rod thermistor temporarily and verify that the fault is
-   visible without defeating the TEC-base safety shutdown.</li>
-<li>Restart both programs and confirm that PWM begins at zero and that a new
-   data file is created.</li>
-<li>Record the Arduino sketch, Python GUI, and calibration-script filenames and
-   their Git commit hash in the sensor map.</li>
-</ol>
-<h2 id="part-1-sensor-map-and-calibration">Part 1: Sensor Map And Calibration<a class="headerlink" href="#part-1-sensor-map-and-calibration" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Record the rod material as 6061-T6 aluminum. Measure its diameter <span class="arithmatex">\(d\)</span>,
-   overall physical length, and analysis length <span class="arithmatex">\(L\)</span> from the first thermistor
-   hole to the tip. Calculate its cross-sectional area <span class="arithmatex">\(A\)</span> and perimeter
-   <span class="arithmatex">\(P\)</span> in SI units.</li>
-<li>Assign permanent names to the TEC-base thermistor and the five rod
-   thermistors, and record the corresponding Arduino channels <code>A0</code> through
-   <code>A5</code>.</li>
-<li>Hold all sensors at the same temperature and record at least 60
-   seconds of data.</li>
-<li>Plot channel differences. Decide whether offsets require correction.</li>
-<li>After calibration, install rod thermistor 1 in the first rod hole and define
-   that hole as the analysis base <span class="arithmatex">\(x=0\)</span>. Measure the other four rod-sensor
-   positions and the tip relative to this origin, so that the tip is at (x=L).
-   Estimate the uncertainty of every position and of <span class="arithmatex">\(L\)</span>.</li>
-<li>Save a diagram or photograph showing the permanent sensor labels, Arduino
-   channel assignments, coordinate direction, and measured rod positions.</li>
-</ol>
-<h3 id="relative-thermistor-cross-calibration">Relative Thermistor Cross-Calibration<a class="headerlink" href="#relative-thermistor-cross-calibration" title="Permanent link">&para;</a></h3>
-<p>The rod experiment measures temperature differences and spatial temperature
-gradients. It does not require an absolute temperature calibration. It does
-require all thermistor channels to give the same reading when they experience
-the same temperature; otherwise, channel-to-channel offsets could be mistaken
-for a temperature gradient along the rod.</p>
-<p>Use the TEC thermistor as the reference channel and cross-calibrate the rod
-thermistors as follows:</p>
-<p><strong>Step 1. Arrange the sensors.</strong> Complete this cross-calibration before the
-thermistors are permanently installed in the TEC base and rod. All six sensing
-ends must remain accessible; do not immerse the assembled TEC, heater, or
-electrical hardware. If you don't have enough prepared thermistors, solder
-wires to the thermistors and insulate each joint with heat shrink. The hardware
-page shows how the finished sensor should look.</p>
-<p>Label the thermistor intended for the TEC base <code>TEC</code> and label the others 1-5.
-The labels must remain attached for the rest of the semester. Place all six
-thermistor sensing ends close together in a Styrofoam cup of warm water over the
-approximate range <span class="arithmatex">\(20^{\circ}\mathrm{C}&lt;T&lt;60^{\circ}\mathrm{C}\)</span>. Immerse
-only waterproof sensing ends and keep electrical joints dry. Do not allow the
-sensors to touch the cup walls or bottom.</p>
-<p><strong>Step 2. Use the experimental measurement chain.</strong> Make sure the corresponding Arduino circuit and thermistor are always used together. Use the same voltage
-dividers, Arduino inputs, acquisition code, and sample rate that will be used
-for the rod experiment.</p>
-<p><strong>Step 3. Keep the bath uniform.</strong> Stir the water gently and continuously so
-that all sensors experience the same temperature.</p>
-<p><strong>Step 4. Record the common cooling history.</strong> Record every channel
-simultaneously while the water cools slowly through the temperature range
-expected in the rod experiment.</p>
-<p><strong>Step 5. Fit each channel to the reference.</strong> Plot each rod-sensor reading,
-<span class="arithmatex">\(T_i\)</span>, against the simultaneous TEC-thermistor reading, <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Do the data fall on a straight line? If so,
- fit</p>
-<div class="arithmatex">\[
-T_{\mathrm{TEC}}=a_i+b_iT_i.
-\]</div>
-<p>Apply this fitted relation as the correction:</p>
-<div class="arithmatex">\[
-T_{i,\mathrm{corrected}}=a_i+b_iT_i.
-\]</div>
-<p><strong>Step 6. Check the corrected differences.</strong> Plot</p>
-<div class="arithmatex">\[
-\Delta T_i
-=T_{i,\mathrm{corrected}}-T_{\mathrm{TEC}}
-\]</div>
-<p>against <span class="arithmatex">\(T_{\mathrm{TEC}}\)</span>. Report the mean difference, scatter, and any
-remaining trend with temperature. Choose and record an acceptance criterion
-before evaluating the correction. A useful starting criterion is a corrected
-mean difference smaller than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> for every channel, with
-no residual trend larger than <span class="arithmatex">\(0.2^{\circ}\mathrm{C}\)</span> across the calibration
-range. Revise this criterion if the measured noise and resolution justify a
-different value.</p>
-<p><strong>Step 7. Preserve the raw readings.</strong> Store the correction coefficients
-separately and apply them during analysis; never overwrite the original data.</p>
-<p>No independent reference thermometer is required for this relative
-cross-calibration. The corrected channels may share a common absolute bias,
-but that bias does not affect temperature differences or the measured spatial
-profile.</p>
-<h2 id="part-2-choose-sensor-positions-then-measure-the-step-response">Part 2: Choose Sensor Positions, Then Measure The Step Response<a class="headerlink" href="#part-2-choose-sensor-positions-then-measure-the-step-response" title="Permanent link">&para;</a></h2>
+</details>
+<h2 id="phase-4-configure-and-acquire-the-stationary-profile">Phase 4: Configure And Acquire The Stationary Profile<a class="headerlink" href="#phase-4-configure-and-acquire-the-stationary-profile" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Install rod thermistor 1 in the first rod hole and use that hole as the
    analysis base <span class="arithmatex">\(x=0\)</span>. It is neither the physical rod end nor the separate
@@ -1046,12 +1231,19 @@ temperature is indistinguishable from noise or room drift.</p>
 </li>
 <li>Set the TEC to <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> and allow the entire rod to
    equilibrate. Record room temperature and all six thermistor channels. Verify
-   that the rod channels agree within the calibration criterion.</li>
+   that the rod channels agree within the common-bath acceptance criterion.</li>
+<li>Before heating, review the prediction record and select a numerical
+   steady-state criterion. A useful starting criterion is
+   <span class="arithmatex">\( |dT_i/dt|&lt;0.02^{\circ}\mathrm{C}/\mathrm{min} \)</span> at every sensor for at
+   least 10 minutes; justify any different criterion.</li>
 <li>Apply a non-oscillatory TEC step from <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> to
    <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span> using PI control. Record continuously until the
-   stationary-profile criterion below is satisfied.</li>
-<li>Plot all temperatures against the same time axis and explain why farther
-   sensors respond later and with smaller excursions.</li>
+   selected steady-state criterion is satisfied. The purpose of retaining
+   this complete time history is to document equilibration and select the
+   stationary interval; a quantitative transient-model fit is not required.</li>
+<li>Plot all temperatures against the same time axis. Use this plot to justify
+   when the profile became stationary and explain qualitatively why farther
+   sensors respond later and with smaller changes.</li>
 <li>Save the commanded TEC temperature, measured TEC temperature, and measured
    rod temperature <span class="arithmatex">\(T(0,t)\)</span>. The rod thermistor at <span class="arithmatex">\(x=0\)</span>, rather than the
    TEC command or TEC thermistor, supplies the model boundary condition.</li>
@@ -1059,23 +1251,23 @@ temperature is indistinguishable from noise or room drift.</p>
 <h2 id="c5-checkoff">C5 Checkoff<a class="headerlink" href="#c5-checkoff" title="Permanent link">&para;</a></h2>
 <p>At S17, demonstrate:</p>
 <ul>
-<li>calibrated or cross-checked rod thermistors,</li>
+<li>a documented common-bath check and any necessary corrections,</li>
 <li>documented sensor coordinates and wiring,</li>
 <li>synchronized multichannel logging,</li>
-<li>baseline and initial step-response data,</li>
+<li>a live six-channel record showing the approach toward a stationary profile,</li>
 <li>files containing timestamps, units, channel labels, and experimental notes,</li>
 <li>individual understanding of the measurement chain and one dominant
   uncertainty.</li>
 </ul>
-<h2 id="part-3-stationary-fin-profile">Part 3: Stationary-Fin Profile<a class="headerlink" href="#part-3-stationary-fin-profile" title="Permanent link">&para;</a></h2>
+<h2 id="phase-5-analyze-and-test-the-stationary-fin-models">Phase 5: Analyze And Test The Stationary-Fin Models<a class="headerlink" href="#phase-5-analyze-and-test-the-stationary-fin-models" title="Permanent link">&para;</a></h2>
+<p>At the constant <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span> TEC setpoint, the final stationary
+<span class="arithmatex">\(T(x)\)</span> profile is the principal physics measurement in Module 7. Analyze the
+record acquired in Phase 4 and compare it quantitatively with both the finite
+insulated-tip solution and the semi-infinite exponential approximation.</p>
 <ol>
-<li>Before the run, record the predicted profile and select a numerical
-   steady-state criterion. A useful starting criterion is
-   <span class="arithmatex">\(|dT_i/dt|&lt;0.02^{\circ}\mathrm{C}/\mathrm{min}\)</span> at every sensor for at
-   least 10 minutes; justify any different criterion.</li>
-<li>Use the final steady portion of the <span class="arithmatex">\(20^{\circ}\mathrm{C}\)</span> to
-   <span class="arithmatex">\(45^{\circ}\mathrm{C}\)</span> step-response run. No separate heating run is
-   required. Confirm that the steady-state criterion is satisfied.</li>
+<li>Select the final interval of the Phase 4 record and confirm that it
+   satisfies the stated steady-state criterion. No separate heating run is
+   required.</li>
 <li>Average each sensor over a justified final interval. Five minutes is a
    reasonable starting interval after the steady-state criterion has been met.</li>
 <li>Plot <span class="arithmatex">\(\theta\)</span> versus <span class="arithmatex">\(x\)</span> with error bars.</li>
@@ -1092,8 +1284,9 @@ temperature is indistinguishable from noise or room drift.</p>
 </ol>
 <h2 id="stationary-fin-analysis-record">Stationary-Fin Analysis Record<a class="headerlink" href="#stationary-fin-analysis-record" title="Permanent link">&para;</a></h2>
 <h3 id="evidence-to-save-during-s16-s17">Evidence To Save During S16-S17<a class="headerlink" href="#evidence-to-save-during-s16-s17" title="Permanent link">&para;</a></h3>
-<p>Keep the sensor map, calibration record, geometry, raw baseline, synchronized
-step response, commanded and measured TEC temperature, measured rod-base
+<p>Keep the sensor map, common-bath check record, any optional calibration
+coefficients, geometry, raw baseline, complete synchronized temperature
+history, commanded and measured TEC temperature, measured rod-base
 temperature, steady profile, run
 metadata, and exact acquisition code as each item is produced. Use
 <code>docs/module_notes/module_07_rod_instrument.md</code>, <code>data/module_07/</code>, and
@@ -1123,8 +1316,9 @@ final presentation.</p>
 <p>Submit one reproducible analysis containing:</p>
 <ul>
 <li>the dimensional governing equation and assumptions,</li>
-<li>the sensor map and calibration result,</li>
-<li>baseline and step-response plots,</li>
+<li>the sensor map, common-bath result, and any optional correction,</li>
+<li>a time-history plot documenting the approach to the selected stationary
+  interval,</li>
 <li>steady <span class="arithmatex">\(\theta(x)\)</span> data, finite and semi-infinite fits, and both residual sets,</li>
 <li>fitted <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(1/m\)</span> with units and uncertainty,</li>
 <li>the sensor-by-sensor finite-length error and transverse Biot-number check,</li>
@@ -1152,7 +1346,7 @@ final presentation.</p>
 <td style="text-align: right;">3</td>
 </tr>
 <tr>
-<td>Part 4 correctly calculates the transverse Biot number, gives a separate radius conclusion, and distinguishes convection from radiation</td>
+<td>Part 4 correctly calculates the transverse Biot number, gives a separate radius conclusion, and explains how airflow changes <span class="arithmatex">\(h\)</span> and the decay length</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr>
@@ -1163,7 +1357,31 @@ final presentation.</p>
 </table>
 <p>The instructor will give feedback on the stationary-fin record during the rod
 work. It is judged by whether the data, both fits, residuals, dimensional
-parameters, uncertainty, and interpretation are ready to reuse in C6.</p></div>
+parameters, uncertainty, and interpretation are ready to reuse in C6.</p>
+<h2 id="instructor-notes">Instructor Notes<a class="headerlink" href="#instructor-notes" title="Permanent link">&para;</a></h2>
+<details class="note">
+<summary>Instructor preparation for the hot-water common-bath check</summary>
+<ul>
+<li>Provide a microwave and microwave-safe glass beakers or flasks for heating
+  water. Thermistors, wires, and electrical hardware must never be placed in
+  the microwave.</li>
+<li>Prepare eight functioning digital meters with thermocouple probes. Students
+  will use resistance mode to measure the nominal <span class="arithmatex">\(100\ \mathrm{k}\Omega\)</span>
+  divider resistors and the thermocouple probes to measure the common-bath
+  temperature.</li>
+<li>Provide 26 AWG paired insulated wire, short 22 AWG solid-wire breadboard
+  pigtails, and suitable heat-shrink tubing for the individual joints.</li>
+<li><strong>Heat-shrink purchasing note:</strong> Koowin <span class="arithmatex">\(3/32\)</span>-inch-diameter tubing with a
+  3:1 shrink ratio has been ordered. Test it on the actual 26 AWG paired wire
+  and solder joints, and update the student specification only after confirming
+  the fit.</li>
+<li>Fill the 4-liter water dispenser in the laboratory and bring it to the
+  classroom, 401 Abelson, before class.</li>
+<li>Provide Styrofoam cups for the six-thermistor common bath.</li>
+<li>The drinking fountain outside the classroom can be used as the drain when
+  the bath water is discarded.</li>
+</ul>
+</details></div>
             </div>
         </div>
 

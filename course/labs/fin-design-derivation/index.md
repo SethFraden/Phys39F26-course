@@ -9,10 +9,35 @@ pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 7, Part III.
 
+## Module 7 Priorities
+
+Module 7 has two priorities, in this order:
+
+1. **Build the six-thermistor instrument.** This is the primary objective of
+   the module. Establish one TEC-base thermistor and five rod thermistors as a
+   checked measurement system, then develop the Arduino acquisition and Python
+   software needed to display and record all six temperatures together. The
+   default is to use the raw readings when the six sensors agree within
+   \(1^{\circ}\mathrm{C}\) in a common bath; apply calibration corrections only
+   if that check fails.
+2. **Understand heat transport in a long, thin cylinder.** Use Fourier's law,
+   conservation of energy, side cooling, and boundary conditions to develop
+   and test the one-dimensional heat-transport model for the rod.
+
+Part II concentrates on the second priority. Its finite-rod and semi-infinite
+solutions are the predictions that the six-thermistor instrument will test in
+Part III.
+
+**How to use your time.** Parts I and II are primarily work to complete at
+home. You may use up to one hour of class time to begin this theory work; then
+finish it at home and bring specific questions to class. Preserve the
+remaining laboratory time for Part III, where you will build, check, and test
+the six-thermistor instrument and its software.
+
 ## Learning Objectives
 
-The objectives below are listed in priority order. By the end of Module 7,
-Part II, you should be able to:
+These are the Part II objectives supporting Module 7's second priority. By the
+end of Module 7, Part II, you should be able to:
 
 1. Use Fourier conduction, Newton cooling, and conservation of energy to derive
    the stationary one-dimensional heat equation and check every term's units.
@@ -82,10 +107,8 @@ transfer.
 example of cooling fins.*
 
 Thermal fins appear in technologies ranging from air-cooled engines to
-semiconductor heat sinks and spacecraft radiators. The same
-conduction problem appears in each case, although the fin may lose heat by
-natural convection, forced convection, radiation, or a combination of these
-mechanisms.
+semiconductor heat sinks. The same conduction problem appears in each case,
+and the fin loses heat to the surrounding air by natural or forced convection.
 
 <details class="note" markdown="1">
 <summary><strong>Sidebar: Where Are Thermal Fins Used?</strong></summary>
@@ -95,11 +118,10 @@ surface. What happens at that surface depends on the application.
 
 | Application | Heat reaches the extended surface by | Heat leaves the surface by |
 | --- | --- | --- |
-| [Electronic heat sink](https://en.wikipedia.org/wiki/Heat_sink) | Conduction from a semiconductor package | Natural or fan-driven convection, plus radiation |
+| [Electronic heat sink](https://en.wikipedia.org/wiki/Heat_sink) | Conduction from a semiconductor package | Natural or fan-driven convection |
 | [Air-cooled engine](https://en.wikipedia.org/wiki/Air-cooled_engine) | Conduction through the cylinder and cylinder head | Convection to air moving naturally, with the vehicle, or from a fan |
-| [Spacecraft radiator](https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/) | Conduction, thermal straps, or heat pipes from onboard equipment | Infrared radiation to space |
 
-The first two applications use Newton's law of cooling,
+Both applications use Newton's law of cooling,
 
 \[
 \dot Q_{\mathrm{conv}}=hA_s\left(T_s-T_\infty\right),
@@ -107,20 +129,6 @@ The first two applications use Newton's law of cooling,
 
 where natural or forced airflow continually replaces warmed air near the fins
 and carries the transferred heat away.
-
-The spacecraft example is the most important contrast. In vacuum there is no
-surrounding fluid and therefore no convective coefficient \(h\). A radiator
-surface instead loses heat approximately according to
-
-\[
-q''_{\mathrm{rad}}
-=\epsilon\sigma\left(T^4-T_{\mathrm{sur}}^4\right).
-\]
-
-The fin still conducts heat away from its base, but its surface boundary
-condition is radiative rather than the Newton-cooling law used for the course
-rod. NASA shows a real example in its photograph of the
-[International Space Station radiator panels](https://www.nasa.gov/image-article/station-solar-arrays-radiator-panels/).
 
 </details>
 

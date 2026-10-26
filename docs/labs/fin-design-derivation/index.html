@@ -106,6 +106,10 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#module-7-part-ii-finite-and-infinite-rod-theory" class="nav-link">Module 7, Part II: Finite And Infinite Rod Theory</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#module-7-priorities" class="nav-link">Module 7 Priorities</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#learning-objectives" class="nav-link">Learning Objectives</a>
               <ul class="nav flex-column">
               </ul>
@@ -169,9 +173,31 @@ in <a href="../lab-08/">Part III: Rod Instrument And Stationary Fin</a>.</p>
 pp. 163-173. It collects Eqs. (4.27)-(4.51) in one place so you can follow the
 logic from a physical fin to the finite-length and infinite-length rod models
 used in Module 7, Part III.</p>
+<h2 id="module-7-priorities">Module 7 Priorities<a class="headerlink" href="#module-7-priorities" title="Permanent link">&para;</a></h2>
+<p>Module 7 has two priorities, in this order:</p>
+<ol>
+<li><strong>Build the six-thermistor instrument.</strong> This is the primary objective of
+   the module. Establish one TEC-base thermistor and five rod thermistors as a
+   checked measurement system, then develop the Arduino acquisition and Python
+   software needed to display and record all six temperatures together. The
+   default is to use the raw readings when the six sensors agree within
+   <span class="arithmatex">\(1^{\circ}\mathrm{C}\)</span> in a common bath; apply calibration corrections only
+   if that check fails.</li>
+<li><strong>Understand heat transport in a long, thin cylinder.</strong> Use Fourier's law,
+   conservation of energy, side cooling, and boundary conditions to develop
+   and test the one-dimensional heat-transport model for the rod.</li>
+</ol>
+<p>Part II concentrates on the second priority. Its finite-rod and semi-infinite
+solutions are the predictions that the six-thermistor instrument will test in
+Part III.</p>
+<p><strong>How to use your time.</strong> Parts I and II are primarily work to complete at
+home. You may use up to one hour of class time to begin this theory work; then
+finish it at home and bring specific questions to class. Preserve the
+remaining laboratory time for Part III, where you will build, check, and test
+the six-thermistor instrument and its software.</p>
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
-<p>The objectives below are listed in priority order. By the end of Module 7,
-Part II, you should be able to:</p>
+<p>These are the Part II objectives supporting Module 7's second priority. By the
+end of Module 7, Part II, you should be able to:</p>
 <ol>
 <li>Use Fourier conduction, Newton cooling, and conservation of energy to derive
    the stationary one-dimensional heat equation and check every term's units.</li>
@@ -282,10 +308,8 @@ transfer.</p>
 <p><em>Lienhard and Lienhard, Fig. 4.7, textbook p. 165: a speculative biological
 example of cooling fins.</em></p>
 <p>Thermal fins appear in technologies ranging from air-cooled engines to
-semiconductor heat sinks and spacecraft radiators. The same
-conduction problem appears in each case, although the fin may lose heat by
-natural convection, forced convection, radiation, or a combination of these
-mechanisms.</p>
+semiconductor heat sinks. The same conduction problem appears in each case,
+and the fin loses heat to the surrounding air by natural or forced convection.</p>
 <details class="note">
 <summary><strong>Sidebar: Where Are Thermal Fins Used?</strong></summary>
 <p>The common design idea is to conduct heat from a source into an extended solid
@@ -302,37 +326,21 @@ surface. What happens at that surface depends on the application.</p>
 <tr>
 <td><a href="https://en.wikipedia.org/wiki/Heat_sink">Electronic heat sink</a></td>
 <td>Conduction from a semiconductor package</td>
-<td>Natural or fan-driven convection, plus radiation</td>
+<td>Natural or fan-driven convection</td>
 </tr>
 <tr>
 <td><a href="https://en.wikipedia.org/wiki/Air-cooled_engine">Air-cooled engine</a></td>
 <td>Conduction through the cylinder and cylinder head</td>
 <td>Convection to air moving naturally, with the vehicle, or from a fan</td>
 </tr>
-<tr>
-<td><a href="https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/">Spacecraft radiator</a></td>
-<td>Conduction, thermal straps, or heat pipes from onboard equipment</td>
-<td>Infrared radiation to space</td>
-</tr>
 </tbody>
 </table>
-<p>The first two applications use Newton's law of cooling,</p>
+<p>Both applications use Newton's law of cooling,</p>
 <div class="arithmatex">\[
 \dot Q_{\mathrm{conv}}=hA_s\left(T_s-T_\infty\right),
 \]</div>
 <p>where natural or forced airflow continually replaces warmed air near the fins
 and carries the transferred heat away.</p>
-<p>The spacecraft example is the most important contrast. In vacuum there is no
-surrounding fluid and therefore no convective coefficient <span class="arithmatex">\(h\)</span>. A radiator
-surface instead loses heat approximately according to</p>
-<div class="arithmatex">\[
-q''_{\mathrm{rad}}
-=\epsilon\sigma\left(T^4-T_{\mathrm{sur}}^4\right).
-\]</div>
-<p>The fin still conducts heat away from its base, but its surface boundary
-condition is radiative rather than the Newton-cooling law used for the course
-rod. NASA shows a real example in its photograph of the
-<a href="https://www.nasa.gov/image-article/station-solar-arrays-radiator-panels/">International Space Station radiator panels</a>.</p>
 </details>
 <h2 id="geometry-and-the-one-dimensional-assumption">Geometry And The One-Dimensional Assumption<a class="headerlink" href="#geometry-and-the-one-dimensional-assumption" title="Permanent link">&para;</a></h2>
 <p><img alt="One-dimensional fin geometry and energy-balance slice" src="../../assets/lienhard-fig-4-8-fin-model.png" /></p>

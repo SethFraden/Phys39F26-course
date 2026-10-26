@@ -411,8 +411,59 @@ For a circular rod,
 
 The small-Biot condition \(\mathrm{Bi}_{\perp}\ll1\) means radial conduction
 is fast enough that a cross section can be represented by one temperature.
-Calculate \(\mathrm{Bi}_{\perp}\) using the rod radius and a justified range of
-\(h\) and \(k\). This is a separate test from the finite-length test.
+Before the experiment, estimate \(\mathrm{Bi}_{\perp}\) using the rod radius
+and a justified range of \(h\) and \(k\). At this stage, proceed with the
+one-dimensional model under the **provisional assumption** that
+\(\mathrm{Bi}_{\perp}\ll1\). You cannot yet test that assumption using the
+measured profile because \(m\) has not yet been measured.
+
+After measuring the stationary temperature profile, return to this question.
+The fitted spatial decay coefficient obeys
+
+\[
+m^2=\frac{hP}{kA},
+\]
+
+so
+
+\[
+\frac{h}{k}=m^2\frac{A}{P},
+\qquad
+\boxed{\mathrm{Bi}_{\perp}
+=m^2\left(\frac{A}{P}\right)^2}.
+\]
+
+For a circular rod, \(A/P=R/2=d/4\), and therefore
+
+\[
+\boxed{\mathrm{Bi}_{\perp}=\left(\frac{mR}{2}\right)^2
+=\left(\frac{md}{4}\right)^2}.
+\]
+
+Use the following measurement procedure:
+
+1. Calculate \(\theta_i=T_i-T_\infty\) from the stationary temperatures.
+2. Fit the **finite-length** profile first to obtain \(m\) and its uncertainty.
+   This avoids assuming the semi-infinite limit before testing it.
+3. Use the measured diameter and the fitted \(m\) to calculate
+   \(\mathrm{Bi}_{\perp}\). Propagate the uncertainties in \(m\) and \(d\).
+4. Decide whether \(\mathrm{Bi}_{\perp}\ll1\) adequately supports the
+   assumption of a uniform temperature across each cross section.
+
+This final calculation is a **self-consistency check**, not a logically
+independent proof: the one-dimensional profile used to fit \(m\) already
+assumes negligible radial temperature variation. If the fitted value gives
+\(\mathrm{Bi}_{\perp}\ll1\), the assumption used at the beginning is
+self-consistent. If it does not, reject the one-dimensional interpretation of
+the fitted \(m\); a model with radial temperature variation would be required.
+
+The same fitted \(m\) also completes the length check above. Calculate \(mL\)
+and evaluate \(\epsilon_T(x_i)\) at every sensor position. If the finite and
+semi-infinite profiles differ by less than your stated criterion throughout
+the measured region, the semi-infinite approximation is adequate there. If
+not, retain the finite-length solution. Thus \(\mathrm{Bi}_{\perp}\) tests the
+radial approximation, while \(mL\) and \(\epsilon_T(x_i)\) test whether the far
+end can be ignored; they are separate conclusions obtained from the same fit.
 
 ### A4: Finite-Rod Model And Validity Checks
 

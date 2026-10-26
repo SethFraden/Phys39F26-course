@@ -678,8 +678,51 @@ depends on which sensor and which observable you use.</p>
 \]</div>
 <p>The small-Biot condition <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> means radial conduction
 is fast enough that a cross section can be represented by one temperature.
-Calculate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius and a justified range of
-<span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>. This is a separate test from the finite-length test.</p>
+Before the experiment, estimate <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> using the rod radius
+and a justified range of <span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(k\)</span>. At this stage, proceed with the
+one-dimensional model under the <strong>provisional assumption</strong> that
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span>. You cannot yet test that assumption using the
+measured profile because <span class="arithmatex">\(m\)</span> has not yet been measured.</p>
+<p>After measuring the stationary temperature profile, return to this question.
+The fitted spatial decay coefficient obeys</p>
+<div class="arithmatex">\[
+m^2=\frac{hP}{kA},
+\]</div>
+<p>so</p>
+<div class="arithmatex">\[
+\frac{h}{k}=m^2\frac{A}{P},
+\qquad
+\boxed{\mathrm{Bi}_{\perp}
+=m^2\left(\frac{A}{P}\right)^2}.
+\]</div>
+<p>For a circular rod, <span class="arithmatex">\(A/P=R/2=d/4\)</span>, and therefore</p>
+<div class="arithmatex">\[
+\boxed{\mathrm{Bi}_{\perp}=\left(\frac{mR}{2}\right)^2
+=\left(\frac{md}{4}\right)^2}.
+\]</div>
+<p>Use the following measurement procedure:</p>
+<ol>
+<li>Calculate <span class="arithmatex">\(\theta_i=T_i-T_\infty\)</span> from the stationary temperatures.</li>
+<li>Fit the <strong>finite-length</strong> profile first to obtain <span class="arithmatex">\(m\)</span> and its uncertainty.
+   This avoids assuming the semi-infinite limit before testing it.</li>
+<li>Use the measured diameter and the fitted <span class="arithmatex">\(m\)</span> to calculate
+   <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span>. Propagate the uncertainties in <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(d\)</span>.</li>
+<li>Decide whether <span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span> adequately supports the
+   assumption of a uniform temperature across each cross section.</li>
+</ol>
+<p>This final calculation is a <strong>self-consistency check</strong>, not a logically
+independent proof: the one-dimensional profile used to fit <span class="arithmatex">\(m\)</span> already
+assumes negligible radial temperature variation. If the fitted value gives
+<span class="arithmatex">\(\mathrm{Bi}_{\perp}\ll1\)</span>, the assumption used at the beginning is
+self-consistent. If it does not, reject the one-dimensional interpretation of
+the fitted <span class="arithmatex">\(m\)</span>; a model with radial temperature variation would be required.</p>
+<p>The same fitted <span class="arithmatex">\(m\)</span> also completes the length check above. Calculate <span class="arithmatex">\(mL\)</span>
+and evaluate <span class="arithmatex">\(\epsilon_T(x_i)\)</span> at every sensor position. If the finite and
+semi-infinite profiles differ by less than your stated criterion throughout
+the measured region, the semi-infinite approximation is adequate there. If
+not, retain the finite-length solution. Thus <span class="arithmatex">\(\mathrm{Bi}_{\perp}\)</span> tests the
+radial approximation, while <span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(\epsilon_T(x_i)\)</span> test whether the far
+end can be ignored; they are separate conclusions obtained from the same fit.</p>
 <h3 id="a4-finite-rod-model-and-validity-checks">A4: Finite-Rod Model And Validity Checks<a class="headerlink" href="#a4-finite-rod-model-and-validity-checks" title="Permanent link">&para;</a></h3>
 <p><code>A4</code> is a 10-point individual written assignment based on Module 7, Parts I
 and II. It does not require the temperature data collected in Part III. Submit

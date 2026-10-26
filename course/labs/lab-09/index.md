@@ -310,6 +310,28 @@ ideal Angstrom assumptions begin to fail.
 <details markdown="1">
 <summary>Full complex-exponential derivation</summary>
 
+### Start From The Space-Time Equation
+
+For excess temperature \(\theta(x,t)=T(x,t)-T_\infty\), the semi-infinite rod
+obeys
+
+\[
+\boxed{
+\frac{\partial \theta(x,t)}{\partial t}
+=\kappa\frac{\partial^2\theta(x,t)}{\partial x^2}
+-\nu\theta(x,t)
+},
+\qquad x\geq 0.
+\]
+
+The periodic boundary conditions are
+
+\[
+\theta(0,t)=\theta_b\cos(\omega t),
+\qquad
+\lim_{x\rightarrow\infty}\theta(x,t)=0.
+\]
+
 ### Guess A Complex Exponential
 
 A complex exponential is useful because differentiation returns a constant

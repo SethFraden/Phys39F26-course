@@ -605,14 +605,15 @@ preparing the common bath.
    before soldering, keep the joints compact, and stagger the joints so the
    finished end is not unnecessarily bulky.
 
-   At the breadboard end, terminate the flexible 26 AWG pair with short
-   **22 AWG solid-wire pigtails** so the connections are reliable in the
-   solderless breadboard. Use a meter to measure the actual resistance of each
-   nominal
-   \(100\ \mathrm{k}\Omega\) fixed resistor before it is connected in its
-   voltage divider, and record the measured value with its channel assignment.
-   Follow the established thermistor voltage-divider circuit; do not change
-   the TEC power or safety wiring.
+    At the breadboard end, terminate the flexible 26 AWG pair with short
+    **22 AWG solid-wire pigtails** so the connections are reliable in the
+    solderless breadboard. Use a meter to measure the actual resistance of each
+    nominal
+    \(100\ \mathrm{k}\Omega\) fixed resistor before it is connected in its
+    voltage divider, and record the measured value with its channel assignment.
+    Follow the established thermistor voltage-divider circuit; do not change
+    the TEC power or safety wiring.
+
 2. Label the TEC-base thermistor `TEC` and the five rod thermistors `T1`
    through `T5`. Use durable, water-resistant labels attached securely to the
    dry portions of the leads. The labels must survive handling, the common-bath
@@ -1056,8 +1057,7 @@ used to test the model and determine the fitted decay coefficient \(m\).
    that the rod channels agree within the common-bath acceptance criterion.
 6. Before heating, review the prediction record and select a numerical
    steady-state criterion. A useful starting criterion is
-   \( |dT_i/dt|<0.02^{\circ}\mathrm{C}/\mathrm{min} \) at every sensor for at
-   least 10 minutes; justify any different criterion.
+   \( |dT_i/dt|<0.02^{\circ}\mathrm{C}/\mathrm{min} \) at every sensor for a couple of minutes; justify any different criterion.
 7. Apply a non-oscillatory TEC step from \(20^{\circ}\mathrm{C}\) to
    \(45^{\circ}\mathrm{C}\) using PI control. Record continuously until the
    selected steady-state criterion is satisfied. The purpose of retaining

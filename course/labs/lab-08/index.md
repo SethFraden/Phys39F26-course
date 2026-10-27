@@ -462,21 +462,20 @@ For a circular rod,
 
 This validity check is performed in two stages. **Before the experiment**, make
 a provisional estimate using a literature value or range for the conductivity
-of 6061-T6 aluminum, a justified range for the convective heat-transfer
-coefficient \(h\), and the measured rod geometry. For natural convection from
-the half-inch rod in still room air, use the planning range
+of 6061-T6 aluminum and the measured rod geometry. For natural convection from
+the half-inch rod in still room air, use the planning value
 
 \[
-3\lesssim h\lesssim
-10\ \mathrm{W\,m^{-2}K^{-1}}.
+h=10\ \mathrm{W\,m^{-2}K^{-1}}.
 \]
 
-Treat this as a provisional convection range, not as a measured value of \(h\).
+Treat this as a provisional convection value, not as a measurement of \(h\).
 
 The small-Biot condition \(\mathrm{Bi}_{\perp}\ll1\) means radial conduction
 is fast enough that a cross section can be represented by one temperature.
 Before the experiment, estimate \(\mathrm{Bi}_{\perp}\) using the rod radius
-and a justified range of \(h\) and \(k\). At this stage, proceed with the
+and \(h=10\ \mathrm{W\,m^{-2}K^{-1}}\), together with a justified literature
+value or range for \(k\). At this stage, proceed with the
 one-dimensional model under the **provisional assumption** that
 \(\mathrm{Bi}_{\perp}\ll1\). You cannot yet test that assumption using the
 measured profile because \(m\) has not yet been measured.
@@ -535,7 +534,8 @@ end can be ignored; they are separate conclusions obtained from the same fit.
 `A4` is a 10-point individual written assignment based on Module 7, Parts I
 and II. It does not require temperature-profile data from Part III. Use the
 measured rod geometry and your planned sensor positions, together with a
-literature range for \(k\) and the provisional range for \(h\)
+literature range for \(k\) and the provisional value
+\(h=10\ \mathrm{W\,m^{-2}K^{-1}}\)
 given above. These calculations are predictions to record before heating the
 rod; they are not the final measurement-based validity checks. Submit one PDF
 organized under the following four headings. Show units and dimensional checks
@@ -556,15 +556,15 @@ physically.
 **Part 3. Make a provisional finite-length prediction.** Complete Lienhard
 Problem 4.12 to obtain the semi-infinite limit. Use Example 4.8 and Problem
 4.20 to quantify the effect of approximating the tip boundary condition. From
-the provisional ranges of \(h\) and \(k\), calculate a range for
+the provisional value of \(h\) and literature range for \(k\), calculate a range for
 \(m\), then calculate \(mL\) and \(\epsilon_T(x)\) at every planned course-rod
 sensor position. State whether you expect the course rod to be adequately
 semi-infinite over the measured region, and state the positions, parameter
 ranges, and error criterion on which this prediction depends.
 
 **Part 4. Make a provisional one-dimensional prediction.** Calculate a range
-for \(\mathrm{Bi}_{\perp}\) using the same provisional values of
-\(h\) and \(k\). State whether you expect each cross section to
+for \(\mathrm{Bi}_{\perp}\) using the same provisional value of \(h\) and
+literature range for \(k\). State whether you expect each cross section to
 be represented adequately by one temperature. Do not combine this radius
 conclusion with the finite-length conclusion from Part 3.
 
@@ -1012,6 +1012,16 @@ beginner.
 
 ## Phase 4: Configure And Acquire The Stationary Profile
 
+For the initial Part III prediction, use
+
+\[
+h=10\ \mathrm{W\,m^{-2}K^{-1}}
+\]
+
+as a reasonable guess for natural convection from the rod in still room air.
+This is a planning value, not a measurement. The stationary profile will be
+used to test the model and determine the fitted decay coefficient \(m\).
+
 1. Install rod thermistor 1 in the first rod hole and use that hole as the
    analysis base \(x=0\). It is neither the physical rod end nor the separate
    thermistor embedded in the TEC. Its measured signal \(T(0,t)\) is the
@@ -1078,6 +1088,10 @@ At the constant \(45^{\circ}\mathrm{C}\) TEC setpoint, the final stationary
 \(T(x)\) profile is the principal physics measurement in Module 7. Analyze the
 record acquired in Phase 4 and compare it quantitatively with both the finite
 insulated-tip solution and the semi-infinite exponential approximation.
+**You must perform both fits.** Do not assume in advance that the rod is long
+enough for the semi-infinite approximation; use the fitted curves, residuals,
+and parameter uncertainties to decide whether ignoring the finite end is
+adequate over the measured sensor positions.
 
 1. Select the final interval of the Phase 4 record and confirm that it
    satisfies the stated steady-state criterion. No separate heating run is

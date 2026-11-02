@@ -216,6 +216,9 @@ observations, and the way the measurements are connected to the theory. Recogniz
 
 ### Start With The Rod Equation
 
+Module 7, Part III [introduced this rod model and explained each physical term](../lab-08/index.md#model),
+including its units and the definitions of the transport coefficients.
+
 Use excess temperature $\theta=T-T_\infty$ and the rod equation
 
 \[

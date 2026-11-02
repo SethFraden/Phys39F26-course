@@ -69,10 +69,16 @@ By the end of this module, you should be able to:
 1. **Measure all six temperature histories:** display and record the TEC and
    `T1`-`T5` with the live GUI, verify the stored file, and preserve sensor
    positions, units, timestamps, and run metadata.
-2. **Understand and apply the Angstrom method:** create and verify a sinusoidal
-   rod-base boundary, explain why amplitude decreases and phase lag increases
-   with position, and fit the data to obtain \(q\), \(q'\), \(\kappa\), and
-   \(\nu\) with units and uncertainty.
+2. **Understand the settled-periodic temperature profile:** explain the general
+   solution physically in terms of three spatial length scales: the
+   mean-temperature decay length $\ell_{\mathrm{mean}}=1/m$, the
+   oscillation-amplitude decay length $\ell_{\mathrm{amp}}=1/q$, and the
+   one-radian phase-shift length $\ell_{\mathrm{phase}}=1/q'$. Relate these
+   scales to one another and to the dimensional parameters $\kappa$, $\nu$,
+   and $\omega$ through $m^2=\nu/\kappa$, $m^2=q^2-q'^2$, and
+   $2qq'=\omega/\kappa$; express their ratios using the dimensionless frequency
+   $\Omega=\omega/\nu$; and fit the measurements to obtain $q$, $q'$,
+   $\kappa$, and $\nu$ with units and uncertainty.
 3. **Compare experiment and theory:** use per-sensor fits, spatial trends,
    residuals, frequency consistency, and the finite-length and
    transverse-Biot checks from Module 7 to judge the one-dimensional model.
@@ -111,8 +117,10 @@ Follow these steps in order during the three-hour S18 laboratory:
 
 1. Verify the `TEC` and `T1`-`T5` channel labels, units, common-bath result,
    optional correction coefficients, measured sensor positions, and safety
-   limits. Confirm that `T1` is the lowest rod position, nearest the TEC, and
-   that `T2`-`T5` are ordered by increasing distance along the rod.
+   limits. For the initial oscillatory measurement, place `T1` in the first
+   rod hole and space `T2`-`T5` approximately 1 inch apart along the rod.
+   Confirm that `T1` is nearest the TEC and that `T2`-`T5` are ordered by
+   increasing distance along the rod.
 2. Start the Python GUI. Confirm that it displays all six temperatures, the
    selected control mode, requested setpoint, and applied PWM, and that it saves
    every complete record to a timestamped local file.
@@ -149,15 +157,16 @@ Do not declare a response settled merely because five cycles have elapsed.
 Five cycles are the minimum retained **after** the team's quantitative settling
 criterion has been satisfied.
 
-## Reuse The Validated Sensor Map
+## Choose Sensor Positions For The Quantity Being Measured
 
 Module 7 established the geometry and validated six thermistor measurement
 chains: one thermistor in the TEC base and five thermistors at measured
 positions along the 6061-T6 aluminum rod. Keep the same coordinate origin at
 the first rod hole, channel assignments, common-bath result, any optional
-correction coefficients, measured diameter, analysis length \(L\) from the
-first hole to the tip, and sensor positions for the Angstrom experiment. Do not move a rod
-sensor without updating the sensor map and its position uncertainty.
+correction coefficients, measured diameter, and analysis length \(L\) from the
+first hole to the tip. A sensor may be moved to a different hole, but each
+measurement configuration must have its own recorded sensor map and position
+uncertainties.
 
 The thermistor embedded in the TEC measures the driven actuator, but it is not
 the rod boundary at \(x=0\) and is not one of the five rod coordinates. Rod
@@ -171,30 +180,44 @@ changes the reference amplitude and phase, but the fitted spatial decay and
 phase coefficients depend on amplitude ratios, phase differences, and sensor
 separations. Use the first hole as \(x=0\) consistently in every plot and fit.
 
+The mean and oscillatory parts require different sensor-placement strategies.
+For the course rod, the estimated mean-profile length is relatively long:
+$mL\approx1.3$. The stationary mean excess temperature therefore remains
+measurable over the full rod. Module 7 already measured this profile using a
+full-length sensor configuration and compared it with the finite- and
+infinite-rod models. **Do not repeat that measurement in Module 8.** Retain the
+Module 7 sensor map, data, and fitted mean-decay coefficient $m$ for comparison
+with the oscillatory results.
+
+The oscillatory part decays much faster. Over periods from $100$ to $500$ s,
+the estimate is $qL\approx6.5$ to $3.0$. In the semi-infinite approximation,
+the oscillation amplitude at the far end would therefore be only
+$e^{-qL}\approx0.0015$ to $0.05$ of its value at the base. A full-length sensor
+layout would place too many thermistors where the oscillatory signal is very
+small.
+
+For the Module 8 Angstrom measurement, begin with `T1` in the first hole and
+define that position as $x=0$. Place `T2`-`T5` at approximately 1-inch intervals
+in order of increasing $x$. This spacing has produced measurable oscillatory
+signals in prior trials while still providing enough separation to resolve
+amplitude decay and phase lag. Measure and record every position, and save this
+oscillatory-measurement map separately from the full-length mean-profile map
+retained from Module 7.
+
+Treat the 1-inch spacing as a starting point, not a permanent requirement.
+Collect pilot data at a short and a long usable period before finalizing the
+layout. If the downstream oscillations are too small to fit, move the sensors
+closer to the base or closer together. If the amplitudes and phases change too
+little between neighboring sensors, spread the sensors farther apart. After
+any repositioning, remeasure every $x$ coordinate and update the oscillatory
+sensor map before collecting the production data.
+
 In principle, the Angstrom method needs temperatures at only two distinct rod
-positions. The experiment could therefore be repeated for several pairs of
 positions. Five simultaneous rod measurements are preferable because they
 provide multiple amplitude and phase differences in one run, support spatial
 fits and residual checks, and avoid comparing pairs acquired under different
-room or boundary conditions.
-
-Choose the five rod positions to span a useful amplitude range. `T1` must be
-the lowest position on the rod, nearest the TEC, and defines $x=0$. For the
-primary forcing period, place `T5` far enough downstream that its fitted
-oscillation amplitude is approximately
-
-\[
-B_5\approx\frac{B_1}{e}\approx0.37B_1.
-\]
-
-Thus the oscillatory amplitude at `T5` should be about $1/e$ of the amplitude
-at `T1`, a decrease of about 63%. Place `T2`-`T4` at intermediate measured
-positions so the decay and phase shift are sampled across this range. Use the
-pilot run to check the amplitude ratio. If the initial positions do not span
-the intended range, reposition the sensors before collecting production data,
-then remeasure every position and update the validated sensor map. Because the
-attenuation length depends on frequency, the $1/e$ target applies to the
-primary forcing period rather than to every period tested.
+room or boundary conditions. Use the pilot run to confirm that at least three
+rod sensors retain measurable amplitude and phase at every selected frequency.
 
 Before the pilot run, verify that the saved diagram or photograph identifies
 the TEC-base channel, the five rod channels, the positive \(x\) direction, all
@@ -483,6 +506,279 @@ used to fit the experiment:
 \]
 
 For the boundary condition chosen above, $B_0=\theta_b$ and $\phi_0=0$.
+
+</details>
+
+### Combine The Mean And Oscillatory Solutions
+
+The derivation above gives only the oscillatory part. The imposed boundary
+temperature also has a time-independent mean:
+
+\[
+T(0,t)=T_a+T_b\cos(\omega t).
+\]
+
+Because the rod equation is linear, add the stationary mean profile to the
+settled oscillatory response. For a semi-infinite rod, the complete
+settled-periodic solution is
+
+\[
+\boxed{
+T(x,t)=T_\infty
++(T_a-T_\infty)e^{-mx}
++T_b e^{-qx}\cos(\omega t-q'x)
+},
+\]
+
+where
+
+\[
+m=\sqrt{\frac{\nu}{\kappa}},
+\qquad
+s=q+iq'=\sqrt{\frac{\nu+i\omega}{\kappa}},
+\qquad
+m^2=q^2-q'^2.
+\]
+
+The first exponential describes the time-averaged temperature above room
+temperature. The second describes the oscillation about that mean. Thus the
+mean and the oscillation amplitude both decrease with position, but generally
+with different decay coefficients, $m$ and $q$. This is a **settled periodic
+state**, not a time-independent steady state. Using sine instead of cosine only
+changes the choice of time origin.
+
+The solution contains three physical length scales:
+
+\[
+\ell_{\mathrm{mean}}=\frac{1}{m}=\sqrt{\frac{\kappa}{\nu}},
+\qquad
+\ell_{\mathrm{amp}}=\frac{1}{q},
+\qquad
+\ell_{\mathrm{phase}}=\frac{1}{q'}.
+\]
+
+Over $\ell_{\mathrm{mean}}$, the mean excess temperature falls by a factor of
+$e$. Over $\ell_{\mathrm{amp}}$, the oscillation amplitude falls by a factor of
+$e$. Over $\ell_{\mathrm{phase}}$, the oscillation accumulates one radian of
+phase lag; its spatial wavelength is therefore $2\pi\ell_{\mathrm{phase}}$.
+
+Define the dimensionless driving frequency
+
+\[
+\Omega=\frac{\omega}{\nu}.
+\]
+
+The three scales are not independent. Dividing the relations for $q$ and $q'$
+by $m=\sqrt{\nu/\kappa}$ gives
+
+\[
+\frac{q}{m}
+=\sqrt{\frac{1+\sqrt{1+\Omega^2}}{2}},
+\qquad
+\frac{q'}{m}
+=\sqrt{\frac{-1+\sqrt{1+\Omega^2}}{2}}.
+\]
+
+Equivalently, $\ell_{\mathrm{amp}}/\ell_{\mathrm{mean}}=m/q$ and
+$\ell_{\mathrm{phase}}/\ell_{\mathrm{mean}}=m/q'$. For a finite rod, the
+dimensionless lengths $mL$, $qL$, and $q'L$ state how many mean-decay,
+amplitude-decay, and one-radian phase-shift lengths fit within the rod.
+
+<details class="note" markdown="1">
+<summary><strong>Popup: Estimate The Three Dimensionless Lengths For The Course Rod</strong></summary>
+
+Use the planning values
+
+\[
+L=0.300\ \mathrm{m},\qquad
+d=0.0127\ \mathrm{m},\qquad
+h=10\ \mathrm{W\,m^{-2}K^{-1}},
+\]
+
+and the 6061-T6 aluminum properties
+
+\[
+k=167\ \mathrm{W\,m^{-1}K^{-1}},\qquad
+\rho=2700\ \mathrm{kg\,m^{-3}},\qquad
+c=896\ \mathrm{J\,kg^{-1}K^{-1}}.
+\]
+
+For a circular rod,
+
+\[
+\kappa=\frac{k}{\rho c}=6.90\times10^{-5}\ \mathrm{m^2\,s^{-1}},
+\qquad
+\nu=\frac{4h}{\rho cd}=1.30\times10^{-3}\ \mathrm{s^{-1}}.
+\]
+
+The mean-profile decay coefficient and dimensionless rod length are
+
+\[
+m=\sqrt{\frac{\nu}{\kappa}}=4.34\ \mathrm{m^{-1}},
+\qquad
+mL=1.30.
+\]
+
+Thus the rod contains about 1.3 mean-decay lengths, independent of forcing
+frequency. For each forcing period $\tau$, calculate $\omega=2\pi/\tau$ and
+
+\[
+q=\sqrt{\frac{\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}},
+\qquad
+q'=\sqrt{\frac{-\nu+\sqrt{\nu^2+\omega^2}}{2\kappa}}.
+\]
+
+| Period $\tau$ (s) | $mL$ | $qL$ | $q'L$ (rad) | Full $2\pi$ phase shifts, $q'L/(2\pi)$ |
+| ---: | ---: | ---: | ---: | ---: |
+| 100 | 1.30 | 6.47 | 6.33 | 1.01 |
+| 200 | 1.30 | 4.62 | 4.43 | 0.71 |
+| 300 | 1.30 | 3.81 | 3.58 | 0.57 |
+| 400 | 1.30 | 3.34 | 3.07 | 0.49 |
+| 500 | 1.30 | 3.01 | 2.72 | 0.43 |
+
+At every period in this range, $qL>mL$. Therefore
+$\ell_{\mathrm{amp}}=1/q$ is shorter than
+$\ell_{\mathrm{mean}}=1/m$: the oscillation amplitude decays more rapidly with
+position than the average excess temperature. At $100$ s, the rod spans about
+one complete $2\pi$ spatial phase shift. At $500$ s, it spans about $0.43$ of a
+complete phase shift. Longer-period oscillations penetrate farther and
+accumulate less phase lag across the rod.
+
+The semi-infinite model would predict a base-to-tip oscillation-amplitude ratio
+$e^{-qL}$ ranging from about $0.0015$ at $100$ s to $0.049$ at $500$ s. These
+small values explain why the oscillatory thermistors should be concentrated
+near the base. Because the physical rod is finite, measurements near the tip
+should ultimately be compared with the finite-rod solution rather than treated
+as exact semi-infinite predictions.
+
+</details>
+
+<details markdown="1">
+<summary>Guided student solution: the finite insulated-tip rod</summary>
+
+For a finite rod, let the analysis base be at $x=0$ and the insulated tip be at
+$x=L$. The boundary conditions are
+
+\[
+T(0,t)=T_a+T_b\cos(\omega t),
+\qquad
+\left.\frac{\partial T}{\partial x}\right|_{x=L}=0.
+\]
+
+**Step 1: Separate the mean and oscillatory parts.** Write
+
+\[
+T(x,t)=T_\infty+\overline{\theta}(x)
++\operatorname{Re}\!\left\{\widetilde{\theta}_{\mathrm{osc}}(x,t)\right\}.
+\]
+
+The stationary part obeys
+
+\[
+\frac{d^2\overline{\theta}}{dx^2}-m^2\overline{\theta}=0,
+\qquad
+\overline{\theta}(0)=T_a-T_\infty,
+\qquad
+\overline{\theta}'(L)=0.
+\]
+
+Use the [finite insulated-tip solution from Module 7](../fin-design-derivation/index.md#energy-balance-and-differential-equation)
+to obtain
+
+\[
+\boxed{
+\overline{\theta}(x)
+=(T_a-T_\infty)
+\frac{\cosh[m(L-x)]}{\cosh(mL)}
+}.
+\]
+
+**Step 2: Solve the oscillatory spatial problem.** Use
+
+\[
+\widetilde{\theta}_{\mathrm{osc}}(x,t)=F(x)e^{i\omega t}.
+\]
+
+Substitution into the rod equation gives
+
+\[
+F''-s^2F=0,
+\qquad
+s^2=\frac{\nu+i\omega}{\kappa}.
+\]
+
+Apply
+
+\[
+F(0)=T_b,
+\qquad
+F'(L)=0.
+\]
+
+The finite-rod oscillatory solution is
+
+\[
+\boxed{
+\widetilde{\theta}_{\mathrm{osc}}(x,t)
+=T_b
+\frac{\cosh[s(L-x)]}{\cosh(sL)}
+e^{i\omega t}
+}.
+\]
+
+**Step 3: Combine the two pieces and take the real part.** The complete
+finite-rod settled-periodic solution is
+
+\[
+\boxed{
+\begin{aligned}
+T(x,t)=T_\infty
+&+(T_a-T_\infty)
+\frac{\cosh[m(L-x)]}{\cosh(mL)}
+\\
+&+\operatorname{Re}\!\left\{
+T_b\frac{\cosh[s(L-x)]}{\cosh(sL)}e^{i\omega t}
+\right\}.
+\end{aligned}
+}
+\]
+
+Define
+
+\[
+\frac{\cosh[s(L-x)]}{\cosh(sL)}
+=A(x)e^{-i\phi(x)}.
+\]
+
+Then the same result can be written entirely with real quantities:
+
+\[
+T(x,t)=T_\infty
++(T_a-T_\infty)
+\frac{\cosh[m(L-x)]}{\cosh(mL)}
++T_bA(x)\cos[\omega t-\phi(x)].
+\]
+
+**Checks for you to complete:**
+
+**Check 1.** Set $x=0$ and verify that the solution gives
+$T(0,t)=T_a+T_b\cos(\omega t)$.
+
+**Check 2.** Differentiate with respect to $x$ and verify that both
+contributions have zero slope at $x=L$.
+
+**Check 3.** Show that when $mL\gg1$ and $qL\gg1$,
+
+\[
+\frac{\cosh[m(L-x)]}{\cosh(mL)}\rightarrow e^{-mx},
+\qquad
+\frac{\cosh[s(L-x)]}{\cosh(sL)}\rightarrow e^{-sx}.
+\]
+
+Thus the finite solution reduces to the semi-infinite solution above.
+
+**Check 4.** Explain why data near the tip are the most sensitive to the
+difference between the finite and semi-infinite models.
 
 </details>
 
@@ -1080,5 +1376,5 @@ exclusions, approximation checks, run instructions, and AI assistance.
 | Learning objective | Evidence |
 | --- | --- |
 | 1. Measure all six temperature histories | Three-hour live GUI display and local record, validated sensor map, multi-frequency acquisition, verified files, and complete run metadata |
-| 2. Understand and apply the Angstrom method | `P3`, base-tracking plot, A5 derivation, and pilot and production amplitude and phase fits yielding $q$, $q'$, $\kappa$, and $\nu$ |
+| 2. Understand the settled-periodic temperature profile | `P3` explanation of the three spatial length scales and their dimensional and dimensionless relationships, base-tracking plot, A5 derivation, and amplitude and phase fits yielding $q$, $q'$, $\kappa$, and $\nu$ |
 | 3. Compare experiment and theory | `P4`, residuals, spatial and frequency consistency, Module 7 approximation checks, and the C6 explanation |

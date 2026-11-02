@@ -117,7 +117,7 @@
           <option value="acrylic">Acrylic (insulator)</option>
         </select>
       </div>
-      <div class="rig">Diameter <input type="range" id="diam" min="3" max="25" step="1" value="10"><b id="diamV">10 mm</b></div>
+      <div class="rig">Diameter <input type="range" id="diam" min="3" max="25" step="0.1" value="12.7"><b id="diamV">12.7 mm</b></div>
       <div class="rig">Length <input type="range" id="len" min="40" max="300" step="5" value="300"><b id="lenV">300 mm</b></div>
       <div class="rig">PID sensor <b>T0 at x = 0</b></div>
       <div class="rig" style="color:var(--dim)">Ambient <b id="ambV">22.0 °C</b>&nbsp;&middot;&nbsp;dew pt <b>11 °C</b></div>
@@ -255,7 +255,7 @@ const SENSOR_COLORS = ['#4fb3ff','#57d98a','#ffd166','#ff8c61','#c792ea','#5ac8f
 ================================================================ */
 const sim = {
   time:0, paused:false, speed:60,
-  matKey:'aluminum', d:0.010, L:0.300,
+  matKey:'aluminum', d:0.0127, L:0.300,
   N:48, dx:0, T:null, F:null,          // rod temps (°C), frost 0..1
   Tc:TAMB, Th:TAMB,                    // TEC plate temps
   Ts:new Float64Array(6),               // T0-T5, including thermistor lag
@@ -590,8 +590,28 @@ for(let i=0;i<256;i++){
   const c=IRON[j].map((v,ch)=>Math.round(v+(IRON[j+1][ch]-v)*f));
   ironLUT.push(`rgb(${c[0]},${c[1]},${c[2]})`);
 }
-const TMIN=-25, TMAX=65;
-function ironColor(t){ return ironLUT[Math.max(0,Math.min(255,Math.round((t-TMIN)/(TMAX-TMIN)*255)))]; }
+function thermalScaleLimits(){
+  let tMin, tMax;
+  if(setpointDrive.mode==='sine'){
+    tMin=Math.min(TAMB,setpointDrive.Ta-setpointDrive.Tb);
+    tMax=Math.max(TAMB,setpointDrive.Ta+setpointDrive.Tb);
+  } else {
+    tMin=Math.min(TAMB,setpointDrive.constant);
+    tMax=Math.max(TAMB,setpointDrive.constant);
+  }
+  if(tMax-tMin<1){
+    const mid=(tMin+tMax)/2;
+    tMin=mid-0.5; tMax=mid+0.5;
+  }
+  return {min:tMin,max:tMax};
+}
+function ironColor(t,scale){
+  const f=(t-scale.min)/(scale.max-scale.min);
+  return ironLUT[Math.max(0,Math.min(255,Math.round(f*255)))];
+}
+function thermalTickLabel(t){
+  return Math.abs(t-Math.round(t))<0.05 ? t.toFixed(0) : t.toFixed(1);
+}
 
 /* deterministic per-node frost speckles */
 function speckles(i,n){
@@ -608,8 +628,9 @@ function drawScene(){
   const {w,h,dpr}=fitCanvas(sceneCv);
   sctx.setTransform(dpr,0,0,dpr,0,0);
   const thermal=viewMode==='thermal';
+  const thermalScale=thermalScaleLimits();
   // background
-  if(thermal){ sctx.fillStyle=ironColor(TAMB-3); sctx.fillRect(0,0,w,h); }
+  if(thermal){ sctx.fillStyle=ironColor(TAMB,thermalScale); sctx.fillRect(0,0,w,h); }
   else{ const g=sctx.createLinearGradient(0,0,0,h); g.addColorStop(0,'#161a21'); g.addColorStop(1,'#0b0d11'); sctx.fillStyle=g; sctx.fillRect(0,0,w,h); }
 
   const Lmm=sim.L*1000, dmm=sim.d*1000;
@@ -623,20 +644,20 @@ function drawScene(){
   // --- heatsink
   if(thermal){
     const g=sctx.createLinearGradient(hsX,0,tecX,0);
-    g.addColorStop(0,ironColor(TAMB+(sim.Th-TAMB)*0.3)); g.addColorStop(1,ironColor(sim.Th));
+    g.addColorStop(0,ironColor(TAMB+(sim.Th-TAMB)*0.3,thermalScale)); g.addColorStop(1,ironColor(sim.Th,thermalScale));
     sctx.fillStyle=g;
   } else sctx.fillStyle='#3f4652';
   sctx.fillRect(tecX-6*s,cy-hsH/2,6*s,hsH); // base plate
   for(let i=0;i<9;i++){
     const fy=cy-hsH/2 + i*(hsH-3)/8;
-    if(thermal) sctx.fillStyle=ironColor(TAMB+(sim.Th-TAMB)*(0.25+0.5*(1-Math.abs(i-4)/4)));
+    if(thermal) sctx.fillStyle=ironColor(TAMB+(sim.Th-TAMB)*(0.25+0.5*(1-Math.abs(i-4)/4)),thermalScale);
     else sctx.fillStyle= i%2? '#3a414c':'#454d59';
     sctx.fillRect(hsX,fy,hsW-6*s,3.2);
   }
   // --- TEC ceramic sandwich (hot half left / cold half right)
   if(thermal){
-    sctx.fillStyle=ironColor(sim.Th); sctx.fillRect(tecX,cy-tecH/2,tecW/2,tecH);
-    sctx.fillStyle=ironColor(sim.Tc); sctx.fillRect(tecX+tecW/2,cy-tecH/2,tecW/2,tecH);
+    sctx.fillStyle=ironColor(sim.Th,thermalScale); sctx.fillRect(tecX,cy-tecH/2,tecW/2,tecH);
+    sctx.fillStyle=ironColor(sim.Tc,thermalScale); sctx.fillRect(tecX+tecW/2,cy-tecH/2,tecW/2,tecH);
   } else {
     sctx.fillStyle='#e8e6df'; sctx.fillRect(tecX,cy-tecH/2,tecW,tecH);
     sctx.fillStyle='#c9c6bc';
@@ -651,7 +672,7 @@ function drawScene(){
   // --- rod
   const N=sim.N, segW=rodW/N;
   if(thermal){
-    for(let i=0;i<N;i++){ sctx.fillStyle=ironColor(sim.T[i]); sctx.fillRect(rodX+i*segW-0.5,cy-rodH/2,segW+1,rodH); }
+    for(let i=0;i<N;i++){ sctx.fillStyle=ironColor(sim.T[i],thermalScale); sctx.fillRect(rodX+i*segW-0.5,cy-rodH/2,segW+1,rodH); }
   } else {
     const m=MATERIALS[sim.matKey];
     const g=sctx.createLinearGradient(0,cy-rodH/2,0,cy+rodH/2);
@@ -716,13 +737,14 @@ function drawScene(){
     for(let i=0;i<bh;i++){ sctx.fillStyle=ironLUT[Math.round(255*(1-i/bh))]; sctx.fillRect(bx,by+i,14,1.5); }
     sctx.strokeStyle='rgba(255,255,255,.5)'; sctx.strokeRect(bx-0.5,by-0.5,15,bh+1);
     sctx.fillStyle='#fff'; sctx.font='10.5px '+getComputedStyle(document.body).getPropertyValue('--mono');
-    for(const tv of [-20,0,20,40,60]){
-      const ty=by+bh*(1-(tv-TMIN)/(TMAX-TMIN));
-      sctx.fillText(tv+'°',bx+18,ty+3.5);
+    for(let i=0;i<5;i++){
+      const tv=thermalScale.min+i*(thermalScale.max-thermalScale.min)/4;
+      const ty=by+bh*(1-(tv-thermalScale.min)/(thermalScale.max-thermalScale.min));
+      sctx.fillText(thermalTickLabel(tv)+'°',bx+18,ty+3.5);
       sctx.fillRect(bx+14,ty,3,1);
     }
     sctx.fillStyle='rgba(255,255,255,.85)'; sctx.font='11px sans-serif';
-    sctx.fillText('IRONBOW  •  −25…65 °C',14,20);
+    sctx.fillText('IRONBOW  •  '+thermalTickLabel(thermalScale.min)+'…'+thermalTickLabel(thermalScale.max)+' °C',14,20);
     sctx.fillText('SIM-IR 640',w-100,h-14);
   } else {
     sctx.fillStyle='rgba(139,149,167,.7)'; sctx.font='11px sans-serif';

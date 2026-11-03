@@ -87,8 +87,8 @@
   <span class="sub">Peltier + rod &middot; six thermistors &middot; Phys 39</span>
   <span class="spacer"></span>
   <div class="seg" id="viewSeg">
-    <button id="btnNormal" class="on">Visual</button>
-    <button id="btnThermal">Thermal cam</button>
+    <button id="btnNormal">Visual</button>
+    <button id="btnThermal" class="on">Thermal cam</button>
   </div>
   <label class="sub">speed</label>
   <select id="speed">
@@ -574,7 +574,7 @@ function raf(){
 ================================================================ */
 const sceneCv=document.getElementById('scene'), sctx=sceneCv.getContext('2d');
 const chartCv=document.getElementById('chart'), cctx=chartCv.getContext('2d');
-let viewMode='normal';
+let viewMode='thermal';
 function fitCanvas(cv){
   const r=cv.getBoundingClientRect(), dpr=devicePixelRatio||1;
   if(cv.width!==Math.round(r.width*dpr)||cv.height!==Math.round(r.height*dpr)){

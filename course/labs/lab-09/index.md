@@ -1299,11 +1299,53 @@ B(x)=B_0e^{-qx},
 \phi(x)=\phi_0-q'x.
 \]
 
+Also fit the mean temperatures $a_i$ to the finite insulated-tip rod model.
+Define
+
+\[
+\xi_i=\frac{x_i}{L},
+\qquad
+\mu=mL.
+\]
+
+Then fit the measured pairs $(\xi_i,a_i)$ to
+
+\[
+\boxed{
+a(\xi)-T_\infty
+=(a_0-T_\infty)
+\frac{\cosh[\mu(1-\xi)]}{\cosh(\mu)}
+},
+\]
+
+where $T_\infty$ is the measured room temperature and $a_0$ is the fitted or
+measured mean temperature at $x=0$. Extract the dimensionless parameter
+$\mu=mL$, and then use the measured analysis length $L$ to obtain
+
+\[
+\boxed{m=\frac{\mu}{L}}.
+\]
+
+Propagate the uncertainties in both $\mu$ and $L$. Compare this value of $m$
+with the Module 7 full-length mean-profile result and with the independent
+Angstrom relation
+
+\[
+m=\sqrt{q^2-q'^2}.
+\]
+
+Because the Module 8 oscillatory sensor map is concentrated near the base, its
+$a_i$ values may constrain $mL$ less strongly than the full-length Module 7
+data. Report the fit uncertainty and residuals rather than assuming that the
+finite-rod fit is precise.
+
 Your Python app, notebook, or script must visibly show:
 
 - imported raw data and selected fitting interval,
 - TEC tracking and the measured rod-base waveform,
 - sinusoid fit for every retained sensor,
+- mean temperature $a_i$ versus position and the finite-rod fit yielding
+  $mL$ and $m$,
 - amplitude and unwrapped phase versus position,
 - fitted `q` and `q_prime` with units and uncertainty,
 - calculated `kappa` and `nu`,
@@ -1312,9 +1354,9 @@ Your Python app, notebook, or script must visibly show:
   one-dimensional semi-infinite analysis for the retained sensors.
 
 Use the two-stage analysis above as the primary method: first fit each
-temperature trace to obtain \(B_i\) and \(\phi_i\), and then fit their spatial
-dependence. This makes individual sensor behavior, phase unwrapping, and
-exclusions visible. As an optional model-validity extension, fit all retained
+temperature trace to obtain \(a_i\), \(B_i\), and \(\phi_i\), and then fit their
+spatial dependence. This makes individual sensor behavior, phase unwrapping,
+and exclusions visible. As an optional model-validity extension, fit all retained
 \(T_i(t)\) data globally with one shared set of spatial parameters and compare
 the resulting \(q\), \(q'\), residuals, and uncertainties with the transparent
 two-stage result.

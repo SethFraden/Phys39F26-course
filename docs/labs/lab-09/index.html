@@ -1493,11 +1493,44 @@ B(x)=B_0e^{-qx},
 \qquad
 \phi(x)=\phi_0-q'x.
 \]</div>
+<p>Also fit the mean temperatures <span class="arithmatex">\(a_i\)</span> to the finite insulated-tip rod model.
+Define</p>
+<div class="arithmatex">\[
+\xi_i=\frac{x_i}{L},
+\qquad
+\mu=mL.
+\]</div>
+<p>Then fit the measured pairs <span class="arithmatex">\((\xi_i,a_i)\)</span> to</p>
+<div class="arithmatex">\[
+\boxed{
+a(\xi)-T_\infty
+=(a_0-T_\infty)
+\frac{\cosh[\mu(1-\xi)]}{\cosh(\mu)}
+},
+\]</div>
+<p>where <span class="arithmatex">\(T_\infty\)</span> is the measured room temperature and <span class="arithmatex">\(a_0\)</span> is the fitted or
+measured mean temperature at <span class="arithmatex">\(x=0\)</span>. Extract the dimensionless parameter
+<span class="arithmatex">\(\mu=mL\)</span>, and then use the measured analysis length <span class="arithmatex">\(L\)</span> to obtain</p>
+<div class="arithmatex">\[
+\boxed{m=\frac{\mu}{L}}.
+\]</div>
+<p>Propagate the uncertainties in both <span class="arithmatex">\(\mu\)</span> and <span class="arithmatex">\(L\)</span>. Compare this value of <span class="arithmatex">\(m\)</span>
+with the Module 7 full-length mean-profile result and with the independent
+Angstrom relation</p>
+<div class="arithmatex">\[
+m=\sqrt{q^2-q'^2}.
+\]</div>
+<p>Because the Module 8 oscillatory sensor map is concentrated near the base, its
+<span class="arithmatex">\(a_i\)</span> values may constrain <span class="arithmatex">\(mL\)</span> less strongly than the full-length Module 7
+data. Report the fit uncertainty and residuals rather than assuming that the
+finite-rod fit is precise.</p>
 <p>Your Python app, notebook, or script must visibly show:</p>
 <ul>
 <li>imported raw data and selected fitting interval,</li>
 <li>TEC tracking and the measured rod-base waveform,</li>
 <li>sinusoid fit for every retained sensor,</li>
+<li>mean temperature <span class="arithmatex">\(a_i\)</span> versus position and the finite-rod fit yielding
+  <span class="arithmatex">\(mL\)</span> and <span class="arithmatex">\(m\)</span>,</li>
 <li>amplitude and unwrapped phase versus position,</li>
 <li>fitted <code>q</code> and <code>q_prime</code> with units and uncertainty,</li>
 <li>calculated <code>kappa</code> and <code>nu</code>,</li>
@@ -1506,9 +1539,9 @@ B(x)=B_0e^{-qx},
   one-dimensional semi-infinite analysis for the retained sensors.</li>
 </ul>
 <p>Use the two-stage analysis above as the primary method: first fit each
-temperature trace to obtain <span class="arithmatex">\(B_i\)</span> and <span class="arithmatex">\(\phi_i\)</span>, and then fit their spatial
-dependence. This makes individual sensor behavior, phase unwrapping, and
-exclusions visible. As an optional model-validity extension, fit all retained
+temperature trace to obtain <span class="arithmatex">\(a_i\)</span>, <span class="arithmatex">\(B_i\)</span>, and <span class="arithmatex">\(\phi_i\)</span>, and then fit their
+spatial dependence. This makes individual sensor behavior, phase unwrapping,
+and exclusions visible. As an optional model-validity extension, fit all retained
 <span class="arithmatex">\(T_i(t)\)</span> data globally with one shared set of spatial parameters and compare
 the resulting <span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(q'\)</span>, residuals, and uncertainties with the transparent
 two-stage result.</p>

@@ -14,10 +14,10 @@ to separate axial thermal diffusion from heat loss to the air.
 The module follows three priorities: obtain a trustworthy six-temperature
 record, understand the Angstrom method, and compare experiment with theory.
 The [learning objectives](#learning-objectives) state what you must be able to
-do. The [S18 experimental overview](#s18-in-class-procedure) previews the
+do. The [S18 experimental overview](#s18-experimental-overview) previews the
 measurements and control comparisons so that you can see what the theory must
 explain. The detailed experimental instructions follow the theory in
-[Stages 1-6](#stage-1-establish-the-boundary-condition).
+[Stages 1-6](#stage-1-prepare-the-six-channel-measurement-and-live-record).
 
 ## Schedule And Due Work
 
@@ -57,15 +57,11 @@ safety and data-readiness checks below.
 
 By the end of this module, you should be able to:
 
-1. **Measure all six temperature histories and the driven boundary:** display
-   and record the TEC and `T1`-`T5` with the live GUI; measure the oscillating
-   base temperature produced by open-loop feedforward, closed-loop P control,
-   and closed-loop PI control; verify the stored file; and preserve sensor
-   positions, units, timestamps, controller settings, and run metadata.
-   **Boundary-control response:** explain how the measured base temperature
-   differs among feedforward, P, and PI control in mean error, amplitude,
-   phase lag, waveform distortion, heating-cooling symmetry, and applied PWM,
-   and how those differences change with forcing frequency.
+1. **Generate and measure the sinusoidally driven TEC temperature:** Sinusoidally heat the TEC using raw open-loop PWM, susceptibility-based feedforward, closed-loop P control, and closed-loop PI control; verify the stored file; and preserve sensor positions, units, timestamps, controller settings, and run metadata. **Explain** how the measured base temperature differs among raw PWM, feedforward, P, and PI control in mean error, amplitude, phase lag, waveform distortion, heating-cooling symmetry, and how those differences change with forcing frequency.
+
+2. **Measure all six temperature histories:** display
+   and record the TEC and `T1`-`T5` with the live GUI; 
+   
 2. **Derive and understand the settled-periodic temperature profile:** derive
    the complete Angstrom solution for a finite rod with an insulated tip by
    separating the stationary mean and oscillatory parts, applying the boundary
@@ -100,17 +96,10 @@ predictions, and prepare proposed pilot settings and metadata. This is the
 change with distance. This is a planning check, not a separate written
 submission.
 
-**In class during S18-S20:** the ten-step overview below identifies the arc of
-the experiment. Read it before the theory so that the amplitude decay, phase
-lag, and boundary-control analysis have a clear experimental purpose. Do not
-use the overview by itself as the laboratory instructions; the detailed
-instructions follow the theory in Stages 1-6. During S18, compare the
-boundary-control methods and obtain pilot data at two usable frequencies.
-During S19-S20, use the pilot analysis to improve the settings and acquire the
-production record. Aim ultimately for five frequencies spanning periods from
-100 to 500 s when time and signal quality permit; two usable frequencies are
-the minimum. Decide from the live data when each response has settled, and
-retain complete settled cycles before changing frequency.
+**In class during S18-S20:** use Stages 1-4 for the S18 control comparisons
+and two-frequency pilot measurement. During S19-S20, use the pilot analysis to
+improve the settings and acquire the production record in Stage 5. Decide from
+the live data when each response has settled before changing frequency.
 
 **After the production run during S21-S22:** complete the spatial fits,
 uncertainty and residual analysis, and model-validity checks. The `P4` check is
@@ -119,86 +108,20 @@ positions and units, acquisition metadata, and a rod-base waveform check. This
 is an in-class data-readiness check, not a separate written submission. State
 the criterion you used to decide that the response was settled.
 
-<a id="s18-in-class-procedure"></a>
-
 ### S18 Experimental Overview
 
-**Learning Objective 1 in practice — Measure all six temperature histories and
-the driven boundary.** The overview below shows how the synchronized dataset
-and boundary-control comparison will test the ideas developed in the theory
-section that follows. It is intended to motivate that theory, not to replace
-the detailed experimental instructions in Stages 1-6.
+A sinusoidal PWM command does not guarantee a sinusoidal temperature. The
+raw-PWM, feedforward, P, and PI comparisons reveal what the actuator and
+controller contribute to the measured boundary waveform. Along the rod, the
+six-temperature record reveals a second question: why does the oscillation
+shrink and lag with distance? The Angstrom theory connects these observations
+to thermal diffusion and heat loss, and gives predictions to test at more than
+one forcing period.
 
-Read through the complete experimental sequence before beginning the theory:
-
-1. Verify the `TEC` and `T1`-`T5` channel labels, units, common-bath result,
-   optional correction coefficients, measured sensor positions, and safety
-   limits. For the initial oscillatory measurement, place `T1` in the first
-   rod hole and space `T2`-`T5` approximately 1 inch apart along the rod.
-   Confirm that `T1` is nearest the TEC and that `T2`-`T5` are ordered by
-   increasing distance along the rod.
-2. Start the Python GUI. Confirm that it displays all six temperatures, the
-   selected control mode, requested setpoint, and applied PWM, and that it saves
-   every complete record to a timestamped local file.
-3. Measure and record room temperature. Verify the signed-PWM convention, then
-   apply an uncompensated command $u(t)=u_b\sin(\omega t)$ about $u=0$ so the
-   TEC alternates between positive and negative PWM. Begin with the apparatus
-   near room temperature and use a safe $u_b$. Do not compensate for the
-   different heating and cooling responses in this first trial. **How do you expect the temperature to respond? Does it meet your expectations?** Explain what you observe.
-4. Apply a second uncompensated command
-   $u(t)=u_a+u_b\sin(\omega t)$ with $u_a>u_b>0$. Choose $u_a$ so the mean TEC
-   temperature is approximately $40^\circ\mathrm{C}$ and keep $u(t)$ positive
-   throughout the cycle. This isolates the positive-PWM heating branch.
-5. Load the measured heating and cooling susceptibility curves, calculate the
-   heating-to-cooling ratio, and specify the desired sinusoidal temperature
-   $T_{\mathrm{set}}(t)$. Use the inverse steady-state susceptibility curve to
-   **predict, at each point in the cycle, which value of $u$ should produce
-   that temperature**:
-   $u_{\mathrm{ff}}(t)=f^{-1}[T_{\mathrm{set}}(t)]$. Use the appropriate
-   heating or cooling branch when constructing this open-loop feedforward
-   command. Plot the predicted $u_{\mathrm{ff}}(t)$ before applying it and
-   explain why the required PWM waveform need not itself be sinusoidal.
-6. Attempt the $T_a=40^\circ\mathrm{C}$, $T_b=16^\circ\mathrm{C}$,
-   $100\ \mathrm{s}$ temperature waveform with corrected feedforward. Inspect
-   the measured `T1` boundary rather than assuming that the requested waveform
-   was produced.
-7. Repeat the corrected trial with proportional-only control and then with PI
-   control. Keep the temperature-drive settings fixed so the three methods can
-   be compared.
-8. Compare the two uncompensated PWM trials, corrected feedforward, P-only,
-   and PI using mean temperature, amplitude, phase, heating-cooling symmetry,
-   waveform distortion, residuals, and applied PWM.
-9. If necessary, try a $150\ \mathrm{s}$ period or
-   $T_b=10^\circ\mathrm{C}$, retuning $K_p$ and $K_i$ after changing frequency
-   or amplitude. Never use a period shorter than $100\ \mathrm{s}$. Once a
-   usable waveform is obtained, apply the quantitative settling criterion and
-   retain at least five complete settled cycles with measurable amplitude and
-   phase at three or more rod sensors.
-10. Select a second usable frequency from the observed attenuation, phase lag,
-    and base tracking. Record the change, wait for the new transient to settle,
-    and retain at least five complete settled cycles. Test additional
-    frequencies in the same way only if class time permits.
-
-At the end of the session, stop the apparatus safely and verify that the GUI
-file contains the complete run, including the zero-centered and positive-only
-raw-PWM trials, corrected feedforward, P-only, and PI trials, startup
-transients, control-mode changes, and every frequency change. Preserve the raw
-file unchanged for the S19 analysis.
-
-As you work, maintain an **S18 evidence table** with one row for each of Steps
-1-10. For every step, cite the saved file, figure, code checkpoint, measurement,
-or written observation that shows what you did; record the principal result;
-and describe any departure from the stated procedure. This table becomes the
-first part of A5. A checked box by itself is not evidence.
-
-Do not declare a response settled merely because five cycles have elapsed.
-Five cycles are the minimum retained **after** the team's quantitative settling
-criterion has been satisfied.
-
-Now develop the theory needed to predict and interpret these observations.
-When you are ready to perform the experiment, begin with
-[Stage 1: Establish The Boundary Condition](#stage-1-establish-the-boundary-condition)
-and continue through Stages 2-6 in order.
+**Keep three temperatures distinct:** $T_{\mathrm{set}}$ is requested;
+$T_{\mathrm{TEC}}$ measures the actuator; and `T1` at the first rod hole is the
+boundary $T(0,t)$ used in the rod model. The detailed actions begin in
+[Stage 1](#stage-1-prepare-the-six-channel-measurement-and-live-record).
 
 ## Choose Sensor Positions For The Quantity Being Measured
 
@@ -410,10 +333,9 @@ ideal Angstrom assumptions begin to fail.
 
 </details>
 
-<details markdown="1">
-<summary>Full complex-exponential derivation</summary>
+### Full Complex-Exponential Derivation
 
-### Start From The Space-Time Equation
+#### Start From The Space-Time Equation
 
 For excess temperature \(\theta(x,t)=T(x,t)-T_\infty\), the semi-infinite rod
 obeys
@@ -435,7 +357,7 @@ The periodic boundary conditions are
 \lim_{x\rightarrow\infty}\theta(x,t)=0.
 \]
 
-### Guess A Complex Exponential
+#### Guess A Complex Exponential
 
 A complex exponential is useful because differentiation returns a constant
 times the same function. Guess
@@ -473,7 +395,7 @@ The two spatial solutions are $e^{-sx}$ and $e^{+sx}$. Choose the square root
 with positive real part and discard the growing solution $e^{+sx}$, because
 the temperature oscillation must vanish far from the driven end.
 
-### Separate Amplitude Decay From Phase Delay
+#### Separate Amplitude Decay From Phase Delay
 
 Write $s=q+iq'$, with $q>0$ and $q'>0$ for positive driving frequency. The
 prime in $q'$ is part of its name, not a derivative. Squaring gives
@@ -522,7 +444,7 @@ unit length. Shorter periods produce more phase change per unit length but also
 attenuate more rapidly. The experimental period should give both a measurable
 amplitude and a resolvable phase difference across several sensors.*
 
-### Take The Real Part
+#### Take The Real Part
 
 The complex solution can now be written
 
@@ -549,8 +471,6 @@ used to fit the experiment:
 \]
 
 For the boundary condition chosen above, $B_0=\theta_b$ and $\phi_0=0$.
-
-</details>
 
 ### Combine The Mean And Oscillatory Solutions
 
@@ -696,8 +616,7 @@ as exact semi-infinite predictions.
 
 </details>
 
-<details markdown="1">
-<summary>Guided student solution: the finite insulated-tip rod</summary>
+### Guided Student Solution: The Finite Insulated-Tip Rod
 
 For a finite rod, let the analysis base be at $x=0$ and the insulated tip be at
 $x=L$. The boundary conditions are
@@ -793,7 +712,17 @@ Define
 =A(x)e^{-i\phi(x)}.
 \]
 
-Then the same result can be written entirely with real quantities:
+Here $A(x)$ is the dimensionless oscillation amplitude relative to the base,
+so the temperature-oscillation amplitude is $T_bA(x)$, and $\phi(x)$ is the
+phase lag. With $s=q+iq'$, its explicit magnitude is
+
+\[
+A(x)=\left|\frac{\cosh[s(L-x)]}{\cosh(sL)}\right|
+=\sqrt{\frac{\cosh[2q(L-x)]+\cos[2q'(L-x)]}
+{\cosh(2qL)+\cos(2q'L)}}.
+\]
+
+In particular, $A(0)=1$. Then the same result can be written entirely with real quantities:
 
 \[
 T(x,t)=T_\infty
@@ -801,6 +730,30 @@ T(x,t)=T_\infty
 \frac{\cosh[m(L-x)]}{\cosh(mL)}
 +T_bA(x)\cos[\omega t-\phi(x)].
 \]
+
+Expanding the complex hyperbolic functions gives an explicit expression for
+$T(x,t)$ without the amplitude and phase functions:
+
+\[
+\boxed{
+\begin{aligned}
+T(x,t)={}&T_\infty
++(T_a-T_\infty)\frac{\cosh[m(L-x)]}{\cosh(mL)}
+\\[6pt]
+&+T_b\frac{
+\cosh[q(2L-x)]\cos(q'x)+\cosh(qx)\cos[q'(2L-x)]
+}{\cosh(2qL)+\cos(2q'L)}\cos(\omega t)
+\\[6pt]
+&+T_b\frac{
+\sinh[q(2L-x)]\sin(q'x)+\sinh(qx)\sin[q'(2L-x)]
+}{\cosh(2qL)+\cos(2q'L)}\sin(\omega t).
+\end{aligned}
+}
+\]
+
+The spatial parameters $m$, $q$, and $q'$ are defined above by
+$m^2=\nu/\kappa$, $q^2-q'^2=\nu/\kappa$, and
+$2qq'=\omega/\kappa$, with $q,q'>0$.
 
 **Checks for you to complete:**
 
@@ -822,8 +775,6 @@ Thus the finite solution reduces to the semi-infinite solution above.
 
 **Check 4.** Explain why data near the tip are the most sensitive to the
 difference between the finite and semi-infinite models.
-
-</details>
 
 ### Recover Diffusivity And Heat Loss From Measurements
 
@@ -919,6 +870,7 @@ adequate in practice.
 | Symbol or channel | Meaning |
 | --- | --- |
 | \(T_\infty\) | Measured room temperature, treated as the surrounding thermal reservoir |
+| \(T_{\mathrm{set}}(t)\) | Requested temperature waveform; distinct from both measured temperatures below |
 | \(T_a\) | Requested mean TEC setpoint temperature |
 | \(T_b\) | Requested TEC setpoint amplitude |
 | \(T_{\mathrm{TEC}}\) or `TEC` | Temperature measured by the thermistor embedded in the TEC base |
@@ -937,9 +889,201 @@ adequate in practice.
 In this module, \(\tau\) denotes the **forcing period**. It is not the thermal
 relaxation time denoted by \(\tau\) in Module 6.
 
-## Stage 1: Establish The Boundary Condition
+<a id="s18-in-class-procedure"></a>
 
-Drive the TEC with a sinusoidal setpoint
+## Experimental Stages
+
+Work through **S18.1-S18.10 in order in Stages 1-4**. Stages 5-6 use
+the pilot results to acquire the production record and compare it with theory.
+Maintain an **S18 evidence table** with one row for each action: cite the saved
+file, figure, code checkpoint, measurement, or written observation; record the
+principal result; and describe any departure from the procedure. This table
+becomes the first part of A5. A checked box by itself is not evidence.
+
+**Required experimental core:** the raw-PWM and feedforward/P/PI comparisons, followed by
+two usable forcing periods with at least five complete settled cycles at each
+and measurable amplitude and phase at three or more rod sensors. **Extensions:**
+additional frequencies up to roughly five, an automated frequency schedule,
+and the optional global fit in Stage 6. Secure the required dataset first.
+
+## Stage 1: Prepare The Six-Channel Measurement And Live Record
+
+**Goal:** Verify the measurement and recording system before energizing the TEC.
+
+**Do:** Complete S18.1-S18.2 with the TEC output off.
+
+<a id="s18-1"></a>
+
+### S18.1: Verify The Measurement And Safety Limits
+
+Verify the `TEC` and `T1`-`T5` channel labels, units, common-bath result,
+optional correction coefficients, measured sensor positions, and safety
+limits. Begin with `T1` in the first rod hole at $x=0$ and `T2`-`T5` at
+approximately 1-inch intervals in order of increasing distance. Use the
+[sensor-placement reasoning](#choose-sensor-positions-for-the-quantity-being-measured)
+above to document the initial map and later pilot-based changes.
+
+For every trial, keep the measured rod-base temperature at or below
+$56^\circ\mathrm{C}$, retain margin for overshoot, and use no forcing period
+shorter than $100\ \mathrm{s}$. Preserve the existing safety limits and physical
+thermal cutoff. Stop the run if a safety limit or the cutoff is reached.
+
+<a id="s18-2"></a>
+
+### S18.2: Verify The Live Display And Saved Record
+
+Connect the Arduino to the laptop and start the Python GUI. Verify the live
+display and timestamped local file against the requirements below before
+proceeding.
+
+Revise the Arduino sketch and Python GUI so that one serial record contains, at
+minimum,
+
+```text
+time_ms,run_state,control_mode,step,Ta_C,Tb_C,period_s,setpoint_C,feedforward_pwm,TEC_C,T1_C,T2_C,T3_C,T4_C,T5_C,controller_pwm,heating_to_cooling_ratio,signed_pwm
+```
+
+The GUI must display the TEC thermistor and all five rod thermistors live,
+display the requested setpoint, control mode, and PWM output, and save a local
+copy of every complete record it receives. Fields that do not apply in the
+selected control mode must have a documented placeholder rather than changing
+the record structure. The Arduino must use one documented
+`Serial.print()` record format throughout the experiment.
+
+Preserve every startup transient, control-mode change, frequency transition,
+and safety event in the same documented record. Do not replace raw data with a
+cleaned file. The `step` field identifies the active run segment even when
+frequency changes are selected manually.
+
+<details markdown="1">
+<summary>Suggested Copilot prompts for the Arduino sketch and Python GUI</summary>
+
+For the existing tested Arduino sketch:
+
+> Extend this sketch without removing its working PI control or safety limits.
+> Add two diagnostic raw-PWM modes: `u = ub*sin(omega*t)`, which alternates
+> between positive and negative PWM about room temperature, and
+> `u = ua + ub*sin(omega*t)`, constrained by `ua > ub > 0`, which remains on
+> the heating branch with a mean TEC temperature near 40 C. Do not apply the
+> heating-cooling compensation in either diagnostic mode. Also add selectable
+> susceptibility-based feedforward, proportional-only, and PI modes for the
+> corrected comparison. Derive feedforward PWM from an interpolation or lookup
+> table of the measured steady-state susceptibility curve rather than assuming
+> that PWM itself should be sinusoidal.
+> Print one documented CSV record containing elapsed milliseconds, operating
+> state, control mode, run segment, requested sinusoid parameters, setpoint,
+> feedforward command, TEC temperature, five rod temperatures, raw controller
+> command, cooling compensation ratio, and applied signed PWM. Compute the
+> selected signed P or PI command, multiply negative commands by the measured
+> ratio $r=\chi_h/\chi_c$, and then apply PWM saturation, direction
+> selection, safety limits, and anti-windup. Never energize both H-bridge
+> directions. Use one documented `Serial` record format for the live GUI.
+
+For the existing tested Python GUI:
+
+> Extend this GUI without removing its current controls. Parse and validate the
+> new CSV record, display the TEC and five rod thermistors live on a common time
+> axis, display control mode, setpoint, and PWM, report malformed or missing records, and save
+> every unmodified valid record to a timestamped local CSV file.
+
+</details>
+
+**Stop when:** All six channels update plausibly, the saved file contains the
+documented complete records, and the controls and safety limits are ready.
+
+**Save:** The sensor map and calibration record, acquisition code checkpoint,
+sample raw file, and evidence for S18.1-S18.2.
+
+## Stage 2: Explore Uncompensated Sinusoidal PWM
+
+**Goal:** Observe how the actuator responds before compensating its unequal
+heating and cooling response.
+
+**Do:** Complete the two raw-PWM trials below while displaying and saving all
+six temperatures. Begin with a $100\ \mathrm{s}$ period and retain the safety
+limits established in Stage 1.
+
+<a id="s18-3"></a>
+
+### S18.3: Apply Zero-Centered Sinusoidal PWM
+
+Before asking the TEC to track a temperature setpoint, drive it with the
+signed PWM command in Arduino counts:
+
+\[
+\boxed{u(t)=u_a+u_b\sin(\omega t)},
+\qquad -255\leq u(t)\leq255.
+\]
+
+The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to 255.
+Measure and record room temperature and verify the signed-PWM convention.
+For the initial $100\ \mathrm{s}$ period, use $u_a=0$ and an estimated
+$u_b=125$ PWM counts, so the command varies between $-125$ and $+125$.
+This estimate uses the Module 6 one-lump model with its simulation defaults:
+room temperature $22^\circ\mathrm{C}$, heating susceptibility
+$\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, cooling susceptibility
+$\chi_c=0.23\ ^\circ\mathrm{C/PWM}$, and thermal relaxation time
+$\tau_{\mathrm{th}}=80\ \mathrm{s}$. Integrating
+$\tau_{\mathrm{th}}\dot T=T_{\mathrm{room}}+\chi(u)u-T$, with the appropriate
+heating or cooling branch, predicts a settled peak near $39.9^\circ\mathrm{C}$.
+Here $\tau_{\mathrm{th}}$ is the thermal relaxation time, not the forcing period.
+
+Use your measured Module 6 parameters to refine this estimate if they differ
+from the defaults; the attached rod can also change the response. Start near
+room temperature and approach the estimated amplitude gradually. Allow the
+response to settle and adjust $u_b$ until the measured TEC peak is approximately
+$40^\circ\mathrm{C}$. Record the chosen $u_b$ and measured peak. Recheck the
+amplitude if the forcing period changes. The command $u(t)=u_b\sin(\omega t)$
+varies between $-u_b$ and $+u_b$, within the allowed PWM range above.
+Keep the Stage 1 safety limits active throughout the trial.
+**How do you expect the temperature to respond? Does it meet your expectations?** Explain what you observe.
+This is a deliberately uncompensated experiment. A symmetric PWM command does
+not imply a symmetric temperature response when heating and cooling have
+different susceptibilities. Plot the measured TEC temperature against $u(t)$
+and identify unequal excursions, slopes, phase lag, and distortion.
+
+<a id="s18-4"></a>
+
+### S18.4: Apply Positive-Only Sinusoidal PWM
+
+Next choose $u_a>u_b>0$, so that
+
+\[
+u_{\min}=u_a-u_b>0.
+\]
+
+Adjust $u_a$ until the mean TEC temperature is approximately
+$40^\circ\mathrm{C}$ while retaining a safe oscillation amplitude. The PWM now
+remains on the positive heating branch throughout the cycle. Compare this
+response with the zero-centered trial. Separating these cases lets you decide
+which asymmetry comes from reversing the TEC current and which discrepancies
+remain even when the actuator stays in one direction.
+
+These raw-PWM trials are diagnostic open-loop experiments, not yet
+feedforward temperature control. They establish what the uncorrected actuator
+does before the measured susceptibility is used to construct a command.
+
+**Stop when:** The two trials show how polarity reversal changes the mean,
+amplitude, phase, symmetry, and distortion of the TEC response.
+
+**Save:** The raw records, $u_a$, $u_b$, period, room temperature, PWM-temperature
+plots, predictions, and observations for S18.3-S18.4.
+
+<a id="stage-1-establish-the-boundary-condition"></a>
+
+## Stage 3: Establish And Compare Feedforward, P, And PI Control
+
+**Goal:** Produce and evaluate a sinusoidal rod boundary using the measured
+susceptibility and then feedback.
+
+**Do:** Complete S18.5-S18.8, keeping the requested temperature-drive settings
+fixed for the three-method comparison.
+
+<a id="s18-5"></a>
+
+### S18.5: Specify The Setpoint And Construct Feedforward
+
+Specify the requested sinusoidal temperature setpoint
 
 \[
 \boxed{T_{\mathrm{set}}(t)=T_a+T_b\sin(\omega t)},
@@ -949,7 +1093,7 @@ Drive the TEC with a sinusoidal setpoint
 
 Here $T_a$ is the mean TEC setpoint, $T_b$ is its oscillation amplitude,
 $\tau$ is the forcing period, and $\omega$ is the angular frequency. For the first
-classroom run, use the suggested values
+feedforward trial, use the suggested values
 
 \[
 T_a=40^\circ\mathrm{C},
@@ -977,63 +1121,18 @@ and a requested range from $24^\circ\mathrm{C}$ to $56^\circ\mathrm{C}$. The
 $56^\circ\mathrm{C}$ measured rod-base safety limit still takes precedence;
 reduce $T_a$ or $T_b$ if necessary to prevent tracking error or overshoot from
 exceeding that limit.
-We assume an
-initial room temperature of approximately $22^\circ\mathrm{C}$ to simplify the
-starting protocol, but you must measure and record the actual room temperature
-for the excess-temperature analysis. The requested TEC temperature is the
-controller input; the measured temperature `T1` at $x=0$ is the
+We assume an initial room temperature of approximately $22^\circ\mathrm{C}$ to
+simplify the starting protocol, but use the actual room temperature measured
+in S18.3 for the excess-temperature analysis. The requested TEC temperature is
+the controller input; the measured temperature `T1` at $x=0$ is the
 boundary condition used in the Angstrom analysis.
 
-The time required to approach a settled periodic response depends on both the
-amplitude and frequency of the drive. A larger amplitude can lengthen the
-transient and bring the actuator closer to its limits. At higher frequency the
-PI controller has less time to follow the changing setpoint, so tracking error,
-phase lag, attenuation, and waveform distortion generally increase. Use the
-measured `T1` waveform and the settling criteria below to decide when the
-response is usable; do not assume that a fixed waiting time works for every
-choice of $T_b$ and $\omega$.
-
-### Begin With Uncompensated Sinusoidal PWM
-
-Before asking the TEC to track a temperature setpoint, drive it with the
-dimensionless signed PWM command
-
-\[
-\boxed{u(t)=u_a+u_b\sin(\omega t)},
-\qquad -1\leq u(t)\leq1.
-\]
-
-First set $u_a=0$. Start near room temperature and choose a safe $u_b$ so that
-$u(t)$ alternates between positive and negative values of equal magnitude.
-This is a deliberately uncompensated experiment. A symmetric PWM command does
-not imply a symmetric temperature response when heating and cooling have
-different susceptibilities. Plot the measured TEC temperature against $u(t)$
-and identify unequal excursions, slopes, phase lag, and distortion.
-
-Next choose $u_a>u_b>0$, so that
-
-\[
-u_{\min}=u_a-u_b>0.
-\]
-
-Adjust $u_a$ until the mean TEC temperature is approximately
-$40^\circ\mathrm{C}$ while retaining a safe oscillation amplitude. The PWM now
-remains on the positive heating branch throughout the cycle. Compare this
-response with the zero-centered trial. Separating these cases lets you decide
-which asymmetry comes from reversing the TEC current and which discrepancies
-remain even when the actuator stays in one direction.
-
-These raw-PWM trials are diagnostic open-loop experiments, not yet
-feedforward temperature control. They establish what the uncorrected actuator
-does before the measured susceptibility is used to construct a command.
-
-### Compensate The Heating-Cooling Asymmetry
-
-Generating this sinusoid requires the TEC to alternate between heating and
-cooling. Your Module 4 measurements showed that equal-magnitude PWM commands do
-not produce equal temperature responses in the two directions. Let $\chi_h$
+Load the measured heating and cooling susceptibility curves. Generating the
+temperature sinusoid may require PWM of either sign. Your Module 4 measurements
+showed that equal-magnitude PWM commands do not produce equal temperature
+responses in the two directions. Let $\chi_h$
 and $\chi_c$ denote the positive magnitudes of the measured heating and cooling
-susceptibilities, respectively, and define
+susceptibilities, respectively, and calculate
 
 \[
 \boxed{r=\frac{\chi_h}{\chi_c}}.
@@ -1078,6 +1177,26 @@ distinguishes them. This is an open-loop feedforward command: it uses the
 steady-state $\chi$ calibration but does not correct the instantaneous
 temperature error.
 
+**Predict, at each point in the cycle, which value of $u$ should produce
+that temperature.** Plot the predicted $u_{\mathrm{ff}}(t)$ before applying it
+and explain why the required PWM waveform need not itself be sinusoidal.
+
+<a id="s18-6"></a>
+
+### S18.6: Apply The Feedforward Command
+
+Apply the command from S18.5 with no P or I feedback. Inspect the measured `T1`
+boundary rather than assuming that the requested waveform was produced. Use
+the [pilot decision rules](#optimize-the-waveform-from-the-pilot-data) if tracking
+or safety requires a change, and record the revised settings.
+
+<a id="s18-7"></a>
+
+### S18.7: Repeat With P And PI Control
+
+Repeat the corrected trial with proportional-only control and then with PI
+control at the same temperature-drive settings.
+
 The feedback response is slow enough that the controller should not rely on
 the integral term alone to discover this asymmetry. For proportional-only and
 PI control, compare
@@ -1111,165 +1230,56 @@ tracking error more completely than P-only feedback. Apply saturation in both
 feedback modes and anti-windup in PI mode, and never energize both H-bridge
 direction inputs simultaneously.
 
-Steps 3-8 of the [S18 in-class procedure](#s18-in-class-procedure) apply these
-ideas in the laboratory. The essential comparison is among raw sinusoidal PWM,
-susceptibility-based feedforward, P-only control, and PI control at common
-drive settings. Record enough information to compare mean error, amplitude,
-phase, symmetry, distortion, residuals, and applied PWM. In every Angstrom fit,
-use measured `T1`, not the requested setpoint or embedded `TEC` temperature, as
-the rod boundary condition.
+<a id="s18-8"></a>
 
-### Optimize The Waveform From The Pilot Data
+### S18.8: Compare The Measured Boundary Responses
 
-The best waveform is the one that produces both measurable attenuation and a
-resolvable phase lag across several rod sensors while remaining safe and close
-to sinusoidal. Do not use a forcing period shorter than $100\ \mathrm{s}$. A
-$100\ \mathrm{s}$ period with $T_b=16^\circ\mathrm{C}$ is an intentionally
-aggressive starting trial and may be difficult for the PI controller to track
-cleanly.
+Compare the two uncompensated PWM trials, corrected feedforward, P-only,
+and PI using mean temperature, amplitude, phase, heating-cooling symmetry,
+waveform distortion, residuals, and applied PWM. For feedforward/P/PI, compare
+mean tracking error and measured-to-requested amplitude at common $T_a$, $T_b$,
+and period. Use the [time fits in Stage 4](#stage-4-pilot-analysis-and-experiment-plan)
+and the [A5 comparison requirements](#part-2-measured-boundary-control-comparison)
+to quantify the differences. Raw-PWM trials have no requested temperature
+waveform; compare their measured response to the applied PWM. If settings must
+change, repeat the feedforward/P/PI comparison at common safe settings.
 
-Use the `T1` waveform and pilot fits from Steps 3-8, not the command alone, to
-judge whether the boundary is usable. If the specified $100\ \mathrm{s}$,
-$16^\circ\mathrm{C}$ temperature waveform is poorly tracked, try a
-$150\ \mathrm{s}$ period or reduce $T_b$ to $10^\circ\mathrm{C}$. Retune $K_p$
-and $K_i$ after changing frequency or amplitude; gains that work for one
-waveform may not work well for another. Apply these decision rules:
+**Stop when:** You have the common-setting comparison required by A5, including
+at least three settled cycles per method. If a trial is unusable, document it
+and return to this comparison after revising settings with Stage 4.
 
-- For the primary forcing period, aim for the farthest retained sensor to have
-  $B_5\approx B_1/e$. A substantially smaller response may be difficult to
-  distinguish from sensor noise; a much larger response means that the sensor
-  array spans less than one amplitude-decay length.
-- Aim for an unwrapped phase lag from the first to the farthest retained sensor
-  of roughly 0.5-2 radians. This is a planning target, not a fit constraint.
-- If distant oscillations are too small, first try a longer period. If all
-  sensors have nearly the same phase, a shorter period may help, but never go
-  below $100\ \mathrm{s}$.
-- If the measured waveform clips, flattens, or tracks poorly, reduce $T_b$,
-  reduce the mean temperature, or retune the controller before collecting
-  production data.
-- Lower amplitude waveforms are generally easier for the PI controller to
-  generate cleanly, but the temperature oscillation decreases with distance
-  from the TEC. Reducing $T_b$ can therefore make the response at downstream
-  sensors difficult to distinguish from noise.
-- If the oscillation is clean but too small at every sensor, increase $T_b$
-  cautiously. Keep the measured rod-base temperature below
-  $56^\circ\mathrm{C}$ and retain margin for overshoot.
-- Keep $T_a$ and $T_b$ fixed while comparing periods unless the pilot data
-  show that a change is necessary. This makes frequency comparisons easier to
-  interpret.
-
-Use the requirements in the [S18 in-class procedure](#s18-in-class-procedure).
-Choose additional periods from the pilot evidence rather than from a fixed
-list alone.
-
-## Stage 2: Acquisition System And Live Record
-
-The first Angstrom run is a live physics experiment. Connect the Arduino to the
-laptop and use the Python GUI to control the boundary, display the six
-temperatures, and save the complete record.
-
-This stage specifies the acquisition system needed to carry out the
-[S18 in-class procedure](#s18-in-class-procedure); it is not a second
-experimental sequence.
-
-Revise the Arduino sketch and Python GUI so that one serial record contains, at
-minimum,
-
-```text
-time_ms,run_state,control_mode,step,Ta_C,Tb_C,period_s,setpoint_C,feedforward_pwm,TEC_C,T1_C,T2_C,T3_C,T4_C,T5_C,controller_pwm,heating_to_cooling_ratio,signed_pwm
-```
-
-The GUI must display the TEC thermistor and all five rod thermistors live,
-display the requested setpoint, control mode, and PWM output, and save a local
-copy of every complete record it receives. Fields that do not apply in the
-selected control mode must have a documented placeholder rather than changing
-the record structure. The Arduino must use one documented
-`Serial.print()` record format throughout the experiment.
-
-Follow Steps 1-10 once, in the order stated there. Preserve every startup
-transient, control-mode change, frequency transition, and safety event in the
-same documented record. Do not replace raw data with a cleaned file.
-
-<details markdown="1">
-<summary>Suggested Copilot prompts for the Arduino sketch and Python GUI</summary>
-
-For the existing tested Arduino sketch:
-
-> Extend this sketch without removing its working PI control or safety limits.
-> Add two diagnostic raw-PWM modes: `u = ub*sin(omega*t)`, which alternates
-> between positive and negative PWM about room temperature, and
-> `u = ua + ub*sin(omega*t)`, constrained by `ua > ub > 0`, which remains on
-> the heating branch with a mean TEC temperature near 40 C. Do not apply the
-> heating-cooling compensation in either diagnostic mode. Also add selectable
-> susceptibility-based feedforward, proportional-only, and PI modes for the
-> corrected comparison. Derive feedforward PWM from an interpolation or lookup
-> table of the measured steady-state susceptibility curve rather than assuming
-> that PWM itself should be sinusoidal.
-> Print one documented CSV record containing elapsed milliseconds, operating
-> state, control mode, schedule step, requested sinusoid parameters, setpoint,
-> feedforward command, TEC temperature, five rod temperatures, raw controller
-> command, cooling compensation ratio, and applied signed PWM. Compute the
-> selected signed P or PI command, multiply negative commands by the measured
-> ratio $r=\chi_h/\chi_c$, and then apply PWM saturation, direction
-> selection, safety limits, and anti-windup. Never energize both H-bridge
-> directions. Use one documented `Serial` record format for the live GUI.
-
-For the existing tested Python GUI:
-
-> Extend this GUI without removing its current controls. Parse and validate the
-> new CSV record, display the TEC and five rod thermistors live on a common time
-> axis, display control mode, setpoint, and PWM, report malformed or missing records, and save
-> every unmodified valid record to a timestamped local CSV file.
-
-</details>
-
-## Stage 3: Build And Test The Frequency Schedule
-
-**Learning Objective 1 checkpoint.** A trustworthy temperature history must
-identify the active frequency step and preserve the transient between steps;
-otherwise the six traces cannot be interpreted or reproduced.
-
-Every team must revise the GUI and Arduino code so the GUI can define a sequence
-of frequency steps. Each step must specify at least its duration, \(T_a\),
-\(T_b\), and either \(\omega\) or the period. The Arduino advances the schedule
-and calculates the setpoint while the laptop remains connected and the Python
-GUI displays and records the measurements.
-
-Keep the sinusoidal phase continuous when the frequency changes so that the
-requested boundary temperature does not jump merely because a new schedule
-step begins. At every step transition, print a metadata/event line and include
-the active step and forcing parameters in subsequent data records. Preserve
-the transient after each frequency change; the analysis will later identify
-the settled interval for that frequency.
-
-Test an accelerated multi-step schedule before collecting production data.
-Demonstrate safe completion, correct metadata, continuous recording, and at
-least two automatic frequency changes before restoring the intended durations.
-
-Candidate periods include 100, 180, 240, 300, and 480 seconds while initially
-retaining the same $T_a$ and $T_b$. Longer periods penetrate farther along the
-rod but produce less phase change per unit length. Use the pilot data and stated
-settling criterion to choose each step duration; do not assume that every
-frequency settles on the same schedule.
-
-<details markdown="1">
-<summary>Suggested Copilot prompt for the frequency schedule</summary>
-
-> Add a multi-frequency schedule to this working Arduino/Python system.
-> Each step contains duration, mean temperature, sinusoidal amplitude, and
-> period. Let the GUI edit, send, and display the schedule. Let the Arduino
-> validate and execute it while the GUI remains connected, maintain
-> continuous sinusoidal phase when the period changes, print step metadata in
-> every CSV record, preserve all existing safety limits, and finish with zero
-> TEC output.
-
-</details>
+**Save:** Evidence for S18.5-S18.8: susceptibility curves, measured ratio,
+feedforward map and predicted PWM, controller gains, raw records, and comparison
+plots and metrics. Use measured `T1` as the boundary in every Angstrom fit.
 
 ## Stage 4: Pilot Analysis And Experiment Plan
 
-**Learning Objective 2 in practice — Understand the settled-periodic
-temperature profile.** The time fits below turn the six recorded histories
-into the mean, amplitude, and phase quantities predicted by the theory.
+**Goal:** Use the six histories to choose two usable forcing periods and a
+sensor layout that resolves amplitude decay and phase lag (Learning Objective 2).
+
+**Do:** Complete S18.9-S18.10 using live observations and time fits.
+
+<a id="s18-9"></a>
+
+### S18.9: Settle, Fit, And Improve The First Pilot Run
+
+Acquire pilot data with the best usable control method from Stage 3. Define
+numerical tolerances for changes in fitted mean, amplitude, and unwrapped phase
+between successive complete-cycle windows; use the measured noise and fit
+uncertainty to justify them. Inspect residuals for drift. Apply this settling
+test to the rod boundary and retained sensors before selecting a fit interval.
+Do not declare a response settled merely because five cycles have elapsed.
+Five cycles are the minimum retained **after** the team's quantitative settling
+criterion has been satisfied.
+
+The time required to approach a settled periodic response depends on both the
+amplitude and frequency of the drive. A larger amplitude can lengthen the
+transient and bring the actuator closer to its limits. At higher frequency the
+PI controller has less time to follow the changing setpoint, so tracking error,
+phase lag, attenuation, and waveform distortion generally increase. Use the
+measured `T1` waveform and the settling test above to decide when the
+response is usable; do not assume that a fixed waiting time works for every
+choice of $T_b$ and $\omega$.
 
 For each sensor, fit
 
@@ -1293,42 +1303,154 @@ observables used by the Angstrom method: amplitude decay and phase lag. Fit
 each trace independently to obtain $B_i$ and $\phi_i$; spatial fits of
 $\ln B_i$ and unwrapped $\phi_i$ then determine $q$ and $q'$.*
 
-1. Remove the initial transient or justify the selected fitting interval. State
-   what evidence you used to decide that the response was settled.
-2. Fit at least five complete settled periods.
-3. Plot the data and fitted sinusoid for every sensor.
-4. Plot amplitude `B_i` versus position on a logarithmic vertical scale.
-5. Unwrap phase and plot phase versus position.
-6. Confirm one production period that satisfies the minimum-data gate. If the
-   pilot evidence supports an extended experiment, select additional periods
-   for which several sensors retain measurable amplitude and phase differences.
+#### Optimize The Waveform From The Pilot Data
 
-Your experiment plan must state the period, mean, amplitude, run duration,
-sampling interval, safety limits, settling criterion, channels, files, and the
-tests you will use to decide whether the run is usable.
+The best waveform is the one that produces both measurable attenuation and a
+resolvable phase lag across several rod sensors while remaining safe and close
+to sinusoidal. Do not use a forcing period shorter than $100\ \mathrm{s}$. A
+$100\ \mathrm{s}$ period with $T_b=16^\circ\mathrm{C}$ is an intentionally
+aggressive starting trial and may be difficult for the PI controller to track
+cleanly.
+
+Use the `T1` waveform and pilot fits from S18.3-S18.8, not the command alone, to
+judge whether the boundary is usable. If the specified $100\ \mathrm{s}$,
+$16^\circ\mathrm{C}$ temperature waveform is poorly tracked, try a
+$150\ \mathrm{s}$ period or reduce $T_b$ to $10^\circ\mathrm{C}$. Retune $K_p$
+and $K_i$ after changing frequency or amplitude; gains that work for one
+waveform may not work well for another. Apply these decision rules:
+
+- For the primary forcing period, aim for the farthest retained sensor to have
+  $B_{\mathrm{far}}\approx B_1/e$. A substantially smaller response may be
+  difficult to distinguish from sensor noise; a much larger response means that the sensor
+  array spans less than one amplitude-decay length.
+- Aim for an unwrapped phase lag from the first to the farthest retained sensor
+  of roughly 0.5-2 radians. This is a planning target, not a fit constraint.
+- If distant oscillations are too small, first try a longer period. If all
+  sensors have nearly the same phase, a shorter period may help, but never go
+  below $100\ \mathrm{s}$.
+- If the measured waveform clips, flattens, or tracks poorly, reduce $T_b$,
+  reduce the mean temperature, or retune the controller before collecting
+  production data.
+- Lower amplitude waveforms are generally easier for the PI controller to
+  generate cleanly, but the temperature oscillation decreases with distance
+  from the TEC. Reducing $T_b$ can therefore make the response at downstream
+  sensors difficult to distinguish from noise.
+- If the oscillation is clean but too small at every sensor, increase $T_b$
+  cautiously. Keep the measured rod-base temperature below
+  $56^\circ\mathrm{C}$ and retain margin for overshoot.
+- Keep $T_a$ and $T_b$ fixed while comparing periods unless the pilot data
+  show that a change is necessary. This makes frequency comparisons easier to
+  interpret.
+
+Exclude the initial transient from the fit, keeping the raw file unchanged,
+and justify the selected interval. Fit at least five complete settled periods;
+plot the data and fitted sinusoid for every sensor, amplitude $B_i$ versus
+position on a logarithmic vertical scale, and unwrapped phase versus position.
+Retain at least three rod sensors with measurable amplitude and phase.
+
+<a id="s18-10"></a>
+
+### S18.10: Select And Test A Second Usable Frequency
+
+Candidate periods include 100, 180, 240, 300, and 480 seconds while initially
+retaining the same $T_a$ and $T_b$. Longer periods penetrate farther along the
+rod but produce less phase change per unit length.
+
+Select a second forcing period from the observed attenuation, phase lag, and
+base tracking. Keep $T_a$ and $T_b$ fixed unless a documented change is needed
+for safety or tracking. Record the change, watch the new transient decay, apply
+the same settling test, and retain at least five complete settled cycles with
+measurable amplitude and phase at three or more rod sensors.
+
+Keep the sinusoidal phase continuous when the frequency changes so that the
+requested temperature does not jump merely because a new frequency segment
+begins. At every transition, print a metadata/event line and include
+the active step and forcing parameters in subsequent data records. Preserve
+the transient after each frequency change; the analysis will later identify
+the settled interval for that frequency.
+
+Make the frequency change from the GUI when the live record is ready. An
+automatic scheduler is optional. Use the two pilot frequencies to finalize
+the sensor layout; if sensors move, remeasure the positions and update the map
+before production. Additional frequencies, up to roughly five spanning periods
+from 100 to 500 s, are an extension after the required pair is usable.
+
+**Stop when:** Two usable periods satisfy the settling, retained-cycle, and
+sensor requirements, and the pilot fits support the production settings.
+
+**Save:** Evidence for S18.9-S18.10, including fit intervals and settling
+comparisons. Your experiment plan must state the periods, mean, amplitude, run
+durations, sampling interval, safety limits, settling criterion, channels,
+files, and the tests you will use to decide whether each run is usable.
+
+At the end of S18, stop the apparatus safely and verify that the GUI file
+contains the complete run, including the raw-PWM, feedforward, P-only, and PI
+trials, startup transients, control-mode changes, and every frequency change.
+Preserve the raw file unchanged for the S19 analysis.
 
 ## Stage 5: Production Data
 
-1. Secure the in-class dataset defined in the S18 in-class procedure:
-   at least five complete settled cycles at each of two usable forcing periods,
-   with measurable amplitude and phase at three or more rod sensors.
-2. If time permits, use the tested frequency schedule to acquire additional
-   periods. Retain each transition and identify the settled interval
-   independently for each frequency.
-3. Keep the rod geometry and sensor map unchanged.
-4. Record room temperature and check for drift.
-5. Preserve raw data. Apply any optional correction coefficients and all
+**Goal:** Secure the required two-period dataset with the selected settings.
+
+**Do:**
+
+1. Acquire the required dataset using the settling and retained-cycle criteria
+   established in S18.9-S18.10. Identify the settled interval independently
+   for each frequency.
+2. Keep the rod geometry and sensor map unchanged.
+3. Record room temperature and check for drift.
+4. Preserve raw data. Apply any optional correction coefficients and all
    exclusions in analysis code, not by overwriting the original file.
-6. Record every restart, schedule transition, safety event, and
-   departure from the approved protocol.
+5. Record every restart, frequency transition, safety event, and departure
+   from the approved protocol.
+6. If time permits after securing the required pair, acquire additional
+   periods manually or with the optional tested schedule below.
+
+**Stop when:** Both required periods have verified complete records that pass
+the pilot-defined data-quality checks.
+
+**Save:** Raw production files, metadata, event records, sensor map, and the
+selected settled intervals for the P4 data-readiness check.
+
+<details markdown="1">
+<summary>Optional extension: build and test a frequency schedule</summary>
+
+For an optional automated schedule, revise the GUI and Arduino code so the GUI
+can define a sequence of frequency steps. Each step must specify at least its
+duration, \(T_a\), \(T_b\), and either \(\omega\) or the period. The Arduino advances the schedule
+and calculates the setpoint while the laptop remains connected and the Python
+GUI displays and records the measurements.
+
+Test an accelerated multi-step schedule before using it to collect data.
+Demonstrate safe completion, correct metadata, continuous recording, and at
+least two automatic frequency changes before restoring the intended durations.
+
+Use the candidate periods in [S18.10](#s18-10), the pilot data, and the
+stated settling criterion to choose each step duration;
+do not assume that every frequency settles on the same schedule. Allow the
+operator to hold or extend a step until the settling test and retained-cycle
+requirement are satisfied. Automatic elapsed-time transitions alone do not
+establish that the data are usable.
+
+**Suggested Copilot prompt for the frequency schedule:**
+
+> Add a multi-frequency schedule to this working Arduino/Python system.
+> Each step contains duration, mean temperature, sinusoidal amplitude, and
+> period. Let the GUI edit, send, and display the schedule. Let the Arduino
+> validate and execute it while the GUI remains connected, maintain
+> continuous sinusoidal phase when the period changes, print step metadata in
+> every CSV record, let the operator hold or extend a step for settling,
+> preserve all existing safety limits, and finish with zero TEC output.
+
+</details>
 
 ## Stage 6: Spatial Fits
 
-**Learning Objective 3 in practice — Compare experiment and theory.** Use the
+**Goal:** Compare experiment and theory (Learning Objective 3). Use the
 spatial fits, residuals, frequency consistency, and finite-rod checks below to
 decide where the model succeeds and where its assumptions fail.
 
-Fit
+**Do:** At each retained forcing period, fit
 
 \[
 B(x)=B_0e^{-qx},
@@ -1398,6 +1520,13 @@ and exclusions visible. As an optional model-validity extension, fit all retaine
 the resulting \(q\), \(q'\), residuals, and uncertainties with the transparent
 two-stage result.
 
+**Stop when:** You have compared the inferred parameters across both required
+periods, inspected residuals and uncertainties, and stated where finite-length
+and transverse-Biot checks support or limit the model.
+
+**Save:** The runnable analysis, per-sensor and spatial fits, residuals,
+uncertainties, exclusions, and experiment-theory comparison.
+
 ## Evidence, A5, And Modeling-App Check
 
 ### Evidence To Save During S18-S22
@@ -1421,14 +1550,18 @@ measurements with processed data.
 - **Repository file:** `docs/assessments/a5_angstrom_derivation_plan.md`
 
 Use the team's common raw data, but submit an individual analysis and
-explanation. Organize the PDF in the following order.
+explanation. Parts 1-3 below are required. Extra experimental frequencies,
+the automated scheduler, and the global-fit extension are optional; the
+specified A5 simulation comparisons remain required. Reuse the figures and
+metrics saved during the stages where they meet the requirements below.
+Organize the PDF in the following order.
 
 #### Part 1: Evidence That The S18 Procedure Was Followed
 
-Include a ten-row table, one row for each Step 1-10 of the
-[S18 in-class procedure](#s18-in-class-procedure). Each row must contain:
+Include a ten-row table, one row for each action **S18.1-S18.10** in
+[Stages 1-4](#s18-in-class-procedure). Each row must contain:
 
-- the step number and a concise statement of what was done,
+- the S18 action number and a concise statement of what was done,
 - a specific evidence reference such as a filename and interval, figure,
   sensor map, calibration value, controller setting, GUI screenshot, code
   checkpoint, or event record,

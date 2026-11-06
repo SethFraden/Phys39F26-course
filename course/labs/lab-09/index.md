@@ -1687,44 +1687,45 @@ different measured periods before combining them. If they disagree beyond
 uncertainty, show that disagreement and discuss the model limitations.
 
 1. Generate a theoretical plot of length versus forcing period from 100 to
-   500 s, with ticks at 100, 200, 300, 400, and 500 s. Use $\omega=2\pi/\tau$
-   and the derived expressions for $m$, $q$, and $q'$ to plot
-   $\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}$,
-   $\ell_{\mathrm{amp}}=1/q$, and the spatial wavelength $\lambda=2\pi/q'$.
-   Also show $\ell_{\mathrm{phase}}=1/q'$ as a distinctly labeled curve so
-   that a one-radian lag cannot be confused with a full cycle. Label axes and
-   units, include parameter uncertainties as bands or explain their effect,
-   and mark the measured analysis length $L$ for comparison.
+    500 s, with ticks at 100, 200, 300, 400, and 500 s. Use $\omega=2\pi/\tau$
+    and the derived expressions for $m$, $q$, and $q'$ to plot
+    $\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}$,
+    $\ell_{\mathrm{amp}}=1/q$, and the spatial wavelength $\lambda=2\pi/q'$.
+    Also show $\ell_{\mathrm{phase}}=1/q'$ as a distinctly labeled curve so
+    that a one-radian lag cannot be confused with a full cycle. Label axes and
+    units, include parameter uncertainties as bands or explain their effect,
+    and mark the measured analysis length $L$ for comparison.
 2. At the periods actually measured, overlay the lengths obtained directly
-   from your fits: $1/m$ from the mean profile, $1/q$ from amplitude decay,
-   and $1/q'$ and $2\pi/q'$ from phase. Include uncertainties. Identify which
-   measurements supplied the theoretical parameters; agreement with those
-   same measurements is a consistency check, not an independent validation.
+    from your fits: $1/m$ from the mean profile, $1/q$ from amplitude decay,
+    and $1/q'$ and $2\pi/q'$ from phase. Include uncertainties. Identify which
+    measurements supplied the theoretical parameters; agreement with those
+    same measurements is a consistency check, not an independent validation.
 3. Interpret every curve using the semi-infinite expression
 
-   \[
-   T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
-   +B_0e^{-x/\ell_{\mathrm{amp}}}
-   \cos\!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
-   \]
+    \[
+    T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
+    +B_0e^{-x/\ell_{\mathrm{amp}}}
+    \cos\!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
+    \]
 
-   Here $a_0$, $B_0$, and $\phi_0$ come from the measured rod-boundary
-   temperature `T1`, not the requested TEC setpoint. Explain what happens to
-   the **mean excess temperature** over $\ell_{\mathrm{mean}}$, to the
-   **oscillation amplitude** over $\ell_{\mathrm{amp}}$, and to the **phase**
-   over $\ell_{\mathrm{phase}}$ and $\lambda$. Relate spatial phase lag to
-   time lag through $\Delta t=q'x/\omega$. Explain why the mean-decay length
-   is independent of forcing period while the other lengths change, and why
-   a full spatial wavelength may extend beyond the rod or beyond the region
-   where the oscillation is measurable.
+    Here $a_0$, $B_0$, and $\phi_0$ come from the measured rod-boundary
+    temperature `T1`, not the requested TEC setpoint. Explain what happens to
+    the **mean excess temperature** over $\ell_{\mathrm{mean}}$, to the
+    **oscillation amplitude** over $\ell_{\mathrm{amp}}$, and to the **phase**
+    over $\ell_{\mathrm{phase}}$ and $\lambda$. Relate spatial phase lag to
+    time lag through $\Delta t=q'x/\omega$. Explain why the mean-decay length
+    is independent of forcing period while the other lengths change, and why
+    a full spatial wavelength may extend beyond the rod or beyond the region
+    where the oscillation is measurable.
+
 4. Use your inferred parameters and measured boundary waveform to plot
-   theoretical $T(x,t)$ at the retained sensor positions for each measured
-   period. Connect the mean offsets, shrinking amplitudes, and delayed peaks
-   explicitly to the length plot. Use the finite insulated-tip solution where
-   the semi-infinite approximation fails: the lengths remain model scales,
-   but the finite-rod profiles need not be simple exponentials or have phase
-   exactly proportional to $x$. Explain how the curves justify your chosen
-   periods and sensor positions.
+    theoretical $T(x,t)$ at the retained sensor positions for each measured
+    period. Connect the mean offsets, shrinking amplitudes, and delayed peaks
+    explicitly to the length plot. Use the finite insulated-tip solution where
+    the semi-infinite approximation fails: the lengths remain model scales,
+    but the finite-rod profiles need not be simple exponentials or have phase
+    exactly proportional to $x$. Explain how the curves justify your chosen
+    periods and sensor positions.
 
 ### Required Analysis Displays
 

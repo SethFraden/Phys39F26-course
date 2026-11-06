@@ -1820,43 +1820,47 @@ different measured periods before combining them. If they disagree beyond
 uncertainty, show that disagreement and discuss the model limitations.</p>
 <ol>
 <li>Generate a theoretical plot of length versus forcing period from 100 to
-   500 s, with ticks at 100, 200, 300, 400, and 500 s. Use <span class="arithmatex">\(\omega=2\pi/\tau\)</span>
-   and the derived expressions for <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(q\)</span>, and <span class="arithmatex">\(q'\)</span> to plot
-   <span class="arithmatex">\(\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}\)</span>,
-   <span class="arithmatex">\(\ell_{\mathrm{amp}}=1/q\)</span>, and the spatial wavelength <span class="arithmatex">\(\lambda=2\pi/q'\)</span>.
-   Also show <span class="arithmatex">\(\ell_{\mathrm{phase}}=1/q'\)</span> as a distinctly labeled curve so
-   that a one-radian lag cannot be confused with a full cycle. Label axes and
-   units, include parameter uncertainties as bands or explain their effect,
-   and mark the measured analysis length <span class="arithmatex">\(L\)</span> for comparison.</li>
+    500 s, with ticks at 100, 200, 300, 400, and 500 s. Use <span class="arithmatex">\(\omega=2\pi/\tau\)</span>
+    and the derived expressions for <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(q\)</span>, and <span class="arithmatex">\(q'\)</span> to plot
+    <span class="arithmatex">\(\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}\)</span>,
+    <span class="arithmatex">\(\ell_{\mathrm{amp}}=1/q\)</span>, and the spatial wavelength <span class="arithmatex">\(\lambda=2\pi/q'\)</span>.
+    Also show <span class="arithmatex">\(\ell_{\mathrm{phase}}=1/q'\)</span> as a distinctly labeled curve so
+    that a one-radian lag cannot be confused with a full cycle. Label axes and
+    units, include parameter uncertainties as bands or explain their effect,
+    and mark the measured analysis length <span class="arithmatex">\(L\)</span> for comparison.</li>
 <li>At the periods actually measured, overlay the lengths obtained directly
-   from your fits: <span class="arithmatex">\(1/m\)</span> from the mean profile, <span class="arithmatex">\(1/q\)</span> from amplitude decay,
-   and <span class="arithmatex">\(1/q'\)</span> and <span class="arithmatex">\(2\pi/q'\)</span> from phase. Include uncertainties. Identify which
-   measurements supplied the theoretical parameters; agreement with those
-   same measurements is a consistency check, not an independent validation.</li>
-<li>Interpret every curve using the semi-infinite expression</li>
-</ol>
-<p>[
-   T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
-   +B_0e^{-x/\ell_{\mathrm{amp}}}
-   \cos!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
-   ]</p>
+    from your fits: <span class="arithmatex">\(1/m\)</span> from the mean profile, <span class="arithmatex">\(1/q\)</span> from amplitude decay,
+    and <span class="arithmatex">\(1/q'\)</span> and <span class="arithmatex">\(2\pi/q'\)</span> from phase. Include uncertainties. Identify which
+    measurements supplied the theoretical parameters; agreement with those
+    same measurements is a consistency check, not an independent validation.</li>
+<li>
+<p>Interpret every curve using the semi-infinite expression</p>
+<div class="arithmatex">\[
+T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
++B_0e^{-x/\ell_{\mathrm{amp}}}
+\cos\!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
+\]</div>
 <p>Here <span class="arithmatex">\(a_0\)</span>, <span class="arithmatex">\(B_0\)</span>, and <span class="arithmatex">\(\phi_0\)</span> come from the measured rod-boundary
-   temperature <code>T1</code>, not the requested TEC setpoint. Explain what happens to
-   the <strong>mean excess temperature</strong> over <span class="arithmatex">\(\ell_{\mathrm{mean}}\)</span>, to the
-   <strong>oscillation amplitude</strong> over <span class="arithmatex">\(\ell_{\mathrm{amp}}\)</span>, and to the <strong>phase</strong>
-   over <span class="arithmatex">\(\ell_{\mathrm{phase}}\)</span> and <span class="arithmatex">\(\lambda\)</span>. Relate spatial phase lag to
-   time lag through <span class="arithmatex">\(\Delta t=q'x/\omega\)</span>. Explain why the mean-decay length
-   is independent of forcing period while the other lengths change, and why
-   a full spatial wavelength may extend beyond the rod or beyond the region
-   where the oscillation is measurable.
-4. Use your inferred parameters and measured boundary waveform to plot
-   theoretical <span class="arithmatex">\(T(x,t)\)</span> at the retained sensor positions for each measured
-   period. Connect the mean offsets, shrinking amplitudes, and delayed peaks
-   explicitly to the length plot. Use the finite insulated-tip solution where
-   the semi-infinite approximation fails: the lengths remain model scales,
-   but the finite-rod profiles need not be simple exponentials or have phase
-   exactly proportional to <span class="arithmatex">\(x\)</span>. Explain how the curves justify your chosen
-   periods and sensor positions.</p>
+temperature <code>T1</code>, not the requested TEC setpoint. Explain what happens to
+the <strong>mean excess temperature</strong> over <span class="arithmatex">\(\ell_{\mathrm{mean}}\)</span>, to the
+<strong>oscillation amplitude</strong> over <span class="arithmatex">\(\ell_{\mathrm{amp}}\)</span>, and to the <strong>phase</strong>
+over <span class="arithmatex">\(\ell_{\mathrm{phase}}\)</span> and <span class="arithmatex">\(\lambda\)</span>. Relate spatial phase lag to
+time lag through <span class="arithmatex">\(\Delta t=q'x/\omega\)</span>. Explain why the mean-decay length
+is independent of forcing period while the other lengths change, and why
+a full spatial wavelength may extend beyond the rod or beyond the region
+where the oscillation is measurable.</p>
+</li>
+<li>
+<p>Use your inferred parameters and measured boundary waveform to plot
+    theoretical <span class="arithmatex">\(T(x,t)\)</span> at the retained sensor positions for each measured
+    period. Connect the mean offsets, shrinking amplitudes, and delayed peaks
+    explicitly to the length plot. Use the finite insulated-tip solution where
+    the semi-infinite approximation fails: the lengths remain model scales,
+    but the finite-rod profiles need not be simple exponentials or have phase
+    exactly proportional to <span class="arithmatex">\(x\)</span>. Explain how the curves justify your chosen
+    periods and sensor positions.</p>
+</li>
+</ol>
 <h3 id="required-analysis-displays">Required Analysis Displays<a class="headerlink" href="#required-analysis-displays" title="Permanent link">&para;</a></h3>
 <p>Your Python app, notebook, or script must visibly show:</p>
 <ul>

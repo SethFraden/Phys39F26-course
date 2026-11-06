@@ -925,7 +925,8 @@ above to document the initial map and later pilot-based changes.
 
 For every trial, keep the measured rod-base temperature at or below
 $56^\circ\mathrm{C}$, retain margin for overshoot, and use no forcing period
-shorter than $100\ \mathrm{s}$. Preserve the existing safety limits and physical
+shorter than $100\ \mathrm{s}$ except for the $50\ \mathrm{s}$ raw-PWM diagnostic
+in S18.3. Preserve the existing safety limits and physical
 thermal cutoff. Stop the run if a safety limit or the cutoff is reached.
 
 <a id="s18-2"></a>
@@ -1017,30 +1018,125 @@ signed PWM command in Arduino counts:
 
 The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to 255.
 Measure and record room temperature and verify the signed-PWM convention.
-For the initial $100\ \mathrm{s}$ period, use $u_a=0$ and an estimated
-$u_b=125$ PWM counts, so the command varies between $-125$ and $+125$.
-This estimate uses the Module 6 one-lump model with its simulation defaults:
+Use $u_a=0$ and keep $u_b=100$ PWM counts fixed for all three forcing periods:
+$50$, $100$, and $200\ \mathrm{s}$. Begin with the $100\ \mathrm{s}$ period.
+Changing only the period lets you observe its effect on temperature amplitude
+and phase lag.
+One could estimate the time varying temperature using the Module 6 one-lump model with its simulation defaults:
 room temperature $22^\circ\mathrm{C}$, heating susceptibility
 $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, cooling susceptibility
 $\chi_c=0.23\ ^\circ\mathrm{C/PWM}$, and thermal relaxation time
 $\tau_{\mathrm{th}}=80\ \mathrm{s}$. Integrating
 $\tau_{\mathrm{th}}\dot T=T_{\mathrm{room}}+\chi(u)u-T$, with the appropriate
-heating or cooling branch, predicts a settled peak near $39.9^\circ\mathrm{C}$.
+heating or cooling branch, gives the model response. First solve the case with
+equal heating and cooling susceptibility magnitudes, as derived below. A single
+sinusoidal particular solution applies to that case; it does not give the full
+response when the two susceptibility magnitudes differ.
 Here $\tau_{\mathrm{th}}$ is the thermal relaxation time, not the forcing period.
 
 Use your measured Module 6 parameters to refine this estimate if they differ
 from the defaults; the attached rod can also change the response. Start near
-room temperature and approach the estimated amplitude gradually. Allow the
-response to settle and adjust $u_b$ until the measured TEC peak is approximately
-$40^\circ\mathrm{C}$. Record the chosen $u_b$ and measured peak. Recheck the
-amplitude if the forcing period changes. The command $u(t)=u_b\sin(\omega t)$
-varies between $-u_b$ and $+u_b$, within the allowed PWM range above.
+room temperature and apply $u(t)=100\sin(\omega t)$, which varies between
+$-100$ and $+100$ PWM counts. Allow the response to settle at each forcing
+period, keeping $u_b=100$ fixed, and record the measured temperature peak.
 Keep the Stage 1 safety limits active throughout the trial.
 **How do you expect the temperature to respond? Does it meet your expectations?** Explain what you observe.
 This is a deliberately uncompensated experiment. A symmetric PWM command does
 not imply a symmetric temperature response when heating and cooling have
 different susceptibilities. Plot the measured TEC temperature against $u(t)$
-and identify unequal excursions, slopes, phase lag, and distortion.
+and identify unequal excursions, slopes, phase lag, and distortion. Collect data for 3 periods; 50 sec, 100 sec and 200 sec.
+
+#### Derive The Response For Equal Heating And Cooling Susceptibilities
+
+First assume $\chi_h=\chi_c=\chi>0$. Since $u$ is signed, the same positive
+$\chi$ multiplies $u$ on both branches: positive PWM heats and negative PWM
+cools. Equivalently, susceptibilities written as $+\chi$ and $-\chi$ would
+multiply the unsigned magnitude $|u|$.
+
+Set $\theta(t)=T(t)-T_{\mathrm{room}}$ and $u_a=0$. For
+$u(t)=u_b\sin(\omega t)$, the one-lump equation becomes
+
+\[
+\tau_{\mathrm{th}}\dot\theta+\theta
+=\chi u_b\sin(\omega t).
+\]
+
+Try the particular solution
+
+\[
+\theta_p(t)=a\sin(\omega t)+b\cos(\omega t).
+\]
+
+Substitution and matching the sine and cosine coefficients gives
+
+\[
+a-\omega\tau_{\mathrm{th}}b=\chi u_b,
+\qquad
+b+\omega\tau_{\mathrm{th}}a=0.
+\]
+
+Therefore,
+
+\[
+a=\frac{\chi u_b}{1+(\omega\tau_{\mathrm{th}})^2},
+\qquad
+b=-\frac{\chi u_b\omega\tau_{\mathrm{th}}}
+{1+(\omega\tau_{\mathrm{th}})^2}.
+\]
+
+Adding the homogeneous solution gives the complete temperature history:
+
+\[
+\boxed{
+T(t)=T_{\mathrm{room}}
++\frac{\chi u_b}{\sqrt{1+(\omega\tau_{\mathrm{th}})^2}}
+\sin(\omega t-\delta)
++C e^{-t/\tau_{\mathrm{th}}}
+},
+\qquad
+\delta=\tan^{-1}(\omega\tau_{\mathrm{th}}).
+\]
+
+The initial temperature determines $C$. If $T(0)=T_{\mathrm{room}}$, then
+
+\[
+C=\frac{\chi u_b\omega\tau_{\mathrm{th}}}
+{1+(\omega\tau_{\mathrm{th}})^2}.
+\]
+
+After the exponential transient decays, the temperature oscillates about room
+temperature with amplitude $T_{\mathrm{amp}}$ and phase lag $\delta$ relative
+to the PWM:
+
+\[
+\boxed{T_{\mathrm{amp}}=
+\frac{\chi u_b}{\sqrt{1+(\omega\tau_{\mathrm{th}})^2}}},
+\qquad
+\Delta t_{\mathrm{lag}}=\frac{\delta}{\omega}.
+\]
+
+The thermal response attenuates the oscillation and delays it. Setting $u_b=1$
+gives the solution for $u(t)=\sin(\omega t)$. A sinusoidal guess alone describes
+the settled response; the exponential term is needed to satisfy the initial
+condition.
+
+#### Check The Derivation At 50, 100, And 200 Seconds
+
+1. Substitute the complete solution into the differential equation and verify
+   the initial condition $T(0)=T_{\mathrm{room}}$.
+2. For forcing periods $\tau=50$, $100$, and $200\ \mathrm{s}$, use
+   $\omega=2\pi/\tau$ and $\tau_{\mathrm{th}}=80\ \mathrm{s}$. Calculate the
+   normalized amplitude $T_{\mathrm{amp}}/(\chi u_b)$, phase lag $\delta$ in
+   radians, and time lag $\delta/\omega$. Keep the same $\chi$ and use $u_b=100$
+   PWM counts for all three model calculations. Numerically integrate the equal-susceptibility
+   equation from room temperature and overlay the analytical solution for each
+   period, showing both the startup transient and the settled oscillation.
+3. Compare these predictions with your raw-PWM measurements at 50, 100, and
+   200 s. Report the mean temperature, oscillation amplitude, and phase lag
+   relative to the applied PWM, with $u_b=100$ PWM counts fixed in all three
+   runs. Explain how amplitude and phase lag change with period, and which
+   departures from the equal-susceptibility prediction could arise from the
+   actual unequal heating and cooling responses.
 
 <a id="s18-4"></a>
 

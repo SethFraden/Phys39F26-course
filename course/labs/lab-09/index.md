@@ -75,7 +75,11 @@ By the end of this module, you should be able to:
    and $\omega$ through $m^2=\nu/\kappa$, $m^2=q^2-q'^2$, and
    $2qq'=\omega/\kappa$; express their ratios using the dimensionless frequency
    $\Omega=\omega/\nu$; and fit the measurements to obtain $q$, $q'$,
-   $\kappa$, and $\nu$ with units and uncertainty.
+   $\kappa$, and $\nu$ with units and uncertainty. **Generate and interpret a
+   theoretical characteristic-length plot using parameters inferred from your
+   own measurements.** Explain which part of $T(x,t)$ each length controls,
+   distinguish a one-radian phase length from a full spatial wavelength, and
+   use the plot to explain the temperature histories and sensor placement.
 3. **Compare experiment and theory:** use per-sensor fits, spatial trends,
    residuals, frequency consistency, and the finite-length and
    transverse-Biot checks from Module 7 to judge the one-dimensional model.
@@ -443,6 +447,14 @@ Longer periods penetrate farther into the rod but produce less phase change per
 unit length. Shorter periods produce more phase change per unit length but also
 attenuate more rapidly. The experimental period should give both a measurable
 amplitude and a resolvable phase difference across several sensors.*
+
+**You must generate your own version of this theoretical plot from your
+measurements**, following the [Stage 6 characteristic-length task](#generate-and-interpret-your-characteristic-length-plot).
+Use periods from 100 to 500 s, with labeled values at 100, 200, 300, 400, and
+500 s. The supplied figure illustrates the quantities; your submitted curves
+must use your experimentally inferred parameters. Its $q_1$ is the same
+mean-decay coefficient denoted by $m$ below, and its wavelength $2\pi/q'$
+is $2\pi$ times the one-radian phase length $1/q'$.
 
 #### Take The Real Part
 
@@ -893,6 +905,31 @@ relaxation time denoted by \(\tau\) in Module 6.
 
 ## Experimental Stages
 
+**S18 control objective:** Find operating conditions and controller gains that
+make the **measured TEC temperature** follow
+
+\[
+T_{\mathrm{TEC}}(t)\approx T_{\mathrm{set}}(t)
+=40^\circ\mathrm{C}+16^\circ\mathrm{C}\sin\!\left(\frac{2\pi t}{\tau}\right)
+\]
+
+using forcing periods of $100$, $200$, $300$, $400$, or $500\ \mathrm{s}$.
+Test $100$, $200$, and
+$500\ \mathrm{s}$: seek a measured mean of $40^\circ\mathrm{C}$, a fixed
+measured amplitude of $16^\circ\mathrm{C}$, and a phase shift relative to the
+setpoint as close to zero as possible. A sinusoidal command alone does not
+establish that the measured temperature meets this goal.
+
+Use the open-loop and P-only trials to identify why they fall short of this
+tracking objective under the tested conditions. Then tune PI control: enabling
+integral action is not enough, and gains that work at one period may need
+adjustment at another. Demonstrate what worked with measured amplitude, phase,
+mean error, and waveform quality, and explain why. Distinguish the measured
+TEC temperature from the rod-boundary temperature `T1`; continue to use `T1`
+for the Angstrom analysis. The existing temperature limits remain in force;
+if they prevent the full target from being achieved, document the limitation
+and any reduced-amplitude trial rather than claiming that it meets the target.
+
 Work through **S18.1-S18.10 in order in Stages 1-4**. Stages 5-6 use
 the pilot results to acquire the production record and compare it with theory.
 Maintain an **S18 evidence table** with one row for each action: cite the saved
@@ -925,8 +962,7 @@ above to document the initial map and later pilot-based changes.
 
 For every trial, keep the measured rod-base temperature at or below
 $56^\circ\mathrm{C}$, retain margin for overshoot, and use no forcing period
-shorter than $100\ \mathrm{s}$ except for the $50\ \mathrm{s}$ raw-PWM diagnostic
-in S18.3. Preserve the existing safety limits and physical
+shorter than $100\ \mathrm{s}$. Preserve the existing safety limits and physical
 thermal cutoff. Stop the run if a safety limit or the cutoff is reached.
 
 <a id="s18-2"></a>
@@ -1019,7 +1055,7 @@ signed PWM command in Arduino counts:
 The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to 255.
 Measure and record room temperature and verify the signed-PWM convention.
 Use $u_a=0$ and keep $u_b=100$ PWM counts fixed for all three forcing periods:
-$50$, $100$, and $200\ \mathrm{s}$. Begin with the $100\ \mathrm{s}$ period.
+$100$, $200$, and $500\ \mathrm{s}$. Begin with the $100\ \mathrm{s}$ period.
 Changing only the period lets you observe its effect on temperature amplitude
 and phase lag.
 One could estimate the time varying temperature using the Module 6 one-lump model with its simulation defaults:
@@ -1028,7 +1064,7 @@ $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, cooling susceptibility
 $\chi_c=0.23\ ^\circ\mathrm{C/PWM}$, and thermal relaxation time
 $\tau_{\mathrm{th}}=80\ \mathrm{s}$. Integrating
 $\tau_{\mathrm{th}}\dot T=T_{\mathrm{room}}+\chi(u)u-T$, with the appropriate
-heating or cooling branch, gives the model response. First solve the case with
+heating or cooling branch, gives the model response. But before we solve the case with different heating and cooling susceptibilities we first solve the case with
 equal heating and cooling susceptibility magnitudes, as derived below. A single
 sinusoidal particular solution applies to that case; it does not give the full
 response when the two susceptibility magnitudes differ.
@@ -1044,7 +1080,7 @@ Keep the Stage 1 safety limits active throughout the trial.
 This is a deliberately uncompensated experiment. A symmetric PWM command does
 not imply a symmetric temperature response when heating and cooling have
 different susceptibilities. Plot the measured TEC temperature against $u(t)$
-and identify unequal excursions, slopes, phase lag, and distortion. Collect data for 3 periods; 50 sec, 100 sec and 200 sec.
+and identify unequal excursions, slopes, phase lag, and distortion. Collect data for 3 periods; 100 sec, 200 sec and 500 sec.
 
 #### Derive The Response For Equal Heating And Cooling Susceptibilities
 
@@ -1056,9 +1092,12 @@ multiply the unsigned magnitude $|u|$.
 Set $\theta(t)=T(t)-T_{\mathrm{room}}$ and $u_a=0$. For
 $u(t)=u_b\sin(\omega t)$, the one-lump equation becomes
 
+<a id="eq-s18-3-1"></a>
+
 \[
 \tau_{\mathrm{th}}\dot\theta+\theta
 =\chi u_b\sin(\omega t).
+\tag{S18.3.1}
 \]
 
 Try the particular solution
@@ -1083,6 +1122,14 @@ a=\frac{\chi u_b}{1+(\omega\tau_{\mathrm{th}})^2},
 b=-\frac{\chi u_b\omega\tau_{\mathrm{th}}}
 {1+(\omega\tau_{\mathrm{th}})^2}.
 \]
+
+Here $T(t)$ is the predicted actual temperature of the TEC's controlled face,
+represented by the single temperature in the one-lump model, when the applied
+PWM command is $u(t)=u_b\sin(\omega t)$. It assumes equal heating and cooling
+susceptibilities and includes room temperature, the driven temperature
+oscillation, and a decaying startup transient. Compare this prediction with
+your measured TEC temperature. It is not a desired temperature setpoint or the
+temperature along the attached rod.
 
 Adding the homogeneous solution gives the complete temperature history:
 
@@ -1120,23 +1167,33 @@ gives the solution for $u(t)=\sin(\omega t)$. A sinusoidal guess alone describes
 the settled response; the exponential term is needed to satisfy the initial
 condition.
 
-#### Check The Derivation At 50, 100, And 200 Seconds
+#### Check The Derivation At 100, 200, And 500 Seconds
 
-1. Substitute the complete solution into the differential equation and verify
+1. Substitute the complete solution, with $\theta=T-T_{\mathrm{room}}$,
+   into the differential equation [Eq. (S18.3.1)](#eq-s18-3-1) and verify
    the initial condition $T(0)=T_{\mathrm{room}}$.
-2. For forcing periods $\tau=50$, $100$, and $200\ \mathrm{s}$, use
+2. For forcing periods $\tau=100$, $200$, and $500\ \mathrm{s}$, use
    $\omega=2\pi/\tau$ and $\tau_{\mathrm{th}}=80\ \mathrm{s}$. Calculate the
    normalized amplitude $T_{\mathrm{amp}}/(\chi u_b)$, phase lag $\delta$ in
    radians, and time lag $\delta/\omega$. Keep the same $\chi$ and use $u_b=100$
-   PWM counts for all three model calculations. Numerically integrate the equal-susceptibility
-   equation from room temperature and overlay the analytical solution for each
+   PWM counts for all three model calculations. Numerically integrate
+   [Eq. (S18.3.1)](#eq-s18-3-1) from room temperature and overlay the analytical solution for each
    period, showing both the startup transient and the settled oscillation.
-3. Compare these predictions with your raw-PWM measurements at 50, 100, and
-   200 s. Report the mean temperature, oscillation amplitude, and phase lag
+3. Compare these predictions with your raw-PWM measurements at 100, 200, and
+   500 s. Report the mean temperature, oscillation amplitude, and phase lag
    relative to the applied PWM, with $u_b=100$ PWM counts fixed in all three
    runs. Explain how amplitude and phase lag change with period, and which
    departures from the equal-susceptibility prediction could arise from the
    actual unequal heating and cooling responses.
+4. How well does **open-loop uncompensated sinusoidal PWM** produce a
+   sinusoidally varying TEC temperature with a **constant oscillation amplitude
+   independent of driving frequency**? Keep $u_b=100$ PWM counts fixed and
+   assess the settled temperature waveform at periods of 100, 200, and 500 s.
+   Use your theoretical predictions, measured amplitudes, and sinusoidal-fit
+   residuals to distinguish how nearly sinusoidal each waveform is from how
+   nearly its amplitude remains the same across frequencies. Explain whether
+   a constant PWM amplitude is sufficient to produce a constant temperature
+   amplitude, and why.
 
 <a id="s18-4"></a>
 
@@ -1169,8 +1226,10 @@ plots, predictions, and observations for S18.3-S18.4.
 
 ## Stage 3: Establish And Compare Feedforward, P, And PI Control
 
-**Goal:** Produce and evaluate a sinusoidal rod boundary using the measured
-susceptibility and then feedback.
+**Goal:** Make the measured TEC temperature track the requested $40^\circ\mathrm{C}$
+mean and fixed $16^\circ\mathrm{C}$ amplitude with minimal phase shift at periods
+of $100$, $200$, and $500\ \mathrm{s}$. Compare open-loop feedforward, P-only,
+and tuned PI control, and evaluate the resulting measured rod boundary.
 
 **Do:** Complete S18.5-S18.8, keeping the requested temperature-drive settings
 fixed for the three-method comparison.
@@ -1293,6 +1352,21 @@ or safety requires a change, and record the revised settings.
 Repeat the corrected trial with proportional-only control and then with PI
 control at the same temperature-drive settings.
 
+First compare P-only and PI with the same $K_p$, changing only $K_i$. Then
+systematically tune $K_p$ and $K_i$ to bring the measured TEC amplitude toward
+$16^\circ\mathrm{C}$ and the phase shift toward zero while retaining a mean
+near $40^\circ\mathrm{C}$. Test periods of $100$, $200$, and $500\ \mathrm{s}$
+with the same requested mean and amplitude. At each new period, first test the
+previous gains, then record any retuning and its effect. Keep the initial and
+unsuccessful trials as evidence; do not report only the best run.
+
+Record the gains, their units, controller sample interval, measured mean,
+amplitude ratio, phase shift, RMS tracking error, and saturation for each gain
+pair tested. Check startup as well as settled behavior against the existing
+safety limits. A small mean error alone does not demonstrate successful
+sinusoidal tracking. These three control checks are separate from the two
+usable periods required for the production rod dataset.
+
 The feedback response is slow enough that the controller should not rely on
 the integral term alone to discover this asymmetry. For proportional-only and
 PI control, compare
@@ -1330,8 +1404,9 @@ direction inputs simultaneously.
 
 ### S18.8: Compare The Measured Boundary Responses
 
-Compare the two uncompensated PWM trials, corrected feedforward, P-only,
-and PI using mean temperature, amplitude, phase, heating-cooling symmetry,
+Compare the two uncompensated PWM trials—zero-centered (S18.3) and
+positive-only (S18.4)—corrected feedforward (S18.5–S18.6), P-only (S18.7),
+and PI (S18.7) using mean temperature, amplitude, phase, heating-cooling symmetry,
 waveform distortion, residuals, and applied PWM. For feedforward/P/PI, compare
 mean tracking error and measured-to-requested amplitude at common $T_a$, $T_b$,
 and period. Use the [time fits in Stage 4](#stage-4-pilot-analysis-and-experiment-plan)
@@ -1339,6 +1414,14 @@ and the [A5 comparison requirements](#part-2-measured-boundary-control-compariso
 to quantify the differences. Raw-PWM trials have no requested temperature
 waveform; compare their measured response to the applied PWM. If settings must
 change, repeat the feedforward/P/PI comparison at common safe settings.
+
+**Explain what worked and why:** State which cases met the tracking objective
+and which did not, using explicit numerical criteria for acceptable mean error,
+amplitude error, and phase shift. Explain the limitations observed in open-loop
+and P-only control, what integral action improved, and why the PI gains needed
+tuning. Identify the selected gains at each tested period and support your
+choice with before-and-after tuning results. If no safe conditions achieved
+the full target, state that clearly and explain the limiting factor.
 
 **Stop when:** You have the common-setting comparison required by A5, including
 at least three settled cycles per method. If a trial is unusable, document it
@@ -1411,7 +1494,7 @@ cleanly.
 Use the `T1` waveform and pilot fits from S18.3-S18.8, not the command alone, to
 judge whether the boundary is usable. If the specified $100\ \mathrm{s}$,
 $16^\circ\mathrm{C}$ temperature waveform is poorly tracked, try a
-$150\ \mathrm{s}$ period or reduce $T_b$ to $10^\circ\mathrm{C}$. Retune $K_p$
+$200\ \mathrm{s}$ period or reduce $T_b$ to $10^\circ\mathrm{C}$. Retune $K_p$
 and $K_i$ after changing frequency or amplitude; gains that work for one
 waveform may not work well for another. Apply these decision rules:
 
@@ -1448,7 +1531,7 @@ Retain at least three rod sensors with measurable amplitude and phase.
 
 ### S18.10: Select And Test A Second Usable Frequency
 
-Candidate periods include 100, 180, 240, 300, and 480 seconds while initially
+Candidate periods are 100, 200, 300, 400, and 500 seconds while initially
 retaining the same $T_a$ and $T_b$. Longer periods penetrate farther along the
 rod but produce less phase change per unit length.
 
@@ -1594,6 +1677,57 @@ $a_i$ values may constrain $mL$ less strongly than the full-length Module 7
 data. Report the fit uncertainty and residuals rather than assuming that the
 finite-rod fit is precise.
 
+### Generate And Interpret Your Characteristic-Length Plot
+
+Use your measured positions and temperature histories to infer $\kappa$ and
+$\nu$ from the spatial fits. Report the parameter values, units, uncertainty,
+and source data. Use one justified pair of material/heat-loss parameters for
+the theoretical curves across the period range; compare the estimates from
+different measured periods before combining them. If they disagree beyond
+uncertainty, show that disagreement and discuss the model limitations.
+
+1. Generate a theoretical plot of length versus forcing period from 100 to
+   500 s, with ticks at 100, 200, 300, 400, and 500 s. Use $\omega=2\pi/\tau$
+   and the derived expressions for $m$, $q$, and $q'$ to plot
+   $\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}$,
+   $\ell_{\mathrm{amp}}=1/q$, and the spatial wavelength $\lambda=2\pi/q'$.
+   Also show $\ell_{\mathrm{phase}}=1/q'$ as a distinctly labeled curve so
+   that a one-radian lag cannot be confused with a full cycle. Label axes and
+   units, include parameter uncertainties as bands or explain their effect,
+   and mark the measured analysis length $L$ for comparison.
+2. At the periods actually measured, overlay the lengths obtained directly
+   from your fits: $1/m$ from the mean profile, $1/q$ from amplitude decay,
+   and $1/q'$ and $2\pi/q'$ from phase. Include uncertainties. Identify which
+   measurements supplied the theoretical parameters; agreement with those
+   same measurements is a consistency check, not an independent validation.
+3. Interpret every curve using the semi-infinite expression
+
+   \[
+   T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
+   +B_0e^{-x/\ell_{\mathrm{amp}}}
+   \cos\!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
+   \]
+
+   Here $a_0$, $B_0$, and $\phi_0$ come from the measured rod-boundary
+   temperature `T1`, not the requested TEC setpoint. Explain what happens to
+   the **mean excess temperature** over $\ell_{\mathrm{mean}}$, to the
+   **oscillation amplitude** over $\ell_{\mathrm{amp}}$, and to the **phase**
+   over $\ell_{\mathrm{phase}}$ and $\lambda$. Relate spatial phase lag to
+   time lag through $\Delta t=q'x/\omega$. Explain why the mean-decay length
+   is independent of forcing period while the other lengths change, and why
+   a full spatial wavelength may extend beyond the rod or beyond the region
+   where the oscillation is measurable.
+4. Use your inferred parameters and measured boundary waveform to plot
+   theoretical $T(x,t)$ at the retained sensor positions for each measured
+   period. Connect the mean offsets, shrinking amplitudes, and delayed peaks
+   explicitly to the length plot. Use the finite insulated-tip solution where
+   the semi-infinite approximation fails: the lengths remain model scales,
+   but the finite-rod profiles need not be simple exponentials or have phase
+   exactly proportional to $x$. Explain how the curves justify your chosen
+   periods and sensor positions.
+
+### Required Analysis Displays
+
 Your Python app, notebook, or script must visibly show:
 
 - imported raw data and selected fitting interval,
@@ -1604,6 +1738,9 @@ Your Python app, notebook, or script must visibly show:
 - amplitude and unwrapped phase versus position,
 - fitted `q` and `q_prime` with units and uncertainty,
 - calculated `kappa` and `nu`,
+- the theoretical characteristic-length plot based on measured parameters,
+  fitted length estimates with uncertainty, and the corresponding theoretical
+  temperature histories with a physical interpretation of each length,
 - residuals and any excluded data with justification,
 - the finite-length and transverse-Biot-number checks that justify the
   one-dimensional semi-infinite analysis for the retained sensors.
@@ -1621,7 +1758,8 @@ periods, inspected residuals and uncertainties, and stated where finite-length
 and transverse-Biot checks support or limit the model.
 
 **Save:** The runnable analysis, per-sensor and spatial fits, residuals,
-uncertainties, exclusions, and experiment-theory comparison.
+uncertainties, exclusions, the characteristic-length plot and its generating
+code, the corresponding temperature histories, and experiment-theory comparison.
 
 ## Evidence, A5, And Modeling-App Check
 
@@ -1689,8 +1827,9 @@ compare corrected feedforward, P-only, and PI control. Include:
    residual.
 3. A plot of tracking error and signed PWM over representative settled cycles.
    Mark saturation and distinguish heating from cooling.
-4. A second comparison using at least two forcing frequencies for the best
-   usable control method. Hold \(T_a\) and \(T_b\) fixed unless safety or
+4. A second comparison showing PI tuning at forcing periods of 100, 200, and
+   500 s. Include the initial and selected gain pairs and the before-and-after
+   tracking metrics at each period. Hold \(T_a\) and \(T_b\) fixed unless safety or
    tracking requires a documented change. Plot the setpoint and measured TEC
    temperature and report how amplitude ratio, phase lag, RMS error, and
    distortion change with frequency.
@@ -1711,6 +1850,16 @@ Answer these questions using the measurements:
 5. How do \(T_{\mathrm{TEC}}(t)\) and \(T_1(t)\) differ in amplitude and phase?
    Explain why \(T_1(t)\), rather than the requested setpoint or embedded TEC
    thermistor, is the boundary condition for the rod model.
+
+Conclude Part 2 with **what worked and why**. State whether the measured TEC
+achieved the requested $40^\circ\mathrm{C}$ mean and $16^\circ\mathrm{C}$
+amplitude with a sufficiently small phase shift at each tested period. Give
+your numerical acceptance criteria and cite the measurements that support each
+verdict. Explain why the open-loop and P-only cases fell short under your test
+conditions, how PI changed the result, and why tuning $K_p$ and $K_i$ was
+necessary. If a case performed better than expected, explain that evidence
+rather than forcing the expected conclusion. Report any remaining tracking
+error, safety limitation, or failure to reach the full target.
 
 #### Part 3: Experiment, Simulation, And Theory
 
@@ -1734,7 +1883,12 @@ error-PWM plots with common axes.
 
 Repeat the PI simulation at periods of 100 s, 200 s, and 500 s. If a run is
 not usable, keep the result and explain the failure rather than silently
-retuning it. Answer the following questions from the simulations:
+retuning it. After preserving this fixed-gain comparison, tune $K_p$ and $K_i$
+at each period to approach the requested amplitude and minimize the phase
+shift. Report the initial and selected gains, their units, and the resulting
+changes in tracking error, amplitude, phase, distortion, and saturation. Explain
+which settings worked and why; do not treat PI control as automatically
+successful. Answer the following questions from the simulations:
 
 1. Why can susceptibility-based feedforward reproduce the correct mean yet
    show substantial attenuation and phase lag at finite frequency?
@@ -1772,6 +1926,17 @@ the justified acquisition plan and the finite-length and transverse-Biot
 checks carried forward from Module 7. State explicitly whether the retained
 sensors support the proposed one-dimensional analysis.
 
+**Required characteristic-length evidence:** Include your own
+[Stage 6 characteristic-length plot](#generate-and-interpret-your-characteristic-length-plot),
+the measured parameters and data used to generate it, uncertainty estimates,
+and the corresponding theoretical $T(x,t)$ histories. Explain in your own
+words what each length means in the temperature expression and in the plotted
+histories. Distinguish $1/q'$ from $2\pi/q'$, explain the period dependence,
+and use the lengths to justify the measured sensor spacing and usable periods.
+Identify where finite-rod effects limit the exponential interpretation. The
+supplied illustration or a plot made only with handbook/default parameters
+does not satisfy this requirement.
+
 ### Formative Modeling-App Check
 
 There is no separate modeling-app paper. Keep the team note at
@@ -1793,7 +1958,7 @@ acceptable or not.
 | Ten-step S18 evidence table is specific, complete, and identifies deviations | 2 |
 | Feedforward, P-only, and PI plots and quantitative comparison use common conditions | 2 |
 | Frequency comparison measures and explains changes in tracking and waveform quality | 2 |
-| Experiment-simulation comparison and Angstrom theory explain the observed behavior | 2 |
+| Experiment-simulation comparison and the theoretical characteristic-length plot from measured parameters explain the observed $T(x,t)$ behavior | 2 |
 | Derivation, units, validity checks, acquisition plan, and cited Git checkpoint are correct and clear | 2 |
 
 The formative app is ready when it loads documented raw data; displays
@@ -1806,5 +1971,5 @@ exclusions, approximation checks, run instructions, and AI assistance.
 | Learning objective | Evidence |
 | --- | --- |
 | 1. Measure all six temperature histories and the driven boundary | Ten-step S18 evidence table, live six-channel record, feedforward/P/PI base-response comparison, multi-frequency acquisition, verified files, sensor map, controller settings, and complete run metadata |
-| 2. Derive and understand the settled-periodic temperature profile | Complete finite insulated-tip derivation and semi-infinite limit, `P3` explanation of the three spatial length scales and their dimensional and dimensionless relationships, A5 derivation, and amplitude and phase fits yielding $q$, $q'$, $\kappa$, and $\nu$ |
+| 2. Derive and understand the settled-periodic temperature profile | Complete finite insulated-tip derivation and semi-infinite limit, `P3` explanation of the three spatial length scales and their dimensional and dimensionless relationships, the student-generated theoretical length plot from measured parameters and its interpretation in $T(x,t)$, A5 derivation, and amplitude and phase fits yielding $q$, $q'$, $\kappa$, and $\nu$ |
 | 3. Compare experiment and theory | A5 experiment-simulation comparison, `P4`, residuals, spatial and frequency consistency, Module 7 approximation checks, and the C6 explanation |

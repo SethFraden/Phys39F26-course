@@ -995,31 +995,48 @@ A(x)=\left|\frac{\cosh[s(L-x)]}{\cosh(sL)}\right|
 =\sqrt{\frac{\cosh[2q(L-x)]+\cos[2q'(L-x)]}
 {\cosh(2qL)+\cos(2q'L)}}.
 \]</div>
-<p>In particular, <span class="arithmatex">\(A(0)=1\)</span>. Then the same result can be written entirely with real quantities:</p>
+<p>The phase lag can be written as the semi-infinite phase <span class="arithmatex">\(q'x\)</span> plus a
+finite-tip correction:</p>
 <div class="arithmatex">\[
-T(x,t)=T_\infty
-+(T_a-T_\infty)
-\frac{\cosh[m(L-x)]}{\cosh(mL)}
-+T_bA(x)\cos[\omega t-\phi(x)].
+\boxed{\phi(x)=q'x+\Delta(L-x)-\Delta(L)},
 \]</div>
-<p>Expanding the complex hyperbolic functions gives an explicit expression for
-<span class="arithmatex">\(T(x,t)\)</span> without the amplitude and phase functions:</p>
+<p>where</p>
 <div class="arithmatex">\[
 \boxed{
-\begin{aligned}
-T(x,t)={}&amp;T_\infty
-+(T_a-T_\infty)\frac{\cosh[m(L-x)]}{\cosh(mL)}
-\\[6pt]
-&amp;+T_b\frac{
-\cosh[q(2L-x)]\cos(q'x)+\cosh(qx)\cos[q'(2L-x)]
-}{\cosh(2qL)+\cos(2q'L)}\cos(\omega t)
-\\[6pt]
-&amp;+T_b\frac{
-\sinh[q(2L-x)]\sin(q'x)+\sinh(qx)\sin[q'(2L-x)]
-}{\cosh(2qL)+\cos(2q'L)}\sin(\omega t).
-\end{aligned}
-}
+\Delta(y)=\tan^{-1}\!\left[
+\frac{\sin(2q'y)}{e^{2qy}+\cos(2q'y)}
+\right]
+}.
 \]</div>
+<p>To obtain this form, factor the complex amplitude ratio as</p>
+<div class="arithmatex">\[
+A(x)e^{-i\phi(x)}
+=e^{-(q+iq')x}
+\frac{1+e^{-2(q+iq')(L-x)}}{1+e^{-2(q+iq')L}}.
+\]</div>
+<p>In particular, <span class="arithmatex">\(A(0)=1\)</span> and <span class="arithmatex">\(\phi(0)=0\)</span>. The complete real temperature
+solution is therefore</p>
+<div class="arithmatex">\[
+\boxed{
+T(x,t)=T_\infty
++(T_a-T_\infty)\frac{\cosh[m(L-x)]}{\cosh(mL)}
++T_bA(x)\cos[\omega t-\phi(x)]
+}.
+\]</div>
+<p>This form directly parallels the semi-infinite solution: the mean profile,
+oscillation amplitude <span class="arithmatex">\(T_bA(x)\)</span>, and phase lag <span class="arithmatex">\(\phi(x)\)</span> remain separate.
+For <span class="arithmatex">\(mL\gg1\)</span> and <span class="arithmatex">\(qL\gg1\)</span>, at positions sufficiently far from the tip
+(<span class="arithmatex">\(m(L-x)\gg1\)</span> and <span class="arithmatex">\(q(L-x)\gg1\)</span>),</p>
+<div class="arithmatex">\[
+\frac{\cosh[m(L-x)]}{\cosh(mL)}\longrightarrow e^{-mx},
+\qquad
+A(x)\longrightarrow e^{-qx},
+\qquad
+\phi(x)\longrightarrow q'x=\frac{x}{\ell_{\mathrm{phase}}}.
+\]</div>
+<p>For the finite rod, <span class="arithmatex">\(\phi(x)\)</span> depends on both <span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span> and is not exactly
+proportional to distance. At the insulated tip, <span class="arithmatex">\(A'(L)=0\)</span> and
+<span class="arithmatex">\(\phi'(L)=0\)</span>, consistent with zero spatial temperature gradient.</p>
 <p>The spatial parameters <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(q\)</span>, and <span class="arithmatex">\(q'\)</span> are defined above by
 <span class="arithmatex">\(m^2=\nu/\kappa\)</span>, <span class="arithmatex">\(q^2-q'^2=\nu/\kappa\)</span>, and
 <span class="arithmatex">\(2qq'=\omega/\kappa\)</span>, with <span class="arithmatex">\(q,q'&gt;0\)</span>.</p>
@@ -1795,6 +1812,39 @@ preserve all existing safety limits, and finish with zero TEC output.</p>
 <p><strong>Goal:</strong> Compare experiment and theory (Learning Objective 3). Use the
 spatial fits, residuals, frequency consistency, and finite-rod checks below to
 decide where the model succeeds and where its assumptions fail.</p>
+<p><strong>Why use a semi-infinite fit for the oscillation but a finite fit for the
+mean?</strong> The two parts of the temperature field have different spatial scales.
+For the course-rod planning values, <span class="arithmatex">\(mL\approx1.30\)</span>, whereas <span class="arithmatex">\(qL\)</span> ranges from
+about <span class="arithmatex">\(6.47\)</span> at 100 s to <span class="arithmatex">\(3.01\)</span> at 500 s. The mean excess temperature therefore
+extends far enough along the rod for the insulated tip to matter, while the
+oscillation decays more rapidly. At sensors near the driven end, the
+oscillatory response can closely approximate the semi-infinite solution even
+though the mean profile cannot.</p>
+<p>The size of the tip correction follows directly from the finite solution.
+With <span class="arithmatex">\(s=q+iq'\)</span>, its complex amplitude relative to the base is</p>
+<div class="arithmatex">\[
+H_{\mathrm{finite}}(x)
+=e^{-sx}\frac{1+e^{-2s(L-x)}}{1+e^{-2sL}},
+\qquad H_{\mathrm{semi}}(x)=e^{-sx}.
+\]</div>
+<p>Thus the correction is controlled by <span class="arithmatex">\(e^{-2q(L-x)}\)</span> and <span class="arithmatex">\(e^{-2qL}\)</span>.
+Both must be small: a large <span class="arithmatex">\(qL\)</span> alone does not justify including sensors
+near the tip. For example, with <span class="arithmatex">\(L=0.300\ \mathrm{m}\)</span> and the planning value
+<span class="arithmatex">\(qL=3.01\)</span> at 500 s, the relative complex-amplitude correction is bounded by</p>
+<div class="arithmatex">\[
+\left|\frac{H_{\mathrm{finite}}}{H_{\mathrm{semi}}}-1\right|
+\leq\frac{e^{-2q(L-x)}+e^{-2qL}}{1-e^{-2qL}}.
+\]</div>
+<p>This bound is less than <span class="arithmatex">\(2.2\%\)</span> for sensors within the first <span class="arithmatex">\(0.10\ \mathrm{m}\)</span>
+of that rod, and smaller at the shorter assigned periods. It is an
+illustration, not a substitute for checking your measured geometry and fitted
+parameters. Use the existing finite-length check to compare the predicted
+amplitude and phase corrections with your uncertainty and chosen tolerances
+at every retained sensor. Where justified, the simple exponential and linear
+phase fits make <span class="arithmatex">\(q\)</span> and <span class="arithmatex">\(q'\)</span> transparent without requiring another nonlinear
+fit. If the correction is appreciable, identify the affected sensors and
+report the limit of the semi-infinite interpretation rather than assuming
+that all finite-rod data obey it.</p>
 <p><strong>Do:</strong> At each retained forcing period, fit</p>
 <div class="arithmatex">\[
 B(x)=B_0e^{-qx},

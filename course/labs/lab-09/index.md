@@ -746,34 +746,58 @@ A(x)=\left|\frac{\cosh[s(L-x)]}{\cosh(sL)}\right|
 {\cosh(2qL)+\cos(2q'L)}}.
 \]
 
-In particular, $A(0)=1$. Then the same result can be written entirely with real quantities:
+The phase lag can be written as the semi-infinite phase $q'x$ plus a
+finite-tip correction:
 
 \[
-T(x,t)=T_\infty
-+(T_a-T_\infty)
-\frac{\cosh[m(L-x)]}{\cosh(mL)}
-+T_bA(x)\cos[\omega t-\phi(x)].
+\boxed{\phi(x)=q'x+\Delta(L-x)-\Delta(L)},
 \]
 
-Expanding the complex hyperbolic functions gives an explicit expression for
-$T(x,t)$ without the amplitude and phase functions:
+where
 
 \[
 \boxed{
-\begin{aligned}
-T(x,t)={}&T_\infty
-+(T_a-T_\infty)\frac{\cosh[m(L-x)]}{\cosh(mL)}
-\\[6pt]
-&+T_b\frac{
-\cosh[q(2L-x)]\cos(q'x)+\cosh(qx)\cos[q'(2L-x)]
-}{\cosh(2qL)+\cos(2q'L)}\cos(\omega t)
-\\[6pt]
-&+T_b\frac{
-\sinh[q(2L-x)]\sin(q'x)+\sinh(qx)\sin[q'(2L-x)]
-}{\cosh(2qL)+\cos(2q'L)}\sin(\omega t).
-\end{aligned}
-}
+\Delta(y)=\tan^{-1}\!\left[
+\frac{\sin(2q'y)}{e^{2qy}+\cos(2q'y)}
+\right]
+}.
 \]
+
+To obtain this form, factor the complex amplitude ratio as
+
+\[
+A(x)e^{-i\phi(x)}
+=e^{-(q+iq')x}
+\frac{1+e^{-2(q+iq')(L-x)}}{1+e^{-2(q+iq')L}}.
+\]
+
+In particular, $A(0)=1$ and $\phi(0)=0$. The complete real temperature
+solution is therefore
+
+\[
+\boxed{
+T(x,t)=T_\infty
++(T_a-T_\infty)\frac{\cosh[m(L-x)]}{\cosh(mL)}
++T_bA(x)\cos[\omega t-\phi(x)]
+}.
+\]
+
+This form directly parallels the semi-infinite solution: the mean profile,
+oscillation amplitude $T_bA(x)$, and phase lag $\phi(x)$ remain separate.
+For $mL\gg1$ and $qL\gg1$, at positions sufficiently far from the tip
+($m(L-x)\gg1$ and $q(L-x)\gg1$),
+
+\[
+\frac{\cosh[m(L-x)]}{\cosh(mL)}\longrightarrow e^{-mx},
+\qquad
+A(x)\longrightarrow e^{-qx},
+\qquad
+\phi(x)\longrightarrow q'x=\frac{x}{\ell_{\mathrm{phase}}}.
+\]
+
+For the finite rod, $\phi(x)$ depends on both $q$ and $q'$ and is not exactly
+proportional to distance. At the insulated tip, $A'(L)=0$ and
+$\phi'(L)=0$, consistent with zero spatial temperature gradient.
 
 The spatial parameters $m$, $q$, and $q'$ are defined above by
 $m^2=\nu/\kappa$, $q^2-q'^2=\nu/\kappa$, and
@@ -1672,6 +1696,45 @@ establish that the data are usable.
 **Goal:** Compare experiment and theory (Learning Objective 3). Use the
 spatial fits, residuals, frequency consistency, and finite-rod checks below to
 decide where the model succeeds and where its assumptions fail.
+
+**Why use a semi-infinite fit for the oscillation but a finite fit for the
+mean?** The two parts of the temperature field have different spatial scales.
+For the course-rod planning values, $mL\approx1.30$, whereas $qL$ ranges from
+about $6.47$ at 100 s to $3.01$ at 500 s. The mean excess temperature therefore
+extends far enough along the rod for the insulated tip to matter, while the
+oscillation decays more rapidly. At sensors near the driven end, the
+oscillatory response can closely approximate the semi-infinite solution even
+though the mean profile cannot.
+
+The size of the tip correction follows directly from the finite solution.
+With $s=q+iq'$, its complex amplitude relative to the base is
+
+\[
+H_{\mathrm{finite}}(x)
+=e^{-sx}\frac{1+e^{-2s(L-x)}}{1+e^{-2sL}},
+\qquad H_{\mathrm{semi}}(x)=e^{-sx}.
+\]
+
+Thus the correction is controlled by $e^{-2q(L-x)}$ and $e^{-2qL}$.
+Both must be small: a large $qL$ alone does not justify including sensors
+near the tip. For example, with $L=0.300\ \mathrm{m}$ and the planning value
+$qL=3.01$ at 500 s, the relative complex-amplitude correction is bounded by
+
+\[
+\left|\frac{H_{\mathrm{finite}}}{H_{\mathrm{semi}}}-1\right|
+\leq\frac{e^{-2q(L-x)}+e^{-2qL}}{1-e^{-2qL}}.
+\]
+
+This bound is less than $2.2\%$ for sensors within the first $0.10\ \mathrm{m}$
+of that rod, and smaller at the shorter assigned periods. It is an
+illustration, not a substitute for checking your measured geometry and fitted
+parameters. Use the existing finite-length check to compare the predicted
+amplitude and phase corrections with your uncertainty and chosen tolerances
+at every retained sensor. Where justified, the simple exponential and linear
+phase fits make $q$ and $q'$ transparent without requiring another nonlinear
+fit. If the correction is appreciable, identify the affected sensors and
+report the limit of the semi-infinite interpretation rather than assuming
+that all finite-rod data obey it.
 
 **Do:** At each retained forcing period, fit
 

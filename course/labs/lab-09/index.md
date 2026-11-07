@@ -1924,7 +1924,7 @@ spatial fits, and the integrated temperature-history comparison. Combine
 panels or reuse a figure when helpful. Keep full derivations, additional
 trials, and diagnostic plots in the repository. No separate slide deck is
 required; organize the argument so that it can later support a clear oral
-presentation.
+presentation. **Treat this assignment as preparation for your final presentation.**
 
 #### Part 1: Evidence That The S18 Procedure Was Followed
 

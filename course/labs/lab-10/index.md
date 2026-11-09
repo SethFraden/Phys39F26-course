@@ -36,9 +36,9 @@ the measured temperature field.
 | Session | In class | Due |
 | --- | --- | --- |
 | S23, Wed. Nov. 18 | Convert fitted coefficients into `k` and `h`; update the finite-length and transverse-Biot checks using measured parameters | Parameter and model-validity check |
-| S24, Mon. Nov. 23 | Propagate uncertainty, compare stationary and periodic estimates, and assemble the final analysis | Formative draft-results check |
-| S25, Mon. Nov. 30 | Freeze data, code, parameters, figures, and model-validity evidence; perform reproducibility check | **C6 final analysis package** |
-| S26, Wed. Dec. 2 | Present and defend the complete instrument-to-model chain | Final presentation and individual oral defense |
+| S24, Mon. Nov. 23 | Propagate uncertainty, compare stationary and periodic estimates, and assemble the final analysis | **Planned A5 deadline at 9:05 AM**; formative draft-results check |
+| S25, Mon. Nov. 30 | Submit the frozen analysis, begin the assigned team presentations, and complete the primary in-class course-evaluation period | **C6 final analysis package, final write-up, and slides** |
+| S26, Wed. Dec. 2 | Complete the assigned team presentations and individual/team questions; provide a second course-evaluation completion period | Final presentation and oral defense |
 
 ## Outside-Class Workload Budget
 
@@ -194,7 +194,8 @@ when possible:
 
 The assessments build on one another rather than asking for parallel analyses:
 
-- **A5** is each student's derivation and acquisition plan.
+- **A5** is each student's S18 evidence record, boundary-control and frequency
+  analysis, experiment-simulation comparison, and Angstrom derivation.
 - The **formative modeling app** is the team's working implementation and
   preliminary analysis of measured data.
 - **C6** is the team's final reproducible inference, including uncertainty,
@@ -241,11 +242,32 @@ reproduce the principal numbers and figures. Each student will answer short
 individual questions about the Angstrom inference, finite-length effects, and
 the transverse-Biot criterion.
 
-## Final Presentation
+## Final Team Presentation, Write-Up, And Slides
 
-One team member submits `F1_Lastname_Lastname_slides.pdf` to Moodle before the
-S26 presentation and cites the final repository commit. Every student prepares
-the announced [C6/F1 oral questions](../../assessment.md#c6-oral-questions).
+The nine teams will present across S25 and S26 according to the schedule
+announced by the instructor. Each team has one **20-minute appointment**:
+
+- **10 minutes:** uninterrupted team presentation,
+- **10 minutes:** questions from the instructor.
+
+The presentation must stop at 10 minutes so every team receives the full
+question period. Every team member must speak and must be prepared to answer
+questions about hardware, software, control, data analysis, and thermal
+physics.
+
+One team member submits both of the following to Moodle before the team's
+assigned presentation time:
+
+- `F1_Lastname_Lastname_writeup.pdf`: the final written thermal-transport
+  analysis, exported from
+  `docs/assessments/final_thermal_transport_analysis.md`, and
+- `F1_Lastname_Lastname_slides.pdf`: the slides used for the presentation.
+
+Both PDFs must cite the same frozen repository commit. The write-up must be
+self-contained enough to evaluate the result without opening the slides; the
+slides should select the most important evidence rather than reproduce the
+write-up page by page. Every student prepares the announced
+[C6/F1 oral questions](../../assessment.md#c6-oral-questions).
 
 The presentation should tell one connected story:
 
@@ -257,5 +279,17 @@ The presentation should tell one connected story:
 5. Whether the results are credible, what limits them, and what you would do
    next.
 
-Every team member must speak and must be prepared to answer an individual
-question about hardware, software, control, or thermal physics.
+### Course Evaluations During The Final Classes
+
+Brandeis course evaluations for full-semester courses open seven days before
+the last day of classes. Because the Fall 2026 last day of instruction is
+Thursday, December 3, evaluations open Thursday, November 26. They are
+therefore available during both final meetings.
+
+Time will be reserved near the end of S25 on Monday, November 30, for students
+to complete the evaluation on their own devices. A second completion period
+will be provided during S26 on Wednesday, December 2, for anyone who has not
+yet submitted it. Course-evaluation responses are confidential and are not
+part of the course grade. See the
+[Brandeis course-evaluation calendar](https://www.brandeis.edu/course-evaluations/dates.html)
+and [student instructions](https://www.brandeis.edu/course-evaluations/students.html).

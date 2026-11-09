@@ -1321,7 +1321,7 @@ signed PWM command in Arduino counts:</p>
 <p>The sign selects heating or cooling; <span class="arithmatex">\(|u|\)</span> gives the PWM magnitude from 0 to 255.
 Measure and record room temperature and verify the signed-PWM convention.
 Use <span class="arithmatex">\(u_a=0\)</span> and keep <span class="arithmatex">\(u_b=100\)</span> PWM counts fixed for all three forcing periods:
-<span class="arithmatex">\(100\)</span>, <span class="arithmatex">\(200\)</span>, and <span class="arithmatex">\(500\ \mathrm{s}\)</span>. Begin with the <span class="arithmatex">\(100\ \mathrm{s}\)</span> period.
+<span class="arithmatex">\(100\)</span>, <span class="arithmatex">\(200\)</span>, and <span class="arithmatex">\(500\ \mathrm{s}\)</span>. If <span class="arithmatex">\(u_b=100\)</span> triggers the software cutoff of too high a temperature, then decrease <span class="arithmatex">\(u_b\)</span> until you are well below the cutoff. Begin with the <span class="arithmatex">\(100\ \mathrm{s}\)</span> period.
 Changing only the period lets you observe its effect on temperature amplitude
 and phase lag.
 One could estimate the time varying temperature using the Module 6 one-lump model with its simulation defaults:

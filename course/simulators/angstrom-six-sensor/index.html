@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TEC Rod Thermal Lab — Six-Sensor PID Simulator</title>
+<title>TEC Rod Thermal Lab — Six-Sensor PWM and PID Simulator</title>
 <style>
   :root{
     --bg:#14171c; --panel:#1d2129; --panel2:#232834; --edge:#323a48;
@@ -78,6 +78,9 @@
   .sensorcell{background:var(--panel); border:1px solid var(--edge); border-top:3px solid var(--sensor); border-radius:7px; padding:5px 7px; min-width:0;}
   .sensorcell .sensorhead{display:flex; justify-content:space-between; gap:6px; color:var(--dim); font-size:10px;}
   .sensorcell .sensorvalue{font:600 15px var(--mono); margin-top:2px; white-space:nowrap;}
+  [hidden]{display:none!important;}
+  body.lumped #viewwrap, body.lumped #rigbar, body.lumped #sensorbar, body.lumped #viewSeg{display:none;}
+  #modelSummary{white-space:normal;}
   @media(max-width:900px){#sensorbar{grid-template-columns:repeat(3,1fr);}}
 </style>
 </head>
@@ -97,7 +100,8 @@
     <option value="30">30&times;</option><option value="60" selected>60&times;</option>
   </select>
   <button class="btn" id="btnPause">Pause</button>
-  <button class="btn" id="btnReset">Reset</button>
+  <button class="btn" id="btnReset">Apply / Reset</button>
+  <button class="btn" id="btnCSV">Save CSV</button>
   <span class="clock" id="clock">t = 0.0 s</span>
 </header>
 
@@ -130,16 +134,47 @@
       <div class="sensorcell" style="--sensor:#c792ea"><div class="sensorhead"><b>T4</b><span id="sensorPos4">216 mm</span></div><div class="sensorvalue" id="sensorRead4">22.0 °C</div></div>
       <div class="sensorcell" style="--sensor:#5ac8fa"><div class="sensorhead"><b>T5</b><span id="sensorPos5">285 mm</span></div><div class="sensorvalue" id="sensorRead5">22.0 °C</div></div>
     </div>
+    <div class="drivebox" id="modelSummary"></div>
+    <div class="drivebox" id="settledReadout" hidden></div>
     <div id="chartwrap"><canvas id="chart"></canvas></div>
   </div>
 
   <div id="side">
+    <div class="panel">
+      <h2>Thermal model</h2>
+      <select id="modelMode" aria-label="Thermal model" style="width:100%">
+        <option value="coupled">Coupled TEC + rod (six sensors)</option>
+        <option value="lumped">One-lump TEC (S18.3)</option>
+      </select>
+      <div id="lumpControls" hidden>
+        <div class="sineparams">
+          <label>Room (°C)<input id="lumpRoom" type="number" value="22" step="0.5" min="-20" max="60"></label>
+          <label>Initial T (°C)<input id="lumpInitial" type="number" value="22" step="0.5" min="-20" max="100"></label>
+          <label>τ thermal (s)<input id="lumpTau" type="number" value="80" step="1" min="1" max="10000"></label>
+          <label>χ heating (°C/PWM)<input id="lumpHeat" type="number" value="0.46" step="0.01" min="0" max="10"></label>
+          <label>χ cooling (°C/PWM)<input id="lumpCool" type="number" value="0.46" step="0.01" min="0" max="10"></label>
+        </div>
+        <p class="hint">τ thermal dT/dt = Troom + χ(u)u − T. Both χ values are positive; signed PWM selects heating or cooling. No rod or sensor lag in this mode.</p>
+      </div>
+      <p class="hint">Click Apply / Reset after editing parameters. Changing the thermal model, its parameters, or the open-loop drive resets time and recorded data. Save CSV first. The chart shows three drive periods. CSV retains the latest 2000 s, or three periods if longer.</p>
+    </div>
     <!-- ============ 1. RAW PWM / DIRECT DRIVE ============ -->
     <div class="panel" id="pwmPanel">
       <h2>PWM drive <span class="tag">H-bridge &rarr; TEC</span></h2>
       <div class="row">
         <input type="checkbox" id="manualChk">
-        <label for="manualChk" style="color:var(--txt)">Direct drive (manual) — overrides PID &amp; tuner</label>
+        <label for="manualChk" style="color:var(--txt)">Open-loop PWM — bypass PID &amp; tuner</label>
+      </div>
+      <div class="row"><label for="pwmMode">PWM waveform</label><select id="pwmMode" disabled>
+        <option value="constant">Constant PWM</option><option value="sine">Sinusoidal PWM</option>
+      </select></div>
+      <div id="pwmSineControls" hidden>
+        <div class="sineparams">
+          <label>ua offset (counts)<input id="pwmOffset" type="number" value="0" min="-255" max="255" step="1"></label>
+          <label>ub amplitude (counts)<input id="pwmAmplitude" type="number" value="50" min="0" max="255" step="1"></label>
+          <label>period (s)<input id="pwmPeriod" type="number" value="300" min="5" max="3600" step="1"></label>
+        </div>
+        <div class="drivebox" id="pwmEquation"></div>
       </div>
       <div class="row" id="manualRow">
         <label>raw</label>
@@ -157,7 +192,7 @@
         <div class="readcell"><div class="v" id="rdW">0.0 W</div><div class="l">tec power</div></div>
       </div>
       <div class="readgrid" style="grid-template-columns:1fr 1fr">
-        <div class="readcell"><div class="v" id="rdTc">22.0 °C</div><div class="l">cold plate</div></div>
+        <div class="readcell"><div class="v" id="rdTc">22.0 °C</div><div class="l">TEC rod-side plate</div></div>
         <div class="readcell"><div class="v" id="rdTh">22.0 °C</div><div class="l">hot side / sink</div></div>
       </div>
     </div>
@@ -263,6 +298,25 @@ const sim = {
   V:0, I:0, W:0,                       // live electrical readouts
   pidAcc:0, chartAcc:0,
 };
+const lump = {mode:'coupled', room:22, initial:22, tau:80, heat:0.46, cool:0.46};
+function pwmAt(t){
+  const command=drive.wave==='sine' ? drive.offset+drive.amplitude*Math.sin(2*Math.PI*t/drive.period) : (drive.rev?-1:1)*drive.raw;
+  return Math.max(-255,Math.min(255,command));
+}
+function analyticalAt(t){
+  if(lump.mode!=='lumped' || !drive.manual || drive.wave!=='sine' || lump.heat!==lump.cool || Math.abs(drive.offset)+drive.amplitude>255) return NaN;
+  const r=2*Math.PI*lump.tau/drive.period;
+  const mean=lump.room+lump.heat*drive.offset;
+  const a=lump.heat*drive.amplitude/Math.sqrt(1+r*r), phase=Math.atan(r);
+  return mean+a*Math.sin(2*Math.PI*t/drive.period-phase)+(lump.initial-mean+a*Math.sin(phase))*Math.exp(-t/lump.tau);
+}
+function lumpStep(h){
+  // RK4 samples the prescribed waveform at each stage (no PID or sensor lag).
+  const f=(t,T)=>{const u=pwmAt(t); return (lump.room+(u>=0?lump.heat:lump.cool)*u-T)/lump.tau;};
+  const t=sim.time,T=sim.Tc,k1=f(t,T),k2=f(t+h/2,T+h*k1/2),k3=f(t+h/2,T+h*k2/2),k4=f(t+h,T+h*k3);
+  sim.Tc+=h*(k1+2*k2+2*k3+k4)/6;
+  sim.Ts[0]=sim.Tc;
+}
 function nodeCount(Lmm){ return Math.max(24, Math.min(100, Math.round(Lmm/2.5))); }
 function rebuildRod(preserve){
   const N = nodeCount(sim.L*1000);
@@ -279,11 +333,17 @@ function rebuildRod(preserve){
 }
 function resetSim(){
   sim.time=0; sim.Tc=TAMB; sim.Th=TAMB; sim.Ts.fill(TAMB); sim.duty=0; sim.V=0; sim.I=0; sim.W=0;
+  if(lump.mode==='lumped'){sim.Tc=lump.initial;sim.Ts.fill(lump.initial);}
+  sim.pidAcc=0;sim.chartAcc=0;
   rebuildRod(false);
+  pid.u=0;
   pid.integ=0; pid.dFilt=0; pid.prevPV=null;
   updateSetpoint();
   chart.t.length=0; chart.temps.forEach(a=>a.length=0); chart.sp.length=0; chart.u.length=0;
+  chart.tec.length=0;chart.exact.length=0;
   tuner.abort('reset');
+  sim.duty=currentDuty();
+  chartPush();
 }
 rebuildRod(false);
 sim.Ts.fill(TAMB);
@@ -530,9 +590,9 @@ function methodsFromRelay(Ku,Pu){
 /* ================================================================
    DRIVE ARBITRATION
 ================================================================ */
-const drive = { manual:false, raw:0, rev:false };
+const drive = { manual:false, raw:0, rev:false, wave:'constant', offset:0, amplitude:50, period:300 };
 function currentDuty(){
-  if(drive.manual) return (drive.rev?-1:1)*drive.raw/255;
+  if(drive.manual) return pwmAt(sim.time)/255;
   if(tuner.active) return Math.max(-1,Math.min(1,tuner.u/100));
   return pid.u/100;
 }
@@ -547,12 +607,13 @@ function advance(simDt){
     sim.pidAcc+=h; sim.chartAcc+=h;
     if(sim.pidAcc>=PID_DT){
       const dt=sim.pidAcc; sim.pidAcc=0;
-      pidStep(dt);
-      tuner.step(dt);
+      if(!drive.manual){pidStep(dt);tuner.step(dt);}
       sim.duty=currentDuty();
     }
-    physicsStep(h);
+    if(drive.manual) sim.duty=pwmAt(sim.time+h/2)/255;
+    if(lump.mode==='lumped') lumpStep(h); else physicsStep(h);
     sim.time+=h;
+    if(drive.manual) sim.duty=pwmAt(sim.time)/255;
     if(sim.chartAcc>=0.25){ sim.chartAcc=0; chartPush(); }
     remaining-=h; guard++;
   }
@@ -565,7 +626,7 @@ setInterval(()=>{
   if(!sim.paused) advance(dt*sim.speed);
 },40);
 function raf(){
-  drawScene(); drawChart(); uiRefresh();
+  if(lump.mode!=='lumped') drawScene(); drawChart(); uiRefresh();
   requestAnimationFrame(raf);
 }
 
@@ -592,7 +653,9 @@ for(let i=0;i<256;i++){
 }
 function thermalScaleLimits(){
   let tMin, tMax;
-  if(setpointDrive.mode==='sine'){
+  if(drive.manual){
+    tMin=Math.min(TAMB,sim.Tc,...sim.T);tMax=Math.max(TAMB,sim.Tc,...sim.T);
+  } else if(setpointDrive.mode==='sine'){
     tMin=Math.min(TAMB,setpointDrive.Ta-setpointDrive.Tb);
     tMax=Math.max(TAMB,setpointDrive.Ta+setpointDrive.Tb);
   } else {
@@ -755,12 +818,19 @@ function drawScene(){
 /* ================================================================
    CHART (six thermistors + setpoint + PWM% over time)
 ================================================================ */
-const chart={t:[],temps:SENSOR_FRACS.map(()=>[]),sp:[],u:[],max:4800};
+const chart={t:[],temps:SENSOR_FRACS.map(()=>[]),sp:[],u:[],tec:[],exact:[],max:8000};
+function chartWindowSeconds(){
+  if(drive.manual) return drive.wave==='sine' ? 3*drive.period : 2000;
+  return !tuner.active && setpointDrive.mode==='sine' ? 3*setpointDrive.period : 2000;
+}
 function chartPush(){
   chart.t.push(sim.time);
   chart.temps.forEach((a,i)=>a.push(sensedTemp(i)));
+  chart.tec.push(sim.Tc);chart.exact.push(analyticalAt(sim.time));
   chart.sp.push(pid.sp); chart.u.push(sim.duty*100);
+  chart.max=Math.ceil(Math.max(2000,chartWindowSeconds())/0.25)+1;
   if(chart.t.length>chart.max){
+    chart.tec.shift();chart.exact.shift();
     chart.t.shift(); chart.temps.forEach(a=>a.shift()); chart.sp.shift(); chart.u.shift();
   }
 }
@@ -773,15 +843,21 @@ function drawChart(){
   const n=chart.t.length;
   cctx.font='10.5px '+getComputedStyle(document.body).getPropertyValue('--mono');
   cctx.fillStyle='#8b95a7'; cctx.fillText('°C',mL,13);
-  SENSOR_COLORS.forEach((color,i)=>{ cctx.fillStyle=color; cctx.fillText('— T'+i,mL+24+i*38,13); });
-  cctx.fillStyle='#ff6a4d'; cctx.fillText('--- SP',mL+258,13);
-  cctx.fillStyle='#b7a36b'; cctx.fillText('— PWM% (right)',mL+306,13);
-  if(n<2) return;
-  const t0=chart.t[0], t1=chart.t[n-1], span=Math.max(10,t1-t0);
-  let lo=1e9,hi=-1e9;
-  for(let i=0;i<n;i++){
-    lo=Math.min(lo,chart.sp[i]); hi=Math.max(hi,chart.sp[i]);
-    chart.temps.forEach(a=>{lo=Math.min(lo,a[i]); hi=Math.max(hi,a[i]);});
+  const series=lump.mode==='lumped' ? [] : chart.temps.map((a,i)=>({a,color:SENSOR_COLORS[i],name:'T'+i}));
+  series.push({a:chart.tec,color:'#ffffff',name:'TEC'});
+  if(Number.isFinite(chart.exact[n-1])) series.push({a:chart.exact,color:'#ff8c61',name:'exact',dash:true});
+  if(!drive.manual) series.push({a:chart.sp,color:'#ff6a4d',name:'SP',dash:true});
+  series.forEach((s,i)=>{cctx.fillStyle=s.color;cctx.fillText(s.name,mL+24+i*34,13);});
+  cctx.fillStyle='#b7a36b'; cctx.fillText('PWM% (right)',mL+30+series.length*34,13);
+  if(n===0) return;
+  const span=chartWindowSeconds(), t1=Math.max(span,chart.t[n-1]), t0=t1-span;
+  // Keep the time scale fixed during startup, then roll through three cycles.
+  let first=0;
+  while(first<n-1 && chart.t[first]<t0) first++;
+  const room=lump.mode==='lumped' ? lump.room : TAMB;
+  let lo=room,hi=room;
+  for(let i=first;i<n;i++){
+    series.forEach(({a})=>{if(Number.isFinite(a[i])){lo=Math.min(lo,a[i]);hi=Math.max(hi,a[i]);}});
   }
   const pad=Math.max(1.5,(hi-lo)*0.12); lo-=pad; hi+=pad;
   const X=t=>mL+ (t-t0)/span*pw, Y=v=>mT+ (1-(v-lo)/(hi-lo))*ph, YU=u=>mT+(1-(u+100)/200)*ph;
@@ -797,22 +873,22 @@ function drawChart(){
     cctx.strokeStyle='rgba(80,90,110,.12)'; cctx.beginPath(); cctx.moveTo(X(tt),mT); cctx.lineTo(X(tt),mT+ph); cctx.stroke();
     cctx.fillText(fmtTime(tt),X(tt)-14,h-7);
   }
+  // Room-temperature reference, included in the vertical range in both models.
+  cctx.strokeStyle='#a7c4d9'; cctx.lineWidth=1.2; cctx.setLineDash([3,5]);
+  cctx.beginPath(); cctx.moveTo(mL,Y(room)); cctx.lineTo(mL+pw,Y(room)); cctx.stroke();
+  cctx.setLineDash([]); cctx.fillStyle='#a7c4d9';
+  cctx.fillText('Room '+room.toFixed(1)+' °C',mL+8,Y(room)-6);
   // right axis PWM
   cctx.fillStyle='#7a6a3a';
   for(const uv of [-100,0,100]) cctx.fillText((uv>0?'+':'')+uv+'%',mL+pw+5,YU(uv)+3.5);
   // PWM trace
   cctx.strokeStyle='rgba(255,209,102,.55)'; cctx.lineWidth=1; cctx.beginPath();
-  for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=YU(chart.u[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
+  for(let i=first;i<n;i++){ const x=X(chart.t[i]),y=YU(chart.u[i]); i>first?cctx.lineTo(x,y):cctx.moveTo(x,y); }
   cctx.stroke();
-  // SP
-  cctx.strokeStyle='#ff6a4d'; cctx.setLineDash([5,4]); cctx.lineWidth=1.2; cctx.beginPath();
-  for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=Y(chart.sp[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
-  cctx.stroke(); cctx.setLineDash([]);
-  // T0-T5
-  chart.temps.forEach((a,j)=>{
-    cctx.strokeStyle=SENSOR_COLORS[j]; cctx.lineWidth=j===0?2.1:1.55; cctx.beginPath();
-    for(let i=0;i<n;i++){ const x=X(chart.t[i]),y=Y(a[i]); i?cctx.lineTo(x,y):cctx.moveTo(x,y); }
-    cctx.stroke();
+  series.forEach(({a,color,dash})=>{
+    cctx.strokeStyle=color;cctx.lineWidth=1.8;cctx.setLineDash(dash?[6,4]:[]);cctx.beginPath();
+    for(let i=first;i<n;i++){const x=X(chart.t[i]),y=Y(a[i]);i>first?cctx.lineTo(x,y):cctx.moveTo(x,y);}
+    cctx.stroke();cctx.setLineDash([]);
   });
 }
 function niceStep(x){ const p=Math.pow(10,Math.floor(Math.log10(x))); const m=x/p;
@@ -836,7 +912,7 @@ $('btnNormal').onclick=()=>{viewMode='normal'; $('btnNormal').classList.add('on'
 $('btnThermal').onclick=()=>{viewMode='thermal'; $('btnThermal').classList.add('on'); $('btnNormal').classList.remove('on');};
 el.speed.onchange=()=>sim.speed=+el.speed.value;
 $('btnPause').onclick=function(){ sim.paused=!sim.paused; this.textContent=sim.paused?'Run':'Pause'; };
-$('btnReset').onclick=()=>{ resetSim(); };
+$('btnReset').onclick=()=>{syncModel();syncOpenLoop();};
 
 el.material.onchange=()=>{ sim.matKey=el.material.value; rebuildRod(true); };
 el.diam.oninput=()=>{ sim.d=+el.diam.value/1000; $('diamV').textContent=el.diam.value+' mm'; };
@@ -846,17 +922,65 @@ function updateSensorLabels(){
 }
 updateSensorLabels();
 
-el.manualChk.onchange=()=>{ drive.manual=el.manualChk.checked; uiLockPanels(); };
-el.pwmRaw.oninput=()=>drive.raw=+el.pwmRaw.value;
-el.polChk.onchange=()=>drive.rev=el.polChk.checked;
+el.manualChk.onchange=()=>{drive.manual=el.manualChk.checked;resetSim();uiLockPanels();};
+el.pwmRaw.oninput=()=>{drive.raw=+el.pwmRaw.value;resetSim();};
+el.polChk.onchange=()=>{drive.rev=el.polChk.checked;resetSim();};
+function readNumber(id,min,max,fallback){
+  const input=$(id),v=input.value.trim()===''?NaN:Number(input.value);
+  const value=Number.isFinite(v)?Math.max(min,Math.min(max,v)):fallback;
+  input.value=value;return value;
+}
+function syncOpenLoop(){
+  drive.wave=$('pwmMode').value;
+  drive.offset=readNumber('pwmOffset',-255,255,0);
+  drive.amplitude=readNumber('pwmAmplitude',0,255,50);
+  drive.period=readNumber('pwmPeriod',5,3600,300);
+  resetSim();uiLockPanels();
+}
+['pwmMode','pwmOffset','pwmAmplitude','pwmPeriod'].forEach(id=>$(id).onchange=syncOpenLoop);
+function syncModel(){
+  const wasLumped=lump.mode==='lumped';
+  lump.mode=$('modelMode').value;
+  lump.room=readNumber('lumpRoom',-20,60,22);lump.initial=readNumber('lumpInitial',-20,100,22);
+  lump.tau=readNumber('lumpTau',1,10000,80);
+  lump.heat=readNumber('lumpHeat',0,10,0.46);lump.cool=readNumber('lumpCool',0,10,0.46);
+  if(lump.mode==='lumped'){drive.manual=true;el.manualChk.checked=true;if(!wasLumped){drive.wave='sine';$('pwmMode').value='sine';}}
+  document.body.classList.toggle('lumped',lump.mode==='lumped');
+  $('lumpControls').hidden=lump.mode!=='lumped';
+  resetSim();uiLockPanels();
+}
+['modelMode','lumpRoom','lumpInitial','lumpTau','lumpHeat','lumpCool'].forEach(id=>$(id).onchange=syncModel);
+$('btnCSV').onclick=()=>{
+  const one=lump.mode==='lumped';
+  const meta={note:'Settings at export; coupled geometry and PID controls may have changed during the record.',model:lump.mode,drive:drive.manual?{...drive}:{...setpointDrive,...pid},lump:one?lump:undefined,
+    rod:one?undefined:{material:sim.matKey,length_m:sim.L,diameter_m:sim.d,sensor_fractions:SENSOR_FRACS},ambient_C:one?lump.room:TAMB};
+  const rows=['# '+JSON.stringify(meta),'time_s,pwm_signed_counts,duty_percent,TEC_C,analytical_TEC_C,setpoint_C,T0_C,T1_C,T2_C,T3_C,T4_C,T5_C'];
+  for(let i=0;i<chart.t.length;i++) rows.push([chart.t[i],chart.u[i]*255/100,chart.u[i],chart.tec[i],
+    Number.isFinite(chart.exact[i])?chart.exact[i]:'',drive.manual?'':chart.sp[i],
+    ...chart.temps.map(a=>one?'':a[i])].join(','));
+  const url=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  const a=document.createElement('a');a.href=url;a.download='angstrom-'+lump.mode+'.csv';a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
 function uiLockPanels(){
   const m=drive.manual;
+  el.manualChk.disabled=lump.mode==='lumped';
+  $('pwmMode').disabled=!m;
+  $('manualRow').hidden=drive.wave==='sine';
+  $('pwmSineControls').hidden=drive.wave!=='sine';
+  ['pwmOffset','pwmAmplitude','pwmPeriod'].forEach(id=>$(id).disabled=!m);
+  $('pwmEquation').textContent=`u(t) = ${drive.offset} + ${drive.amplitude} sin(2πt / ${drive.period} s) PWM counts; positive = heating. `+(Math.abs(drive.offset)+drive.amplitude>255?'Clipped at ±255 counts.':'');
   el.pwmRaw.disabled=!m; el.polChk.disabled=!m;
+  $('pidPanel').inert=m || tuner.active;
+  $('tunePanel').inert=m;
+  $('pidPanel').hidden=lump.mode==='lumped';
+  $('tunePanel').hidden=lump.mode==='lumped';
   $('pidPanel').classList.toggle('locked', m || tuner.active);
   $('tunePanel').classList.toggle('locked', m);
 }
 function uiTunerState(){
   $('btnTune').disabled=tuner.active; $('btnTuneAbort').disabled=!tuner.active;
+  $('pidPanel').inert=drive.manual || tuner.active;
   $('pidPanel').classList.toggle('locked', drive.manual || tuner.active);
   $('tuneStatus').textContent=tuner.msg;
 }
@@ -970,7 +1094,39 @@ function renderTuneResults(){
 }
 
 /* live readouts */
+function updateSettledReadout(){
+  const readout = $('settledReadout');
+  readout.hidden = lump.mode !== 'lumped' || drive.wave !== 'sine';
+  if(readout.hidden) return;
+  const period = drive.period;
+  const end = Math.floor(chart.t[chart.t.length - 1] / period) * period;
+  const start = end - period;
+  if(start < 5 * lump.tau || chart.t[0] > start){
+    readout.textContent = 'Settled response: waiting for a complete cycle after five thermal time constants.';
+    return;
+  }
+  // Uniform samples over one complete cycle isolate the fundamental.
+  const count = 360;
+  let mean = 0, sine = 0, cosine = 0;
+  let j = Math.max(1, chart.t.findIndex(t => t >= start));
+  for(let i = 0; i < count; i++){
+    const t = start + i * period / count;
+    while(chart.t[j] < t) j++;
+    const fraction = (t - chart.t[j - 1]) / (chart.t[j] - chart.t[j - 1]);
+    const temperature = chart.tec[j - 1] + fraction * (chart.tec[j] - chart.tec[j - 1]);
+    const angle = 2 * Math.PI * i / count;
+    mean += temperature;
+    sine += temperature * Math.sin(angle);
+    cosine += temperature * Math.cos(angle);
+  }
+  const amplitude = 2 * Math.hypot(sine, cosine) / count;
+  const lag = drive.amplitude > 0 && amplitude > 1e-6
+    ? (Math.atan2(-cosine, sine) * 180 / Math.PI).toFixed(1) + '°'
+    : 'undefined';
+  readout.textContent = `Settled response (${period} s): mean = ${(mean / count).toFixed(3)} °C | mean − room = ${(mean / count - lump.room).toFixed(3)} °C | fundamental amplitude = ${amplitude.toFixed(3)} °C | phase lag = ${lag}`;
+}
 function uiRefresh(){
+  updateSettledReadout();
   $('clock').textContent='t = '+(sim.time<600?sim.time.toFixed(1)+' s':(sim.time/60).toFixed(1)+' min');
   SENSOR_FRACS.forEach((_,i)=>{$('sensorRead'+i).textContent=sensedTemp(i).toFixed(1)+' °C';});
   const dutyPct=sim.duty*100, raw=Math.round(Math.abs(sim.duty)*255);
@@ -983,12 +1139,20 @@ function uiRefresh(){
   $('rdW').textContent=sim.W.toFixed(1)+' W';
   $('rdTc').textContent=sim.Tc.toFixed(1)+' °C';
   $('rdTh').textContent=sim.Th.toFixed(1)+' °C';
+  if(lump.mode==='lumped') ['rdV','rdI','rdW','rdTh'].forEach(id=>$(id).textContent='N/A');
+  const r=2*Math.PI*lump.tau/drive.period,delta=Math.atan(r);
+  $('modelSummary').textContent=lump.mode==='lumped' ?
+    'One-lump TEC: numerical T(t), with no rod or sensor lag. '+(Number.isFinite(analyticalAt(sim.time))?
+      `Dashed orange: analytical T(t), including startup. Settled amplitude = ${(lump.heat*drive.amplitude/Math.sqrt(1+r*r)).toFixed(3)} °C; normalized amplitude = ${(1/Math.sqrt(1+r*r)).toFixed(4)}; phase lag = ${delta.toFixed(4)} rad; time lag = ${(delta*drive.period/(2*Math.PI)).toFixed(2)} s.`:
+      'Analytical overlay requires sinusoidal PWM, equal χ values, and no clipping. Unequal χ values are integrated numerically.'):
+    'Coupled TEC–rod model: white TEC trace is the rod-side TEC plate; T0–T5 are rod thermistors with 2 s sensor lag. '+(drive.manual?'Open-loop PWM bypasses feedback; no temperature setpoint is applied.':'PID controls rod sensor T0.')+' This model includes Peltier, Joule, heat-sink and rod dynamics; it is not Eq. (S18.3.1).';
   const fill=$('pwmFill');
   if(dutyPct>=0){ fill.style.left='50%'; fill.style.width=(dutyPct/2)+'%'; fill.style.background='var(--hot)'; }
   else { fill.style.width=(-dutyPct/2)+'%'; fill.style.left=(50+dutyPct/2)+'%'; fill.style.background='var(--cold)'; }
   // pid math
   const t=pid.terms, pv=sensedTemp();
   const src = drive.manual?'[MANUAL drives]': tuner.active?'[TUNER drives]':'[→ PWM]';
+  if(drive.manual){$('pidMath').textContent='PID bypassed — open-loop PWM drives the TEC.';return;}
   $('pidMath').innerHTML=
 `e  = SP − PV = ${pid.sp.toFixed(1)} − ${pv.toFixed(2)} = <b>${t.e.toFixed(2)}</b> °C
 <span class="mp">P  = ${pid.pOn?`${round3(pid.kp)} × ${t.e.toFixed(2)} = ${t.p.toFixed(1)}%`:'(off)'}</span>
@@ -997,7 +1161,9 @@ function uiRefresh(){
 <span class="mu">u  = ${pid.u.toFixed(1)}%  →  PWM ${Math.round(Math.abs(pid.u)/100*255)}/255 ${pid.u>=0?'HEAT':'COOL'}</span> ${src}`;
 }
 
-uiLockPanels();
+if(new URLSearchParams(location.search).get('s18')==='3'){
+  $('modelMode').value='lumped';sim.paused=true;$('btnPause').textContent='Run';syncModel();
+} else {resetSim();uiLockPanels();}
 requestAnimationFrame(raf);
 </script>
 </body>

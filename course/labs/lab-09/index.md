@@ -949,9 +949,9 @@ T_{\mathrm{TEC}}(t)\approx T_{\mathrm{set}}(t)
 =40^\circ\mathrm{C}+16^\circ\mathrm{C}\sin\!\left(\frac{2\pi t}{\tau}\right)
 \]
 
-using forcing periods of $100$, $200$, $300$, $400$, or $500\ \mathrm{s}$.
+using forcing periods of $100$, $200$, or $300\ \mathrm{s}$.
 Test $100$, $200$, and
-$500\ \mathrm{s}$: seek a measured mean of $40^\circ\mathrm{C}$, a fixed
+$300\ \mathrm{s}$: seek a measured mean of $40^\circ\mathrm{C}$, a fixed
 measured amplitude of $16^\circ\mathrm{C}$, and a phase shift relative to the
 setpoint as close to zero as possible. A sinusoidal command alone does not
 establish that the measured temperature meets this goal.
@@ -1074,8 +1074,9 @@ sample raw file, and evidence for S18.1-S18.2.
 heating and cooling response.
 
 **Do:** Complete the two raw-PWM trials below while displaying and saving all
-six temperatures. Begin with a $100\ \mathrm{s}$ period and retain the safety
-limits established in Stage 1.
+six temperatures. Use the $300\ \mathrm{s}$ trial as the initial safety check,
+then keep the selected PWM amplitude fixed while testing the shorter periods.
+Retain the safety limits established in Stage 1.
 
 <a id="s18-3"></a>
 
@@ -1089,35 +1090,50 @@ signed PWM command in Arduino counts:
 \qquad -255\leq u(t)\leq255.
 \]
 
-The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to 255.
-Measure and record room temperature and verify the signed-PWM convention.
-Use $u_a=0$ and keep $u_b=100$ PWM counts fixed for all three forcing periods:
-$100$, $200$, and $500\ \mathrm{s}$. If $u_b=100$ triggers the software cutoff of too high a temperature, then decrease $u_b$ until you are well below the cutoff. Begin with the $100\ \mathrm{s}$ period.
-Changing only the period lets you observe its effect on temperature amplitude
-and phase lag.
-One could estimate the time varying temperature using the Module 6 one-lump model with its simulation defaults:
-room temperature $22^\circ\mathrm{C}$, heating susceptibility
-$\chi_h=0.46\ ^\circ\mathrm{C/PWM}$, cooling susceptibility
-$\chi_c=0.23\ ^\circ\mathrm{C/PWM}$, and thermal relaxation time
-$\tau_{\mathrm{th}}=80\ \mathrm{s}$. Integrating
-$\tau_{\mathrm{th}}\dot T=T_{\mathrm{room}}+\chi(u)u-T$, with the appropriate
-heating or cooling branch, gives the model response. But before we solve the case with different heating and cooling susceptibilities we first solve the case with
-equal heating and cooling susceptibility magnitudes, as derived below. A single
-sinusoidal particular solution applies to that case; it does not give the full
-response when the two susceptibility magnitudes differ.
-Here $\tau_{\mathrm{th}}$ is the thermal relaxation time, not the forcing period.
+Here $\omega=2\pi/\tau$, where $\tau$ is the forcing period.
+The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to
+255. Follow this protocol:
 
-Use your measured Module 6 parameters to refine this estimate if they differ
-from the defaults; the attached rod can also change the response. Start near
-room temperature and apply $u(t)=100\sin(\omega t)$, which varies between
-$-100$ and $+100$ PWM counts. Allow the response to settle at each forcing
-period, keeping $u_b=100$ fixed, and record the measured temperature peak.
-Keep the Stage 1 safety limits active throughout the trial.
-**How do you expect the temperature to respond? Does it meet your expectations?** Explain what you observe.
-This is a deliberately uncompensated experiment. A symmetric PWM command does
-not imply a symmetric temperature response when heating and cooling have
-different susceptibilities. Plot the measured TEC temperature against $u(t)$
-and identify unequal excursions, slopes, phase lag, and distortion. Collect data for 3 periods; 100 sec, 200 sec and 500 sec.
+1. Measure and record room temperature and verify the signed-PWM convention.
+2. Set $u_a=0$, begin near room temperature, and apply the $300\ \mathrm{s}$
+   period with $u_b=50$ PWM counts as an initial value. Start with the longest
+   period because it is expected to give the largest temperature excursion.
+   Keep the Stage 1
+   safety limits active. If the software cutoff is approached, reduce $u_b$
+   until the measured temperature remains safely below it.
+3. Keep that selected safe value of $u_b$ fixed and collect settled records at
+   periods of $300$, $200$, and $100\ \mathrm{s}$. Record the applied PWM and
+   all six temperatures at each period.
+
+Before viewing the simulation, predict how the TEC waveform and its amplitude
+and phase lag will change across periods at fixed PWM amplitude. Plot the
+measured TEC temperature and signed PWM on aligned time axes. Look for unequal
+heating and cooling excursions, phase lag, and departures from a sine wave.
+
+#### Simulate the time-varying temperature
+
+Open the [Module 6 one-lump model](../../simulators/angstrom-six-sensor/index.html?s18=3).
+Set room and initial temperatures to $22^\circ\mathrm{C}$ and the thermal
+relaxation time to $80\ \mathrm{s}$. Keep $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$,
+$u_a=0$, and your selected PWM amplitude $u_b$ fixed across all six runs.
+
+For each row, set the period and $\chi_c$, click **Apply / Reset**, then **Run**.
+From the **Settled response** readout, record **mean minus room**,
+**fundamental amplitude**, and **phase lag** in the table. The amplitude and phase lag describe the fundamental, the sinusoidal
+component at the PWM frequency.
+
+| Period (s) | $\chi_c$ (°C/PWM) | (1) Mean minus room (°C) | (2) Amplitude (°C) | (3) Phase lag (°) |
+| ---: | ---: | ---: | ---: | ---: |
+| 100 | 0.23 | | | |
+| 100 | 0.46 | | | |
+| 200 | 0.23 | | | |
+| 200 | 0.46 | | | |
+| 300 | 0.23 | | | |
+| 300 | 0.46 | | | |
+
+At fixed period, what changes when $\chi_c$ changes? At fixed $\chi_c$,
+how do amplitude and phase lag change with period? After the derivation,
+use the boxed solution to explain the equal-susceptibility rows.
 
 #### Derive The Response For Equal Heating And Cooling Susceptibilities
 
@@ -1160,13 +1176,8 @@ b=-\frac{\chi u_b\omega\tau_{\mathrm{th}}}
 {1+(\omega\tau_{\mathrm{th}})^2}.
 \]
 
-Here $T(t)$ is the predicted actual temperature of the TEC's controlled face,
-represented by the single temperature in the one-lump model, when the applied
-PWM command is $u(t)=u_b\sin(\omega t)$. It assumes equal heating and cooling
-susceptibilities and includes room temperature, the driven temperature
-oscillation, and a decaying startup transient. Compare this prediction with
-your measured TEC temperature. It is not a desired temperature setpoint or the
-temperature along the attached rod.
+Here $T(t)$ is the one-lump prediction for the temperature of the TEC's
+controlled face.
 
 Adding the homogeneous solution gives the complete temperature history:
 
@@ -1199,62 +1210,58 @@ to the PWM:
 \Delta t_{\mathrm{lag}}=\frac{\delta}{\omega}.
 \]
 
-The thermal response attenuates the oscillation and delays it. Setting $u_b=1$
-gives the solution for $u(t)=\sin(\omega t)$. A sinusoidal guess alone describes
-the settled response; the exponential term is needed to satisfy the initial
-condition.
+#### Check The Derivation
 
-#### Check The Derivation At 100, 200, And 500 Seconds
+1. Substitute the complete solution into [Eq. (S18.3.1)](#eq-s18-3-1)
+   and verify that $T(0)=T_{\mathrm{room}}$. Explain what the exponential
+   term contributes during startup.
+2. Use the equal-susceptibility run at $300\ \mathrm{s}$ to compare the
+   numerical trace with the dashed analytical overlay. Show startup and
+   a settled cycle from the same run. Save the CSV before changing settings
+   if you need to recover startup after it scrolls off the chart.
 
-1. Substitute the complete solution, with $\theta=T-T_{\mathrm{room}}$,
-   into the differential equation [Eq. (S18.3.1)](#eq-s18-3-1) and verify
-   the initial condition $T(0)=T_{\mathrm{room}}$.
-2. For forcing periods $\tau=100$, $200$, and $500\ \mathrm{s}$, use
-   $\omega=2\pi/\tau$ and $\tau_{\mathrm{th}}=80\ \mathrm{s}$. Calculate the
-   normalized amplitude $T_{\mathrm{amp}}/(\chi u_b)$, phase lag $\delta$ in
-   radians, and time lag $\delta/\omega$. Keep the same $\chi$ and use $u_b=100$
-   PWM counts for all three model calculations. Numerically integrate
-   [Eq. (S18.3.1)](#eq-s18-3-1) from room temperature and overlay the analytical solution for each
-   period, showing both the startup transient and the settled oscillation.
-3. Compare these predictions with your raw-PWM measurements at 100, 200, and
-   500 s. Report the mean temperature, oscillation amplitude, and phase lag
-   relative to the applied PWM, with $u_b=100$ PWM counts fixed in all three
-   runs. Explain how amplitude and phase lag change with period, and which
-   departures from the equal-susceptibility prediction could arise from the
-   actual unequal heating and cooling responses.
-4. How well does **open-loop uncompensated sinusoidal PWM** produce a
-   sinusoidally varying TEC temperature with a **constant oscillation amplitude
-   independent of driving frequency**? Keep $u_b=100$ PWM counts fixed and
-   assess the settled temperature waveform at periods of 100, 200, and 500 s.
-   Use your theoretical predictions, measured amplitudes, and sinusoidal-fit
-   residuals to distinguish how nearly sinusoidal each waveform is from how
-   nearly its amplitude remains the same across frequencies. Explain whether
-   a constant PWM amplitude is sufficient to produce a constant temperature
-   amplitude, and why.
+#### Compare The Simulation With Your Measurements
+
+Compare the measured fundamental amplitudes at all three periods. Did
+holding the PWM amplitude fixed produce the same temperature amplitude?
+
+Choose one measured period for a model–experiment comparison. In the one-lump
+model, use your measured room and initial temperatures, $\chi_h$, $\chi_c$,
+and $\tau_{\mathrm{th}}$. Match the applied PWM amplitude and period. Overlay
+the simulated and measured TEC temperatures on a common time axis. Compare
+their settled means, fundamental amplitudes, and phase lags relative to PWM.
+Use sinusoidal-fit residuals to assess waveform distortion. Which features
+does the unequal-susceptibility model reproduce, and where does it fall short?
 
 <a id="s18-4"></a>
 
 ### S18.4: Apply Positive-Only Sinusoidal PWM
 
-Next choose $u_a>u_b>0$, so that
+Use the settled 100 s zero-centered run from [S18.3](#s18-3) as your
+baseline. Keep the 100 s period and the same PWM amplitude $u_b$ for the
+positive-only trial. The shortest period gives the smallest predicted
+temperature swing at fixed $u_b$, leaving more room below the cutoff. Adjust $u_a$ to bring the mean TEC temperature near
+$40^\circ\mathrm{C}$ while keeping $0<u_a-u_b$ and $u_a+u_b\leq255$.
+Verify that the recorded PWM remains positive and unclipped. Keep the
+Stage 1 safety limits active. If you must lower $u_b$ for safety, record
+the change and account for it in your comparison.
 
-\[
-u_{\min}=u_a-u_b>0.
-\]
+Before running the trial, predict how waveform distortion will change
+when the drive stays on the heating branch. With constant $\chi_h$, the
+one-lump model predicts a settled sinusoid about
+$T_{\mathrm{room}}+\chi_h u_a$.
 
-Adjust $u_a$ until the mean TEC temperature is approximately
-$40^\circ\mathrm{C}$ while retaining a safe oscillation amplitude. The PWM now
-remains on the positive heating branch throughout the cycle. Compare this
-response with the zero-centered trial. Separating these cases lets you decide
-which asymmetry comes from reversing the TEC current and which discrepancies
-remain even when the actuator stays in one direction.
+Compare the two settled runs side by side using the S18.3 time plots and
+sinusoidal fits. Report the mean TEC temperature, fundamental amplitude,
+phase lag relative to PWM, and RMS sinusoidal-fit residual for each run.
+Did positive-only PWM produce a more sinusoidal temperature response?
+Use the residuals to support your answer and describe any remaining
+distortion. The offset also raises the operating temperature, so consider
+how that limits what you can attribute to polarity reversal alone.
 
-These raw-PWM trials are diagnostic open-loop experiments, not yet
-feedforward temperature control. They establish what the uncorrected actuator
-does before the measured susceptibility is used to construct a command.
-
-**Stop when:** The two trials show how polarity reversal changes the mean,
-amplitude, phase, symmetry, and distortion of the TEC response.
+These raw-PWM trials establish how the actuator responds in open loop.
+Reaching a mean near $40^\circ\mathrm{C}$ sets up the Stage 3 comparison,
+where amplitude and phase also matter.
 
 **Save:** The raw records, $u_a$, $u_b$, period, room temperature, PWM-temperature
 plots, predictions, and observations for S18.3-S18.4.
@@ -1265,7 +1272,7 @@ plots, predictions, and observations for S18.3-S18.4.
 
 **Goal:** Make the measured TEC temperature track the requested $40^\circ\mathrm{C}$
 mean and fixed $16^\circ\mathrm{C}$ amplitude with minimal phase shift at periods
-of $100$, $200$, and $500\ \mathrm{s}$. Compare open-loop feedforward, P-only,
+of $100$, $200$, and $300\ \mathrm{s}$. Compare open-loop feedforward, P-only,
 and tuned PI control, and evaluate the resulting measured rod boundary.
 
 **Do:** Complete S18.5-S18.8, keeping the requested temperature-drive settings
@@ -1392,7 +1399,7 @@ control at the same temperature-drive settings.
 First compare P-only and PI with the same $K_p$, changing only $K_i$. Then
 systematically tune $K_p$ and $K_i$ to bring the measured TEC amplitude toward
 $16^\circ\mathrm{C}$ and the phase shift toward zero while retaining a mean
-near $40^\circ\mathrm{C}$. Test periods of $100$, $200$, and $500\ \mathrm{s}$
+near $40^\circ\mathrm{C}$. Test periods of $100$, $200$, and $300\ \mathrm{s}$
 with the same requested mean and amplitude. At each new period, first test the
 previous gains, then record any retuning and its effect. Keep the initial and
 unsuccessful trials as evidence; do not report only the best run.
@@ -1476,7 +1483,7 @@ Use the existing six-sensor numerical model to test one explanation of the
 measured control behavior. Complete this comparison during the S19 analysis
 and save it with the Stage 3 results for A5.
 
-At one measured period chosen from 100, 200, and 500 s, use the measured
+At one measured period chosen from 100, 200, and 300 s, use the measured
 geometry and the closest available experimental setpoint and model
 parameters. Compare P-only with PI using the same $K_p$ and changing only
 $K_i$. After the transients settle, retain at least three complete cycles and
@@ -1599,7 +1606,7 @@ Retain at least three rod sensors with measurable amplitude and phase.
 
 ### S18.10: Select And Test A Second Usable Frequency
 
-Candidate periods are 100, 200, 300, 400, and 500 seconds while initially
+Candidate periods are 100, 200, and 300 seconds while initially
 retaining the same $T_a$ and $T_b$. Longer periods penetrate farther along the
 rod but produce less phase change per unit length.
 
@@ -1619,8 +1626,8 @@ the settled interval for that frequency.
 Make the frequency change from the GUI when the live record is ready. An
 automatic scheduler is optional. Use the two pilot frequencies to finalize
 the sensor layout; if sensors move, remeasure the positions and update the map
-before production. Additional frequencies, up to roughly five spanning periods
-from 100 to 500 s, are an extension after the required pair is usable.
+before production. Additional frequencies within the 100-to-300-second range
+are an extension after the required pair is usable.
 
 **Stop when:** Two usable periods satisfy the settling, retained-cycle, and
 sensor requirements, and the pilot fits support the production settings.
@@ -1942,7 +1949,7 @@ Use the results of S18.3–S18.8 to explain the limitations of uncompensated
 sinusoidal PWM, static feedforward, and P-only control, and what tuned PI
 improved. Distinguish a sinusoidal waveform from one with the requested mean,
 amplitude, and phase. State which conditions approached
-$40+16\sin(2\pi t/\tau)$ at 100, 200, and 500 s, using measured results and
+$40+16\sin(2\pi t/\tau)$ at 100, 200, and 300 s, using measured results and
 your numerical acceptance criteria. Explain any failure or safety-limited
 change rather than claiming the target was achieved.
 
@@ -2011,8 +2018,8 @@ required for A5.
 | Existing work | Use in A5 |
 | --- | --- |
 | S18 evidence table and saved acquisition records | Part 1: link to the existing table and identify the selected runs |
-| S18.3 Questions 1–2: DEQ verification and analytical/numerical check | Supporting notes for Question 1; cite the result without repeating the calculation |
-| S18.3 Questions 3–4, S18.4, and S18.5–S18.8 | Question 1: measured control comparison and what worked and why |
+| S18.3 “Check The Derivation”: DEQ verification and analytical/numerical check | Supporting notes for Question 1; cite the result without repeating the calculation |
+| S18.3 measured-data comparison, S18.4, and S18.5–S18.8 | Question 1: measured control comparison and what worked and why |
 | Focused Stage 3 P/PI simulation | Question 1: explanation of integral action and tuning; reuse the model run in Question 4 when matched |
 | Theory predictions and four finite-rod checks | Questions 2–3: explain the model and reference the working derivation |
 | Stage 6 characteristic-length task | Question 2: reuse the measured-parameter plot and its physical interpretation |

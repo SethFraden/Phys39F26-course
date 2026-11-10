@@ -1241,7 +1241,7 @@ Use the settled 100 s zero-centered run from [S18.3](#s18-3) as your
 baseline. Keep the 100 s period and the same PWM amplitude $u_b$ for the
 positive-only trial. The shortest period gives the smallest predicted
 temperature swing at fixed $u_b$, leaving more room below the cutoff. Adjust $u_a$ to bring the mean TEC temperature near
-$40^\circ\mathrm{C}$ while keeping $0<u_a-u_b$ and $u_a+u_b\leq255$.
+$40^\circ\mathrm{C}$ while keeping  PWM positive, e.g., $0<u_a-u_b$ and $u_a+u_b\leq255$, and adjusting $u_b$ to keep the maximum temperature below your safety cutoff.
 Verify that the recorded PWM remains positive and unclipped. Keep the
 Stage 1 safety limits active. If you must lower $u_b$ for safety, record
 the change and account for it in your comparison.
@@ -1252,7 +1252,7 @@ one-lump model predicts a settled sinusoid about
 $T_{\mathrm{room}}+\chi_h u_a$.
 
 Compare the two settled runs side by side using the S18.3 time plots and
-sinusoidal fits. Report the mean TEC temperature, fundamental amplitude,
+sinusoidal fits. Report $u_a$ and $u_b$, the mean TEC temperature, fundamental amplitude,
 phase lag relative to PWM, and RMS sinusoidal-fit residual for each run.
 Did positive-only PWM produce a more sinusoidal temperature response?
 Use the residuals to support your answer and describe any remaining

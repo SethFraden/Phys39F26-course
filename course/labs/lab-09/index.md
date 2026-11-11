@@ -1038,6 +1038,9 @@ and any reduced-amplitude trial rather than claiming that it meets the target.
 
 Work through **S18.1-S18.10 in order in Stages 1-4**. Stages 5-6 use
 the pilot results to acquire the production record and compare it with theory.
+
+<a id="s18-evidence-table"></a>
+
 Maintain an **S18 evidence table** with one row for each action: cite the saved
 file, figure, code checkpoint, measurement, or written observation; record the
 principal result; and describe any departure from the procedure. This table
@@ -1982,12 +1985,29 @@ presentation. **Treat this assignment as preparation for your final presentation
 
 #### Part 1: Evidence That The S18 Procedure Was Followed
 
-Link to the **existing ten-row S18 evidence table**, raw data, and exact code
-checkpoint. Identify the experimental intervals and simulation runs used in
-the main figures and note any consequential departure from the procedure.
-Do not recreate the evidence table, paste every intermediate plot, or write
-another procedural narrative. Keep the table and complete supporting work
-accessible in the submitted repository version.
+Your lab team keeps one S18 evidence table in its repository, with one row
+for each step from S18.1 through S18.10. Each row states the main result,
+links to the evidence for that step, and notes any departure from the
+procedure. Items 1–3 below apply to Part 1 of your individual A5 PDF as a
+whole, and item 1 is a single link to the team's completed table.
+
+Include a short evidence list in your A5 PDF with these three items:
+
+1. **S18 record.** Link to your team's completed
+   [S18 evidence table](#s18-evidence-table) in the submitted repository.
+   The table has one row per action, S18.1–S18.10. For example, the S18.9
+   row links to the 100 s pilot file and fit, identifies the settled
+   interval, and states whether the run passed your settling and sensor
+   checks. Record any departure from the procedure in the relevant row.
+2. **Data and code.** Link to the raw data used in your A5 figures and to
+   the exact Git commit containing the analysis code that generated them.
+3. **Figure sources.** For each main figure that uses a measurement or
+   simulation, identify the run and the time interval used. You can put
+   this information in the figure caption.
+
+Keep the full evidence table, intermediate plots, and procedure notes in
+the repository. Part 1 of the PDF is the short list of links and run
+references that lets the reader trace your results.
 
 #### Part 2: Measured Boundary-Control Comparison
 

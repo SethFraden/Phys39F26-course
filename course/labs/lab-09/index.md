@@ -1176,14 +1176,23 @@ The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to
    Keep the Stage 1
    safety limits active. If the software cutoff is approached, reduce $u_b$
    until the measured temperature remains safely below it.
-3. Keep that selected safe value of $u_b$ fixed and collect settled records at
+3. Keep that selected  value of $u_b$ fixed and collect settled records at
    periods of $300$, $200$, and $100\ \mathrm{s}$. Record the applied PWM and
-   all six temperatures at each period.
+   all six temperatures as a function of time at each period.
+4. Fit the data to a sine function. Find the mean temperature, the amplitude and the phase of the temperature relative to the PWM signal.
 
-Before viewing the simulation, predict how the TEC waveform and its amplitude
-and phase lag will change across periods at fixed PWM amplitude. Plot the
+Plot the
 measured TEC temperature and signed PWM on aligned time axes. Look for unequal
 heating and cooling excursions, phase lag, and departures from a sine wave.
+
+Make a table of the fitted values:
+
+| Period (s) |  (1) Mean minus room (°C) | (2) Amplitude (°C) | (3) Phase lag (°) |
+| ---: |  ---: | ---: | ---: |
+| 100 |  | | |
+| 200 |  | | |
+| 300 |  | | |
+
 
 #### Simulate the time-varying temperature
 
@@ -1193,7 +1202,7 @@ relaxation time to $80\ \mathrm{s}$. Keep $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$,
 $u_a=0$, and your selected PWM amplitude $u_b$ fixed across all six runs.
 
 For each row, set the period and $\chi_c$, click **Apply / Reset**, then **Run**.
-From the **Settled response** readout, record **mean minus room**,
+From the **Settled response** readout, record **mean minus room temperature**,
 **fundamental amplitude**, and **phase lag** in the table. The amplitude and phase lag describe the fundamental, the sinusoidal
 component at the PWM frequency.
 
@@ -1207,7 +1216,7 @@ component at the PWM frequency.
 | 300 | 0.46 | | | |
 
 At fixed period, what changes when $\chi_c$ changes? At fixed $\chi_c$,
-how do amplitude and phase lag change with period? After the derivation,
+how do mean temperature, amplitude and phase lag change with period? After the derivation,
 use the boxed solution to explain the equal-susceptibility rows.
 
 #### Derive The Response For Equal Heating And Cooling Susceptibilities

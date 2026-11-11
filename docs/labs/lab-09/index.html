@@ -1483,21 +1483,52 @@ The sign selects heating or cooling; <span class="arithmatex">\(|u|\)</span> giv
    Keep the Stage 1
    safety limits active. If the software cutoff is approached, reduce <span class="arithmatex">\(u_b\)</span>
    until the measured temperature remains safely below it.</li>
-<li>Keep that selected safe value of <span class="arithmatex">\(u_b\)</span> fixed and collect settled records at
+<li>Keep that selected  value of <span class="arithmatex">\(u_b\)</span> fixed and collect settled records at
    periods of <span class="arithmatex">\(300\)</span>, <span class="arithmatex">\(200\)</span>, and <span class="arithmatex">\(100\ \mathrm{s}\)</span>. Record the applied PWM and
-   all six temperatures at each period.</li>
+   all six temperatures as a function of time at each period.</li>
+<li>Fit the data to a sine function. Find the mean temperature, the amplitude and the phase of the temperature relative to the PWM signal.</li>
 </ol>
-<p>Before viewing the simulation, predict how the TEC waveform and its amplitude
-and phase lag will change across periods at fixed PWM amplitude. Plot the
+<p>Plot the
 measured TEC temperature and signed PWM on aligned time axes. Look for unequal
 heating and cooling excursions, phase lag, and departures from a sine wave.</p>
+<p>Make a table of the fitted values:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Period (s)</th>
+<th style="text-align: right;">(1) Mean minus room (°C)</th>
+<th style="text-align: right;">(2) Amplitude (°C)</th>
+<th style="text-align: right;">(3) Phase lag (°)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
 <h4 id="simulate-the-time-varying-temperature">Simulate the time-varying temperature<a class="headerlink" href="#simulate-the-time-varying-temperature" title="Permanent link">&para;</a></h4>
 <p>Open the <a href="../../simulators/angstrom-six-sensor/?s18=3">Module 6 one-lump model</a>.
 Set room and initial temperatures to <span class="arithmatex">\(22^\circ\mathrm{C}\)</span> and the thermal
 relaxation time to <span class="arithmatex">\(80\ \mathrm{s}\)</span>. Keep <span class="arithmatex">\(\chi_h=0.46\ ^\circ\mathrm{C/PWM}\)</span>,
 <span class="arithmatex">\(u_a=0\)</span>, and your selected PWM amplitude <span class="arithmatex">\(u_b\)</span> fixed across all six runs.</p>
 <p>For each row, set the period and <span class="arithmatex">\(\chi_c\)</span>, click <strong>Apply / Reset</strong>, then <strong>Run</strong>.
-From the <strong>Settled response</strong> readout, record <strong>mean minus room</strong>,
+From the <strong>Settled response</strong> readout, record <strong>mean minus room temperature</strong>,
 <strong>fundamental amplitude</strong>, and <strong>phase lag</strong> in the table. The amplitude and phase lag describe the fundamental, the sinusoidal
 component at the PWM frequency.</p>
 <table>
@@ -1556,7 +1587,7 @@ component at the PWM frequency.</p>
 </tbody>
 </table>
 <p>At fixed period, what changes when <span class="arithmatex">\(\chi_c\)</span> changes? At fixed <span class="arithmatex">\(\chi_c\)</span>,
-how do amplitude and phase lag change with period? After the derivation,
+how do mean temperature, amplitude and phase lag change with period? After the derivation,
 use the boxed solution to explain the equal-susceptibility rows.</p>
 <h4 id="derive-the-response-for-equal-heating-and-cooling-susceptibilities">Derive The Response For Equal Heating And Cooling Susceptibilities<a class="headerlink" href="#derive-the-response-for-equal-heating-and-cooling-susceptibilities" title="Permanent link">&para;</a></h4>
 <p>First assume <span class="arithmatex">\(\chi_h=\chi_c=\chi&gt;0\)</span>. Since <span class="arithmatex">\(u\)</span> is signed, the same positive

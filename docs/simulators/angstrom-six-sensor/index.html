@@ -136,6 +136,19 @@
     </div>
     <div class="drivebox" id="modelSummary"></div>
     <div class="drivebox" id="settledReadout" hidden></div>
+    <label id="residualControl" hidden><input type="checkbox" id="showResidual">
+      Show settled PWM, temperature, and residual</label>
+    <div class="drivebox" id="residualExplanation" hidden>
+      <b>One settled drive cycle</b><br>
+      PWM: <span>u(t) = clip[u<sub>a</sub> + u<sub>b</sub> sin(ωt), −255, 255]</span>,
+      with ω = 2π / period.<br>
+      Temperature: T(t) is the simulated TEC temperature. Its fundamental fit is
+      T<sub>fit</sub>(t) = T̄ + A sin(ωt − δ).<br>
+      Residual: R(t) = T(t) − T<sub>fit</sub>(t).
+      For zero-centered PWM, unequal heating and cooling add a term proportional
+      to |sin(ωt)|. Its leading oscillation is at 2ω, so look for two residual
+      oscillations per PWM cycle.
+    </div>
     <div id="chartwrap"><canvas id="chart"></canvas></div>
   </div>
 
@@ -626,7 +639,9 @@ setInterval(()=>{
   if(!sim.paused) advance(dt*sim.speed);
 },40);
 function raf(){
-  if(lump.mode!=='lumped') drawScene(); drawChart(); uiRefresh();
+  if(lump.mode !== 'lumped') drawScene();
+  if(!updateSettledReadout()) drawChart();
+  uiRefresh();
   requestAnimationFrame(raf);
 }
 
@@ -1095,26 +1110,32 @@ function renderTuneResults(){
 
 /* live readouts */
 function updateSettledReadout(){
+  const explanation = $('residualExplanation');
+  explanation.hidden = true;
   const readout = $('settledReadout');
   readout.hidden = lump.mode !== 'lumped' || drive.wave !== 'sine';
-  if(readout.hidden) return;
+  $('residualControl').hidden = readout.hidden;
+  if(readout.hidden) return false;
   const period = drive.period;
   const end = Math.floor(chart.t[chart.t.length - 1] / period) * period;
   const start = end - period;
-  if(start < 5 * lump.tau || chart.t[0] > start){
+  if(chart.t.length < 2 || start < 5 * lump.tau || chart.t[0] > start){
     readout.textContent = 'Settled response: waiting for a complete cycle after five thermal time constants.';
-    return;
+    return false;
   }
   // Uniform samples over one complete cycle isolate the fundamental.
   const count = 360;
+  const samples = $('showResidual').checked ? [] : null;
   let mean = 0, sine = 0, cosine = 0;
   let j = Math.max(1, chart.t.findIndex(t => t >= start));
-  for(let i = 0; i < count; i++){
+  for(let i = 0; i < count + (samples ? 1 : 0); i++){
     const t = start + i * period / count;
     while(chart.t[j] < t) j++;
     const fraction = (t - chart.t[j - 1]) / (chart.t[j] - chart.t[j - 1]);
     const temperature = chart.tec[j - 1] + fraction * (chart.tec[j] - chart.tec[j - 1]);
     const angle = 2 * Math.PI * i / count;
+    if(samples) samples.push(temperature);
+    if(i === count) break;
     mean += temperature;
     sine += temperature * Math.sin(angle);
     cosine += temperature * Math.cos(angle);
@@ -1124,9 +1145,80 @@ function updateSettledReadout(){
     ? (Math.atan2(-cosine, sine) * 180 / Math.PI).toFixed(1) + '°'
     : 'undefined';
   readout.textContent = `Settled response (${period} s): mean = ${(mean / count).toFixed(3)} °C | mean − room = ${(mean / count - lump.room).toFixed(3)} °C | fundamental amplitude = ${amplitude.toFixed(3)} °C | phase lag = ${lag}`;
+  if(!samples) return false;
+  const residuals = samples.map((temperature, i) => {
+    const angle = 2 * Math.PI * i / count;
+    return temperature - (mean + 2 * sine * Math.sin(angle) + 2 * cosine * Math.cos(angle)) / count;
+  });
+  explanation.hidden = false;
+  drawResidualChart(samples, residuals, start, period);
+  return true;
 }
+
+function drawResidualChart(temperatures, residuals, start, period){
+  const {w, h, dpr} = fitCanvas(chartCv);
+  const left = 60, right = w - 16, gap = 19;
+  const panelHeight = (h - 26 - 3 * gap) / 3;
+  const intervals = temperatures.length - 1;
+  const pwm = temperatures.map((_, i) => pwmAt(start + i * period / intervals));
+  const rms = Math.sqrt(residuals.slice(0, -1).reduce((sum, r) => sum + r * r, 0) / intervals);
+  const limit = 1.1 * Math.max(0.001, ...residuals.map(Math.abs));
+  const panels = [
+    {values: pwm, label: 'Signed PWM (counts)', color: '#ffc979', center: 0, reference: 0, minimumSpan: 1},
+    {values: temperatures, label: 'TEC temperature (°C)', color: '#4fb3ff', reference: lump.room, minimumSpan: 0.1},
+    {values: residuals, label: 'Residual (°C) · RMS ' + rms.toFixed(3) + ' °C', color: '#57d98a', center: 0, reference: 0, minimumSpan: limit}
+  ];
+  cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cctx.fillStyle = '#1d2129';
+  cctx.fillRect(0, 0, w, h);
+  cctx.font = '12px sans-serif';
+  cctx.lineWidth = 1;
+  panels.forEach(({values, label, color, center, reference, minimumSpan}, index) => {
+    const top = gap + index * (panelHeight + gap);
+    const bottom = top + panelHeight;
+    const low = Math.min(reference, ...values);
+    const high = Math.max(reference, ...values);
+    const midpoint = center ?? (low + high) / 2;
+    const span = Math.max(minimumSpan, 1.1 * Math.max(high - midpoint, midpoint - low));
+    const y = value => (top + bottom) / 2 - panelHeight * (value - midpoint) / (2 * span);
+    cctx.fillStyle = color;
+    cctx.fillText(label, left, top - 5);
+    cctx.strokeStyle = '#607084';
+    cctx.strokeRect(left, top, right - left, panelHeight);
+    cctx.fillStyle = '#dde3ec';
+    cctx.fillText((midpoint + span).toFixed(index === 2 ? 3 : 1), 6, top + 5);
+    cctx.fillText((midpoint - span).toFixed(index === 2 ? 3 : 1), 6, bottom);
+    cctx.beginPath();
+    cctx.moveTo(left, y(reference));
+    cctx.lineTo(right, y(reference));
+    cctx.stroke();
+    cctx.strokeStyle = '#374354';
+    for(let tick = 1; tick < 4; tick++){
+      const x = left + (right - left) * tick / 4;
+      cctx.beginPath();
+      cctx.moveTo(x, top);
+      cctx.lineTo(x, bottom);
+      cctx.stroke();
+    }
+    cctx.strokeStyle = color;
+    cctx.beginPath();
+    values.forEach((value, i) => {
+      const x = left + (right - left) * i / intervals;
+      if(i === 0) cctx.moveTo(x, y(value));
+      else cctx.lineTo(x, y(value));
+    });
+    cctx.stroke();
+  });
+  cctx.fillStyle = '#dde3ec';
+  cctx.fillText('0 s', left, h - 8);
+  cctx.textAlign = 'center';
+  cctx.fillText(period / 2 + ' s', (left + right) / 2, h - 8);
+  cctx.textAlign = 'right';
+  cctx.fillText(period + ' s', right, h - 8);
+  cctx.textAlign = 'left';
+}
+
 function uiRefresh(){
-  updateSettledReadout();
   $('clock').textContent='t = '+(sim.time<600?sim.time.toFixed(1)+' s':(sim.time/60).toFixed(1)+' min');
   SENSOR_FRACS.forEach((_,i)=>{$('sensorRead'+i).textContent=sensedTemp(i).toFixed(1)+' °C';});
   const dutyPct=sim.duty*100, raw=Math.round(Math.abs(sim.duty)*255);

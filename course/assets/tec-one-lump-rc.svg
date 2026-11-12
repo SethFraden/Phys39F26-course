@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 310" width="660" height="310" role="img" aria-labelledby="title desc">
+  <title id="title">Parallel RC equivalent of the one-lump TEC</title>
+  <desc id="desc">A current source drives a resistor and capacitor in parallel. The top node represents the TEC temperature above room temperature. The bottom node represents room temperature.</desc>
+  <rect x="1" y="1" width="658" height="308" rx="16" fill="#f6f9fc" stroke="#c3cfdb"/>
+  <g fill="none" stroke="#263a50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M130 123V70H490V145 M130 185V236H490V159 M310 70V112 M310 196V236"/>
+    <path d="M310 112l-11 7 22 14-22 14 22 14-22 14 22 14-11 7"/>
+    <path d="M471 145h38 M471 159h38"/>
+    <circle cx="130" cy="154" r="31" stroke="#087b8e"/>
+    <path d="M130 172v-36m-8 9 8-9 8 9" stroke="#087b8e"/>
+    <path d="M310 236v17m-16 0h32m-26 7h20m-15 7h10"/>
+  </g>
+  <circle cx="310" cy="70" r="5" fill="#087b8e"/>
+  <circle cx="310" cy="236" r="5" fill="#263a50"/>
+  <g font-family="system-ui, sans-serif" font-size="19" fill="#263a50">
+    <text x="310" y="42" text-anchor="middle" fill="#087b8e" font-weight="600">V(t) = T(t) − T<tspan baseline-shift="sub" font-size="13">room</tspan></text>
+    <text x="172" y="148" fill="#087b8e">I(t) ↔ P<tspan baseline-shift="sub" font-size="13">u</tspan> u(t)</text>
+    <text x="333" y="159">R ↔ 1/H</text>
+    <text x="520" y="157">C<tspan baseline-shift="sub" font-size="13">e</tspan> ↔ C</text>
+    <text x="310" y="293" text-anchor="middle" font-size="15">Ground reference · room temperature</text>
+  </g>
+</svg>

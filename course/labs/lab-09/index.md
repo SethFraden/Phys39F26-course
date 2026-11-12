@@ -1257,8 +1257,22 @@ $\chi$ multiplies $u$ on both branches: positive PWM heats and negative PWM
 cools. Equivalently, susceptibilities written as $+\chi$ and $-\chi$ would
 multiply the unsigned magnitude $|u|$.
 
-Set $\theta(t)=T(t)-T_{\mathrm{room}}$ and $u_a=0$. For
-$u(t)=u_b\sin(\omega t)$, the one-lump equation becomes
+The [Module 6 one-lump model](../lab-06/index.md) treats the TEC face as
+a single body at temperature $T(t)$. Its energy balance is
+
+\[
+C\frac{dT}{dt}=P_u u(t)-H\bigl(T-T_{\mathrm{room}}\bigr).
+\]
+
+Here $C$ is the thermal capacitance in J/K, $H$ is the thermal conductance
+to the room in W/K, and $P_u$ is the thermal power per signed PWM count
+in W/count. Equal heating and cooling susceptibilities give the same
+positive $P_u$ on both branches.
+
+Divide by $H$ and define $\tau_{\mathrm{th}}=C/H$ and $\chi=P_u/H$.
+With constant room temperature, set $\theta(t)=T(t)-T_{\mathrm{room}}$,
+so $d\theta/dt=dT/dt$. For zero-centered PWM,
+$u(t)=u_b\sin(\omega t)$, the balance becomes
 
 <a id="eq-s18-3-1"></a>
 
@@ -1325,6 +1339,36 @@ to the PWM:
 \Delta t_{\mathrm{lag}}=\frac{\delta}{\omega}.
 \]
 
+The one-lump model acts as a **first-order low-pass filter**, like a current
+source driving a parallel RC circuit. The node voltage represents the TEC
+temperature above room temperature, $V(t)=T(t)-T_{\mathrm{room}}$, and the
+source current $I(t)$ represents the signed thermal power $P_u u(t)$.
+
+![Parallel RC circuit with a current source and an output node labeled V(t) = T(t) minus room temperature](../../assets/tec-one-lump-rc.svg)
+
+Kirchhoff's current law gives
+
+\[
+I(t)=C_{\mathrm e}\frac{dV}{dt}+\frac{V(t)}{R}
+\quad\longleftrightarrow\quad
+P_u u(t)=C\frac{dT}{dt}+H\bigl(T(t)-T_{\mathrm{room}}\bigr).
+\]
+
+The electrical capacitance $C_{\mathrm e}$ represents thermal capacitance
+$C$, and the resistance $R$ represents thermal resistance $1/H$. Thus
+the electrical time constant $RC_{\mathrm e}$ corresponds to
+$\tau_{\mathrm{th}}=C/H$.
+
+At low frequencies ($\omega\tau_{\mathrm{th}}\ll1$), the TEC nearly follows its
+instantaneous equilibrium temperature, with amplitude close to $\chi u_b$
+and little phase lag. At high frequencies ($\omega\tau_{\mathrm{th}}\gg1$),
+the temperature has less time to respond. The amplitude falls approximately
+as $\chi u_b/(\omega\tau_{\mathrm{th}})$, and the phase lag approaches
+$90^\circ$. At $\omega=1/\tau_{\mathrm{th}}$, the amplitude is $1/\sqrt{2}$
+of its low-frequency value. This filtering also explains why the
+$2\omega$ component in the unequal-susceptibility case is attenuated more
+than the fundamental.
+
 #### Check The Derivation
 
 1. Substitute the complete solution into [Eq. (S18.3.1)](#eq-s18-3-1)
@@ -1363,19 +1407,16 @@ Verify that the recorded PWM remains positive and unclipped. Keep the
 Stage 1 safety limits active. If you must lower $u_b$ for safety, record
 the change and account for it in your comparison.
 
-Before running the trial, predict the time dependent temperature, $T(t)$,
-when the drive stays on the heating branch in terms of $\omega$, $\chi_h$,
-$T_{\mathrm{room}}$,  $u_a$ and $u_b$.
+Check whether positive-only PWM produces a nearly sinusoidal TEC temperature.
 
 Plot measured TEC temperature and signed PWM on aligned time axes. Use the
 [common time fit](#common-time-fit) on the settled intervals. Fill in the
-table using your S18.3 baseline and S18.4 trial. Report phase lag relative to
-PWM and take residual amplitude as half the residual's peak-to-peak range.
+table using your S18.3 baseline and S18.4 trial. Take residual amplitude as half the residual's peak-to-peak range.
 
-| 100 s drive | $u_a$ (counts) | $u_b$ (counts) | Mean TEC temperature (°C) | Fundamental amplitude (°C) | Phase lag (°) | Residual amplitude (°C) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Zero-centered | 0 | | | | | |
-| Positive-only | | | | | | |
+| 100 s drive | $u_a$ (PWM) | $u_b$ (PWM) | Fundamental amplitude (°C) | Residual amplitude (°C) |
+| --- | ---: | ---: | ---: | ---: |
+| Zero-centered | 0 | | | |
+| Positive-only | | | | |
 
 #### Simulate the time-varying temperature
 
@@ -1384,30 +1425,26 @@ Simulate both 100 s drives using the applied $u_a$ and $u_b$ from the
 experimental table. Use the same measured room temperature, susceptibilities,
 and thermal time constant for both simulations. For each run, click
 **Apply / Reset**, then **Run**. Once the **Settled response** appears,
-record the mean TEC temperature, fundamental amplitude, and phase lag.
+record the fundamental amplitude.
 Select **Show settled PWM, temperature, and residual** and record the
 amplitude of the residual.
 
-| 100 s drive | $u_a$ (counts) | $u_b$ (counts) | Mean TEC temperature (°C) | Fundamental amplitude (°C) | Phase lag (°) | Residual amplitude (°C) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Zero-centered | 0 | | | | | |
-| Positive-only | | | | | | |
+| 100 s drive | $u_a$ (PWM) | $u_b$ (PWM) | Fundamental amplitude (°C) | Residual amplitude (°C) |
+| --- | ---: | ---: | ---: | ---: |
+| Zero-centered | 0 | | | |
+| Positive-only | | | | |
 
 #### Compare the experiment and simulation
 
 Did positive-only PWM produce a more sinusoidal temperature response?
 Use the residuals from both tables to support your answer and describe any
-remaining distortion. In the model, the positive-only command stays on the
-constant heating slope, so the settled residual should be zero within
-numerical precision. Compare that prediction with the measured residual.
-The offset also raises the operating temperature, so consider how that
-limits what you can attribute to polarity reversal alone.
+remaining distortion.
 
 These raw-PWM trials establish how the actuator responds in open loop.
 Reaching a mean near $40^\circ\mathrm{C}$ sets up the Stage 3 comparison,
 where amplitude and phase also matter.
 
-**Save:** The raw records, $u_a$, $u_b$, period, room temperature, PWM-temperature
+**Save:** The raw records, $u_a$, $u_b$, period, room temperature, PWM and temperature
 plots, predictions, and observations for S18.3-S18.4. Save both S18.4
 tables and the aligned simulation plots with your comparison.
 
@@ -1471,30 +1508,46 @@ in S18.3 for the excess-temperature analysis. The requested TEC temperature is
 the controller input; the measured temperature `T1` at $x=0$ is the
 boundary condition used in the Angstrom analysis.
 
-Use the measured slopes from Module 4. Let $\chi_h$ and $\chi_c$ be the
-positive magnitudes of the heating and cooling susceptibilities, in °C per
-PWM count. Calculate $r=\chi_h/\chi_c$. If cooling is half as effective as
-heating, for example, $r=2$ and cooling needs twice the PWM magnitude.
+Use the measured Module 4 heating slope $\chi_h$ and room temperature to
+calculate the PWM offset and amplitude for the requested temperature:
 
-First calculate the signed PWM using the heating slope for the whole cycle,
-$u_0(t)=[T_{\mathrm{set}}(t)-T_{\mathrm{room}}]/\chi_h$, with your measured
-room temperature. Leave positive values unchanged and multiply negative
-values by $r$, keeping their negative sign. This scales the cooling part
-of the command whenever the requested temperature falls below room
-temperature.
+\[
+u_a=\frac{T_a-T_{\mathrm{room}}}{\chi_h},
+\qquad
+u_b=\frac{T_b}{\chi_h}.
+\]
 
-Plot the corrected PWM command before applying it and check that it stays
-within the allowed PWM range. This feedforward correction uses the measured
-slopes and runs without temperature feedback.
+The steady-state calibration predicts mean temperature
+$T_{\mathrm{room}}+\chi_h u_a$ and oscillation amplitude $\chi_h u_b$.
+Plot $u(t)=u_a+u_b\sin(\omega t)$ before applying it. Verify that it stays
+on the heating branch and within the allowed PWM range. If you revise
+the target for safety, recalculate the command.
 
 <a id="s18-6"></a>
 
 ### S18.6: Apply The Feedforward Command
 
-Apply the command from S18.5 with no P or I feedback. Inspect the measured `T1`
-boundary rather than assuming that the requested waveform was produced. Use
+Apply the command from S18.5 with no P or I feedback. Plot the measured
+TEC temperature and the requested setpoint $T_{\mathrm{set}}(t)$ on the same
+time axis. Compare their settled means and amplitudes, and report the phase
+lag of the measured temperature relative to the setpoint. Also inspect the
+measured rod-base temperature `T1` to check the boundary waveform. Use
 the [pilot decision rules](#optimize-the-waveform-from-the-pilot-data) if tracking
 or safety requires a change, and record the revised settings.
+
+Use the [common time fit](#common-time-fit) on the settled TEC data.
+Record the calculated and applied PWM settings and compare the measured
+mean and amplitude with the predictions from the steady-state calibration.
+Use the actual setpoint and PWM settings if you revised them for safety.
+
+| 100 s case | $u_a$ (PWM) | $u_b$ (PWM) | Mean TEC temperature (°C) | Oscillation amplitude (°C) | Phase lag relative to setpoint (°) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| S18.5 steady-state prediction | | | | | 0 |
+| S18.6 measured response | | | | | |
+
+In S18.4 you used the residual to judge whether the temperature was
+sinusoidal. Here, ask how closely the measured sinusoid matches the
+predicted mean and amplitude and how much phase lag remains.
 
 <a id="s18-7"></a>
 
@@ -1506,7 +1559,7 @@ control at the same temperature-drive settings.
 First compare P-only and PI with the same $K_p$, changing only $K_i$. Then
 systematically tune $K_p$ and $K_i$ to bring the measured TEC amplitude toward
 $16^\circ\mathrm{C}$ and the phase shift toward zero while retaining a mean
-near $40^\circ\mathrm{C}$. Test periods of $100$, $200$, and $300\ \mathrm{s}$
+near $40^\circ\mathrm{C}$. Increase $K_p$ and $K_i$ until the measured and requested amplitudes are the same. Try to minimize the phase shift too.  Test periods of $100$, $200$, and $300\ \mathrm{s}$
 with the same requested mean and amplitude. At each new period, first test the
 previous gains, then record any retuning and its effect. Keep the initial and
 unsuccessful trials as evidence; do not report only the best run.
@@ -1519,6 +1572,31 @@ sinusoidal tracking. These three control checks and the five-period production
 rod dataset serve different purposes, but the same recorded interval may
 satisfy both when it meets the settling, sensor, geometry, and retained-cycle
 requirements. Do not repeat a qualifying run merely to give it another label.
+
+Use the table below as a trial log. Start with the P-only and initial PI
+runs at 100 s using the same $K_p$. Add a row for each gain pair you test.
+At 200 and 300 s, start with the selected gains from the preceding period.
+Mark the selected row at each period in the notes column. Keep rows for
+unsuccessful trials and note any safety stop or setting change.
+
+| Period (s) | Trial | $K_p$ | $K_i$ | Sample interval (s) | Mean TEC (°C) | Amplitude ratio (fitted / requested) | Phase lag (°) | RMS tracking error (°C) | PWM saturation | Run link and notes |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| 100 | P only | | 0 | | | | | | | |
+| 100 | Initial PI | Same as P only | | | | | | | | |
+| 100 | PI tuning trial | | | | | | | | | |
+| 200 | PI with selected 100 s gains | | | | | | | | | |
+| 200 | PI retuning if needed | | | | | | | | | |
+| 300 | PI with selected 200 s gains | | | | | | | | | |
+| 300 | PI retuning if needed | | | | | | | | | |
+
+State the units of $K_p$ and $K_i$ above your table. Use the
+[common time fit](#common-time-fit) on each settled interval. Divide the
+fitted TEC amplitude by the requested amplitude for the amplitude ratio,
+and report phase lag relative to the setpoint. Compute RMS tracking error
+from $T_{\mathrm{TEC}}(t)-T_{\mathrm{set}}(t)$ over that same interval.
+Record whether PWM reached its limit and when, including during startup.
+If a trial stops before settling, record the reason in the notes and leave
+the settled metrics blank.
 
 The feedback response is slow enough that the controller should not rely on
 the integral term alone to discover this asymmetry. For proportional-only and
@@ -1568,13 +1646,51 @@ to quantify the differences. Raw-PWM trials have no requested temperature
 waveform; compare their measured response to the applied PWM. If settings must
 change, repeat the feedforward/P/PI comparison at common safe settings.
 
-**Explain what worked and why:** State which cases met the tracking objective
-and which did not, using explicit numerical criteria for acceptable mean error,
-amplitude error, and phase shift. Explain the limitations observed in open-loop
-and P-only control, what integral action improved, and why the PI gains needed
-tuning. Identify the selected gains at each tested period and support your
-choice with before-and-after tuning results. If no safe conditions achieved
-the full target, state that clearly and explain the limiting factor.
+#### Example answer format
+
+Use one summary table and a short interpretation. Copy fitted values and
+run references from S18.3, S18.4, S18.6, and S18.7. Start with the 100 s
+runs. Use common safe setpoint settings for the three tracking trials and
+state those settings above the table.
+
+| 100 s trial | Run link | Mean TEC (°C) | Fitted amplitude (°C) | Phase lag (°) and reference | Residual amplitude (°C) | Mean error (°C) | Fitted / requested amplitude |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: |
+| Zero-centered PWM (S18.3) | | | | Relative to PWM | | — | — |
+| Positive-only PWM (S18.4) | | | | Relative to PWM | | — | — |
+| Feedforward (S18.6) | | | | Relative to setpoint | | | |
+| P only (S18.7) | | | | Relative to setpoint | | | |
+| Selected PI (S18.7) | | | | Relative to setpoint | | | |
+
+Residual amplitude measures the departure from a sinusoid over the settled
+fit interval. Subtract the fitted sinusoid (including its mean) from the
+measured TEC temperature at each sample, then take half the peak-to-peak
+range of the residual:
+
+\[
+R(t)=T_{\mathrm{TEC}}(t)-T_{\mathrm{fit}}(t),
+\qquad
+A_{\mathrm{res}}=\frac{\max R-\min R}{2}.
+\]
+
+Mean error is measured mean minus requested mean. The dashes mark quantities
+that require a temperature setpoint. Link to the saved PWM traces and use
+the residuals to explain waveform shape. For 200 and 300 s, cite the
+initial and selected PI rows in your S18.7 log and summarize what changed.
+
+**Explain what worked and why.** Answer two questions using your table.
+
+1. **First two rows: Did sinusoidal PWM produce a sinusoidal TEC temperature?**
+   Use the residual amplitudes and plots to judge waveform shape. Compare
+   the zero-centered and positive-only trials and explain how staying on
+   the heating branch affected the distortion you measured.
+2. **Last three rows: How closely did the TEC follow the requested
+   temperature?** Compare feedforward, P-only, and PI at the same setpoint
+   settings. State your numerical criteria for mean error, amplitude error,
+   and phase lag, then say which methods met them. Explain what limited
+   feedforward and P-only control, what integral action improved, and why
+   the PI gains needed tuning. Cite the before-and-after trials and the
+   selected gains at each period. If safety limits prevented you from
+   meeting the target, identify the limiting factor.
 
 **Stop when:** You have the common-setting comparison required by A5, including
 at least three settled cycles per method. If a trial is unusable, document it
@@ -1614,7 +1730,7 @@ analytical/numerical check remain required.
 
 ## Stage 4: Pilot Analysis And Experiment Plan
 
-**Goal:** Use the six temperature records from the 100 s and 200 s pilot
+**Goal:** Use the six temperature records from the 100 s (S18.9) and 200 s (S18.10) pilot
 runs to check that the rod-base temperature is settled and nearly sinusoidal.
 Use the fitted amplitudes and phase lags to confirm or adjust the sensor
 layout so that at least three rod sensors give measurable results for

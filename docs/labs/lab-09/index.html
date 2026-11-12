@@ -1631,8 +1631,19 @@ use the boxed solution to explain the equal-susceptibility rows.</p>
 <span class="arithmatex">\(\chi\)</span> multiplies <span class="arithmatex">\(u\)</span> on both branches: positive PWM heats and negative PWM
 cools. Equivalently, susceptibilities written as <span class="arithmatex">\(+\chi\)</span> and <span class="arithmatex">\(-\chi\)</span> would
 multiply the unsigned magnitude <span class="arithmatex">\(|u|\)</span>.</p>
-<p>Set <span class="arithmatex">\(\theta(t)=T(t)-T_{\mathrm{room}}\)</span> and <span class="arithmatex">\(u_a=0\)</span>. For
-<span class="arithmatex">\(u(t)=u_b\sin(\omega t)\)</span>, the one-lump equation becomes</p>
+<p>The <a href="../lab-06/">Module 6 one-lump model</a> treats the TEC face as
+a single body at temperature <span class="arithmatex">\(T(t)\)</span>. Its energy balance is</p>
+<div class="arithmatex">\[
+C\frac{dT}{dt}=P_u u(t)-H\bigl(T-T_{\mathrm{room}}\bigr).
+\]</div>
+<p>Here <span class="arithmatex">\(C\)</span> is the thermal capacitance in J/K, <span class="arithmatex">\(H\)</span> is the thermal conductance
+to the room in W/K, and <span class="arithmatex">\(P_u\)</span> is the thermal power per signed PWM count
+in W/count. Equal heating and cooling susceptibilities give the same
+positive <span class="arithmatex">\(P_u\)</span> on both branches.</p>
+<p>Divide by <span class="arithmatex">\(H\)</span> and define <span class="arithmatex">\(\tau_{\mathrm{th}}=C/H\)</span> and <span class="arithmatex">\(\chi=P_u/H\)</span>.
+With constant room temperature, set <span class="arithmatex">\(\theta(t)=T(t)-T_{\mathrm{room}}\)</span>,
+so <span class="arithmatex">\(d\theta/dt=dT/dt\)</span>. For zero-centered PWM,
+<span class="arithmatex">\(u(t)=u_b\sin(\omega t)\)</span>, the balance becomes</p>
 <p><a id="eq-s18-3-1"></a></p>
 <div class="arithmatex">\[
 \tau_{\mathrm{th}}\dot\theta+\theta
@@ -1683,6 +1694,30 @@ to the PWM:</p>
 \qquad
 \Delta t_{\mathrm{lag}}=\frac{\delta}{\omega}.
 \]</div>
+<p>The one-lump model acts as a <strong>first-order low-pass filter</strong>, like a current
+source driving a parallel RC circuit. The node voltage represents the TEC
+temperature above room temperature, <span class="arithmatex">\(V(t)=T(t)-T_{\mathrm{room}}\)</span>, and the
+source current <span class="arithmatex">\(I(t)\)</span> represents the signed thermal power <span class="arithmatex">\(P_u u(t)\)</span>.</p>
+<p><img alt="Parallel RC circuit with a current source and an output node labeled V(t) = T(t) minus room temperature" src="../../assets/tec-one-lump-rc.svg" /></p>
+<p>Kirchhoff's current law gives</p>
+<div class="arithmatex">\[
+I(t)=C_{\mathrm e}\frac{dV}{dt}+\frac{V(t)}{R}
+\quad\longleftrightarrow\quad
+P_u u(t)=C\frac{dT}{dt}+H\bigl(T(t)-T_{\mathrm{room}}\bigr).
+\]</div>
+<p>The electrical capacitance <span class="arithmatex">\(C_{\mathrm e}\)</span> represents thermal capacitance
+<span class="arithmatex">\(C\)</span>, and the resistance <span class="arithmatex">\(R\)</span> represents thermal resistance <span class="arithmatex">\(1/H\)</span>. Thus
+the electrical time constant <span class="arithmatex">\(RC_{\mathrm e}\)</span> corresponds to
+<span class="arithmatex">\(\tau_{\mathrm{th}}=C/H\)</span>.</p>
+<p>At low frequencies (<span class="arithmatex">\(\omega\tau_{\mathrm{th}}\ll1\)</span>), the TEC nearly follows its
+instantaneous equilibrium temperature, with amplitude close to <span class="arithmatex">\(\chi u_b\)</span>
+and little phase lag. At high frequencies (<span class="arithmatex">\(\omega\tau_{\mathrm{th}}\gg1\)</span>),
+the temperature has less time to respond. The amplitude falls approximately
+as <span class="arithmatex">\(\chi u_b/(\omega\tau_{\mathrm{th}})\)</span>, and the phase lag approaches
+<span class="arithmatex">\(90^\circ\)</span>. At <span class="arithmatex">\(\omega=1/\tau_{\mathrm{th}}\)</span>, the amplitude is <span class="arithmatex">\(1/\sqrt{2}\)</span>
+of its low-frequency value. This filtering also explains why the
+<span class="arithmatex">\(2\omega\)</span> component in the unequal-susceptibility case is attenuated more
+than the fundamental.</p>
 <h4 id="check-the-derivation">Check The Derivation<a class="headerlink" href="#check-the-derivation" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Substitute the complete solution into <a href="#eq-s18-3-1">Eq. (S18.3.1)</a>
@@ -1714,22 +1749,17 @@ temperature swing at fixed <span class="arithmatex">\(u_b\)</span>, leaving more
 Verify that the recorded PWM remains positive and unclipped. Keep the
 Stage 1 safety limits active. If you must lower <span class="arithmatex">\(u_b\)</span> for safety, record
 the change and account for it in your comparison.</p>
-<p>Before running the trial, predict the time dependent temperature, <span class="arithmatex">\(T(t)\)</span>,
-when the drive stays on the heating branch in terms of <span class="arithmatex">\(\omega\)</span>, <span class="arithmatex">\(\chi_h\)</span>,
-<span class="arithmatex">\(T_{\mathrm{room}}\)</span>,  <span class="arithmatex">\(u_a\)</span> and <span class="arithmatex">\(u_b\)</span>.</p>
+<p>Check whether positive-only PWM produces a nearly sinusoidal TEC temperature.</p>
 <p>Plot measured TEC temperature and signed PWM on aligned time axes. Use the
 <a href="#common-time-fit">common time fit</a> on the settled intervals. Fill in the
-table using your S18.3 baseline and S18.4 trial. Report phase lag relative to
-PWM and take residual amplitude as half the residual's peak-to-peak range.</p>
+table using your S18.3 baseline and S18.4 trial. Take residual amplitude as half the residual's peak-to-peak range.</p>
 <table>
 <thead>
 <tr>
 <th>100 s drive</th>
-<th style="text-align: right;"><span class="arithmatex">\(u_a\)</span> (counts)</th>
-<th style="text-align: right;"><span class="arithmatex">\(u_b\)</span> (counts)</th>
-<th style="text-align: right;">Mean TEC temperature (°C)</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_a\)</span> (PWM)</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_b\)</span> (PWM)</th>
 <th style="text-align: right;">Fundamental amplitude (°C)</th>
-<th style="text-align: right;">Phase lag (°)</th>
 <th style="text-align: right;">Residual amplitude (°C)</th>
 </tr>
 </thead>
@@ -1740,13 +1770,9 @@ PWM and take residual amplitude as half the residual's peak-to-peak range.</p>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>Positive-only</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
@@ -1760,18 +1786,16 @@ Simulate both 100 s drives using the applied <span class="arithmatex">\(u_a\)</s
 experimental table. Use the same measured room temperature, susceptibilities,
 and thermal time constant for both simulations. For each run, click
 <strong>Apply / Reset</strong>, then <strong>Run</strong>. Once the <strong>Settled response</strong> appears,
-record the mean TEC temperature, fundamental amplitude, and phase lag.
+record the fundamental amplitude.
 Select <strong>Show settled PWM, temperature, and residual</strong> and record the
 amplitude of the residual.</p>
 <table>
 <thead>
 <tr>
 <th>100 s drive</th>
-<th style="text-align: right;"><span class="arithmatex">\(u_a\)</span> (counts)</th>
-<th style="text-align: right;"><span class="arithmatex">\(u_b\)</span> (counts)</th>
-<th style="text-align: right;">Mean TEC temperature (°C)</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_a\)</span> (PWM)</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_b\)</span> (PWM)</th>
 <th style="text-align: right;">Fundamental amplitude (°C)</th>
-<th style="text-align: right;">Phase lag (°)</th>
 <th style="text-align: right;">Residual amplitude (°C)</th>
 </tr>
 </thead>
@@ -1782,13 +1806,9 @@ amplitude of the residual.</p>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>Positive-only</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
@@ -1799,15 +1819,11 @@ amplitude of the residual.</p>
 <h4 id="compare-the-experiment-and-simulation">Compare the experiment and simulation<a class="headerlink" href="#compare-the-experiment-and-simulation" title="Permanent link">&para;</a></h4>
 <p>Did positive-only PWM produce a more sinusoidal temperature response?
 Use the residuals from both tables to support your answer and describe any
-remaining distortion. In the model, the positive-only command stays on the
-constant heating slope, so the settled residual should be zero within
-numerical precision. Compare that prediction with the measured residual.
-The offset also raises the operating temperature, so consider how that
-limits what you can attribute to polarity reversal alone.</p>
+remaining distortion.</p>
 <p>These raw-PWM trials establish how the actuator responds in open loop.
 Reaching a mean near <span class="arithmatex">\(40^\circ\mathrm{C}\)</span> sets up the Stage 3 comparison,
 where amplitude and phase also matter.</p>
-<p><strong>Save:</strong> The raw records, <span class="arithmatex">\(u_a\)</span>, <span class="arithmatex">\(u_b\)</span>, period, room temperature, PWM-temperature
+<p><strong>Save:</strong> The raw records, <span class="arithmatex">\(u_a\)</span>, <span class="arithmatex">\(u_b\)</span>, period, room temperature, PWM and temperature
 plots, predictions, and observations for S18.3-S18.4. Save both S18.4
 tables and the aligned simulation plots with your comparison.</p>
 <p><a id="stage-1-establish-the-boundary-condition"></a></p>
@@ -1857,25 +1873,64 @@ simplify the starting protocol, but use the actual room temperature measured
 in S18.3 for the excess-temperature analysis. The requested TEC temperature is
 the controller input; the measured temperature <code>T1</code> at <span class="arithmatex">\(x=0\)</span> is the
 boundary condition used in the Angstrom analysis.</p>
-<p>Use the measured slopes from Module 4. Let <span class="arithmatex">\(\chi_h\)</span> and <span class="arithmatex">\(\chi_c\)</span> be the
-positive magnitudes of the heating and cooling susceptibilities, in °C per
-PWM count. Calculate <span class="arithmatex">\(r=\chi_h/\chi_c\)</span>. If cooling is half as effective as
-heating, for example, <span class="arithmatex">\(r=2\)</span> and cooling needs twice the PWM magnitude.</p>
-<p>First calculate the signed PWM using the heating slope for the whole cycle,
-<span class="arithmatex">\(u_0(t)=[T_{\mathrm{set}}(t)-T_{\mathrm{room}}]/\chi_h\)</span>, with your measured
-room temperature. Leave positive values unchanged and multiply negative
-values by <span class="arithmatex">\(r\)</span>, keeping their negative sign. This scales the cooling part
-of the command whenever the requested temperature falls below room
-temperature.</p>
-<p>Plot the corrected PWM command before applying it and check that it stays
-within the allowed PWM range. This feedforward correction uses the measured
-slopes and runs without temperature feedback.</p>
+<p>Use the measured Module 4 heating slope <span class="arithmatex">\(\chi_h\)</span> and room temperature to
+calculate the PWM offset and amplitude for the requested temperature:</p>
+<div class="arithmatex">\[
+u_a=\frac{T_a-T_{\mathrm{room}}}{\chi_h},
+\qquad
+u_b=\frac{T_b}{\chi_h}.
+\]</div>
+<p>The steady-state calibration predicts mean temperature
+<span class="arithmatex">\(T_{\mathrm{room}}+\chi_h u_a\)</span> and oscillation amplitude <span class="arithmatex">\(\chi_h u_b\)</span>.
+Plot <span class="arithmatex">\(u(t)=u_a+u_b\sin(\omega t)\)</span> before applying it. Verify that it stays
+on the heating branch and within the allowed PWM range. If you revise
+the target for safety, recalculate the command.</p>
 <p><a id="s18-6"></a></p>
 <h3 id="s186-apply-the-feedforward-command">S18.6: Apply The Feedforward Command<a class="headerlink" href="#s186-apply-the-feedforward-command" title="Permanent link">&para;</a></h3>
-<p>Apply the command from S18.5 with no P or I feedback. Inspect the measured <code>T1</code>
-boundary rather than assuming that the requested waveform was produced. Use
+<p>Apply the command from S18.5 with no P or I feedback. Plot the measured
+TEC temperature and the requested setpoint <span class="arithmatex">\(T_{\mathrm{set}}(t)\)</span> on the same
+time axis. Compare their settled means and amplitudes, and report the phase
+lag of the measured temperature relative to the setpoint. Also inspect the
+measured rod-base temperature <code>T1</code> to check the boundary waveform. Use
 the <a href="#optimize-the-waveform-from-the-pilot-data">pilot decision rules</a> if tracking
 or safety requires a change, and record the revised settings.</p>
+<p>Use the <a href="#common-time-fit">common time fit</a> on the settled TEC data.
+Record the calculated and applied PWM settings and compare the measured
+mean and amplitude with the predictions from the steady-state calibration.
+Use the actual setpoint and PWM settings if you revised them for safety.</p>
+<table>
+<thead>
+<tr>
+<th>100 s case</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_a\)</span> (PWM)</th>
+<th style="text-align: right;"><span class="arithmatex">\(u_b\)</span> (PWM)</th>
+<th style="text-align: right;">Mean TEC temperature (°C)</th>
+<th style="text-align: right;">Oscillation amplitude (°C)</th>
+<th style="text-align: right;">Phase lag relative to setpoint (°)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S18.5 steady-state prediction</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>S18.6 measured response</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>In S18.4 you used the residual to judge whether the temperature was
+sinusoidal. Here, ask how closely the measured sinusoid matches the
+predicted mean and amplitude and how much phase lag remains.</p>
 <p><a id="s18-7"></a></p>
 <h3 id="s187-repeat-with-p-and-pi-control">S18.7: Repeat With P And PI Control<a class="headerlink" href="#s187-repeat-with-p-and-pi-control" title="Permanent link">&para;</a></h3>
 <p>Repeat the corrected trial with proportional-only control and then with PI
@@ -1883,7 +1938,7 @@ control at the same temperature-drive settings.</p>
 <p>First compare P-only and PI with the same <span class="arithmatex">\(K_p\)</span>, changing only <span class="arithmatex">\(K_i\)</span>. Then
 systematically tune <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> to bring the measured TEC amplitude toward
 <span class="arithmatex">\(16^\circ\mathrm{C}\)</span> and the phase shift toward zero while retaining a mean
-near <span class="arithmatex">\(40^\circ\mathrm{C}\)</span>. Test periods of <span class="arithmatex">\(100\)</span>, <span class="arithmatex">\(200\)</span>, and <span class="arithmatex">\(300\ \mathrm{s}\)</span>
+near <span class="arithmatex">\(40^\circ\mathrm{C}\)</span>. Increase <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> until the measured and requested amplitudes are the same. Try to minimize the phase shift too.  Test periods of <span class="arithmatex">\(100\)</span>, <span class="arithmatex">\(200\)</span>, and <span class="arithmatex">\(300\ \mathrm{s}\)</span>
 with the same requested mean and amplitude. At each new period, first test the
 previous gains, then record any retuning and its effect. Keep the initial and
 unsuccessful trials as evidence; do not report only the best run.</p>
@@ -1895,6 +1950,129 @@ sinusoidal tracking. These three control checks and the five-period production
 rod dataset serve different purposes, but the same recorded interval may
 satisfy both when it meets the settling, sensor, geometry, and retained-cycle
 requirements. Do not repeat a qualifying run merely to give it another label.</p>
+<p>Use the table below as a trial log. Start with the P-only and initial PI
+runs at 100 s using the same <span class="arithmatex">\(K_p\)</span>. Add a row for each gain pair you test.
+At 200 and 300 s, start with the selected gains from the preceding period.
+Mark the selected row at each period in the notes column. Keep rows for
+unsuccessful trials and note any safety stop or setting change.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Period (s)</th>
+<th>Trial</th>
+<th style="text-align: right;"><span class="arithmatex">\(K_p\)</span></th>
+<th style="text-align: right;"><span class="arithmatex">\(K_i\)</span></th>
+<th style="text-align: right;">Sample interval (s)</th>
+<th style="text-align: right;">Mean TEC (°C)</th>
+<th style="text-align: right;">Amplitude ratio (fitted / requested)</th>
+<th style="text-align: right;">Phase lag (°)</th>
+<th style="text-align: right;">RMS tracking error (°C)</th>
+<th>PWM saturation</th>
+<th>Run link and notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">100</td>
+<td>P only</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">100</td>
+<td>Initial PI</td>
+<td style="text-align: right;">Same as P only</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">100</td>
+<td>PI tuning trial</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">200</td>
+<td>PI with selected 100 s gains</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">200</td>
+<td>PI retuning if needed</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">300</td>
+<td>PI with selected 200 s gains</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">300</td>
+<td>PI retuning if needed</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>State the units of <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_i\)</span> above your table. Use the
+<a href="#common-time-fit">common time fit</a> on each settled interval. Divide the
+fitted TEC amplitude by the requested amplitude for the amplitude ratio,
+and report phase lag relative to the setpoint. Compute RMS tracking error
+from <span class="arithmatex">\(T_{\mathrm{TEC}}(t)-T_{\mathrm{set}}(t)\)</span> over that same interval.
+Record whether PWM reached its limit and when, including during startup.
+If a trial stops before settling, record the reason in the notes and leave
+the settled metrics blank.</p>
 <p>The feedback response is slow enough that the controller should not rely on
 the integral term alone to discover this asymmetry. For proportional-only and
 PI control, compare</p>
@@ -1935,13 +2113,105 @@ and the <a href="#part-2-measured-boundary-control-comparison">A5 comparison req
 to quantify the differences. Raw-PWM trials have no requested temperature
 waveform; compare their measured response to the applied PWM. If settings must
 change, repeat the feedforward/P/PI comparison at common safe settings.</p>
-<p><strong>Explain what worked and why:</strong> State which cases met the tracking objective
-and which did not, using explicit numerical criteria for acceptable mean error,
-amplitude error, and phase shift. Explain the limitations observed in open-loop
-and P-only control, what integral action improved, and why the PI gains needed
-tuning. Identify the selected gains at each tested period and support your
-choice with before-and-after tuning results. If no safe conditions achieved
-the full target, state that clearly and explain the limiting factor.</p>
+<h4 id="example-answer-format">Example answer format<a class="headerlink" href="#example-answer-format" title="Permanent link">&para;</a></h4>
+<p>Use one summary table and a short interpretation. Copy fitted values and
+run references from S18.3, S18.4, S18.6, and S18.7. Start with the 100 s
+runs. Use common safe setpoint settings for the three tracking trials and
+state those settings above the table.</p>
+<table>
+<thead>
+<tr>
+<th>100 s trial</th>
+<th>Run link</th>
+<th style="text-align: right;">Mean TEC (°C)</th>
+<th style="text-align: right;">Fitted amplitude (°C)</th>
+<th>Phase lag (°) and reference</th>
+<th style="text-align: right;">Residual amplitude (°C)</th>
+<th style="text-align: right;">Mean error (°C)</th>
+<th style="text-align: right;">Fitted / requested amplitude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero-centered PWM (S18.3)</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Relative to PWM</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>Positive-only PWM (S18.4)</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Relative to PWM</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>Feedforward (S18.6)</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Relative to setpoint</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>P only (S18.7)</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Relative to setpoint</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>Selected PI (S18.7)</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Relative to setpoint</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>Residual amplitude measures the departure from a sinusoid over the settled
+fit interval. Subtract the fitted sinusoid (including its mean) from the
+measured TEC temperature at each sample, then take half the peak-to-peak
+range of the residual:</p>
+<div class="arithmatex">\[
+R(t)=T_{\mathrm{TEC}}(t)-T_{\mathrm{fit}}(t),
+\qquad
+A_{\mathrm{res}}=\frac{\max R-\min R}{2}.
+\]</div>
+<p>Mean error is measured mean minus requested mean. The dashes mark quantities
+that require a temperature setpoint. Link to the saved PWM traces and use
+the residuals to explain waveform shape. For 200 and 300 s, cite the
+initial and selected PI rows in your S18.7 log and summarize what changed.</p>
+<p><strong>Explain what worked and why.</strong> Answer two questions using your table.</p>
+<ol>
+<li><strong>First two rows: Did sinusoidal PWM produce a sinusoidal TEC temperature?</strong>
+   Use the residual amplitudes and plots to judge waveform shape. Compare
+   the zero-centered and positive-only trials and explain how staying on
+   the heating branch affected the distortion you measured.</li>
+<li><strong>Last three rows: How closely did the TEC follow the requested
+   temperature?</strong> Compare feedforward, P-only, and PI at the same setpoint
+   settings. State your numerical criteria for mean error, amplitude error,
+   and phase lag, then say which methods met them. Explain what limited
+   feedforward and P-only control, what integral action improved, and why
+   the PI gains needed tuning. Cite the before-and-after trials and the
+   selected gains at each period. If safety limits prevented you from
+   meeting the target, identify the limiting factor.</li>
+</ol>
 <p><strong>Stop when:</strong> You have the common-setting comparison required by A5, including
 at least three settled cycles per method. If a trial is unusable, document it
 and return to this comparison after revising settings with Stage 4.</p>
@@ -1975,7 +2245,7 @@ calibration, and sweeping or retuning the model at every period are optional
 extensions. The measured raw-PWM/feedforward/P/PI trials and the S18.3
 analytical/numerical check remain required.</p>
 <h2 id="stage-4-pilot-analysis-and-experiment-plan">Stage 4: Pilot Analysis And Experiment Plan<a class="headerlink" href="#stage-4-pilot-analysis-and-experiment-plan" title="Permanent link">&para;</a></h2>
-<p><strong>Goal:</strong> Use the six temperature records from the 100 s and 200 s pilot
+<p><strong>Goal:</strong> Use the six temperature records from the 100 s (S18.9) and 200 s (S18.10) pilot
 runs to check that the rod-base temperature is settled and nearly sinusoidal.
 Use the fitted amplitudes and phase lags to confirm or adjust the sensor
 layout so that at least three rod sensors give measurable results for

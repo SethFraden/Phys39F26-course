@@ -1162,11 +1162,12 @@ function drawResidualChart(temperatures, residuals, start, period){
   const intervals = temperatures.length - 1;
   const pwm = temperatures.map((_, i) => pwmAt(start + i * period / intervals));
   const rms = Math.sqrt(residuals.slice(0, -1).reduce((sum, r) => sum + r * r, 0) / intervals);
+  const residualAmplitude = (Math.max(...residuals) - Math.min(...residuals)) / 2;
   const limit = 1.1 * Math.max(0.001, ...residuals.map(Math.abs));
   const panels = [
     {values: pwm, label: 'Signed PWM (counts)', color: '#ffc979', center: 0, reference: 0, minimumSpan: 1},
     {values: temperatures, label: 'TEC temperature (°C)', color: '#4fb3ff', reference: lump.room, minimumSpan: 0.1},
-    {values: residuals, label: 'Residual (°C) · RMS ' + rms.toFixed(3) + ' °C', color: '#57d98a', center: 0, reference: 0, minimumSpan: limit}
+    {values: residuals, label: 'Residual (°C) · Amplitude ' + residualAmplitude.toFixed(3) + ' °C · RMS ' + rms.toFixed(3) + ' °C', color: '#57d98a', center: 0, reference: 0, minimumSpan: limit}
   ];
   cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   cctx.fillStyle = '#1d2129';

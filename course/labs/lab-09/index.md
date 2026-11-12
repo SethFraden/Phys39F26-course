@@ -1178,20 +1178,26 @@ The sign selects heating or cooling; $|u|$ gives the PWM magnitude from 0 to
    until the measured temperature remains safely below it.
 3. Keep that selected  value of $u_b$ fixed and collect settled records at
    periods of $300$, $200$, and $100\ \mathrm{s}$. Record the applied PWM and
-   all six temperatures as a function of time at each period.
-4. Fit the data to a sine function. Find the mean temperature, the amplitude and the phase of the temperature relative to the PWM signal.
+   all six temperatures as a function of time at each period. This data will help guide you in designing the Angstrom experiment that follows.
 
-Plot the
+#### Experimental analysis
+
+1. Plot the
 measured TEC temperature and signed PWM on aligned time axes. Look for unequal
 heating and cooling excursions, phase lag, and departures from a sine wave.
 
-Make a table of the fitted values:
+2. Fit the TEC temperature data to a sine function. Find the mean temperature, the amplitude and the phase of the temperature relative to the PWM signal.
+
+
+3. Make a table of the fitted values:
 
 | Period (s) |  (1) Mean minus room (°C) | (2) Amplitude (°C) | (3) Phase lag (°) |
 | ---: |  ---: | ---: | ---: |
 | 100 |  | | |
 | 200 |  | | |
 | 300 |  | | |
+
+
 
 
 #### Simulate the time-varying temperature
@@ -1202,18 +1208,43 @@ relaxation time to $80\ \mathrm{s}$. Keep $\chi_h=0.46\ ^\circ\mathrm{C/PWM}$,
 $u_a=0$, and your selected PWM amplitude $u_b$ fixed across all six runs.
 
 For each row, set the period and $\chi_c$, click **Apply / Reset**, then **Run**.
-From the **Settled response** readout, record **mean minus room temperature**,
-**fundamental amplitude**, and **phase lag** in the table. The amplitude and phase lag describe the fundamental, the sinusoidal
+From the **Settled response** readout, record **(1) mean minus room temperature**,
+**(2) fundamental amplitude**, and **(3) phase lag** in the table. The amplitude and phase lag describe the fundamental, the sinusoidal
 component at the PWM frequency.
 
-| Period (s) | $\chi_c$ (°C/PWM) | (1) Mean minus room (°C) | (2) Amplitude (°C) | (3) Phase lag (°) |
-| ---: | ---: | ---: | ---: | ---: |
-| 100 | 0.23 | | | |
-| 100 | 0.46 | | | |
-| 200 | 0.23 | | | |
-| 200 | 0.46 | | | |
-| 300 | 0.23 | | | |
-| 300 | 0.46 | | | |
+| Period (s) | $\chi_c$ (°C/PWM) | (1) Mean minus room (°C) | (2) Amplitude (°C) | (3) Phase lag (°) | (4) Residual amplitude (°C) |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 100 | 0.23 | | | | |
+| 100 | 0.46 | | | | |
+| 200 | 0.23 | | | | |
+| 200 | 0.46 | | | | |
+| 300 | 0.23 | | | | |
+| 300 | 0.46 | | | | |
+
+With zero-centered PWM, $u(t)=u_b\sin(\omega t)$, where $\omega=2\pi/\tau$.
+The one-lump model weights the positive and negative halves by different
+susceptibilities. The resulting thermal forcing is
+
+\[
+\chi(u)u
+=\frac{u_b}{2}(\chi_h+\chi_c)\sin(\omega t)
++\frac{u_b}{2}(\chi_h-\chi_c)|\sin(\omega t)|.
+\]
+
+The absolute-value term repeats every half period. It contributes a mean
+shift and even harmonics, starting at $2\omega$. The PWM command itself
+oscillates at $\omega$. The thermal response damps the faster harmonics,
+so the temperature can look nearly sinusoidal even when its mean shifts.
+
+For each run, select **Show settled PWM, temperature, and residual**.
+The residual is the simulated temperature minus its fitted mean and
+fundamental sinusoid. Record its **(4) amplitude**, defined as half its
+peak-to-peak range. Compare that value with the fundamental amplitude to
+assess the degree of distortion. Save the aligned plots for both
+susceptibility settings at one common period. Use the plots to check
+whether the residual repeats twice per PWM cycle when $\chi_h\ne\chi_c$.
+For $\chi_h=\chi_c$, the absolute-value term vanishes, so the settled
+residual amplitude should be zero up to numerical error.
 
 At fixed period, what changes when $\chi_c$ changes? At fixed $\chi_c$,
 how do mean temperature, amplitude and phase lag change with period? After the derivation,
@@ -1321,6 +1352,8 @@ does the unequal-susceptibility model reproduce, and where does it fall short?
 
 ### S18.4: Apply Positive-Only Sinusoidal PWM
 
+#### Experiment
+
 Use the settled 100 s zero-centered run from [S18.3](#s18-3) as your
 baseline. Keep the 100 s period and the same PWM amplitude $u_b$ for the
 positive-only trial. The shortest period gives the smallest predicted
@@ -1330,25 +1363,53 @@ Verify that the recorded PWM remains positive and unclipped. Keep the
 Stage 1 safety limits active. If you must lower $u_b$ for safety, record
 the change and account for it in your comparison.
 
-Before running the trial, predict how waveform distortion will change
-when the drive stays on the heating branch. With constant $\chi_h$, the
-one-lump model predicts a settled sinusoid about
-$T_{\mathrm{room}}+\chi_h u_a$.
+Before running the trial, predict the time dependent temperature, $T(t)$,
+when the drive stays on the heating branch in terms of $\omega$, $\chi_h$,
+$T_{\mathrm{room}}$,  $u_a$ and $u_b$.
 
-Compare the two settled runs side by side using the S18.3 time plots and
-sinusoidal fits. Report $u_a$ and $u_b$, the mean TEC temperature, fundamental amplitude,
-phase lag relative to PWM, and RMS sinusoidal-fit residual for each run.
+Plot measured TEC temperature and signed PWM on aligned time axes. Use the
+[common time fit](#common-time-fit) on the settled intervals. Fill in the
+table using your S18.3 baseline and S18.4 trial. Report phase lag relative to
+PWM and take residual amplitude as half the residual's peak-to-peak range.
+
+| 100 s drive | $u_a$ (counts) | $u_b$ (counts) | Mean TEC temperature (°C) | Fundamental amplitude (°C) | Phase lag (°) | Residual amplitude (°C) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Zero-centered | 0 | | | | | |
+| Positive-only | | | | | | |
+
+#### Simulate the time-varying temperature
+
+Open the [Module 6 one-lump model](../../simulators/angstrom-six-sensor/index.html?s18=3).
+Simulate both 100 s drives using the applied $u_a$ and $u_b$ from the
+experimental table. Use the same measured room temperature, susceptibilities,
+and thermal time constant for both simulations. For each run, click
+**Apply / Reset**, then **Run**. Once the **Settled response** appears,
+record the mean TEC temperature, fundamental amplitude, and phase lag.
+Select **Show settled PWM, temperature, and residual** and record the
+amplitude of the residual.
+
+| 100 s drive | $u_a$ (counts) | $u_b$ (counts) | Mean TEC temperature (°C) | Fundamental amplitude (°C) | Phase lag (°) | Residual amplitude (°C) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Zero-centered | 0 | | | | | |
+| Positive-only | | | | | | |
+
+#### Compare the experiment and simulation
+
 Did positive-only PWM produce a more sinusoidal temperature response?
-Use the residuals to support your answer and describe any remaining
-distortion. The offset also raises the operating temperature, so consider
-how that limits what you can attribute to polarity reversal alone.
+Use the residuals from both tables to support your answer and describe any
+remaining distortion. In the model, the positive-only command stays on the
+constant heating slope, so the settled residual should be zero within
+numerical precision. Compare that prediction with the measured residual.
+The offset also raises the operating temperature, so consider how that
+limits what you can attribute to polarity reversal alone.
 
 These raw-PWM trials establish how the actuator responds in open loop.
 Reaching a mean near $40^\circ\mathrm{C}$ sets up the Stage 3 comparison,
 where amplitude and phase also matter.
 
 **Save:** The raw records, $u_a$, $u_b$, period, room temperature, PWM-temperature
-plots, predictions, and observations for S18.3-S18.4.
+plots, predictions, and observations for S18.3-S18.4. Save both S18.4
+tables and the aligned simulation plots with your comparison.
 
 <a id="stage-1-establish-the-boundary-condition"></a>
 

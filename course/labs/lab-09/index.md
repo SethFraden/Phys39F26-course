@@ -2018,26 +2018,54 @@ finite-rod fit is precise.
 
 ### Generate And Interpret Your Characteristic-Length Plot
 
-Use your measured positions and temperature histories to infer $\kappa$ and
-$\nu$ from the spatial fits. Report the parameter values, units, uncertainty,
-and source data. Use one justified pair of material/heat-loss parameters for
-the theoretical curves across the period range; compare the estimates from
-different measured periods before combining them. If they disagree beyond
-uncertainty, show that disagreement and discuss the model limitations.
+Start with the fitted mean $a_i$, fundamental amplitude $B_i$, and phase
+$\phi_i$ for each rod sensor at each measured period. Use measured sensor
+positions $x_i$, with `T1` at $x=0$.
 
-1. Generate a theoretical plot of length versus forcing period from 100 to
-    500 s, with ticks at 100, 200, 300, 400, and 500 s. Use $\omega=2\pi/\tau$
-    and the derived expressions for $m$, $q$, and $q'$ to plot
-    $\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}$,
-    $\ell_{\mathrm{amp}}=1/q$, and $\ell_{\mathrm{phase}}=1/q'$.
-    Label axes and units, include parameter uncertainties as bands or explain their effect,
-    and mark the measured analysis length $L$ for comparison.
-2. At the periods actually measured, overlay the lengths obtained directly
-    from your fits: $1/m$ from the mean profile, $1/q$ from amplitude decay,
-    and $1/q'$ from phase. Include uncertainties. Identify which
-    measurements supplied the theoretical parameters; agreement with those
-    same measurements is a consistency check, not an independent validation.
-3. Interpret every curve using the semi-infinite expression
+1. **Find the fitted lengths at each measured period.** Fit the time-fit
+    results across position:
+
+    | Quantity | Spatial fit | Length to plot |
+    | --- | --- | --- |
+    | Mean excess temperature $a_i-T_\infty$ | Fit the finite insulated-tip profile, proportional to $\cosh[m(L-x_i)]/\cosh(mL)$. | $1/m$ |
+    | Fundamental amplitude $B_i$ | Fit $\ln B_i$ versus $x_i$. The slope is $-q$. | $1/q$ |
+    | Unwrapped phase $\phi_i$ | Fit $\phi_i$ versus $x_i$ using the common time fit's cosine convention. The slope is $-q'$. | $1/q'$ |
+
+    Use the semi-infinite amplitude and phase fits where the finite-tip check
+    supports them. Propagate the fitted uncertainties to the three lengths.
+    Use the independently fitted mean profile for the $1/m$ points.
+
+2. **Infer the parameters and plot curves with the fitted points.** At each
+    measured period, use the [theory relations](#recover-diffusivity-and-heat-loss-from-measurements)
+    to calculate $\kappa=\omega/(2qq')$ and $\nu=\kappa(q^2-q'^2)$.
+    Report values, units, uncertainties, and source data. Compare the estimates
+    across periods before choosing one pair $(\kappa,\nu)$ for the curves.
+    Combine compatible estimates and explain your choice. If they disagree
+    beyond uncertainty, show the spread and justify the reference pair.
+
+    Hold that pair fixed and evaluate the following expressions on a fine
+    grid of forcing periods from 100 to 500 s:
+
+    \[
+    \omega=\frac{2\pi}{\tau},
+    \qquad m=\sqrt{\frac{\nu}{\kappa}},
+    \qquad q+iq'=\sqrt{\frac{\nu+i\omega}{\kappa}}.
+    \]
+
+    Choose the root with positive real part. Draw curves for $1/m$, $1/q$,
+    and $1/q'$, then overlay the three sets of fitted points from step 1
+    with uncertainty bars. Label axes and units, place ticks at 100, 200,
+    300, 400, and 500 s, and mark the measured analysis length $L$.
+    Show parameter uncertainty as bands or explain its effect.
+    Identify the measurements used to infer the parameters. Agreement with
+    those points checks whether one parameter pair describes the five periods.
+    The separately fitted mean length also checks whether the mean profile
+    and oscillatory response imply the same heat loss.
+
+3. **Plot the theoretical temperature traces only.** Choose one
+    measured forcing period and plot predicted $T(x,t)$ versus $t$ on shared
+    axes at all five measured rod positions, T1–T5. Use the semi-infinite
+    expression where the finite-tip check supports it.
 
     \[
     T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
@@ -2046,7 +2074,10 @@ uncertainty, show that disagreement and discuss the model limitations.
     \]
 
     Here $a_0$, $B_0$, and $\phi_0$ come from the measured rod-boundary
-    temperature `T1`, not the requested TEC setpoint. Explain what happens to
+    temperature `T1`. Compare T1 with one downstream trace to identify the
+    changes in mean excess temperature, oscillation amplitude, and peak
+    timing. Use the remaining traces to show how those effects develop
+    along the rod. Explain what happens to
     the **mean excess temperature** over $\ell_{\mathrm{mean}}$, to the
     **oscillation amplitude** over $\ell_{\mathrm{amp}}$, and to the **phase**
     over $\ell_{\mathrm{phase}}$. Relate spatial phase lag to time lag through
@@ -2054,15 +2085,13 @@ uncertainty, show that disagreement and discuss the model limitations.
     forcing period while the other lengths change, and whether a one-radian
     phase lag can be resolved within the region where the oscillation is measurable.
 
-4. Use your inferred parameters and measured boundary waveform to plot
-    theoretical $T(x,t)$ at the retained sensor positions for one representative
-    measured period. Reuse this plot in the experiment–simulation comparison
-    below. Connect the mean offsets, shrinking amplitudes, and delayed peaks
-    explicitly to the length plot. Use the finite insulated-tip solution where
-    the semi-infinite approximation fails: the lengths remain model scales,
-    but the finite-rod profiles need not be simple exponentials or have phase
-    exactly proportional to $x$. Explain how the curves justify your chosen
-    periods and sensor positions.
+4. **Compare theory with experiment.** Overlay the measured temperatures
+    on the five theoretical traces from item 3. Reuse this overlay in the
+    experiment–simulation comparison below. Use the same
+    period and sensor positions, and align the traces in time. Identify one
+    agreement and one meaningful discrepancy in mean, amplitude, or peak
+    timing. Use the finite insulated-tip solution at positions where the
+    semi-infinite approximation fails.
 
 ### Integrate Theory, Experiment, And Simulation During S21–S22
 

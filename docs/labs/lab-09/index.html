@@ -2482,34 +2482,83 @@ m=\sqrt{q^2-q'^2}.
 data. Report the fit uncertainty and residuals rather than assuming that the
 finite-rod fit is precise.</p>
 <h3 id="generate-and-interpret-your-characteristic-length-plot">Generate And Interpret Your Characteristic-Length Plot<a class="headerlink" href="#generate-and-interpret-your-characteristic-length-plot" title="Permanent link">&para;</a></h3>
-<p>Use your measured positions and temperature histories to infer <span class="arithmatex">\(\kappa\)</span> and
-<span class="arithmatex">\(\nu\)</span> from the spatial fits. Report the parameter values, units, uncertainty,
-and source data. Use one justified pair of material/heat-loss parameters for
-the theoretical curves across the period range; compare the estimates from
-different measured periods before combining them. If they disagree beyond
-uncertainty, show that disagreement and discuss the model limitations.</p>
+<p>Start with the fitted mean <span class="arithmatex">\(a_i\)</span>, fundamental amplitude <span class="arithmatex">\(B_i\)</span>, and phase
+<span class="arithmatex">\(\phi_i\)</span> for each rod sensor at each measured period. Use measured sensor
+positions <span class="arithmatex">\(x_i\)</span>, with <code>T1</code> at <span class="arithmatex">\(x=0\)</span>.</p>
 <ol>
-<li>Generate a theoretical plot of length versus forcing period from 100 to
-    500 s, with ticks at 100, 200, 300, 400, and 500 s. Use <span class="arithmatex">\(\omega=2\pi/\tau\)</span>
-    and the derived expressions for <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(q\)</span>, and <span class="arithmatex">\(q'\)</span> to plot
-    <span class="arithmatex">\(\ell_{\mathrm{mean}}=\sqrt{\kappa/\nu}\)</span>,
-    <span class="arithmatex">\(\ell_{\mathrm{amp}}=1/q\)</span>, and <span class="arithmatex">\(\ell_{\mathrm{phase}}=1/q'\)</span>.
-    Label axes and units, include parameter uncertainties as bands or explain their effect,
-    and mark the measured analysis length <span class="arithmatex">\(L\)</span> for comparison.</li>
-<li>At the periods actually measured, overlay the lengths obtained directly
-    from your fits: <span class="arithmatex">\(1/m\)</span> from the mean profile, <span class="arithmatex">\(1/q\)</span> from amplitude decay,
-    and <span class="arithmatex">\(1/q'\)</span> from phase. Include uncertainties. Identify which
-    measurements supplied the theoretical parameters; agreement with those
-    same measurements is a consistency check, not an independent validation.</li>
 <li>
-<p>Interpret every curve using the semi-infinite expression</p>
+<p><strong>Find the fitted lengths at each measured period.</strong> Fit the time-fit
+    results across position:</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Spatial fit</th>
+<th>Length to plot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean excess temperature <span class="arithmatex">\(a_i-T_\infty\)</span></td>
+<td>Fit the finite insulated-tip profile, proportional to <span class="arithmatex">\(\cosh[m(L-x_i)]/\cosh(mL)\)</span>.</td>
+<td><span class="arithmatex">\(1/m\)</span></td>
+</tr>
+<tr>
+<td>Fundamental amplitude <span class="arithmatex">\(B_i\)</span></td>
+<td>Fit <span class="arithmatex">\(\ln B_i\)</span> versus <span class="arithmatex">\(x_i\)</span>. The slope is <span class="arithmatex">\(-q\)</span>.</td>
+<td><span class="arithmatex">\(1/q\)</span></td>
+</tr>
+<tr>
+<td>Unwrapped phase <span class="arithmatex">\(\phi_i\)</span></td>
+<td>Fit <span class="arithmatex">\(\phi_i\)</span> versus <span class="arithmatex">\(x_i\)</span> using the common time fit's cosine convention. The slope is <span class="arithmatex">\(-q'\)</span>.</td>
+<td><span class="arithmatex">\(1/q'\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Use the semi-infinite amplitude and phase fits where the finite-tip check
+supports them. Propagate the fitted uncertainties to the three lengths.
+Use the independently fitted mean profile for the <span class="arithmatex">\(1/m\)</span> points.</p>
+</li>
+<li>
+<p><strong>Infer the parameters and plot curves with the fitted points.</strong> At each
+    measured period, use the <a href="#recover-diffusivity-and-heat-loss-from-measurements">theory relations</a>
+    to calculate <span class="arithmatex">\(\kappa=\omega/(2qq')\)</span> and <span class="arithmatex">\(\nu=\kappa(q^2-q'^2)\)</span>.
+    Report values, units, uncertainties, and source data. Compare the estimates
+    across periods before choosing one pair <span class="arithmatex">\((\kappa,\nu)\)</span> for the curves.
+    Combine compatible estimates and explain your choice. If they disagree
+    beyond uncertainty, show the spread and justify the reference pair.</p>
+<p>Hold that pair fixed and evaluate the following expressions on a fine
+grid of forcing periods from 100 to 500 s:</p>
+<div class="arithmatex">\[
+\omega=\frac{2\pi}{\tau},
+\qquad m=\sqrt{\frac{\nu}{\kappa}},
+\qquad q+iq'=\sqrt{\frac{\nu+i\omega}{\kappa}}.
+\]</div>
+<p>Choose the root with positive real part. Draw curves for <span class="arithmatex">\(1/m\)</span>, <span class="arithmatex">\(1/q\)</span>,
+and <span class="arithmatex">\(1/q'\)</span>, then overlay the three sets of fitted points from step 1
+with uncertainty bars. Label axes and units, place ticks at 100, 200,
+300, 400, and 500 s, and mark the measured analysis length <span class="arithmatex">\(L\)</span>.
+Show parameter uncertainty as bands or explain its effect.
+Identify the measurements used to infer the parameters. Agreement with
+those points checks whether one parameter pair describes the five periods.
+The separately fitted mean length also checks whether the mean profile
+and oscillatory response imply the same heat loss.</p>
+</li>
+<li>
+<p><strong>Plot the theoretical temperature traces only.</strong> Choose one
+    measured forcing period and plot predicted <span class="arithmatex">\(T(x,t)\)</span> versus <span class="arithmatex">\(t\)</span> on shared
+    axes at all five measured rod positions, T1–T5. Use the semi-infinite
+    expression where the finite-tip check supports it.</p>
 <div class="arithmatex">\[
 T(x,t)=T_\infty+(a_0-T_\infty)e^{-x/\ell_{\mathrm{mean}}}
 +B_0e^{-x/\ell_{\mathrm{amp}}}
 \cos\!\left(\omega t-\frac{x}{\ell_{\mathrm{phase}}}+\phi_0\right).
 \]</div>
 <p>Here <span class="arithmatex">\(a_0\)</span>, <span class="arithmatex">\(B_0\)</span>, and <span class="arithmatex">\(\phi_0\)</span> come from the measured rod-boundary
-temperature <code>T1</code>, not the requested TEC setpoint. Explain what happens to
+temperature <code>T1</code>. Compare T1 with one downstream trace to identify the
+changes in mean excess temperature, oscillation amplitude, and peak
+timing. Use the remaining traces to show how those effects develop
+along the rod. Explain what happens to
 the <strong>mean excess temperature</strong> over <span class="arithmatex">\(\ell_{\mathrm{mean}}\)</span>, to the
 <strong>oscillation amplitude</strong> over <span class="arithmatex">\(\ell_{\mathrm{amp}}\)</span>, and to the <strong>phase</strong>
 over <span class="arithmatex">\(\ell_{\mathrm{phase}}\)</span>. Relate spatial phase lag to time lag through
@@ -2518,15 +2567,13 @@ forcing period while the other lengths change, and whether a one-radian
 phase lag can be resolved within the region where the oscillation is measurable.</p>
 </li>
 <li>
-<p>Use your inferred parameters and measured boundary waveform to plot
-    theoretical <span class="arithmatex">\(T(x,t)\)</span> at the retained sensor positions for one representative
-    measured period. Reuse this plot in the experiment–simulation comparison
-    below. Connect the mean offsets, shrinking amplitudes, and delayed peaks
-    explicitly to the length plot. Use the finite insulated-tip solution where
-    the semi-infinite approximation fails: the lengths remain model scales,
-    but the finite-rod profiles need not be simple exponentials or have phase
-    exactly proportional to <span class="arithmatex">\(x\)</span>. Explain how the curves justify your chosen
-    periods and sensor positions.</p>
+<p><strong>Compare theory with experiment.</strong> Overlay the measured temperatures
+    on the five theoretical traces from item 3. Reuse this overlay in the
+    experiment–simulation comparison below. Use the same
+    period and sensor positions, and align the traces in time. Identify one
+    agreement and one meaningful discrepancy in mean, amplitude, or peak
+    timing. Use the finite insulated-tip solution at positions where the
+    semi-infinite approximation fails.</p>
 </li>
 </ol>
 <h3 id="integrate-theory-experiment-and-simulation-during-s21s22">Integrate Theory, Experiment, And Simulation During S21–S22<a class="headerlink" href="#integrate-theory-experiment-and-simulation-during-s21s22" title="Permanent link">&para;</a></h3>

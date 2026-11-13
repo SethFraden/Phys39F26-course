@@ -33,7 +33,7 @@ whether work is preparation, feedback, or a graded submission.
 | --- | --- | --- |
 | `Prep` | Required pre-class preparation that will be used or checked in class | No separate score |
 | `P1`-`P4` | Scheduled progress check while work is still underway | No separate score |
-| `A1`-`A5` | Five key written, data-analysis, or modeling assessments | Yes; A1 is 5 points and A2-A5 are 10 points |
+| `A1`-`A5` | Planned written, data-analysis, or modeling assessments | Yes; A1 is 5 points and each assigned A2-A5 assessment is 10 points |
 | `C1`-`C6` | Graded completion milestone for a working capability | Yes, 10 points |
 | `GC` | Git checkpoint: a meaningful commit and push preserving the submitted state | Evidence within an `A#` or `C#`, not a separate assignment |
 | `F1` | Final team presentation and individual oral defense | Yes, 10 points |
@@ -61,7 +61,7 @@ hardware emergency or accommodation, email is not a submission method.
 ### A# Written, Data, And Modeling Assignments
 
 - Every student submits one PDF to the Moodle activity bearing the same code.
-- For the team assignments `A1`, `A2`, and `A3`, both partners may upload the
+- For the assigned team assessments `A1` and `A2`, both partners may upload the
   same team PDF, named `A#_Lastname_Lastname.pdf`, but each student must make a
   separate Moodle submission.
 - For the individual assignments `A4` and `A5`, submit independently written
@@ -101,9 +101,11 @@ and cited commit is not a complete milestone.
 
 - `Prep` and `P#` work is brought to class and shown when requested; there is no
   separate Moodle upload unless the instructor announces one.
-- For `F1`, one team member uploads `F1_Lastname_Lastname_slides.pdf` to Moodle
-  and cites the final repository commit. Each student completes the individual
-  oral defense during the presentation.
+- For `F1`, one team member uploads both
+  `F1_Lastname_Lastname_writeup.pdf` and
+  `F1_Lastname_Lastname_slides.pdf` to Moodle and cites the final repository
+  commit. Each student participates in the team presentation and question
+  period during the team's assigned S25 or S26 appointment.
 
 ## What Counts As A Git Checkpoint
 
@@ -202,7 +204,9 @@ for the complete instructions and rubric.
 
 ## A3: Feedback Data And Lumped-Model Memo
 
-**Due:** Wednesday, October 21, **6:00 PM**
+**Fall 2026 status:** Not assigned. The material below is retained as a record
+and as a possible starting point for a future offering; there is no A3 Moodle
+submission for the current course.
 
 **Format:** 10-point team assignment; each student uploads the team PDF
 separately to Moodle.
@@ -217,7 +221,7 @@ for the complete instructions and rubric.
 
 ## A4: Finite-Rod Model And Validity Checks
 
-**Due:** Wednesday, October 28, **9:05 AM**
+**Due:** Monday, November 9, **9:05 AM**
 
 **Format:** 10-point individual assignment; each student submits independently
 written work to Moodle.
@@ -231,18 +235,20 @@ comparison.
 See [Module 7, Part III: A4 Finite-Rod Model And Validity Checks](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks)
 for the complete instructions and rubric.
 
-## A5: Angstrom Derivation And Model-Validity Plan
+## A5: S18 Evidence, Boundary-Control Analysis, And Angstrom Theory
 
-**Due:** Wednesday, November 11, **9:05 AM**
+**Due:** Monday, November 23, **9:05 AM**
 
 **Format:** 10-point individual assignment; each student submits independently
 written work to Moodle.
 
-Develop the periodic relations for the Angstrom method, derive `kappa` and
-`nu`, specify the acquisition plan, and assess the one-dimensional model using
-the Module 7 approximation checks and the planned experimental evidence.
+Document evidence that S18 Steps 1-10 were followed; compare measured
+feedforward, P-only, and PI tracking at common settings and across frequency;
+compare experiment with simulation; develop the periodic relations for the
+Angstrom method; derive \(\kappa\) and \(\nu\); and assess the one-dimensional
+model using the Module 7 approximation checks.
 
-See [Module 8: A5 Angstrom Derivation And Model-Validity Plan](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan)
+See [Module 8: A5 S18 Evidence, Boundary-Control Analysis, And Angstrom Theory](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan)
 for the complete instructions and rubric.
 
 ## How Milestones Are Graded
@@ -341,7 +347,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 
 | Criterion | Points |
 | --- | ---: |
-| Mapped thermistors and synchronized multichannel logging acquire credible `T(x,t)` data | 4 |
+| Mapped thermistors and synchronized multichannel logging acquire credible \(T(x,t)\) data | 4 |
 | Calibration, baseline, initial step response, coordinates, units, and metadata are present | 2 |
 | Acquisition code and data organization are reproducible | 1 |
 | Individual explains the measurement chain, the qualitative spatial step response, and a dominant uncertainty | 2 |
@@ -352,7 +358,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 1. Choose one rod sensor and trace its channel number, physical position,
    calibration, serial field, and saved-data column.
 2. Why must the sensor streams and base temperature share a time reference?
-3. What metadata are required to interpret `T(x,t)` six months later?
+3. What metadata are required to interpret \(T(x,t)\) six months later?
 4. Identify the largest measurement uncertainty at this stage and describe how
    it affects the later conductivity result.
 5. What two different approximations are meant by calling the rod "long and
@@ -373,7 +379,7 @@ Each student answers one primary question and, when useful, one brief follow-up.
 
 | Criterion | Points |
 | --- | ---: |
-| Angstrom analysis reports `q`, `q_prime`, `kappa`, aluminum `k`, `nu`, and side-loss `h` with dimensional equations | 4 |
+| Angstrom analysis reports \(q\), \(q'\), \(\kappa\), aluminum \(k\), \(\nu\), and side-loss \(h\) with dimensional equations | 4 |
 | Uncertainties, residuals, accepted-value comparison, and finite-length, finite-radius, and frequency/model checks are present | 2 |
 | A fresh run from the documented repository reproduces the principal values and figures | 1 |
 | Individual explains how amplitude decay and phase lag separate conductivity from side loss | 2 |
@@ -384,22 +390,22 @@ Each student answers one primary question and, when useful, one brief follow-up.
 These questions are also the announced question bank for the individual part
 of `F1`.
 
-1. How are `q` and `q_prime` obtained from the measured amplitudes and phases?
+1. How are \(q\) and \(q'\) obtained from the measured amplitudes and phases?
 2. Why are both amplitude decay and phase lag needed to separate diffusivity
    from side heat loss?
-3. Derive or explain `kappa = omega/(2*q*q_prime)` and
-   `nu = kappa*(q^2 - q_prime^2)`, including units.
-4. How are `kappa` and `nu` converted into aluminum conductivity `k` and
-   side heat-transfer coefficient `h`?
+3. Derive or explain \(\kappa = \frac{\omega}{2qq'}\) and
+   \(\nu = \kappa(q^2 - q'^2)\), including units.
+4. How are \(\kappa\) and \(\nu\) converted into aluminum conductivity \(k\) and
+   side heat-transfer coefficient \(h\)?
 5. Point to one residual plot or frequency-consistency check. What model failure
    would it reveal?
-6. Which systematic uncertainty most limits your reported `k` or `h`, and why?
+6. Which systematic uncertainty most limits your reported \(k\) or \(h\), and why?
 7. How did you quantify the error caused by treating the finite rod as
    semi-infinite? Why can the answer depend on sensor position?
 8. Define the transverse Biot number for the circular rod. What physical
    approximation does a small value justify?
 9. What phase convention did you use? Why must the phases be unwrapped before
-   fitting the spatial phase coefficient `q_prime`?
+   fitting the spatial phase coefficient \(q'\)?
 
 ## Fixed Graded Due Dates And Definitions
 
@@ -411,14 +417,14 @@ of `F1`.
 | `C3` | Sept. 23, during S7; receipt by 11:55 AM | [TEC instrument and first-Python-GUI milestone](labs/lab-03/index.md#c3-demonstration-and-evidence), demonstrated using the C3 rubric above. |
 | `A2` | Oct. 7, 6:00 PM | [**TEC heating and cooling analysis**](labs/lab-04/index.md#a2-tec-heating-and-cooling-analysis) (team): each student uploads the same one-to-two-page team PDF, including the Part 4 heating/cooling graph. Locate and interpret the required Laird data-sheet values, then use them with the measured slopes to quantify the Peltier, Joule-heating, and passive-conduction contributions. No new Git checkpoint is required. |
 | `C4` | Oct. 5, during S10; receipt by 11:55 AM | [Open-loop TEC calibration and software-safety milestone](labs/lab-04/index.md#c4-oral-questions-open-loop-tec-calibration), demonstrated using the C4 rubric above. |
-| `A3` | Oct. 21, 6:00 PM | [**Feedback data and lumped-model memo**](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) (team): each student uploads the team PDF; teammates may upload the same file. Include selected open-loop and physical P/PI evidence, droop and instability, dimensional one-lump derivation, comparable experimental P/PI metrics, anti-windup, the supporting simulation result, model limits, code/data links, and `GC`. |
-| `A4` | Oct. 28, 9:05 AM | [**Finite-rod model and validity checks**](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
+| `A3` | Not assigned in Fall 2026 | The [feedback-data and lumped-model memo](labs/lab-06/index.md#a3-feedback-data-and-lumped-model-memo) is retained as future-course reference, but no A3 activity was posted in Moodle. |
+| `A4` | Nov. 9, 9:05 AM | [**Finite-rod model and validity checks**](labs/lab-08/index.md#a4-finite-rod-model-and-validity-checks) (individual): Lienhard Problem 1.3 from Module 7 Part I, governing-equation derivation, Lienhard Problems 4.12 and 4.20, finite and semi-infinite solutions, sensor errors, and transverse Biot number. |
 | `C5` | Oct. 28, during S17; receipt by 11:55 AM | [Rod instrument and data-acquisition milestone](labs/lab-08/index.md#c5-rod-instrument-and-data-acquisition-chain), demonstrated using the C5 rubric above. |
-| `A5` | Nov. 11, 9:05 AM | [**Angstrom derivation and model-validity plan**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): periodic relations, `kappa` and `nu`, acquisition plan, and one-dimensional model-validity checks. |
+| `A5` | Planned: Nov. 23, 9:05 AM | [**S18 evidence, boundary-control analysis, and Angstrom theory**](labs/lab-09/index.md#a5-angstrom-derivation-and-model-validity-plan) (individual): evidence for S18 Steps 1-10, measured feedforward/P/PI and frequency comparisons, experiment-simulation plots, periodic relations, \(\kappa\) and \(\nu\), and one-dimensional model-validity checks. This deadline becomes official when the A5 Moodle activity is posted. |
 | `C6` | Nov. 30, during S25; receipt by 11:55 AM | [Final thermal-transport package](labs/lab-10/index.md#c6-submission), including finite-length and finite-radius checks, demonstrated using the C6 rubric above. |
-| `F1` | Dec. 2 | Final team presentation and individual oral defense, using the rubric below. |
+| `F1` | Assigned presentation time during S25 or S26 | Final team write-up, slides, 10-minute presentation, and 10-minute question period, using the rubric below. |
 
-## F1: Final Presentation And Individual Oral Defense
+## F1: Final Write-Up, Presentation, And Questions
 
 The individual `F1` oral defense uses the announced questions in the
 [C6 Oral Questions](#c6-oral-questions) section above.
@@ -426,10 +432,10 @@ The individual `F1` oral defense uses the announced questions in the
 | Criterion | Points |
 | --- | ---: |
 | Team clearly explains the instrument, control system, rod experiment, and analysis chain | 3 |
-| Results for aluminum `k` and side-loss `h` include units, uncertainty, evidence, and limitations | 2 |
-| Figures are readable and the repository can reproduce the principal results | 1 |
+| Results for aluminum \(k\) and side-loss \(h\) include units, uncertainty, evidence, and limitations | 2 |
+| Write-up and slides use readable figures, and the repository can reproduce the principal results | 1 |
 | Individual accurately answers questions about hardware, software, control, and thermal physics | 3 |
-| Presentation is complete and delivered on the scheduled final meeting | 1 |
+| Presentation is complete, remains within 10 minutes, and is delivered at the assigned S25 or S26 time | 1 |
 
 ## Course Goal Coverage
 
@@ -442,4 +448,4 @@ The individual `F1` oral defense uses the announced questions in the
 | P-only feedback control | G8, G9, G14 | Droop and instability evidence, controller implementation, oral explanation |
 | P/PI control and process modeling | G3, G8-G10, G13, G14 | Physical P/PI implementation and gain tuning, lumped-model derivations and simulation, A3 and P2 |
 | Thermal transport theory and rod instrument | G2-G4, G7, G11, G13-G15 | Rod calibration, finite-length solution, transverse-Biot check, stationary-fin fit, C5 |
-| Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity `k`, side-loss `h`, C6, presentation |
+| Angstrom method and final synthesis | G3, G7, G11-G15 | Angstrom data, reproducible model, aluminum conductivity \(k\), side-loss \(h\), C6, presentation |

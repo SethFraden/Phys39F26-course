@@ -2062,9 +2062,12 @@ positions $x_i$, with `T1` at $x=0$.
     The separately fitted mean length also checks whether the mean profile
     and oscillatory response imply the same heat loss.
 
-3. **Plot the theoretical temperature traces only.** Choose one
-    measured forcing period and plot predicted $T(x,t)$ versus $t$ on shared
-    axes at all five measured rod positions, T1–T5. Use the semi-infinite
+3. **Plot the theoretical temperature traces only.** Use the settled 300 s
+    run by default. This period balances measurable downstream amplitudes
+    with resolvable phase differences. If the 300 s record fails your
+    settling or sensor checks, choose another usable measured period and
+    explain your choice. Plot predicted $T(x,t)$ versus $t$ on shared axes
+    at the five measured rod positions, T1–T5. Use the semi-infinite
     expression where the finite-tip check supports it.
 
     \[
@@ -2086,32 +2089,35 @@ positions $x_i$, with `T1` at $x=0$.
     phase lag can be resolved within the region where the oscillation is measurable.
 
 4. **Compare theory with experiment.** Overlay the measured temperatures
-    on the five theoretical traces from item 3. Reuse this overlay in the
-    experiment–simulation comparison below. Use the same
-    period and sensor positions, and align the traces in time. Identify one
-    agreement and one meaningful discrepancy in mean, amplitude, or peak
-    timing. Use the finite insulated-tip solution at positions where the
+    from the same settled 300s run on the five theoretical traces from item 3.
+    Use the same sensor positions and align the traces in time using the
+    fitted phase of T1. Identify one agreement and one meaningful discrepancy
+    in mean, amplitude, or peak timing. Reuse this overlay in the
+    experiment–simulation comparison below. Use the finite insulated-tip solution at positions where the
     semi-infinite approximation fails.
 
-### Integrate Theory, Experiment, And Simulation During S21–S22
+5. **Integrate Theory, Experiment, And Simulation**
 
-Choose one settled experimental interval and compare the measured temperature
-histories with the analytical rod prediction and one numerical TEC–rod model
-run. Reuse the Stage 3 simulation if its settings match; otherwise run one
-matched case with the measured geometry and closest available settings. Use
-common axes or aligned panels, state the phase reference, and show the rod
-boundary and at least two downstream positions. Identify how model positions
-and sensors correspond to the apparatus. Use measured `T1` as the boundary
-for the analytical prediction; retain the numerical model's predicted boundary
-so that actuator-tracking error remains visible.
+    Reuse the settled run and theory–experiment overlay from item 4. Use the
+    300 s run unless you documented a different usable period in item 3. Add
+    one numerical TEC–rod simulation at that same period, using the measured
+    geometry and closest available experimental settings. Reuse the Stage 3
+    simulation if its settings match.
 
-Explain one feature the model reproduces and one meaningful discrepancy using
-amplitude, phase, residuals, or uncertainty. Distinguish boundary-control
-errors from rod-model errors. State whether the parameters were fitted to
-these same data or whether the comparison tests another interval or period.
-Use the spatial fits across the five production periods to assess frequency consistency;
-a second full numerical-model comparison is optional. This single comparison
-and the characteristic-length plot supply A5 Questions 2–4.
+    Use common axes or aligned panels, state the phase reference, and show the
+    rod boundary and at least two downstream positions. Identify how model
+    positions and sensors correspond to the apparatus. The analytical traces
+    use measured `T1` as their boundary. Compare the numerical simulation's
+    own rod-base waveform with measured `T1` first, then examine how any
+    differences carry through to the downstream sensors.
+
+    Explain one feature the model reproduces and one meaningful discrepancy using
+    amplitude, phase, residuals, or uncertainty. Distinguish boundary-control
+    errors from rod-model errors. State whether the parameters were fitted to
+    these same data or whether the comparison tests another interval or period.
+    Use the spatial fits across the five production periods to assess frequency consistency;
+    a second full numerical-model comparison is optional. This single comparison
+    and the characteristic-length plot supply A5 Questions 2–4.
 
 ### Required Analysis Displays
 
